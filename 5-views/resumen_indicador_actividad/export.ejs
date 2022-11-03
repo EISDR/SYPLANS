@@ -1,0 +1,75 @@
+<div class="subcontent" ng-if="resumen_indicador_actividad.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="resumen_indicador_actividad.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="row scrollit">
+        <table id="resumen_indicador_actividadTableexport"
+               class="resumen_indicador_actividadTable table table-bordered table-print"
+               style="margin-top: 30px; width: 2500px;">
+            <thead class="">
+            <tr class="centralizarth"
+                style="color: white !important;background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                <th rowspan="3" width="10%" height="0">Indicadores</th>
+                <th rowspan="3" height="0">Proyecto/Producto</th>
+                <th rowspan="3" height="0">Actividad</th>
+                <th rowspan="3" height="0">Fuente</th>
+                <th rowspan="3" height="0">Método Calculo</th>
+                <th rowspan="3" height="0">Unidad / Escala de Medición</th>
+                <th rowspan="3" height="0">Dirección Meta</th>
+                <th colspan="2" width="8%" style="color: white;" height="0">Línea Base</th>
+                <th rowspan="3" height="0">Medio Verificación</th>
+                <th rowspan="3" width="18%" ; height="0">Descripción</th>
+                <th colspan="{{resumen_indicador_actividad.cantidad}}" style="color: white;">Metas</th>
+            </tr>
+            <tr class="centralizarth"
+                style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                <th rowspan="2" style="color: white;">Año</th>
+                <th rowspan="2" style="color: white;">valor</th>
+                <th colspan="{{resumen_indicador_actividad.cantidad}}" style="text-align: center;color: white">
+                    Projectadas / Alcanzadas / Varianzas
+                </th>
+            </tr>
+            <tr class="centralizarth"
+                style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                <th style="color: white;" ng-repeat="(column,value) in resumen_indicador_actividad.headerBody_list">
+                    {{value.name}}
+                </th>
+            </tr>
+
+            </thead>
+            <tbody class="tb1">
+            <tr ng-repeat="(key,value) in resumen_indicador_actividad.resumen_indicador_actividad_list">
+                <td rowspan="" style="padding-right: 8px;">{{value.indicadores}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.producto}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.actividad}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.fuente}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.metodo_calculo}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.tipo_meta}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.direccion_meta}}</td>
+                <td class="alinearNumeros" style="padding-right: 8px;">{{value.ano}}</td>
+                <td class="alinearNumeros" style="padding-right: 8px;" rowspan="">{{value.linea_base}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.medio_verificacion}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.descripcion}}</td>
+                <td class="" style="text-align: center; width: 8%;"
+                    ng-repeat="(column,valuec) in resumen_indicador_actividad.headerBody_list">
+                    {{value['periodo'+resumen_indicador_actividad.headerBody_list[column].periodo+'']}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    resumen_indicador_actividad.refreshAngular();
+</script>

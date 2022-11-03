@@ -1,0 +1,66 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                <li class="active">
+                    <a class="active" href="#rea1" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Objetivos</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#rea2" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Programas</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="rea1">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("tematica_objetivo", scope, {
+                            text: "item.nombre",
+                            table: "tematica_objetivo",
+                            field: "tematica",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="rea2">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("tematica_programa", scope, {
+                            text: "item.nombre",
+                            table: "tematica_programa",
+                            field: "tematica",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

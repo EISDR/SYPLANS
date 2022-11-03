@@ -1,0 +1,46 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#plantilla",
+          "text": "Plantillas"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#plantilla_registro",
+          "text": "Registros"
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Módulo de Plantillas"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#plantilla",
+          "text": "Plantillas"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#plantilla_registro",
+          "text": "Registros"
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Módulo de Plantillas"
+    }
+  ]
+}

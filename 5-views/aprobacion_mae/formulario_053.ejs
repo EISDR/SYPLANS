@@ -1,0 +1,63 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <table class="table" style="margin-bottom: 20px" >
+                <thead class="">
+                <tr class="">
+                    <th rowspan="5" style="border: none">
+                        <img style="max-height: 120px"
+                             data-dragonfile="{{aprobacion_mae.session.institucion_id?'institucion':'compania'}}/logo/{{aprobacion_mae.session.institucion_id||aprobacion_mae.session.compania_id}}"
+                             src="assets/images/placeholder.jpg" alt="">
+                    </th>
+                    <th rowspan="5" style="border: none"></th>
+                    <th rowspan="5" style="border: none"></th>
+                    <th rowspan="5" style="border: none"></th>
+                    <th rowspan="5" style="border: none"></th>
+                    <th rowspan="5" style="border: none"></th>
+                    <th rowspan="5" style="border: none"></th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid lightgray">Fecha de Revisión</th>
+                    <th style="border: 1px solid lightgray"> {{aprobacion_mae.pacc_d_fecha}}</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid lightgray">Fecha de Aprobación</th>
+                    <th style="border: 1px solid lightgray"> </th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid lightgray">Versión</th>
+                    <th style="border: 1px solid lightgray"> {{aprobacion_mae.pacc_d_version}}</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid lightgray">Número de Páginas</th>
+                    <th style="border: 1px solid lightgray"> {{aprobacion_mae.pacc_d_cantidad}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="1" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important">Plan Anual de compras y contrataciónes del año: {{aprobacion_mae.session.periodo_poa}}</td>
+                        <td colspan="8" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important">{{aprobacion_mae.current_departamento_nombre}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row" ng-controller="pacc_departamental_detail as pacc_departamental_detail">
+            <div class="panel panel-flat">
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'pacc_departamental_detail'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        aprobacion_mae.refreshAngular();
+        setTimeout(function () {
+            $('[data-dragonfile]').each(function () {
+                FILE.runServerFile($(this))
+            });
+        },500);
+    });
+</script>

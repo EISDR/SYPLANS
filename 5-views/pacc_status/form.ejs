@@ -1,0 +1,104 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, { maxlength: 255}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('before_descripcion', scope, {
+                    trueplaceholder: "Descripción Anterior",
+                    maxlength: 500
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('next_descripcion', scope, {
+                    trueplaceholder: "Descripción Siguiente",
+                    maxlength: 500
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('before_descripcion_larga', scope, {
+                    trueplaceholder: "Descripción Larga Anterior",
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('next_descripcion_larga', scope, {
+                    trueplaceholder: "Descripción Larga Siguiente",
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.select("status_before", scope, {
+                allowedit:false,
+                allownew: false,
+                allowview:false,
+                allowlist: false,
+                refresh: false,
+                multiple: true,
+                column: "pacc_status",
+                text:"item.nombre + '(' + item.before_descripcion + ')'",
+                value: "id",
+                table: "pacc_status",
+                icon: {class: "archive"},
+                truelabel: "Estatus anteriores",
+                condition:"((item.active == 1 && item.id != pacc_status.id) && (pacc_status.status_next.indexOf(item.id + '') === -1))",
+                get: {table: 'pacc_status_before', fieldFrom: 'id', fieldTo: 'pacc_status', field: 'pacc_status_before'},
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.select("status_next", scope, {
+                allowedit:false,
+                allownew: false,
+                allowview:false,
+                allowlist: false,
+                refresh: false,
+                multiple: true,
+                column: "pacc_status",
+                text:"item.nombre + '(' + item.next_descripcion + ')'",
+                value: "id",
+                table: "pacc_status",
+                icon: {class: "archive"},
+                truelabel: "Estatus siguientes",
+                condition:"((item.active == 1 && item.id != pacc_status.id) && (pacc_status.status_before.indexOf(item.id + '') === -1))",
+                get: {table: 'pacc_status_next', fieldFrom: 'id', fieldTo: 'pacc_status', field: 'pacc_status_next'},
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.color('color', scope, {
+                    trueplaceholder: "Color Anterior"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.color('color_next', scope, {
+                    placeholder: "Color Siguiente"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    pacc_status.refreshAngular();
+</script>
+
+
+
+

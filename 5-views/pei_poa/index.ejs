@@ -1,0 +1,40 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+
+        <div class="subcontent" style="padding-top: 50px;">
+
+            <%- FORM.tabs(scope, [
+                {id: "PEI1", text: "PEI", icon: "icon-archive", icon_style: "top: -5px !important"},
+                {id: "POA1", text: "POA", icon: "icon-html5"}
+            ]) %>
+
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="PEI1">
+                    <div id="pei_admin" ng-controller="pei_admin as pei_admin">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'pei_admin'}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'pei_admin'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="POA1">
+                    <div id="poa_admin" ng-controller="poa_admin as poa_admin">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'poa_admin'}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'poa_admin'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div><!--end-->

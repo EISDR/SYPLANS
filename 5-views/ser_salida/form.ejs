@@ -1,0 +1,286 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('ser_salida_tipo', scope, {
+                    column: 'name',
+                    table: 'ser_salida_tipo',
+                    text: 'item.nombre',
+                    condition: "item.compania == " + scope + ".session.compania_id",
+                    label: "Tipo",
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="!ser_salida.trabajando">
+                <%- FORM.select('ser_salida_estatus', scope, {
+                    column: 'name',
+                    table: 'ser_salida_estatus',
+                    text: 'item.nombre',
+                    label: "Estatus",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-1 col-md-1'>
+                <%- FORM.checkbox('esproceso', scope, {
+                    text: "¿Proceso?"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.esproceso">
+                <%- FORM.select('ser_servicio', scope, {
+                    column: 'nombre',
+                    table: 'ser_servicio',
+                    text: 'item.nombre',
+                    label: "Servicio Afectado",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-if="<%= scope %>.esproceso">
+                <%- FORM.select('proceso', scope, {
+                    column: 'nombre',
+                    table: 'vw_procesos',
+                    text: 'item.nombre_drp',
+                    label: "Proceso",
+                    condition: "item.compania == " + scope + ".session.compania_id",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-if="<%= scope %>.esproceso">
+                <%- FORM.integer('nivel_urgencia', scope, {
+                    trueplaceholder: "Gravedad (G)"
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-if="<%= scope %>.esproceso">
+                <%- FORM.integer('nivel_impacto', scope, {
+                    trueplaceholder: "Ocurrencia (O)"
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-if="<%= scope %>.esproceso">
+                <%- FORM.integer('nivel_detectabilidad', scope, {
+                    trueplaceholder: "Detección (D)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.esproceso">
+                <%- FORM.select('nivel_urgencia', scope, {
+                    column: 'name',
+                    table: 'riesgo_probabilidad',
+                    label: "Nivel de Urgencia",
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor+'%'",
+                    condition: "(item.compania == " + scope + ".session.compania_id) && item.entidad == (" + scope + ".esproceso?'proceso':'pei_poa')",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.esproceso">
+                <%- FORM.select('nivel_impacto', scope, {
+                    column: 'name',
+                    table: 'riesgo_impacto',
+                    label: "Nivel de Impacto",
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor",
+                    condition: "(item.compania == " + scope + ".session.compania_id) && item.entidad == (" + scope + ".esproceso?'proceso':'pei_poa')",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-if="!<%= scope %>.esproceso">
+                <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                    <label class="control-label is-visible animate ng-binding" style="color:#000000 !important;">
+                        Índice de Prioridad
+                    </label>
+
+                    <input ng-if="<%= scope %>.currentNivel()" readonly
+                           value="{{<%= scope %>.currentNivel().nombre}} ({{<%= scope %>.currentNivel().calc}})"
+                           type="text"
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                           style="padding-left: 31px !important;" placeholder="" disabled="disabled">
+
+                    <div class="form-control-feedback ng-scope" style="top: 32px;width: 25px;">
+                        <label ng-if="<%= scope %>.currentNivel()" title="Alerta: Porcentaje menor a 75%"
+                               class="ponerRedondo"
+                               style="background-color: {{<%= scope %>.currentNivel().color}};margin: -6px 0px 0px 0px;width: 100px;">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="<%= scope %>.esproceso">
+                <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                    <label class="control-label is-visible animate ng-binding" style="color:#000000 !important;">
+                        Índice de Prioridad de Riesgos (IPR=GxOxD)
+                    </label>
+
+                    <input readonly
+                           value="{{(<%= scope %>.nivel_urgencia||0)*(<%= scope %>.nivel_impacto||0)*(<%= scope %>.nivel_detectabilidad||0)}}"
+                           type="text"
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                           style="padding-left: 31px !important;" placeholder="" disabled="disabled">
+
+                    <div class="form-control-feedback ng-scope" style="top: 35px">
+                        <i class="text-secundary icon-lock2">
+
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.date('fecha_queja', scope, {
+                    placeholder: "Fecha Creación de la Queja",
+                    label_custom: true,
+                    label: "Fecha Creación de la Queja"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('nombre_queja', scope, {trueplaceholder: "Nombre del Solicitante"}) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.phone('telefono_queja', scope, {placeholder: "Teléfono"}) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('correo_queja', scope, {trueplaceholder: "Correo"}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-9 col-md-9'>
+                <%- FORM.textarea('detalle_reporte', scope, {
+                    //maxlength: 200,
+                    placeholder: "Detalle del Reporte\t"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="ser_salida.trabajando">
+                <%- FORM.file("evidencia", scope, {
+                    title: 'Ver Evidencia',
+                    maxfiles: 99,
+                    download: true,
+                    remove: false,
+                    upload: false,
+                    columns: 4,
+                    truetext: 'Ver Evidencia',
+                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                    // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!ser_salida.trabajando">
+                <%- FORM.file("evidencia", scope, {
+                    title: 'Subir Evidencia',
+                    maxfiles: 999,
+                    columns: 4,
+                    truetext: 'Subir Evidencia',
+                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                    // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="ser_salida.trabajando">
+            <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h5 style="margin-top: 15px;">Trabajar Salida no Conforme</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('ser_salida_estatus', scope, {
+                            column: 'name',
+                            table: 'ser_salida_estatus',
+                            text: 'item.nombre',
+                            label: "Estatus",
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false
+                        }) %>
+                    </div>
+                    <div class='col-sm-3 col-md-3 '
+                         ng-if="ser_salida.ser_salida_tipo_object.nececita_fecha_solucion && ser_salida.ser_salida_estatus==='3'">
+                        <%- FORM.date('fecha_solucion', scope, {
+                            placeholder: "Fecha de Solución",
+                            label_custom: true,
+                            label: "Fecha de Solución"
+                        }) %>
+                    </div>
+                    <div class='col-sm-3 col-md-3 '
+                         ng-if="(ser_salida.ser_salida_tipo_object.nececita_fecha_solucion && ser_salida.ser_salida_estatus!=='3') && ser_salida.fecha_solucion">
+                        <%- FORM.date('fecha_solucion', scope, {
+                            placeholder: "Fecha de Solución",
+                            label_custom: true,
+                            disabled: true,
+                            label: "Fecha de Solución"
+                        }) %>
+                    </div>
+                    <div class='col-sm-12 col-md-12'
+                         ng-show="ser_salida.estatusbefore !== ser_salida.ser_salida_estatus">
+                        <%- FORM.textarea('comentario', scope, {
+                            //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+                <div class="row" ng-show="ser_salida.trabajando">
+                    <%- FORM.relation("comentarios", scope, {
+                        table: "ser_salida_comentario",
+                        field: "ser_salida",
+                        master: null,
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    ser_salida.comentario = "";
+    if (ser_salida.mode === "new") {
+        ser_salida.ser_salida_estatus = "1";
+        ser_salida.fecha_queja = moment(new Date()).format("YYYY/MM/DD");
+        ser_salida.form.loadDropDown("ser_salida_estatus");
+        ser_salida.form.options.ser_salida_estatus.disabled = true;
+    } else {
+        ser_salida.form.options.ser_salida_estatus.disabled = false;
+    }
+
+    ["ser_salida_tipo", "nombre", "esproceso", "ser_servicio", "proceso", "nivel_urgencia", "nivel_impacto", "fecha_queja", "nombre_queja", "telefono_queja", "correo_queja", "detalle_reporte", "descripcion", "evidencia"].forEach(field => {
+
+        if (ser_salida.form)
+            if (ser_salida.form.options)
+                if (ser_salida.form.options[field])
+                    if (ser_salida.trabajando) {
+                        ser_salida.form.options[field].disabled = true;
+                    } else {
+                        ser_salida.form.options[field].disabled = false;
+                    }
+    });
+    ser_salida.estatusbefore = ser_salida.ser_salida_estatus;
+    ser_salida.refreshAngular();
+</script>
+<%- FORM.footer(scope) %>
+
+
+
+
+

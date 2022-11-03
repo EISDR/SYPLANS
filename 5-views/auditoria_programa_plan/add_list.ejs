@@ -1,0 +1,189 @@
+<div class="subcontent">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <button
+                        dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                        type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>MESSAGE.ic('mono.cancel')</language>
+                </button>
+                <button
+                        dragonlanguage="" title="Agregar Comentario"
+                        type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="auditoria_programa_plan.save_document()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="tab-pane active" id="basic">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="padding: 5px">
+                                <h6 style="margin-left: 10px">Auditores Participantes</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-8" ng-if="!auditoria_programa_plan.session.institucion">
+                                        <%- FORM.select("documento_responsable", scope, {
+                                            allowedit: false,
+                                            allowlist: false,
+                                            allownew: false,
+                                            allowview: false,
+                                            multiple: true,
+                                            text: "item.nombre + ' ' + item.apellido",
+                                            value: "id",
+                                            table: "usuario",
+                                            icon: {class: "archive"},
+                                            truelabel: "Agregar Auditores",
+                                            condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                                            get: {
+                                                table: 'auditoria_programa_plan_documentos_asociados_responsables',
+                                                fieldFrom: 'id',
+                                                fieldTo: 'programa_plan_documentos_asociados',
+                                                field: 'usuario'
+                                            },
+                                        // parent: {
+                                        //     model: 'eje_estrategico',
+                                        //     myfield: 'id',
+                                        //     sufield: 'id'
+                                        // },
+                                        })%>
+                                    </div>
+                                    <div class="col-sm-12 col-md-8" ng-if="auditoria_programa_plan.session.institucion">
+                                        <%- FORM.select("documento_responsable", scope, {
+                                            allowedit: false,
+                                            allowlist: false,
+                                            allownew: false,
+                                            allowview: false,
+                                            multiple: true,
+                                            text: "item.nombre + ' ' + item.apellido",
+                                            value: "id",
+                                            table: "usuario",
+                                            icon: {class: "archive"},
+                                            truelabel: "Agregar Participantes",
+                                            condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
+                                            get: {
+                                                table: 'auditoria_programa_plan_documentos_asociados_responsables',
+                                                fieldFrom: 'id',
+                                                fieldTo: 'programa_plan_documentos_asociados',
+                                                field: 'usuario'
+                                            },
+                                        // parent: {
+                                        //     model: 'eje_estrategico',
+                                        //     myfield: 'id',
+                                        //     sufield: 'id'
+                                        // },
+                                        })%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="auditoria_programa_plan_documentos_asociados_listaverificacion" ng-controller="auditoria_programa_plan_documentos_asociados_listaverificacion as auditoria_programa_plan_documentos_asociados_listaverificacion">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'auditoria_programa_plan_documentos_asociados_listaverificacion'}); %>
+                            <div class="subcontent">
+                                <%- include('../../5-views/auditoria_programa_plan_documentos_asociados_listaverificacion/base',{scope:'auditoria_programa_plan_documentos_asociados_listaverificacion'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <button
+                        dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                        type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>MESSAGE.ic('mono.cancel')</language>
+                </button>
+                <button
+                        dragonlanguage="" title="Agregar Comentario"
+                        type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="auditoria_programa_plan.save_document()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("add", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("edit", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("remove", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("export", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("check", false);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("view", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("audit", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("actions", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.nombre_documento_asoc = auditoria_programa_plan.documento_asoc_nombre;
+    auditoria_programa_plan.fromWhere = 'from_add';
+    if (auditoria_programa_plan.auditoria_plan_responsable) {
+        if (auditoria_programa_plan.auditoria_plan_responsable.length > 0) {
+            auditoria_programa_plan.selectQueries["documento_responsable"] = [
+                {
+                    field: "id",
+                    value: auditoria_programa_plan.auditoria_plan_responsable
+                }
+            ];
+        }
+    }
+    auditoria_programa_plan.refreshAngular();
+    setTimeout(async function(){
+        auditoria_programa_plan.responsables_list = await BASEAPI.listp('auditoria_programa_plan_documentos_asociados_responsables', {
+            where: [
+                {
+                    field: "programa_plan_documentos_asociados",
+                    value: auditoria_programa_plan.documento.id
+                }
+            ]
+        })
+        for (var i of auditoria_programa_plan.responsables_list.data) {
+            var usuario_id = i.usuario + '';
+            auditoria_programa_plan.documento_responsable.push(usuario_id)
+        }
+        auditoria_programa_plan.form.loadDropDown('documento_responsable');
+    }, 500);
+</script>
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<textarea style="overflow: hidden; overflow-wrap: break-word;" ng-disabled="!indicador_producto_poa.edit" ng-model="indicador_producto_poa.commentValue" class="form-control comment_result"></textarea>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<script>-->
+    <!--setTimeout(function () {-->
+        <!--autosize($('.comment_result'));-->
+    <!--},100);-->
+
+    <!--$('#btnS').on('click',function () {-->
+        <!--$(`[name=${indicador_producto_poa.commentName}]`).val($('.comment_result').val());-->
+        <!--var comment = $('.comment_result').val();-->
+        <!--SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});-->
+        <!--BASEAPI.updateall('indicador_poa_periodo', {-->
+            <!--"comentario": comment,-->
+            <!--"updated_at":  new date().now(),-->
+            <!--'updated_by': indicador_producto_poa.usuario_id,-->
+            <!--where: [{-->
+                <!--"field": "id",-->
+                <!--"value": indicador_producto_poa.ids-->
+            <!--}]-->
+        <!--}, function (result) {-->
+
+        <!--});-->
+        <!--SWEETALERT.stop();-->
+        <!--MODAL.close();-->
+    <!--});-->
+<!--</script>-->

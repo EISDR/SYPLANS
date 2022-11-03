@@ -1,0 +1,21 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('responsable', scope, {
+                    column: 'name',
+                    table: 'usuario',
+                    text: "item.nombre +' '+ item.apellido",
+                    condition:"item.compania==responsable_objetivo.session.compania_id"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

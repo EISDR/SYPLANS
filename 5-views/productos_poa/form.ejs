@@ -1,0 +1,234 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("resultado", scope, {
+                    column: "resultado",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    permission: "resultado",
+                    text: "item.nombre",
+                    table: "drp_resultado",
+                    icon: {class: "archive"},
+                    label: "Resultado esperado"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("involucrados", scope, {
+                    column: "involucrados",
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    multiple: true,
+                    permission: "resultado",
+                    text: "item.nombre_completo",
+                    table: "involucrados",
+                    icon: {class: "archive"},
+                    label: "Involucrados",
+                    condition: "(item.compania == productos_poa.session.compania_id && item.active == 1) && (item.tipo == 1)",
+                    get: {
+                        table: 'prudcto_involucrado',
+                        tableDelete: 'prudcto_involucrado',
+                        fieldFrom: 'id',
+                        fieldTo: 'producto',
+                        field: 'involucrado'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.daterange("range_date", scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin"
+                }) %>
+            </div>
+            <div ng-if="productos_poa.modo_view_trabajar == false" class="col-sm-4 col-md-4">
+                <%- FORM.select("departamento", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    truelabel: 'Departamento',
+                    text: "item.nombre",
+                    permission: "departamento",
+                    table: "vw_departamento_not_exists_presupuesto",
+                    field: "id",
+                    columns: ["id", "nombre"],
+                    condition: "((item.estatus != 3 && item.poa == productos_poa.poa_id) && (item.compania == productos_poa.compania_id && item.valor != $NULL)) && item.active == 1",
+                    icon: {class: "archive"}
+                }) %>
+
+            </div>
+            <div class="col-sm-4 col-md-4" ng-disabled="true">
+                <%- FORM.select("estado", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "productos_poa_status",
+                    field: "id",
+                    columns: ["id", "nombre"],
+                    icon: {class: "archive"},
+                    condition: "productos_poa.canStatus.indexOf(item.id+'')===-1"
+                }) %>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 9999}) %>
+            </div>
+        </div>
+        <div class="panel panel-flat" id="tabsComment">
+            <div class="subcontent" style="padding-top: 0px;">
+                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                    <li class="active" id="activ_poa_tab">
+                        <a href="#activ_poa" data-toggle="tab">
+                            <i class="position-left"></i>
+                            Crear Actividades
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" id="indi_prod_tab">
+                        <a href="#indi_prod" data-toggle="tab">
+                            <i class="position-left"></i>
+                            Crear Indicadores
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" id="prod_comment_tab" ng-show="productos_poa.estado != '3' &&  (productos_poa.old_estado != 0 &&  productos_poa.old_estado.toString() != productos_poa.estado ) && productos_poa.form.mode !== FORM.modes.new">
+                        <a href="#prod_comment" data-toggle="tab">
+                            <i class="position-left"></i>
+                            Comentarios
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="activ_poa">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <%- FORM.relation("actividades_poa", scope, {
+                                    text: "item.nombre",
+                                    table: "actividades_poa",
+                                    field: "producto",
+                                    master: null,
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="indi_prod">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <%- FORM.relation("indicadores_poa", scope, {
+                                    text: "item.nombre",
+                                    table: "indicador_poa",
+                                    field: "producto",
+                                    master: null,
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="prod_comment">
+                        <div id="contenedor"
+                             ng-show="productos_poa.estado != '3' &&  (productos_poa.old_estado != 0 &&  productos_poa.old_estado.toString() != productos_poa.estado ) && productos_poa.form.mode !== FORM.modes.new">
+                            <div class="row" style="padding-top: 20px;">
+                                <div class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
+                                    <%- FORM.textarea("comentario", scope, {
+                                        placeholder: "Comentario"
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="comentarios_productos_poa "
+                                     ng-controller="comentarios_productos_poa as comentarios_productos_poa">
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_productos_poa'}); %>
+                                        <div class="subcontent">
+                                            <%- include('../../7-plugins/templates/table/base',{scope:'comentarios_productos_poa'}); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+</div>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="productos_poa.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+        <button ng-show="<%= scope %>.form.mode!=='new'"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+            <button
+                    style="margin-right: 1px !important;"
+                    dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                    ng-click="<%= scope %>.pages.form.save()">
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>MESSAGE.ic('mono.save')</language>
+            </button>
+            <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                     data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-left">
+                <li>
+                    <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                        <i class="icon-floppy-disks"></i>
+                        <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<script>
+    document.getElementById("closeModal").onclick = productos_poa.closeModal = function () {
+        if (productos_poa.form.mode == 'new'){
+            BASEAPI.deleteall('actividades_poa', [
+                {
+                    field: "tempid",
+                    value: productos_poa.actividades_poa
+                }
+            ], function (result) {
+                productos_poa.modo_view_trabajar = false;
+                MODAL.closeAll();
+            });
+        }else{
+            productos_poa.modo_view_trabajar = false;
+            MODAL.closeAll();
+        }
+    }
+</script>

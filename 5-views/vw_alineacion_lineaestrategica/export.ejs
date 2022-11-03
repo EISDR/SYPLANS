@@ -1,0 +1,48 @@
+<div class="subcontent" ng-if="vw_alineacion_lineaestrategica.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="vw_alineacion_lineaestrategica.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <h4 style="text-align: center">
+        ALINEACIÓN CON LAS LÍNEAS ESTRATÉGICAS
+    </h4>
+    <table id="vw_alineacion_lineaestrategicaExport"
+           class="vw_alineacion_lineaestrategicaTable table table-bordered table-print" style="margin-top: 15px;">
+
+        <thead class="">
+        <tr height="20" style="background-color: #9c282d !important; color: white !important; "
+            class="centralizarth">
+            <th style="color: white !important;">Proyecto</th>
+            <th style="color: white !important;">Objetivos de Desarrollo Sostenibles</th>
+            <th style="color: white !important;">Indicadores</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="vertical-align: middle" class="centralizartd"
+            ng-repeat="(key,row) in vw_alineacion_lineaestrategica.vw_alineacion_lineaestrategica_list">
+            <td>
+                {{row.nombre}}
+            </td>
+            <td rowspan="">
+                <img title="{{od.nombre}}" style="float: left;width: 88px;" ng-repeat="(i,od) in row.ods"
+                     ng-src="{{vw_alineacion_lineaestrategica.odsimages[od.id]}}">
+            </td>
+            <td rowspan="">
+                {{row.indicador}}
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<script>
+    vw_alineacion_lineaestrategica.refreshAngular();
+</script>

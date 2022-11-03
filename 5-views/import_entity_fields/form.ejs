@@ -1,0 +1,92 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('field_name', scope, {trueplaceholder: "Nombre del campo"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('field_excel', scope, {trueplaceholder: "Nombre del campo en Excel"}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('fkof', scope, {trueplaceholder: "Foreign de"}) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('multipleof', scope, {trueplaceholder: "Relación Multiple de"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('import_entity', scope, {
+                    column: 'nombre',
+                    table: 'import_entity',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "import_entity_linked", fieldFrom: "id", fieldTo: "myid(import_entity)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    label: "Entidad del Import",
+                    text: 'item.nombre',
+                    //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.checkbox('required', scope, {
+                        //maxlength: 200,
+                        truetext: "¿Requerido?"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.textarea('query', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.textarea('validacion', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Validación"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

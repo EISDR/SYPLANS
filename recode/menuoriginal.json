@@ -1,0 +1,1164 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- PLANIFICACIÓN -",
+      "disable": true
+    },
+    {
+      "menus": [
+        {
+          "modal": "modal-full",
+          "icon": "bubble-notification",
+          "href": "#dashboard/notificacion",
+          "text": "Dashboard de Inicio"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart8",
+          "href": "#control_mando_b",
+          "text": "Tablero de Control"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "list3",
+          "href": "#resumen",
+          "text": "Plan Estratégico Institucional"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#resumen_pei_poa",
+          "text": "Resumen General (PEI/POA)"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#dashboard_indicadores",
+          "text": "Indicadores Institucionales - Resumen"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "piggy-bank",
+          "href": "#dashboard_departamento",
+          "text": "Presupuesto por Dptos."
+        },
+        {
+          "modal": "modal-full",
+          "icon": "coin-dollar",
+          "href": "#dashboard",
+          "text": "POA Departamental"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart5",
+          "href": "#dashboard_cofiguration",
+          "text": "Mi POA"
+        },
+        {
+          "modal": "",
+          "icon": "paragraph-center2",
+          "href": "#organigrama_pei",
+          "text": "Alineación PEI - Instrumentos de Planificación Nacional (RESUMEN)"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods2",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods2/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods2/llamadabarra",
+              "text": "Cumplimiento ODS"
+            }
+          ],
+          "modal": "",
+          "icon": "portfolio",
+          "href": "#",
+          "text": "Cuadro de Mando ODS"
+        }
+      ],
+      "modal": "",
+      "icon": "steam",
+      "href": "#",
+      "text": "Control de Mando Integral"
+    },
+    {
+      "menus": [
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "command",
+              "href": "#foda_items",
+              "text": "FODA"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "atom",
+              "href": "#pesta_items",
+              "text": "PESTAL"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "file-text",
+              "href": "#marco_estrategico_valores",
+              "text": "Normativa Institucional"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "people",
+              "href": "#clientes_institucion",
+              "text": "Grupo de Interés"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "split",
+              "href": "#eje_estrategico",
+              "text": "Ejes Estratégicos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-growth2",
+              "href": "#objetivo_estrategico",
+              "text": "Objetivos Estratégicos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-growth",
+              "href": "#estrategia",
+              "text": "Estrategias"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_pei",
+              "text": "Indicadores"
+            },
+            {
+              "menus": "",
+              "modal": "modal-full",
+              "icon": "check",
+              "href": "#autorizar_pei",
+              "text": "Autorizar/Desautorizar PEI"
+            }
+          ],
+          "modal": "",
+          "icon": "file-stats",
+          "href": "#",
+          "text": "Plan Estratégico Institucional"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "coins",
+              "href": "#presupuesto_aprobado",
+              "text": "Programación Presupuesto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "paypal",
+              "href": "#productos_poa",
+              "text": "Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "clipboard3",
+              "href": "#actividades_poa",
+              "text": "Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart4",
+              "href": "#indicador_poa",
+              "text": "Indicadores de Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie5",
+              "href": "#indicador_actividad",
+              "text": "Indicadores de Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "checkmark3",
+              "href": "#departamento_poa",
+              "text": "Autorizar POA-Liberar Presupuesto"
+            }
+          ],
+          "modal": "",
+          "icon": "file-spreadsheet",
+          "href": "#",
+          "text": "Plan Operativo Anual"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "puzzle3",
+              "href": "#drp_actividades_apoyo",
+              "text": "Actividades de apoyo"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "clipboard3",
+              "href": "#actividades_poa_monitoreo",
+              "text": "Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie5",
+              "href": "#indicador_producto_poa_actividad",
+              "text": "Indicadores de Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart4",
+              "href": "#indicador_producto_poa",
+              "text": "Indicadores de Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "clipboard2",
+              "href": "#indicador_resultado_pei",
+              "text": "Indicadores PEI"
+            }
+          ],
+          "modal": "",
+          "icon": "file-plus",
+          "href": "#",
+          "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "task",
+          "href": "#asignaciones",
+          "text": "Asignaciones Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#monitoreo_pei",
+              "text": "PEI"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "paypal",
+              "href": "#monitoreo_producto",
+              "text": "Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "clipboard3",
+              "href": "#monitoreo_actividad",
+              "text": "Actividades"
+            }
+          ],
+          "modal": "",
+          "icon": "eye",
+          "href": "#",
+          "text": "Monitoreo y Segumiento"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "search4",
+          "href": "#megaconsulta",
+          "text": "Mega Consulta"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "clipboard2",
+              "href": "#monitoreo_peiv",
+              "text": "Indicadores PEI"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart4",
+              "href": "#monitoreo_productov",
+              "text": "Indicadores de Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie5",
+              "href": "#monitoreo_actividadv",
+              "text": "Indicadores de Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "statistics",
+              "href": "#vw_caasd",
+              "text": "Planificación Institucional"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "shutter",
+              "href": "#vw_aliniacion_estrategica",
+              "text": "Alineación END con PEI y ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "picassa",
+              "href": "#vw_eje_estrategico_end",
+              "text": "Alineación PEI con END"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "loop4",
+              "href": "#vw_eje_estrategico_pnpsp",
+              "text": "Alineación PEI con PNPSP"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "cash",
+              "href": "#vw_departamento_presupuesto",
+              "text": "Asignación Presupuestaria por Proyecto/Producto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "alignment-align",
+              "href": "#vw_eje_estrategico_ods",
+              "text": "Alineación PEI con ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "paragraph-left2",
+              "href": "#vw_mepyd",
+              "text": "Alineación plan Institucional con PG,  PNPSP y END"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "shuffle",
+              "href": "#vw_desempeno?bar=1",
+              "text": "Relación de cumplimiento Proyecto/Producto y Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart3",
+              "href": "#vw_desempeno",
+              "text": "Distribución del nivel de cumplimiento "
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stack-check",
+              "href": "#vw_reporte_obj_riesgo",
+              "text": "Riesgos asociados a los Objetivos Estratégicos Institucionales"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "file-text",
+              "href": "#vw_resultado_esperado_reporte",
+              "text": "Riesgos asociados a los Resultados Esperados"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "file-presentation",
+              "href": "#vw_reporte_prod_riesgo",
+              "text": "Riesgos asociados a los Productos/Proyectos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_reporte_act_riesgo",
+              "text": "Riesgos asociados a las Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "reading",
+              "href": "#vw_reporte_desempeno_usuario",
+              "text": "Reporte de Eficiencia por Empleado"
+            }
+          ],
+          "modal": "",
+          "icon": "file-text",
+          "href": "#",
+          "text": "REPORTES"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#ods_config",
+              "text": "Métrica ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stack-check",
+              "href": "#razon",
+              "text": "Condiciones de Cierre"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "notebook",
+              "href": "#catalogo_bienes_servicios",
+              "text": "Catálogo de Bienes y Servicios"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#perspectiva",
+              "text": "Perspectiva"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "seven-segment-4",
+              "href": "#caracteristica_indicador",
+              "text": "Características del Indicador"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "airplane2",
+              "href": "#vw_compromiso",
+              "text": "Compromisos Nacionales e Internacionales"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "users4",
+              "href": "#involucrados",
+              "text": "Involucrados"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "exclamation",
+              "href": "#notificacion",
+              "text": "Notificaciones"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "alarm",
+              "href": "#ws_periods",
+              "text": "Frecuencia Automática"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#unidad_medida",
+              "condition": "baseController.session.super",
+              "text": "Unidades de Medida"
+            }
+          ],
+          "modal": "",
+          "icon": "hammer-wrench",
+          "href": "#",
+          "text": "Configuración"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "fan",
+              "href": "#end",
+              "text": "Estrategia Nacional de Desarrollo 2030"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#ods",
+              "text": "Objetivos de Desarrollo Sostenible"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "calendar3",
+              "href": "#pnpsp",
+              "text": "Plan Nacional Plurianual del Sector Público"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "balance",
+              "href": "#politica_gobierno",
+              "text": "Política de Gobierno"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#indicador_generico?vw_denominacion_pnpsp_gg",
+              "text": "Indicadores IPN"
+            }
+          ],
+          "modal": "",
+          "icon": "design",
+          "href": "#",
+          "text": "Instrumentos de Planificación Nacional"
+        }
+      ],
+      "modal": "",
+      "icon": "home2",
+      "href": "#",
+      "text": "Planificación Estratégica y Operativa"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pyramid2",
+          "href": "#sec_eje_sectorial",
+          "condition": "baseController.session.sector_id",
+          "text": "Ejes"
+        },
+        {
+          "modal": "",
+          "icon": "racing",
+          "href": "#sec_objetivo_sectorial",
+          "condition": "baseController.session.sector_id",
+          "text": "Objetivos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-dots",
+          "href": "#sec_resultado_sectorial",
+          "condition": "baseController.session.sector_id",
+          "text": "Resultados Esperados"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#sec_programa_sectorial",
+          "condition": "baseController.session.sector_id",
+          "text": "Programas"
+        }
+      ],
+      "modal": "",
+      "icon": "portfolio",
+      "href": "#",
+      "condition": "baseController.session.sector_id",
+      "text": "Plan Estratégico Sectorial"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_a?pei_poa",
+          "text": "Riesgos"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_productos_poa_detalles",
+          "text": "Matriz de Riesgos"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_productos_poa_detalles?plan",
+          "text": "Plan de Acción"
+        },
+        {
+          "modal": "",
+          "icon": "cube3",
+          "href": "#vw_resultante?pei_poa",
+          "text": "Matriz Resultante"
+        },
+        {
+          "modal": "",
+          "icon": "fire",
+          "href": "#riesgo_resultado/matriz?pei_poa",
+          "text": "Mapa de Calor"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "file-stats2",
+              "href": "#riesgo_probabilidad?pei_poa",
+              "text": "Probabilidades"
+            },
+            {
+              "modal": "",
+              "icon": "stats-decline2",
+              "href": "#riesgo_impacto?pei_poa",
+              "text": "Impactos"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado?pei_poa",
+              "text": "Niveles de Riesgo"
+            },
+            {
+              "modal": "",
+              "icon": "stack-text",
+              "href": "#estrategia_tratamiento?pei_poa",
+              "text": "Estrategia Tratamiento del Riesgo"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Prevención y Control de Riesgo (VaR)"
+    },
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- CALIDAD -",
+      "disable": true
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pie-chart2",
+          "href": "#dashboard_proceso",
+          "text": "Dashboard"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#vw_procesados",
+          "text": "Mapa de proceso (Vista Gerencial)"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#procesos_categoria",
+          "text": "Creación de Macroproceso"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#procesos",
+          "text": "Creación de procesos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#indicador_proceso",
+          "text": "Indicadores"
+        },
+        {
+          "modal": "",
+          "icon": "file-upload",
+          "href": "#indicador_producto_poa_proceso",
+          "text": "Evaluación y carga de evidencia"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#monitoreo_proceso",
+          "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "modal": "",
+          "icon": "map",
+          "href": "#mapa_proceso",
+          "text": "Histórico de Macroprocesos"
+        }
+      ],
+      "modal": "",
+      "icon": "map5",
+      "href": "#",
+      "text": "Gestión de Proceso"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "reading",
+          "href": "#solicitud_documento",
+          "text": "Solicitud de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#documentos_asociados",
+          "text": "Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#vw_documentos_asociados_pv",
+          "text": "Lista Maestra de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "books",
+          "href": "#documental",
+          "text": "Repositorio de Documentos"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "bookmarks",
+              "href": "#tipo_documento",
+              "text": "Tipos de Documento"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "bookmark",
+      "href": "#",
+      "text": "Gestión de Documento"
+    },
+    {
+      "menus": [
+        {
+          "icon": "pie-chart5",
+          "href": "#vw_auditoria_dashboard",
+          "text": "Dashboard"
+        },
+        {
+          "modal": "",
+          "icon": "folder-search",
+          "href": "#vw_auditoria_programa",
+          "text": "Creación de Programa de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#auditoria_programa",
+          "text": "Creación de Planes de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clippy",
+          "href": "#vw_correctiva",
+          "text": "Creación de Acciones de Mejora"
+        },
+        {
+          "modal": "",
+          "icon": "notebook",
+          "href": "#vw_auditoria_lista_correctiva",
+          "text": "Seguimiento de Acciones de Mejora"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "user-check",
+              "href": "#tipo_auditorias",
+              "text": "Tipos de Auditoría"
+            },
+            {
+              "modal": "",
+              "icon": "newspaper2",
+              "href": "#tipo_auditores",
+              "text": "Tipos de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_rol_auditores",
+              "text": "Rol de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_inconformidad",
+              "text": "Tipos de No Conformidad"
+            },
+            {
+              "modal": "",
+              "icon": "rating3",
+              "href": "#auditoria_programa_plan_prioridad",
+              "text": "Prioridades de la Auditoría"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "star-empty3",
+      "href": "#",
+      "text": "Gestión de Auditoría"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_a?proceso?mamfe",
+          "text": "Creación de Modos de Fallo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?mamfe",
+          "text": "Creación de Riesgo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?plan?mamfe",
+          "text": "Acciones de Mejoras"
+        },
+        {
+          "modal": "",
+          "icon": "cube3",
+          "href": "#vw_resultante?proceso?mamfe",
+          "text": "Matriz Resultante"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "file-stats2",
+              "href": "#riesgo_probabilidad?proceso?mamfe",
+              "text": "Ocurrencias"
+            },
+            {
+              "modal": "",
+              "icon": "stats-decline2",
+              "href": "#riesgo_impacto?proceso?mamfe",
+              "text": "Gravedad"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado?proceso?mamfe",
+              "text": "Detectabilidad"
+            },
+            {
+              "modal": "",
+              "icon": "stack-text",
+              "href": "#estrategia_tratamiento?proceso?mamfe",
+              "text": "Estrategias Tratamiento de Riesgo"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Prevención y Control de Riesgo (AMFE)"
+    },
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- OPCIONES INDIVIDUALES -",
+      "disable": true
+    },
+    {
+      "menus": [
+        {
+          "menus": "",
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#vw_dashboard_proyecto",
+          "text": "Dashboard"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods3",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods3/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods3/llamadabarra",
+              "text": "Cumplimiento ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_alineacion_lineaestrategica",
+              "text": "Alineación con los proyectos - Resumen"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Cuadro de Mando ODS"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "list3",
+          "href": "#proyecto_item",
+          "text": "Proyectos Especiales"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#indicador_producto",
+          "text": "Indicadores de Proyectos Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_actividad_apoyo",
+              "text": "Actividades de Apoyo"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_item_actividad",
+              "text": "Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "library2",
+              "href": "#indicador_producto_poa_producto",
+              "text": "Indicadores de Proyectos Especiales"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#proyecto_estatus",
+          "text": "Estatus de Proyectos Especiales"
+        }
+      ],
+      "modal": "",
+      "icon": "list3",
+      "href": "#",
+      "text": "Gestión de Proyectos Especiales"
+    },
+    {
+      "modal": "",
+      "icon": "chart",
+      "href": "#",
+      "text": "Gestión de Indicadores"
+    },
+    {
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Gestión de Riesgos"
+    },
+    {
+      "modal": "",
+      "icon": "chess",
+      "href": "#",
+      "text": "Gestión de Acciones de Mejora"
+    },
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- ADMINISTRACIÓN -",
+      "disable": true
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "display4",
+          "href": "#ws_connection",
+          "text": "Servicios Web"
+        }
+      ],
+      "modal": "",
+      "icon": "make-group",
+      "href": "#",
+      "condition": "baseController.session.super",
+      "text": "Módulo de Interfaces"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "help",
+          "href": "#hint_entity",
+          "text": "Campos de Ayuda"
+        },
+        {
+          "modal": "",
+          "icon": "user",
+          "href": "#group",
+          "condition": "baseController.session.super",
+          "text": "Grupos"
+        },
+        {
+          "modal": "",
+          "condition": "baseController.session.super",
+          "icon": "certificate",
+          "href": "#auditoria_entidad_flujo",
+          "text": "Módulo de Estatus"
+        }
+      ],
+      "modal": "",
+      "icon": "wrench2",
+      "href": "#",
+      "text": "Opciones Administrativas"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "office",
+          "href": "#compania",
+          "text": "Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "book",
+          "href": "#login_history",
+          "text": "Historial de Accesos"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#tipo_institucion",
+          "condition": "baseController.session.super",
+          "text": "Tipo de institución"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#delete_company",
+          "condition": "baseController.session.super",
+          "text": "Eliminar Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#syplans_functions",
+          "condition": "baseController.session.super",
+          "text": "Funciones Generales de Syplans"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "office",
+              "href": "#import_entity",
+              "text": "Entidades del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_entity_fields",
+              "text": "Campos del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_actions",
+              "text": "Importar"
+            }
+          ],
+          "modal": "",
+          "icon": "user-tie",
+          "href": "#",
+          "condition": "baseController.session.super",
+          "text": "Modulo de import"
+        }
+      ],
+      "modal": "",
+      "icon": "user-tie",
+      "href": "#",
+      "text": "Administrador"
+    }
+  ]
+}

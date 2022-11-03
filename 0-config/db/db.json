@@ -1,0 +1,26 @@
+{
+  "mysqlactive": false,
+  "postgreactive": true,
+  "postgreschema": "public",
+  "users": {
+    "engine": "postgre"
+  },
+  "mysql": {
+    "host": "186.150.200.131",
+    "user": "arr",
+    "password": "%Luch@134679()^^()Mortero$",
+    "database": "syplansqa2",
+    "multipleStatements": true,
+    "connectionLimit": 999,
+    "timezone": "UTC",
+    "dateStrings": true
+  },
+  "postgre": {
+    "host": "186.150.200.131",
+    "user": "postgres",
+    "password": "%Luch@134679()^^()Mortero$",
+    "database": "syplansqa2",
+    "port": "5432",
+    "multipleStatements": true
+  }
+}

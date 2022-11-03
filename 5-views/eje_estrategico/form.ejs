@@ -1,0 +1,210 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space"  ng-if="eje_estrategico.session.tipo_institucion === eje_estrategico.publica">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 255
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 remove-input-space"  ng-if="eje_estrategico.session.tipo_institucion !== eje_estrategico.publica">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 255
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3" ng-if="eje_estrategico.session.tipo_institucion !== eje_estrategico.publica">
+                <%- FORM.select("aliniacion_ods_mul", scope, {
+                    column: "eje_estrategico",
+                    text: "item.edt + ' ' + item.nombre",
+                    table: "ods",
+                    query: {
+                        orderby: "edt"
+                    },
+                    multiple:true,
+                    icon: {class: "archive"},
+                    label: "Objetivos de Desarrollo Sostenible",
+                    get: {
+                        table: 'eje_estrategico_ods',
+                        tableDelete: 'eje_estrategico_ods',
+                        fieldFrom: 'id',
+                        fieldTo: 'eje_estrategico',
+                        field: 'ods'
+                    }
+                }) %>
+            </div>
+            <div >
+                <div class="col-sm-12 col-md-3 drp-pt" ng-if="eje_estrategico.session.tipo_institucion === eje_estrategico.publica" ng-click="eje_estrategico.inusemessage()">
+                    <%- FORM.select("aliniacion_end_mul", scope, {
+                        column: "eje_estrategico",
+                        text: "item.edt + ' ' + item.nombre",
+                        table: "end",
+                        multiple:true,
+                        icon: {class: "archive"},
+                        query: {
+                            orderby: "edt"
+                        },
+                        label: "Estrategia Nacional de Desarrollo",
+                        condition: "item.compania == eje_estrategico.compania_id",
+                        get: {
+                            table: 'eje_estrategico_end',
+                            tableDelete: 'eje_estrategico_end',
+                            fieldFrom: 'id',
+                            fieldTo: 'eje_estrategico',
+                            field: 'end'
+                        }
+                    }) %>
+                </div>
+                <div class="col-sm-12 col-md-3 drp-pt" ng-if="eje_estrategico.session.tipo_institucion === eje_estrategico.publica">
+                    <%- FORM.select("aliniacion_pnpsp_mul", scope, {
+                        column: "pnpsp_nombre",
+                        text: "item.edt + ' ' +item.nombre",
+                        table: "pnpsp",
+                        multiple:true,
+                        icon: {class: "archive"},
+                        label: "Plan Nacional Plurianual del Sector Público",
+                        condition: "item.compania == eje_estrategico.compania_id",
+                        get: {
+                            table: 'eje_estrategico_pnpsp',
+                            tableDelete: 'eje_estrategico_pnpsp',
+                            fieldFrom: 'id',
+                            fieldTo: 'eje_estrategico',
+                            field: 'pnpsp'
+                        }
+                    }) %>
+                </div>
+
+                <div class="col-sm-12 col-md-3 drp-pt" ng-if="eje_estrategico.session.tipo_institucion === eje_estrategico.publica">
+                    <%- FORM.select("aliniacion_ods_mul", scope, {
+                        column: "eje_estrategico",
+                        text: "item.edt + ' ' + item.nombre",
+                        table: "ods",
+                        query: {
+                            orderby: "edt"
+                        },
+                        multiple:true,
+                        icon: {class: "archive"},
+                        label: "Objetivos de Desarrollo Sostenible",
+                        get: {
+                            table: 'eje_estrategico_ods',
+                            tableDelete: 'eje_estrategico_ods',
+                            fieldFrom: 'id',
+                            fieldTo: 'eje_estrategico',
+                            field: 'ods'
+                        }
+                    }) %>
+                </div>
+                <div class='col-sm-12 col-md-3 drp-pt' ng-if="eje_estrategico.have_sector && eje_estrategico.session.tipo_institucion === eje_estrategico.publica">
+                    <%- FORM.select('programa_sectoriales', scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        multiple: true,
+                        text: "item.sec_nombre",
+                        table: "vw_sec_programa_sectorial",
+                        icon: {class: "archive"},
+                        label: "Programas Sectoriales",
+                        condition: "(item.sector_id == eje_estrategico.session.sector_id)",
+                        controller: "sec_programa_sectorial",
+                        get: {
+                            table: 'sec_programa_sectorial_eje_estrategico',
+                            fieldFrom: 'id',
+                            fieldTo: 'eje_estrategico',
+                            field: 'programa_sectorial'
+                        }
+                    }) %>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción",maxlength: 1000}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    };
+    $('[name="eje_estrategico_no_orden"]').on("keypress", function (event) {
+        return isNumberKey(event);
+    });
+
+    $(function (){
+        $('#inputeje_estrategico_aliniacion_end_mul').on('select2:unselecting', function (e) {
+            var data = e.params.args.data;
+            if (eje_estrategico.id) {
+                BASEAPI.list('vw_alineacion_eje_end_obj', {
+                    limit: 0,
+                    orderby: 'id',
+                    order: "asc",
+                    where: [
+                        {
+                            "field": "id",
+                            "value": eje_estrategico.id
+                        },
+                        {
+                            "field": "end",
+                            "value": data.id
+                        }
+                    ]
+                }, function (result) {
+                    $("[name='eje_estrategico_aliniacion_end_mul']").select2('close');
+                    if (result.data.length > 0) {
+                        SWEETALERT.show({
+                            type: 'warning',
+                            message: `<p>No es posible modificar ni borrar este eje estratégico, pues existen objetivos estratégicos de este eje que están relacionados a objetivos generales de la END</p> Para poder borrar deberá borrar todos sus registros relacionados.`,
+                            confirm: function (){
+                                eje_estrategico.aliniacion_end_mul.push(data.id);
+                                eje_estrategico.form.loadDropDown('aliniacion_end_mul');
+                            }
+                        })
+                    }
+                });
+
+            }
+        });
+        $('#inputeje_estrategico_aliniacion_pnpsp_mul').on('select2:unselecting', function (e) {
+            var data = e.params.args.data;
+            if (eje_estrategico.id) {
+                BASEAPI.list('vw_alineacion_eje_pnpsp_res', {
+                    limit: 0,
+                    orderby: 'id',
+                    order: "asc",
+                    where: [
+                        {
+                            "field": "id",
+                            "value": eje_estrategico.id
+                        },
+                        {
+                            "field": "pnpsp",
+                            "value": data.id
+                        }
+                    ]
+                }, function (result) {
+                    $("[name='eje_estrategico_aliniacion_pnpsp_mul']").select2('close');
+                    if (result.data.length > 0) {
+                        SWEETALERT.show({
+                            type: 'warning',
+                            message: `<p>No es posible modificar ni borrar este Plan Plurianual, pues existen Resultados Esperados de este Eje Estratégico que están relacionados a Denominaciones de este Plan Plurianual</p> Para poder borrar deberá borrar todos sus registros relacionados.`,
+                            confirm: function (){
+                                eje_estrategico.aliniacion_pnpsp_mul.push(data.id);
+                                eje_estrategico.form.loadDropDown('aliniacion_pnpsp_mul');
+                            }
+                        })
+                    }
+                });
+
+            }
+        });
+    });
+</script>

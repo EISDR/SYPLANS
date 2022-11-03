@@ -1,0 +1,77 @@
+<script>
+    if (<%= scope %>.fixFilters)
+    {
+        if (new SESSION().current().intersectorial) {
+            if (<%= scope %>.fixFilters.filter(d => d.field === 'compania').length === 0)
+            {
+                <%= scope %>.
+                fixFilters.push(
+                    {
+                        field: "compania",
+                        value: new SESSION().current().sectorial
+                    }
+                );
+            }
+        }else{
+            if (<%= scope %>.fixFilters.filter(d => d.field === 'compania').length === 0)
+            {
+                <%= scope %>.
+                fixFilters.push(
+                    {
+                        field: "compania",
+                        value: new SESSION().current().compania_id
+                    }
+                );
+            }
+        }
+    }
+    else
+    {
+        if (new SESSION().current().intersectorial) {
+            <%= scope %>.
+            fixFilters = [
+                {
+                    field: "compania",
+                    value: new SESSION().current().sectorial
+                }
+            ];
+        }else{
+            <%= scope %>.
+            fixFilters = [
+                {
+                    field: "compania",
+                    value: new SESSION().current().compania_id
+                }
+            ];
+        }
+    }
+    if (CRUD_<%= scope %>.table.columns) {
+        if (new SESSION().current().intersectorial) {
+            if (!CRUD_<%= scope %>.table.columns.compania_nombre) {
+                CRUD_<%= scope %>.table.columns.compania_nombre = {
+                    label: "Compañía",
+                    shorttext: 370
+                };
+            }
+        }
+    }
+    if (CRUD_<%= scope %>.table.single) {
+        if (CRUD_<%= scope %>.table.single.filter(d => d.table === 'compania').length === 0) {
+            CRUD_<%= scope %>.table.single.push({
+                "table": "compania",
+                "base": "compania",
+                "field": "id",
+                "columns": ["id", "nombre"]
+            });
+        }
+    } else {
+        CRUD_<%= scope %>.table.single = [
+            {
+                "table": "compania",
+                "base": "compania",
+                "field": "id",
+                "columns": ["id", "nombre"]
+            }
+        ];
+    }
+</script>

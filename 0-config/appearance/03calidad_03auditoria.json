@@ -1,0 +1,156 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "icon": "pie-chart5",
+          "href": "#vw_auditoria_dashboard",
+          "text": "Dashboard"
+        },
+        {
+          "modal": "",
+          "icon": "folder-search",
+          "href": "#vw_auditoria_programa",
+          "text": "Creación de Programa de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#auditoria_programa",
+          "text": "Creación de Planes de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clippy",
+          "href": "#vw_correctiva",
+          "text": "Creación de Acciones de Mejora"
+        },
+        {
+          "modal": "",
+          "icon": "notebook",
+          "href": "#vw_auditoria_lista_correctiva",
+          "text": "Seguimiento de Acciones de Mejora"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "user-check",
+              "href": "#tipo_auditorias",
+              "text": "Tipos de Auditoría"
+            },
+            {
+              "modal": "",
+              "icon": "newspaper2",
+              "href": "#tipo_auditores",
+              "text": "Tipos de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_rol_auditores",
+              "text": "Rol de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_inconformidad",
+              "text": "Tipos de No Conformidad"
+            },
+            {
+              "modal": "",
+              "icon": "rating3",
+              "href": "#auditoria_programa_plan_prioridad",
+              "text": "Prioridades de la Auditoría"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "star-empty3",
+      "href": "#",
+      "text": "Gestión de Auditoría"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "icon": "pie-chart5",
+          "href": "#vw_auditoria_dashboard",
+          "text": "Dashboard"
+        },
+        {
+          "modal": "",
+          "icon": "folder-search",
+          "href": "#vw_auditoria_programa",
+          "text": "Creación de Programa de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#auditoria_programa",
+          "text": "Creación de Planes de Auditoría"
+        },
+        {
+          "modal": "",
+          "icon": "clippy",
+          "href": "#vw_correctiva",
+          "text": "Creación de Acciones de Mejora"
+        },
+        {
+          "modal": "",
+          "icon": "notebook",
+          "href": "#vw_auditoria_lista_correctiva",
+          "text": "Seguimiento de Acciones de Mejora"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "user-check",
+              "href": "#tipo_auditorias",
+              "text": "Tipos de Auditoría"
+            },
+            {
+              "modal": "",
+              "icon": "newspaper2",
+              "href": "#tipo_auditores",
+              "text": "Tipos de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_rol_auditores",
+              "text": "Rol de Auditores"
+            },
+            {
+              "modal": "",
+              "icon": "address-book",
+              "href": "#tipo_inconformidad",
+              "text": "Tipos de No Conformidad"
+            },
+            {
+              "modal": "",
+              "icon": "rating3",
+              "href": "#auditoria_programa_plan_prioridad",
+              "text": "Prioridades de la Auditoría"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "star-empty3",
+      "href": "#",
+      "text": "Gestión de Auditoría"
+    }
+  ]
+}

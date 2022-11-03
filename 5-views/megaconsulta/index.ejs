@@ -1,0 +1,370 @@
+<script>
+    $(document).ready(function (e) {
+        $("#modalpool .modal-content:eq(0)").css('background','#f8f8f8');
+        megaconsulta.mostrar_pei();
+        megaconsulta.mostrar_poa();
+    })
+</script>
+
+<style>
+    li.active{
+        border: 1px solid #ddd;
+        color: #333;
+    }
+
+    li.active a{
+        color: #333;
+    }
+
+    #poa_clone .legitRipple,
+    #poa_clone .control-label,
+    #pei_clone .legitRipple,
+    #pei_clone .control-label{
+        display: none;
+    }
+
+    #poa_clone .form-group,
+    #pei_clone .form-group{
+        margin-bottom: 0!important;
+    }
+
+    #poa_clone .form-control-feedback,
+    #pei_clone .form-control-feedback{
+        top: 13px;
+    }
+
+    #active_poa,
+    #active_pei{
+        padding: 18px 16px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #active_poa a,
+    #active_pei a {
+        color: #999;
+    }
+
+    .vhiden{
+        display: none;
+    }
+
+    .vNormal {
+        width: 100%!important;
+        text-align: center!important;
+    }
+
+
+</style>
+
+<div id="megaconsulta" ng-controller="megaconsulta as megaconsulta">
+    <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+        <li  class="{{megaconsulta.active_m_o}}" id="active_pei" ng-show="megaconsulta.evaluate_pei()">
+            <div style="float: left;width: 100%">
+                <a href="#pei" class="ck-pei" data-toggle="tab" ng-click="" style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                    <i class="position-left"></i>
+                    <language>PEI</language>
+                    <i class="border-white  position-right"></i>
+                </a>
+                <div id="pei_clone"></div>
+            </div>
+
+
+        </li>
+        <li class="{{megaconsulta.active_pe_po}}" id="active_poa" ng-show="megaconsulta.evaluate_poa()">
+            <div style="float: left;width: 100%">
+                <a href="#poa" class="ck-poa vNormal" data-toggle="tab" ng-click="" style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                    <i class="position-left"></i>
+                    <language>POA</language>
+                    <i class="border-white  position-right"></i>
+                </a>
+                <div id="poa_clone" class="vhiden"></div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane {{megaconsulta.active_m_o}}" id="pei" ng-show="megaconsulta.evaluate_pei()">
+            <div class="active" id="filtros_pei" ng-controller="filtros_pei as filtros_pei">
+                <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                    <%-
+                    include('../../5-views/filtros_pei/index', {scope:'filtros_pei'});
+                    %>
+                </div>
+            </div>
+
+            <div class="panel panel-<%= COLOR.secundary %>">
+                <div class="panel-body">
+                    <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                        <li class="active" ng-controller="mega_ejeestrategico as mega_ejeestrategico" ng-show="mega_ejeestrategico.allow(['mega_option'])">
+                            <a href="#mega_ejeestrategico" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Eje estratégico</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_objetivoestrategico as mega_objetivoestrategico" ng-show="mega_objetivoestrategico.allow(['mega_option'])">
+                            <a href="#mega_objetivoestrategico" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Objetivo estratégico</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_estrategia as mega_estrategia" ng-show="mega_estrategia.allow(['mega_option'])">
+                            <a href="#mega_estrategia" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Estrategia</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_resultado_esperado as mega_resultado_esperado" ng-show="mega_resultado_esperado.allow(['mega_option'])">
+                            <a href="#mega_resultado_esperado " data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Resultados esperados</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_indicadores_pei as mega_indicadores_pei" ng-show="mega_indicadores_pei.allow(['mega_option'])">
+                            <a href="#mega_indicadores_pei" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Indicadores PEI</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_comentarios_pei as mega_comentarios_pei" ng-show="mega_comentarios_pei.allow(['mega_option'])">
+                            <a href="#mega_comentarios_pei" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Comentarios PEI</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="mega_ejeestrategico" ng-controller="mega_ejeestrategico as mega_ejeestrategico" ng-show="mega_ejeestrategico.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_ejeestrategico'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_ejeestrategico'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_objetivoestrategico" ng-controller="mega_objetivoestrategico as mega_objetivoestrategico" ng-show="mega_objetivoestrategico.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_objetivoestrategico'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_objetivoestrategico'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_estrategia" ng-controller="mega_estrategia as mega_estrategia" ng-show="mega_estrategia.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_estrategia'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_estrategia'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_resultado_esperado" ng-controller="mega_resultado_esperado as mega_resultado_esperado" ng-show="mega_resultado_esperado.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_resultado_esperado'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_resultado_esperado'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_indicadores_pei" ng-controller="mega_indicadores_pei as mega_indicadores_pei" ng-show="mega_indicadores_pei.allow(['mega_option'])">
+                            <%-
+                            include('../mega_indicadores_pei/index.ejs',{scope:'mega_indicadores_pei'});
+                            %>
+                        </div>
+                        <div class="tab-pane" id="mega_comentarios_pei" ng-controller="mega_comentarios_pei as mega_comentarios_pei" ng-show="mega_comentarios_pei.allow(['mega_option'])">
+                            <%-
+                            include('../../5-views/mega_comentarios_pei/index',{scope:'mega_comentarios_pei'});
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane {{megaconsulta.active_pe_po}}" id="poa" ng-show="megaconsulta.evaluate_poa()">
+            <div class="" id="filtros_poa" ng-controller="filtros_poa as filtros_poa">
+                <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                    <%-
+                    include('../../5-views/filtros_poa/index', {scope:'filtros_poa'});
+                    %>
+                </div>
+            </div>
+
+            <div class="panel panel-<%= COLOR.secundary %>">
+                <div class="panel-body">
+                    <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified harimond" dragonlanguage="">
+                        <li class="active" ng-controller="mega_presupuesto_aprobado as mega_presupuesto_aprobado" ng-show="mega_presupuesto_aprobado.allow(['mega_option'])">
+                            <a href="#mega_presupuesto_aprobado" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Presupuestos</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_producto as mega_producto" ng-show="mega_producto.allow(['mega_option'])">
+                            <a href="#mega_producto" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language ng-if="megaconsulta.session.tipo_institucion == 1">Proyecto/Producto</language>
+                                <language ng-if="megaconsulta.session.tipo_institucion == 2">Proyecto/Plan de Acción</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_actividades as mega_actividades" ng-show="mega_actividades.allow(['mega_option'])">
+                            <a href="#mega_actividades" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Actividades</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_actividades_asociadas as mega_actividades_asociadas" ng-show="mega_actividades_asociadas.allow(['mega_option'])">
+                            <a href="#mega_actividades_asociadas" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Actividades de apoyo</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_indicadores_poa as mega_indicadores_poa" ng-show="mega_indicadores_poa.allow(['mega_option'])">
+                            <a href="#mega_indicadores_poa" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language ng-if="megaconsulta.session.tipo_institucion == 1">Indicadores de Proyecto/Producto</language>
+                                <language ng-if="megaconsulta.session.tipo_institucion == 2">Indicadores de Proyecto/Plan de Acción</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="vw_mega_indicadores_actividad as vw_mega_indicadores_actividad" ng-show="vw_mega_indicadores_actividad.allow(['mega_option'])">
+                            <a href="#vw_mega_indicadores_actividad" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Indicadores de Actividad</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                        <li class="" ng-controller="mega_comentarios_poa as mega_comentarios_poa" ng-show="mega_comentarios_poa.allow(['mega_option'])" ng-click="megaconsulta.click_en_poa()">
+                            <a href="#mega_comentarios_poa" data-toggle="tab" ng-click="">
+                                <i class="position-left"></i>
+                                <language>Comentarios POA</language>
+                                <i class="border-white  position-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="mega_presupuesto_aprobado" ng-controller="mega_presupuesto_aprobado as mega_presupuesto_aprobado" ng-show="mega_presupuesto_aprobado.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_presupuesto_aprobado'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_presupuesto_aprobado'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_producto" ng-controller="mega_producto as mega_producto" ng-show="mega_producto.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_producto'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_producto'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_actividades" ng-controller="mega_actividades as mega_actividades" ng-show="mega_actividades.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_actividades'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_actividades'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_actividades_asociadas" ng-controller="mega_actividades_asociadas as mega_actividades_asociadas" ng-show="mega_actividades_asociadas.allow(['mega_option'])">
+                            <div class="panel panel-flat">
+                                <%-
+                                include('../../7-plugins/templates/table/header',{scope:'mega_actividades_asociadas'});
+                                %>
+                                <div class="subcontent min-subcontent">
+                                    <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'mega_actividades_asociadas'});
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="mega_indicadores_poa" ng-controller="mega_indicadores_poa as mega_indicadores_poa" ng-show="mega_indicadores_poa.allow(['mega_option'])">
+                            <%-
+                            include('../mega_indicadores_poa/index.ejs',{scope:'mega_indicadores_poa'});
+                            %>
+                        </div>
+                        <div class="tab-pane" id="vw_mega_indicadores_actividad" ng-controller="vw_mega_indicadores_actividad as vw_mega_indicadores_actividad" ng-show="vw_mega_indicadores_actividad.allow(['mega_option'])">
+                            <%-
+                            include('../vw_mega_indicadores_actividad/index.ejs',{scope:'vw_mega_indicadores_actividad'});
+                            %>
+                        </div>
+                        <div class="tab-pane" id="mega_comentarios_poa" ng-controller="mega_comentarios_poa as mega_comentarios_poa" ng-show="mega_comentarios_poa.allow(['mega_option'])">
+                            <%-
+                            include('../../5-views/mega_comentarios_poa/index',{scope:'mega_comentarios_poa'});
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+
+<script>
+
+    megaconsulta.refreshAngular();
+
+    $("#ddltransfer").appendTo("#pei_clone");
+    $("#ddltransfer2").appendTo("#poa_clone");
+
+    let poa = $('#poa_clone');
+    let pei = $('#pei_clone');
+
+    let ckpoa = $('.ck-poa');
+    let ckpei = $('.ck-pei');
+
+    ckpoa.on('click', function () {
+        poa.removeClass('vhiden');
+        pei.addClass('vhiden');
+        ckpoa.removeClass('vNormal');
+        ckpei.addClass('vNormal');;
+        //.vNormal
+    })
+
+    ckpei.on('click', function () {
+        pei.removeClass('vhiden');
+        poa.addClass('vhiden');
+        ckpei.removeClass('vNormal');
+        ckpoa.addClass('vNormal');
+    })
+
+
+
+</script>

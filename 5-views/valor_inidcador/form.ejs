@@ -1,0 +1,34 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('ano_referencia', scope, {
+                    trueplaceholder: "Año de Referencia"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('definicion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('fuente_datos', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Fuente de Datos"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('valor', scope, {
+                    trueplaceholder: "Valor"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

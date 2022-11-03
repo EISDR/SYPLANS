@@ -1,0 +1,162 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 ">
+                    <%- FORM.inputview("view_entidad", scope, {
+                        placeholder: "Entidad"
+                    }) %>
+                </div>
+                <div class="col-sm-4 col-md-4" id="registrodiv">
+                    <%- FORM.inputview("view_registro", scope, {
+                        placeholder: "Nombre"
+                    }) %>
+                </div>
+                <div class="col-sm-4 col-md-4 ">
+                    <%- FORM.inputview("view_riesgo_a", scope, {
+                        placeholder: "Riesgo"
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4' ng-show="false">
+                    <%- FORM.inputview('view_nombre', scope, {trueplaceholder: "Nombre"}) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('view_causa_debilidad', scope, {
+                        placeholder: "Causa o Debilidad"
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('view_consecuencia', scope, {placeholder: "Efecto"}) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('view_factor_riesgo', scope, {placeholder:"Factor de Riesgo"}) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.inputview('view_probabilidad', scope, {
+                        placeholder: "Probabilidad"
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.inputview('view_impacto', scope, {
+                        placeholder: "Impacto"
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.textarea('view_supuestos', scope, {
+                        trueplaceholder: "Supuestos",
+                        disabled: true,
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.textarea('view_descripcion', scope, {
+                        trueplaceholder: "Descripción",
+                        disabled: true,
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('estrategia_nombre', scope, {
+                        placeholder: "Estrategia"
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('estado_plan_accion_nombre', scope, {
+                        placeholder: "Estado"
+                    }) %>
+                </div>
+                <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic" ng-show="riesgo_a.estado_plan_accion_nombre == 'Completado'">
+                    <%- FORM.checkbox("ocurrencia", scope, {text: '¿Ocurrencia del Siniestro?', disabled: true }) %>
+                </div>
+            </div>
+            <div class="" id="Formutabs">
+                <div class="subcontent" style="padding-top: 0px;">
+                    <div class="row">
+                        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                            <li class="active" id="control_tab">
+                                <a href="#control" data-toggle="tab" ng-click="actividades_poa_monitoreo.make_alert()">
+                                    <i class="position-left"></i>
+                                    Controles de Riesgo Reales
+                                    <i class="border-white  position-right"></i>
+                                </a>
+                            </li>
+                            <li class="" id="comment_tab">
+                                <a href="#comment" data-toggle="tab">
+                                    <i class="position-left"></i>
+                                    Comentarios
+                                    <i class="border-white  position-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="control">
+                            <div class="row">
+                                    <div id="<%= 'riesgo_matriz_control' %>" ng-controller="<%= 'riesgo_matriz_control' %> as <%= 'riesgo_matriz_control' %>">
+
+                                        <div class="panel panel-flat">
+                                            <%- include('../../7-plugins/templates/table/header',{scope:'riesgo_matriz_control'}); %>
+                                            <div class="subcontent">
+                                                <%- include('../../7-plugins/templates/table/base',{scope:'riesgo_matriz_control'}); %>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            riesgo_matriz_control.fixFilters = [{field: 'riesgo', value:  Row_id},{field: 'riesgo_control', value: Matriz_id}];
+                                            riesgo_matriz_control.setPermission("actions", false);
+                                            riesgo_matriz_control.setPermission("add", false);
+                                            riesgo_matriz_control.setPermission("edit", false);
+                                            riesgo_matriz_control.setPermission("remove", false);
+                                            riesgo_matriz_control.setPermission("active", false);
+                                            riesgo_matriz_control.setPermission("view", false);
+                                            riesgo_matriz_control.setPermission("copy", false);
+                                            riesgo_matriz_control.setPermission("audit", false);
+                                        </script>
+                                    </div><!--end-->
+                                </div>
+                        </div>
+                        <div class="tab-pane" id="comment">
+                            <div class="row">
+                                <div id="vw_comentario_plan_accion" ng-controller="vw_comentario_plan_accion as vw_comentario_plan_accion">
+                                    <script>
+                                        vw_comentario_plan_accion.fixFilters = [{
+                                            "field": "value",
+                                            "value": Matriz_id
+                                        }];
+                                    </script>
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'vw_comentario_plan_accion'}); %>
+                                        <div class="subcontent">
+                                            <%- include('../../7-plugins/templates/table/base',{scope:'vw_comentario_plan_accion'}); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        if (Ocurrencia == 1 ){
+            riesgo_a.ocurrencia = true;
+            riesgo_a.refreshAngular();
+        }else{
+            riesgo_a.ocurrencia = false;
+            riesgo_a.refreshAngular();
+        }
+    })
+</script>
+
+
+
+
+

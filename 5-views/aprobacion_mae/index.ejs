@@ -1,0 +1,186 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent" ng-show="<%= scope %>.estatus_id == 4">
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('codigo_plan', scope, {
+                        placeholder: "Código",
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('nombre', scope, {
+                        trueplaceholder: "PACC",
+                        inputPlaceholder: "Nombre del PACC",
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.date('fecha_revision', scope, {
+                        placeholder: "Fecha de revisión",
+                        disabled: true
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('ano_planificacion_view', scope, {
+                        trueplaceholder: "Año de Planificación",
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.date('fecha_presentacion', scope, {
+                        disabled: true
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.date('fecha_aprobacion', scope, {
+                        disabled:true
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('cantidad', scope, {
+                        trueplaceholder: "Cantidad total de Unidades de Compra",
+                    }) %>
+                </div>
+                <div class='col-sm-8 col-md-8'>
+                    <%- FORM.inputview('descripcion', scope, {}) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('estatus', scope, {
+                        trueplaceholder: "Estatus",
+                    }) %>
+                </div>
+            </div>
+            <div class="row" ng-controller="vw_comentarios as vw_comentarios">
+                <div class="col-md-4 col-sd-4" style="border-bottom: 2px solid black; top: 40px"></div>
+                <div class="col-md-4 col-sd-4" style="text-align: center;">
+                    <h1>Datos de Presupuesto</h1>
+                </div>
+                <div class="col-md-4 col-sd-4" style="border-bottom: 2px solid black; top: 40px"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-sd-5" style="left: 30%">
+                    <a style="float: left" ng-click="aprobacion_mae.open_export()">Ver Detalle</a> <a style="float: right" ng-click="<%= scope %>.show_comment()">Ver Comentarios </a>
+                    <table class="table table-bordered">
+                        <thead class="bg-<%= COLOR.secundary %>">
+                        <tr class="bg-<%= COLOR.primary %>">
+                            <th style="text-align: center; font-size: 16px;"><language>Presupuesto Institucional</language></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div >
+                            <tr style="text-align: center">
+                                <td class="" style="font-size: 16px !important;">{{<%= scope %>.presupuesto_total}}</td>
+                            </tr>
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+                <div class="panel" ng-repeat="(key, value) in aprobacion_mae.presupuesto_departamento" style="margin-bottom: 0px">
+                    <div class="col-md-3 col-sd-3">
+                        <a style="float: left" ng-click="aprobacion_mae.open_export(value)">Ver Detalle</a> <a style="float: right" ng-click="aprobacion_mae.show_comment(value.departamento)">Ver Comentarios </a>
+                        <table class="table table-bordered" style="margin-bottom: 20px" >
+                            <thead class="bg-<%= COLOR.secundary %>">
+                            <tr class="bg-<%= COLOR.secundary %> dept">
+                                <th dragonlanguage=""><language>{{value.nombre}}</language></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <div >
+                                <tr>
+                                    <td class="" style="width: 50%;">{{value.presupuesto}}</td>
+                                </tr>
+                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-sd-5" style="border-bottom: 2px solid black; top: 40px"></div>
+                <div class="col-md-2 col-sd-2" style="text-align: center;">
+                    <h1>Acciones</h1>
+                </div>
+                <div class="col-md-5 col-sd-5" style="border-bottom: 2px solid black; top: 40px"></div>
+            </div>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h5 style="margin-top: 5px; margin-bottom: 5px;">Plan Anual de compra del año {{aprobacion_mae.ano_planificacion_view}} ha sido REVISADO por el Dpto. de Planificación y por la Unidad Operativa de Compras y Contrataciones. Proceder a revisar y Autorizar</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sd-12">
+                                <%- FORM.textarea('comentario', scope, {
+                                    trueplaceholder: "Comentario",
+                                    inputPlaceholder: "Escriba aquí su comentario"
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button
+                                    ng-show="false"
+                                    dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                                    type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                    ng-click="vw_pacc.go_back()">
+                                <b><i class="icon-cross2"></i></b>
+                                <language>Volver atrás</language>
+                            </button>
+                            <button ng-repeat="(key, value) in <%= scope %>.next_status.data"
+                                    style="background-color: {{value.color}}; color: white; float: right !important"
+                                    dragonlanguage="" title="{{value.descripcion_larga}}"
+                                    type="button" role="button"
+                                    class=" btn btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.save_comment(value.id, 'next')">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                {{value.descripcion}}
+                            </button>
+                            <button ng-repeat="(key, value) in <%= scope %>.before_status.data"
+                                    style="background-color: {{value.color}}; color: white; float: right !important"
+                                    dragonlanguage="" title="{{value.descripcion_larga}}"
+                                    type="button" role="button"
+                                    class=" btn btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.save_comment(value.id, 'before')">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                {{value.descripcion}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent" ng-show="<%= scope %>.estatus_id < 4">
+            <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                <language>Plan Anual de Compras: {{<%= scope %>.nombre}} {{ <%= scope %>.ano_planificacion_view}} aún no está disponible para ser trabajado.
+                </language>
+            </div>
+        </div>
+        <div class="subcontent" ng-show="<%= scope %>.estatus_id > 4">
+            <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                <language>Plan Anual de Compras: {{<%= scope %>.nombre}} {{ <%= scope %>.ano_planificacion_view }} ya fue aprobado por la Máxima Autoridad Ejecutiva.
+                </language>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    // $(document).ready(function () {
+    //     setTimeout( function (){
+    //         aprobacion_mae.calculateEqualize()
+    //     },1000);
+    // });
+</script>

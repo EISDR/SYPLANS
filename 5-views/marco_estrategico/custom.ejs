@@ -1,0 +1,60 @@
+<%-
+FORM.tabs(scope,[
+    {id: "mision", text: "Misión"},
+    {id: "vision", text: "Visión"},
+    {id: "valores", text: "Valores"}
+])
+%>
+<div class="panel panel-flat">
+     <div class="tab-content">
+        <div class="tab-pane active " id="mision">
+            <div class="col-sm-12 col-md-12">
+                <textarea id="marco_mision" class="form-control" maxlength="4000" placeholder="Misión" ng-model="marco_estrategico.mision"></textarea>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0" ng-click="marco_estrategico.saveMision()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane" id="vision">
+            <div class="col-sm-12 col-md-12">
+                <textarea id="marco_vision" class="form-control" maxlength="4000" placeholder="Visión" ng-model="marco_estrategico.vision"></textarea>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0" ng-click="marco_estrategico.saveVision()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane " id="valores">
+            <div id="marco_estrategico_valores" ng-controller="marco_estrategico_valores as marco_estrategico_valores">
+                <div class="panel panel-flat">
+                        <%-
+                        include('../../7-plugins/templates/table/header',{scope:'marco_estrategico_valores'});
+                        %>
+                    <div class="subcontent">
+                        <%-
+                        include('../../7-plugins/templates/table/base',{scope:'marco_estrategico_valores'});
+                        %>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        console.log("hola")
+        $('#tabvision').on('click', function () {
+            setTimeout(function () {
+                autosize($('#marco_vision'));
+
+            }, 100);
+        });
+    }
+</script>

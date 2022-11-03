@@ -1,0 +1,23 @@
+<div class="titulo text-center">
+    <h1>Tabla de Ponderaciones por Tipo de Meta</h1>
+</div>
+
+<!-- Cintillo de Estatus -->
+<div class="col-md-12" style="padding: 0;">
+    <div class="col-md-4" ng-repeat="(p,ponderacion) in baseController.ponderaciones">
+
+        <ul id="leyendas" class="list-group" style="margin: 3px;padding: 0;">
+            <li>
+                <h3 style="padding: 8px;"> {{ponderacion.nombre}}:</h3>
+            </li>
+            <li ng-repeat="(i,rangeValor) in ponderacion.list">
+                <label class="ponerRedondo" ng-style="{'background-color': rangeValor.color}"></label>
+                <label> {{rangeValor.nombre}} <b>({{rangeValor.titulo}})</b></label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    baseController.refreshAngular();
+</script>

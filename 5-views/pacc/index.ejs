@@ -1,0 +1,191 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div ng-show="!pacc.show_edit">
+                <div class='col-sm-4 col-md-4' ng-if="!pacc.session.institucion_id">
+                    <%- FORM.select('ano_planificacion', scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        column: "nombre",
+                        table: "vw_pacc_poa",
+                        text: "item.periodo_poa",
+                        query: {
+                            order: "asc",
+                            orderby: "periodo_poa",
+                        },
+                        label: "Año de planificación",
+                        icon: {class: "cube"},
+                        condition: "(item.compania_id == pacc.session.compania_id && item.institucion == null) && item.matchs == 0"
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4' ng-show="pacc.session.institucion_id">
+                    <%- FORM.select('ano_planificacion', scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        column: "nombre",
+                        table: "vw_pacc_poa",
+                        text: "item.periodo_poa",
+                        query: {
+                            order: "asc",
+                            orderby: "periodo_poa",
+                        },
+                        label: "Año de planificación",
+                        icon: {class: "cube"},
+                        condition: "(item.institucion == pacc.session.institucion_id) && item.matchs == 0"
+                    }) %>
+                </div>
+                <div class="col-md-4 col-sm-4 pull-left" style="margin-top: 25px">
+                    <button
+                            style="margin-right: 0"
+                            dragonlanguage="" title="Continuar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.success %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                            ng-click="pacc.createData();">
+                        <b><i class=" icon-arrow-right8"></i></b>
+                        Continuar
+                    </button>
+                    <button
+                            style="margin-right: 0px; margin-left: 10px"
+                            dragonlanguage="" title="Cancelar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                            ng-click="pacc.cancelar();">
+                        <b><i class="icon-cross2"></i></b>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+            <div ng-show="pacc.show_edit">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('codigo_plan', scope, {
+                            trueplaceholder: "Código PACC",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('nombre', scope, {
+                            trueplaceholder: "Plan Anual de Compras y Contrataciones",
+                            inputPlaceholder: "Digite el nombre"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('empresa', scope, {
+                            trueplaceholder: "Entidad Gubernalmental",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('capitulo', scope, {
+                            trueplaceholder: "Capítulo",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('sub_capitulo', scope, {
+                            trueplaceholder: "Sub Capítulo",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.datetime('fecha_revision', scope, {
+                            placeholder: "Fecha de revisión",
+                            disabled: true
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.date('fecha_presentacion', scope, {
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('ano_planificacion_view', scope, {
+                            trueplaceholder: "Año de Planificación",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('sigla', scope, {
+                            trueplaceholder: "Código de la Entidad Gubernalmental",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('unidad', scope, {
+                            placeholder: "Unidad Ejecutora",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('unidad_compra', scope, {
+                            placeholder: "Unidad de Compra",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.date('fecha_aprobacion', scope, {
+                            disabled:true
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('cantidad', scope, {
+                            trueplaceholder: "Cantidad total de Unidades de Compra",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('version', scope, {
+                            trueplaceholder: "Versión del Plan",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('estatus', scope, {
+                            trueplaceholder: "Estatus",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('descripcion', scope, {}) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 col-sm-9"></div>
+                    <div class="col-md-3 col-sm-3 pull-left" style="margin-top: 25px">
+                    <button
+                            style="margin-right: 0"
+                            dragonlanguage="" title="Guardar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                            ng-click="pacc.updateData();">
+                        <b><i class=" icon-floppy-disk"></i></b>
+                        Guardar
+                    </button>
+                    <button
+                            style="margin-right: 0px; margin-left: 10px"
+                            dragonlanguage="" title="Cancelar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                            ng-click="pacc.cancelar();">
+                        <b><i class="icon-cross2"></i></b>
+                        Cancelar
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

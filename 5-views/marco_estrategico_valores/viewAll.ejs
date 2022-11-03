@@ -1,0 +1,78 @@
+<div class="panel panel-flat" style="padding: 10px;">
+    <div class="row" ng-if="marco_estrategico_valores.session.tipo_institucion == 2">
+        <div class="col-sm-12 col-md-12">
+            <h2>Historia</h2>
+            <textarea id="textareaHistoriaDisabled" class="form-control" placeholder="Historia" disabled ="true" maxlength="9999" ng-model="marco_estrategico_valores.historiaDisabled"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h2>Marco Legal</h2>
+        </div>
+        <div class="col-sm-12 col-md-12">
+            <div class="row" id="verTabla" >
+                <div class="col-sm-12 col-md-12"  ng-repeat="(keyvalue,value) in marco_estrategico_valores.legal_data" >
+                    <table id="tabla_custom" class="table table-bordered "  >
+                        <thead class="bg-<%= COLOR.secundary %>">
+                        <tr class="bg-<%= COLOR.secundary %>" >
+                            <th>{{value.nombre}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div >
+                            <tr>
+                                <td class="" style="width: 50%;">{{value.descripcion}}</td>
+                            </tr>
+                        </div>
+
+                        </tbody>
+
+                    </table>
+                    </br>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <h2>Misión</h2>
+            <textarea id="textareaMisionDisabled" class="form-control" placeholder="Misión" disabled ="true" maxlength="9999" ng-model="marco_estrategico_valores.misionDisabled"></textarea>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <h2>Visión</h2>
+            <textarea id="textareaVisionDisabled" class="form-control" placeholder="Visión" disabled ="true" maxlength="9999" ng-model="marco_estrategico_valores.visionDisabled"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h2>Valores</h2>
+        </div>
+        <div class="col-sm-12 col-md-12">
+            <div class="row" id="verTabla" >
+                <div class="col-sm-12 col-md-12"  ng-repeat="(keyvalue,value) in marco_estrategico_valores.data" >
+                    <table id="tabla_custom" class="table table-bordered "  >
+                        <thead class="bg-<%= COLOR.secundary %>">
+                        <tr class="bg-<%= COLOR.secundary %>" >
+                            <th dragonlanguage=""><language>{{value['nombre'].valor}}</language></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div >
+                            <tr  ng-repeat="(key,valueData) in value.data">
+                                <td class="" style="width: 50%;">{{valueData.conducta}}</td>
+                            </tr>
+                        </div>
+
+                        </tbody>
+
+                    </table>
+                    </br>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

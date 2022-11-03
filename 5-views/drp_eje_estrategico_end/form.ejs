@@ -1,0 +1,49 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+
+            <div class="col-sm-4 col-md-12">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 1000
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-12">
+                <%- FORM.texarea("descripcion", scope, {placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico_end.session.tipo_institucion === drp_eje_estrategico_end.publica">
+                <%- FORM.select("aliniacion_end", scope, {
+                    column: "end_nombre",
+                    text:"item.nombre",
+                    table: "end",
+                    icon: {class: "archive"},
+                    label: "EJE END"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico_end.session.tipo_institucion === drp_eje_estrategico_end.publica">
+                <%- FORM.select("aliniacion_pnpsp", scope, {
+                    column: "pnpsp_nombre",
+                    text:"item.nombre",
+                    table: "pnpsp",
+                    icon: {class: "archive"},
+                    label: "Alineación PNPSP"
+                }) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico_end.session.tipo_institucion === drp_eje_estrategico_end.publica">
+                <%- FORM.select("aliniacion_ods", scope, {
+                    column: "aliniacion_ods",
+                    text:"item.nombre",
+                    table: "ods",
+                    icon: {class: "archive"},
+                    label: "Alineación ODS"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

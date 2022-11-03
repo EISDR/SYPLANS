@@ -1,0 +1,269 @@
+<tr>
+    <td  ng-if="<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h3>PLAN ESTRATÉGICO SECTORIAL</h3>
+    </td>
+    <td ng-if="!<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h3>No se han encontrado datos en este reporte.</h3>
+    </td>
+</tr>
+<tbody ng-repeat="(key,item) in <%= scope %>.reportDistinct">
+<tr style="border-top: none">
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}"></td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h4 style="font-weight: bold;display: contents">Sector: </h4>
+        <h4 style="display: inline">{{item.entidad}}</h4>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}"></td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h4 style="font-weight: bold;display: contents">Eje Sectorial: </h4>
+        <h4 style="display: inline">{{item.eje_estrategico}}</h4>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}"></td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h4 style="font-weight: bold;display: contents">Objetivo Sectorial: </h4>
+        <h4 style="display: inline">{{item.objetivo_estrategico}}</h4>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}"></td>
+</tr>
+<tr>
+    <th colspan="{{num.span}}"
+        style="text-align: center;background-color: #9c282d;color: white;font-size: 16px !important;font-family: Verdana !important;font-weight: bold"
+        ng-repeat="(key,num) in <%= scope %>.cols">
+        {{num.col}}
+    </th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <th colspan="{{vw_sectorial.cols[0].span}}">Instrumentos Nivel Planificación Global</th>
+    <th colspan="{{vw_sectorial.cols[1].span}}">Instrumentos Nivel Planificación Global</th>
+    <th colspan="{{vw_sectorial.cols[2].span}}">Alineación END</th>
+    <th colspan="{{vw_sectorial.cols[3].span}}">Resultados Institucionales</th>
+    <th rowspan="3" colspan="{{vw_sectorial.cols[4].span}}">Meta Objetivo de Desarrollo Sostenible Directamente
+        Alineado
+    </th>
+    <th rowspan="3" colspan="{{vw_sectorial.cols[5].span}}">Meta Otros compromisos Nacionales e Internacionales
+        Relacionados
+    </th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <th rowspan="2">Política de Gobierno</th>
+    <th rowspan="2">Impacto de la Política</th>
+    <th rowspan="2">Denominación Resultados PNPSP</th>
+    <th rowspan="2">Indicador(es)</th>
+    <th colspan="2">Línea Base</th>
+    <th rowspan="2">Programas Sectoriales</th>
+    <th rowspan="2">Proyectos Sectoriales</th>
+    <th rowspan="2">Productos Terminales</th>
+    <th rowspan="2">Indicador(es)</th>
+    <th colspan="2">Línea Base</th>
+    <th colspan="{{vw_sectorial.periodopoa}}">Valor Meta</th>
+    <th rowspan="2">Medios de Verificación</th>
+    <th rowspan="2">Responsables</th>
+    <th rowspan="2">Involucrados</th>
+    <th rowspan="2">Supuestos</th>
+    <th colspan="{{vw_sectorial.finanzas.length}}">Requerimiento Financiero ($)</th>
+    <th rowspan="2">Objetivo General END</th>
+    <th rowspan="2">Objetivo Específico END</th>
+    <th rowspan="2">Línea de Acción END</th>
+    <th rowspan="2">Denominación</th>
+    <th rowspan="2">Indicador</th>
+    <th colspan="2">Línea Base</th>
+    <th colspan="{{vw_sectorial.peianos.length}}">Valor Meta</th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <th>Valor</th>
+    <th>Meta</th>
+    <th>Valor</th>
+    <th>Meta</th>
+    <th ng-repeat="(i,ano) in vw_sectorial.periodopoas">{{vw_sectorial.monitoreo_nombre}} {{ano}}</th>
+    <th ng-repeat="(i,ano) in vw_sectorial.finanzas">Valor {{ano}}</th>
+    <th>Valor</th>
+    <th>Meta</th>
+    <th ng-repeat="(i,ano) in vw_sectorial.peianos">Año {{ano}}</th>
+</tr>
+<tr ng-repeat="(i,row) in item.records">
+
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.politica_gobierno',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno',i,item.records)">
+        {{row.politica_gobierno}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica',i,item.records)">
+        {{row.impacto_politica}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp',i,item.records)">
+        {{row.denominacion_pnpsp}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp_base}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp_meta}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa',i,item.records)">
+        {{row.programa}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto',i,item.records)">
+        {{row.proyecto}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto',i,item.records)">
+        {{row.producto}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)">
+        {{row.indicador}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)">
+        {{row.ano_linea_base}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)">
+        {{<%= scope %>.format(row.linea_base,row.tipo_meta+'')}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)"
+        ng-repeat="(x,ano) in vw_sectorial.periodopoas">
+        {{<%= scope %>.format(row.indicador_x[ano],row.tipo_meta+'')}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.indicador',i,item.records)">
+        {{row.medio_verificacion}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.responsable',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.responsable',i,item.records)">
+        {{row.responsable}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa',i,item.records)">
+        {{row.involucrado}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.supuestos',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.supuestos',i,item.records)">
+        {{row.supuestos}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto',i,item.records)"
+        ng-repeat="(x,ano) in vw_sectorial.finanzas">
+        {{<%= scope %>.format(row.finanzas[ano],'5')}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end',i,item.records)">
+        {{row.objetivo_general_end}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end',i,item.records)">
+        {{row.objetivo_especifico_end}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end',i,item.records)">
+        {{row.linea_accion_end}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)">
+        {{row.resultado}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)">
+        {{row.indicador_pei}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)">
+        {{row.indicador_pei_base}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)">
+        {{<%= scope %>.format(row.indicador_pei_meta,row.indicador_pei_tipo_meta+'')}}
+    </td>
+
+
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado+d.indicador_pei',i,item.records)"
+        ng-repeat="(x,ano) in vw_sectorial.peianos">
+        {{<%= scope %>.format(row.indicador_pei_x[ano],row.indicador_pei_tipo_meta+'')}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)">
+        {{row.mods}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.programa+d.proyecto+d.producto+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end+d.resultado',i,item.records)">
+        {{row.compromisos}}
+    </td>
+</tr>
+</tbody>

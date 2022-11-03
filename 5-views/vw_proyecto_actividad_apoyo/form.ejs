@@ -1,0 +1,250 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h3 style="margin-top: 15px;">Información Actividad</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('proyecto_actividad_info', scope, {
+                            text: "item.nombre",
+                            table: 'vw_proyecto_item_actividad',
+                            column: ['id'],
+                            label: "Actividad",
+                            icon: {class: "archive"},
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            disabled: true
+                                    //condition: 'true',
+                        //multiple: false,get: {table: "actividades_poa_linked", fieldFrom: "id", fieldTo: "myid(actividades_poa)", field: "theirid"},
+                        //self: true,
+                        //helptext: "",
+                        //value: 'id',
+                        //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                        //},
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview("departamento_actividad", scope, {
+                            placeholder: "Departamento"
+                        }) %>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <%- FORM.inputview("producto_actividad", scope, {
+                            trueplaceholder: "Proyecto Especial",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <%- FORM.inputview("responsable_actividad", scope, {
+                            placeholder: "Responsable",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('presupuesto_actividad', scope, {
+                            disabled: true,
+                            label: "Presupuesto",
+                        }) %>
+                    </div>
+                    <div class='col-sm-3 col-md-4'>
+                        <%- FORM.inputview("estatus_nombre_actividad",scope,{ placeholder: "Estatus"})%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h3 style="margin-top: 15px;">Información Actividad de Apoyo</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('nombre', scope, {
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <%- FORM.daterange("range_date", scope, {
+                            from: "fecha_inicio",
+                            to: "fecha_fin",
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <%-FORM.inputview("estatus", scope, {disabled: true}) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.inputview('departamento', scope, {}) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.inputview('responsable', scope, {}) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.input('descripcion', scope, {
+                            disabled: true
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-if="!<%= scope %>.ver">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h3 style="margin-top: 15px;">Trabajar Actividad de Apoyo</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.select("estatus_id", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                allownull: false,
+                                label: "Estado",
+                                table: "vw_auditoria_programa_plan_estatus",
+                                text: "item.nombre",
+                                icon: {class: "archive"},
+                                condition: "item.plan_status == vw_proyecto_actividad_apoyo.my_true_estatus && item.entidad == 'proyecto_actividad_apoyo'"
+                            }) %>
+                        </div>
+                        <div class='col-sm-3 col-md-3' ng-show="<%= scope %>.estatus_id == 6">
+                            <%- FORM.select("razon", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                // refresh: false,
+                                // disabled: true,
+                                truelabel: "Condiciones de Cierre",
+                                table: "vw_proyecto_razon_apoyo",
+                                text: "item.nombre_razon",
+                                icon: {class: "archive"},
+                                condition:"item.compania == vw_proyecto_actividad_apoyo.session.compania_id && item.active == 1"
+                            }) %>
+                        </div>
+                        <div class="col-sm-2 col-md-2 center-profile-image countFile">
+                            <%- FORM.file("actividad_apoyofile_comment", scope, {
+                                title: 'Subir Evidencias',
+                                maxfiles: 999,
+                                columns: 4,
+                                truetext: 'Subir Evidencias',
+                            // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                            // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                            }) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div ng-show="<%= scope %>.show_drp">
+                            <div class="col-sm-4 col-md-4" ng-if="!<%= scope %>.session.institucion">
+                                <%- FORM.select("responsable_edit", scope, {
+                                    allownull: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    multiple: false,
+                                    label: "Responsable",
+                                    text: "item.nombre + ' ' + item.apellido",
+                                    table: "usuario",
+                                    columns: ["nombre"],
+                                    condition: "(item.compania == vw_proyecto_actividad_apoyo.session.compania_id && item.institucion == $null) && (item.active)",
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                            <div class="col-sm-4 col-md-4" ng-if="<%= scope %>.session.institucion">
+                                <%- FORM.select("responsable_edit", scope, {
+                                    allownull: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    multiple: false,
+                                    label: "Responsable",
+                                    text: "item.nombre + ' ' + item.apellido",
+                                    table: "usuario",
+                                    columns: ["nombre"],
+                                    condition: "(item.institucion == vw_proyecto_actividad_apoyo.session.institucion_id) && (item.active)",
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                        <div class='col-sm-8 col-md-8'>
+                            <%- FORM.input('comentario', scope, {}) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-8 col-md-8'>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <div class="modal-footer dragonformfooter-custom" dragonlanguage="" id="btnformfooter-custom" ng-show="!<%= scope %>.save">
+                        <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon"><i
+                                    class="position-right"></i></span>
+                                <button dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                                        type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                        ng-click="<%= scope %>.pages.form.close()">
+                                    <b><i class="icon-cross2"></i></b>
+                                    <language>MESSAGE.ic('mono.cancel')</language>
+                                </button>
+                                <button ng-show="<%= scope %>.form.mode!=='new'"
+                                        dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                                        type="button" role="button"
+                                        class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                        ng-click="<%= scope %>.saveActividadApoyo()">
+                                    <b><i class="icon-floppy-disk"></i></b>
+                                    <language>MESSAGE.ic('mono.save')</language>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="comentarios_p_actividad_apoyo "
+                     ng-controller="comentarios_p_actividad_apoyo as comentarios_p_actividad_apoyo">
+                    <div class="panel panel-flat">
+                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_p_actividad_apoyo'}); %>
+                        <div class="subcontent">
+                            <%- include('../comentarios_p_actividad_apoyo/base',{scope:'comentarios_p_actividad_apoyo'}); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

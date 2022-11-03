@@ -1,0 +1,301 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+
+        </div>
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                <h6 class="panel-title">Datos del Solicitante</h6>
+            </div>
+            <div class="panel-body">
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('nombre_solicitante', scope, {trueplaceholder: "Nombre del Solicitante"}) %>
+                </div>
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('departamento_solicitante', scope, {trueplaceholder: "Departamento del Solicitante"}) %>
+                </div>
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('fecha_solicitante', scope, {trueplaceholder: "Fecha de la Solicitud"}) %>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                <h6 class="panel-title">Datos del Documento</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row" ng-if="documentos_asociados.directo">
+                    <div class='col-sm-2 col-md-2'>
+                        <%- FORM.inputview('id', scope, {trueplaceholder: "Número del Documento" } ) %>
+                     </div>
+                    <div class="col-sm-3 col-md-3" ng-if="!documentos_asociados.session.institucion">
+                        <%- FORM.select("procesos_categoria", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "procesos_categoria",
+                            truelabel: "Macroproceso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.compania == documentos_asociados.session.compania_id && item.institucion == $null)"
+                        }) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3" ng-if="!documentos_asociados.session.institucion">
+                        <%- FORM.select("proceso", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "procesos",
+                            truelabel: "Proceso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.procesos_categoria == documentos_asociados.procesos_categoria && item.estatus != '3')"
+                        }) %>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-if="!documentos_asociados.session.institucion">
+                        <%- FORM.select("tipo_documento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "tipo_documento",
+                            truelabel: "Tipo de Documento",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.compania == documentos_asociados.session.compania_id && item.institucion == $null)"
+                        }) %>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-if="documentos_asociados.session.institucion">
+                        <%- FORM.select("tipo_documento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            truelabel: "Tipo de Documento",
+                            table: "tipo_documento",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.institucion == documentos_asociados.session.institucion_id)"
+                        }) %>
+                    </div>
+                    <div class='col-sm-2 col-md-2' ng-show="documentos_asociados.form.mode!=='new'">
+                        <%- FORM.select('estatus', scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            allownull: false,
+                            column: 'name',
+                            text: "item.permitido",
+                            table: 'vw_auditoria_programa_plan_estatus',
+                            condition: "item.plan_status == documentos_asociados.my_true_estatus && item.entidad == 'documentos_asociados'"
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-1 col-md-1'>
+                        <%- FORM.input('codigo', scope, {
+                            trueplaceholder: "Código"
+                        }) %>
+                    </div>
+                    <div class='col-sm-5 col-md-5'>
+                        <%- FORM.input('nombre', scope, {}) %>
+                    </div>
+                    <div class='col-sm-1 col-md-1'>
+                        <%- FORM.inputview('version', scope, {trueplaceholder: "Verisión del documento" } ) %>
+                    </div>
+                    <div class="col-sm-4 col-md-4"  ng-if="!documentos_asociados.session.institucion">
+                        <%- FORM.select("documentos_relacionados", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "vw_documentos_asociados_drp",
+                            icon: {class: "archive"},
+                            truelabel: "Documentos Asociados",
+                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && item.estatus_id != 4)) && (item.id != documentos_asociados.id && item.documento_general == 0)",
+                            get: {
+                                table: 'documentos_asociados_relacionado',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'documento_asociado_relacionado'
+                            },
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // },
+                        })%>
+                    </div>
+                    <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="documentos_asociados.session.institucion">
+                        <%- FORM.select("documentos_relacionados", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "vw_documentos_asociados_drp",
+                            icon: {class: "archive"},
+                            truelabel: "Documentos Asociados",
+                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active && item.estatus_id != 4) ) && (item.id != documentos_asociados.id && item.documento_general == 0)",
+                            get: {
+                                table: 'documentos_asociados_relacionado',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'documento_asociado_relacionado'
+                            },
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // },
+                        })%>
+                    </div>
+                    <div style="text-align: center;" class="col-sm-1 col-md-1">
+                        <%- FORM.checkbox("trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?"}) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-6 col-md-6' ng-show="<%= scope%>.trabaja_marco_legal">
+                        <%- FORM.textarea('marco_legal', scope, {
+                                //maxlength: 200,,
+                                trueplaceholder: "Marco Legal",
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('alcance', scope, {
+                                //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('objetivo', scope, {
+                            trueplaceholder: "Objetivo"
+                                    //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('resultado_esperado', scope, {
+                                //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6' ng-show="!<%= scope%>.trabaja_marco_legal">
+                        <%- FORM.textarea('descripcion', scope, {
+                                //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-12 col-md-12' ng-show="<%= scope%>.trabaja_marco_legal">
+                        <%- FORM.textarea('descripcion', scope, {
+                                //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4"></div>
+                    <div class="col-sm-4 col-md-4 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
+                        <%- FORM.file("documento_asociadofile", scope, {
+                                    title: 'Subir Documento',
+                                    maxfiles: 999,
+                                    columns: 4,
+                                    truetext: 'Subir Documento',
+                                    imagefloat: "right",
+                                // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                        // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                        }) %>
+                    </div>
+                    <div class="col-sm-4 col-md-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12' ng-show="documentos_asociados.show_actividades">
+                <%- FORM.relation("funciones", scope, {
+                    text: "item.nombre",
+                    table: "solicitud_documento_actividades",
+                    field: "documento_asociado",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.custom_close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                 data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    documentos_asociados.setPermission("file.upload", true);
+    documentos_asociados.setPermission("file.remove", true);
+    document.getElementById("closeModal").onclick = documentos_asociados.closeModal = function(){
+        if (documentos_asociados.form.mode == "edit" && !documentos_asociados.documento_asociadofile_DragonCountFile) {
+            SWEETALERT.show({type: 'error', message: "Favor subir un documento para completar el proceso."});
+        } else {
+            documentos_asociados.pages.form.close();
+        }
+    }
+    $(function () {
+        $('[name="documentos_asociados_documento_asociadofile"]').css({height: ''});
+    });
+    setTimeout(() => {
+        if ($(".dragonformfooter").length < 2) {
+            let btnformfooter = $('#btnformfooter');
+            let elment = FIXELEMENT.isScrolledIntoViewBottom(btnformfooter);
+            if (elment === true) {
+                $('.modal-body').prepend(documentos_asociados.returnBuild(btnformfooter.clone()));
+            }
+        }
+    }, 1000);
+    2791
+</script>
+
+
+
+
+

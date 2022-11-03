@@ -1,0 +1,41 @@
+{
+  "routes": {
+    "notoken": [
+      "/",
+      "/${CONFIG.folder}/",
+      "/${CONFIG.folder}/error/error",
+      "/${CONFIG.folder}/error/base",
+      "/${CONFIG.folder}/auth/login",
+      "/${CONFIG.folder}/auth/forgot",
+      "/${CONFIG.folder}/auth/createaccount",
+      "/${CONFIG.folder}/auth/restore",
+      "/api/my_user/list",
+      "/api/plan_base/list",
+      "/api/plan_base/insertID",
+      "/api/plan_base/update",
+      "/api/vw_plan_modules/list",
+      "/api/compania/insert",
+      "/api/compania/update",
+      "/api/compania/insertID",
+      "/api/cargo/insertID",
+      "/api/departamento/insertID",
+      "/api/usuario/insertID",
+      "/api/usuario/insert",
+      "/email/send",
+      "/service/base_auth/md5",
+      "/service/base_auth/changePassword",
+      "/service/base_auth/matchtoken",
+      "/service/base_auth/login",
+      "/post/templates/pdf/table",
+      "/post/templates/pdf/table",
+      "/api/vw_usuario_compania_pei_poa/list",
+      "/api/usuario/list",
+      "/api/tipoMeta/list",
+      "/api/direccionMeta/list",
+      "/api/vw_aaadef/list",
+      "/api/poa_monitoreo/list",
+      "/api/drp_poa_navbar/list",
+      "/api/permission/list"
+    ]
+  }
+}

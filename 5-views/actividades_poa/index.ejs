@@ -1,0 +1,170 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <%- include('../inter_index',{scope:scope}); %>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+
+        <div class="subcontent">
+            <div class="row" id="hide-div"
+                 ng-if="!dashboard && !dashboard_cofiguration && !dashboard_departamento && !notificacion">
+                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important">
+                    <%- FORM.select("departamentoPre", scope, {
+                        forme: "filtros",
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        refresh: false,
+                        multiple: false,
+                        label: "Departamento",
+                        text: "item.departamento",
+                        table: "vw_presupuesto_departamento",
+                        field: "id",
+                        columns: ["departamento"],
+                        icon: {class: "archive"},
+                        // condition: "item.poa === actividades_poa.poa_id"
+                    }) %>
+                </div>
+                <div class="col-sm-9 col-md-9">
+                    <label style="float: left; width: 100%;text-align: center;">P R E S U P U E S T O</label>
+                    <br/>
+                    <hr style="margin-top: 8px;margin-bottom: 5px;"/>
+
+                    <div class="col-sm-12 col-md-3">
+                        <%- FORM.money("valor", scope, {trueplaceholder: "Asignado al Dpto.", disabled: true})
+                        // FORM.inputview("valor",scope, {
+                        //     placeholder: 'Presupuesto',
+                        //     icon: {class: "cash3"},
+                        //     format: {mask: "000,000,000.00", options: {reverse: true}}
+                        // })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.money("presupuesto_actividades", scope, {
+                            trueplaceholder: "Asignado a las actividades",
+                            disabled: true
+                        })
+                        // FORM.inputview("presupuesto_actividades",scope, {
+                        //    placeholder: 'Presupuesto Asignado',
+                        //    icon: {class: "cash3"},
+                        //    format: {mask: "000,000,000.00", options: {reverse: true}}
+                        // })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.money("presupuesto_restantePre", scope, {trueplaceholder: "Disponible", disabled: true})
+                        // FORM.inputview("presupuesto_restantePre", scope, {
+                        //     placeholder: "Presupuesto Disponible",
+                        //     icon: {class: "cash3"},
+                        //     format: {mask: "000,000,000.00", options: {reverse: true}}
+                        // })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.money("presupuesto_liberado", scope, {trueplaceholder: "A Liberar", disabled: true})
+                        // FORM.inputview("presupuesto_liberado", scope, {
+                        //     placeholder: "Presupuesto Liberado",
+                        //     icon: {class: "cash3"},
+                        //     format: {mask: "000,000,000.00", options: {reverse: true}}
+                        // })
+                        %>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="padding: 0 20px 0 20px;">
+                <br>
+                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                    <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                        <label class="labelRedondo"> Planificada </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                        <label class="labelRedondo"> En ejecución </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                        <label class="labelRedondo"> Vencida </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                        <label class="labelRedondo"> Ninguna Condición </label></li>
+                </ul>
+                <br>
+            </div>
+
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+            <div class="modal nomodal" id="exampleModalCenter" tabindex="-1" role="dialog" ng-if="actividades_poa.session.maneja_pacc==1">
+                <div class="modal-dialog  modal-full modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body" style="border: 3px solid #004d80">
+                            <div class="tab-content" style="height: 800px">
+                                <div class="tab-pane active" id="basic">
+                                    <div class="row">
+                                        <div class="col-sm-9 col-md-9">
+                                            <label style="font-weight: bold">Filtro de búsqueda: <b class="text-danger">{{busquedacbs}}
+                                                    {{actividades_poa.know(busquedacbs)}}</b></label>
+                                            <input ng-model="busquedacbs" type="text"
+                                                   class="form-control">
+                                        </div>
+                                        <div class="col-sm-3 col-md-3">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" >
+                                        <div class="col-sm-12 col-md-12"
+                                             style="margin-top: 15px;height: 700px;overflow: auto">
+                                            <table class=" table table-togglable table-framed sindu-table">
+                                                <thead>
+                                                <tr class="bg-secundary">
+                                                    <th>Código de Catálogo de Bienes y Servicios (CBS)</th>
+                                                    <th>Descripción de (CBS)</th>
+                                                    <th>Objeto de Gasto</th>
+                                                    <th>Descripción de Objeto de Gasto</th>
+                                                    <th> </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="(i,cbs) in actividades_poa.cbslista | filter:busquedacbs | limitTo:100"
+                                                    ng-show="busquedacbs"
+                                                    class="{{actividades_poa.isselected(cbs)?'bg-extra-100':''}}">
+                                                    <td>{{cbs.id}}</td>
+                                                    <td>{{cbs.nombre}}</td>
+                                                    <td>
+                                                        <!--                                                        {{cbs.codigo_clasificador}}-->
+                                                        <select style="width: 100%"
+                                                                ng-model="cbs.codigo_clasificadorsel"
+                                                                ng-options="item for item in actividades_poa.ausiliarSelect(cbs)">
+                                                        </select>
+                                                    </td>
+                                                    <td>{{cbs.desc_clasificador}}</td>
+                                                    <td>
+                                                        <button ng-click="actividades_poa.selectcbs(cbs)"
+                                                                class="btn btn-{{actividades_poa.isselected(cbs)?'danger':'success'}}"
+                                                                style="height: 17px;padding: 0 3px 0 3px;font-size: 15px;">
+                                                            {{actividades_poa.isselected(cbs)?'Selleccionado':'Seleccionar'}}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-show="!busquedacbs" class="text-center">
+                                                    <td style="height: 60px;padding: 23px;" colspan="4">
+                                                        <span class="alert alert-info alert-styled-left"> Favor digite el Código de Bienes y Servicios(CBS), Descripción u Objeto de Gasto en el filtro de búsqueda para vizualizar resultados. </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div><!--end-->

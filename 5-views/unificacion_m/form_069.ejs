@@ -1,0 +1,280 @@
+<div class="subcontent">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="<%= scope %>.exportPDF()"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="panel panel-flat">
+        <div id="form_069pdf" class="subcontent">
+            <div>
+                <div class="row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="border-top: solid 1px black; color: blue;" >
+                                    SNCC.F.069
+                                </th>
+                                <th style="border-top: solid 1px black;">
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px;">
+                                    Capítulo
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px;">
+                                    {{<%= scope%>.capitulo}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="color: blue">
+                                    Versión: {{<%= scope %>.ver_PDept ||<%= scope %>.version}}
+                                </th>
+                                <th>
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                    Sub Capítulo
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px">
+                                    {{<%= scope%>.capitulo}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+
+                                </th>
+                                <th>
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                   Unidad Ejecutora
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px">
+                                    {{<%= scope %>.unidad}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 10%">
+                                    Cantidad de Procesos
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; width: 30%;">
+                                    <span style="float: right">{{<%= scope %>.cant_PDept || <%= scope %>.cantidad}}</span>
+                                </th>
+                                <th style="width: 20%">
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 5%">
+                                    Unidad de compra
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px;width: 35%">
+                                    {{<%= scope %>.unidad_compra}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                    Monto Estimado
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px;">
+                                    <span style="float: left"></span>
+                                    <span style="float: right">{{<%= scope %>.full_press}}</span>
+                                </th>
+                                <th>
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                    Código de la Unidad de compra
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px">
+                                    {{<%= scope %>.code_PDept || <%= scope %>.codigo_plan}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+
+                                </th>
+                                <th>
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                    Año Fiscal
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px">
+                                    {{<%= scope %>.ano_planificacion_view}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="border-bottom: solid 1px black">
+
+                                </th>
+                                <th style="border-bottom: solid 1px black">
+
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px">
+                                    Fecha de Aprobación
+                                </th>
+                                <th colspan="2" style="border: solid 1px black; padding: 5px">
+                                    {{<%= scope %>.fecha_aprobacion_069}}
+                                </th>
+                            </tr>
+                            <tr style="height: 30px">
+
+                            </tr>
+                        </thead>
+                    </table>
+                    <table ng-repeat="(key, value) in <%= scope %>.form_069_data" style="margin-bottom: 20px;">
+                        <thead>
+                            <tr >
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Nombre o Referencia de Contratación
+                                </th>
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Finalidad de la Contratación
+                                </th>
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Objeto de Contratación
+                                </th>
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Procedimiento de Selección
+                                </th>
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Destinado a MIPYMES
+                                </th>
+                                <th style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    Código SNIP
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+
+                                </th>
+                            </tr>
+                            <tr>
+                                <th rowspan="4" style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                   <div style="transform: rotate(270deg)">Fecha de Necesidad</div>
+                                </th>
+                                <th style="border: solid 1px black; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    Fecha Inicio de proceso de compra
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th rowspan="4" style="border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                    <div style="transform: rotate(270deg)">Lugar de Ejecución / Entrega</div>
+                                </th>
+                                <th style="border: solid 1px black;; background-color: #DDEBF7; padding: 5px; text-align: center; ">
+                                    Región
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    {{<%= scope %>.monitoreo_nombre}}
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center">
+                                    {{value.header.periodo}}
+                                </th>
+                                <th style="border: solid 1px black;; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    Provincia
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    Fecha Prevista de Adjudicación
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                                <th style="border: solid 1px black;; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    Municipio
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    {{<%= scope %>.monitoreo_nombre}}
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center">
+                                    {{value.header.periodo}}
+                                </th>
+                                <th style="border: solid 1px black;; background-color: #DDEBF7; padding: 5px; text-align: center">
+                                    Distrito Municipal
+                                </th>
+                                <th style="border: solid 1px black; padding: 5px; text-align: center; background-color: #ffd5d5">
+
+                                </th>
+                            </tr>
+                            <tr style="height: 20px">
+
+                            </tr>
+                            <tr>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 5%">
+                                    Código del Catálogo
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 40%">
+                                    Artículo
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 5%">
+                                    Unidad de Medida
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 5%">
+                                    Cantidad Total Estimada
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 15%">
+                                    Precio Unitario Estimado
+                                </th>
+                                <th style="border: solid 1px black; background-color: lightgray; padding: 5px; width: 30%">
+                                    Monto Total Estimado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="(key2, value2) in value.body">
+                            <tr>
+                                <td style="border: solid 1px; padding: 5px">
+                                    {{value2.cbs}}
+                                </td>
+                                <td style="border: solid 1px; padding: 5px">
+                                    {{value2.cbs_nombre}}
+                                </td>
+                                <td style="border: solid 1px; padding: 5px">
+                                    {{value2.unidad}}
+                                </td>
+                                <td style="border: solid 1px; padding: 5px">
+                                    {{value2['periodo_'+(key+1)]}}
+                                </td>
+                                <td style="border: solid 1px; padding: 5px">
+                                    <span style="float: left"></span>
+                                    <span style="float: right">{{unificacion_m.lan.money(value2.precio_unitario).format(true)}}</span>
+                                </td>
+                                <td style="border: solid 1px; padding: 5px">
+                                    <span style="float: left"></span>
+                                    <span style="float: right">{{unificacion_m.lan.money(value2['periodo_'+(key+1)] * value2.precio_unitario).format(true)}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    <%= scope %>.refreshAngular();
+</script>

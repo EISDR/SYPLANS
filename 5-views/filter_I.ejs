@@ -1,0 +1,72 @@
+<script>
+    <%= scope %>.filtersession = new SESSION().current();
+    <%= scope %>.
+    companiasel = new SESSION().current().compania_id;
+    if (new SESSION().current().interinstitucional) {
+        <%= scope %>.
+        soyII = true;
+    }
+    if (<%= scope %>.
+    filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_departamental).length > 0 ||
+    <%= scope %>.filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.analista_departamental).length > 0
+    )
+    {
+        <%= scope %>.
+        soydepa = true;
+    }
+    <%= scope %>.soyII = true;
+    <%= scope %>.$scope.$watch('<%= scope %>.institucion', function (value) {
+        if(<%= scope %>.institucion=="[NULL]")
+            <%= scope %>.departamento="[NULL]";
+        if(<%= scope %>.afterInstitucion){
+            <%= scope %>.afterInstitucion();
+        };
+        <%= scope %>.refreshAngular();
+    });
+    <%= scope %>.$scope.$watch('<%= scope %>.departamento', function (value) {
+        if(<%= scope %>.afterDepartamento){
+            <%= scope %>.afterDepartamento();
+        };
+        <%= scope %>.refreshAngular();
+    });
+</script>
+<div class="">
+    <div class="panel panel-white">
+        <div class="panel-heading panel-dashboard">
+            <h6 class="panel-title">Filtros de búsqueda</h6>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyII">
+                <%- FORM.select("institucion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: true,
+                    text: "item.nombre",
+                    table: "institucion",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    condition: "item.compania==" + scope + ".companiasel"
+                }) %>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("departamento", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: true,
+                    text: "item.nombre",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    condition: "(item.compania==" + scope + ".companiasel && item.institucion==" + scope + ".institucion)"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>

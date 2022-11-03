@@ -1,0 +1,49 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 form-group-material form-group has-feedback  has-feedback-left">
+                <label class="control-label is-visible">Año</label>
+                <!--<input type="text" name="periodo_desde" ng-model="pei.periodo_desde" class="form-control"  id="yearpicker1" autocomplete="off">-->
+
+                <select ng-model="sec_programa_sectorial_finazas.ano" name="ano" id="select_ano" class="form-control">
+                    <option value="">Seleccione</option>
+                    <option ng-repeat="value in sec_programa_sectorial_finazas.lista_ano"  value="{{value}}">{{value}}</option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                    <i class="text-<%= COLOR.secundary %>  icon-archive"></i>
+                </div>
+                <span ng-if="sec_programa_sectorial_finazas.validate['ano'].messages.length > 0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in sec_programa_sectorial_finazas.validate['ano'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                 </span>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.decimal('valor', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    $(document).ready(function() {
+        $('#select_ano').select2();
+    });
+</script>
+
+<style>
+    #select2-select_ano-container {
+        margin-left: 15px !important;
+    }
+</style>
+
+
+
+
+

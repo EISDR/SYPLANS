@@ -1,0 +1,134 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('ano_referencia', scope, {
+                    length: 4, trueplaceholder: "Año de Referencia"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('agrupador', scope, {
+                    column: 'nombre',
+                    table: 'agrupador',
+                    text: 'item.nombre'
+                }) %>
+            </div>
+            <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                <li class="active">
+                    <a class="active" href="#re1" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Objetivos</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a class="active" href="#re2" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Objetivos Relacionados</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a class="active" href="#re3" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Valores de Indicadores</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li class="">
+                    <a class="active" href="#re4" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Programas</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a class="active" href="#re5" data-toggle="tab">
+                        <i class="position-left"></i>
+                        <language>Temáticas</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="re1">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("objetivo_localizacion", scope, {
+                            text: "item.nombre",
+                            table: "objetivo_localizacion",
+                            field: "localizacion",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="re2">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("objetivo_relacionados", scope, {
+                            text: "item.nombre",
+                            table: "objetivo_relacionados",
+                            field: "localizacion",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="re3">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("valor_inidcador_localizacion", scope, {
+                            text: "item.nombre",
+                            table: "valor_inidcador_localizacion",
+                            field: "localizacion",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="re4">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("programa_localizacion", scope, {
+                            text: "item.nombre",
+                            table: "programa_localizacion",
+                            field: "localizacion",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="re5">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("tematica", scope, {
+                            text: "item.nombre",
+                            table: "tematica",
+                            field: "localizacion",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

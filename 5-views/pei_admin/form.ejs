@@ -1,0 +1,75 @@
+
+
+<div class="tab-content">
+    <div class="tab-pane active" id="pei_admin2">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-8 col-md-8 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 4000, placeholder: "Descripción"}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-3 form-group-material form-group has-feedback  has-feedback-left">
+                <label class="control-label is-visible">Período Desde</label>
+                <select ng-model="pei_admin.periodo_desde" name="periodo_desde" class="form-control" ng-disabled="pei_admin.estatus == 4">
+                    <option value="">Seleccione</option>
+                    <option ng-repeat="value in pei_admin.lista_ano"  value="{{value}}">{{value}}</option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                    <i class="icon-archive">
+                    </i>
+                </div>
+                <span ng-if="pei_admin.validate['periodo_desde'].messages.length > 0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in pei_admin.validate['periodo_desde'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                 </span>
+            </div>
+            <div class="col-sm-12 col-md-3 form-group-material form-group has-feedback  has-feedback-left">
+                <label class="control-label is-visible">Período Hasta</label>
+                <select ng-model="pei_admin.periodo_hasta" name="periodo_hasta" class="form-control" ng-disabled="pei_admin.estatus == 4">
+                    <option value="">Seleccione</option>
+                    <option ng-repeat="value in pei_admin.lista_ano"  value="{{value}}">{{value}}</option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                    <i class="icon-archive">
+                    </i>
+                </div>
+                <span ng-if="pei_admin.validate['periodo_hasta'].messages.length > 0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in pei_admin.validate['periodo_hasta'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                 </span>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("estatus", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "pei_estatus",
+                    icon: {class: "archive"},
+                    label: "Estatus"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2">
+                <%- FORM.checkbox("activo", scope, {text: 'Activo?'}) %>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    $('[name="periodo_desde"]').select2();
+    $('[name="periodo_hasta"]').select2();
+</script>
+

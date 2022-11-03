@@ -1,0 +1,102 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <%- include('angel/styles',{scope:scope}); %>
+    <%- include('gaby/styles',{scope:scope}); %>
+    <%- include('alam/styles',{scope:scope}); %>
+    <%- include('angel/scriptheader',{scope:scope}); %>
+    <%- include('gaby/scriptheader',{scope:scope}); %>
+    <%- include('alam/scriptheader',{scope:scope}); %>
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                    <a ng-click="<%= scope %>.refresh();">
+                        <i class="icon-rotate-cw3"></i>
+                    </a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="panel panel-flat" id="tabsComment" style="margin-top: -15px;" ng-if="!aacontroldemandog.unicomenu">
+            <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                <li class="active" id="active_comment_actividad">
+                    <a href="#mis_act_apoyo" data-toggle="tab" ng-click="<%= scope %>.filtrar('cerrar')">
+                        <i class="position-left"></i>Calcular a la fecha<i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li id="activ_apoyo_tab">
+                    <a href="#activ_apoyo" data-toggle="tab" ng-click="<%= scope %>.filtrar('abrir')">
+                        <i class="position-left"></i>Calcular Períodos Transcurridos (pasado)<i
+                                class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div class="subcontent text-center" id="tabsComment" style="    margin-top: 100px;" ng-if="aacontroldemandog.unicomenu">
+            <div ng-if="!aacontroldemandog.aunnoexiste">
+            <button style="    width: 49%;"  class="controlContenedor" ng-click="<%= scope %>.filtrar('cerrar')">
+                <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos a la Fecha<i class="border-white  position-right"></i>
+            </button>
+            <button style="    width: 49%; margin-top: 100px;"   class="controlContenedor" ng-click="<%= scope %>.filtrar('abrir')">
+                <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos de Períodos Transcurridos (pasado)<i
+                        class="border-white  position-right"></i>
+            </button>
+            </div>
+            <div ng-if="aacontroldemandog.aunnoexiste">
+                <div class="swal2-icon swal2-info swal2-animate-info-icon" style="display: flex;width: 210px;height: 139px;padding-top: 72px !important;">
+                    <span style="    font-size: 200px;" class="swal2-icon-text">i</span>
+                </div>
+                <h1>{{aacontroldemandog.aunnoexiste}}</h1>
+            </div>
+        </div>
+        <div class="subcontent text-center" ng-if="!aacontroldemandog.unicomenu">
+            <h4 style="text-align: left"  >
+                Seleccione el punto de partida para visualizar los cumplimientos.
+            </h4>
+            <div class="container" style="width: 100%">
+                <div class="col-sm-12" style="margin-top: 10px" ng-if="!<%= scope %>.modolista && !aacontroldemandog.unicomenu">
+                    <center>
+                        <div class="panel panel-default" style="height: 200px;width: 300px;margin-left: 25px;">
+                            <div class="panel-heading text-center"
+                                 style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                <h5 title="Cumplimiento General"
+                                    style=" height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    <b>Cumplimiento General</b>
+                                </h5>
+                            </div>
+                            <div class="panel-body text-center">
+                                <div class="row" style="height: 50px;">
+                                    <div id="graficoGeneral"
+                                         style="text-align: center;float: right;margin: -15px -16px 0 0px;">
+                                    </div>
+                                    <h4 style="margin-top: -85px;margin-left: 90px;float: left;">
+                                        {{<%= scope %>.generalPonderacion.titulo}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+                <div class="containerGeneral" style="width: 100%" ng-if="!aacontroldemandog.unicomenu">
+                    <div class="row"
+                         ng-repeat="(key,value) in <%= scope %>.mainMenu track by key"
+                         ng-style="{'margin-top': (key > 0)? '2rem' : ''}">
+                        <div class="col-sm-{{data.col||3}}"
+                             ng-repeat="(id,data) in value.row">
+                            <button class="controlContenedor" style="font-size: 20px;text-overflow: ellipsis;overflow: hidden;white-space: inherit;"
+                                    ng-click="<%= scope %>.execute(data.link)">{{data.title}}
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<%- include('angel/scriptfooter',{scope:scope}); %>
+<%- include('gaby/scriptfooter',{scope:scope}); %>
+<%- include('alam/scriptfooter',{scope:scope}); %>

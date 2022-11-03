@@ -1,0 +1,221 @@
+<style>
+    .dash-presupuesto-detalle {
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 class="panel-title">Presupuesto</h6>
+                </div>
+                <div class="panel-body pesupuesto" id="presupuestos" style="cursor: default !important;">
+                    <div style="border-left: 0px !important;cursor: default !important;"
+                         class="col-md-3 col-sm-12 col-md-offset-1">
+                        <label class="dash-presupuesto-monto color-aprove" style="cursor: default !important;">
+                            {{  vw_dashboard_proyecto.presupuestos.aprobado}}</label>
+                        <label class="dash-presupuesto-label" style="cursor: default !important;">Aprobado</label>
+                    </div>
+                    <div onclick="vw_dashboard_proyecto.openmodalactividades('ejecutado')" class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto dash-presupuesto-detalle color-not-execute">
+                            {{vw_dashboard_proyecto.presupuestos.ejecutado}}</label>
+                        <label class="dash-presupuesto-label dash-presupuesto-detalle">Ejecutado</label>
+                    </div>
+                    <!--<div class="col-md-2 col-sm-12">-->
+                    <!--<label class="dash-presupuesto-monto color-payment"> {{vw_dashboard_proyecto.presupuestos.cuentasporpagar}}</label>-->
+                    <!--<label class="dash-presupuesto-label">Cuentas por Pagar</label>-->
+                    <!--</div>-->
+                    <div class="col-md-2 col-sm-12" style="cursor: default !important;">
+                        <label class="dash-presupuesto-monto color-schedule" style="cursor: default !important;">
+                            {{vw_dashboard_proyecto.presupuestos.reprogramar}}</label>
+                        <label class="dash-presupuesto-label" style="cursor: default !important;">Disponible</label>
+                    </div>
+                    <div onclick="vw_dashboard_proyecto.openmodalactividades('no ejecutado')" class="col-md-3 col-sm-12">
+                        <label class="dash-presupuesto-monto dash-presupuesto-detalle color-execute">
+                            {{vw_dashboard_proyecto.presupuestos.noejecutado}}</label>
+                        <label class="dash-presupuesto-label dash-presupuesto-detalle">No Ejecutado</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="col-md-6">
+        <div class="col-lg-12 pl-0 pr-0" id="productos">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 ng-show="vw_dashboard_proyecto.usery.tipo_institucion == 1" class="panel-title">Proyectos Especiales</h6>
+                </div>
+                <div class="panel-body">
+                    <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
+                        <div class="col-md-12 col-sm-12 pricipal col-md-offset-1">
+                            <label ng-click="vw_dashboard_proyecto.openmodalproductos(' ')"
+                                   style="{{vw_dashboard_proyecto.productos.cantidad !='00' ? 'default' : 'pointer'}}"
+                                   class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.productos.cantidad}}</label>
+                            <label ng-show="vw_dashboard_proyecto.usery.tipo_institucion == 1" class="dash-presupuesto-label">Proyectos Especiales</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalproductos('planificados')"
+                                       style="cursor: {{vw_dashboard_proyecto.productos.planificados != '00' ? 'default' : 'pointer'}};"
+                                       class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.productos.planificados}}</label>
+                                <label class="dash-presupuesto-label">Planificados</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalproductos('iniciados')"
+                                       style="{{vw_dashboard_proyecto.productos.ejecucion!='00'?'default':'pointer'}}"
+                                       class="dash-presupuesto-monto-2 color-execute">{{vw_dashboard_proyecto.productos.iniciados}}</label>
+                                <label class="dash-presupuesto-label">Iniciados</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalproductos('en proceso')"
+                                       style="{{vw_dashboard_proyecto.productos.proceso!='00'?'default':'pointer'}}"
+                                       class="dash-presupuesto-monto-2 color-stop">{{vw_dashboard_proyecto.productos.proceso}}</label>
+                                <label class="dash-presupuesto-label">En Proceso</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalproductos('vencidos')"
+                                       style="{{vw_dashboard_proyecto.productos.vencidos!='00'?'default':'pointer'}}"
+                                       class="dash-presupuesto-monto-2 color-not-execute">{{vw_dashboard_proyecto.productos.vencidos}}</label>
+                                <label class="dash-presupuesto-label">Vencidos</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalproductos('finalizados')"
+                                       style="{{vw_dashboard_proyecto.productos.completados!='00'?'default':'pointer'}}"
+                                       class="dash-presupuesto-monto-2 color-completed">{{vw_dashboard_proyecto.productos.finalizados}}</label>
+                                <label class="dash-presupuesto-label">Finalizados</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 pl-0 pr-0" id="actividades">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 class="panel-title">Actividades</h6>
+                </div>
+                <div class="panel-body">
+                    <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
+                        <div class="col-md-12 col-sm-12 pricipal col-md-offset-1">
+                            <label ng-click="vw_dashboard_proyecto.openmodalactividades(' ')"
+                                   style="{{vw_dashboard_proyecto.actividades.cantidad!='00'?'pointer':'default'}}"
+                                   class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.actividades.cantidad}}</label>
+                            <label class="dash-presupuesto-label">Actividades</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('planificados')"
+                                       style="{{vw_dashboard_proyecto.actividades.planificados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.actividades.planificados}}</label>
+                                <label class="dash-presupuesto-label">Planificadas</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('pendientes')"
+                                       style="{{vw_dashboard_proyecto.actividades.pendientes!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-pending">{{vw_dashboard_proyecto.actividades.pendientes}}</label>
+                                <label class="dash-presupuesto-label">Pendientes a Ejecución</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('ejecucion')"
+                                       style="{{vw_dashboard_proyecto.actividades.ejecucion!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-execute">{{vw_dashboard_proyecto.actividades.ejecucion}}</label>
+                                <label class="dash-presupuesto-label">En Ejecución</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('vencidos')"
+                                       style="{{vw_dashboard_proyecto.actividades.vencidos!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-not-execute">{{vw_dashboard_proyecto.actividades.vencidos}}</label>
+                                <label class="dash-presupuesto-label">Vencidas</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('cancelados')"
+                                       style="{{vw_dashboard_proyecto.actividades.cancelados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-cancel">{{vw_dashboard_proyecto.actividades.cancelados}}</label>
+                                <label class="dash-presupuesto-label">Canceladas</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalactividades('finalizados')"
+                                       style="{{vw_dashboard_proyecto.actividades.completados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-completed">{{vw_dashboard_proyecto.actividades.finalizados}}</label>
+                                <label class="dash-presupuesto-label">Finalizadas</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 pl-0 pr-0" id="asignaciones">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 class="panel-title">Asignaciones Especiales</h6>
+                </div>
+                <div class="panel-body">
+                    <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
+                        <div class="col-md-12 col-sm-12 pricipal col-md-offset-1">
+                            <label ng-click="vw_dashboard_proyecto.openmodalasignaciones(' ')"
+                                   style="{{vw_dashboard_proyecto.asignaciones.cantidad!='00'?'pointer':'default'}}"
+                                   class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.asignaciones.cantidad}}</label>
+                            <label class="dash-presupuesto-label">Asignaciones</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalasignaciones('planificados')"
+                                       style="{{vw_dashboard_proyecto.planificados.planificados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-aprove">{{vw_dashboard_proyecto.asignaciones.planificados}}</label>
+                                <label class="dash-presupuesto-label">Planificadas</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalasignaciones('en ejecución')"
+                                       style="{{vw_dashboard_proyecto.asignaciones.ejecucion!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-execute">{{vw_dashboard_proyecto.asignaciones.ejecucion}}</label>
+                                <label class="dash-presupuesto-label">En ejecución</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalasignaciones('vencidos')"
+                                       style="{{vw_dashboard_proyecto.asignaciones.vencidos!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-not-execute">{{vw_dashboard_proyecto.asignaciones.vencidos}}</label>
+                                <label class="dash-presupuesto-label">Vencidas</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalasignaciones('completados')"
+                                       style="{{vw_dashboard_proyecto.asignaciones.completados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-completed">{{vw_dashboard_proyecto.asignaciones.completados}}</label>
+                                <label class="dash-presupuesto-label">Completadas</label>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label ng-click="vw_dashboard_proyecto.openmodalasignaciones('cancelados')"
+                                       style="{{vw_dashboard_proyecto.asignaciones.cancelados!='00'?'pointer':'default'}}"
+                                       class="dash-presupuesto-monto-2 color-cancel">{{vw_dashboard_proyecto.asignaciones.cancelados}}</label>
+                                <label class="dash-presupuesto-label">Canceladas</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" id="indicadores">
+        <div id="vw_dashboard_proyectosgrid" ng-show="vw_dashboard_proyecto.departamento!= '[NULL]'"
+             ng-controller="vw_dashboard_proyectosgrid as vw_dashboard_proyectosgrid">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_proyectosgrid'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_proyectosgrid'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>

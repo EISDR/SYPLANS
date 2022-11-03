@@ -1,0 +1,53 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_departamento_presupuesto.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_departamento_presupuesto.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+            </script>
+            <h4 style="text-align: center">
+                ASIGNACIÓN PRESUPUESTARIA POR PROYECTO/PRODUCTO
+            </h4>
+
+
+            <table id="vw_departamento_presupuestoTable" class="table table-bordered">
+                <thead class="">
+                <tr height="20" style="background-color: #9c282d !important; color: white !important; "
+                    class="centralizarth">
+                    <th style="color: white !important;">Departamento</th>
+                    <th style="color: white !important;">Proyecto/Producto</th>
+                    <th style="color: white !important;">Presupuesto</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list">
+                    <td rowspan="{{vw_departamento_presupuesto.rowspanme('departamento',row.departamento,vw_departamento_presupuesto.vw_departamento_presupuesto_list)}}"
+                        ng-if="vw_departamento_presupuesto.seeme('departamento',row.departamento,key,vw_departamento_presupuesto.vw_departamento_presupuesto_list)"
+                    >
+                        {{row.departamento}}
+                    </td>
+                    <td rowspan="">
+                        {{row.producto}}
+                    </td>
+                    <td rowspan="">
+                        {{vw_departamento_presupuesto.money(row.presupuesto)}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!--end-->

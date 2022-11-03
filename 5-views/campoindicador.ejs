@@ -1,0 +1,86 @@
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='pei'">
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+        text: "item.no_indicador+ ' ' +item.nombre",
+        table: "vw_indicador_pei_drp",
+        icon: {class: "archive"},
+        truelabel: "Indicador PEI",
+        condition: "item.pei==" + scope + ".session.pei_id"
+    }) %>
+</div>
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='poa'">
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+        text: "item.no_indicador+ ' ' +item.nombre_indicador",
+        table: "vw_indicador_poa",
+        icon: {class: "archive"},
+        truelabel: "Indicador de Producto",
+        condition: "item.poa==" + scope + ".session.poa_id"
+    }) %>
+</div>
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='actividad'">
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+        text: "item.no_indicador+ ' ' +item.nombre_indicador",
+        table: "vw_indicador_actividad",
+        icon: {class: "archive"},
+        truelabel: "Indicador de Actividad",
+        condition: "item.poa==" + scope + ".session.poa_id"
+    }) %>
+</div>
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='proceso'">
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+        text: "item.no_indicador+ ' ' +item.nombre_indicador",
+        table: "vw_indicador_proceso",
+        icon: {class: "archive"},
+        truelabel: "Indicador de Procesos"
+    }) %>
+</div>
+
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='generico'" ng-show="!<%= scope %>.ayveteindicador">
+    <%- FORM.select("entidad", scope, {
+        allownew: false,
+        allownull: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+        text: "item.name",
+        value: "table_",
+        table: "indicador_generico_entidad",
+        icon: {class: "archive"},
+        truelabel: "Tipo de Indicador"
+    }) %>
+</div>
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='generico'" >
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
+
+        text: "item.nombre_indicador",
+        table: "vw_indicador_generico",
+        icon: {class: "archive"},
+        condition: "item.entidad==" + scope + ".entidad && item.compania==" + scope + ".session.compania_id",
+        truelabel: "Indicador"
+    }) %>
+</div>

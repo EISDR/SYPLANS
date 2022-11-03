@@ -1,0 +1,18 @@
+<style>
+    .dash-presupuesto-detalle {
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12" id="indicadores">
+        <div id="vw_dashboard_productosgrid_proceso" ng-show="dashboard_indicadores.departamento!= '[NULL]'"
+             ng-controller="vw_dashboard_productosgrid_proceso as vw_dashboard_productosgrid_proceso">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productosgrid_proceso'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productosgrid_proceso'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>

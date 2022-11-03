@@ -1,0 +1,666 @@
+<style>
+    .form-group {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .chart canvas {
+        cursor: pointer;
+    }
+</style>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="tab-pane">
+                        <div class="panel panel-flat" style="padding: 10px 10px 0px 10px; margin-bottom: 0px;">
+                            <div class='col-sm-6 col-md-6' ng-if="!control_mando_b.session.institucion_id">
+                                <%- FORM.select('filter_departamento', scope, {
+                                    allownull: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.nombre",
+                                    table: 'vw_departamento_filtro',
+                                    label: "Departamento",
+                                    icon: {class: "archive"},
+                                    condition: "item.compania==control_mando_b.session.compania_id && item.institucion==null"
+                                }) %>
+                            </div>
+                            <div class='col-sm-6 col-md-6' ng-if="control_mando_b.session.institucion_id">
+                                <%- FORM.select('filter_departamento', scope, {
+                                    allownull: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.nombre",
+                                    table: 'vw_departamento_filtro',
+                                    label: "Departamento",
+                                    icon: {class: "archive"},
+                                    condition: "item.institucion==control_mando_b.session.institucion_id"
+                                }) %>
+                            </div>
+                            <div class='col-sm-6 col-md-6'
+                                 ng-if="!control_mando_b.session.institucion_id && !control_mando_b.fixed">
+                                <%- FORM.select('filter_usuario', scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.completo",
+                                    table: 'vw_usuario',
+                                    label: "Usuario",
+                                    icon: {class: "archive"},
+                                    condition: "(item.compania==control_mando_b.session.compania_id) && (item.institucion==null)"
+                                }) %>
+                            </div>
+                            <div class='col-sm-6 col-md-6'
+                                 ng-if="control_mando_b.session.institucion_id && !control_mando_b.fixed">
+                                <%- FORM.select('filter_usuario', scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.completo",
+                                    table: 'vw_usuario',
+                                    label: "Usuario",
+                                    icon: {class: "archive"},
+                                    condition: "(item.compania==control_mando_b.session.compania_id)"
+                                }) %>
+                            </div>
+
+
+                            <div class='col-sm-6 col-md-6'
+                                 ng-if="!control_mando_b.session.institucion_id && control_mando_b.fixed">
+                                <%- FORM.select('filter_usuario', scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.completo",
+                                    table: 'vw_usuario',
+                                    label: "Usuario",
+                                    icon: {class: "archive"},
+                                    condition: "(item.compania==control_mando_b.session.compania_id) && (item.institucion==null) && (item.departamento==control_mando_b.filter_departamento)"
+                                }) %>
+                            </div>
+                            <div class='col-sm-6 col-md-6'
+                                 ng-if="control_mando_b.session.institucion_id && control_mando_b.fixed">
+                                <%- FORM.select('filter_usuario', scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    text: "item.completo",
+                                    table: 'vw_usuario',
+                                    label: "Usuario",
+                                    icon: {class: "archive"},
+                                    condition: "(item.compania==control_mando_b.session.compania_id) && (item.departamento==control_mando_b.filter_departamento)"
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <div class="panel panel-flat"
+                         ng-show="control_mando_b.showtable && control_mando_b.productos.length">
+                        <div class="panel-heading" style="background-color: #f7f7f7; padding: 5px 10px">
+                            <strong ng-show="control_mando_b.session.tipo_institucion == 1" style="font-size: 18px">Desglose
+                                de Proyecto/Producto</strong>
+                            <strong ng-show="control_mando_b.session.tipo_institucion == 2" style="font-size: 18px">Desglose
+                                de Proyecto/Plan de Acción</strong>
+                        </div>
+                        <div class="panel-body" style="padding: 0">
+                            <div class="col-sm-12 col-md-12">
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.productos.currentPage == 0"
+                                        ng-click="control_mando_b.paginations.productos.currentPage=control_mando_b.paginations.productos.currentPage-1">
+                                    Página Anterior
+                                </button>
+                                <h4 style="display: inline-block;margin-right: 16px">
+                                    Página {{control_mando_b.paginations.productos.currentPage+1}} de
+                                    {{control_mando_b.paginations.pages(control_mando_b.paginations.productos)}}
+                                </h4>
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.productos.currentPage >= control_mando_b.paginations.productos.data.length/control_mando_b.paginations.productos.pageSize - 1"
+                                        ng-click="control_mando_b.paginations.productos.currentPage=control_mando_b.paginations.productos.currentPage+1">
+                                    Siguiente Página
+                                </button>
+                            </div>
+                            <div class='col-sm-4 col-md-4' style="padding: 0"
+                                 ng-show="control_mando_b.paginations.show(control_mando_b.paginations.productos,key)"
+                                 ng-repeat="(key, value) in control_mando_b.paginations.productos.data"
+                                 repeat-end="control_mando_b.prueba()">
+                                <div class="panel panel-flat" style="margin: 0; cursor: pointer !important">
+                                    <div class="panel-body chart-container " style="padding: 10px 10px 20px 10px;"
+                                         ng-click="control_mando_b.open_view(value)">
+                                        <div class=chart-container" style="height: 280px">
+                                            <h6 class="productos" title="{{value.nombre}}" style="text-align: center">
+                                                <strong>
+                                                    {{control_mando_b.poco(value.nombre)}}
+                                                </strong>
+                                            </h6>
+                                            <div class="chart has-fixed-height" id="gauge_productos_{{key}}"
+                                                 style="height: 350px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 text-right">
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.productos.currentPage == 0"
+                                        ng-click="control_mando_b.paginations.productos.currentPage=control_mando_b.paginations.productos.currentPage-1">
+                                    Página Anterior
+                                </button>
+                                <h4 style="display: inline-block;margin-right: 16px">
+                                    Página {{control_mando_b.paginations.productos.currentPage+1}} de
+                                    {{control_mando_b.paginations.pages(control_mando_b.paginations.productos)}}
+                                </h4>
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.productos.currentPage >= control_mando_b.paginations.productos.data.length/control_mando_b.paginations.productos.pageSize - 1"
+                                        ng-click="control_mando_b.paginations.productos.currentPage=control_mando_b.paginations.productos.currentPage+1">
+                                    Siguiente Página
+                                </button>
+                            </div>
+                            <script>
+                                control_mando_b.get_productos = async function () {
+                                    control_mando_b.from_producto_actividades = await BASEAPI.listp('vw_gauge_actividad', {
+                                        limit: 0,
+                                        where: [
+                                            {
+                                                field: "estado",
+                                                operator: "NOT IN",
+                                                value: ["Cancelada", "Detenida"]
+                                            }
+                                        ]
+                                    });
+                                    control_mando_b.from_producto_actividades = control_mando_b.from_producto_actividades.data;
+                                    setTimeout(function () {
+                                        control_mando_b.gauge_producto_list = [];
+                                        control_mando_b.actividades_productos = [];
+                                        if (control_mando_b.from_gauge_productos) {
+                                            for (let i = 0; i < control_mando_b.from_gauge_productos.length; i++) {
+                                                debugger;
+                                                control_mando_b.gauge_producto_list['gauge_productos' + i] = (echarts.init(document.getElementById('gauge_productos_' + i), 'infographic'));
+                                                control_mando_b.actividades_productos[i] = control_mando_b.from_producto_actividades.filter(d => {
+                                                    return d.producto == control_mando_b.from_gauge_productos[i].id;
+                                                })
+                                                let total = 0;
+                                                if (control_mando_b.actividades_productos[i].length > 0) {
+                                                    let cantidad = control_mando_b.actividades_productos[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable_id)
+                                                                return false;
+                                                        return true;
+                                                    }).length;
+                                                    let proyectadas = control_mando_b.actividades_productos[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable_id)
+                                                                return false;
+                                                        return item.condicion == 'Planificada';
+                                                    }).length;
+                                                    let ejecucion = control_mando_b.actividades_productos[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable_id)
+                                                                return false;
+                                                        return item.estado == 'En ejecución';
+                                                    }).length;
+                                                    let completadas = control_mando_b.actividades_productos[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable_id)
+                                                                return false;
+                                                        return item.estado == 'Completada' && item.condicion == 'Ninguno';
+                                                    }).length;
+                                                    total = ((proyectadas + ejecucion + completadas) / cantidad) || 0;
+                                                } else {
+                                                    total = control_mando_b.from_gauge_productos[i].condition == 'Planificado' ? 1 : control_mando_b.from_gauge_productos[i].condition == 'En ejecución' ? 1 : control_mando_b.from_gauge_productos[i].estatus == 'Completado' ? 1 : 0;
+                                                }
+                                                let optiond = {
+                                                    darkMode: 'auto',
+                                                    graphics: {
+                                                        elements: {
+                                                            type: "group",
+                                                            cursor: "pointer"
+                                                        }
+                                                    },
+                                                    series: [{
+                                                        type: 'gauge',
+                                                        startAngle: 180,
+                                                        endAngle: 0,
+                                                        min: 0,
+                                                        max: 1,
+                                                        splitNumber: 10,
+                                                        axisLine: {
+                                                            lineStyle: {
+                                                                width: 6,
+                                                                shadowBlur: 4,
+                                                                color: [
+                                                                    [0.20, '#db0d22'],
+                                                                    [0.40, '#db630d'],
+                                                                    [0.60, '#fff700'],
+                                                                    [0.80, '#1cfc08'],
+                                                                    [1, '#0c9900']
+                                                                ]
+                                                            }
+                                                        },
+                                                        pointer: {
+                                                            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                                                            length: '12%',
+                                                            width: 20,
+                                                            offsetCenter: [0, '-60%'],
+                                                            itemStyle: {
+                                                                color: 'auto'
+                                                            }
+                                                        },
+                                                        axisTick: {
+                                                            length: 12,
+                                                            lineStyle: {
+                                                                color: 'auto',
+                                                                width: 2
+                                                            }
+                                                        },
+                                                        splitLine: {
+                                                            length: 20,
+                                                            lineStyle: {
+                                                                color: 'auto',
+                                                                width: 5
+                                                            }
+                                                        },
+                                                        axisLabel: {
+                                                            color: 'black',
+                                                            fontSize: 11,
+
+                                                            distance: -100,
+                                                            padding: [40, 15, 0, 17],
+                                                            formatter: function (value) {
+                                                                if (value === 0.9) {
+                                                                    return 'Excelente';
+                                                                } else if (value === 0.7) {
+                                                                    return 'Bueno';
+                                                                } else if (value === 0.5) {
+                                                                    return 'Regular';
+                                                                } else if (value === 0.3) {
+                                                                    return 'Malo';
+                                                                } else if (value === 0.1) {
+                                                                    return 'Muy Malo';
+                                                                }
+                                                            }
+                                                        },
+                                                        title: {
+                                                            offsetCenter: [0, '-20%'],
+                                                            fontSize: 30
+                                                        },
+                                                        detail: {
+                                                            fontSize: 22,
+                                                            offsetCenter: [0, '0%'],
+                                                            valueAnimation: true,
+                                                            formatter: function (value) {
+                                                                return Math.round(value * 100) + '%';
+                                                            },
+                                                            borderWidth: 1,
+                                                            color: 'black'
+                                                        },
+                                                        center: ["50%", "55%"],
+                                                        data: [{value: total}],
+                                                        radius: "85%"
+                                                    }]
+                                                };
+                                                control_mando_b.gauge_producto_list['gauge_productos' + i].setOption(optiond, true);
+                                            }
+                                        }
+                                        control_mando_b.calculate_productoEqualize();
+                                    }, 500);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12" style="margin-top: -20px;">
+                    <div class="panel panel-flat"
+                         ng-show="control_mando_b.showtable && control_mando_b.productos.length">
+                        <div class="panel-heading" style="background-color: #f7f7f7; padding: 5px 10px">
+                            <strong style="font-size: 18px">Desglose de Actividades</strong>
+                        </div>
+                        <div class="panel-body" style="padding: 0">
+                            <div class="col-sm-12 col-md-12">
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.actividades.currentPage == 0"
+                                        ng-click="control_mando_b.paginations.actividades.currentPage=control_mando_b.paginations.actividades.currentPage-1">
+                                    Página Anterior
+                                </button>
+                                <h4 style="display: inline-block;margin-right: 16px">
+                                    Página {{control_mando_b.paginations.actividades.currentPage+1}} de
+                                    {{control_mando_b.paginations.pages(control_mando_b.paginations.actividades)}}
+                                </h4>
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.actividades.currentPage >= control_mando_b.paginations.actividades.data.length/control_mando_b.paginations.actividades.pageSize - 1"
+                                        ng-click="control_mando_b.paginations.actividades.currentPage=control_mando_b.paginations.actividades.currentPage+1">
+                                    Siguiente Página
+                                </button>
+                            </div>
+                            <div class='col-sm-4 col-md-4' id="graficosactividades"
+                                 style="height: 320px;padding: 0;{{value.color.replace('danger','border: solid 5px #f99790;box-sizing: border-box;').replace('success','border: solid 5px lightgreen;box-sizing: border-box;')}}"
+                                 ng-show="control_mando_b.paginations.show(control_mando_b.paginations.actividades,key)"
+                                 ng-repeat="(key, value) in control_mando_b.paginations.actividades.data"
+                                 repeat-end="control_mando_b.get_actividades()">
+                                <div class="panel panel-flat" style="margin: 0">
+                                    <div class="panel-body chart-container"
+                                         style="padding: 10px 10px 20px 10px; cursor: pointer"
+                                         ng-click="control_mando_b.open_view_actividades(value)">
+                                        <div class=chart-container" style="height: 280px">
+                                            <h6 class="actividades" title="{{value.actividad}}"
+                                                style="text-align: center">
+                                                <strong>
+                                                    {{value.no2}} {{control_mando_b.poco(value.actividad)}}
+                                                </strong>
+                                            </h6>
+                                            <div class="chart has-fixed-height" id="gauge_actividades_{{key}}"
+                                                 style="height: 350px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 text-right">
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.actividades.currentPage == 0"
+                                        ng-click="control_mando_b.paginations.actividades.currentPage=control_mando_b.paginations.actividades.currentPage-1">
+                                    Página Anterior
+                                </button>
+                                <h4 style="display: inline-block;margin-right: 16px">
+                                    Página {{control_mando_b.paginations.actividades.currentPage+1}} de
+                                    {{control_mando_b.paginations.pages(control_mando_b.paginations.actividades)}}
+                                </h4>
+                                <button class="btn btn-primary"
+                                        ng-disabled="control_mando_b.paginations.actividades.currentPage >= control_mando_b.paginations.actividades.data.length/control_mando_b.paginations.actividades.pageSize - 1"
+                                        ng-click="control_mando_b.paginations.actividades.currentPage=control_mando_b.paginations.actividades.currentPage+1">
+                                    Siguiente Página
+                                </button>
+                            </div>
+                            <script>
+                                control_mando_b.get_actividades = async function () {
+                                    control_mando_b.from_actividades_apoyo = await BASEAPI.listp('vw_actividades_apoyo', {
+                                        limit: 0,
+                                        where: [
+                                            {
+                                                field: "estatus",
+                                                operator: "NOT IN",
+                                                value: [3, 4]
+                                            }
+                                        ]
+                                    });
+                                    control_mando_b.from_actividades_apoyo = control_mando_b.from_actividades_apoyo.data;
+                                    setTimeout(function () {
+                                        control_mando_b.gauge_actividades_list = [];
+                                        control_mando_b.actividades_act_apoyo = [];
+                                        if (control_mando_b.from_gauge_actividades) {
+                                            for (let i = 0; i < control_mando_b.from_gauge_actividades.length; i++) {
+                                                control_mando_b.gauge_actividades_list['gauge_actividades_' + i] = (echarts.init(document.getElementById('gauge_actividades_' + i), 'infographic'));
+                                                control_mando_b.actividades_act_apoyo[i] = control_mando_b.from_actividades_apoyo.filter(d => {
+                                                    return d.actividades_poa == control_mando_b.from_gauge_actividades[i].id;
+                                                })
+                                                let total = 0;
+                                                if (control_mando_b.actividades_act_apoyo[i].length > 0) {
+                                                    let cantidad = control_mando_b.actividades_act_apoyo[i].length;
+                                                    let planificadas = control_mando_b.actividades_act_apoyo[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable)
+                                                                return false;
+                                                        return item.condition == 'Planificada';
+                                                    }).length;
+                                                    let ejecucion = control_mando_b.actividades_act_apoyo[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable)
+                                                                return false;
+                                                        return item.estatus == 5;
+                                                    }).length;
+                                                    let completadas = control_mando_b.actividades_act_apoyo[i].filter((item) => {
+                                                        if (control_mando_b.filter_usuario !== '[NULL]')
+                                                            if (control_mando_b.filter_usuario != item.responsable)
+                                                                return false;
+                                                        return item.estatus == 2 && item.condition == 'Ninguno';
+                                                    }).length;
+                                                    total = (planificadas + ejecucion + completadas) / cantidad;
+                                                } else {
+                                                    total = control_mando_b.from_gauge_actividades[i].condition == 'Planificada' ? 1 : control_mando_b.from_gauge_actividades[i].condition == 'En ejecución' ? 1 : control_mando_b.from_gauge_actividades[i].estatus == 'Completada' ? 1 : 0;
+                                                }
+                                                let optiond = {
+                                                    darkMode: 'auto',
+                                                    graphics: {
+                                                        elements: {
+                                                            type: "group",
+                                                            cursor: "pointer"
+                                                        }
+                                                    },
+                                                    series: [{
+                                                        type: 'gauge',
+                                                        startAngle: 180,
+                                                        endAngle: 0,
+                                                        min: 0,
+                                                        max: 1,
+                                                        splitNumber: 10,
+                                                        axisLine: {
+                                                            lineStyle: {
+                                                                width: 6,
+                                                                shadowBlur: 4,
+                                                                color: [
+                                                                    [0.20, '#db0d22'],
+                                                                    [0.40, '#db630d'],
+                                                                    [0.60, '#fff700'],
+                                                                    [0.80, '#1cfc08'],
+                                                                    [1, '#0c9900']
+                                                                ]
+                                                            }
+                                                        },
+                                                        pointer: {
+                                                            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                                                            length: '12%',
+                                                            width: 20,
+                                                            offsetCenter: [0, '-60%'],
+                                                            itemStyle: {
+                                                                color: 'auto'
+                                                            }
+                                                        },
+                                                        axisTick: {
+                                                            length: 12,
+                                                            lineStyle: {
+                                                                color: 'auto',
+                                                                width: 2
+                                                            }
+                                                        },
+                                                        splitLine: {
+                                                            length: 20,
+                                                            lineStyle: {
+                                                                color: 'auto',
+                                                                width: 5
+                                                            }
+                                                        },
+                                                        axisLabel: {
+                                                            color: 'black',
+                                                            fontSize: 11,
+
+                                                            distance: -100,
+                                                            padding: [40, 15, 0, 17],
+                                                            formatter: function (value) {
+                                                                if (value === 0.9) {
+                                                                    return 'Excelente';
+                                                                } else if (value === 0.7) {
+                                                                    return 'Bueno';
+                                                                } else if (value === 0.5) {
+                                                                    return 'Regular';
+                                                                } else if (value === 0.3) {
+                                                                    return 'Malo';
+                                                                } else if (value === 0.1) {
+                                                                    return 'Muy Malo';
+                                                                }
+                                                            }
+                                                        },
+                                                        title: {
+                                                            offsetCenter: [0, '-20%'],
+                                                            fontSize: 30
+                                                        },
+                                                        detail: {
+                                                            fontSize: 22,
+                                                            offsetCenter: [0, '0%'],
+                                                            valueAnimation: true,
+                                                            formatter: function (value) {
+                                                                return Math.round(value * 100) + '%';
+                                                            },
+                                                            borderWidth: 1,
+                                                            color: 'black'
+                                                        },
+                                                        center: ["50%", "55%"],
+                                                        data: [{value: total}],
+                                                        radius: "85%"
+                                                    }]
+                                                };
+                                                control_mando_b.gauge_actividades_list['gauge_actividades_' + i].setOption(optiond, true);
+                                            }
+                                            control_mando_b.calculate_actividadEqualize();
+                                        }
+                                    }, 500);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12" ng-show="false">
+<!--                     ng-show="control_mando_b.showtable">-->
+                    <div class="scrollit">
+                        <div dragonlanguage=""
+                             style="margin-top: 15px !important;"
+                             ng-show="!control_mando_b.productos.length"
+                             class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                            <language>MESSAGE.ic('table.nodata')</language>
+                        </div>
+                        <div class="" ng-show="control_mando_b.productos.length">
+                            <div class="page-header-lg page-header-sm page-header"
+                                 style="margin-bottom: -15px !important;">
+                                <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+                                <i class="icon-lifebuoy" style="top: -3px; font-size: 15px; margin-right: 5px"></i>
+                                <strong ng-show="control_mando_b.session.tipo_institucion == 1"
+                                        style="font-size: 18px;"> Listado de Proyecto/Producto y Actividades </strong>
+                                <strong ng-show="control_mando_b.session.tipo_institucion == 2"
+                                        style="font-size: 18px;"> Listado de Proyecto/Plan de Acción y
+                                    Actividades </strong>
+                                <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+                            </div>
+                            <ul id="leyendas" class="list-group" style="padding: 24px">
+                                <li style="float: right"><label class="ponerRedondo"
+                                                                style="background-color: #CECECE;"></label>
+                                    <label class="labelRedondo"> Completado/a </label></li>
+                                <li style="float: right"><label class="ponerRedondo"
+                                                                style="background-color: #FF0000;"></label>
+                                    <label class="labelRedondo"> Vencido/a </label></li>
+                                <li style="float: right"><label class="ponerRedondo"
+                                                                style="background-color: #548235;"></label>
+                                    <label class="labelRedondo"> En ejecución </label></li>
+                                <li style="float: right"><label class="ponerRedondo"
+                                                                style="background-color: #5F5FAF;"></label>
+                                    <label class="labelRedondo"> Planificado/a </label></li>
+                            </ul>
+                        </div>
+<!--                        <table class="table table-bordered" ng-show="control_mando_b.productos.length">-->
+<!--                            <thead>-->
+<!--                            <tr class="centralizarth"-->
+<!--                                style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">-->
+<!--                                <th style="width: 20%">Departamento</th>-->
+<!--                                <th ng-show="control_mando_b.session.tipo_institucion == 1" style="width: 20%">-->
+<!--                                    Proyecto/Producto-->
+<!--                                </th>-->
+<!--                                <th ng-show="control_mando_b.session.tipo_institucion == 1" style="width: 5%">Condición-->
+<!--                                    del Proyecto/Producto-->
+<!--                                </th>-->
+<!--                                <th ng-show="control_mando_b.session.tipo_institucion == 2" style="width: 20%">Proyecto/Plan de Acción-->
+<!--                                </th>-->
+<!--                                <th ng-show="control_mando_b.session.tipo_institucion == 2" style="width: 5%">Condición-->
+<!--                                    del Proyecto/Plan de Acción-->
+<!--                                </th>-->
+<!--                                <th style="width: 30%">Actividades</th>-->
+<!--                                <th style="width: 30%">Responsable</th>-->
+<!--                                <th style="width: 5%">Condición de la Actividad</th>-->
+<!--                                <th style="width: 20%">Presupuesto</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr ng-repeat="(i,producto) in control_mando_b.productos">-->
+<!--                                <td style="vertical-align: middle;"-->
+<!--                                    rowspan="{{control_mando_b.rowspanme('departamento_nombre_2', producto.departamento_nombre_2, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.seeme('departamento_nombre_2', producto.departamento_nombre_2, i, control_mando_b.productos)">-->
+<!--                                    {{producto.departamento_nombre_2}}-->
+<!--                                </td>-->
+<!--                                <td style="vertical-align: middle;"-->
+<!--                                    rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)">-->
+<!--                                    {{producto.no1}} {{producto.producto_nombre}}-->
+<!--                                </td>-->
+<!--                                <td style="text-align: center; vertical-align: middle;"-->
+<!--                                    rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)">-->
+<!--                                    <label class="shape_element"-->
+<!--                                           title="{{producto.condicion_producto == 'Ninguno' ? 'Ninguna Condición' : producto.condicion_producto }}"-->
+<!--                                           style="background-color: {{producto.condicion_producto == 'Planificado' ?'#5F5FAF': producto.condicion_producto == 'En ejecución'? '#548235': producto.condicion_producto == 'Vencido' ? '#FF0000': '#CECECE'}};">-->
+
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td style="vertical-align: middle;"-->
+<!--                                    rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)">-->
+<!--                                    <span ng-show="producto.actividad">{{producto.no2}} {{producto.actividad}}</span>-->
+<!--                                </td>-->
+<!--                                <td style="vertical-align: middle;"-->
+<!--                                    rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)">-->
+<!--                                    <span>{{producto.responsable_nombre}}</span>-->
+<!--                                </td>-->
+<!--                                <td-->
+<!--                                        rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)}}"-->
+<!--                                        ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1+d.actividad',i, control_mando_b.productos)"-->
+<!--                                        style="text-align: center; vertical-align: middle;">-->
+<!--                                    <label class="shape_element"-->
+<!--                                           ng-show="producto.actividad"-->
+<!--                                           title="{{producto.condicion_producto == 'Ninguna' ? 'Ninguna Condición' : producto.condition }}"-->
+<!--                                           style="background-color: {{producto.condition == 'Planificada' ?'#5F5FAF': producto.condition == 'En ejecución'? '#548235': producto.condition == 'Vencida' ? '#FF0000': '#CECECE'}};">-->
+
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td rowspan="{{control_mando_b.sp_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)}}"-->
+<!--                                    ng-if="control_mando_b.sm_('d.departamento_nombre_2+d.no1',i, control_mando_b.productos)"-->
+<!--                                    style="vertical-align: middle;">-->
+<!--                                    <ul ng-show="producto.actividad"-->
+<!--                                        style="list-style: none">-->
+<!--                                        <li>-->
+<!--                                            <b>Asignado: </b>{{control_mando_b.money(producto.presupuesto._pa)}}-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <b>Ejecutado: </b>{{control_mando_b.money(producto.presupuesto._pe)}}-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <b>Restante: </b>{{control_mando_b.money(producto.presupuesto._pr)}}-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    $(function () {
+        $('a[title]').tooltip();
+    });
+</script>

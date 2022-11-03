@@ -1,0 +1,230 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "menus": "",
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#vw_dashboard_proyecto",
+          "text": "Dashboard"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?-proyecto",
+          "text": "Cumplimiento de Proyectos Especiales"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#monitoreo_generico?vw_proyecto_item",
+          "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods3",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods3/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods3/llamadabarra",
+              "text": "Cumplimiento ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_alineacion_lineaestrategica",
+              "text": "Alineación con los proyectos - Resumen"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Cuadro de Mando ODS"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "list3",
+          "href": "#proyecto_item",
+          "text": "Proyectos Especiales"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#indicador_generico?vw_proyecto_item",
+          "text": "Indicadores de Proyectos Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_actividad_apoyo",
+              "text": "Actividades de Apoyo"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_item_actividad",
+              "text": "Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "library2",
+              "href": "#indicador_generico_poa?vw_proyecto_item",
+              "text": "Indicadores de Proyectos Especiales"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#proyecto_estatus",
+          "text": "Estatus de Proyectos Especiales"
+        },
+
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?modolista-proyecto",
+          "text": "Reporte Cumplimiento de Proyectos Especiales"
+        }
+      ],
+      "modal": "",
+      "icon": "list3",
+      "href": "#",
+      "text": "Gestión de Proyectos Especiales"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "menus": "",
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#vw_dashboard_proyecto",
+          "text": "Dashboard"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods3",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods3/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods3/llamadabarra",
+              "text": "Cumplimiento ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_alineacion_lineaestrategica",
+              "text": "Alineación con los proyectos - Resumen"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Cuadro de Mando ODS"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "list3",
+          "href": "#proyecto_item",
+          "text": "Proyectos Especiales"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#indicador_generico?vw_proyecto_item",
+          "text": "Indicadores de Proyectos Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_actividad_apoyo",
+              "text": "Actividades de Apoyo"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#vw_proyecto_item_actividad",
+              "text": "Actividades"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "library2",
+              "href": "#indicador_generico_poa?vw_proyecto_item",
+              "text": "Indicadores de Proyectos Especiales"
+            }
+          ],
+          "modal": "",
+          "icon": "list3",
+          "href": "#",
+          "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pencil7",
+          "href": "#proyecto_estatus",
+          "text": "Estatus de Proyectos Especiales"
+        }
+      ],
+      "modal": "",
+      "icon": "list3",
+      "href": "#",
+      "text": "Gestión de Proyectos Especiales"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+
+    <!--<p  dragonlanguage><language>MESSAGE.ic('alert.wizardMessage')</language></p>-->
+    <p style="text-align: center;width: 100%;float: left;font-size: 25px;margin-bottom: 38px;" dragonlanguage><language>Desea tener asistencia durante su configuración inicial?</language></p>
+
+
+    <div class="botf">
+        <div class="btn-group dropup ">
+            <button style="margin-right: 30px !important;" title="Guardar" type="button" role="button" class=" btn bg-success-800 btn-labeled btn-xs" ng-click="wizard.excecuteW('FUNKO')">
+                <b><i class="icon-checkmark"></i></b>
+                <language>Si</language>
+            </button>
+
+            <button style="margin-right: 0 !important;" title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="wizard.closeSet()">
+                <b><i class="icon-cross2"></i></b>
+                <language>No</language>
+            </button>
+        </div>
+
+    </div>
+
+</div>ddd

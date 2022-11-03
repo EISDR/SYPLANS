@@ -1,0 +1,138 @@
+<div class="subcontent" ng-if="vw_procesados.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="vw_procesados.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <table id="vw_procesadosExport" class="table table-bordered" style="margin-top: 15px;border: 3px solid;">
+        <tbody ng-repeat="(c, categoria) in vw_procesados.ordered">
+        <tr style="width: 250px;border: 3px solid black;vertical-align: middle;padding-top: 15px;padding-bottom: 15px;background-color: #004d80 !important;color: white !important;"
+            class="bg-primary">
+            <th style="background-color: #004d80 !important;color:  white !important;">
+                <div class="text-center">
+                    <h3 style="color:  white !important;font-weight: bold" class="no-margin text-semibold">
+                        {{categoria.nombre}}</h3>
+                    <h6 style="color:  white !important;font-weight: bold" class="no-margin text-semibold">
+                        {{categoria.desc}}</h6>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <td style="border: 3px solid;">
+                <div class="row">
+                    <div class="col-md-12 miproceso" ng-repeat="(p,proceso) in categoria.procesos">
+                        <div class="panel panel-body border-top-primary  text-center"
+                             style="background-color: #ddd !important;">
+                            <h4 class="no-margin text-semibold tituloproceso" title="{{proceso.desc}}">
+                                {{proceso.nombre}}<br>
+                            </h4>
+                            <div class="row documentis">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <th
+                                                    style="width: 50%;font-weight: bold;border: solid 1px black; background-color: #9BC2E6 !important; padding: 5px; text-align: center">
+                                                Objetivo
+                                            </th>
+                                            <th
+                                                    style="width: 50%;font-weight: bold;border: solid 1px black; background-color: #9BC2E6 !important;; padding: 5px; text-align: center">
+                                                Alcance
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{proceso.objetivo||'Ninguno'}}</td>
+                                            <td>{{proceso.alcance||'Ninguno'}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <th colspan="3"
+                                                style="font-weight: bold;border: solid 1px black; background-color: #9BC2E6 !important;; padding: 5px; text-align: center">
+                                                Documentos del Proceso
+                                            </th>
+                                        </tr>
+                                        <tr ng-if="!proceso.documentos.length" class="text-center">
+                                            <td>No hay registros.</td>
+                                        </tr>
+                                        <tr ng-if="proceso.documentos.length">
+                                            <th style="width: 15%;border: solid 1px black; background-color: #9BC2E6 !important;; padding: 5px; text-align: center">
+                                                Código
+                                            </th>
+                                            <th style="width: 50%;border: solid 1px black; background-color: #9BC2E6 !important;; padding: 5px; text-align: center">
+                                                Nombre
+                                            </th>
+                                            <th style="width: 30%;border: solid 1px black; background-color: #9BC2E6 !important;; padding: 5px; text-align: center">
+                                                Tipo
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="(d,documento) in proceso.documentos"
+                                            ng-if="proceso.documentos.length">
+                                            <td>{{documento.codigo}}</td>
+                                            <td>{{documento.nombre}}</td>
+                                            <td>{{documento.tipo||'Ninguno'}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <th colspan="3"
+                                                style="font-weight: bold;border: solid 1px black; background-color: #9BC2E6 !important; padding: 5px; text-align: center">
+                                                Indicadores del Proceso
+                                            </th>
+                                        </tr>
+                                        <tr ng-if="!proceso.elementos.length" class="text-center">
+                                            <td>No hay registros.</td>
+                                        </tr>
+                                        <tr ng-if="proceso.elementos.length">
+                                            <th style="width: 45%;border: solid 1px black; background-color: #9BC2E6 !important; padding: 5px; text-align: center">
+                                                Nombre
+                                            </th>
+                                            <th style="width: 45%;border: solid 1px black; background-color: #9BC2E6 !important; padding: 5px; text-align: center">
+                                                Detalle
+                                            </th>
+                                            <th style="width: 10%;border: solid 1px black; background-color: #9BC2E6 !important; padding: 5px; text-align: center">
+                                                Resultados
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="(d,elemento) in proceso.elementos"
+                                            ng-if="proceso.elementos.length">
+                                            <td>{{elemento.nombre}}</td>
+                                            <td ng-bind-html="vw_procesados.indicador(elemento).print"></td>
+                                            <td style="color:{{vw_procesados.indicador(elemento).color.replace('text-','')}} !important;">
+                                                <i style="cursor: pointer;font-size: 24px;color:{{vw_procesados.indicador(elemento).color.replace('text-','')}} !important;"
+                                                   title="{{vw_procesados.indicador(elemento).tooltip}}"
+                                                   class="border-white  position-right {{vw_procesados.indicador(elemento).icon}}"></i>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    vw_procesados.refreshAngular();
+</script>

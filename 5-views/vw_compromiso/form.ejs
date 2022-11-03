@@ -1,0 +1,47 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 drp-pt">
+                <%- FORM.select("tipo_compromiso", scope, {
+                    allowlist: false,
+                    allownew:false,
+                    allowedit:false,
+                    allowview:false,
+                    refresh:false,
+                    text: "item.nombre",
+                    table: "tipo_compromiso",
+                    icon: {class: "archive"},
+                    truelabel: "Tipo de compromiso",
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' style="margin-top: 8px;">
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.relation("otros_compromisos", scope, {
+                    text: "item.nombre",
+                    table: "otros_compromiso",
+                    field: "compromiso",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

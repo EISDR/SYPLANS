@@ -1,0 +1,40 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {disabled: true}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('compania', scope, {
+                    column: 'name',
+                    table: 'compania',
+                    disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('institucion', scope, {
+                    column: 'name',
+                    table: 'institucion',
+                    disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('estatus', scope, {
+                    //length:15
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

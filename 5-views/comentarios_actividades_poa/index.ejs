@@ -1,0 +1,17 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <%- include('base',{scope:'comentarios_actividades_poa'}); %>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    if (comentarios_actividades_poa.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_actividades_poa.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion){
+        comentarios_actividades_poa.setPermission("actions", false);
+        comentarios_actividades_poa.setPermission("remove", false);
+    }else{
+        comentarios_actividades_poa.setPermission("actions", true);
+        comentarios_actividades_poa.setPermission("remove", true);
+    }
+</script>

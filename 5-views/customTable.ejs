@@ -1,0 +1,835 @@
+<div class="dragon-panel" id="PACCDTablePanel"
+     style="overflow-x: hidden;margin-top: 20px;min-height: {{(<%= scope %>.table.currentLimit*74)+300}}px">
+
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+            <!--Breadcrumb and Table Options-->
+            <div class="breadcrumb-line">
+
+
+                <ul class="breadcrumb-elements visible-elements" style="margin-right: -30px;">
+
+                    <li class="dropdown visible-lg visible-md"
+                        ng-show="<%= scope %>.PACCROWS.length>1 && !<%= scope %>.filtro">
+                        <a dragonlanguage title="MESSAGE.i('navbar.RecordsPerPage')" href="#"
+                           class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                           aria-expanded="false" dragonlanguage="">
+                            <i dragonlanguage="" title="MESSAGE.i('navbar.RecordsPerPage')"
+                               class="icon-list"></i>
+                            ({{<%= scope %>.table.currentLimit===0?'All':<%= scope %>.table.currentLimit}})
+                            <span ng-show="<%= scope %>.getLimits().length>1" class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right"
+                            ng-show="<%= scope %>.getLimits().length>1">
+                            <li class="{{<%= scope %>.limitActive(row)}}"
+                                ng-repeat="(key, row) in <%= scope %>.getLimits() track by key">
+                                <a ng-show=" row != 0 " ng-click="<%= scope %>.goLimit(row)">{{row==0 ? '*' :row}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a ng-click="unificacion.open_export()" class="legitRipple"
+                           style="padding-right: 5px !important; padding-left: 5px !important;">
+                            <i dragonlanguage="" title="Generar F.069"
+                               class="icon-file-presentation loadingButton"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="<%= scope %>.new_export()"
+                           style="padding-bottom: 2px !important; padding-right: 5px !important; padding-left: 5px !important;"
+                           class="legitRipple">
+                            <i dragonlanguage="" title="Generar Archivo de Trabajo"
+                               class="icon-file-spreadsheet loadingButton"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="<%= scope %>.export()"
+                           style="padding-bottom: 2px !important; padding-right: 5px !important; padding-left: 5px !important;"
+                           class="legitRipple">
+                            <i dragonlanguage="" title="Generar F.053"
+                               class="icon-file-excel loadingButton"></i> 
+                        </a>
+                    </li>
+                    <li ng-show="false">
+                        <a ng-click="<%= scope %>.refresh()" class="legitRipple">
+                            <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')"
+                               class="icon-rotate-cw3 loadingButton"></i> 
+                        </a>
+                    </li>
+                    <li ng-show="false">
+                        <a ng-click="<%= scope %>.add()" class="legitRipple">
+                            <i dragonlanguage="" title="MESSAGE.ic('mono.add')" class="icon-plus-circle2 "></i> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--Breadcrumb and Table Options-->
+        </div>
+        <div class="subcontent" id="custom_container" style="overflow-x: scroll">
+
+            <div class="row" id="mobile_content">
+                <div class='col-sm-4 col-md-4' style="margin-bottom: 15px;">
+                    <label style="font-weight: bold">Filtro de búsqueda:</label>
+                    <input ng-model="<%= scope %>.filtro" onkeydown="<%= scope %>.updateteCant()"
+                           ng-change="<%= scope %>.updateteCant()"
+                           type="text"
+                           class="form-control">
+                    <button ng-disabled="!(<%= scope %>.filtro && <%= scope %>.cantidadfiltrada>0)" type="button"
+                            ng-show="<%= scope %>.allowedit"
+                            role="button"
+                            style="margin: -37px 0 0 0;"
+                            title="{{!<%= scope %>.filtro?'Colocar un filtro de búsqueda para poder utilizar esta opción':'Actualizar en masa'}}"
+                            class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="<%= scope %>.maza();">
+                        <b><i class="icon-list"></i></b>
+                        Actualizar en masa
+                    </button>
+                </div>
+                <div class="col-sm-1 col-md-1">
+
+                </div>
+                <div class='col-sm-3 col-md-3'>
+                    <label style="margin-bottom: 1% !important;">Estatus</label>
+                    <br>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Completo </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Incompleto </label></li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="col-sm-3 col-md-3" style="margin-bottom: 15px; float: right;">
+                    <label style="margin-bottom: 1% !important;">Revisión</label>
+                    <br>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Revisión </label></li>
+                        <li><label class="ponerRedondo" style="background-color: #e0c10d;"></label>
+                            <label class="labelRedondo"> Trabajado </label></li>
+                        <li><label class="ponerRedondo" style="background-color: #c2c2c2;"></label>
+                            <label class="labelRedondo"> Normal </label></li>
+                    </ul>
+                </div>
+                <br>
+                <div ng-show="!<%= scope %>.filtro">
+                    <%- include('../7-plugins/templates/table/paginator',{scope:scope}); %>
+                </div>
+            </div>
+            <table class=" table table-togglable table-framed sindu-table" id="tb-custom2"
+                   style="width: {{(<%= scope %>.rawestatus >= 5 ? 2000 : 1200) + (<%= scope %>.periodopoas.length*100)}}px !important; margin-bottom: 260px">
+                <thead class="">
+                <tr class="bg-secundary">
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('departamento')"
+                           class="ng-binding ng-scope">
+                            Departamento
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='departamento'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('cbs')"
+                           class="ng-binding ng-scope">
+                            Código de Catálogo de Bienes y Servicios (CBS)
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='cbs'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+
+                    <th width="300px" style="text-align: center; vertical-align: middle" height="0" rowspan="2">
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar por Descripción" ng-click="<%= scope %>.ordenar('descripcion')"
+                           class="ng-binding ng-scope">
+                            Descripción
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='descripcion'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('unidad')"
+                           class="ng-binding ng-scope">
+                            Unidad de Medida
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='unidad'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+                    <th style="text-align: center" colspan="{{<%= scope %>.periodopoa}}">
+                        Cantidad x Período
+                    </th>
+                    <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Cantidad Total
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('precio_unitario')"
+                           class="ng-binding ng-scope">
+                            Precio Unitario
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='precio_unitario'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+                        Costo Total Unitario
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('costo_total_real')"
+                           class="ng-binding ng-scope">
+                            Costo Total por Código de Catálogo de Bienes y Servicios (CBS)
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='costo_total_real'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('procedimiento_seleccion')"
+                           class="ng-binding ng-scope">
+                            Procedimiento de Selección
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='procedimiento_seleccion'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+                    <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
+                        ng-show="<%= scope %>.rawestatus >= 5">
+
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('fuente_financiamiento')"
+                           class="ng-binding ng-scope">
+                            Fuente de Financiamiento
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename==='fuente_financiamiento'"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+                    </th>
+
+                    <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Estatus</th>
+                    <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Revisión</th>
+                    <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Acciones</th>
+                </tr>
+                <tr class="bg-secundary">
+                    <th width="100px" style="text-align: center; vertical-align: middle" height="0"
+                        ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                        <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                           title="Clic para ordenar" ng-click="<%= scope %>.ordenar('periodo_'+p)"
+                           class="ng-binding ng-scope">
+                            {{<%= scope %>.monitoreo_nombre}} {{p}}
+                        </a>
+
+                        <i ng-show="<%= scope %>.ordename===('periodo_'+p)"
+                           class="cursor-pointer icon-arrow-{{<%= scope %>.ordenametipo==='asc'?'down':'up'}}7"
+                           title="Clic para ordenar">
+                        </i>
+
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key,row) in <%= scope %>.PACCROWS" class="paccrow"
+                    ng-show="<%= scope %>.tab ? <%= scope %>.filtro ? (<%= scope %>.filtrar(row,<%= scope %>.filtro, <%= scope %>.tab) ) : (<%= scope %>.filtrar(row,<%= scope %>.tab)) : <%= scope %>.filtro ? (<%= scope %>.filtrar(row,<%= scope %>.filtro)) : <%= scope %>.offlineVisible(key)">
+                    <td style="text-align: center" ng-show="<%= scope %>.rawestatus >= 5"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div style="margin-top: 20px"
+                             class="remove-input-space form-group-material form-group has-feedback-left">
+                            {{<%= scope %>.PACCROWS[key].departamento}}
+                        </div>
+                    </td>
+                    <td ng-show="<%= scope %>.rawestatus >= 5" style="min-width: 220px;"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].cbs?'success':'error'}}  has-feedback-left">
+                            <input id="cbs_{{key}}" ng-model="<%= scope %>.PACCROWS[key].cbs"
+                                   ng-change="<%= scope %>.saveA(key)"
+                                   ng-disabled="!<%= scope %>.allowedit"
+                                   class="form-control"
+                                   style="display: none"
+                                   title="{{<%= scope %>.getSelectedText('cbs', key)}}"/>
+
+                            <button style="margin-top: 23px;cursor: pointer;width: 100%"
+                                    ng-show="<%= scope %>.list===undefined"
+                                    class="btn btn-danger"
+                                    ng-click="<%= scope %>.loadlist(key)"
+                                    title="click para recargar">
+                                Error al cargar la lista CBS, click para recargar
+                            </button>
+                            <label style="width: 85%;margin-top: 23px;cursor: pointer"
+                                   ng-show="<%= scope %>.list!==undefined"
+                                   ng-click="<%= scope %>.cbslist(key)"
+                                   title="{{<%= scope %>.dbsdesc(key)}}">
+                                {{<%= scope %>.dbsdesc(key)}}
+                            </label>
+                            <a ng-show="<%= scope %>.list!==undefined" title="Clic para editar." class="dropdown-toggle"
+                               ng-click="<%= scope %>.cbslist(key)"
+                               style="float: right;margin: 25px 0 0 0;">
+                                <i class=" icon-pencil5 text-black-300"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div id="descripcion_{{key}}"
+                             class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].descripcion.length>0?'success':'error'}}  has-feedback-left">
+                                    <textarea rows="10" ng-model="<%= scope %>.PACCROWS[key].descripcion"
+                                              maxlength="1000"
+                                              ng-change="<%= scope %>.saveA(key)"
+                                              class="form-control"
+                                              ng-model-onblur="<%= scope %>.save(key)"
+                                              ng-disabled="!<%= scope %>.allowedit"
+                                              placeholder="" style="max-height: 38px;">
+                                    </textarea>
+                        </div>
+                    </td>
+                    <td ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.validate_cbs(key)?<%= scope %>.PACCROWS[key].unidad?'success':'error':'error'}}  has-feedback-left">
+                            <select id="unidad_{{key}}" ng-model="<%= scope %>.PACCROWS[key].unidad"
+                                    ng-change="<%= scope %>.saveA(key)"
+                                    ng-disabled="!<%= scope %>.allowedit"
+                                    class="form-control"
+                                    title="{{<%= scope %>.getSelectedText('unidad', key)}}">
+                                <option value="">Seleccione</option>
+                                <option ng-repeat="(k,v) in <%= scope %>.unidad_medida"
+                                        value="{{v.id}}">{{v.nombre}}
+                                </option>
+                            </select>
+                            <span ng-show="!<%= scope %>.validate_cbs(key)" class="help-block">
+                                <p class="text-error">
+                                    <i class="icon-cancel-circle2 text-danger"></i> La unidad de medida debe de ser la misma
+                                </p>
+                            </span>
+                        </div>
+                    </td>
+                    <td ng-repeat="(i,p) in <%= scope %>.periodopoas"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.valid_period(key)}}  has-feedback-left">
+                            <input id="cantidad_total_{{key}}" type="text"
+                                   ng-model="<%= scope %>.PACCROWS[key]['periodo_'+p]"
+                                   ng-change="<%= scope %>.saveA(key)"
+                                   maxlength="12"
+                                   autocomplete="off"
+                                   class="form-control numbers"
+                                   ng-disabled="!<%= scope %>.allowedit"
+                                   placeholder=""/>
+                        </div>
+                    </td>
+                    <td style="text-align: left"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div style="margin-top: 20px"
+                             class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                            {{<%= scope %>.tototal(row)}}
+                        </div>
+                    </td>
+                    <td ng-show="<%= scope %>.rawestatus >= 5"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['precio_unitario']>0?'success':'error'}}  has-feedback-left">
+                            <input id="precio_unitario_{{key}}" type="text"
+                                   ng-model="<%= scope %>.PACCROWS[key]['precio_unitario']"
+                                   ng-change="<%= scope %>.saveA(key)"
+                                   maxlength="12"
+                                   autocomplete="off"
+                                   class="form-control decimals"
+                                   ng-disabled="!<%= scope %>.allowedit"
+                                   placeholder=""/>
+                        </div>
+                    </td>
+                    <td style="text-align: center" ng-show="<%= scope %>.rawestatus >= 5"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div style="margin-top: 20px"
+                             class="remove-input-space form-group-material form-group  has-{{<%= scope %>.PACCROWS[key]['costo_total']>0?'success':'error'}} has-feedback-left">
+                            {{<%= scope %>.tototalUnitario(row)}}
+                        </div>
+                    </td>
+                    <td style="text-align: center" ng-show="<%= scope %>.rawestatus >= 5"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div style="margin-top: 20px"
+                             class="remove-input-space form-group-material form-group  has-{{<%= scope %>.PACCROWS[key]['costo_total_real']>0?'success':'error'}} has-feedback-left">
+                            {{<%= scope %>.tototalCBS(row)}}
+                        </div>
+                    </td>
+                    <td ng-show="<%= scope %>.rawestatus >= 5" style="min-width: 230px;"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].procedimiento_seleccion?'success':''}}  has-feedback-left">
+                            <select id="procedimiento_seleccion_{{key}}"
+                                    ng-model="<%= scope %>.PACCROWS[key].procedimiento_seleccion"
+                                    ng-change="<%= scope %>.saveA(key)"
+                                    ng-disabled="!<%= scope %>.allowedit"
+                                    class="form-control"
+                                    title="{{<%= scope %>.getSelectedText('procedimiento_seleccion', key)}}">
+                                <option value="">Seleccione</option>
+                                <option ng-repeat="(k,v) in <%= scope %>.procedimiento_seleccion"
+                                        value="{{v.id}}">{{v.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </td>
+                    <td ng-show="<%= scope %>.rawestatus >= 5" style="min-width: 230px;"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].fuente_financiamiento?'success':''}}  has-feedback-left">
+                            <select id="fuente_financiamiento_{{key}}"
+                                    ng-model="<%= scope %>.PACCROWS[key].fuente_financiamiento"
+                                    ng-change="<%= scope %>.saveA(key)"
+                                    ng-disabled="!<%= scope %>.allowedit"
+                                    class="form-control"
+                                    title="{{<%= scope %>.getSelectedText('fuente_financiamiento', key)}}">
+                                <option value="">Seleccione</option>
+                                <option ng-repeat="(k,v) in <%= scope %>.fuente_financiamiento"
+                                        value="{{v.id}}">{{v.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="context-control"
+                        oncontextmenu="return false;"
+                        ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <center style="margin-top: 16px;">
+                            <label class="shape_element"
+                                   style="background-color: {{row.validColor()?'#548235':'#FF0000'}};">
+
+                            </label>
+
+                        </center>
+
+
+                    </td>
+                    <td ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <center style="margin-top: 16px;">
+                            <label class="shape_element"
+                                   style="background-color: {{row.revision == 1  ?'#FF0000' : row.revision == 2 ? '#e0c10d' : '#c2c2c2'}};">
+
+                            </label>
+
+                        </center>
+
+
+                    </td>
+                    <td ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                        class="context-control"
+                        oncontextmenu="return false;"
+                        ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                        <ul class="icons-list dragon-action"
+                            style="z-index: 99999; text-align: center;  margin-top: 22px">
+                            <li ng-show="<%= scope %>.actions.length > 0" class="ng-scope">
+                                <a data-action="" title="Acciones"
+                                   class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <i class=" icon-cog2 text-black-300"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right dragon-menu">
+                                    <li ng-repeat="(min, option) in <%= scope %>.actions track by min">
+                                        <a title="{{option}}"
+                                           data-action="{{option}}"
+                                           ng-click="<%= scope %>.popaction(min,key)">
+                                            {{option}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="ng-scope">
+                                <a title="Ver y agregar comentarios"
+                                   ng-click="<%= scope %>.open_comment(key)">
+                                    <i class=" icon-comment text-black-300"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <table class=" table-print table-togglable table-framed sindu-table" id="tb-custom23"
+           style="width: {{2000+(<%= scope %>.periodopoas.length*100)}}px !important; display: none">
+        <thead class="">
+        <tr class=""
+            style="font-family: 'Arial Narrow';font-size: 14px">
+            <th width="200px"
+                style="height: 40px;text-align: center; vertical-align: middle"
+                height="0">
+                Código de Catálogo de Bienes y Servicios (CBS)
+            </th>
+
+            <th width="300px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Descripción
+            </th>
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Unidad de Medida
+            </th>
+            <th width="100px"
+                style="text-align: center; vertical-align: middle"
+                height="0"
+                ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                {{<%= scope %>.monitoreo_nombre}} {{p}}
+            </th>
+            <th style="text-align: center; vertical-align: middle"
+                height="0"
+            >Cantidad Total
+            </th>
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Precio Unitario
+            </th>
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Costo Total Unitario
+            </th>
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Costo Total por Código de Catálogo de Bienes y Servicios (CBS)
+            </th>
+
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Procedimiento de Selección
+            </th>
+            <th width="200px"
+                style="text-align: center; vertical-align: middle"
+                height="0">
+                Fuente de Financiamiento
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key,row) in <%= scope %>.PACCROWS" class="paccrow"
+            style="font-family: 'Arial Narrow';font-size: 12px">
+            <td>
+                {{<%= scope %>.PACCROWS[key].cbs}} -
+                {{<%= scope %>.c(<%= scope %>.cbs,'id',<%= scope %>.PACCROWS[key].cbs,'nombre')}}
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key].descripcion}}
+            </td>
+            <td>
+                {{<%= scope %>.c(<%= scope %>.unidad_medida,'id',<%= scope %>.PACCROWS[key].unidad,'nombre')}}
+            </td>
+            <td ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                {{<%= scope %>.PACCROWS[key]['periodo_'+p]}}
+            </td>
+            <td>
+                <div style="margin-top: 20px"
+                     class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                    {{<%= scope %>.tototal(row)}}
+                </div>
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key]['precio_unitario']}}
+            </td>
+            <td>
+                <div style="margin-top: 20px"
+                     class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                    {{<%= scope %>.tototalUnitario(row, true)}}
+                </div>
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key]['costo_total_real']}}
+            </td>
+            <td>
+                {{<%= scope %>.c(<%= scope %>.procedimiento_seleccion,'id',<%= scope %>
+                .PACCROWS[key].procedimiento_seleccion,'nombre')}}
+            </td>
+            <td>
+                {{<%= scope %>.c(<%= scope %>.fuente_financiamiento,'id',<%= scope %>
+                .PACCROWS[key].fuente_financiamiento,'nombre')}}
+            </td>
+
+
+        </tbody>
+    </table>
+    <table class=" table-print table-togglable table-framed sindu-table" id="tb-custom24"
+           style="width: {{2000+(<%= scope %>.periodopoas.length*100)}}px !important; display: none">
+        <thead class="">
+        <tr class="">
+            <th rowspan="5" style="border: none; font-family: 'Arial Narrow';">{{<%= scope %>.us.compania}}</th>
+            <th rowspan="5" colspan="13" style
+            "border: none"></th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid lightgray">Fecha de Revisión</th>
+            <th style="border: 1px solid lightgray"> {{<%= scope %>.lan.datetime(<%= scope %>
+                .paccData.fecha_revision)}}
+            </th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid lightgray">Fecha de Aprobación</th>
+            <th style="border: 1px solid lightgray"> {{<%= scope %>.lan.datetime(<%= scope %>
+                .paccData.fecha_aprobacion)}}
+            </th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid lightgray">Versión</th>
+            <th style="border: 1px solid lightgray"> {{<%= scope %>.version}}</th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid lightgray">Cantidad de Unidades de Compra</th>
+            <th style="border: 1px solid lightgray"> {{<%= scope %>.cantidad}}</th>
+        </tr>
+        <tr>
+            <th colspan="2" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important">Plan
+                Anual de compras y contrataciónes del año: {{<%= scope %>.paccData['año']}}
+            </th>
+            <th colspan="13"
+                style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important; text-align: center">
+                {{<%= scope %>.nombre}}
+            </th>
+        </tr>
+        <tr style="font-family: 'Arial Narrow'; font-size: 14px">
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th style="background-color: rgb(108,0,0);color:white; "
+                colspan="{{<%= scope %>.periodopoas.length}}">
+                Fecha de Necesidad
+            </th>
+        </tr>
+        <tr class="bg-secundary"
+            style="background-color: rgb(108,0,0);color:white;font-family: 'Arial Narrow';font-size: 14px">
+            <th width="200px"
+                style="height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Código de Catálogo de Bienes y Servicios (CBS)
+            </th>
+            <th width="200px"
+                style="height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Clasificador Presupuestario
+            </th>
+            <th width="300px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Descripción
+            </th>
+            <th width="200px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Unidad de Medida
+            </th>
+            <th width="100px"
+                style="mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0"
+                ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                {{<%= scope %>.monitoreo_nombre}} {{p}}
+            </th>
+            <th style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0"
+            >Cantidad Total
+            </th>
+            <th width="200px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Precio Unitario
+            </th>
+            <th width="100px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0"
+                ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                Costo {{<%= scope %>.monitoreo_nombre}} {{p}}
+            </th>
+            <th width="200px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Costo Total Unitario
+            </th>
+            <th width="200px"
+                style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                height="0">
+                Observación
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key,row) in <%= scope %>.PACCROWS" class="paccrow"
+            style="font-family: 'Arial Narrow';font-size: 12px">
+            <td>
+                {{<%= scope %>.PACCROWS[key].cbs}} -
+                {{<%= scope %>.c(<%= scope %>.cbs,'id',<%= scope %>.PACCROWS[key].cbs,'nombre')}}
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key].codigo_clasificador}} -
+                {{<%= scope %>.PACCROWS[key].desc_clasificador}}
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key].descripcion}}
+            </td>
+            <td>
+                {{<%= scope %>.c(<%= scope %>.unidad_medida,'id',<%= scope %>.PACCROWS[key].unidad,'nombre')}}
+            </td>
+            <td ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                {{<%= scope %>.PACCROWS[key]['periodo_'+p]}}
+            </td>
+            <td>
+                <div style="margin-top: 20px"
+                     class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                    {{<%= scope %>.tototal(row)}}
+                </div>
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key]['precio_unitario']}}
+            </td>
+            <td ng-repeat="(i,p) in <%= scope %>.periodopoas">
+                {{<%= scope %>.PACCROWS[key]['periodo_'+p] * <%= scope %>.PACCROWS[key]['precio_unitario']}}
+            </td>
+            <td>
+                <div style="margin-top: 20px"
+                     class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                    {{<%= scope %>.tototalUnitario(row, true)}}
+                </div>
+            </td>
+            <td>
+                {{<%= scope %>.PACCROWS[key].observacion}}
+            </td>
+        </tbody>
+    </table>
+    ​
+</div>
+<div class="modal nomodal" id="exampleModalCenter" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="tab-content" style="height: 700px;overflow: auto">
+                    <div class="tab-pane active" id="basic" style="width: 525px;">
+                        <div class="row">
+                            <div class="col-sm-9 col-md-9">
+                                <label style="font-weight: bold">Filtro de búsqueda:</label>
+                                <input ng-model="busquedacbs" type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-3 col-md-3">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <table class=" table table-togglable table-framed sindu-table" style="margin-top: 15px">
+                            <thead>
+                            <tr class="bg-secundary">
+                                <th>Código de Catálogo de Bienes y Servicios (CBS)</th>
+                                <th> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(i,cbs) in u_pacc_dept.list | filter:busquedacbs | limitTo:100">
+                                <td>{{cbs.cbsnombre}}</td>
+                                <td>
+                                    <button ng-click="u_pacc_dept.selectcbs(cbs)" class="btn btn-success"
+                                            style="height: 17px;padding: 0 3px 0 3px;font-size: 15px;">
+                                        Seleccionar
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#custom_container').scroll(function () {
+        $("#mobile_content").stop().animate({
+            "width": ($('#PACCDTablePanel').width() + $('#custom_container').scrollLeft()) > $('#tb-custom2').width() ? $('#tb-custom2').width() : $('#PACCDTablePanel').width() + $('#custom_container').scrollLeft() + "px",
+            "paddingLeft": ($('#custom_container').scrollLeft()) + "px"
+        });
+    });
+    $(function () {
+        setTimeout(function () {
+            <%= scope %>.
+            refresh()
+        }, 100)
+    })
+</script>

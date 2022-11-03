@@ -1,0 +1,14 @@
+{
+  "domain": "localhost",
+  "subdomain": "",
+  "folder": "Syplans",
+  "ssl": false,
+  "port": 8090,
+  "proxy": {
+    "domain": "localhost",
+    "subdomain": "",
+    "folder": "Syplans",
+    "ssl": false,
+    "port": 8090
+  }
+}

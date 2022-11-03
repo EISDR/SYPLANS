@@ -1,0 +1,402 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h3 style="margin-top: 15px;">Información del Fallo</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-sm-4 col-md-4 " ng-show="false">
+                            <%- FORM.inputview("id", scope, {
+                                placeholder: "id"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
+                            <%- FORM.select("mamfe_elemento", scope, {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowlist: false,
+                                allowview: false,
+                                refresh: false,
+                                disabled: true,
+                                text: "item.nombre",
+                                table: "vw_procesos_elemento",
+                                icon: {class: "archive"},
+                                truelabel: "Elemento del Proceso",
+                                condition: "item.institucion == riesgo_a.session.institucion_id"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
+                            <%- FORM.select("mamfe_elemento", scope, {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowlist: false,
+                                allowview: false,
+                                refresh: false,
+                                disabled: true,
+                                text: "item.nombre",
+                                table: "vw_procesos_elemento",
+                                icon: {class: "archive"},
+                                truelabel: "Elemento del Proceso",
+                                condition: "item.compania == riesgo_a.session.compania_id && item.institucion == null"
+                            }) %>
+                        </div>
+                        <div class="col-sm-4 col-md-4 " id="registrodiv">
+                            <%- FORM.inputview("view_registro", scope, {
+                                placeholder: "Nombre"
+                            }) %>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-3 col-md-3 ">
+                            <%- FORM.inputview("view_riesgo_a", scope, {
+                                placeholder: "Fallo"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <label class="control-label is-visible animate ng-binding">Departamento</label>
+
+                            <input style="margin-bottom: 20px;padding-top: 1px !important;overflow-x: hidden;overflow-wrap: break-word;height: 31.5px;text-align: left;"
+                                   id="metodo_calculo" disabled="" class="form-control ng-binding"
+                                   value="{{riesgo_a.tolorow.departamento_nombre}}">
+                        </div>
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.textarea('mamfe_efecto', scope, {
+                                trueplaceholder: "Efecto", disabled: true
+
+                            }) %>
+                        </div>
+
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.textarea('mamfe_causa', scope, {
+                                trueplaceholder: "Causa", disabled: true
+                            }) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"
+                                 style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                                <h3 style="margin-top: 15px;">Valores de Ponderación</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_gravedad', scope, {
+                                            trueplaceholder: "Valoración Gravedad (G)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_ocurrencia', scope, {
+                                            trueplaceholder: "Valoración Ocurrencia (O)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_deteccion', scope, {
+                                            trueplaceholder: "Valoración Detección (D)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+
+                                    <div class='col-sm-3 col-md-3'>
+                                        <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                                            <label class="control-label is-visible animate ng-binding"
+                                                   style="color:#000000 !important;">
+                                                Índice de Prioridad de Riesgos (IPR=GxOxD)
+                                            </label>
+
+                                            <input readonly
+                                                   value="{{(riesgo_a.mamfe_gravedad||0)*(riesgo_a.mamfe_ocurrencia||0)*(riesgo_a.mamfe_deteccion||0)}}"
+                                                   type="text"
+                                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                                                   style="padding-left: 31px !important;" placeholder=""
+                                                   disabled="disabled">
+
+                                            <div class="form-control-feedback ng-scope" style="top: 35px">
+                                                <i class="text-secundary icon-lock2">
+
+                                                </i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" ng-show="riesgo_a.todasaccionescorrectivas()">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"
+                                 style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                                <h3 style="margin-top: 15px;">Actualizar Valores</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_gravedad_current', scope, {
+                                            trueplaceholder: "Valoración Gravedad (G)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_ocurrencia_current', scope, {
+                                            trueplaceholder: "Valoración Ocurrencia (O)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3'>
+                                        <%- FORM.integer('mamfe_deteccion_current', scope, {
+                                            trueplaceholder: "Valoración Detección (D)",
+                                            disabled: true
+                                        }) %>
+                                    </div>
+
+                                    <div class='col-sm-3 col-md-3'>
+                                        <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                                            <label class="control-label is-visible animate ng-binding"
+                                                   style="color:#000000 !important;">
+                                                Índice de Prioridad de Riesgos (IPR=GxOxD)
+                                            </label>
+
+                                            <input readonly
+                                                   value="{{(riesgo_a.mamfe_gravedad_current||0)*(riesgo_a.mamfe_ocurrencia_current||0)*(riesgo_a.mamfe_deteccion_current||0)}}"
+                                                   type="text"
+                                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                                                   style="padding-left: 31px !important;" placeholder=""
+                                                   disabled="disabled">
+
+                                            <div class="form-control-feedback ng-scope" style="top: 35px">
+                                                <i class="text-secundary icon-lock2">
+
+                                                </i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-12 col-md-12'>
+                                        <%- FORM.textarea('observacion', scope, {
+                                            trueplaceholder: "Observación Final"
+                                        }) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default" ng-show="!<%= scope %>.esplan">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h3 style="margin-top: 15px;">Trabajar Respuesta al Riesgo</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4' ng-if="!riesgo_a.session.institucion_id">
+                            <%- FORM.select("estrategia", scope, {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                disabled:true,
+                                label: "Estrategia",
+                                table: "estrategia_tratamiento",
+                                text: "item.nombre",
+                                icon: {class: "archive"},
+                                condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == riesgo_a.drp_entidad)"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="riesgo_a.session.institucion_id">
+                            <%- FORM.select("estrategia", scope, {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                disabled:true,
+                                label: "Estado",
+                                table: "estrategia_tratamiento",
+                                text: "item.nombre",
+                                icon: {class: "archive"},
+                                condition: "(item.institucion == riesgo_a.session.institucion_id) && (item.entidad == riesgo_a.drp_entidad)"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-show="riesgo_a.fromWhere == 'matriz_riesgo'">
+                            <%- FORM.inputview('estado_plan_accion_nombre', scope, {
+                                placeholder: "Estado"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-show="riesgo_a.fromWhere == 'plan_accion'">
+                            <%- FORM.select("estado_plan_accion", scope, {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                disabled:true,
+                                refresh: false,
+                                label: "Estado",
+                                table: "riesgo_estatus",
+                                text: "item.nombre",
+                                icon: {class: "archive"},
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'
+                             ng-show="riesgo_a.fromWhere == 'plan_accion' && riesgo_a.estado_plan_accion == 2">
+                            <%- FORM.checkbox("ocurrencia", scope, {text: "Ocurrencia del Siniestro (S/N)"}) %>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="" id="Formutabs" ng-show="!<%= scope %>.esplan">
+                <div class="subcontent" style="padding-top: 0px;">
+                    <div class="row">
+                        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified"
+                            dragonlanguage="">
+                            <li class="active" id="control_tab">
+                                <a href="#control" data-toggle="tab" ng-click="actividades_poa_monitoreo.make_alert()">
+                                    <i class="position-left"></i>
+                                    Medidas de Control Reales
+                                    <i class="border-white  position-right"></i>
+                                </a>
+                            </li>
+                            <li class="" id="comment_tab">
+                                <a href="#comment" data-toggle="tab">
+                                    <i class="position-left"></i>
+                                    Comentarios
+                                    <i class="border-white  position-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="control">
+                            <div class="row">
+                                <div id="<%= 'riesgo_matriz_control' %>"
+                                     ng-controller="<%= 'riesgo_matriz_control' %> as <%= 'riesgo_matriz_control' %>">
+
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'riesgo_matriz_control'}); %>
+                                        <div class="subcontent">
+                                            <%- include('../../7-plugins/templates/table/base',{scope:'riesgo_matriz_control'}); %>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        riesgo_matriz_control.fixFilters = [{
+                                            field: 'riesgo',
+                                            value: Row_id
+                                        }, {field: 'riesgo_control', value: Matriz_id}];
+                                        riesgo_matriz_control.setPermission("actions", false);
+                                        riesgo_matriz_control.setPermission("add", false);
+                                        riesgo_matriz_control.setPermission("edit", false);
+                                        riesgo_matriz_control.setPermission("remove", false);
+                                        riesgo_matriz_control.setPermission("active", false);
+                                        riesgo_matriz_control.setPermission("view", false);
+                                        riesgo_matriz_control.setPermission("copy", false);
+                                        riesgo_matriz_control.setPermission("audit", false);
+                                    </script>
+                                </div><!--end-->
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="comment">
+                            <div class="row">
+                                <div id="vw_comentario_plan_accion"
+                                     ng-controller="vw_comentario_plan_accion as vw_comentario_plan_accion">
+                                    <script>
+                                        vw_comentario_plan_accion.fixFilters = [{
+                                            "field": "value",
+                                            "value": Matriz_id
+                                        }];
+                                    </script>
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'vw_comentario_plan_accion'}); %>
+                                        <div class="subcontent">
+                                            <%- include('../../7-plugins/templates/table/base',{scope:'vw_comentario_plan_accion'}); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="<%= scope %>.esplan" class="row">
+                <ul class="nav nav-primary nav-tabs primary nav-justified">
+
+
+                    <li class="active">
+                        <a href="#AC" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                            <i class="icon-archive position-left"></i>
+                            Acciones Correctivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#AP" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                            <i class="icon-archive position-left"></i>
+                            Acciones Preventivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <script>
+                        <%= scope %>.form.mode = 'edit';
+                    </script>
+                    <div class="tab-pane " id="AP">
+                        <%- FORM.relation("preventivas", scope, {
+                            text: "item.nombre",
+                            table: "auditoria_lista_preventiva",
+                            field: "riesgo",
+                            master: null,
+                            icon: {class: "archive"},
+                            readonly:true
+                        }) %>
+                    </div>
+                    <div class="tab-pane active" id="AC">
+                        <%- FORM.relation("correctivas", scope, {
+                            text: "item.nombre",
+                            table: "auditoria_lista_correctiva",
+                            custombase: 'auditoria_lista_correctiva',
+                            field: "riesgo",
+                            master: null,
+                            icon: {class: "archive"},
+                            readonly:true
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        if (Ocurrencia == 1) {
+            riesgo_a.ocurrencia = true;
+            riesgo_a.refreshAngular();
+        } else {
+            riesgo_a.ocurrencia = false;
+            riesgo_a.refreshAngular();
+        }
+    })
+</script>
+
+
+
+
+

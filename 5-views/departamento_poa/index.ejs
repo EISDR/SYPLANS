@@ -1,0 +1,264 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat grayPanel">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="row">
+                <div class="col-md-12" id="panelDepartamento">
+                    <div class="panel panel-<%= COLOR.secundary %>">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <%-
+                                    FORM.select("departamento", scope, {
+                                        // allownull: false,
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        label: "Departamento",
+                                        text: "item.nombre +' - '+ item.estatus_nombre",
+                                        // text: "item.nombre + ' ' + item.apellido",
+                                        table: "vw_presupuesto_departamento_auth",
+                                        field: "id",
+                                        columns: ["departamento"],
+                                        icon: {class:"archive"},
+                                        condition: "((item.id > 0) && (item.poa == departamento_poa.condiction) && (item.count_productos > 0))"
+                                    })
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div >
+                    <div id="panelEstatus" class="col-md-6" style="width: 50%;">
+                        <div class="panel panel-<%= COLOR.secundary %> min-heigth-panel">
+                            <div class="panel-heading aumentarTamanoLinear " style="">
+                                <h6 class="panel-title" dragonlanguage="">
+                                    <language ng-show="departamento_poa.session.tipo_institucion == 1">MESSAGE.i('columns.status_poa_change')</language>
+                                    <language ng-show="departamento_poa.session.tipo_institucion == 2">Cambiar estatus de la Gestión Presupuestaria</language>
+                                    <ul class="footer-modal-req pull-right">
+                                        <li class="modal- mf" dragonlanguage="">
+                                            <div>
+                                                <button style=" margin-right: 0"
+                                                        dragonlanguage=""
+                                                        title="Actualizar"
+                                                        type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-<%= COLOR.success %>-700"
+                                                        ng-click="departamento_poa.anadirComentario()"
+                                                        ng-show="departamento_poa.pei_activo() && departamento_poa.trucho">
+                                                    <b><i class="icon-floppy-disk"></i></b>
+                                                    <language>Actualizar</language>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <%-
+                                        FORM.select("estatus", scope, {
+                                            // allownull: false,
+                                            allownew: false,
+                                            allowedit: false,
+                                            allowview: false,
+                                            allowlist: false,
+                                            label: "Estatus",
+                                            text: "item.nombre",
+                                            table: "presupuesto_aprobado_estatus",
+                                            icon: {class:"archive"},
+                                            condition: "departamento_poa.bloqueo_estatus(item)"
+                                        })
+                                        %>
+                                    </div>
+                                </div>
+
+                            </div>
+                                <div class="modal-header-custom" dragonlanguage="">
+                                    <h6><language>MESSAGE.i('columns.add_coment')</language>
+                                        <ul class="footer-modal-req pull-right alinearIzquierda">
+                                            <li class="modal-footer mf" dragonlanguage="">
+                                                <div>
+                                                    <button style=" margin-right: 0"
+                                                            dragonlanguage=""
+                                                            title="Ver Comentarios"
+                                                            type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-<%= COLOR.info %>-700"
+                                                            ng-click="departamento_poa.verComentarios()"
+                                                            ng-show="departamento_poa.allow(['comment_status'])">
+                                                        <b><i class="icon-comment"></i></b>
+                                                        <language>Ver comentarios ({{departamento_poa.comentarios_depto}})</language>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                            <li class="modal-footer mf" dragonlanguage="">
+                                                <div>
+                                                    <button style=" margin-right: 0"
+                                                            dragonlanguage=""
+                                                            title="Guardar"
+                                                            type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-<%= COLOR.success %>-700"
+                                                            ng-click="departamento_poa.soloAnadirComentario()"
+                                                            ng-show="(departamento_poa.poa_activo() && departamento_poa.pei_activo())">
+                                                        <b><i class="icon-floppy-disk"></i></b>
+                                                        <language>Guardar</language>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </h6>
+
+
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12" ng-show="departamento_poa.pei_activo()">
+                                            <%-
+                                            FORM.textarea("comentario", scope, {
+                                                placeholder: "Comentario",
+                                                maxlength: 4000
+                                            })
+                                            %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                <div id="animationDepartamento"></div>
+                <div id="" class="col-md-6" ng-show="departamento_poa.estatus_pei">
+                    <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                        <language>El PEI no está autorizado </language>
+                    </div>
+                </div>
+                    <div id="panelLiberar" class="col-md-6" style="display:none">
+                        <div class="panel panel-<%= COLOR.secundary %> min-heigth-panel">
+                            <div class="panel-heading aumentarTamanoLinear " style="">
+                                <h6 class="panel-title" dragonlanguage>
+                                    <!--<language>MESSAGE.i('columns.presupuesto_dep')</language>-->
+                                    <label ><language>MESSAGE.i('columns.presupuesto_dep')</language></label>
+                                    <ul class="footer-modal-req pull-right" style="">
+                                        <li class="modal-footer mf" dragonlanguage="">
+                                            <div>
+                                                <button style=""
+                                                        dragonlanguage=""
+                                                        title="Liberar"
+                                                        type="button" role="button" class=" btn btn-labeled btn-xs tamanoBotones pull-right bg-<%= COLOR.success %>-700"
+                                                        ng-click="departamento_poa.liberar()"
+                                                        ng-show="(departamento_poa.allow(['break_free']) && departamento_poa.poa_activo())">
+                                                <b><i class="icon-floppy-disk"></i></b>
+                                                    <language>Liberar</language>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="presupuestos" >
+                                            <li style="padding: 15px"><label class="presupuestos-name">Presupuesto Departamanto</label><label class="presupuestos-value">{{departamento_poa.poner_mask(departamento_poa.data[0].presupuesto);}}</label></li>
+                                            <li style="padding: 15px"><label class="presupuestos-name">Presupuesto Asignado</label><label class="presupuestos-value">{{departamento_poa.poner_mask(departamento_poa.data[0].presupuesto_asignado);}}</label></li>
+                                            <li style="padding: 15px"><label class="presupuestos-name">Presupuesto Restante</label><label class="presupuestos-value">{{departamento_poa.poner_mask(departamento_poa.data[0].presupuesto_restante);}}</label></li>
+                                            <li style="padding: 15px" class="liberar"><label class="presupuestos-name">Presupuesto a Liberar</label><label class="presupuestos-value">{{departamento_poa.poner_mask(departamento_poa.data[0].presupuesto_detenido);}}</label></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-header-custom" dragonlanguage="">
+                                <h6><language>MESSAGE.i('columns.add_coment')</language>
+                                    <ul class="footer-modal-req pull-right alinearDerecha">
+                                        <li class="modal-footer  mf" dragonlanguage="">
+                                            <div>
+                                                <button style=" "
+                                                        dragonlanguage=""
+                                                        title="Ver Comentarios"
+                                                        type="button" role="button" class=" btn btn-labeled pull-right btn-xs tamanoBotones bg-<%= COLOR.info %>-700"
+                                                        ng-click="departamento_poa.verComentariosPresupuesto()"
+                                                        ng-show="departamento_poa.allow(['comment_budget'])">
+                                                    <b><i class="icon-comment"></i></b>
+                                                    <language>Ver comentarios ({{departamento_poa.comentarios_depto_liberar}})</language>
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li class="modal-footer  mf" dragonlanguage="" ng-show="(departamento_poa.viewBotonAddCommentLiberar && departamento_poa.poa_activo())">
+                                            <div>
+                                                <button style=""
+                                                        dragonlanguage=""
+                                                        title="Guardar"
+                                                        type="button" role="button" class=" btn btn-labeled btn-xs tamanoBotones pull-right bg-<%= COLOR.success %>-700"
+                                                        ng-click="departamento_poa.comentarioliberar()"
+                                                >
+
+                                                    <b><i class="icon-floppy-disk"></i></b>
+                                                    <language>Guardar</language>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12" ng-show="departamento_poa.viewBotonAddCommentLiberar">
+                                        <%- FORM.textarea("comentarioDepartamental", scope, {maxlength: 4000, placeholder: "Introduzca comentario"}) %>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-<%= COLOR.secundary %> grayPanel">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div id="vw_productos_auth_poa" ng-controller="vw_productos_auth_poa as vw_productos_auth_poa">
+                                        <div class="panel panel-flat">
+                                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_productos_auth_poa'}); %>
+                                            <div class="subcontent stop-margin">
+                                                <%- include('../../7-plugins/templates/table/base',{scope:'vw_productos_auth_poa'}); %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div id="vw_actividades_auth_poa" ng-controller="vw_actividades_auth_poa as vw_actividades_auth_poa">
+                                        <div class="panel panel-flat">
+                                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_actividades_auth_poa'}); %>
+                                            <div class="subcontent stop-margin">
+                                                <%- include('../../7-plugins/templates/table/base',{scope:'vw_actividades_auth_poa'}); %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    vw_productos_auth_poa.cell.dblselect = function (row) {
+    };
+    vw_actividades_auth_poa.cell.dblselect = function (row) {
+    };
+</script>

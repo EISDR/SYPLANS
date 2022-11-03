@@ -1,0 +1,67 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 64}) %>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <%- FORM.select("resultado", scope, {
+                    column: "resultado",
+                    text:"item.nombre",
+                    table: "drp_resultado",
+                    icon: {class: "archive"},
+                    label: "Resultado"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.datetime("fecha_inicio",scope, {
+                    placeholder: 'Fecha Inicio',
+                    timepicker: false,
+                    format: 'd/m/Y',
+                    callformat: 'YYYY/MM/DD',
+                    dynamnic : false,
+                    minDate: "fecha_inicio"
+                })%>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.datetime("fecha_fin",scope, {
+                    placeholder: 'Fecha Fin',
+                    timepicker: false,
+                    format: 'd/m/Y',
+                    callformat: 'YYYY/MM/DD',
+                    dynamnic : false,
+                    minDate: "fecha_inicio"
+                })%>
+            </div>
+            <div ng-if="productos_poa.validar_departamento" class="col-sm-4 col-md-4">
+                <%-FORM.select("departamento", scope, {
+                    allowview: false,
+                    text: "item.nombre",
+                    table: "departamento",
+                    // base: "producto",
+                    // master: null,
+                    field: "id",
+                    columns: ["id","nombre"],
+                    icon: {class:"archive"},
+                }) %>
+
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+    // $("[name='productos_poa_fecha_fin']").on('change', function () {
+    //         console.log(33);
+    //         console.log("hola: ", productos_poa.producto_object.fecha_fin);
+    //         // productos_poa.form.options.fecha_inicio.minDate = productos_poa.fecha_fin;
+    //         productos_poa.form.options.fecha_inicio.maxDate = productos_poa.fecha_fin;
+    //
+    //         productos_poa.form.options.fecha_fin.minDate = productos_poa.fecha_inicio;
+    //
+    // });
+
+</script>

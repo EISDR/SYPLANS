@@ -1,0 +1,91 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div> <br/> </div>
+        </div>
+
+            <div class="col-sm-6 col-md-6" ng-if="!asignacion_especial_poa.session.institucion">
+                <%-
+                FORM.select("departamento_solicitado", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Departamento a Solicitar",
+                    text: "item.nombre",
+                    table: "departamento",
+                    columns: ["nombre"],
+                    permission: "departamento",
+                    icon: {class:"archive"},
+                    condition: "(item.compania == asignacion_especial_poa.compania_id && item.institucion == null) && item.active == 1"
+                })
+                %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-if="asignacion_especial_poa.session.institucion">
+                <%-
+                        FORM.select("departamento_solicitado", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allowview: false,
+                            refresh: false,
+                            multiple: false,
+                            disabled: false,
+                            label: "Departamento a Solicitar",
+                            text: "item.nombre",
+                            table: "departamento",
+                            columns: ["nombre"],
+                            permission: "departamento",
+                            icon: {class:"archive"},
+                            condition: "item.institucion == asignacion_especial_poa.session.institucion_id && item.active == 1"
+                        })
+                %>
+            </div>
+                   <div class="col-sm-6 col-md-6">
+            <%-
+            FORM.select("responsable", scope, {
+                allownull: false,
+                allownew: false,
+                allowedit: false,
+                allowlist: false,
+                allowview: false,
+                refresh: false,
+                multiple: false,
+                disabled: false,
+                permission: "usuario",
+                label: "Responsable",
+                text: "item.nombre + ' ' + item.apellido",
+                table: "usuario",
+                columns: ["nombre"],
+                icon: {class:"archive"},
+                condition: "item.departamento == asignacion_especial_poa.departamento_solicitado && (item.active)"
+            })
+            %>
+        </div>
+
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin",
+                })%>
+            </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+
+</script>

@@ -1,0 +1,196 @@
+<style>
+    .icon-help {
+        cursor: pointer;
+        margin-left: 12px;
+        color: #989f9369 !important;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 " id="registrodiv">
+                <%- FORM.select("registro", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: url.split('query=')[1].replaceAll('RF',''),
+                    icon: {class: "archive"},
+                    label: "Registro"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 255,
+                    placeholder: "Nombre del Indicador",
+                    popover: {
+                        title: "Nombre",
+                        content: "Captura el nombre"
+                    }
+                }) %>
+            </div>
+
+            <div class="col-sm-12 col-md-6 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {
+                    maxlength: 4000,
+                    label: "Descripción del Indicador",
+                    label_custom: true
+                    // inputPlaceholder: "Descripción del indicador"
+                }) %>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-3 drp-pt remove-input-space">
+                <%- FORM.textarea("fuente", scope, {
+                    maxlength: 255,
+                    popover: {
+                        title: "Fuente",
+                        content: "Captura la fuente"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("metodo_calculo", scope, {
+                    maxlength: 255,
+                    label: "Método de Cálculo",
+                    label_custom: true,
+                    popover: {
+                        title: "Método de Cálculo",
+                        content: "Captura el método de cálculo"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
+                    trueplaceholder: "Desagregación Demográfica Geográfica",
+                    maxlength: 4000
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.select("caracteristica_indicador", scope, {
+                    text: "item.nombre",
+                    table: "caracteristica_indicador",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    truelabel: "Característica Indicador",
+                    condition: "item.compania == indicador_generico.session.compania_id && item.active == 1",
+                    get: {
+                        table: 'caracteristica_indicador_generico',
+                        tableDelete: 'caracteristica_indicador_generico',
+                        fieldFrom: 'id',
+                        fieldTo: 'indicador_generico',
+                        field: 'caracteristica'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("medio_verificacion", scope, {
+                    maxlength: 1000,
+                    label: "Medio de Verificación",
+                    label_custom: true,
+                    popover: {
+                        title: "Medio de Verificación",
+                        content: "Captura el medio de verificación"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("observacion", scope, {
+                    maxlength: 1000,
+                    label: "Observación",
+                    label_custom: true
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("poa_monitoreo", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    traduce: false,
+                    text: "item.nombre",
+                    table: "poa_monitoreo",
+                    icon: {class: "archive"},
+                    label: "Periodicidad"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3 ">
+                <div ng-show="!indicador_generico.applyMasksfalse">
+                    <%- FORM.select("tipo_meta", scope, {
+                        allowedit: false,
+                        allownew: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        column: "tipo_meta",
+                        text: "item.nombre",
+                        table: "tipoMeta",
+                        icon: {class: "archive"},
+                        label: "Tipo de dato de la meta",
+                        popover: {
+                            title: "Tipo Meta",
+                            content: "Captura los tipos de metas"
+                        }
+                    }) %>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-2 ">
+                <%- FORM.select("direccion_meta", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "direccionMeta",
+                    icon: {class: "archive"},
+                    label: "Dirección de la Meta",
+                    popover: {
+                        title: "Dirección Meta",
+                        content: "Captura las Direcciónes de la meta"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("ano_linea_base", scope, {
+                    placeholder: "Año Línea Base",
+                    maxlength: 4
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2" id="subcontainerLineaBase">
+            </div>
+        </div>
+
+        <div class="row">
+
+
+        </div>
+
+    </div>
+
+    <div ng-show="indicador_generico.form.mode == 'edit'" class="row" style="margin-bottom: 20px;">
+        <div class="subcontainer2 clearHtml">
+        </div>
+    </div>
+    <div ng-show="indicador_generico.form.mode == 'new'" class="row" style="margin-bottom: 20px;">
+        <div class="subcontainer1 clearHtml">
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+    $('[name="indicador_generico_linea_base"]').css("margin-top", "-6px");
+    $('[name="indicador_generico_fuente"]').css("margin-top", "-6px");
+</script>

@@ -1,0 +1,41 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="eje">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("end", scope, {
+                    text: "item.nombre",
+                    table: "end",
+                    icon: {class: "archive"},
+                    label: "Ejes Estratégicos alineados a los Ejes Estratégicos Institucionales",
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+            </div>
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-md-8 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <!--<div class="row">-->
+            <!--<button type="button" class="btn bg-<%= COLOR.warning %> btn-xs btn-labeled  mr-0 pull-right" style="right: 15px" ng-click="alineacionoe.pages.form.close()">-->
+                <!--<b><i class="icon-cross2"></i></b>-->
+                <!--<language>cancelar</language>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled  mr-0 pull-right" style="left: -30px" ng-click="alineacionoe.insertOE_END(this)">-->
+                <!--<b><i class="icon-floppy-disk"></i></b>-->
+                <!--<language>guardar</language>-->
+            <!--</button>-->
+        <!--</div>-->
+    </div>
+</div>
+<%- FORM.footer(scope) %>

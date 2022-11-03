@@ -1,0 +1,19 @@
+<div class="row">
+    <div id="comentarios_acciones_correctivas " ng-controller="comentarios_acciones_correctivas as comentarios_acciones_correctivas">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_acciones_correctivas'}); %>
+            <div class="subcontent">
+                <%- include('../../5-views/comentarios_acciones_correctivas/base',{scope:'comentarios_acciones_correctivas'}); %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion){
+        comentarios_acciones_correctivas.setPermission("actions", false);
+        comentarios_acciones_correctivas.setPermission("remove", false);
+    }else{
+        comentarios_acciones_correctivas.setPermission("actions", true);
+        comentarios_acciones_correctivas.setPermission("remove", true);
+    }
+</script>

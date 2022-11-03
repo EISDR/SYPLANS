@@ -1,0 +1,107 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="panel panel-<%= COLOR.secundary %>">
+                <div class="panel-heading" style="border-bottom-color: #dedede">
+                        <h6 class="panel-title"><span class="text-semibold">Trabajar</span> - Departamento
+                            {{mega_presupuesto_aprobado.titulo}}</h6>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="col-sm-12 col-md-5">
+                                <%- FORM.select("estatus_departamento", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    refresh: false,
+                                    // disabled: true,
+                                    text: "item.nombre",
+                                    table: "presupuesto_aprobado_estatus",
+                                    icon: {class: "archive"},
+                                    label: "Estatus"
+                                }) %>
+                            </div>
+
+                            <div class="col-md-7" style="margin-top: 19px;">
+
+                                <!--<div class="col-sm-12 col-md-2">-->
+                                    <!--<button-->
+                                            <!--ng-show="['3', '1'].indexOf(mega_presupuesto_aprobado.VALUES.idStatus.toString()) === -1"-->
+                                            <!--dragonlanguage="" title="Guardar Estatus"-->
+                                            <!--type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"-->
+                                            <!--ng-click="mega_presupuesto_aprobado.guardarEstatus()"-->
+                                            <!--ng-disabled=false>-->
+                                        <!--<b><i class="icon-floppy-disk"></i></b>-->
+                                        <!--Guardar-->
+                                    <!--</button>-->
+                                <!--</div>-->
+                                <div class="col-sm-12 col-md-4">
+                                    <%- /*FORM.button("ver_lista_productos", scope, {
+                                     text: "Ver lista de productos"
+                                     })*/ %>
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Ver lista de Proyecto/Producto"
+                                            ng-if="mega_presupuesto_aprobado.session.tipo_institucion == 1"
+                                            type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
+                                            ng-click="mega_presupuesto_aprobado.ver_lista_productos_click()">
+                                        <b><i class="icon-list"></i></b>
+                                        Ver lista de Proyecto/Producto
+                                    </button>
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Ver lista de Proyecto/Producto"
+                                            ng-if="mega_presupuesto_aprobado.session.tipo_institucion == 2"
+                                            type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
+                                            ng-click="mega_presupuesto_aprobado.ver_lista_productos_click()">
+                                        <b><i class="icon-list"></i></b>
+                                        Ver lista de Proyecto/Plan de Acción
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 pl-0" ng-show="mega_presupuesto_aprobado.current_poa.id_estado != 5">
+                <div class="col-sm-12 col-md-10 pl-0">
+                    <%- FORM.textarea("Comentario", scope, {
+                        placeholder: "Comentario"
+                    }) %>
+                </div>
+                <div class="col-sm-12 col-md-2" style="margin-top: 24px;">
+                    <%- /*FORM.button("guardar_comentario", scope, {
+                        text: "Añadir",
+                    }) */%>
+                    <button
+                            style="margin-right: 0"
+                            dragonlanguage="" title="Añadir"
+                            type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                            ng-click="mega_presupuesto_aprobado.guardar_comentario_clicks()">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="mega_comentario_presupuesto_poa "
+                 ng-controller="mega_comentario_presupuesto_poa as mega_comentario_presupuesto_poa">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:'mega_comentario_presupuesto_poa'}); %>
+                    <div class="subcontent">
+                        <%- include('../../7-plugins/templates/table/base',{scope:'mega_comentario_presupuesto_poa'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>

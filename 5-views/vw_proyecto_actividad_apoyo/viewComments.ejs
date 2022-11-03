@@ -1,0 +1,19 @@
+<div class="row">
+    <div id="comentarios_p_actividad_apoyo " ng-controller="comentarios_p_actividad_apoyo as comentarios_p_actividad_apoyo">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_p_actividad_apoyo'}); %>
+            <div class="subcontent">
+                <%- include('../../5-views/comentarios_p_actividad_apoyo/base',{scope:'comentarios_p_actividad_apoyo'}); %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (comentarios_p_actividad_apoyo.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_p_actividad_apoyo.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion){
+        comentarios_p_actividad_apoyo.setPermission("actions", false);
+        comentarios_p_actividad_apoyo.setPermission("remove", false);
+    }else{
+        comentarios_p_actividad_apoyo.setPermission("actions", true);
+        comentarios_p_actividad_apoyo.setPermission("remove", true);
+    }
+</script>

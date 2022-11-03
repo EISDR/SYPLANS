@@ -1,0 +1,138 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" title="Refrescar" style="margin-right: -10px;">
+                    <a title="Refrescar" ng-click="vw_eje_estrategico_end.vw_eje_estrategico_end_get(true);"><i
+                                class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="" title="Exportar a EXCEL" style="margin-right: -10px;">
+                    <a title="Exportar a EXCEL" ng-click="vw_eje_estrategico_end.exportXLS();"><i
+                                class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" title="Imprimir">
+                    <a title="Imprimir" ng-click="vw_eje_estrategico_end.openmodalField('pdf');"><i
+                                class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+            </script>
+            <div id="peitable" style="min-height: 400px">
+                <div ng-repeat="(key_eje,eje) in vw_eje_estrategico_end.DATA.ejes">
+                    <table class="table table-bordered" style="margin-top: 10px;">
+                        <thead class="">
+                        <tr style="background-color: #002e4d;border-color: #002e4d;color: #FFF !important;">
+                            <td colspan="5" style="cursor: pointer;font-size: 16px !important"
+                                ng-click="vw_eje_estrategico_end.modaltext(eje.nombre,'Eje Estratégico')">
+                                <b>Eje Estratégico</b>{{eje.nombre}}
+                            </td>
+                        </tr>
+                        <tr height="20" class="centralizarth3"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                            <th width="20%">RESULTADOS ESTRATÉGICOS</th>
+                            <th width="20%">EJES DE LA END</th>
+                            <th width="20%">OBJETIVOS GENERALES DE LA END</th>
+                            <th width="20%">OBJETIVOS ESPECÍFICOS DE LA END</th>
+                            <th width="20%">LÍNEAS DE ACCIÓN</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="(key_obj,obj) in eje.objetivos_estrategicos">
+                        <tr style="background-color: #E0F7FA">
+                            <td colspan="5" style="cursor: pointer"
+                                ng-click="vw_eje_estrategico_end.modaltext(obj.nombre,'Objetivo Estratégico')">
+                                <b>{{obj.nombre}} </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="padding: 0">
+                                <ul style="float: left;width: 20%;margin-bottom: 0 !important;">
+                                    <li style="{{vw_eje_estrategico_end.altores(obj.ends,obj.resultados)}}"
+                                        ng-click="vw_eje_estrategico_end.modaltext(res,'Resultado Estratégico')"
+                                        ng-repeat="(key_res,res) in obj.resultados">
+                                        {{res}}
+                                    </li>
+                                </ul>
+                                <div style="float: left;width: 80%;">
+                                    <div ng-repeat="(key_end,end) in obj.ends">
+                                        <div
+                                                id="{{key_end}}_endl_id"
+                                                style="{{vw_eje_estrategico_end.isoverflow(key_end,'_endl_id')}}overflow:hidden;border: 1px solid #cccccc;width: 25%;float: left;{{vw_eje_estrategico_end.altoend(end,obj.ends,obj.resultados)}}"
+                                                ng-click="vw_eje_estrategico_end.modaltext(end.nombre,'Eje de la End',key_end,'_endl_id')">
+                                            {{end.nombre}}
+                                        </div>
+                                        <div style="width: 75%;float: left;">
+                                            <div ng-repeat="(key_gen,general) in end.objetivos_generales">
+                                                <div
+                                                        id="{{key_gen}}_general_id"
+                                                        style="{{vw_eje_estrategico_end.isoverflow(key_gen,'_general_id')}}overflow:hidden;width: 33.33%;float:left;border: 1px solid #cccccc;{{vw_eje_estrategico_end.altogen(general,end.objetivos_generales,end,obj.ends,obj.resultados)}};{{vw_eje_estrategico_end.backcolor(general.nombre)}}"
+                                                        ng-click="vw_eje_estrategico_end.modaltext(general.nombre,'Objetivo General de la End',key_gen,'_general_id')">
+                                                    {{general.nombre}}
+                                                </div>
+
+                                                <div style="width: 66.67%;float: left;">
+                                                    <div ng-repeat="(key_es,especifico) in general.objetivos_especificos">
+                                                        <div
+                                                                id="{{key_es}}_especifico_id"
+                                                                style="{{vw_eje_estrategico_end.isoverflow(key_es,'_especifico_id')}}overflow:hidden;width: 50%;float:left;border: 1px solid #cccccc;{{vw_eje_estrategico_end.altoespe(especifico,general.objetivos_especificos,general,end.objetivos_generales,end,obj.ends,obj.resultados)}};{{vw_eje_estrategico_end.backcolor(especifico.nombre)}}"
+                                                                ng-click="vw_eje_estrategico_end.modaltext(especifico.nombre,'Objetivo Específico de la End',key_es,'_especifico_id')">
+                                                            {{especifico.nombre}}
+                                                        </div>
+
+                                                        <div style="width: 50%;float: left;">
+                                                            <div ng-repeat="(key_li,linea) in especifico.lineas">
+                                                                <div
+                                                                        id="{{key_li}}_linea_id"
+                                                                        style="{{vw_eje_estrategico_end.isoverflow(key_li,'_linea_id')}}overflow:hidden;border: 1px solid #cccccc;{{vw_eje_estrategico_end.altoali(linea,especifico.lineas,especifico,general.objetivos_especificos,general,end.objetivos_generales,end,obj.ends,obj.resultados)}};{{vw_eje_estrategico_end.backcolor(linea.nombre)}}"
+                                                                        ng-click="vw_eje_estrategico_end.modaltext(linea.nombre,'Línea de acción',key_li,'_linea_id')">
+                                                                    {{linea.nombre}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <table id="dataexport" class="table table-bordered" style="display: none">
+                <thead class="">
+                <tr>
+                    <th>Objetivo Estratégico</th>
+                    <th>Estrategia</th>
+                    <th>Resultados Estratégicos</th>
+                    <th>Ejes de la END</th>
+                    <th>Objetivos Generales de la END</th>
+                    <th>Objetivos Específicos de la END</th>
+                    <th>Líneas de Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key,row) in vw_eje_estrategico_end.vw_eje_estrategico_end_list">
+                    <td>{{row.objetivo_estrategico}}</td>
+                    <td rowspan="">{{row.estrategia}}</td>
+                    <td rowspan="">{{row.resultado}}</td>
+                    <td rowspan="">{{row.eje_estrategico}}</td>
+                    <td rowspan="">{{row.objetivo_general}}</td>
+                    <td rowspan="">{{row.objetivo_especifico}}</td>
+                    <td rowspan="">{{row.linea_accion}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!--end-->

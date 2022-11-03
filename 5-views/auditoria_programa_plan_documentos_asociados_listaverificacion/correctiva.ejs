@@ -1,0 +1,125 @@
+<style>
+    .panel-body {
+        padding: 20px;
+        padding-top: 5px;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h5 style="margin-top: 15px;">Información de la NO Conformidad</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.inputview('proceso_nombre', scope, {
+                                trueplaceholder: "Nombre del Proceso"
+                            }) %>
+                        </div>
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.inputview('doc_nombre', scope, {
+                                trueplaceholder: "Nombre del Documento"
+                            }) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.inputview('descripcion', scope, {
+                                trueplaceholder: "Punto de Verficación"
+                            }) %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'  ng-if="!vw_correctiva.session.institucion">
+                            <%- FORM.select('tipo_inconformidad', scope, {
+                                allowedit: false,
+                                allowlist: false,
+                                allownew: false,
+                                allowview: false,
+                                disabled:true,
+                                text: "item.nombre",
+                                value: "id",
+                                table: "tipo_inconformidad",
+                                icon: {class: "archive"},
+                                truelabel: "Tipo de no Conformidad",
+                                condition: "(item.compania == auditoria_programa_plan_documentos_asociados_listaverificacion.session.compania_id && item.institucion == $null)",
+                            }) %>
+                        </div>
+                        <div class='col-sm-3 col-md-3' ng-if="vw_correctiva.session.institucion">
+                            <%- FORM.select('tipo_inconformidad', scope, {
+                                allowedit: false,
+                                allowlist: false,
+                                allownew: false,
+                                allowview: false,
+                                disabled: true,
+                                text: "item.nombre",
+                                value: "id",
+                                table: "tipo_inconformidad",
+                                icon: {class: "archive"},
+                                truelabel: "Tipo de no Conformidad",
+                                condition: "(item.institucion == auditoria_programa_plan_documentos_asociados_listaverificacion.session.institucion_id)",
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 1% 5% 0 5%;" ng-show="auditoria_programa_plan_documentos_asociados_listaverificacion.listaverificacionfile_DragonCountFile > 0">
+                            <%- FORM.file("listaverificacionfile", scope, {
+                                        title: 'Ver Evidencia',
+                                        maxfiles: 999,
+                                        columns: 4,
+                                        truetext: 'Ver Evidencia',
+                                        imagefloat: "right",
+                                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                            // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                            }) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.inputview('observaciones', scope, {trueplaceholder: "Observación realizada durante la Auditoría (Hallazgo)"}) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="nav nav-primary nav-tabs primary nav-justified">
+                <li class="active">
+                    <a href="#AC" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        Acciones de Mejora
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="AC">
+                    <%- FORM.relation("correctivas", scope, {
+                        text: "item.nombre",
+                        table: "auditoria_lista_correctiva",
+                        field: "elemento",
+                        master: null,
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+<script>
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("file.upload", false);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("file.remove", false);
+    $(function () {
+        $('[name="auditoria_programa_plan_documentos_asociados_listaverificacion_listaverificacionfile"]').css({height: ''});
+        $('[name="auditoria_programa_plan_documentos_asociados_listaverificacion_listaverificacionfile"]').css({height: ''});
+    });
+    auditoria_programa_plan_documentos_asociados_listaverificacion.refreshAngular();
+    auditoria_lista_correctiva.setPermission('view', true)
+</script>
+
+
+
+
+

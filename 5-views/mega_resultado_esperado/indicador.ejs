@@ -1,0 +1,35 @@
+<div id="mega_indicadores_pei_resultado" ng-controller="mega_indicadores_pei_resultado as mega_indicadores_pei_resultado">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:'mega_indicadores_pei_resultado'}); %>
+        <div class="subcontent no-margin-table min-heigth-table">
+            <%- include('../../7-plugins/templates/table/base',{scope:'mega_indicadores_pei_resultado'}); %>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
+        <label class="control-label">Comentario</label>
+        <textarea class="form-control" ng-model="mega_resultado_esperado.comentario"></textarea>
+    </div>
+    <div class="col-sm-12 col-md-2" style="margin-top: 53px;margin-right: 0">
+        <button
+                dragonlanguage="" title="Añadir Comentario"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+        ng-click="mega_resultado_esperado.anadirComentario()">
+
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>Añadir</language>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div id="mega_comentarios_resultado_esperado" ng-controller="mega_comentarios_resultado_esperado as mega_comentarios_resultado_esperado">
+        <div class="panel panel-flat">
+            <div class="subcontent no-margin-table min-heigth-table">
+                <%- include('../../7-plugins/templates/table/base',{scope:'mega_comentarios_resultado_esperado'}); %>
+            </div>
+        </div>
+</div></div>

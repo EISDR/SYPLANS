@@ -1,0 +1,134 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('features', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('pacc', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('riesgo', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('privada', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('multianual', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('cantidad_usuario_departamental', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('cantidad_usuario_planificacion', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('cantidad_admin', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('multiinstitucion', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('creacion_poa_flexibles', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('evidencias_flexibles', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('frecuencia', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('monto', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('monto_inicial', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('descuento', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('compania', scope, {
+                    column: 'name',
+                    table: 'compania',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "compania_linked", fieldFrom: "id", fieldTo: "myid(compania)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //text: 'item.name',
+                    //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.datetime('end_date', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.datetime('date', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('estatus', scope, {
+                        //length:15
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

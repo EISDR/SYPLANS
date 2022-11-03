@@ -1,0 +1,143 @@
+<div class="subcontent" ng-if="resumen_actividad.tipeExport == 'pdf'" style="overflow: scroll !important;height: 7000px">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="resumen_actividad.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <table id="generalpdf" >
+        <tr>
+            <td>
+                <div class="container-table resumen_actividadTable">
+                    <div ng-repeat="(key1,value1) in resumen_actividad.resumen_actividad_fin">
+                        <div class="row scrollit table-container" ng-if="value1.data.length > 0">
+
+                            <table style="width: 100%;">
+                                <thead class="table-container-head">
+                                <tr>
+                                    <th style="float: left;"><img src="../../files/configuration/logo/logo.png"
+                                                                  style="width: 120px;"></th>
+                                    <th style="text-align: right; vertical-align: middle !important;"><h1
+                                                style="font-family: Outfit,sans-serif;
+                                                        color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important;">
+                                            Plan Operativo Anual {{resumen_actividad.getYear()}}</h1></th>
+                                </tr>
+                                </thead>
+                            </table>
+
+                            <table class="table-print2"
+                                   style="width: 2500px;border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important;">
+                                <tbody>
+                                <tr>
+                                    <td style="color:<%= CONFIG.ui.theme.primary %>; border-color:<%= CONFIG.ui.theme.primary %>"
+                                        class="group_tr">Eje Estratégico:
+                                    </td>
+                                    <td style="border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr2">{{value1.header.eje_estrategico}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>; border-top: 2px solid !important; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr">Objetivo Estratégico:
+                                    </td>
+                                    <td style="border-top: 2px solid; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>; "
+                                        class="group_tr2">{{value1.header.objetivo_estrategico}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>; border-top: 2px solid !important; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr">Estrategia:
+                                    </td>
+                                    <td style="border-top: 2px solid; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr2">{{value1.header.estrategia}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>; border-top: 2px solid !important; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr">Resultado Esperado:
+                                    </td>
+                                    <td style="border-top: 2px solid; border-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;"
+                                        class="group_tr2">{{value1.header.resultado}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-print" style="margin-top: 15px; width: 2500px;">
+                                <thead class="">
+                                <tr class="centralizarth"
+                                    style="color:white;background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important;">
+                                    <th rowspan="3">Proyecto/Producto</th>
+                                    <th rowspan="3">Actividades / indicadores Proyecto/Producto</th>
+                                    <th rowspan="3">Presupuesto</th>
+                                    <th rowspan="3">Descripción</th>
+                                    <th rowspan="3">Fuente</th>
+                                    <th rowspan="3">Medio Verificación</th>
+                                    <th rowspan="3">Método Calculo</th>
+                                    <th rowspan="3">Unidad / Escala de Medición</th>
+                                    <th rowspan="3">Dirección Meta</th>
+                                    <th colspan="2">Línea Base</th>
+                                    <th colspan="{{resumen_actividad.cantidad}}">Metas</th>
+                                </tr>
+
+                                <tr class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important;">
+                                    <th rowspan="2" style="color: white;">Año</th>
+                                    <th rowspan="2" style="color: white;">valor</th>
+                                    <th colspan="{{resumen_actividad.cantidad}}" style="text-align: center;color: white;">
+                                        Projectadas / Alcanzadas / Varianzas
+                                    </th>
+                                </tr>
+                                <tr class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important;">
+                                    <th style="color: white;" ng-repeat="(column,value) in resumen_actividad.headerBody_list">
+                                        {{value.name}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody class="tb1">
+                                <tr class="centralizartd" ng-repeat="(key,row) in value1.data">
+                                    <td rowspan="{{resumen_actividad.rowspanme('producto',row.producto, value1.data)}}"
+                                        ng-if="resumen_actividad.seeme('producto',row.producto,key, value1.data)">
+                                        {{row.producto}}
+                                    </td>
+                                    <td>{{row.actividad}}</td>
+                                    <td class="alinearNumeros">{{row.presupuesto ?
+                                        resumen_actividad.LAN.money(row.presupuesto).format(false) : ''}}
+                                    </td>
+                                    <td>{{row.descripcion}}</td>
+                                    <td>{{row.fuente}}</td>
+                                    <td>{{row.medio_verificacion}}</td>
+                                    <td>{{row.metodo_calculo}}</td>
+                                    <td ng-if="row.tipo_meta.length > 0">{{row.tipo_meta[0].nombre}}</td>
+                                    <td style="padding-right: 8px;" ng-if="row.tipo_meta.length <= 0"></td>
+                                    <td style="padding-right: 8px;" ng-if="row.direccion_meta.length > 0">
+                                        {{row.direccion_meta[0].nombre}}
+                                    </td>
+                                    <td style="padding-right: 8px;" ng-if="row.direccion_meta.length <= 0"></td>
+                                    <td class="alinearNumeros">{{row.ano}}</td>
+                                    <td class="alinearNumeros">{{row.linea_base}}</td>
+                                    <td class="" style="text-align: center; width: 8%;"
+                                        ng-repeat="(column,value) in resumen_actividad.headerBody_list">
+                                        {{row['periodo'+resumen_actividad.headerBody_list[column].periodo+'']}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    resumen_actividad.refreshAngular();
+</script>

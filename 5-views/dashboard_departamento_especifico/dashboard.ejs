@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard_departamento_especifico">
+                <h6 class="panel-title">Presupuesto</h6>
+            </div>
+            <div class="panel-body pesupuesto" id="presupuestos">
+                <div class="col-md-2 col-sm-12 col-md-offset-1">
+                    <label class="dash-presupuesto-monto color-aprove">{{dashboard_departamento_especifico.presupuestos.aprobado}}</label>
+                    <label class="dash-presupuesto-label">Aprobado</label>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="dash-presupuesto-monto color-execute">{{dashboard_departamento_especifico.presupuestos.ejecutado}}</label>
+                    <label class="dash-presupuesto-label">Ejecutado</label>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="dash-presupuesto-monto color-payment">{{dashboard_departamento_especifico.presupuestos.cuentasporpagar}}</label>
+                    <label class="dash-presupuesto-label">Cuentas por Pagar</label>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="dash-presupuesto-monto color-schedule">{{dashboard_departamento_especifico.presupuestos.reprogramar}}</label>
+                    <label class="dash-presupuesto-label">Disponible</label>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="dash-presupuesto-monto color-not-execute">{{dashboard_departamento_especifico.presupuestos.noejecutado}}</label>
+                    <label class="dash-presupuesto-label">No Ejecutado</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-lg-12 pl-0 pr-0" id="productos">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard_departamento_especifico">
+                    <h6 class="panel-title">Proyecto/Producto"</h6>
+                </div>
+                <div class="panel-body pesupuesto">
+                    <div class="col-md-2 col-sm-12 pricipal col-md-offset-1">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.productos.cantidad}}</label>
+                        <label class="dash-presupuesto-label">Proyecto/Producto"</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.productos.planificados}}</label>
+                        <label class="dash-presupuesto-label">Planificados</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.productos.ejecucion}}</label>
+                        <label class="dash-presupuesto-label">En ejecución</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-not-execute">{{dashboard_departamento_especifico.productos.vencidos}}</label>
+                        <label class="dash-presupuesto-label">Vencidos</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.productos.completados}}</label>
+                        <label class="dash-presupuesto-label">Completados</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 pl-0 pr-0" id="actividades">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard_departamento_especifico">
+                    <h6 class="panel-title">Actividades</h6>
+                </div>
+                <div class="panel-body pesupuesto">
+                    <div class="col-md-2 col-sm-12 pricipal col-md-offset-1">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.actividades.cantidad}}</label>
+                        <label class="dash-presupuesto-label">Actividades</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.actividades.planificados}}</label>
+                        <label class="dash-presupuesto-label">Planificados</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.actividades.ejecucion}}</label>
+                        <label class="dash-presupuesto-label">En ejecución</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-not-execute">{{dashboard_departamento_especifico.actividades.vencidos}}</label>
+                        <label class="dash-presupuesto-label">Vencidos</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.actividades.completados}}</label>
+                        <label class="dash-presupuesto-label">Completados</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 pl-0 pr-0" id="asignaciones">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard_departamento_especifico">
+                    <h6 class="panel-title">Asignaciones Especiales</h6>
+                </div>
+                <div class="panel-body pesupuesto">
+                    <div class="col-md-2 col-sm-12 pricipal col-md-offset-1">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.asignaciones.cantidad}}</label>
+                        <label class="dash-presupuesto-label">Asignaciones</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-aprove">{{dashboard_departamento_especifico.asignaciones.planificados}}</label>
+                        <label class="dash-presupuesto-label">Planificados</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.asignaciones.ejecucion}}</label>
+                        <label class="dash-presupuesto-label">En ejecución</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-not-execute">{{dashboard_departamento_especifico.asignaciones.vencidos}}</label>
+                        <label class="dash-presupuesto-label">Vencidos</label>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="dash-presupuesto-monto-2 color-execute">{{dashboard_departamento_especifico.asignaciones.completados}}</label>
+                        <label class="dash-presupuesto-label">Completados</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" id="indicadores">
+        <div id="vw_dashboard_productosgrid"
+             ng-controller="vw_dashboard_productosgrid as vw_dashboard_productosgrid">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productosgrid'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productosgrid'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>

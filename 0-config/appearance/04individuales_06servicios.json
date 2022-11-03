@@ -1,0 +1,26 @@
+{
+  "menus": [
+    {
+      "icon": "pie-chart5",
+      "href": "#ser_servicio",
+      "text": "Creación de Servicio"
+    },
+    {
+      "icon": "file-text2",
+      "href": "#documento_externo",
+      "text": "Documentos Externos"
+    }
+  ],
+  "menus_privado": [
+    {
+      "icon": "pie-chart5",
+      "href": "#ser_servicio",
+      "text": "Creación de Servicio"
+    },
+    {
+      "icon": "file-text2",
+      "href": "#documento_externo",
+      "text": "Documentos Externos"
+    }
+  ]
+}

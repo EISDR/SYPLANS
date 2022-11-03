@@ -1,0 +1,60 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div> <br/> </div>
+        </div>
+
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("departamento_solicitado", scope, {
+                    allowview: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Departamento a Solicitar",
+                    text: "item.nombre",
+                    table: "departamento",
+                    columns: ["nombre"],
+                    icon: {class:"archive"},
+                    condition: "item.compania == mi_asignacion_especial_poa.compania_id"
+                })
+                %>
+            </div>
+                   <div class="col-sm-6 col-md-6">
+            <%-
+            FORM.select("responsable", scope, {
+                allowview: false,
+                multiple: false,
+                disabled: false,
+                label: "Responsable",
+                text: "item.nombre + ' ' + item.apellido",
+                table: "usuario",
+                columns: ["nombre"],
+                icon: {class:"archive"},
+                condition: "item.departamento == mi_asignacion_especial_poa.departamento_solicitado"
+            })
+            %>
+        </div>
+
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin",
+                })%>
+            </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+    mi_asignacion_especial_poa.range_date_min(moment(moment().format('YYYY')+"-01-01"));
+    mi_asignacion_especial_poa.range_date_max(''+(parseInt(moment().format('YYYY'))+ 1));
+</script>

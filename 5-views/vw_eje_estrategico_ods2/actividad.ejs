@@ -1,0 +1,63 @@
+<%- include('../../7-plugins/templates/table/view',{scope:'vw_eje_estrategico_ods2'}); %>
+<script>
+    actividades_asociadas_view.defineactive = null;
+    if (typeof dashboard !== "undefined")
+        if (dashboard) {
+            if (dashboard.Mactividades) {
+                actividades_asociadas_view.defineactive = dashboard.Mactividades;
+            }
+        }
+    if (typeof dashboard_departamento !== "undefined")
+        if (dashboard_departamento) {
+            if (dashboard_departamento.Mactividades) {
+                actividades_asociadas_view.defineactive = dashboard_departamento.Mactividades;
+            }
+        }
+
+    actividades_asociadas_view.fixFilters = [{
+        "field": "actividades_poa",
+        "value": vw_eje_estrategico_ods2.dataForView.id
+    }];
+
+    if (actividades_asociadas_view.defineactive) {
+        if (actividades_asociadas_view.defineactive === "completados")
+            actividades_asociadas_view.fixFilters.push({
+                "field": "estatus",
+                "value": 2
+            });
+        if (actividades_asociadas_view.defineactive === "no ejecutado")
+            actividades_asociadas_view.fixFilters.push({
+                "field": "estatus",
+                "value": [1, 4]
+            });
+    }
+
+</script>
+<div><br></div>
+<div class="table table-togglable table-framed">
+    <div id="actividades_asociadas_view " ng-controller="actividades_asociadas_view as actividades_asociadas_view">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'actividades_asociadas_view'}); %>
+            <div class="subcontent">
+                <div class="col-md-5" style="padding: 0; margin-top: -15px">
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                            <label class="labelRedondo"> Planificada </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> En ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Vencida </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Ninguna Condición </label></li>
+                    </ul>
+                </div>
+                <div class="col-md-12" style="padding: 0">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'actividades_asociadas_view'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<style>
+    .bg-warning {
+        margin-right: 0 !important;
+    }
+
+</style>
+<div ng-show="end.from_eje">
+    <%- FORM.footer(scope) %>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <%- include('../inter_form_c',{scope:scope}); %>
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+            </div>
+
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-9 col-md-9 remove-input-space">
+                <%- FORM.textarea('descripcion', scope, {
+                    label: "Descripción",
+                    placeholder: "Descripción",
+                    maxlength: 1000
+                }) %>
+            </div>
+        </div>
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active">
+                <a class="active" href="#objetivo_tab" data-toggle="tab" ng-click="end.refreshme();">
+                    <i class="position-left"></i>
+                    <language>Objetivos Generales</language>
+                    <i class="border-white  position-right"></i>
+                </a>
+            </li>
+            <li class="">
+                <a href="#objetivo_especifico_tab" data-toggle="tab" ng-click="end.refreshme();">
+                    <i class="position-left"></i>
+                    <language>Objetivos Específicos</language>
+                    <i class="border-white  position-right"></i>
+                </a>
+            </li>
+            <li class="">
+                <a href="#linea_accion_tab" data-toggle="tab" ng-click="end.refreshme();">
+                    <i class="position-left"></i>
+                    <language>Líneas de Acción</language>
+                    <i class="border-white  position-right"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="objetivo_tab">
+                <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                    <%- FORM.relation("objetivo", scope, {
+                        text: "item.nombre",
+                        table: "objetivo",
+                        field: "end",
+                        master: null,
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="objetivo_especifico_tab">
+                <div id="objetivo_especifico" ng-controller="objetivo_especifico as objetivo_especifico">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("objetivo_especifico", scope, {
+                            text: "item.nombre",
+                            table: "objetivo_especifico",
+                            field: "end",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="linea_accion_tab">
+                <div id="linea_accion" ng-controller="linea_accion as linea_accion">
+                    <div class="subcontent" style="min-height: 0;padding-left: 10px;padding-right: 10px;">
+                        <%- FORM.relation("linea_accion", scope, {
+                            text: "item.nombre",
+                            table: "linea_accion",
+                            field: "end",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+    // MESSAGE.run();
+</script>

@@ -1,0 +1,29 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('ods_compania', scope, {
+                    column: 'descripcion',
+                    table: 'ods_compania',
+                    text: 'item.descripcion',
+                    truelabel: "Primer Objetivo",
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('ods_compania2', scope, {
+                    column: 'descripcion',
+                    table: 'ods_compania',
+                    text: 'item.descripcion',
+                    truelabel: "Segundo Objetivo",
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

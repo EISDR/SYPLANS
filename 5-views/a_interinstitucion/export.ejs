@@ -1,0 +1,82 @@
+<div class="subcontent" ng-if="vw_aliniacion_estrategica.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="vw_aliniacion_estrategica.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <table id="vw_aliniacion_estrategicaExport" class="vw_aliniacion_estrategicaTable table table-bordered table-print"
+           style="margin-top: 15px;">
+        <thead>
+        <tr>
+            <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                End
+            </th>
+            <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                Objetivo General
+            </th>
+            <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                Objetivo Específico
+            </th>
+            <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                Línea de Acción
+            </th>
+            <th style="background-color: #9dbcd1;width: 20%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                Objetivos Desarrollo Sostenible
+            </th>
+            <th style="background-color: #9dbcd1;width: 30%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                Iniciativas Estratégicas
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr style="vertical-align: middle" class="centralizartd"
+            ng-repeat="(key,row) in vw_aliniacion_estrategica.vw_aliniacion_estrategica_list">
+
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold"
+                rowspan="{{vw_aliniacion_estrategica.rowspanme('objetivo_general',row.objetivo_general)}}"
+                ng-if="vw_aliniacion_estrategica.seeme('objetivo_general',row.objetivo_general,key)">
+                {{row.objetivo_general}}
+            </td>
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold"
+                rowspan="{{vw_aliniacion_estrategica.rowspanme('objetivo_general',row.objetivo_general)}}"
+                ng-if="vw_aliniacion_estrategica.seeme('objetivo_general',row.objetivo_general,key)">
+                {{row.objetivo_general}}
+            </td>
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold;"
+                rowspan="{{vw_aliniacion_estrategica.rowspanme('objetivo_especifico',row.objetivo_especifico)}}"
+                ng-if="vw_aliniacion_estrategica.seeme('objetivo_especifico',row.objetivo_especifico,key)">
+                {{row.objetivo_especifico}}
+            </td>
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold"
+                rowspan="{{vw_aliniacion_estrategica.rowspanme('linea_accion',row.linea_accion)}}"
+                ng-if="vw_aliniacion_estrategica.seeme('linea_accion',row.linea_accion,key)">
+                {{row.linea_accion}}
+            </td>
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold;"
+                rowspan="{{vw_aliniacion_estrategica.rowspanme('meta',row.meta)}}"
+                ng-if="vw_aliniacion_estrategica.seeme('meta',row.meta,key)">
+                {{row.meta}}
+            </td>
+            <td style="background-color: #f1f4f8; color: black;font-weight: bold;">
+                <b>{{row.pei}}</b>/<b>{{row.institucion}}</b>
+                <br>
+                <b style="color:darkblue">{{row.eje_estrategico}}</b>
+                <br>
+                {{row.resultado}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    vw_aliniacion_estrategica.refreshAngular();
+</script>

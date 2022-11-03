@@ -1,0 +1,63 @@
+<div class="subcontent" ng-if="resumen_pei.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="resumen_pei.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <table id="ResumenPEIExport" class="resumen_peiTable table table-bordered table-print" style="margin-top: 15px;">
+        <thead class="">
+        <tr class="centralizarth"
+            style="color:white;background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>">
+            <th>Eje Estratégico</th>
+            <th>Objetivo Estratégico</th>
+            <th>Estrategia</th>
+            <th ng-if="resumen_pei.session.tipo_institucion == 2">Perspectiva</th>
+            <th>Resultados Esperados</th>
+            <th>Indicadores</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="centralizartd" ng-repeat="(key,row) in resumen_pei.resumen_pei_list">
+            <td rowspan="{{resumen_pei.rowspanme('eje_estrategico',row.eje_estrategico)}}"
+                ng-if="resumen_pei.seeme('eje_estrategico',row.eje_estrategico,key)">
+                {{row.eje_estrategico}}
+            </td>
+            <td rowspan="{{resumen_pei.rowspanme('objetivo_estrategico',row.objetivo_estrategico)}}"
+                ng-if="resumen_pei.seeme('objetivo_estrategico',row.objetivo_estrategico,key)">
+                {{row.objetivo_estrategico}}
+            </td>
+
+            <td rowspan="{{resumen_pei.rowspanme('estrategia',row.estrategia)}}"
+                ng-if="resumen_pei.seeme('estrategia',row.estrategia,key)">
+                {{row.estrategia}}
+            </td>
+
+            <td
+                rowspan="{{resumen_pei.rowspanme('perspectiva',row.perspectiva, 'eje_estrategico', row.eje_estrategico)}}"
+                ng-if="resumen_pei.seeme('perspectiva',row.perspectiva,key) && resumen_pei.session.tipo_institucion == 2">
+                {{row.perspectiva}}
+            </td>
+
+            <td rowspan="{{resumen_pei.rowspanme('resultado',row.resultado)}}"
+                ng-if="resumen_pei.seeme('resultado',row.resultado,key)">
+                {{row.resultado}}
+            </td>
+
+            <td ng-if="resumen_pei.seeme('indicador',row.indicador,key)">
+                {{row.indicador}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    resumen_pei.refreshAngular();
+</script>

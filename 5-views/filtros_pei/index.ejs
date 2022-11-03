@@ -1,0 +1,177 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <div class="col-md-9 pl-0 filros-pei-poa">
+                    <div class="panel panel-<%= COLOR.secundary %>">
+                        <div class="panel-heading" style="border-bottom-color: #dedede">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <h6 class="panel-title" dragonlanguage>
+                                    Filtros PEI
+                                </h6>
+                                </div>
+                                <div class="col-sm-6 col-md-6" id="ddltransfer">
+                                    <%- FORM.select("pei", scope, {
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        text: "item.nombre",
+                                        table: "vw_pei",
+                                        permission: "pei",
+                                        icon: {class: "archive"},
+                                        label: "PEI",
+                                        condition: "item.compania == filtros_pei.session.compania_id"
+                                    }) %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <%- FORM.select("eje_estrategico_pei", scope, {
+                                        text: "item.nombre",
+                                        table: "drp_eje_estrategico",
+                                        permission: "drp_objetivo_estrategico",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        icon: {class: "archive"},
+                                        label: "Eje Estratégico"
+                                    }) %>
+                                </div>
+                                <div class="col-sm-12 col-md-4 ">
+                                    <%- FORM.select("objetivo_estrategico_pei", scope, {
+                                        text: "item.nombre",
+                                        table: "drp_objetivo_estrategico",
+                                        permission: "drp_objetivo_estrategico",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        query: {orderby: "nombre"},
+                                        icon: {class: "archive"},
+                                        label: "Objetivo Estratégico",
+                                        condition: "item.eje_estrategico == filtros_pei.eje_estrategico_pei || filtros_pei.eje_estrategico_pei == '[NULL]'"
+                                    }) %>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <%- FORM.select("estrategia_pei", scope, {
+                                        text: "item.nombre",
+                                        table: "drp_estrategia",
+                                        permission: "drp_objetivo_estrategico",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        icon: {class: "archive"},
+                                        label: "Estrategia",
+                                        condition: "filtros_pei.LAN.pairCompare([filtros_pei.eje_estrategico_pei,filtros_pei.objetivo_estrategico_pei],[item.eje_estrategico,item.objetivo_estrategico],'[NULL]')"
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <%- FORM.select("resultado_pei", scope, {
+                                        text: "item.nombre",
+                                        table: "drp_resultado",
+                                        permission: "drp_objetivo_estrategico",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        icon: {class: "archive"},
+                                        label: "Resultado",
+                                        condition: "filtros_pei.LAN.pairCompare([filtros_pei.eje_estrategico_pei,filtros_pei.objetivo_estrategico_pei,filtros_pei.estrategia_pei],[item.eje_estrategico,item.objetivo_estrategico, item.estrategia],'[NULL]')"
+                                    }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 pr-0">
+                    <div style="height: 35px;">
+                        <div class="col-md-12 pr-0">
+                            <!--<div class="col-md-12 pr-0"  >-->
+                            <center>
+                                <div class="col-sm-12 col-md-4 pr-0" ng-show="filtros_pei.mostrar()"
+                                     style="padding-right: 0;margin-left: 40px;">
+                                    <!--<div class="col-sm-12 col-md-4 "  style="padding-right: 0;margin-left: 40px;">-->
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Autorizar Pei"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
+                                            ng-click="filtros_pei.Guardar_click()">
+                                        <b><i class="icon-shield-check"></i></b>
+                                        Autorizar PEI
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 col-md-4 pr-0" ng-show="filtros_pei.mostrar_desautorizar()"
+                                     style="padding-right: 0;margin-left: 40px;">
+                                    <!--<div class="col-sm-12 col-md-4 "  style="padding-right: 0;margin-left: 40px;">-->
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Desautorizar Pei"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.warning %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
+                                            ng-click="filtros_pei.Desautorizar_click()">
+                                        <b><i class="icon-shield-check"></i></b>
+                                        Desautorizar PEI
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-10" style="bottom: -50px">
+                        <%- FORM.select("estado_pei", scope, {
+                            //
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            text: "item.nombre",
+                            table: "pei_estatus",
+                            icon: {class: "archive"},
+                            label: "Estado"
+                        }) %>
+                    </div>
+                    <div class="col-md-12 pr-0 pl-0" style="position: absolute; bottom: -145px;">
+                        <div class="col-md-5 col-sm-12 pull-left" style="padding-right: 0;">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Buscar PEI"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                    ng-click="filtros_pei.search_click()">
+                                <b><i class=" icon-search4"></i></b>
+                                Buscar
+                            </button>
+                        </div>
+                        <div class="col-md-5 col-sm-12 pr-0 pull-left pl-0" style="padding-right: 0;">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Limpiar filtros PEI"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                    ng-click="filtros_pei.cancel_click()">
+                                <b><i class="icon-eraser2"></i></b>
+                                Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

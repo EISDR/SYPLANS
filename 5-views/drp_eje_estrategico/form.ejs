@@ -1,0 +1,91 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+
+            <div class="col-sm-4 col-md-12 remove-input-space">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 1000
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-12 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico.session.tipo_institucion === drp_eje_estrategico.publica">
+                <%- FORM.select("aliniacion_end", scope, {
+                    column: "end_nombre",
+                    text:"item.nombre",
+                    table: "end",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "EJE END",
+                    condition: "item.compania == drp_eje_estrategico.session.compania_id",
+                    get: {
+                        table: 'eje_estrategico_end',
+                        tableDelete: 'eje_estrategico_end',
+                        fieldFrom: 'id',
+                        fieldTo: 'eje_estrategico',
+                        field: 'end'
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico.session.tipo_institucion === drp_eje_estrategico.publica">
+                <%- FORM.select("aliniacion_pnpsp", scope, {
+                    column: "pnpsp_nombre",
+                    text:"item.nombre",
+                    table: "pnpsp",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "Alineación PNPSP",
+                    condition: "item.compania == drp_eje_estrategico.session.compania_id",
+                    get: {
+                        table: 'eje_estrategico_pnpsp',
+                        tableDelete: 'eje_estrategico_pnpsp',
+                        fieldFrom: 'id',
+                        fieldTo: 'eje_estrategico',
+                        field: 'pnpsp'
+                    }
+                }) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6" ng-if="drp_eje_estrategico.session.tipo_institucion === drp_eje_estrategico.publica">
+                <%- FORM.select("aliniacion_ods", scope, {
+                    column: "aliniacion_ods",
+                    text:"item.nombre",
+                    table: "ods",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "Alineación ODS",
+                    condition: "item.compania == drp_eje_estrategico.session.compania_id",
+                    get: {
+                        table: 'eje_estrategico_ods',
+                        tableDelete: 'eje_estrategico_ods',
+                        fieldFrom: 'id',
+                        fieldTo: 'eje_estrategico',
+                        field: 'ods'
+                    }
+                }) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 col-md-12 remove-input-space" ng-show="false">
+                <%- FORM.select("pei", scope, {
+                    column: "pei",
+                    text:"item.nombre",
+                    table: "pei",
+                    icon: {class: "archive"},
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+    drp_eje_estrategico.refreshAngular();
+</script>

@@ -1,0 +1,98 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "reading",
+          "href": "#solicitud_documento",
+          "text": "Solicitud de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#documentos_asociados",
+          "text": "Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#vw_documentos_asociados_pv",
+          "text": "Lista Maestra de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "books",
+          "href": "#documental",
+          "text": "Repositorio de Documentos"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "bookmarks",
+              "href": "#tipo_documento",
+              "text": "Tipos de Documento"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "bookmark",
+      "href": "#",
+      "text": "Gestión de Documento"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "reading",
+          "href": "#solicitud_documento",
+          "text": "Solicitud de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#documentos_asociados",
+          "text": "Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#vw_documentos_asociados_pv",
+          "text": "Lista Maestra de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "books",
+          "href": "#documental",
+          "text": "Repositorio de Documentos"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "bookmarks",
+              "href": "#tipo_documento",
+              "text": "Tipos de Documento"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "bookmark",
+      "href": "#",
+      "text": "Gestión de Documento"
+    }
+  ]
+}

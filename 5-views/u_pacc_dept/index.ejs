@@ -1,0 +1,897 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent" style="min-height: 2000px !important;" ng-show="!u_pacc_dept.noexist">
+            <div id="infopac" ng-show="!u_pacc_dept.loadingpacc && !u_pacc_dept.loadingpaccdep">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('codigo_plan', scope, {
+                            trueplaceholder: "Código PACC",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('nombre', scope, {
+                            trueplaceholder: "Departamento",
+                            inputPlaceholder: "Nombre del Departamento"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('cantidad', scope, {
+                            trueplaceholder: "Cantidad de Registros",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('version', scope, {
+                            trueplaceholder: "Versión del plan",
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.date('fecha_modificacion', scope, {
+                            disabled: true,
+                            label_custom: true,
+                            label: "Fecha de Modificación"
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-9 col-md-9'>
+                        <%- FORM.textarea('descripcion', scope, {
+                            trueplaceholder: "Descripción del PACC departamental",
+                        }) %>
+                    </div>
+                    <div class='col-sm-3 col-md-3'>
+                        <%- FORM.inputview('show_estatus', scope, {
+                            trueplaceholder: "Estado",
+                        }) %>
+                    </div>
+                    <div class='col-sm-3 col-md-3' ng-show="false">
+                        <%- FORM.select('estatus', scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            label: "Estatus",
+                            text: "item.nombre + ' ' + item.descripcion",
+                            table: "pacc_departamento_status",
+                            columns: ["id", "nombre"],
+                            icon: {class: "archive"},
+                            disabled: true
+                        }) %>
+                    </div>
+                </div>
+                <div class="border-bottom-lg border-bottom-secundary" style="box-shadow: 0 1px 0px 2px lightgrey; margin:initial; margin-left:  -30px; margin-right: -30px;">
+
+                </div>
+                <div class="row" ng-show="u_pacc_dept.rawestatus == 2">
+                    <div class="col-md-9 col-sm-9"></div>
+                    <div style="margin-top: 10px;">
+                        <button
+                                style="margin-right: 0px; float: right !important"
+                                dragonlanguage="" title="Cancelar"
+                                type="button" role="button"
+                                class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                ng-click="u_pacc_dept.cancelar();">
+                            <b><i class="icon-cross2"></i></b>
+                            Cancelar
+                        </button>
+                        <button ng-repeat="(key, value) in u_pacc_dept.next_status.data"
+                                style="background-color: {{value.color}}; color: white; float: right !important"
+                                ng-show="u_pacc_dept.todosvalidos()"
+                                dragonlanguage="" title="{{value.descripcion_larga}}"
+                                type="button" role="button"
+                                class="btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                ng-click="u_pacc_dept.updateData(value.id)">
+                            <b><i class=" icon-floppy-disk"></i></b>
+                            {{ value.descripcion }}
+                        </button>
+                        <button ng-repeat="(key, value) in u_pacc_dept.before_status.data"
+                                style="background-color: {{value.color}}; color: white; float: right !important"
+                                ng-show="u_pacc_dept.todosvalidos()"
+                                dragonlanguage="" title="{{value.descripcion_larga}}"
+                                type="button" role="button"
+                                class="btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                ng-click="u_pacc_dept.updateData(value.id)">
+                            <b><i class=" icon-floppy-disk"></i></b>
+                            {{ value.descripcion }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-sm border-bottom-black" style="margin-left: -20px; margin-right: -20px; margin-top: 5px;">
+                <!--Breadcrumb and Table Options-->
+                <div class="breadcrumb-line" style="padding-top: 5px;">
+
+
+                    <ul class="breadcrumb-elements visible-elements" style="margin-right: -30px;">
+
+                        <li class="dropdown visible-lg visible-md"
+                            ng-show="<%= scope %>.PACCROWS.length>1 && !u_pacc_dept.filtro">
+                            <a dragonlanguage title="MESSAGE.i('navbar.RecordsPerPage')" href="#"
+                               style="padding-bottom: 2px !important"
+                               class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                               aria-expanded="false" dragonlanguage="">
+                                <i dragonlanguage="" title="MESSAGE.i('navbar.RecordsPerPage')"
+                                   class="icon-list"></i>
+                                ({{<%= scope %>.table.currentLimit===0?'All':<%= scope %>.table.currentLimit}})
+                                <span ng-show="<%= scope %>.getLimits().length>1" class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right"
+                                ng-show="<%= scope %>.getLimits().length>1">
+                                <li class="{{<%= scope %>.limitActive(row)}}"
+                                    ng-repeat="(key, row) in <%= scope %>.getLimits() track by key">
+                                    <a ng-show=" row != 0 " ng-click="<%= scope %>.goLimit(row)">{{row==0? '*'
+                                        :row}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a ng-click="u_pacc_dept.open_export()" class="legitRipple" style="padding-right: 5px !important; padding-left: 5px !important;">
+                                <i dragonlanguage="" title="Generar F.069"
+                                   class="icon-file-presentation loadingButton"></i> 
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="<%= scope %>.new_export()" style="padding-bottom: 2px !important; padding-right: 5px !important; padding-left: 5px !important;" class="legitRipple">
+                                <i dragonlanguage="" title="Generar Archivo de Trabajo"
+                                   class="icon-file-spreadsheet loadingButton"></i> 
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="<%= scope %>.export()" style="padding-bottom: 2px !important; padding-right: 5px !important; padding-left: 5px !important;" class="legitRipple">
+                                <i dragonlanguage="" title="Generar F.053"
+                                   class="icon-file-excel loadingButton"></i> 
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="<%= scope %>.refresh()" style="padding-bottom: 2px !important" class="legitRipple">
+                                <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')"
+                                   class="icon-rotate-cw3 loadingButton"></i> 
+                            </a>
+                        </li>
+                        <li ng-show="u_pacc_dept.allowedit">
+                            <a ng-click="<%= scope %>.add()" style="padding-bottom: 2px !important" class="legitRipple">
+                                <i dragonlanguage="" title="MESSAGE.ic('mono.add')"
+                                   class="icon-plus-circle2 "></i> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Breadcrumb and Table Options-->
+            </div>
+            <div class="dragon-panel" id="PACCDTablePanel"
+                 style="overflow-x: hidden; overflow-y: visible; margin-top: 10px; min-height: {{(<%= scope %>.table.currentLimit*74)+300}}px">
+                <div class="panel panel-flat">
+
+                    <div class="subcontent" id="custom_container" style="overflow-x: scroll">
+                        <div id="mobile_content" class="row" style="margin-left: -30px; padding-right: 5px;">
+                            <div class='col-sm-5 col-md-5'>
+                                <label style="margin-bottom: 1% !important;">Estatus</label>
+                                <br>
+                                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                    <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                                        <label class="labelRedondo"> Completo </label></li>
+
+                                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                                        <label class="labelRedondo"> Incompleto </label></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-5 col-md-5" style="float:right; left: 25px">
+                                <label style="margin-bottom: 1% !important;">Revisión</label>
+                                <br>
+                                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                                        <label class="labelRedondo"> Revisión </label></li>
+                                    <li><label class="ponerRedondo" style="background-color: #e0c10d;"></label>
+                                        <label class="labelRedondo"> Trabajado </label></li>
+                                    <li><label class="ponerRedondo" style="background-color: #c2c2c2;"></label>
+                                        <label class="labelRedondo"> Normal </label></li>
+                                </ul>
+                            </div>
+                            <div ng-show="!u_pacc_dept.filtro">
+                                <%- /**/ include('../../7-plugins/templates/table/paginator',{scope:scope}); %>
+                            </div>
+                        </div>
+                        <table class=" table table-togglable table-framed sindu-table" id="tb-custom2"
+                               style="width: {{(<%= scope %>.rawestatus >= 5 ? 2000 : 1300) + (<%= scope %>.periodopoas.length*100)}}px !important; margin-left: -20px;">
+                            <thead class="">
+                            <tr class="bg-secundary">
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('cbs')"
+                                       class="ng-binding ng-scope">
+                                        Código de Catálogo de Bienes y Servicios (CBS)
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='cbs'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+
+                                <th width="300px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2">
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar por Descripción"
+                                       ng-click="u_pacc_dept.ordenar('descripcion')"
+                                       class="ng-binding ng-scope">
+                                        Descripción
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='descripcion'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('unidad')"
+                                       class="ng-binding ng-scope">
+                                        Unidad de Medida
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='unidad'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+                                <th style="text-align: center" colspan="{{u_pacc_dept.periodopoa}}">
+                                    Cantidad x Período
+                                </th>
+                                <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Cantidad
+                                    Total
+                                </th>
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('precio_unitario')"
+                                       class="ng-binding ng-scope">
+                                        Precio Unitario
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='precio_unitario'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+                                    Costo Total Unitario
+                                </th>
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('costo_total_real')"
+                                       class="ng-binding ng-scope">
+                                        Costo Total por Código de Catálogo de Bienes y Servicios (CBS)
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='costo_total_real'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar"
+                                       ng-click="u_pacc_dept.ordenar('procedimiento_seleccion')"
+                                       class="ng-binding ng-scope">
+                                        Procedimiento de Selección
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='procedimiento_seleccion'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+                                <th width="200px" style="text-align: center; vertical-align: middle" height="0"
+                                    rowspan="2" ng-show="<%= scope %>.rawestatus >= 5">
+
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('fuente_financiamiento')"
+                                       class="ng-binding ng-scope">
+                                        Fuente de Financiamiento
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename==='fuente_financiamiento'"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+                                </th>
+
+                                <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Estatus
+                                </th>
+                                <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Revisión
+                                </th>
+                                <th style="text-align: center; vertical-align: middle" height="0" rowspan="2">Acciones
+                                </th>
+                            </tr>
+                            <tr class="bg-secundary">
+                                <th width="100px" style="text-align: center; vertical-align: middle" height="0"
+                                    ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                                    <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                       title="Clic para ordenar" ng-click="u_pacc_dept.ordenar('periodo_'+p)"
+                                       class="ng-binding ng-scope">
+                                        {{u_pacc_dept.monitoreo_nombre}} {{p}}
+                                    </a>
+
+                                    <i ng-show="u_pacc_dept.ordename===('periodo_'+p)"
+                                       class="cursor-pointer icon-arrow-{{u_pacc_dept.ordenametipo==='asc'?'down':'up'}}7"
+                                       title="Clic para ordenar">
+                                    </i>
+
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(key,row) in u_pacc_dept.PACCROWS" class="paccrow"
+                                style="background-color: {{row.deleted == 1 ? '#ffd5d5': 'white'}};"
+                                ng-show="u_pacc_dept.filtro? (u_pacc_dept.filtrar(row,u_pacc_dept.filtro)) : u_pacc_dept.offlineVisible(key)">
+                                <td ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].cbs?'success':'error'}}  has-feedback-left">
+                                        <select id="cbs_{{key}}" ng-model="u_pacc_dept.PACCROWS[key].cbs"
+                                               
+                                                ng-disabled="!u_pacc_dept.allowedit"
+                                                class="form-control"
+                                                title="{{u_pacc_dept.getSelectedText('cbs', key)}}">
+                                            <option value="">Seleccione</option>
+                                            <option ng-repeat="(k,v) in u_pacc_dept.cbs"
+                                                    value="{{v.id}}">{{v.id}} - {{v.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div id="descripcion_{{key}}"
+                                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].descripcion.length>0?'success':'error'}}  has-feedback-left">
+                                    <textarea rows="10" ng-model="u_pacc_dept.PACCROWS[key].descripcion"
+                                              maxlength="1000"
+                                              ng-change="u_pacc_dept.saveA(key)"
+                                              class="form-control"
+                                              ng-model-onblur="u_pacc_dept.save(key)"
+                                              ng-disabled="!u_pacc_dept.allowedit"
+                                              placeholder="" style="max-height: 38px;">
+                                    </textarea>
+                                    </div>
+                                </td>
+                                <td class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].unidad?'success':'error'}}  has-feedback-left">
+                                        <select id="unidad_{{key}}" ng-model="u_pacc_dept.PACCROWS[key].unidad"
+                                                ng-change="u_pacc_dept.saveA(key)"
+                                                ng-disabled="!u_pacc_dept.allowedit"
+                                                class="form-control"
+                                                title="{{u_pacc_dept.getSelectedText('unidad', key)}}">
+                                            <option value="">Seleccione</option>
+                                            <option ng-repeat="(k,v) in u_pacc_dept.unidad_medida"
+                                                    value="{{v.id}}">{{v.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td ng-repeat="(i,p) in u_pacc_dept.periodopoas"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.valid_period(key)}}  has-feedback-left">
+                                        <input id="cantidad_total_{{key}}" type="text"
+                                               ng-model="u_pacc_dept.PACCROWS[key]['periodo_'+p]"
+                                               ng-change="u_pacc_dept.saveA(key)"
+                                               maxlength="12"
+                                               autocomplete="off"
+                                               class="form-control numbers"
+                                               ng-disabled="!u_pacc_dept.allowedit"
+                                               placeholder=""/>
+                                    </div>
+                                </td>
+                                <td style="text-align: center"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div style="margin-top: 20px"
+                                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                                        {{u_pacc_dept.tototal(row)}}
+                                    </div>
+                                </td>
+                                <td ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['precio_unitario']>0?'success':'error'}}  has-feedback-left">
+                                        <input id="precio_unitario_{{key}}" type="text"
+                                               ng-model="u_pacc_dept.PACCROWS[key]['precio_unitario']"
+                                               ng-change="u_pacc_dept.saveA(key)"
+                                               maxlength="12"
+                                               autocomplete="off"
+                                               class="form-control decimals"
+                                               ng-disabled="!u_pacc_dept.allowedit"
+                                               placeholder=""/>
+                                    </div>
+                                </td>
+                                <td style="text-align: left" ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div style="margin-top: 20px"
+                                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                                        {{u_pacc_dept.tototalUnitario(row)}}
+                                    </div>
+                                </td>
+                                <td ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div style="margin-top: 20px"
+                                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['costo_total_real']>0?'success':'error'}}  has-feedback-left">
+                                        {{u_pacc_dept.tototalCBS(row) }}
+                                    </div>
+                                </td>
+                                <td ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].procedimiento_seleccion?'success':'error'}}  has-feedback-left">
+                                        <select id="procedimiento_seleccion_{{key}}"
+                                                ng-model="u_pacc_dept.PACCROWS[key].procedimiento_seleccion"
+                                                ng-change="u_pacc_dept.saveA(key)"
+                                                ng-disabled="!u_pacc_dept.allowedit"
+                                                class="form-control"
+                                                title="{{u_pacc_dept.getSelectedText('procedimiento_seleccion', key)}}">
+                                            <option value="">Seleccione</option>
+                                            <option ng-repeat="(k,v) in u_pacc_dept.procedimiento_seleccion"
+                                                    value="{{v.id}}">{{v.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td ng-show="<%= scope %>.rawestatus >= 5"
+                                    class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].fuente_financiamiento?'success':'error'}}  has-feedback-left">
+                                        <select id="fuente_financiamiento_{{key}}"
+                                                ng-model="u_pacc_dept.PACCROWS[key].fuente_financiamiento"
+                                                ng-change="u_pacc_dept.saveA(key)"
+                                                ng-disabled="!u_pacc_dept.allowedit"
+                                                class="form-control"
+                                                title="{{u_pacc_dept.getSelectedText('fuente_financiamiento', key)}}">
+                                            <option value="">Seleccione</option>
+                                            <option ng-repeat="(k,v) in u_pacc_dept.fuente_financiamiento"
+                                                    value="{{v.id}}">{{v.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <center style="margin-top: 16px;">
+                                        <label class="shape_element"
+                                               style="background-color: {{row.validColor()?'#548235':'#FF0000'}};">
+
+                                        </label>
+
+                                    </center>
+
+
+                                </td>
+                                <td class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <center style="margin-top: 16px;">
+                                        <label class="shape_element"
+                                               style="background-color: {{row.revision == 1 ?'#FF0000' : row.revision == 2 ? '#e0c10d' :'#c2c2c2'}};">
+
+                                        </label>
+
+                                    </center>
+
+
+                                </td>
+                                <td class="context-control"
+                                    oncontextmenu="return false;"
+                                    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row)"
+                                    ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
+                                    <ul class="icons-list dragon-action"
+                                        style="z-index: 99999; text-align: center; margin-top: 22px">
+                                        <li ng-show="<%= scope %>.actions.length > 0" class="ng-scope" ng-show="row.deleted != 1" style="text-align: center">
+                                            <a data-action="" title="Acciones"
+                                               class="dropdown-toggle" data-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class=" icon-cog2 text-black-300"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right dragon-menu" ng-show="row.deleted != 1">
+                                                <li ng-repeat="(min, option) in u_pacc_dept.actions track by min">
+                                                    <a title="{{option}}"
+                                                       data-action="{{option}}"
+                                                       ng-click="u_pacc_dept.popaction(min,key)">
+                                                        {{option}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="ng-scope" ng-show="u_pacc_dept.PACCROWS[key].observacion" style="text-align: center">
+                                            <a title="Ver y agregar comentarios"
+                                               ng-click="u_pacc_dept.open_comment(key)">
+                                                <i class=" icon-comment text-black-300"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="subcontent" style="min-height: 2000px !important;" ng-show="u_pacc_dept.noexist">
+            <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                <language>No existe Pacc General creado por favor indicar al responsable de la planificación la creación
+                    del mismo e intente de nuevo
+                </language>
+            </div>
+        </div>
+
+        <table class=" table-print table-togglable table-framed sindu-table" id="tb-custom23"
+               style="width: {{2000+(u_pacc_dept.periodopoas.length*100)}}px !important; display: none">
+            <thead class="">
+            <tr class="">
+                <th rowspan="5" style="border: none; font-family: 'Arial Narrow';">{{u_pacc_dept.us.compania}}</th>
+                <th rowspan="5" colspan="12" style"border: none"></th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Fecha de Revisión</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.paccData.fecha_revision}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Fecha de Aprobación</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.paccData.fecha_aprobacion}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Versión</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.version}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Cantidad de Unidades de Compra</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.cantidad}}</th>
+            </tr>
+            <tr>
+                <th colspan="2" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important">Plan Anual de compras y contrataciónes del año: {{u_pacc_dept.paccData['año']}}</th>
+                <th colspan="13" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important; text-align: center">{{u_pacc_dept.nombre}}</th>
+            </tr>
+            <tr style="font-family: 'Arial Narrow'; font-size: 14px">
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th style="background-color: rgb(108,0,0);color:white; "
+                    colspan="{{u_pacc_dept.periodopoas.length}}">
+                    Fecha de Necesidad
+                </th>
+            </tr>
+            <tr class="bg-secundary"
+                style="background-color: rgb(108,0,0);color:white;font-family: 'Arial Narrow';font-size: 14px">
+                <th width="200px"
+                    style="height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Código de Catálogo de Bienes y Servicios (CBS)
+                </th>
+
+                <th width="300px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Descripción
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Unidad de Medida
+                </th>
+                <th width="100px"
+                    style="mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0"
+                    ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    {{u_pacc_dept.monitoreo_nombre}} {{p}}
+                </th>
+                <th style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0"
+                >Cantidad Total
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Precio Unitario
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Costo Total Unitario
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Costo Total por Código de Catálogo de Bienes y Servicios (CBS)
+                </th>
+
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Procedimiento de Selección
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Fuente de Financiamiento
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                   Valor Adquirido
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Observación
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(key,row) in u_pacc_dept.PACCROWS" class="paccrow"
+                style="font-family: 'Arial Narrow';font-size: 12px">
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].cbs}} -
+                    {{u_pacc_dept.c(u_pacc_dept.cbs,'id',u_pacc_dept.PACCROWS[key].cbs,'nombre')}}
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].descripcion}}
+                </td>
+                <td>
+                    {{u_pacc_dept.c(u_pacc_dept.unidad_medida,'id',u_pacc_dept.PACCROWS[key].unidad,'nombre')}}
+                </td>
+                <td ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    {{u_pacc_dept.PACCROWS[key]['periodo_'+p]}}
+                </td>
+                <td>
+                    <div style="margin-top: 20px"
+                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                        {{u_pacc_dept.tototal(row)}}
+                    </div>
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key]['precio_unitario']}}
+                </td>
+                <td>
+                    <div style="margin-top: 20px"
+                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                        {{u_pacc_dept.tototalUnitario(row, true)}}
+                    </div>
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key]['costo_total_real']}}
+                </td>
+                <td>
+                    {{u_pacc_dept.c(u_pacc_dept.procedimiento_seleccion,'id',u_pacc_dept.PACCROWS[key].procedimiento_seleccion,'nombre')}}
+                </td>
+                <td>
+                    {{u_pacc_dept.c(u_pacc_dept.fuente_financiamiento,'id',u_pacc_dept.PACCROWS[key].fuente_financiamiento,'nombre')}}
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].observacion}}
+                </td>
+            </tbody>
+        </table>
+        <table class=" table-print table-togglable table-framed sindu-table" id="tb-custom24"
+               style="width: {{2000+(u_pacc_dept.periodopoas.length*100)}}px !important; display: none">
+            <thead class="">
+            <tr class="">
+                <th rowspan="5" style="border: none; font-family: 'Arial Narrow';">{{u_pacc_dept.us.compania}}</th>
+                <th rowspan="5" colspan="13" style"border: none"></th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Fecha de Revisión</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.lan.datetime(u_pacc_dept.paccData.fecha_revision)}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Fecha de Aprobación</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.lan.datetime(u_pacc_dept.paccData.fecha_aprobacion)}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Versión</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.version}}</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid lightgray">Cantidad de Unidades de Compra</th>
+                <th style="border: 1px solid lightgray"> {{u_pacc_dept.cantidad}}</th>
+            </tr>
+            <tr>
+                <th colspan="2" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important">Plan Anual de compras y contrataciónes del año: {{u_pacc_dept.paccData['año']}}</th>
+                <th colspan="13" style="border: 1px solid lightgray; font-weight: bold; font-size: 16px !important; text-align: center">{{u_pacc_dept.nombre}}</th>
+            </tr>
+            <tr style="font-family: 'Arial Narrow'; font-size: 14px">
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th style="background-color: rgb(108,0,0);color:white; "
+                    colspan="{{u_pacc_dept.periodopoas.length}}">
+                    Fecha de Necesidad
+                </th>
+            </tr>
+            <tr class="bg-secundary"
+                style="background-color: rgb(108,0,0);color:white;font-family: 'Arial Narrow';font-size: 14px">
+                <th width="200px"
+                    style="height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Código de Catálogo de Bienes y Servicios (CBS)
+                </th>
+                <th width="200px"
+                    style="height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Clasificador Presupuestario
+                </th>
+                <th width="300px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Descripción
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Unidad de Medida
+                </th>
+                <th width="100px"
+                    style="mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0"
+                    ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    {{u_pacc_dept.monitoreo_nombre}} {{p}}
+                </th>
+                <th style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0"
+                >Cantidad Total
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Precio Unitario
+                </th>
+                <th width="100px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0"
+                    ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    Costo {{u_pacc_dept.monitoreo_nombre}} {{p}}
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Costo Total Unitario
+                </th>
+                <th width="200px"
+                    style="background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle"
+                    height="0">
+                    Observación
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(key,row) in u_pacc_dept.PACCROWS" class="paccrow"
+                style="font-family: 'Arial Narrow';font-size: 12px">
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].cbs}} -
+                    {{u_pacc_dept.c(u_pacc_dept.cbs,'id',u_pacc_dept.PACCROWS[key].cbs,'nombre')}}
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].codigo_clasificador}} -
+                    {{u_pacc_dept.PACCROWS[key].desc_clasificador}}
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].descripcion}}
+                </td>
+                <td>
+                    {{u_pacc_dept.c(u_pacc_dept.unidad_medida,'id',u_pacc_dept.PACCROWS[key].unidad,'nombre')}}
+                </td>
+                <td ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    {{u_pacc_dept.PACCROWS[key]['periodo_'+p]}}
+                </td>
+                <td>
+                    <div style="margin-top: 20px"
+                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                        {{u_pacc_dept.tototal(row)}}
+                    </div>
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key]['precio_unitario']}}
+                </td>
+                <td ng-repeat="(i,p) in u_pacc_dept.periodopoas">
+                    {{u_pacc_dept.PACCROWS[key]['periodo_'+p] * u_pacc_dept.PACCROWS[key]['precio_unitario']}}
+                </td>
+                <td>
+                    <div style="margin-top: 20px"
+                         class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key]['periodo_'+p]>0?'success':'error'}}  has-feedback-left">
+                        {{u_pacc_dept.tototalUnitario(row, true)}}
+                    </div>
+                </td>
+                <td>
+                    {{u_pacc_dept.PACCROWS[key].observacion}}
+                </td>
+            </tbody>
+        </table>
+    </div>
+</div><!--end-->
+<script>
+    $('#custom_container').scroll(function(){
+        $("#mobile_content").stop().animate({"width": ($('#PACCDTablePanel').width() + $('#custom_container').scrollLeft()) > $('#tb-custom2').width() ? $('#tb-custom2').width() : $('#PACCDTablePanel').width() + $('#custom_container').scrollLeft() + "px", "paddingLeft":($('#custom_container').scrollLeft()) + "px"});
+    });
+    $(function () {
+        setTimeout(function () {
+            u_pacc_dept.refresh()
+            $('#PACCDTablePanel').floatingScrollbar();
+        }, 2000)
+    });
+    $(function(){
+        u_pacc_dept.refreshAngular();
+        setTimeout(function () {
+            $('[data-dragonfile]').each(function () {
+                FILE.runServerFile($(this))
+            });
+        },500);
+    });
+</script>

@@ -1,0 +1,871 @@
+{
+  "permissions": {
+    "entities": [
+      "usuario"
+    ],
+    "terms": [
+      {
+        "name": "group",
+        "relation": "user_group"
+      }
+    ],
+    "excludes": [
+      "st_user",
+      "foda",
+      "vw_oeend",
+      "vw_dashboard_poas",
+      "vw_dashboard_productos2",
+      "vw_dashboard_productosgrid",
+      "vw_dashboard_productosgrid_pei",
+      "vw_dashboard_productosgrid_actividades",
+      "interval",
+      "segment",
+      "vw_presupuesto_aprobado_index",
+      "poa_monitoreo",
+      "drp_objetivo_estrategico_end"
+    ],
+    "list": {
+      "group": {
+        "type": "permission",
+        "allow": {}
+      },
+      "actividades_apoyo": {
+        "type": "full",
+        "allow": {
+          "comment": true
+        }
+      },
+      "actividades_apoyo_estatus": {
+        "type": "full",
+        "allow": {}
+      },
+      "drp_actividades_apoyo": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "view": true,
+          "audit": true,
+          "filter": true,
+          "comment": true,
+          "menu": true,
+          "work": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "comentarios_actividad_apoyo": {
+        "type": "empty",
+        "allow": {}
+      },
+      "mis_actividades_apoyo": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "menu": true,
+          "view": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "actividades_poa": {
+        "type": "full",
+        "allow": {
+          "comment_activities": true
+        }
+      },
+      "asignacion_especial_poa": {
+        "type": "full",
+        "allow": {
+        }
+      },
+      "mi_asignacion_especial_poa": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "menu": true,
+          "work": true,
+          "view": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "actividades_poa_monitoreo": {
+        "type": "full",
+        "allow": {
+          "work": true,
+          "comment_activities": true
+        }
+      },
+      "cargo": {
+        "type": "full",
+        "allow": {}
+      },
+      "clientes_institucion": {
+        "type": "full",
+        "allow": {}
+      },
+      "clientes_compromisos": {
+        "type": "full",
+        "allow": {}
+      },
+      "vw_compromiso": {
+        "type": "full",
+        "allow": {
+          "active": true
+        }
+      },
+      "otros_compromiso": {
+        "type": "full",
+        "allow": {
+        }
+      },
+      "supuestos": {
+        "type": "full",
+        "allow": {
+          "active": true
+        }
+      },
+      "compania": {
+        "type": "full",
+        "allow": {
+          "instituciones": true
+        }
+      },
+      "departamento": {
+        "type": "full",
+        "allow": {}
+      },
+      "departamento2": {
+        "type": "full",
+        "allow": {}
+      },
+      "objetivo_especifico": {
+        "type": "full",
+        "allow": {}
+      },
+      "linea_accion": {
+        "type": "full",
+        "allow": {}
+      },
+      "eje_estrategico": {
+        "type": "full",
+        "allow": {}
+      },
+      "end": {
+        "type": "full",
+        "allow": {}
+      },
+      "estrategia": {
+        "type": "full",
+        "allow": {}
+      },
+      "caracteristica_indicador": {
+        "type": "full",
+        "allow": {
+          "active": true
+        }
+      },
+      "involucrados": {
+        "type": "full",
+        "allow": {
+          "active": true
+        }
+      },
+      "vw_estrategia_foda": {
+        "type": "report",
+        "allow": {}
+      },
+      "foda_items": {
+        "type": "full",
+        "allow": {}
+      },
+      "indicador_pei": {
+        "type": "full",
+        "allow": {}
+      },
+      "indicador_poa": {
+        "type": "full",
+        "allow": {}
+      },
+      "indicador_actividad": {
+        "type": "full",
+        "allow": {}
+      },
+      "indicador_producto_poa_actividad": {
+        "type": "empty",
+        "allow": {
+          "Guardar": true,
+          "Cancelar": true,
+          "menu": true
+        }
+      },
+      "indicador_producto_poa": {
+        "type": "empty",
+        "allow": {
+          "Guardar": true,
+          "Cancelar": true,
+          "menu": true
+        }
+      },
+      "indicador_resultado_pei": {
+        "type": "full",
+        "allow": {
+          "save": true,
+          "cancel": true
+        }
+      },
+      "marco_estrategico": {
+        "type": "full",
+        "allow": {}
+      },
+      "marco_estrategico_valores": {
+        "type": "full",
+        "allow": {
+          "button_mission": true,
+          "button_view": true
+        }
+      },
+      "marco_estrategicos_virtudes": {
+        "type": "full",
+        "allow": {}
+      },
+      "objetivo": {
+        "type": "full",
+        "allow": {}
+      },
+      "objetivo_estrategico": {
+        "type": "full",
+        "allow": {}
+      },
+      "ods": {
+        "type": "full",
+        "allow": {}
+      },
+      "pei": {
+        "type": "full",
+        "allow": {}
+      },
+      "perspectiva": {
+        "type": "full",
+        "allow": {}
+      },
+      "pei_poa": {
+        "type": "full",
+        "allow": {}
+      },
+      "asignaciones": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "Asignaciones_Creadas": true,
+          "Mis_Asignaciones": true
+        }
+      },
+      "pesta_items": {
+        "type": "full",
+        "allow": {}
+      },
+      "pnpsp": {
+        "type": "full",
+        "allow": {}
+      },
+      "poa": {
+        "type": "full",
+        "allow": {
+          "actions": true,
+          "close": true
+        }
+      },
+      "presupuesto_aprobado": {
+        "type": "full",
+        "allow": {
+          "update_budget": true
+        }
+      },
+      "productos_poa": {
+        "type": "full",
+        "allow": {
+          "comment_product": true,
+          "work": true
+        }
+      },
+      "resultado": {
+        "type": "full",
+        "allow": {}
+      },
+      "resultado_view": {
+        "type": "empty",
+        "allow": {}
+      },
+      "tipo_institucion": {
+        "type": "full",
+        "allow": {}
+      },
+      "pei_admin": {
+        "type": "full",
+        "allow": {}
+      },
+      "poa_admin": {
+        "type": "full",
+        "allow": {
+          "actions": true,
+          "transfer": true,
+          "consult_mega": true
+        }
+      },
+      "resumen": {
+        "type": "full",
+        "allow": {}
+      },
+      "usuario": {
+        "type": "full",
+        "allow": {
+          "active": true,
+          "unlock": true,
+          "unlock_action": true
+        }
+      },
+      "dashboard": {
+        "type": "full",
+        "allow": {}
+      },
+      "dashboard_cofiguration": {
+        "type": "full",
+        "allow": {}
+      },
+      "dashboard_departamento": {
+        "type": "full",
+        "allow": {}
+      },
+      "dashboard_presupuesto_barra": {
+        "type": "full",
+        "allow": {}
+      },
+      "vw_dashboard_productosgrid": {
+        "type": "empty",
+        "allow": {}
+      },
+      "vw_dashboard_productosgrid_pei": {
+        "type": "empty",
+        "allow": {}
+      },
+      "vw_dashboard_productosgrid_actividades": {
+        "type": "empty",
+        "allow": {}
+      },
+      "departamento_poa": {
+        "type": "full",
+        "allow": {
+          "break_free": true,
+          "change_status": true,
+          "comment_status": true,
+          "comment_budget": true
+        }
+      },
+      "vw_marco_estrategico": {
+        "type": "full",
+        "allow": {
+          "button_mission": true,
+          "button_view": true
+        }
+      },
+      "mega_ejeestrategico": {
+        "type": "empty",
+        "allow": {
+          "filter": true,
+          "import": false,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "mega_objetivoestrategico": {
+        "type": "empty",
+        "allow": {
+          "filter": true,
+          "import": false,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "megaconsulta": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "authorize_pei": true
+        }
+      },
+      "mega_comentarios_resultado_esperado": {
+        "type": "report",
+        "allow": {}
+      },
+      "mega_estrategia": {
+        "type": "empty",
+        "allow": {
+          "filter": true,
+          "import": false,
+          "mega_option": true,
+          "actions": true,
+          "foda": true,
+          "pesta": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "comentarios_productos_poa": {
+        "type": "empty",
+        "allow": {
+          "mega_option": true,
+          "export": {}
+        }
+      },
+      "mega_comentarios_pei": {
+        "type": "empty",
+        "allow": {
+          "mega_option": true,
+          "export": {}
+        }
+      },
+      "mega_comentarios_poa": {
+        "type": "empty",
+        "allow": {
+          "mega_option": true,
+          "export": {}
+        }
+      },
+      "mega_indicadores_pei": {
+        "type": "report",
+        "allow": {
+          "mega_option": true,
+          "comment": true
+        }
+      },
+      "mega_producto_actividades": {
+        "type": "report",
+        "allow": {}
+      },
+      "mega_resultado_esperado": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "eye": true,
+          "filter": true,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "mega_indicadores_pei_resultado": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "eye": true,
+          "filter": true,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "mega_indicadores_poa": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "eye": true,
+          "filter": true,
+          "comment": true,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "vw_mega_indicadores_actividad": {
+        "type": "empty",
+        "allow": {
+          "filter": true,
+          "mega_option": true
+        }
+      },
+      "mega_actividades": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "eye": true,
+          "filter": true,
+          "comment_activities": true,
+          "mega_option": true
+        }
+      },
+      "mega_actividades_asociadas": {
+        "type": "empty",
+        "allow": {
+          "mega_option": true,
+          "filter": true,
+          "actions": true,
+          "comment": true
+        }
+      },
+      "mega_presupuesto_aprobado": {
+        "type": "empty",
+        "allow": {
+          "filter": true,
+          "actions": true,
+          "work": true,
+          "mega_option": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
+      "mega_comentario_presupuesto_poa": {
+        "type": "empty",
+        "allow": {
+          "mega_option": true
+        }
+      },
+      "mega_producto": {
+        "type": "empty",
+        "allow": {
+          "work": true,
+          "filter": true,
+          "mega_option": true,
+          "comment_product": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
+          "actions": true
+        }
+      },
+      "mega_producto_adtividades": {
+        "type": "empty",
+        "allow": {
+          "viewlist": true,
+          "filter": true,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          },
+          "actions": true
+        }
+      },
+      "mega_productos_actividades_apoyo": {
+        "type": "empty",
+        "allow": {
+          "view": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
+          "actions": false
+        }
+      },
+      "authpoa_releaseprep": {
+        "type": "full",
+        "allow": {
+          "view": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
+          "actions": false
+        }
+      },
+      "vw_productos_auth_poa": {
+        "type": "empty",
+        "allow": {
+          "view": false,
+          "filter": false,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          },
+          "actions": false
+        }
+      },
+      "vw_actividades_auth_poa": {
+        "type": "empty",
+        "allow": {
+          "view": false,
+          "filter": false,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          },
+          "actions": false
+        }
+      },
+      "resumen_pei_poa": {
+        "type": "report",
+        "allow": {
+          "see_matriz_pei": true,
+          "see_matriz_poa": true,
+          "see_indicador_pei": true,
+          "see_indicador_poa": true,
+          "see_indicador_actividad": true
+        }
+      },
+      "vw_asignacion_especial_dashboard": {
+        "type": "report",
+        "allow": {}
+      },
+      "autorizar_pei": {
+        "type": "emptymenu",
+        "allow": {}
+      },
+      "vw_dashboard_productos2": {
+        "type": "report",
+        "allow": {
+        }
+      },
+      "dragon_audit": {
+        "type": "report",
+        "allow": {}
+      },
+      "hint_entity": {
+        "type": "full",
+        "allow": {}
+      },
+      "hint_fields": {
+        "type": "full",
+        "allow": {}
+      },
+      "vw_productos_poa_resultado": {
+        "type": "full",
+        "allow": {
+          "comment_product": true
+        }
+      },
+      "drp_resultado": {
+        "type": "empty",
+        "allow": {}
+      },
+      "drp_estrategia": {
+        "type": "empty",
+        "allow": {
+          "view": true,
+          "actions": true,
+          "active": false,
+          "foda": true,
+          "pesta": true
+        }
+      },
+      "conductas_asociadas_view": {
+        "type": "empty",
+        "allow": {}
+      },
+      "actividades_asociadas_view": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "comment": true
+        }
+      },
+      "vw_comentarios": {
+        "type": "empty",
+        "allow": {}
+      },
+      "vw_objetivos": {
+        "type": "empty",
+        "allow": {}
+      },
+      "actividades_view": {
+        "type": "empty",
+        "allow": {}
+      },
+      "delete_company": {
+        "type": "empty",
+        "allow": {
+          "menu": true
+        }
+      },
+      "comentarios_actividades_poa": {
+        "type": "empty",
+        "allow": {
+        }
+      },
+      "vw_departamento_not_exists_presupuesto": {
+        "type": "full",
+        "allow": {}
+      },
+      "razon": {
+        "type": "full",
+        "allow": {
+          "active": true
+        }
+      },
+      "vw_comentarios_indicadores": {
+        "type": "empty",
+        "allow": {
+        }
+      },
+      "vw_razon_apoyo": {
+        "type": "full",
+        "allow": {}
+      },
+      "clasificadores": {
+        "type": "full",
+        "allow": {}
+      },
+      "vw_productos_poa_detalles": {
+        "type": "report",
+        "allow": {}
+      },
+      "drp_eje_estrategico": {
+        "type": "empty",
+        "allow": {
+        }
+      },
+      "drp_eje_estrategico_end": {
+        "type": "empty",
+        "allow": {
+        }
+      },
+      "drp_objetivo_estrategico": {
+        "type": "empty",
+        "allow": {
+        }
+      },
+      "drp_productos_poa": {
+        "type": "empty",
+        "allow": {
+          "add": false,
+          "edit": false,
+          "view": false,
+          "remove": false
+        }
+      },
+      "objetivo_estrategico_especifico": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "direcciones_area": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "direcciones_generales": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "institucion": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "sector": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "viceministerios": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "marco_legal": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "politica_gobierno": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "impacto_politica": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      },
+      "denominacion_pnpsp": {
+        "type": "full",
+        "allow": {
+          "audit": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<div>
+    <div class="row">
+
+        <div class="col-sm-12 col-md-3">
+            <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+        </div>
+        <div class="col-sm-12 col-md-9 remove-input-space">
+            <%- FORM.textarea("direccion", scope, {maxlength: 4000, placeholder: "Dirección"}) %>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <%- FORM.mask("telefono", scope, {
+                mask: "(999) 999-9999",
+                placeholder: "Teléfono",
+                icon: {class: "phone"}
+            }) %>
+        </div>
+
+        <div class="col-sm-4 col-md-4" ng-show="institucion.tipo_institucion==1">
+            <%- FORM.select("sector", scope, {
+                allowedit: false,
+                allowview: false,
+                allowlist: false,
+                column: "sector",
+                text: "item.nombre",
+                table: "sector",
+                label: "Sector",
+                icon: {class: "archive"}
+            }) %>
+        </div>
+
+        <div class="col-sm-4 col-md-4" ng-show="institucion.form.mode!=='new'">
+            <%- FORM.select("responsable", scope, {
+                column: "usuario_nombre",
+                text: "item.nombre + ' ' + item.apellido + ' - '  +  (item.cargo != 'null' ? item.cargo_nombre + ' - ' : '')  + item.correo ",
+                table: "usuario",
+                icon: {class: "archive"},
+                label: "Responsable",
+                //condition: "((item.active && item.compania==institucion.compania && item.interinstitucional))",
+                condition: "((item.active && item.compania==institucion.compania) && (item.active && item.compania==institucion.compania && item.profile==1 ))"
+            }) %>
+        </div>
+
+    </div>
+
+    <!--<div class="row">-->
+    <!---->
+    <!--</div>-->
+
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 1000}) %>
+        </div>
+        <div class="col-sm-4 col-md-4 custom-upload">
+            <%- FORM.file("logo", scope, {
+                show: 'image',
+                image: 130,
+                title: 'Subir logo de la institución',
+                truetext: 'Logo de la institución',
+                maxfiles: 1,
+                columns: 1,
+                acceptedFiles: "image/*",
+                acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen"
+            }) %>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="institucion.form.mode!=='new'">
+    <ul class="nav nav-primary nav-tabs primary nav-justified">
+
+        <li class="active">
+            <a href="#PEI1" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                <i class="icon-archive position-left"></i>
+                <language>Pei</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="">
+            <a href="#POA1" data-toggle="tab" id="tabPOA1">
+                <i class="icon-html5 position-left"></i>
+                <language>Poa</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+
+        <li class="" ng-if="!institucion.solopaipoa">
+            <a href="#CA1" data-toggle="tab" id="tabCA1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Cargos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-if="!institucion.solopaipoa">
+            <a href="#DEP1" data-toggle="tab" id="tabDEP1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Departamentos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-if="!institucion.solopaipoa">
+            <a href="#DEP12" data-toggle="tab" id="tabDEP12" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Usuarios</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+
+    </ul>
+</div>
+
+<div class="tab-content" ng-show="institucion.form.mode!=='new'">
+    <div class="tab-pane active" id="PEI1">
+        <%- FORM.relation("pei", scope, {
+            table: "pei",
+            field: "institucion",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+
+    <div class="tab-pane" id="POA1">
+        <div id="poa" ng-controller="poa as poa">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'poa'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'poa'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="CA1">
+        <%- FORM.relation("cargos", scope, {
+            table: "cargo",
+            field: "institucion",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <div class="tab-pane" id="DEP1">
+        <%- FORM.relation("departamentos", scope, {
+            table: "departamento",
+            field: "institucion",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+
+    <div class="tab-pane" id="DEP12">
+        <%- FORM.relation("usuarios", scope, {
+            table: "usuario",
+            field: "institucion",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    // institucion_telefono
+    // var o = new Option("Seleccione", "value", true);
+    // $(o).html("Seleccione");
+    // $('[name="institucion_responsable"]').append(o);
+</script>

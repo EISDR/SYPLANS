@@ -1,0 +1,64 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#organizacion",
+          "text": "Organización"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#ods_compania",
+          "text": "Objetivos"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#agrupador",
+          "text": "Agrupadores"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#localizacion",
+          "text": "Localizaciones"
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Configuración"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#ods_compania",
+          "text": "Objetivos"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#agrupador",
+          "text": "Agrupadores"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#localizacion",
+          "text": "Localizaciones"
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Entorno"
+    }
+  ]
+}

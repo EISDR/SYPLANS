@@ -1,0 +1,70 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre del Plan de Acción"}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="panel panel-flat" id="tabsComment">
+            <div class="subcontent" style="padding-top: 0px;">
+                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                    <li class="active" id="acc_cor_tab">
+                        <a href="#acc_cor" data-toggle="tab">
+                            <i class="position-left"></i>
+                            Crear Acciones Correctivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" id="acc_pre_tab">
+                        <a href="#acc_pre" data-toggle="tab">
+                            <i class="position-left"></i>
+                            Crear Acciones Preventivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="acc_cor">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <%- FORM.relation("acciones_correctiva", scope, {
+                                    text: "item.nombre",
+                                    table: "auditoria_lista_correctiva",
+                                    field: "evento_riesgo",
+                                    master: null,
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="acc_pre">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <%- FORM.relation("acciones_preventiva", scope, {
+                                    text: "item.nombre",
+                                    table: "auditoria_lista_preventiva",
+                                    field: "evento_riesgo",
+                                    master: null,
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

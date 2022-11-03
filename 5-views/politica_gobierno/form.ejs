@@ -1,0 +1,42 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.integer('no_secuencia', scope, {
+                    maxlength: 5,
+                    placeholder: "No. Secuencia"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation('impacto_politica', scope, {
+                    text: "item.nombre",
+                    table: "impacto_politica",
+                    field: "politica_gobierno",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

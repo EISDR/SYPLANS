@@ -1,0 +1,62 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#ser_salida",
+          "text": "Creación de Salidas NO Conforme"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "folder-search",
+              "href": "#ser_salida_tipo",
+              "text": "Tipos de Salidas no Conforme"
+            }
+          ],
+          "modal": "",
+          "icon": "hammer-wrench",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Gestión de Salidas no Conforme"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#ser_salida",
+          "text": "Creación de Salidas NO Conforme"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "folder-search",
+              "href": "#ser_salida_tipo",
+              "text": "Tipos de Salidas no Conforme"
+            }
+          ],
+          "modal": "",
+          "icon": "hammer-wrench",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Gestión de Salidas no Conforme"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('comentario', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('type', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('revision', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('value2', scope, {
+                        //length:15
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

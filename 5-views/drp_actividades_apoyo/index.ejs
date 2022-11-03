@@ -1,0 +1,77 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat" id="tabsComment">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="active_comment_actividad">
+                <a href="#mis_act_apoyo" data-toggle="tab" ng-click="drp_actividades_apoyo.change_filters_toMines()">
+                    <i class="position-left"></i>Mis Actividades de Apoyo<i class="border-white  position-right"></i>
+                </a>
+            </li>
+            <li class="" id="activ_apoyo_tab">
+                <a href="#activ_apoyo" data-toggle="tab" ng-show="drp_actividades_apoyo.permitir != drp_actividades_apoyo.analista_departamental" ng-click="drp_actividades_apoyo.change_filters_toOurs()">
+                    <i class="position-left"></i>Actividades de apoyo en general<i class="border-white  position-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="mis_act_apoyo">
+            <div class="table table-togglable table-framed">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+                    <div class="subcontent">
+                        <div class="" style="padding: 0; margin-top: -15px">
+                            <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                                    <label class="labelRedondo"> Planificada </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                                    <label class="labelRedondo"> En ejecución </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                                    <label class="labelRedondo"> Vencida </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                                    <label class="labelRedondo"> Ninguna Condición </label></li>
+                            </ul>
+                        </div>
+                        <%- include('base',{scope:'drp_actividades_apoyo'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="activ_apoyo">
+            <div class="table table-togglable table-framed">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+                    <div class="subcontent">
+                        <div class="" style="padding: 0; margin-top: -15px">
+                            <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                                    <label class="labelRedondo"> Planificada </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                                    <label class="labelRedondo"> En ejecución </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                                    <label class="labelRedondo"> Vencida </label></li>
+
+                                <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                                    <label class="labelRedondo"> Ninguna Condición </label></li>
+                            </ul>
+                        </div>
+                        <%- include('base',{scope:'drp_actividades_apoyo'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<style>
+    #mis_act_apoyo .subcontent{
+        padding: 0;
+    }
+    
+    #activ_apoyo .subcontent {
+        padding: 0;
+    }
+</style>

@@ -1,0 +1,214 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <br>
+        <div class="subcontent">
+            <div ng-show="!poa_admin.loading">
+                <div class="panel panel-flat" style="padding: 20">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div ng-show="poa_admin.suficiente" dragonlanguage=""
+                                 class="alert alpha-warning border-warning alert-styled-left">
+                                <b>Al cerrar un POA se realiza la tarea de transferir todos los productos abiertos con
+                                    sus
+                                    respectivas actividades al próximo período POA. <span style="color: red">Se procederá a transferir el/los
+                                        presupuesto(s) de esa(s) actividad(es) al presupuesto anual del próximo período.</span></b>
+
+                            </div>
+
+                            <div ng-show="!poa_admin.actividades.length" dragonlanguage=""
+                                 class="alert alpha-warning border-warning alert-styled-left">
+                                <b><span style="color: red">No existe ninguna actividad pendiente a pasar.</span></b>
+
+                            </div>
+
+
+                            <div ng-show="!poa_admin.suficiente && !poa_admin.incovenientes()" dragonlanguage=""
+                                 class="alert alpha-warning border-warning alert-styled-left">
+                                <b>
+                                    <span style="color: red">Existen condiciones que imposibilitan transferir este POA al próximo año. Favor corregir las condiciones de error e intente nueva vez.</span>
+                                </b>
+
+                            </div>
+
+                            <div ng-show="poa_admin.incovenientes()" dragonlanguage=""
+                                 class="alert alpha-warning border-warning alert-styled-left">
+                                <b>
+                                    <span style="color: red">Existen inconvenientes a nivel de presupuesto departamental.</span>
+                                </b>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <button
+                                    dragonlanguage="" title="Cancelar"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.warning %>-800 btn-labeled btn-xs pull-right"
+                                    onclick="MODAL.close('<%= scope %>');">
+                                <b><i class="icon-cross2"></i></b>
+                                Cancelar
+                            </button>
+
+                            <button ng-show="poa_admin.suficiente"
+                                    dragonlanguage="" title="Cerrar POA para {{poa_admin.report.periodo_poa}}"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.transfer_poa()">
+                                <b><i class="icon-database-insert"></i></b>
+                                Cerrar POA
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-flat" style="padding: 20">
+                    <div class="row">
+                        <div class="col-sm-9">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button
+                                    dragonlanguage="" title="Exportar a Excel"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.secundary %>-800 btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.print()">
+                                <b><i class=" icon-file-excel"></i></b>
+                                Exportar a Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    </br>
+                    <style>
+                        table.reporttransfer {
+                            border: 2px black solid;
+                        }
+
+                        .reporttransfer tr {
+                            border: 1px gray solid;
+                        }
+
+                        .reporttransfer td {
+                            border: 1px gray solid;
+                        }
+                    </style>
+
+                    <table style="margin-bottom: 20px" id="tableReport" class="reporttransfer  table ">
+                        <thead>
+                        <tr>
+                            <td style="border-color: #fff;background-color: #004d80;color: #FFF !important;text-align: center"
+                                colspan="5"><b>PEI</b>: {{poa_admin.report.pei_nombre}}
+                                ({{poa_admin.report.periodo_desde}} -
+                                {{poa_admin.report.periodo_hasta}}), <b>POA</b>: <b>desde</b>
+                                {{poa_admin.report.nombre}} ({{poa_admin.report.periodo_poa}}) <b>hasta</b>
+                                {{poa_admin.report.n_nombre}} ({{poa_admin.report.n_periodo_poa}})
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-color: #fff;background-color: #004d80;color: #FFF !important;"
+                                colspan="3"><b>Presupuesto</b>
+                            </td>
+                            <td style="text-align: right;border-color: #fff;background-color: #004d80;color: #FFF !important;">
+                                <b>{{poa_admin.report.periodo_poa}}</b></td>
+                            <td style="text-align: right;border-color: #fff;background-color: #004d80;color: #FFF !important;">
+                                <b>{{poa_admin.report.n_periodo_poa}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Presupuesto Institucional</b></td>
+                            <td style="text-align: right"><b>{{poa_admin.report.INS}}</b></td>
+                            <td style="text-align: right;color: {{poa_admin.suficienteColor}}">
+                                <b> {{poa_admin.report.n_INS || poa_admin.total}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Presupuesto Institucional Asignado</b></td>
+                            <td style="text-align: right">
+                                <b>{{poa_admin.report.ASI}} </b>
+                            </td>
+                            <td style="text-align: right;color: {{poa_admin.suficienteColor}}">
+                                <b>{{poa_admin.report.N_ASI || poa_admin.total}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Presupuesto Institucional Restante</b></td>
+                            <td style="text-align: right">
+                                <b>{{poa_admin.report.RES}}</b>
+                            </td>
+                            <td style="text-align: right">
+                                <b> {{poa_admin.report.N_RES || "0"}}</b>
+                            </td>
+                        </tr>
+                        <tr ng-if="poa_admin.institucional_suficiente">
+                            <td colspan="5" style="text-align: center;color: {{poa_admin.suficienteColor}}"><b>No hay presupuesto institucional suficiente para el año {{poa_admin.report.n_nombre}} ({{poa_admin.report.n_periodo_poa}})</b></td>
+                        </tr>
+                        <tr></tr>
+
+                        </thead>
+                        <tbody style="">
+
+                        <tr>
+                            <td style="border-color: #fff;background-color: #1aa3ff;color: #FFF !important">Actividad -
+                                Proyecto/Producto
+                            </td>
+                            <td style="border-color: #fff;background-color: #1aa3ff;color: #FFF !important">
+                                {{poa_admin.report.periodo_poa}}: Desde - Hasta
+                            </td>
+                            <td style="border-color: #fff;background-color: #1aa3ff;color: #FFF !important">
+                                {{poa_admin.report.n_periodo_poa}}: Desde - Hasta
+                            </td>
+                            <td style="border-color: #fff;background-color: #1aa3ff;color: #FFF !important">
+                                Responsable
+                            </td>
+                            <td style="border-color: #fff;background-color: #1aa3ff;color: #FFF !important">
+                                Presupuesto
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="(key,row) in poa_admin.actividadesR">
+                            <td ng-if="row.row" colspan="5"
+                                style="text-align: center !important;background-color: #e5f5ff;"><b>{{row.row}}</b></td>
+                            <td ng-if="row.normal">{{row.actividad}} - {{row.producto_nombre}}</td>
+                            <td ng-if="row.normal">{{row.fecha}}</td>
+                            <td ng-if="row.normal">{{row.fechatodas}}</td>
+                            <td ng-if="row.normal">{{row.responsable}}</td>
+
+                            <td ng-if="row.normal" style="text-align: right">{{' '+ row.presupuesto + ' '}}</td>
+
+                            <td ng-if="row.subtotal" colspan="3">
+                                <span ng-if="!row.valid" style="color: red">Presupuesto departamental definido para el POA: {{poa_admin.report.n_nombre}} ({{poa_admin.report.n_periodo_poa}}), es menor a la sumatoria de los presupuestos de los Proyecto/Producto/actividades a transferir.</span>
+                                <span ng-if="row.status=='3'" style="color: red">El departamento ya tiene un presupuesto autorizado para el próximo año, por lo que no puedes transferirle estos Proyecto/Producto. Contacte al Director departamental para que proceda a cambiar el estatus de su presupuesto.</span>
+                            </td>
+
+
+                            <td ng-if="row.subtotal"><b>Sub Total</b></td>
+                            <td ng-if="row.subtotal" style="text-align: right;color: {{row.valid?'black':'red'}}"><b>{{row.subtotal}}</b>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><b>Total</b></td>
+                            <td style="text-align: right"><b>{{poa_admin.total}}</b></td>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+            <div ng-show="poa_admin.loading">
+                <h1 class="text-center">Cargando reporte...</h1>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        poa_admin.refreshAngular();
+        poa_admin.fillReport();
+    </script>
+</div>
+
+
+

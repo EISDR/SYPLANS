@@ -1,0 +1,75 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("objetivo", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    truelabel: "Objetivo General",
+                    text: "end.edt +'.'+ item.edt +' ' + item.nombre + ' ( ' + item.count_oe + ' )'",
+                    table: "drp_objetivo_end",
+
+                    condition: "item.end == end.id",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("objetivo_especifico", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    truelabel: "Objetivo Específico",
+                    text: "end.edt + '.' + item.objg_edt + '.' + item.edt + ' ' + item.nombre",
+                    table: "vw_objetivo_especifico",
+                    condition: "item.objetivo == linea_accion.objetivo",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('politicas_gobierno', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew:false,
+                    multiple: true,
+                    text: "item.nom_sec",
+                    table: "vw_politica_gobierno",
+                    icon: {class: "archive"},
+                    label: "Políticas Gobierno",
+                    condition: "(item.compania == linea_accion.session.compania_id)",
+                    get: {
+                        table: 'linea_accion_politica',
+                        fieldFrom: 'id',
+                        fieldTo: 'linea_accion',
+                        field: 'politica_gobierno'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%-
+                // FORM.input("descripcion", scope, {placeholder:"Descripción",maxlength: 255})
+                FORM.textarea('descripcion', scope, {label: "Descripción", placeholder: "Descripción", maxlength: 1000})
+                %>
+            </div>
+        </div>
+
+    </div>
+</div>
+<%- FORM.footer(scope) %>

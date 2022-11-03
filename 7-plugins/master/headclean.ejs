@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <% include server %>
+    <% var root = '../../'; %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+          content="SyPlans - Software de gestión de procesos de planificación y seguimiento de acuerdos y compromisos. Es un software que facilita el control y la gestión de la planificación estratégica institucional (PEI), la planificación operativa anual (POA) y la ejecución presupuestaria dentro de una empresa. Da acompañamiento a las personas encargadas de velar por la Planificación, el Control de la Gestión y el Control de la Ejecución de las Actividades; facilitando que los objetivos sean cumplidos a tiempo y de manera eficiente tomando en cuenta la vinculación de éstos con el presupuesto institucional.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=6">
+    <title><%= CONFIG.appName %> </title>
+    <link rel="shortcut icon" type="image/png" href="/files/configuration/logo/fav.png"/>
+
+</head>
+<body ng-app="app" style="background-color: white;">
+<div style="display: none" class="spinner222">
+    <div class="double-bounce1 bg-<%= COLOR.primary %>-600"></div>
+    <div class="double-bounce2 bg-<%= COLOR.secundary %>-600"></div>
+    <div class="double-bounce3 bg-<%= COLOR.extra %>-600"></div>
+</div>
+
+
+<div id="baseController" ng-controller="baseController as baseController" style="display: none">
+    <div id="modalpool">
+
+    </div>
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+                <!-- Content area -->
+                <div class="content" id="content" style="overflow: hidden">
+                    <!-- Error title -->
+

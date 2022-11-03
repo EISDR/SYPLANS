@@ -1,0 +1,658 @@
+<div class="row"></div>
+<div class="row">
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="padding-right: 0"
+         ng-show="(auditoria_programa_plan.mevengo &&  (auditoria_programa_plan.soylider || (auditoria_programa_plan.soyparticipe && auditoria_programa_plan.my_true_estatus===5) ))">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+     </span>
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-default" ng-show="!auditoria_programa_plan.mevengo">
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <div class="alert alert-info alert-styled-left alert-dismissible">
+                            <span class="font-weight-semibold">Cargando información para el informe, por favor espere</span>
+                        </div>
+                    </div>
+                    <div class='col-sm-12 col-md-12' id="loadinginforme">
+                    </div>
+                    <script>
+                        var animation = new ANIMATION();
+                        animation.loading(`#loadinginforme`, "", ``, '100');
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" ng-show="auditoria_programa_plan.mevengo">
+            <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                <label style="font-family: 'Arial Narrow'; font-size: 21px;">Datos Principales</label>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-3 col-md-3'>
+                        <%- FORM.inputview('nombre', scope, {}) %>
+                    </div>
+                    <div class='col-sm-3 col-md-3'
+                         title="Para cambiar el estatus debes ser Supervisor de Calidad y además que todos los participantes hayan dado su punto de vista."
+                         ng-if="!auditoria_programa_plan.soylider">
+                        <div>
+                            <%- FORM.select('estatus', scope, {
+                                allowedit: false,
+                                allowlist: false,
+                                allownew: false,
+                                allowview: false,
+                                text: "item.permitido",
+                                value: "id",
+                                table: "vw_auditoria_programa_plan_estatus",
+                                icon: {class: "archive"},
+                                truelabel: "Estatus",
+                                condition: "item.plan_status == auditoria_programa_plan.my_true_estatus && item.entidad == 'auditoria_programa_plan'"
+                            }) %>
+                        </div>
+                    </div>
+                    <div class='col-sm-3 col-md-3'
+                         ng-if="auditoria_programa_plan.soylider">
+                        <%- FORM.select('estatus', scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            text: "item.permitido",
+                            value: "id",
+                            table: "vw_auditoria_programa_plan_estatus",
+                            icon: {class: "archive"},
+                            truelabel: "Estatus.",
+                            condition: "item.plan_status == auditoria_programa_plan.my_true_estatus && item.entidad == 'auditoria_programa_plan'"
+                        }) %>
+                    </div>
+                    <!--                    <div class="col-sm-2 col-md-3">-->
+                    <!--                        <label class="ng-binding">-->
+                    <!--                            Recomendaciones del Auditor líder realizadas?-->
+                    <!--                        </label>-->
+                    <!--                        <div>-->
+                    <!--                            <div class="checkbox checkbox-switchery switchery ng-hide">-->
+                    <!--                                <span class="switchery switchery-small bg-secundary"-->
+                    <!--                                      style="transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;">-->
+                    <!--                                    <small style="left: 22px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s;"></small>-->
+                    <!--                                </span>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="checkbox checkbox-switchery ng-binding" style="color:#999">-->
+                    <!--                                {{auditoria_programa_plan.comentolider?'Si':'No'}}-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="col-sm-2 col-md-3">-->
+                    <!--                        <label class="ng-binding">-->
+                    <!--                            Puntos de vista de los participantes departamentales realizados?-->
+                    <!--                        </label>-->
+                    <!--                        <div>-->
+                    <!--                            <div class="checkbox checkbox-switchery switchery ng-hide">-->
+                    <!--                                <span class="switchery switchery-small bg-secundary"-->
+                    <!--                                      style="transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;">-->
+                    <!--                                    <small style="left: 22px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s;"></small>-->
+                    <!--                                </span>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="checkbox checkbox-switchery ng-binding" style="color:#999"-->
+                    <!--                                 ng-show="auditoria_programa_plan.dimesitodosparticiparon">-->
+                    <!--                                Todos los participantes han dado sus puntos de vista.-->
+                    <!--                            </div>-->
+                    <!--                            <div class="checkbox checkbox-switchery ng-binding" style="color:#999"-->
+                    <!--                                 ng-show="!auditoria_programa_plan.dimesitodosparticiparon">-->
+                    <!--                                {{auditoria_programa_plan.comentoparticipante?'Faltan algunos participantes por dar su-->
+                    <!--                                punto de vista.':'Ningun participante ha dado su punto de vista.'}}-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class='col-sm-2 col-md-3' ng-show="false">
+                        <%- FORM.checkbox('comentolider', scope, {
+                            truetext: "Recomendaciones del Auditor líder realizadas?",
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class='col-sm-2 col-md-3' ng-show="false">
+                        <%- FORM.checkbox('comentoparticipante', scope, {
+                            truetext: "Puntos de vista de los participantes departamentales realizados?",
+                            disabled: true
+                        }) %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="tab-pane active" id="basic"
+             ng-show="(auditoria_programa_plan.soylider || (auditoria_programa_plan.soyparticipe && auditoria_programa_plan.my_true_estatus===5) ) && (auditoria_programa_plan.mevengo)">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                    <label style="font-family: 'Arial Narrow'; font-size: 21px;">
+                        Capturar Datos del Informe Preliminar
+                    </label>
+                </div>
+                <div class="panel-body">
+                    <div class="row"
+                         ng-if="!auditoria_programa_plan.soylider && auditoria_programa_plan.soyparticipe && auditoria_programa_plan.my_true_estatus===5">
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.html('comentarios_auditor', scope, {
+                                disabled: false,
+                                placeholder: "Tu punto de vista como Participante Departamental"
+                            }) %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'>
+                            <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left"
+                                 id="inputauditoria_programa_plan_recomendaciones">
+                                <label class="control-label is-visible animate ng-binding"
+                                       ng-if="auditoria_programa_plan.recomendaciones"
+                                       style="color:#000000 !important;font-weight: bold">
+                                    Recomendaciones de Mejora, Sugerencias y Comentarios Finales del auditor líder
+                                </label>
+                                <div ng-bind-html="auditoria_programa_plan.recomendaciones"
+                                     ng-if="auditoria_programa_plan.recomendaciones">
+
+                                </div>
+                                <div ng-if="!auditoria_programa_plan.recomendaciones"
+                                     style="border: solid 1px lightgrey; margin-bottom: 10px; padding: 10px">
+                                    <div class="alert alert-info alert-styled-left alert-dismissible">
+                                        <span class="font-weight-semibold">Aún no existe recomendaciones de Mejora, Sugerencias y Comentarios Finales del auditor líder.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="auditoria_programa_plan.soylider">
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.html('recomendaciones', scope, {
+                                disabled: false,
+                                placeholder: "Recomendaciones de Mejora, Sugerencias y Comentarios Finales"
+                                //maxlength: 200,
+                            }) %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'>
+                            <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left"
+                                 id="inputauditoria_programa_plan_recomendaciones">
+                                <label class="control-label is-visible animate ng-binding"
+                                       style="color:#000000 !important;font-weight: bold">
+                                    Puntos de vista de los Participante Departamentales
+                                </label>
+                                <div ng-if="!auditoria_programa_plan.informes_auditoria.data.length"
+                                     style="border: solid 1px lightgrey; margin-bottom: 10px; padding: 10px">
+                                    <div class="alert alert-info alert-styled-left alert-dismissible">
+                                        <span class="font-weight-semibold">Aún no existen puntos de vistas de los Participante Departamentales.</span>
+                                    </div>
+                                </div>
+
+
+                                <table class=" table table-bordered"
+                                       ng-if="auditoria_programa_plan.informes_auditoria.data.length">
+                                    <thead class="">
+                                    <tr class="bg-secundary">
+                                        <th style="text-align: center; vertical-align: middle" height="0">
+                                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                                               class="ng-binding ng-scope">
+                                                Punto de Vista
+                                            </a>
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle" height="0">
+                                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline;text-align: left"
+                                               class="ng-binding ng-scope">
+                                                Realizado Por
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="(key,row) in auditoria_programa_plan.informes_auditoria.data"
+                                        repeat-end="auditoria_programa_plan.get_files()" class=""
+                                        style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+
+                                        <td ng-bind-html="row.recomendaciones" style="text-align: left;">
+
+                                        </td>
+                                        <td style="text-align: left">
+                                            {{row.creadopor_nombre}} ({{row.departamento}})
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="auditoria_programa_plan.mevengo">
+            <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                <label style="font-family: 'Arial Narrow'; font-size: 21px;">Datos Generales</label>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('prioridad', scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            disabled: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "auditoria_programa_plan_prioridad",
+                            icon: {class: "archive"},
+                            truelabel: "Prioridad"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('tipo_auditoria', scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            disabled: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "tipo_auditorias",
+                            icon: {class: "archive"},
+                            truelabel: "Tipo de Auditoría"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.daterange('range_date', scope, {
+                            from: "fecha_inicio",
+                            to: "fecha_fin",
+                            disabled: true
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('descripcion', scope, {
+                            disabled: true
+                            //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('objetivo', scope, {
+                            trueplaceholder: "Objetivo",
+                            disabled: true
+                            //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('criterio', scope, {
+                            disabled: true,
+                            trueplaceholder: "Criterio de Auditoría"
+                            //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('alcance', scope, {
+                            disabled: true,
+                            //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+
+                        <label class="control-label is-visible animate ng-binding"
+                               style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color:#000000 !important;">
+                            Departamentos Auditados
+                        </label>
+                        <ol ng-show="auditoria_programa_plan.departamento_list.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in auditoria_programa_plan.departamento_list.data" class=""
+                                style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                                {{row.nombre}}
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+
+                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color:#000000 !important;">
+                            Participantes Departamentales del Plan de Auditoría</label>
+                        <ol ng-show="auditoria_programa_plan.real_participantes_list.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in auditoria_programa_plan.real_participantes_list.data"
+                                class=""
+                                style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                                {{row.nombre + ' ' + row.apellido}} ({{row.departamento}})
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+
+                        <label class="control-label is-visible animate ng-binding"
+                               style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color:#000000 !important;">
+                            Auditores Participantes
+                        </label>
+                        <ol ng-show="auditoria_programa_plan.participantes_list.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
+                                style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                                {{row.nombre + ' ' + row.apellido}} {{auditoria_programa_plan.get_rol(row.id)}}
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" ng-show="auditoria_programa_plan.mevengo && auditoria_programa_plan.session.profile===18">
+            <div class='col-sm-6 col-md-6' style="padding-right: 0">
+                <div class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                            <label style="font-family: 'Arial Narrow'; font-size: 18px;">Recomendaciones de Mejora,
+                                Sugerencias y Comentarios Finales de los Auditores</label>
+                        </div>
+                        <div class="panel-body" style="max-height: 500px; overflow: auto;">
+                            <div ng-bind-html="auditoria_programa_plan.recomendaciones"
+                                 ng-if="auditoria_programa_plan.recomendaciones"
+                                 style="border: solid 1px lightgrey; margin-bottom: 10px; padding: 10px; text-align: justify;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-6 col-md-6' style="padding-left: 0">
+                <div class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                            <label style="font-family: 'Arial Narrow'; font-size: 18px;">Puntos de Vista de los
+                                participantes departamentales</label>
+                        </div>
+                        <div class="panel-body" style="max-height: 500px; overflow: auto;">
+                            <div ng-repeat="(key, row) in auditoria_programa_plan.informes_auditoria.data"
+                                 style="border: solid 1px lightgrey; margin-bottom: 10px; padding: 10px">
+                                <div style="margin-bottom: 0; text-align: justify;">
+                                    <p ng-bind-html="row.recomendaciones"></p>
+                                    <strong style="float: right; margin-top: -20px"> - {{row.creadopor_nombre}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="false">
+            <%- FORM.select("auditoria_plan_participantes", scope, {
+                allowedit: false,
+                allowlist: false,
+                allownew: false,
+                allowview: false,
+                multiple: true,
+                text: "item.nombre + ' ' + item.apellido",
+                value: "id",
+                table: "usuario",
+                icon: {class: "archive"},
+                truelabel: "Participantes",
+                get: {
+                    table: 'auditoria_programa_plan_participantes',
+                    fieldFrom: 'id',
+                    fieldTo: 'programa_plan',
+                    field: 'usuario',
+                },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+            }) %>
+        </div>
+        <div ng-show="false">
+            <%- FORM.select("auditoria_plan_responsable", scope, {
+                allowedit: false,
+                allowlist: false,
+                allownew: false,
+                allowview: false,
+                multiple: true,
+                text: "item.nombre + ' ' + item.apellido",
+                value: "id",
+                table: "usuario",
+                icon: {class: "archive"},
+                truelabel: "Participantes",
+                get: {
+                    table: 'auditoria_programa_plan_equipotrabajo',
+                    fieldFrom: 'id',
+                    fieldTo: 'programa_plan',
+                    field: 'usuario',
+                    where_delete: {
+                        field: "esresponsable",
+                        operator: "is",
+                        value: "$null"
+                    }
+                },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+            }) %>
+        </div>
+        <div ng-show="false">
+            <%- FORM.select("auditoria_plan_departamento", scope, {
+                allowedit: false,
+                allowlist: false,
+                allownew: false,
+                allowview: false,
+                multiple: true,
+                text: "item.nombre",
+                value: "id",
+                table: "departamento",
+                icon: {class: "archive"},
+                truelabel: "Departamentos Auditados",
+                condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                get: {
+                    table: 'auditoria_programa_plan_departamento',
+                    fieldFrom: 'id',
+                    fieldTo: 'programa_plan',
+                    field: 'departamento'
+                },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+            }) %>
+        </div>
+        <div ng-show="false">
+            <%- FORM.select("auditoria_plan_documentos_asociados", scope, {
+                allowedit: false,
+                allowlist: false,
+                allownew: false,
+                allowview: false,
+                multiple: true,
+                text: "item.nombre_drp",
+                value: "id",
+                table: "vw_documentos_asociados_pv",
+                icon: {class: "archive"},
+                truelabel: "Documentos Asociados",
+                get: {
+                    table: 'auditoria_programa_plan_documentos_asociados',
+                    fieldFrom: 'id',
+                    fieldTo: 'programa_plan',
+                    field: 'documento_asociado',
+                    where_delete: {
+                        field: "trabajado",
+                        operator: "!=",
+                        value: 1
+                    }
+                },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+            }) %></div>
+        <div class="panel panel-default" ng-show="auditoria_programa_plan.mevengo" style=" margin-bottom: 0px;">
+            <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                <label style="font-family: 'Arial Narrow'; font-size: 18px;">Procesos y Documentos a Auditar</label>
+            </div>
+            <div class="panel-body">
+                <table class=" table table-bordered"
+                       ng-show="auditoria_programa_plan.documentos_asociados_list.data.length > 0"
+                       style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Proceso
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Responsable del proceso
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Código - Nombre del Documento
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Estatus
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Punto de Verificación
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                ¿Cumple?
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Tipo de No Conformidad
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Observación
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Evidencia
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle"
+                            ng-show="auditoria_programa_plan.my_true_estatus <= 3" height="0">Agregar Lista de
+                            Verificación
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.documentos_asociados_list_view.data"
+                        repeat-end="auditoria_programa_plan.get_files()" class=""
+                        style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                        <td
+                                rowspan="{{auditoria_programa_plan.rowspanme('nombre_proceso', row.nombre_proceso, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="auditoria_programa_plan.seeme('nombre_proceso', row.nombre_proceso, key, auditoria_programa_plan.documentos_asociados_list_view.data)">
+                            {{row.nombre_proceso}}
+                        </td>
+                        <td
+                                rowspan="{{auditoria_programa_plan.rowspanme('responsable_proceso', row.responsable_proceso, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="auditoria_programa_plan.seeme('responsable_proceso', row.responsable_proceso, key, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                        >
+                            {{row.responsable_proceso}}
+                        </td>
+                        <td
+                                rowspan="{{auditoria_programa_plan.rowspanme('codigo', row.codigo, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="auditoria_programa_plan.seeme('codigo', row.codigo, key, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                        >
+                            {{row.codigo}} - {{row.nombre}}
+                        </td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus <= 3">
+                            {{'Abierto'}}
+                        </td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
+                            {{ !auditoria_programa_plan.hide_work_documento(row.id) ? 'Abierto' : 'Trabajado' }}
+                        </td>
+                        <td>
+                            {{row.punto_verificacion}}
+                        </td>
+                        <td>
+                            {{row.cumple == 1 ? 'Sí' : row.cumple == 0 ? 'No' : '' }}
+                        </td>
+                        <td>
+                            {{row.tipo_inconformidad}}
+                        </td>
+                        <td>
+                            {{row.observaciones}}
+                        </td>
+                        <td>
+                            <a title='Ver imagen' ng-click="auditoria_programa_plan.verFile('archivo','',row);"><i
+                                        class='icon-files-empty' ng-show="auditoria_programa_plan.check_file(row)"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="padding-right: 0"
+         ng-show="(auditoria_programa_plan.mevengo &&  (auditoria_programa_plan.soylider || (auditoria_programa_plan.soyparticipe && auditoria_programa_plan.my_true_estatus===5) ))">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+     </span>
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+    </div>
+
+
+
+
+

@@ -1,0 +1,333 @@
+<style>
+    #tb-custom2 .percent, .money {
+        top: 11px !important;
+    }
+
+    #tb-custom2 .has-feedback label ~ .form-control-feedback {
+        top: 25px !important;
+    }
+
+    .tbodyDetails .legitRipple {
+        height: 40px !important;
+    }
+</style>
+
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat grayPanel">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="row">
+                <div ng-show="indicador_producto_poa_producto.indicador_poa!='[NULL]'">
+                    <button ng-if="!indicador_producto_poa_producto.queries.id"
+                            ng-show="(indicador_producto_poa_producto.allow(['Guardar']) && indicador_producto_poa_producto.ver_estado === indicador_producto_poa_producto.estatus)"
+                            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                            ng-click="indicador_producto_poa_producto.cancel_pei_ano();">
+                        <b><i class="icon-cross2"></i></b>
+                        <language>MESSAGE.ic('mono.cancel')</language>
+                    </button>
+                    <button ng-if="!indicador_producto_poa_producto.queries.id"
+                            ng-show="indicador_producto_poa_producto.allow(['Cancelar']) && indicador_producto_poa_producto.ver_estado === indicador_producto_poa_producto.estatus"
+                            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                            type="button" role="button"
+                            class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="indicador_producto_poa_producto.save_pei_ano();">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>MESSAGE.ic('mono.save')</language>
+                    </button>
+                </div>
+                <div class="col-md-12" style="margin-top: 15px">
+                    <div class="panel panel-<%= COLOR.secundary %>">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12" ng-show="indicador_producto_poa_producto.queries.id">
+                                    <%- FORM.inputview("indicador_poa_object.Nombre", scope, {trueplaceholder: "Indicador de Proyecto Especial"}) %>
+                                </div>
+                                <div class="row" ng-show="!indicador_producto_poa_producto.queries.id">
+                                    <div class="col-sm-12 col-md-12">
+                                        <%- FORM.select("indicador_poa", scope, {
+                                            allownew: false,
+                                            allowedit: false,
+                                            allowview: false,
+                                            allowlist: false,
+                                            refresh: false,
+                                            text: "item.Nombre",
+                                            table: "vw_indicador_producto",
+                                            icon: {class: "archive"},
+                                            label: "Indicador de Proyecto Especial",
+                                            traduce: false,
+                                            condition: "item.estado_producto_id == 3"
+                                        }) %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <label class="control-label is-visible animate ng-binding">Descripción de la
+                                        meta</label>
+                                    <textarea style="margin-bottom: 20px;"
+                                              id="descripcion" disabled="false" class="form-control" maxlength="4000"
+                                              ng-model="indicador_producto_poa_producto.descripcion"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <label class="control-label is-visible animate ng-binding">Fuente</label>
+                                    <textarea style="margin-bottom: 20px;"
+                                              id="fuente" disabled="false" class="form-control" maxlength="255"
+                                              ng-model="indicador_producto_poa_producto.fuente"></textarea>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <label class="control-label is-visible animate ng-binding">Método de Cálculo</label>
+                                    <textarea style="margin-bottom: 20px;"
+                                              id="metodo_calculo" disabled="false" class="form-control" maxlength="255"
+                                              ng-model="indicador_producto_poa_producto.metodo_calculo"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-3">
+                                    <%- FORM.inputview("tipo_meta_nombre", scope, {placeholder: "Tipo de dato de la Meta"}) %>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <%- FORM.inputview("direccion_meta_nombre", scope, {placeholder: "Dirección de la Meta"}) %>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <%- FORM.inputview("ano_linea_base", scope, {placeholder: "Año Línea Base"}) %>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <%- FORM.inputview("linea_base", scope, {placeholder: "Línea Base"}) %>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <label class="control-label is-visible animate ng-binding">Medio de
+                                        Verificación</label>
+                                    <textarea style="margin-bottom: 20px;"
+                                              id="medio_verificacion" disabled="false" class="form-control"
+                                              maxlength="4000"
+                                              ng-model="indicador_producto_poa_producto.medio_verificacion"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-<%= COLOR.secundary %>">
+                        <div class="panel-body">
+                            <div class="row over-table"
+                                 style="height: {{140*indicador_producto_poa_producto.list_indicador_producto_poa_producto.length}}px">
+                                <table class="table table-bordered  dragon-table" id="tb-custom2">
+                                    <thead class="">
+                                    <tr class="bg-{{indicador_producto_poa_producto.colors}} dragon-columns">
+                                        <th style="text-align: center; vertical-align: middle;width: 10%" height="0">
+                                            {{indicador_producto_poa_producto.form.selected('indicador_poa')?indicador_producto_poa_producto.form.selected('indicador_poa').nombre_mostrar :'Periodo'}}
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle;width: 10%" height="0">
+                                            Meta
+                                        </th>
+                                        <th style="text-align: center;width: 25%; vertical-align: middle" height="0">
+                                            Meta Alcanzada
+                                        </th>
+                                        <th style="text-align: center; vertical-align: middle;width: 10%" height="0">
+                                            Diferencia
+                                        </th>
+                                        <th ng-show="!indicador_producto_poa_producto.queries.id"
+                                            style="text-align: center;width: 25%; vertical-align: middle" height="0">
+                                            Observaciones
+                                        </th>
+                                        <th ng-show="!indicador_producto_poa_producto.queries.id"
+                                            style="text-align: center; vertical-align: middle;width: 20%">Acciones
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tb" class="tbodyDetails">
+
+                                    <tr ng-repeat="(key,value) in indicador_producto_poa_producto.list_indicador_producto_poa_producto"
+                                        repeat-end="indicador_producto_poa_producto.applyMasks()" style="height: 130px"
+                                        class="dragon-rows">
+                                        <td style="text-align: center; vertical-align: middle;" class="meta">
+                                            {{value.periodo}}
+                                        </td>
+                                        <td style="text-align: right; vertical-align: middle;" class="meta">
+                                            {{indicador_producto_poa_producto.formatear(value.valor)}}
+                                        </td>
+                                        <td style="text-align: right; vertical-align: middle;">
+
+                                            <div class="subcontainer{{value.id}} acomodar" title="{{value.message}}">
+
+                                            </div>
+                                            <div style="    margin-top: -50px;"
+                                                 ng-show="value.allow.allow===1">
+                                                <a
+
+                                                        title="Guardar"
+                                                        style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;"
+                                                        class="savepartialy"
+                                                        ng-click="indicador_producto_poa_producto.save_pei_ano(value.id);">
+                                                    <i class="icon-floppy-disk text-secundary-200"
+                                                       style=" color: #ccc !important;">
+
+                                                    </i>
+                                                </a>
+                                                <a
+
+                                                        title="Limpiar"
+                                                        style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;font-size: 22px; color: #ccc !important;"
+                                                        class="savepartialy"
+                                                        ng-click="indicador_producto_poa_producto.save_pei_ano(value.id,true);">
+                                                    <i class="icon-rotate-ccw3 text-secundary-300"
+                                                       style="font-size: 17px;margin-top: 5px;color: #ccc !important;margin-left: 10px;">
+
+                                                    </i>
+                                                </a>
+                                            </div>
+                                            <a data-history="indicador_producto_poa_producto"
+                                               data-type="indicador_producto_poa_producto"
+                                               data-id="{{value.id}}" data-toggle="tooltip" data-formula="${row.cambio}"
+                                               data-label="Historial de cambios para el indicador {{indicador_producto_poa_producto.indicador_poa_object.Nombre}}, Periodo {{value.periodo}}"
+                                               title="Historial"
+                                               style="cursor: pointer;font-size: 22px; color: #ccc !important;float: left;margin-top: 45px"
+                                               class="savepartialy">
+                                                <i class="icon-sort-time-asc" style="font-size: 19px;"></i>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: right;vertical-align: middle;" class="variacion">
+                                            {{indicador_producto_poa_producto.restar(value.id,value.valor==null?0:value.valor)}}
+                                        </td>
+                                        <td ng-show="!indicador_producto_poa_producto.queries.id"
+                                            style="vertical-align: middle;{{value.allow.condition?'border: red outset':''}}">
+                                            <div>
+                                            <textarea ng-show="value.count_comment > 0" ng-readonly="true"
+                                                      style="overflow: hidden; overflow-wrap: break-word; min-height: 80px; text-align: left;"
+                                                      class="form-control no-border-readonly">{{value.comment}}</textarea>
+                                            </div>
+                                            <div style="float: right;margin-left: 14px;">
+                                                <button title="Enviar notificación a Encargados y Analistas de la planificación"
+                                                        type="button"
+                                                        class="btn bg-warning btn-xs mr-0"
+                                                        style="margin-top: 6px;"
+                                                        ng-if="value.allow.condition==1"
+                                                        ng-click="indicador_producto_poa_producto.notificar(value.periodo)">
+                                                    <b><i class="icon-warning"></i></b>
+                                                </button>
+                                            </div>
+                                            <div style="margin-top: 13px;">
+                                                <a ng-show="value.count_comment > 0"
+                                                   style="float: right;"
+                                                   class="seeTextComplete metacomment{{$index}}"
+                                                   ng-click="indicador_producto_poa_producto.openmodalField(0,value.periodo,value.indicador_poa);">
+                                                    Ver todo ({{value.count_comment}})
+                                                </a>
+                                                <a style="float: left" class="seeTextComplete"
+                                                   ng-show="value.allow.allow===1"
+                                                   ng-click="indicador_producto_poa_producto.openmodalField(1,value.periodo,value.indicador_poa);">
+                                                    Agregar comentario
+                                                </a>
+                                            </div>
+
+                                        </td>
+
+                                        <td ng-show="!indicador_producto_poa_producto.queries.id"
+                                            style="text-align: center; width: 0px;vertical-align: middle;" height="0">
+
+                                            <div class="permitido  modificar modificarActividad" style="display: none"
+                                                 dragoncontrol="file"
+                                                 ng-if="value.allow.allow===1"
+                                                 label="Subir Evidencias"
+                                                 cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
+                                                 id="IndicadorPOA{{value.id}}" cache="false">
+                                                {
+                                                maxfiles: 50,
+                                                columns: 4,
+                                                folder:"indicador_producto_poa_producto/META{{value.id}}",
+                                                title:"Subir Evidencias",
+                                                truetext:"Subir Evidencias",
+                                                alone:true,
+                                                }
+                                            </div>
+
+                                            <div class=" modificar modificarActividad" style="display: none"
+                                                 dragoncontrol="file"
+
+                                                 ng-if="value.allow.allow!==1"
+                                                 label="Ver Evidencias"
+                                                 cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
+                                                 id="IndicadorPOA{{value.id}}" cache="false">
+                                                {
+                                                maxfiles: 50,
+                                                columns: 4,
+                                                folder:"indicador_producto_poa_producto/META{{value.id}}",
+                                                title:"Ver Evidencias",
+                                                truetext:"Ver Evidencias",
+                                                alone:true,
+                                                }
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+<!--                                    <tfoot id="totals">-->
+<!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
+<!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
+<!--                                        <td style="text-align: right;">-->
+<!--                                            {{indicador_producto_poa_producto.meta_total_desc}}-->
+<!--                                        </td>-->
+<!--                                        <td style="text-align: right;">-->
+<!--                                            {{indicador_producto_poa_producto.meta_total_alca}}-->
+<!--                                        </td>-->
+<!--                                        <td style="text-align: right;;display: none" id="variacion">-->
+<!--                                            <i class="{{indicador_producto_poa_producto.iconfinal}}"></i>-->
+<!--                                            {{indicador_producto_poa_producto.getTotalVariacion()}}-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    </tfoot>-->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!indicador_producto_poa.queries.id"
+             ng-show="!indicador_producto_poa_producto.queries.id && indicador_producto_poa_producto.indicador_poa!='[NULL]'"
+             class="modal-footer"
+             style="padding-top: 15px;">
+                <span class="label label-white text-<%= TAG.table %>-300 label-rounded label-icon">
+                <i class="position-right"></i>
+                </span>
+            <!---->
+            <div ng-show="indicador_producto_poa_producto.indicador_poa!='[NULL]'">
+                <button ng-show="indicador_producto_poa_producto.allow(['Guardar']) && indicador_producto_poa_producto.ver_estado === indicador_producto_poa_producto.estatus"
+                        dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                        type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                        ng-click="indicador_producto_poa_producto.cancel_pei_ano();">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>MESSAGE.ic('mono.cancel')</language>
+                </button>
+                <button ng-show="indicador_producto_poa_producto.allow(['Cancelar']) && indicador_producto_poa_producto.ver_estado === indicador_producto_poa_producto.estatus"
+                        dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                        type="button" role="button"
+                        class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="indicador_producto_poa_producto.save_pei_ano();">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>MESSAGE.ic('mono.save')</language>
+                </button>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

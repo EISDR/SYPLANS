@@ -1,0 +1,176 @@
+<div class="panel panel-white">
+    <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+        <h6 class="panel-title">Solicitud de Eliminación de un Documento</h6>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.select("delete_doc_proceso_categoria", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    disabled: true
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3" >
+                <%- FORM.select("delete_doc_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos",
+                    truelabel: "Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    disabled:true
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('delete_doc_estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.permitido",
+                    value: "id",
+                    table: "vw_auditoria_programa_plan_estatus",
+                    icon: {class: "archive"},
+                    truelabel: "Estatus del Documento",
+                    condition: "(item.entidad == 'documentos_asociados' && item.estatus_id != 4)",
+                    disabled:true
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.input('delete_doc_codigo', scope, {trueplaceholder: "Código del documento"}) %>
+            </div>
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.input('delete_doc_nombre', scope, {trueplaceholder: "Nombre del documento"}) %>
+            </div>
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.select('delete_doc_tipo_documento', scope, {
+                        column: 'name',
+                        table: 'tipo_documento',
+                        truelabel: 'Tipo de Documento a solicitar',
+                        text: 'item.nombre',
+                        disabled: true,
+                        //self: true,
+                        //allownull: true,
+                        //allownew: true,
+                        //allowedit: true,
+                        //allowview: true,
+                        //allowlist: true,
+                        //refresh: true,
+                        //condition: 'true',
+                        //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
+                        //disabled: false,
+                        //helptext: "",
+                        //value: 'id',
+                        //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                        //},
+                }) %>
+            </div>
+            <div style="text-align: center;" class="col-sm-2 col-md-2">
+                <%- FORM.checkbox("delete_doc_trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?", disabled: true}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('delete_doc_alcance', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Alcance",
+                        disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('delete_doc_objetivo', scope, {
+                    trueplaceholder: "Objetivo",
+                    disabled: true
+                            //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'ng-show="<%= scope%>.delete_doc_trabaja_marco_legal">
+                <%- FORM.textarea('delete_doc_marco_legal', scope, {
+                    trueplaceholder: "Marco Legal",
+                     disabled:true
+                        //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('delete_doc_resultado_esperado', scope, {
+                    trueplaceholder: "Resultado Esperado",
+                    disbled: true
+                        //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6' ng-show="!<%= scope%>.delete_doc_trabaja_marco_legal">
+                <%- FORM.textarea('delete_doc_descripcion', scope, {
+                    trueplaceholder: "Descripción",
+                    disabled: true
+                            //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12' ng-show="<%= scope%>.delete_doc_trabaja_marco_legal">
+                <%- FORM.textarea('delete_doc_descripcion', scope, {
+                    trueplaceholder: "Descripción",
+                    disabled: true
+                        //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_solicitud_documento_actividades'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_solicitud_documento_actividades'}); %>
+                </div>
+            </div>
+            <script>
+                vw_solicitud_documento_actividades.fixFilters = [{field: 'documento_asociado', value:  solicitud_documento.delete_doc_id}];
+                vw_solicitud_documento_actividades.refresh();
+            </script>
+            <div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px">
+                 <span class="label label-white text-secundary-300 label-rounded label-icon">
+                    <i class="position-right"></i>
+                </span>
+                <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="solicitud_documento.pages.form.close()">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>Cancelar</language>
+                </button>
+                <span class="label label-white text-secundary-300 label-rounded label-icon">
+                    <i class="position-right"></i>
+                </span>
+                <button title="Eliminar" type="button" class="btn bg-success btn-labeled btn-xs" ng-click="solicitud_documento.delete_doc(solicitud_documento.delete_doc_id)">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>guardar</language>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

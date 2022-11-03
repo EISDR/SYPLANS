@@ -1,0 +1,46 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.textarea('direccion', scope, {trueplaceholder: "Descripción"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('codigo_identificacion_fiscal', scope, {trueplaceholder: "Código Identificación Fiscal"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('interlocutor', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('telefono1', scope, {trueplaceholder: "Telefono 1"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('telefono2', scope, {trueplaceholder: "Telefono 2"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('email', scope, {trueplaceholder: "Correo"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('cargo', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation("organizacion_usuario", scope, {
+                    text: "item.usuario",
+                    table: "organizacion_usuario",
+                    field: "organizacion",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

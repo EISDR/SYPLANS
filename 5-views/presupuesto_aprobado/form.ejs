@@ -1,0 +1,107 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4" ng-if="!presupuesto_aprobado.session.institucion_id">
+                <%-
+                FORM.select("departamento", scope, {
+                    allownull: false,
+                    allowview: false,
+                    multiple: false,
+                    disabled: false,
+                    truelabel: "Departamento",
+                    text: "item.nombre",
+                    table: "vw_departamento_not_exists_presupuesto",
+                    field: "id",
+                    columns: ["nombre"],
+                    icon: {class:"archive"},
+                    self: true,
+                    condition: "(item.valor == $NULL || item.id == presupuesto_aprobado.departamento) && (item.compania == presupuesto_aprobado.session.compania_id && item.institucion == null) && item.active == 1"
+                    // condition: "(item.compania == presupuesto_aprobado.compania && presupuesto_aprobado.departamento == item.id) || (item.compania == presupuesto_aprobado.compania && item.valor == null)"
+                })
+                %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.session.institucion_id">
+                <%-
+                    FORM.select("departamento", scope, {
+                        allownull: false,
+                        allowview: false,
+                        multiple: false,
+                        disabled: false,
+                        label: "Departamento",
+                        text: "item.nombre",
+                        table: "vw_departamento_not_exists_presupuesto",
+                        field: "id",
+                        columns: ["nombre"],
+                        icon: {class:"archive"},
+                        self: true,
+                        condition: "(item.valor == $NULL || item.id == presupuesto_aprobado.departamento) && (item.institucion == presupuesto_aprobado.session.institucion_id) && item.active == 1"
+                                // condition: "(item.compania == presupuesto_aprobado.compania && presupuesto_aprobado.departamento == item.id) || (item.compania == presupuesto_aprobado.compania && item.valor == null)"
+                })
+                %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%-
+                FORM.money("valor",scope, {
+                    placeholder: "Presupuesto del Departamento",
+                    maxlength: 16
+                })
+                %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'new'">
+                <%-
+                FORM.money("restante_modi", scope, {placeholder: "Presupuesto Institucional Restante",disabled:true})
+                %>
+            </div >
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
+                <%-
+                FORM.money("presupuesto_consumido_departamento", scope, {placeholder: "Presupuesto Actividades Asignado",disabled:true})
+                %>
+            </div >
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
+                <%-
+                FORM.money("restante_modi", scope, {placeholder: "Presupuesto Institucional Restante",disabled:true})
+                %>
+            </div >
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
+                <%-
+                FORM.money("presupuesto_detenido_departamento", scope, {placeholder: "Presupuesto Detenido",disabled:true})
+                %>
+            </div >
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
+                <%-
+                FORM.money("restante_departamento", scope, {placeholder: "Presupuesto Restante del Departamento",disabled:true})
+                %>
+            </div >
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12" style="padding-bottom: 30px;" ng-show="presupuesto_aprobado.form.mode === 'edit'">
+                <%- FORM.textarea("comentario", scope, {
+                    placeholder: "Comentario"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div id="vw_comentarios" ng-show="presupuesto_aprobado.form.mode === 'edit'" ng-controller="vw_comentarios as vw_comentarios">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:'vw_comentarios'}); %>
+                    <div class="subcontent">
+                        <%- include('../../7-plugins/templates/table/base',{scope:'vw_comentarios'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-12 remove-input-space" ng-show="false">
+                <%- FORM.select("poa", scope, {
+                    column: "poa",
+                    text:"item.nombre",
+                    table: "poa",
+                    icon: {class: "archive"},
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

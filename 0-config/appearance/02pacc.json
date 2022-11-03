@@ -1,0 +1,13 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- PACC -",
+      "disable": true
+    }
+  ],
+  "menus_privado": [
+  ]
+}

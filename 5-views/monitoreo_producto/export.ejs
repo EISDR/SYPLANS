@@ -1,0 +1,308 @@
+<div class="subcontent">
+    <div class="row">
+        <div dragonlanguage=""
+             class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+            <h5>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor
+                "Personalizado" = a 40% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</h5>
+        </div>
+    </div>
+    <div style="overflow: scroll visible; position: static; zoom: 1;">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="pdfa">
+                <div style="float: left;width: 100%">
+                    <a href="#pdf" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-printer2"></i>
+                        Formato de impresión
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+
+
+            </li>
+            <li id="xlsa">
+                <div style="float: left;width: 100%">
+                    <a href="#xls" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-file-excel"></i>
+                        Formato Excel
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="pdf">
+                <div class="active" id="pdf">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato de impresión"
+                                    ng-click="monitoreo_producto.exportPDF();"
+                                    type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                                <i class="icon-printer2"></i> Descargar - Formato de impresión
+                            </button>
+
+                        </li>
+                    </ul>
+                    <table class="table table-print" id="monitoreo_productoExport" style="margin-top: 15px">
+                        <tbody ng-repeat="(key,item) in monitoreo_producto.anos" ng-show="monitoreo_producto.cumplen(item.records)">
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: center;border-color: white !important;">
+                                <b>MONITOREO Y SEGUIMIENTO DE PROYECTO/PRODUCTO</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: center;border-color: white !important;">
+                                <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: center;border-color: white !important;">
+                                <b>{{item.compania_nombre}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: left;border-color: white !important;">
+                                <b>{{item.entidad}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: left;border-color: white !important;"><b>Eje Estratégico:
+                                    {{item.eje_estrategico}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: left;border-color: white !important;"><b>Objetivo
+                                    Estratégico: {{item.objetivo_estrategico}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: left;border-color: white !important;">
+                                <b>Estrategia: {{item.estrategia}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{monitoreo_producto.colspaninit}}"
+                                style="text-align: left;border-color: white !important;border-bottom-color: black !important;">
+                                <b>Resultado Esperado: {{item.resultado}}</b>
+                            </td>
+                        </tr>
+                        <tr height="20" class="centralizarth"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                            <td rowspan="2">Departamento</td>
+                            <td rowspan="2">Proyecto/Producto</td>
+                            <td rowspan="2">Estatus</td>
+                            <td rowspan="2">Indicador</td>
+                            <td rowspan="2">Fórmula Indicador</td>
+                            <td rowspan="2">Unidad de Medida</td>
+                            <td rowspan="2">Medio Verificación</td>
+                            <td rowspan="2">Año Línea Base</td>
+                            <td rowspan="2">Valor Línea Base</td>
+                            <th colspan="5" ng-repeat="(ka,ra ) in monitoreo_producto.poa_anos">
+                                Período {{ra}}
+                            </th>
+                        </tr>
+                        <tr height="20" class="centralizarth"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                            <th ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_producto.poa_valor">
+                                {{ra.value}}
+                            </th>
+                        </tr>
+                        <tr style="vertical-align: middle" class="centralizartd"
+
+                            ng-if="(monitoreo_producto.institucion!='[NULL]'? monitoreo_producto.institucion==(row.institucion||row.compania):true)
+                && monitoreo_producto.ddlIn(monitoreo_producto.departamento,row.id_departamento)
+                && (monitoreo_producto.poadd!='[NULL]'?(monitoreo_producto.poadd==row.poa):true)"
+
+                            ng-repeat="(i,row) in item.records">
+                            <td rowspan="{{<%= scope %>.rowspanme('departamento',row.departamento,item.records)}}"
+                                ng-if="<%= scope %>.seeme('departamento',row.departamento,i,item.records)">{{row.departamento}}
+                            </td>
+                            <td rowspan="{{monitoreo_producto.rowspanme('producto',row.producto,item.records)}}"
+                                ng-if="monitoreo_producto.seeme('producto',row.producto,i,item.records)">
+                                {{row.producto}}
+                            </td>
+                            <td rowspan="{{monitoreo_producto.rowspanme('producto',row.producto,item.records)}}"
+                                ng-if="monitoreo_producto.seeme('producto',row.producto,i,item.records)">
+                                {{monitoreo_producto.statusText(row.cond,row.estatus)}}
+                            </td>
+                            <td style="padding: 7px !important;vertical-align: top !important;{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.indicador}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.formula}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{monitoreo_producto.tipometa(row.unidad_medida).nombre}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.medio_verificacion}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.ano_linea_base}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.linea_base}}
+                            </td>
+                            <td style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}"
+                                ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_producto.poa_valor">
+                            <span ng-if="ra.value==='P'">
+                               {{monitoreo_producto.ano_single(row.indicador_data.anos,ra.id,row.indicador_data.tipo_meta)}}
+                            </span>
+                                <span ng-if="ra.value==='A'">
+                                   {{monitoreo_producto.ano_single(row.indicador_data.anos_a,ra.id,row.indicador_data.tipo_meta)}}
+                               </span>
+                                <span ng-if="ra.value==='Dedo'" style="display:none">
+                                   {{monitoreo_producto.dif(row,ra)}}
+                            </span>
+                                <span ng-if="ra.value==='%'">
+                                   {{monitoreo_producto.percent(row,ra)}}%
+                            </span>
+                                <span ng-if="ra.value==='Alerta' && row.indicador">
+                                   <div title="{{monitoreo_producto.alert_tootip(row,ra)}}" class="shape_element"
+                                        style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}; border-radius:100%;    height:25px;    width:25px;    text-align:center !important;    margin: auto;"> </div>
+                            </span>
+                            </td>
+                        </tr>
+                        <tr style="background-color: #cccccc">
+                            <td colspan="{{monitoreo_producto.colspaninit}}" style="text-align: center">
+                                ---
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="xls">
+                <div id="xls">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato Excel"
+                                    ng-click="monitoreo_producto.exportXLS();"
+                                    type="button" class="btn bg-success btn-xs ">
+                                <i class="icon-file-excel"></i> Descargar - Formato Excel
+                            </button>
+                        </li>
+                    </ul>
+                    <table class="table table-print" id="monitoreo_productoExportXLS" style="margin-top: 15px">
+                        <tbody ng-repeat="(key,item) in monitoreo_producto.anos" ng-show="item.records.length>0">
+
+                        <tr ng-if="!key" height="20" class="centralizarth"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                            <td rowspan="2">Compañía</td>
+                            <td rowspan="2">Eje Estratéico</td>
+                            <td rowspan="2">Objetivo Estratégico</td>
+                            <td rowspan="2">Estrategia</td>
+                            <td rowspan="2">Resultado Esperado</td>
+
+                            <td rowspan="2">Departamento</td>
+                            <td rowspan="2">Proyecto/Producto</td>
+                            <td rowspan="2">Estatus</td>
+                            <td rowspan="2">Indicador</td>
+                            <td rowspan="2">Fórmula Indicador</td>
+                            <td rowspan="2">Unidad de Medida</td>
+                            <td rowspan="2">Medio Verificación</td>
+                            <td rowspan="2">Año Línea Base</td>
+                            <td rowspan="2">Valor Línea Base</td>
+                            <th colspan="5" ng-repeat="(ka,ra ) in monitoreo_producto.poa_anos">
+                                Período {{ra}}
+                            </th>
+                        </tr>
+                        <tr ng-if="!key" height="20" class="centralizarth"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                            <th ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_producto.poa_valor">
+                                {{ra.value}}
+                            </th>
+                        </tr>
+                        <tr style="vertical-align: middle" class="centralizartd"
+
+                            ng-if="(monitoreo_producto.institucion!='[NULL]'? monitoreo_producto.institucion==(row.institucion||row.compania):true)
+                && monitoreo_producto.ddlIn(monitoreo_producto.departamento,row.id_departamento)
+                && (monitoreo_producto.poadd!='[NULL]'?(monitoreo_producto.poadd==row.poa):true)"
+
+                            ng-repeat="(i,row) in item.records">
+                            <td>{{row.compania_nombre}}</td>
+                            <td>{{row.eje_estrategico}}</td>
+                            <td>{{row.objetivo_estrategico}}</td>
+                            <td>{{row.estrategia}}</td>
+                            <td>{{row.resultado}}</td>
+                            <td rowspan="{{<%= scope %>.rowspanme('departamento',row.departamento,item.records)}}"
+                                ng-if="<%= scope %>.seeme('departamento',row.departamento,i,item.records)">
+                                {{row.departamento}}
+                            </td>
+                            <td>
+                                {{row.producto}}
+                            </td>
+                            <td>
+                                {{monitoreo_producto.statusText(row.cond,row.estatus)}}
+                            </td>
+                            <td style="padding: 7px !important;vertical-align: top !important;{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.indicador}}
+                            </td>
+                            <td style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.formula}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{monitoreo_producto.tipometa(row.unidad_medida).nombre}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.medio_verificacion}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.ano_linea_base}}
+                            </td>
+                            <td
+                                    style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}">
+                                {{row.linea_base}}
+                            </td>
+                            <td style="{{row.indicador?'':' background-color: gray !important;color: gray !important;'}}"
+                                ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_producto.poa_valor">
+                            <span ng-if="ra.value==='P'">
+                               {{monitoreo_producto.ano_single(row.indicador_data.anos,ra.id,row.indicador_data.tipo_meta)}}
+                            </span>
+                                <span ng-if="ra.value==='A'">
+                                   {{monitoreo_producto.ano_single(row.indicador_data.anos_a,ra.id,row.indicador_data.tipo_meta)}}
+                               </span>
+                                <span ng-if="ra.value==='Dedo'" style="display:none">
+                                   {{monitoreo_producto.dif(row,ra)}}
+                            </span>
+                                <span ng-if="ra.value==='%'">
+                                   {{monitoreo_producto.percent(row,ra)}}%
+                            </span>
+                                <span ng-if="ra.value==='Alerta'">
+                                   <div title="{{monitoreo_producto.alert_tootip(row,ra)}}" class="shape_element"
+                                        style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};border-radius:100%;    height:25px;    width:25px;    text-align:center !important;    margin: auto;"> </div>
+                            </span>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+        monitoreo_producto.refreshAngular();
+    </script>

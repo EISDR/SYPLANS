@@ -1,0 +1,97 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-9 col-md-9'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Modo de fallo"}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('mamfe_efecto', scope, {
+                    trueplaceholder: "Efecto"
+                }) %>
+            </div>
+
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('mamfe_causa', scope, {
+                    trueplaceholder: "Causa"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_gravedad', scope, {
+                    trueplaceholder: "Gravedad (G)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_ocurrencia', scope, {
+                    trueplaceholder: "Ocurrencia (O)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_deteccion', scope, {
+                    trueplaceholder: "Detección (D)"
+                }) %>
+            </div>
+
+            <div class='col-sm-3 col-md-3'>
+                <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                    <label class="control-label is-visible animate ng-binding" style="color:#000000 !important;">
+                        Índice de Prioridad de Riesgos (IPR=GxOxD)
+                    </label>
+
+                    <input readonly
+                           value="{{(riesgo_a.mamfe_gravedad||0)*(riesgo_a.mamfe_ocurrencia||0)*(riesgo_a.mamfe_deteccion||0)}}"
+                           type="text"
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                           style="padding-left: 31px !important;" placeholder="" disabled="disabled">
+
+                    <div class="form-control-feedback ng-scope" style="top: 35px">
+                        <i class="text-secundary icon-lock2">
+
+                        </i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Descripción del modo de fallo",
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.relation("riesgo_control", scope, {
+                    text: "item.nombre",
+                    table: "riesgo_control",
+                    field: "riesgo",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    riesgo_control.setPermission("actions", true);
+    riesgo_control.setPermission("add", true);
+    riesgo_control.setPermission("edit", true);
+    riesgo_control.setPermission("remove", true);
+    // riesgo_control.setPermission("active", true);
+    riesgo_control.setPermission("view", true);
+    // riesgo_control.setPermission("copy", true);
+    riesgo_control.setPermission("audit", true);
+    $('#riesgo_controlTable').css('display', 'inline-table')
+</script>
+<%- FORM.footer(scope) %>
+
+
+
+
+

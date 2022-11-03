@@ -1,0 +1,27 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="page-header-lg page-header-sm page-header">
+        <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+        <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+            <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                <a ng-click="<%= scope %>.vw_eje_estrategico_ods2_get();"><i class="icon-rotate-cw3"></i></a>
+            </li>
+        </ul>
+        <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+    </div>
+    <div class="subcontent">
+        <%- include('../filter_ID',{scope:scope}); %>
+        <script>
+            <%= scope %>.disabledepa = true;
+            <%= scope %>.noopenmodals = true;
+        </script>
+        <%- include('grafico_O',{scope:scope}); %>
+    </div>
+    <script>
+        setTimeout( async ()=>{
+            await <%= scope %>.vw_eje_estrategico_ods2_get();
+            await <%= scope %>.modoGrafico();
+            <%= scope %>.loadAllThis('ods', <%= scope %>.graficos.O);
+            <%= scope %>.refreshAngular();
+        });
+    </script>
+</div>

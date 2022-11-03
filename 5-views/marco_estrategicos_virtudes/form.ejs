@@ -1,0 +1,16 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%-
+                // FORM.input("descripcion", scope, {label:"Descripción",placeholder: "Descripción",maxlength: 255})
+                FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000})
+                %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

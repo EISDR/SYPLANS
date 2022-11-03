@@ -1,0 +1,131 @@
+<!-- Volver a Inicio-->
+<div style="margin-top: -10px; margin-left: 5px;">
+    <button class="btn btn-primary" ng-click=" <%= scope %>.ui.goHome();" style="float: right">
+        Volver al inicio
+    </button>
+</div>
+<br>
+
+<!-- Leyenda -->
+<div class="container" style="margin-top: 5px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info text-center" style="    padding: 0;" role="alert">
+                <h5 style="color: #000;" ng-bind-html="<%= scope %>.FICHA.leyenda">
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tabla periodicidad -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered tablaIndicadores">
+                <thead>
+                <tr>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>{{<%= scope %>.FICHA.periodicidad}}</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>META</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>META ALCANZADA</strong>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(index,data) in <%= scope %>.FICHA.periodos"
+                    ng-class="[ !data.periodoValid?'disabled': (!data.current&&data.sinMeta?'sinMeta':''),data.current?'currentPeriod':'']">
+                    <td><b>{{data.indice}}</b></td>
+                    <td><b>{{data.meta}}</b></td>
+                    <td><b>{{data.sinMeta?'':data.meta_alcanzada}}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12 card" style="padding-bottom: 25px;">
+                <div class="panel panel-default">
+                    <div class="col-md-12">
+                        <div class="panel-body text-center">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 grafe" id="graficoIndicador">
+                                </div>
+                                <h4>{{<%= scope %>.FICHA.grafico.titulo_ponderacion}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Datos del Indicador -->
+<div class="container" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered tablaIndicadores">
+                <thead>
+                <tr>
+                    <th style="background-color: #9c282d; color: #FFF;"
+                        colspan="4"
+                        class="text-center"><strong>DATOS DEL INDICADOR</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(index,data) in <%= scope %>.FICHA.datos_indicador | limitTo: <%= scope %>.totalIndicadorRows">
+                    <td><b>{{<%= scope %>.FICHA.datos_indicador[index+index].label}}</b></td>
+                    <td>{{<%= scope %>.FICHA.datos_indicador[index+index].value}}</td>
+                    <td><b>{{<%= scope %>.FICHA.datos_indicador[index+(index+1)].label}}</b></td>
+                    <td>{{<%= scope %>.FICHA.datos_indicador[index+(index+1)].value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Datos Relacionados -->
+<script>
+    <%= scope %>.totalRows = Math.round(<%= scope %>.FICHA.datos_relacionados.length / 2);
+    <%= scope %>.totalIndicadorRows = Math.round(<%= scope %>.FICHA.datos_indicador.length / 2);
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered tablaIndicadores">
+                <thead>
+                <tr>
+                    <th style="background-color: #9c282d; color: #FFF;"
+                        colspan="4"
+                        class="text-center"><strong>DATOS RELACIONADOS</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(index,data) in <%= scope %>.FICHA.datos_relacionados | limitTo: <%= scope %>.totalRows">
+                    <td><b>{{<%= scope %>.FICHA.datos_relacionados[index+index].label}}</b></td>
+                    <td>{{<%= scope %>.FICHA.datos_relacionados[index+index].value}}</td>
+                    <td><b>{{<%= scope %>.FICHA.datos_relacionados[index+(index+1)].label}}</b></td>
+                    <td>{{<%= scope %>.FICHA.datos_relacionados[index+(index+1)].value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    {
+        {
+            <%= scope %>.loadThis('graficoIndicador', <%= scope %>.FICHA.grafico)
+        }
+    }
+    <%= scope %>.refreshAngular();
+</script>

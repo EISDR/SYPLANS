@@ -1,0 +1,88 @@
+<div class="subcontent" ng-if="resumen_poa.tipeExport == 'pdf'" style="overflow: scroll !important;height: 7000px">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="resumen_poa.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="panel panel-flat">
+        <div id="generalpdf" class="subcontent">
+        <div ng-repeat="(key1,value1) in resumen_poa.resumen_poa_fin">
+            <div class="row" ng-if="value1.data.length > 0">
+                <table class="table table-bordered" style="margin-top: 20px;">
+                    <tbody class="">
+                    <tr>
+                        <td class="">Eje Estratégico:</td>
+                        <td class="">{{value1.header.eje_estrategico}}</td>
+                    </tr>
+                    <tr>
+                        <td class="">Objetivo Estratégico:</td>
+                        <td class="">{{value1.header.objetivo_estrategico}}</td>
+                    </tr>
+                    <tr>
+                        <td class="">Estrategia:</td>
+                        <td class="">{{value1.header.estrategia}}</td>
+                    </tr>
+                    <tr style="font-weight: bold" ng-show="resumen_poa.session.tipo_institucion == 2">
+                        <td class="">Perspectiva:</td>
+                        <td class="">{{value1.header.perspectiva}}</td>
+                    </tr>
+                    <tr style="font-weight: bold">
+                        <td class="">Resultado Esperado:</td>
+                        <td class="">{{value1.header.resultado}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="resumen_poaTableIndex" class="table table-bordered"
+                       style="margin-top: 15px;">
+                    <thead class="">
+                    <tr class="centralizarth"
+                        style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                        <th rowspan="3">Proyecto/Producto</th>
+                        <th rowspan="3">Actividades</th>
+                        <th rowspan="3">Fecha Inicio</th>
+                        <th rowspan="3">Fecha Fin</th>
+                        <th colspan="2"> Recursos</th>
+                    </tr>
+                    <tr class="centralizarth"
+                        style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                        <th>No Financieros</th>
+                        <th>Financieros</th>
+                    </tr>
+                    </thead>
+                    <tbody class="">
+                    <tr class="centralizartd" ng-repeat="(key,row) in value1.data">
+                        <td rowspan="{{resumen_poa.rowspanme('producto',row.producto, value1.data)}}"
+                            ng-if="resumen_poa.seeme('producto',row.producto,key, value1.data)">
+                            {{row.producto}}
+                        </td>
+                        <td>{{row.actividad}}</td>
+                        <td>{{row.fecha_inicio}}</td>
+                        <td>{{row.fecha_fin}}</td>
+                        <td class="alinearNumeros">
+                            <ul>
+                                <li ng-repeat="(key3, value3) in row.nofinancieros">
+                                    {{value3}}
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="alinearNumeros">{{row.presupuesto ?
+                            resumen_poa.LAN.money(row.presupuesto).format(false) : ''}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    resumen_poa.refreshAngular();
+</script>

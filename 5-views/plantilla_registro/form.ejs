@@ -1,0 +1,100 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nombre', scope, {maxlength: 500,trueplaceholder: "Nombre"}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.select('plantilla', scope, {
+                    column: 'nombre',
+                    text: 'item.nombre',
+                    table: 'plantilla',
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+            </div>
+            <div class='col-sm-{{field.tamano}} col-md-{{field.tamano}} form-group-material form-group'
+                 ng-repeat="(i,field) in plantilla_registro.fields">
+                <label class="control-label" style="text-transform: capitalize;opacity: 1">{{field.label}}</label>
+                <input
+                        {{field.requerido?'required':''}}
+                        ng-if="field.tipo==='textocorto'"
+                        ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                        autocomplete="off" type="text"
+                        ng-model-onblur
+                        class="form-control"
+                        style="height: 38px"
+                        >
+
+                <textarea
+                        {{field.requerido?'required':''}}
+                        ng-if="field.tipo==='textolargo'"
+                        ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                        autocomplete="off" type="text"
+                        ng-model-onblur
+                        class="form-control"
+                        style="height: 38px"
+                        ></textarea>
+
+                <input
+                        {{field.requerido?'required':''}}
+                        ng-if="field.tipo==='entero'"
+                        ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                        autocomplete="off" type="text"
+                        ng-model-onblur
+                        class="form-control"
+                        style="height: 38px"
+                        >
+                <select
+                        {{field.requerido?'required':''}}
+                        ng-if="field.tipo==='siono'"
+
+                        ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                        autocomplete="off" type="checkbox"
+                        ng-model-onblur
+                        class="form-control"
+                        style="height: 38px"
+
+                        ng-options="item for item in ['Sí','No']">
+
+                </select>
+                <input
+                        {{field.requerido?'required':''}}
+                        ng-if="field.tipo==='fecha'"
+                        ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                        autocomplete="off" type="text"
+                        ng-model-onblur
+                        class="form-control"
+                        style="height: 38px"
+                        >
+
+                <input
+                ng-if="field.tipo==='imagen'"
+                type="file"
+                accept= "image/*"
+                id="{{field.field}}"
+                onchange="plantilla_registro.setBase64(this)"
+                style="display:none"
+                >
+                <input
+                        {{field.requerido?'required':''}}
+                ng-if="field.tipo==='imagen'"
+                ng-model="plantilla_registro[field.field]" name="{{field.field}}"
+                autocomplete="off" type="text"
+                ng-model-onblur
+                class="form-control"
+                style="height: 38px;display:none"
+                >
+                <img src="{{plantilla_registro[field.field]}}" id="base_{{field.field}}" ng-click="plantilla_registro.uploadImage(field.field)" ng-if="field.tipo==='imagen'" style="width: 100px;height: 100px;text-align: right;border: 1px solid black;display: block;margin: 10px 0 0 0;">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

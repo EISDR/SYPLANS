@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="area3"></div>
+            </div>
+        </div>
+        <%- CHART.columns("area3", scope, {label: "Indicadores PEI"}) %>
+    </div>
+</div>
+
+
+<div class="row" ng-if="dashboard_indicadores.session.tipo_institucion == 1">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="area"></div>
+            </div>
+        </div>
+        <%- CHART.columns("area", scope, {label: "Indicadores Proyecto/Producto"}) %>
+    </div>
+</div>
+
+<div class="row" ng-if="dashboard_indicadores.session.tipo_institucion == 2">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="area"></div>
+            </div>
+        </div>
+        <%- CHART.columns("area", scope, {label: "Indicadores de Proyecto/Plan de Acción"}) %>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="area2"></div>
+            </div>
+        </div>
+        <%- CHART.columns("area2", scope, {label: "Indicadores Actividades"}) %>
+    </div>
+</div>
+
+
+

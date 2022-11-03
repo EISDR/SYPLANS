@@ -1,0 +1,241 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 remove-input-space">
+                <%- FORM.input("nombre", scope, {maxlength: 64}) %>
+            </div>
+            <div class="col-sm-12 col-md-4 remove-input-space">
+                <%- FORM.input("apellido", scope, {maxlength: 64}) %>
+            </div>
+            <div class="col-sm-12 col-md-4 remove-input-space">
+                <%- FORM.input("correo", scope, {maxlength: 64}) %>
+            </div>
+        </div>
+        <div class="row" ng-if="compania.tipo_institucion == '1'">
+            <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                <%- FORM.select("viceministerio", scope, {
+                    allowview: false,
+                    truelabel: "Viceministerio",
+                    table: "viceministerios",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "item.compania == compania.id"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                <%- FORM.select("direccion_general", scope, {
+                    allowview: false,
+                    truelabel: "Dirección General",
+                    table: "direcciones_generales",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "item.viceministerio == usuario.viceministerio"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                <%- FORM.select("direccion_area", scope, {
+                    allowview: false,
+                    truelabel: "Dirección de Área",
+                    table: "direcciones_area",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "item.direccion_general == usuario.direccion_general"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                <%- FORM.select("cargo", scope, {
+                    allowview: false,
+                    permission: "cargo",
+                    truelabel: "Cargo",
+                    column: "cargo",
+                    table: "cargo",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == compania.id && item.institucion==null) && item.active == 1"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="institucion">
+                <%- FORM.select("cargo", scope, {
+                    allowview: false,
+                    permission: "cargo",
+                    truelabel: "Cargo",
+                    column: "cargo",
+                    table: "cargo",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.institucion == institucion.id) && item.active == 1"
+                }) %>
+            </div>
+            <div class="">
+                <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                    <%- FORM.select("departamento", scope, {
+                        allowview: false,
+                        permission: "departamento",
+                        truelabel: "Departamento",
+                        column: "departamento",
+                        table: "departamento",
+                        text: "item.nombre",
+                        icon: {class: "archive"},
+                        condition: "(item.compania == compania.id && item.institucion==null) && item.active == 1"
+                    }) %>
+                </div>
+                <div class="col-sm-12 col-md-4" ng-if="institucion">
+                    <%- FORM.select("departamento", scope, {
+                        allowview: false,
+                        permission: "departamento",
+                        truelabel: "Departamento",
+                        column: "departamento",
+                        table: "departamento",
+                        text: "item.nombre",
+                        icon: {class: "archive"},
+                        condition: "(item.institucion == institucion.id) && item.active == 1"
+                    }) %>
+                </div>
+            </div>
+            <div class="">
+                <div class="col-sm-12 col-md-4" ng-if="!institucion">
+                    <%- FORM.select("departamento_secundario", scope, {
+                        allowview: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allownull: false,
+                        permission: "departamento",
+                        truelabel: "Departamentos Relacionados",
+                        column: "departamento",
+                        table: "departamento",
+                        text: "item.nombre",
+                        multiple: true,
+                        icon: {class: "archive"},
+                        condition: "(item.compania == compania.id && item.institucion==null) && (item.active == 1 && item.id != usuario.departamento)",
+                        get: {
+                            table: 'usuario_departamento',
+                            fieldFrom: 'id',
+                            fieldTo: 'usuario',
+                            field: 'departamento'
+                        },
+                    }) %>
+                </div>
+                <div class="col-sm-12 col-md-4" ng-if="institucion">
+                    <%- FORM.select("departamento_secundario", scope, {
+                        allowview: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allownull: false,
+                        permission: "departamento",
+                        truelabel: "Departamentos Relacionados",
+                        column: "departamento",
+                        table: "departamento",
+                        text: "item.nombre",
+                        icon: {class: "archive"},
+                        condition: "(item.institucion == institucion.id) && (item.active == 1 && item.id != usuario.departamento)",
+                        get: {
+                            table: 'usuario_departamento',
+                            fieldFrom: 'id',
+                            fieldTo: 'usuario',
+                            field: 'departamento'
+                        },
+                    }) %>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--<div class="row">-->
+            <!--</div>-->
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.select("profile", scope, {
+                    allownew: false,
+                    allowlist: false,
+                    refresh: false,
+                    allowedit: false,
+                    allowview: false,
+                    column: "name",
+                    table: "group",
+                    label: 'Grupo',
+                    traduce: false,
+                    placeholder: "Seleccione un Grupo",
+                    icon: {class: "users4"}
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="usuario.profile_object.caracteristica == 'AU' && !institucion">
+                <%- FORM.select("tipo_auditor", scope, {
+                    allownew: false,
+                    allowlist: false,
+                    refresh: false,
+                    allowedit: false,
+                    allowview: false,
+                    column: "nombre",
+                    text: "item.nombre",
+                    table: "tipo_auditores",
+                    label: 'Tipo de Auditor',
+                    traduce: false,
+                    placeholder: "Seleccione un Tipo de Auditor",
+                    condition: "(item.compania == compania.id && item.institucion==null)",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="usuario.profile_object.caracteristica == 'AU' && institucion">
+                <%- FORM.select("tipo_auditor", scope, {
+                    allownew: false,
+                    allowlist: false,
+                    refresh: false,
+                    allowedit: false,
+                    allowview: false,
+                    column: "nombre",
+                    table: "tipo_auditores",
+                    text: "item.nombre",
+                    label: 'Tipo de Auditor',
+                    traduce: false,
+                    placeholder: "Seleccione un Tipo de Auditor",
+                    condition: "(item.institucion == institucion.id)",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4 set-password-btn">
+                <%- FORM.password("password", scope, {placeholder: "Contraseña", maxlength: 64}) %>
+            </div>
+            <div class="col-sm-12 col-md-4 set-password-btn">
+                <%- FORM.password("repeatPassword", scope, {
+                    label: "Repetir contraseña",
+                    placeholder: "Repetir contraseña",
+                    maxlength: 64
+                }) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 col-md-4 custom-upload">
+                <%- FORM.file("profileimage", scope, {
+                    show: 'image',
+                    image: 130,
+                    imagefloat: 'right',
+                    title: 'Subir imagen de perfil',
+                    truetext: 'Imagen de perfil',
+                    maxfiles: 1,
+                    columns: 1,
+                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                    // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
+            <div style="text-align: center;" class="col-sm-2 col-md-2"
+                 ng-if="((usuario.profile==1||usuario.profile==4) && usuario.session.interinstitucional ) || (compania?compania.session.super:institucion.session.super)">
+                <%- FORM.checkbox("interinstitucional", scope, {truetext: 'Interinstitucional'}) %>
+            </div>
+            <div style="text-align: center;" class="col-sm-2 col-md-2"
+                 ng-if="!(((usuario.profile==1||usuario.profile==4) && usuario.session.interinstitucional ) || (compania?compania.session.super:institucion.session.super))">
+                <%- FORM.checkbox("interinstitucional", scope, {truetext: 'Interinstitucional', disabled: true}) %>
+            </div>
+            <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic"
+                 ng-show="usuario.form.mode == 'edit'">
+                <%- FORM.checkbox("usuario_activo", scope, {truetext: '¿Usuario activo?', disabled: true}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+
+</script>

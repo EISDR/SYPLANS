@@ -1,0 +1,153 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('departamento', scope, {
+                            column: 'name',
+                            table: 'departamento',
+                        //self: true,
+                //allownull: true,
+                //allownew: true,
+                //allowedit: true,
+                //allowview: true,
+                //allowlist: true,
+                //refresh: true,
+                //condition: 'true',
+                //multiple: false,get: {table: "departamento_linked", fieldFrom: "id", fieldTo: "myid(departamento)", field: "theirid"},
+                //disabled: false,
+                //helptext: "",
+                //value: 'id',
+                //text: 'item.name',
+                //query: {
+                //limit: 0,
+                //page: 1,
+                //where: [],
+                //orderby: 'id',
+                //order: 'asc',
+                //distinct: false
+                // join: [
+                //     {
+                //         table: 'ms_category',
+                //         base: 'category',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     },
+                //     {
+                //         table: 'otratable',
+                //         base: 'ms_category_id',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     }
+                // ]
+                //},
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('responsable', scope, {
+                            column: 'name',
+                            table: 'responsable',
+                        //self: true,
+                //allownull: true,
+                //allownew: true,
+                //allowedit: true,
+                //allowview: true,
+                //allowlist: true,
+                //refresh: true,
+                //condition: 'true',
+                //multiple: false,get: {table: "responsable_linked", fieldFrom: "id", fieldTo: "myid(responsable)", field: "theirid"},
+                //disabled: false,
+                //helptext: "",
+                //value: 'id',
+                //text: 'item.name',
+                //query: {
+                //limit: 0,
+                //page: 1,
+                //where: [],
+                //orderby: 'id',
+                //order: 'asc',
+                //distinct: false
+                // join: [
+                //     {
+                //         table: 'ms_category',
+                //         base: 'category',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     },
+                //     {
+                //         table: 'otratable',
+                //         base: 'ms_category_id',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     }
+                // ]
+                //},
+                }) %>
+            </div>
+
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('estatus', scope, {
+                    column: 'name',
+                    text: "item.nombre",
+                    table: 'proyecto_actividad_estatus'
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "responsable_linked", fieldFrom: "id", fieldTo: "myid(responsable)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //text: 'item.name',
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.daterange("range_date", scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('presupuesto', scope, {
+                        //length:18
+                //decimal:2
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

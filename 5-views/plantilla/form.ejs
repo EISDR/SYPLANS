@@ -1,0 +1,27 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.html('contenido', scope, {}) %>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.relation("plantilla_variable", scope, {
+                    table: "plantilla_variable",
+                    field: "plantilla",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

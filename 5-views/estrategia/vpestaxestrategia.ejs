@@ -1,0 +1,114 @@
+<div id="pesta_items" ng-controller="pesta_items as pesta_items">
+    <!--<div class="subcontent">-->
+        <div class="row" style="padding-left: 9px; padding-right: 9px;">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Político</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()"  ng-if="value.type === 1">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Económico</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()" ng-if="value.type === 2">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-left: 9px; padding-right: 9px;">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Social</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()" ng-if="value.type === 3">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Tecnológico</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()" ng-if="value.type === 4">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-left: 9px; padding-right: 9px;">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Ambiental</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()" ng-if="value.type === 5">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="panel">
+                    <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                        <h6 class="panel-title">Legal</h6>
+                    </div>
+                    <div class="panel-body pesupuesto">
+                        <ul class="">
+                            <li class="" ng-repeat="value in pesta_items.itemsFromEstrategia" repeat-end="pesta_items.calculateEqualize()" ng-if="value.type === 6">
+                                {{value.descripcion}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>
+<script>
+    if (typeof pesta_items != 'undefined') {
+        if (typeof pesta_items != 'not defined') {
+            if (pesta_items) {
+                pesta_items.pestasFromEstrategia(estrategia.pestaDvaluesIDs);
+                equlizer('pesupuesto')
+            }
+        }
+    }
+    $(function () {
+        setTimeout( function (){
+            pesta_items.calculateEqualize()
+        },200)
+    })
+    console.log(estrategia.pestaDvaluesIDs);
+</script>

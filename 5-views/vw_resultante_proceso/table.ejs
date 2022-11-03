@@ -1,0 +1,90 @@
+<tr>
+    <td ng-if="!<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h3>No se han encontrado datos en este reporte.</h3>
+    </td>
+</tr>
+<tbody>
+
+
+<tr height="20" class="centralizarth"
+    style="font-size: 14px;background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <th>Factor</th>
+    <th>Entidad</th>
+    <th>Riesgo</th>
+    <th>Probabilidad</th>
+    <th>Impacto</th>
+    <th>Nivel de Riesgo</th>
+    <th>Responsable</th>
+    <th ng-if="vw_resultante_proceso.real">Descripción del Control de Riesgo Real</th>
+    <th ng-if="!vw_resultante_proceso.real">Descripción del Control de Riesgo</th>
+    <th>Efectividad del Control</th>
+    <th>Riesgo Residual</th>
+</tr>
+
+<tr ng-repeat="(i,row) in vw_resultante_proceso.report">
+
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.factor',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor',i,vw_resultante_proceso.report)">
+        {{row.factor}}
+    </td>
+
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.factor+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.table_',i,vw_resultante_proceso.report)">
+        {{row.tablex}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.riesgo}}
+        <br>
+        ({{row.registrox}})
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.probabilidad}} ({{row.pid}}%)
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.impacto}} ({{row.iid}})
+    </td>
+
+    <td style="font-size: 12px !important;vertical-align: middle;background-color: {{row.color}};font-weight: bold;text-align: center"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.nivel_riesgo}}
+        <br>
+        ({{row.nivel_riesgo_v}})
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante_proceso.report)">
+        {{row.responsable}}
+    </td>
+
+    <td style="vertical-align: middle;text-align: center"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control',i,vw_resultante_proceso.report)">
+        {{row.control}}
+        <br>
+        ({{row.efectividad_sum}}%)
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.efectividad}}%
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante_proceso.report)">
+        {{row.residual}}
+    </td>
+
+</tr>
+</tbody>

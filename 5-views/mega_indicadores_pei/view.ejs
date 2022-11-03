@@ -1,0 +1,36 @@
+<table class="table table-togglable table-framed">
+    <tbody>
+    <tr ng-repeat="(keycolum, value) in <%= scope %>.columns() track by keycolum" ng-show="value.visibleDetail!=false">
+        <td ng-if="value.label != 'metas'" class="text-white bg-<%= COLOR.secundary %>">
+            <span ng-bind-html="<%= scope %>.columnLabel(value,keycolum)"></span>
+        </td>
+        <td ng-if="value.label != 'metas'">
+        <span
+                ng-bind-html="<%= scope %>.cellValue(keycolum,value,<%= scope %>.dataForView)"
+                ng-click="<%= scope %>.cell.click(keycolum,value,<%= scope %>.dataForView)"
+                ng-dblclick="<%= scope %>.cell.dblclick(keycolum,value,<%= scope %>.dataForView)"
+
+        >
+
+        </span>
+        </td>
+    </tr>
+    <tr ng-repeat="(keycolum, value) in <%= scope %>.detalleapd track by keycolum" repeat-end="<%= scope %>.refreshAngular()">
+        <td class="text-white bg-<%= COLOR.secundary %>">
+            <span ng-bind-html="value.column"></span>
+        </td>
+        <td>
+            <span ng-bind-html="value.row"></span>
+        </td>
+
+    </tr>
+
+    </tbody>
+</table>
+<!--Table List-->
+<script>
+    <%= scope %>.refreshAngular();
+    setTimeout(function () {
+        <%= scope %>.refreshAngular();
+    },100);
+</script>

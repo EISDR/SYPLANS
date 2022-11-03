@@ -1,0 +1,371 @@
+<tr>
+    <td ng-if="<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h5 style="margin: 0px">MATRIZ PARA LA FORMULACIÓN DEL PLAN ESTRATÉGICO INSTITUCIONAL</h5>
+    </td>
+    <td ng-if="!<%= scope %>.report.length && <%= scope %>.lastreport" style="text-align: left"
+        colspan="{{<%= scope %>.fullcolspan()}}">
+        <h5 ng-if="<%= scope %>.lastreportd.estado==='Generado'">La última solicitud generada por <b>{{<%= scope %>
+                .lastreportd.nombre}}</b> en la fecha
+            <b>{{<%= scope %>.formatdate(<%= scope %>.lastreportd.fecha)}}</b> no tuvo datos para mostrar.
+        </h5>
+        <h5 ng-if="<%= scope %>.lastreportd.estado==='Pendiente'">La última solicitud generada por <b>{{<%= scope %>
+                .lastreportd.nombre}}</b> en la fecha
+            <b>{{<%= scope %>.formatdate(<%= scope %>.lastreportd.fecha)}}</b> aún está pendiente.
+        </h5>
+    </td>
+    <td ng-if="!<%= scope %>.report.length && !<%= scope %>.lastreport" style="text-align: left"
+        colspan="{{<%= scope %>.fullcolspan()}}">
+        <div>
+            <h5 style="display: inline-block">Aún no se ha realizado una solicitud para generar el reporte MEPYD, si
+                desea realizar una hacer clic en
+                el botón
+            </h5>
+            <button title="Generar Reporte MEPYD"
+                    type="button" role="button"
+                    class=" btn bg-<%= COLOR.info %>-600 btn-labeled btn-xs"
+                    style="display: inline-block"
+                    ng-click="<%= scope %>.generarReporte()">
+                <b><i class="icon-grid-alt"></i></b>
+                Generar Reporte MEPYD
+            </button>
+        </div>
+    </td>
+</tr>
+<tbody ng-repeat="(key,item) in <%= scope %>.reportDistinct">
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h6 style="font-weight: bold;display: contents">Institución: {{item.entidad}}</h6>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h6 style="font-weight: bold;display: contents">Eje Estratégico: {{item.eje_estrategico}}</h6>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h6 style="font-weight: bold;display: contents">Objetivo Estratégico: {{item.objetivo_estrategico}}</h6>
+    </td>
+</tr>
+<tr>
+    <th colspan="{{num.span}}"
+        style="text-align: center;background-color: #9c282d;color: white;font-size: 14px !important;font-family: Verdana !important;font-weight: bold"
+        ng-repeat="(key,num) in <%= scope %>.cols">
+        {{num.col}}
+    </th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <td style="text-align: center;vertical-align: middle" rowspan="2" colspan="6">Instrumentos Nivel Planificación
+        Global
+    </td>
+    <td style="text-align: center;vertical-align: middle" colspan="{{4+<%= scope %>.anos.length}}">Resultados
+        institucionales PEI
+    </th>
+    <td style="text-align: center;vertical-align: middle" colspan="3">Alineación END
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Meta Objetivo de Desarrollo Sostenible
+        Directamente Alineado
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Meta Otros Compromisos Nacionales e
+        Internacionales Relacionados
+    </th>
+    <td style="text-align: center;vertical-align: middle" colspan="{{2+<%= scope %>.anos.length}}">Productos Terminales
+        (Relevantes)
+    </th>
+    <td style="text-align: center;vertical-align: middle" colspan="{{vw_mepyd.doubleanos.length}}">Requerimiento
+        Financiero ($)
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Medios de Verificación
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Responsables
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Involucrados
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="4">Supuestos
+    </th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Denominación
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Indicador(es)
+    </th>
+    <td rowspan="1" colspan="2" style="text-align: center">Línea Base</td>
+    <td rowspan="1" colspan="{{<%= scope %>.anos.length}}" style="text-align: center">Meta</td>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Objetivo General END
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Objetivo Específico END
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Línea de Acción END
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Denominación
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="3">Unidad de Medida
+    </th>
+    <td style="text-align: center;vertical-align: middle" rowspan="1" colspan="{{<%= scope %>.anos.length}}"
+        style="text-align: center">Programación
+    </th>
+
+    <td style="text-align: center;vertical-align: middle" ng-repeat="(a,ano) in <%= scope %>.doubleanos">
+        {{a%2==0?'Valor          ':'Fuente Financiamiento'}}
+    </th>
+
+
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <td rowspan="2">Política de Gobierno</td>
+    <td rowspan="2">Impacto de la Política</td>
+    <td rowspan="2">Denominación Resultados PNPSP</td>
+    <td rowspan="2">Indicador(es)</td>
+    <td rowspan="1" colspan="2" style="text-align: center">Línea Base</td>
+    <td rowspan="2">Año*</td>
+    <td rowspan="2">Valor</td>
+    <td rowspan="1" colspan="{{<%= scope %>.anos.length}}" style="text-align: center">Años</td>
+    <td style="text-align: center;vertical-align: middle" rowspan="2" ng-repeat="(a,ano) in <%= scope %>.anos"
+        style="text-align: center">Año {{ano}}
+    </th>
+    <td style="text-align: center;vertical-align: middle" ng-repeat="(a,ano) in <%= scope %>.anos" colspan="2"
+        rowspan="2" style="text-align: center">{{ano}}
+    </th>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+    <td rowspan="1">Año</td>
+    <td rowspan="1">Valor Meta</td>
+    <td style="text-align: center;vertical-align: middle" rowspan="1" ng-repeat="(a,ano) in <%= scope %>.anos"
+        style="text-align: center">{{ano}}
+    </th>
+</tr>
+<tr ng-repeat="(i,row) in item.records">
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp('politica_gobierno',i,item.records)}}"
+        ng-if="<%= scope %>.sm('politica_gobierno',i,item.records)">
+        {{row.politica_gobierno}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica',i,item.records)">
+        {{row.impacto_politica}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp',i,item.records)">
+        {{row.denominacion_pnpsp}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp}}
+    </td>
+
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp_base}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.politica_gobierno+d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp',i,item.records)">
+        {{row.indicador_denominacion_pnpsp_meta}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        {{row.resultado}}
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: 200px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.indicador_pei',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle"
+                    ng-if="<%= scope %>.sm_distinct('d.indicador_pei',j,item.records)">
+                    {{pro.indicador_pei}}
+                </td>
+            </tr>
+        </table>
+    </td>
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: 200px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.indicador_pei',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle">
+                    {{pro.indicador_pei_base}}
+                </td>
+            </tr>
+        </table>
+    </td>
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: 200px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.indicador_pei',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle">
+                    {{pro.indicador_pei_meta}}
+                </td>
+            </tr>
+        </table>
+    </td>
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        ng-repeat="(a,ano) in <%= scope %>.anos"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: 200px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.indicador_pei',j,item.records)">
+                <td style="vertical-align: middle;border-left-color: white;border-right-color: white">
+                    {{row.peivalues[ano]}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end',i,item.records)">
+        {{row.objetivo_general_end}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end+d.objetivo_especifico_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end+d.objetivo_especifico_end',i,item.records)">
+        {{row.objetivo_especifico_end}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado+d.objetivo_general_end+d.objetivo_especifico_end+d.linea_accion_end',i,item.records)">
+        {{row.linea_accion_end}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        {{row.mods}}
+    </td>
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        {{row.compromisos}}
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: {{200*pro.indicador_poa.length}}px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white; vertical-align: middle">
+                    {{pro.no_producto}} {{pro.producto}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white" ng-repeat="(j,pro) in item.records"
+               ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+            <tr style="height: 200px" ng-repeat="(ip,indicador) in pro.indicador_poa">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle">
+                    {{row.no_producto}}.{{indicador.split('=')[0]}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        ng-repeat="(a,ano) in <%= scope %>.anos"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white" ng-repeat="(j,pro) in item.records"
+               ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records) && ano==pro.producto_ano">
+            <tr style="height: 200px" ng-repeat="(ip,indicador) in pro.valor">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle">
+                    {{indicador.split(';')[0]}}
+                </td>
+            </tr>
+        </table>
+        <table class="table table-bordered" style="border-color: white" ng-repeat="(j,pro) in item.records"
+               ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records) && ano!=pro.producto_ano">
+            <tr style="height: 200px" ng-repeat="(ip,indicador) in pro.valor">
+                <td style="border-left-color: white;border-right-color: white;vertical-align: middle">
+                    N/A
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        ng-repeat="(a,ano) in <%= scope %>.doubleanos"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: {{200*pro.indicador_poa.length}}px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white; vertical-align: middle">
+                    <span ng-if="ano==pro.producto_ano || ano==('f'+pro.producto_ano)"> {{a%2==0? <%= scope %>.format(pro.total,"5") : ''}}</span>
+                    <span ng-if="ano!=pro.producto_ano && ano!=('f'+pro.producto_ano)">N/A</span>
+                </td>
+            </tr>
+        </table>
+    </td>
+
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: {{200*pro.indicador_poa.length}}px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white; vertical-align: middle">
+                    {{pro.medio_verificacion}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: {{200*pro.indicador_poa.length}}px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white; vertical-align: middle">
+                    {{pro.indicador_departamentos}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.resultado',i,item.records)">
+        <table class="table table-bordered" style="border-color: white">
+            <tr style="height: {{200*pro.indicador_poa.length}}px" ng-repeat="(j,pro) in item.records"
+                ng-if="pro.resultado===row.resultado && <%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                <td style="border-left-color: white;border-right-color: white; vertical-align: middle">
+                    {{pro.involucrados}}
+                </td>
+            </tr>
+        </table>
+    </td>
+
+
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.resultado+d.supuestos',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.impacto_politica+d.denominacion_pnpsp+d.indicador_denominacion_pnpsp+d.resultado+d.supuestos',i,item.records)">
+        {{row.supuestos}}
+    </td>
+
+</tr>
+</tbody>

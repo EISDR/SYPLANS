@@ -1,0 +1,178 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_procesados.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_procesados.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+
+        <div class="subcontent">
+            <h4 style="text-align: center;font-size: 14px !important;text-transform: uppercase">
+                Mapa de Procesos - {{vw_procesados.user.compania }}
+                {{vw_procesados.user.sigla?('('+vw_procesados.user.sigla+')'):''}} Y SUS DOCUMENTOS
+            </h4>
+            <table id="vw_procesadosTable" class="table table-bordered" style="margin-top: 15px;border: 3px solid;">
+                <tr ng-repeat="(c, categoria) in vw_procesados.ordered">
+                    <td style="width: 250px;border: 3px solid black;vertical-align: middle;padding-top: 15px;padding-bottom: 15px;"
+                        class="bg-primary">
+                        <div class="text-center"
+                             style="transform: rotate(270deg);margin: 0px 0px 0 -1px;height: 201px;width: 100%;">
+                            <h3 class="no-margin text-semibold">{{categoria.nombre}}</h3>
+                            <h6 class="no-margin text-semibold">{{categoria.desc}}</h6>
+                        </div>
+                    </td>
+                    <td style="border: 3px solid;">
+                        <div class="row">
+                            <div class="col-md-4 miproceso" ng-repeat="(p,proceso) in categoria.procesos">
+                                <div class="panel panel-body border-top-primary  text-center"
+                                     style="background-color: #ddd">
+                                    <i style="cursor: pointer;cursor: pointer;float: right;margin: -10px;display: none"
+                                       class="border-white  expanddocumentClose myclose  position-right icon-cross2"
+                                       title="Colapsar Detalle"></i>
+                                    <h4 class="no-margin text-semibold tituloproceso" title="{{proceso.desc}}">
+                                        {{proceso.nombre}}<br>
+                                    </h4>
+                                    <i style="cursor: pointer;"
+                                       class="border-white expanddocument  position-right icon-eye"
+                                       title="Ver Documentos y Elementos del Proceso"></i>
+                                    <div class="row documentis" style="display: none">
+                                        <div class="col-md-12 p-0">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                <tr>
+                                                    <th
+                                                            style="width: 50%;font-weight: bold;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Objetivo
+                                                    </th>
+                                                    <th
+                                                            style="width: 50%;font-weight: bold;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Alcance
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{proceso.objetivo||'Ninguno'}}</td>
+                                                    <td>{{proceso.alcance||'Ninguno'}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 p-0">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                <tr>
+                                                    <th colspan="4"
+                                                        style="font-weight: bold;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Documentos del Proceso
+                                                    </th>
+                                                </tr>
+                                                <tr ng-if="!proceso.documentos.length" class="text-center">
+                                                    <td>No hay registros.</td>
+                                                </tr>
+                                                <tr ng-if="proceso.documentos.length">
+                                                    <th style="width: 15%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Código
+                                                    </th>
+                                                    <th style="width: 50%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Nombre
+                                                    </th>
+                                                    <th style="width: 30%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Tipo
+                                                    </th>
+                                                    <th style="width: 5%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="(d,documento) in proceso.documentos"
+                                                    ng-if="proceso.documentos.length">
+                                                    <td>{{documento.codigo}}</td>
+                                                    <td>{{documento.nombre}}</td>
+                                                    <td>{{documento.tipo||'Ninguno'}}</td>
+                                                    <td>
+                                                        <i style="cursor: pointer" title="Ver Imágen"
+                                                           ng-if="documento.isfile"
+                                                           ng-click="vw_procesados.verFile(documento)"
+                                                           class="border-white   position-right icon-eye"></i>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="col-md-6 p-0">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                <tr>
+                                                    <th colspan="2"
+                                                        style="font-weight: bold;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Indicadores del Proceso
+                                                    </th>
+                                                </tr>
+                                                <tr ng-if="!proceso.elementos.length" class="text-center">
+                                                    <td>No hay registros.</td>
+                                                </tr>
+                                                <tr ng-if="proceso.elementos.length">
+                                                    <th style="width: 90%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Nombre
+                                                    </th>
+                                                    <th style="width: 10%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
+                                                        Resultados
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="(d,elemento) in proceso.elementos"
+                                                    ng-if="proceso.elementos.length">
+                                                    <td>{{elemento.nombre}}</td>
+                                                    <td>
+
+                                                        <i style="cursor: pointer;"
+                                                           ng-click="vw_procesados.verIndicador(elemento)"
+                                                           title="{{vw_procesados.indicador(elemento).tooltip}}"
+
+                                                           class="border-white  position-right {{vw_procesados.indicador(elemento).icon}} {{vw_procesados.indicador(elemento).color}}"></i>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div><!--end-->
+<style>
+    .modal-body + .table-responsive > .table, .modal-body + .table {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .aymi100percent {
+
+        width: 100% !important;
+    }
+
+    .aymi100percent .tituloproceso {
+        font-size: 30px;
+    }
+
+    .aymi100percent .expanddocument {
+        display: none;
+    }
+
+    .expanddocument:hover {
+        color: #0D47A1;
+    }
+
+    .expanddocumentClose:hover {
+        color: orangered;
+    }
+
+</style>

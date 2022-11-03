@@ -1,0 +1,149 @@
+<style>
+    .panel-body {
+        padding: 20px;
+        padding-top: 5px;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h5 style="margin-top: 15px;">Información de la Acción Correctiva</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.inputview('nombre', scope, {trueplaceholder: "Acción de Mejora"}) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.daterange('range_date', scope, {
+                            from: "fecha_inicio",
+                            to: "fecha_fin",
+                            label_custom: true,
+                            label: "Fecha inicio / Fecha fin",
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('estatus', scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allowview: false,
+                            disabled: true,
+                            text: "item.nombre",
+                            table: 'vw_auditoria_programa_plan_estatus',
+                            label: "Estatus",
+                            icon: {class: "archive"},
+                            condition: "item.plan_status == auditoria_lista_correctiva.my_true_estatus && item.entidad == 'auditoria_lista_correctiva'"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4' >
+                        <label class="control-label is-visible animate ng-binding">Departamentos</label>
+                        <div ng-bind-html="auditoria_lista_correctiva.departamento_name">
+                        </div>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <label class="control-label is-visible animate ng-binding">Responsables</label>
+                        <div ng-bind-html="auditoria_lista_correctiva.responsable_name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="!<%= scope %>.ver">
+            <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h5 style="margin-top: 15px;">Trabajar la Acción Correctiva</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('estatus_id', scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allowview: false,
+                            text: "item.nombre",
+                            table: 'vw_auditoria_programa_plan_estatus',
+                            label: "Estatus",
+                            icon: {class: "archive"},
+                            condition: "item.plan_status == auditoria_lista_correctiva.my_true_estatus && item.entidad == 'auditoria_lista_correctiva'"
+                        }) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 0 10% 0 2%;">
+                        <%- FORM.file("correctivafile", scope, {
+                            title: 'Subir Evidencia',
+                            maxfiles: 999,
+                            columns: 4,
+                            truetext: 'Subir Evidencia',
+                            imagefloat: "right",
+                            // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                            // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                        }) %>
+                    </div>
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('comment', scope, {
+                            trueplaceholder: "Comentar trabajo realizado durante la ejecución de la Acción Correctiva"
+                                    //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-8 col-md-8'>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <div class="modal-footer dragonformfooter-custom" dragonlanguage="" id="btnformfooter-custom"
+                             ng-show="!<%= scope %>.save">
+                        <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon"><i
+                                    class="position-right"></i></span>
+                            <button dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                                    type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.pages.form.close()">
+                                <b><i class="icon-cross2"></i></b>
+                                <language>MESSAGE.ic('mono.cancel')</language>
+                            </button>
+                            <button ng-show="<%= scope %>.form.mode!=='new'"
+                                    dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.saveAccionCorrectiva()">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                <language>MESSAGE.ic('mono.save')</language>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="comment">
+                <div class="active">
+                    <div  id="comentarios_acciones_correctivas" ng-controller="comentarios_acciones_correctivas as comentarios_acciones_correctivas">
+                    <div class="panel panel-flat">
+                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_acciones_correctivas'}); %>
+                        <div class="subcontent">
+                            <%- include('../comentarios_actividad_apoyo/base',{scope:'comentarios_acciones_correctivas'}); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        comentarios_acciones_correctivas.cell.dblselect = function (row) {
+        };
+        if (comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion) {
+            comentarios_acciones_correctivas.setPermission("actions", false);
+            comentarios_acciones_correctivas.setPermission("remove", false);
+        } else {
+            comentarios_acciones_correctivas.setPermission("actions", true);
+            comentarios_acciones_correctivas.setPermission("remove", true);
+        }
+    </script>
+
+
+
+

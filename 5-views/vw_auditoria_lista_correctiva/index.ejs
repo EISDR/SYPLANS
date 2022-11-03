@@ -1,0 +1,82 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row" ng-show="!vw_auditoria_lista_correctiva.accion">
+                <div class="col-sm-6 col-md-6" style="margin-top: 11px !important">
+                    <%- FORM.select("plan", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        refresh: false,
+                        multiple: false,
+                        label: "Auditoría",
+                        text: "item.plan_nombre",
+                        table: "vw_correctiva_filter",
+                        field: "id",
+                        icon: {class: "archive"},
+                        condition: "item.compania == vw_auditoria_lista_correctiva.session.compania_id && item.estatus_plan == 5 && item.correctivas > 0"
+                    }) %>
+                </div>
+                <div class="col-sm-3 col-md-3"></div>
+                <div class='col-sm-3 col-md-3' style="margin-top: 11px !important">
+                    <%- FORM.select('estatus_plan_accion', scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        allownew: false,
+                        allowview: false,
+                        allownull: false,
+                        text: "item.permitido",
+                        disabled: true,
+                        value: "id",
+                        table: "vw_auditoria_programa_plan_estatus",
+                        icon: {class: "archive"},
+                        truelabel: "Estado del Plan de Acción",
+                        condition: "item.entidad == 'vw_correctiva'"
+                    }) %>
+                </div>
+            </div>
+            <div class="row" ng-show="vw_auditoria_lista_correctiva.accion">
+                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important">
+                    <%- FORM.select("evento", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        multiple: false,
+                        label: "Plan de Acción",
+                        text: "item.nombre",
+                        table: "vw_evento_riesgo_generico",
+                        field: "id",
+                        icon: {class: "archive"},
+                        condition: "item.compania == vw_auditoria_lista_correctiva.session.compania_id && item.correctivas > 0"
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6" >
+                    <label style="">Condición de acciones de mejora</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #5de362;"></label>
+                            <label class="labelRedondo"> En Ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Retrazado </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Finalizado </label></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="showtble">
+                <%- include('base',{scope:scope}); %>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

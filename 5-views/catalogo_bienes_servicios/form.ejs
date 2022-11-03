@@ -1,0 +1,109 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-1 col-md-1'>
+                <%- FORM.input('nivel', scope, {
+                    maxlength: 5
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('segmento', scope, {
+                    maxlength: 15
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('familia', scope, {
+                    maxlength: 15
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('clase', scope, {
+                    maxlength: 15
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('material', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('desc_es', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('desc_en', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('codigo_clasificador_obj1', scope, {
+                    trueplaceholder: "Código Clasificador por Objeto del Gasto I",
+                    maxlength: 15
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('codigo_clasificador_obj2', scope, {
+                    trueplaceholder: "Código Clasificador por Objeto del Gasto II",
+                    maxlength: 15
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.select("cuentas_auxiliares", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "vw_bienes_servicio_objeto_gasto", //tabla de donde viene la data
+                    icon: {class: "archive"},
+                    truelabel: "Códigos Auxiliares Clasificadores por Objetos del Gasto",
+                    get: {
+                        table: 'catalogo_bienes_servicios_auxiliar', //tabla pivot donde se guardan los datos
+                        fieldFrom: 'id', //Campo del formulario que sue guardara en fieldTo
+                        fieldTo: 'materialid', //Campo que guardara el dato de fieldFrom
+                        field: 'cuenta_auxiliar' //Campo que guardara el campo definido en value del select
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('desc_clasificador_obj1', scope, {
+                    maxlength: 1000
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('desc_clasificador_obj2', scope, {
+                    maxlength: 1000
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('definicion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('sinonimos', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

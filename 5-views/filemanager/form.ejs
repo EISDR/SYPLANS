@@ -1,0 +1,80 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('title', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select("entity", scope, {
+                    text: "item.name",
+                    table: "entity",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('name', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('plural', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('isfolder', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('folder', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('cantidad', scope) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('isparent', scope) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('where_filters', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('level', scope, {
+                    //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('golevel', scope, {
+                    //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('goleveltext', scope, {
+                    //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('govar', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('dtext', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('dkey', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('alternativeLevel', scope, {
+                    //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('alternativeLevelText', scope, {
+                    //length:15
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

@@ -1,0 +1,22 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+
+
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+
+        <div class="" style="padding: 0 20px 0 20px;    text-align: right;" ng-show="false">
+            <button
+                    title="Enviar Proyectos Especiales a la entidad de Productos/Proyectos Operativos"
+                    type="button" role="button"
+                    class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs"
+                    ng-click="<%= scope %>.insert_products()">
+                <b><i class="icon-enter3"></i></b>
+                Enviar Proyectos Especiales a la entidad de Productos/Proyectos Operativos
+            </button>
+        </div>
+        <div class="subcontent">
+
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

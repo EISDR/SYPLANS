@@ -1,0 +1,435 @@
+<style>
+    .dash-presupuesto-detalle {
+        cursor: pointer;
+    }
+</style>
+<%
+scope = 'notificacion';
+%>
+<div id="<%= 'notificacion' %>" ng-controller="<%= 'notificacion' %> as <%= 'notificacion' %>">
+    <script>
+        RUN_B("notificacion", notificacion, notificacion.$scope, null, null);
+    </script>
+    <div class="row">
+        <div class="col-md-12">
+            <%- include('../filter_ID',{scope:'notificacion'}); %>
+            <script>
+                var aylasegunda = 0;
+                <%= scope %>.afterInstitucion = function () {
+                    if (notificacion.form.options.poadd)
+                        if (notificacion.form.options.poadd.data) {
+                            var mispoas = notificacion.form.options.poadd.data.filter(d => {
+                                if (notificacion.institucion_object.tipo === "i") {
+                                    return d.institucion == notificacion.institucion
+                                } else {
+                                    return d.compania_id == notificacion.institucion && !d.institucion
+                                }
+                            });
+                            var estoyown = mispoas.filter(d => {
+                                return d.id == notificacion.poadd
+                            });
+                            if (!estoyown.length) {
+                                if (mispoas.length) {
+                                    notificacion.poadd = mispoas[0].id + "";
+                                } else {
+                                    notificacion.poadd = "[NULL]";
+                                }
+                            } else {
+                                notificacion.poadd = "[NULL]";
+                            }
+                            <%= scope %>.
+                            afterDepartamento();
+                        }
+                };
+                <%= scope %>.afterPoa = function () {
+                    <%= scope %>.
+                    afterDepartamento();
+                };
+                <%= scope %>.afterDepartamento = function () {
+                    notificacion.getActividades();
+                    notificacion.getProductos();
+                    notificacion.getNotificaciones();
+                    vw_indicadores_notificacion.fixFilters = [
+                        {
+                            field: 'entidad',
+                            value: notificacion.institucion,
+                        }
+                    ];
+                    if (notificacion.departamento !== '[NULL]') {
+                        vw_indicadores_notificacion.fixFilters.push({
+                            field: 'departamento',
+                            operator: 'like',
+                            value: `%(${notificacion.departamento})%`
+                        })
+                    }
+                    vw_indicadores_notificacion.refresh();
+                };
+            </script>
+            <div>
+                <div class="panel panel-white" style="margin-bottom: 0">
+                    <div class="panel-heading panel-dashboard">
+                        <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">Distribución por
+                            Estatus</h6>
+                    </div>
+                    <div class="panel-body" style="padding: 0">
+                        <div class="col-md-6" style="padding: 0">
+                            <div class="panel panel-white" id="productos">
+                                <div class="panel-heading">
+                                    <h6 ng-show="notificacion.session.tipo_institucion == 1"
+                                        style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Productos / Proyectos</h6>
+                                    <h6 ng-show="notificacion.session.tipo_institucion == 2"
+                                        style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Proyecto/Plan de Acción</h6>
+                                </div>
+                                <div class="panel-body" style="padding: 10px">
+                                    <div dragonlanguage=""
+                                         style="margin-top: 15px !important;"
+                                         ng-show="!notificacion.array_productos.length"
+                                         class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                        <language>MESSAGE.ic('table.nodata')</language>
+                                    </div>
+                                    <div class="panel" ng-show="notificacion.array_productos.length"
+                                         ng-click="notificacion.openmodalproductos(value.name)"
+                                         ng-repeat="(key, value) in notificacion.array_productos | orderBy: 'order'"
+                                         style="margin-bottom: 0px; cursor: pointer;">
+                                        <div class="col-md-4 col-sd-4">
+                                            <div class="col-md-10 col-sd-10" title="{{value.title}}">
+                                                <div class="panel panel-white"
+                                                     style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 14px; border-radius: 2px">
+                                                    <div class="panel-heading"
+                                                         style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                        <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                        <i class="{{value.icon}}" style="float: right"></i>
+                                                    </div>
+                                                    <div class="panel-body"
+                                                         style="background: {{value.color}}; padding: 5px; text-transform: capitalize">
+                                                        {{value.name}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    notificacion.pie_data = [{value: 1, name: "N/A"}];
+                                    notificacion.getProductos = function (callback) {
+                                        var animation = new ANIMATION();
+                                        animation.loading(`#productos`, "", ``, '30');
+                                        notificacion.listproductos = [];
+                                        notificacion.productos = {
+                                            cantidad: 0,
+                                            completados: 0,
+                                            ejecucion: 0,
+                                            vencidos: 0,
+                                            planificados: 0,
+                                            cancelados: 0,
+                                            detenidos: 0
+                                        };
+                                        if (notificacion.departamento == "[NULL]") {
+                                            notificacion.condition = [{
+                                                field: "id",
+                                                value: notificacion.poadd,
+                                            }];
+                                        } else {
+                                            notificacion.condition = [{
+                                                field: "id",
+                                                value: notificacion.poadd,
+                                            }, {
+                                                field: "departamento",
+                                                value: notificacion.departamento
+                                            }];
+                                        }
+
+                                        BASEAPI.listp('vw_dashboard_productos', {
+                                            limit: 0,
+                                            orderby: "id",
+                                            order: "asc",
+                                            where: notificacion.condition
+                                        }).then(function (result) {
+                                            notificacion.actualizacion = moment().format('DD/MM/YYYY h:mm');
+                                            notificacion.listproductos = result;
+                                            notificacion.array_productos = [];
+                                            notificacion.productos.cantidad = 0;
+                                            notificacion.productos.completados = 0;
+                                            notificacion.productos.ejecucion = 0;
+                                            notificacion.productos.vencidos = 0;
+                                            notificacion.productos.planificados = 0;
+                                            notificacion.productos.detenidos = 0;
+                                            notificacion.productos.cancelados = 0;
+                                            if (notificacion.listproductos.data) {
+                                                if (notificacion.listproductos.data.length > 0) {
+                                                    for (var pr = 0; pr < notificacion.listproductos.data.length; pr++) {
+                                                        notificacion.productos.planificados += parseInt(notificacion.listproductos.data[pr].planificados) || 0;
+                                                        notificacion.productos.ejecucion += parseInt(notificacion.listproductos.data[pr].ejecucion) || 0;
+                                                        notificacion.productos.vencidos += parseInt(notificacion.listproductos.data[pr].vencidos) || 0;
+                                                        notificacion.productos.detenidos += parseInt(notificacion.listproductos.data[pr].detenidos) || 0;
+                                                        notificacion.productos.cancelados += parseInt(notificacion.listproductos.data[pr].cancelados) || 0;
+                                                        notificacion.productos.completados += parseInt(notificacion.listproductos.data[pr].completados) || 0;
+                                                        notificacion.productos.cantidad += parseInt(notificacion.listproductos.data[pr].cantidad) || 0;
+                                                    }
+
+                                                    for (var i in notificacion.productos) {
+                                                        notificacion.productos[i] = parseInt(notificacion.productos[i]) < 10 ? ('0' + notificacion.productos[i]) : notificacion.productos[i];
+                                                        if (i !== 'cantidad')
+                                                            notificacion.array_productos.push(
+                                                                {
+                                                                    name: i == 'ejecucion' ? "en ejecución" : i,
+                                                                    value: LAN.money(notificacion.productos[i]).value,
+                                                                    percent: Math.round((LAN.money(notificacion.productos[i]).value / LAN.money(notificacion.productos.cantidad).value) * 100) + '%',
+                                                                    total: LAN.money(notificacion.productos.cantidad).value,
+                                                                    icon: i == 'completados' ? 'icon-checkmark4' : i == 'planificados' ? 'icon-brain' : i == 'ejecucion' ? 'icon-arrow-right16' : i == 'vencidos' ? 'icon-alarm-cancel' : i == 'detenidos' ? 'icon-stop' : i == 'cancelados' ? 'icon-blocked' : 'icon-question3',
+                                                                    color: i == 'completados' ? '#4451DB' : i == 'planificados' ? '#5F5FAF' : i == 'ejecucion' ? '#548235' : i == 'vencidos' ? '#FF0000' : i == 'detenidos' ? '#F1C232' : i == 'cancelados' ? '#57595D' : '#CCCCCC',
+                                                                    order: i == 'completados' ? '6' : i == 'planificados' ? '1' : i == 'ejecucion' ? '2' : i == 'vencidos' ? '3' : i == 'detenidos' ? '4' : i == 'cancelados' ? '5' : '7',
+                                                                    light_color: i == 'completados' ? '#7784FF' : i == 'planificados' ? '#9292E2' : i == 'ejecucion' ? '#87B568' : i == 'vencidos' ? '#FF9999' : i == 'detenidos' ? '#FFFF7F' : i == 'cancelados' ? '#BDBFC3' : '#CCCCCC',
+                                                                    font_color: i == 'detenidos' ? 'black' : 'white',
+                                                                    title: "Hacer clic para ver detalle"
+                                                                }
+                                                            )
+                                                    }
+                                                }
+                                            }
+                                            animation.stoploading(`#productos`);
+                                            notificacion.refreshAngular();
+                                            if (callback)
+                                                callback();
+                                        });
+                                    };
+
+                                </script>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <div class="panel panel-white" id="actividades">
+                                <div class="panel-heading">
+                                    <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Actividades</h6>
+                                </div>
+                                <div class="panel-body" style="padding: 10px">
+                                    <div dragonlanguage=""
+                                         style="margin-top: 15px !important;"
+                                         ng-show="!notificacion.array_actividades.length"
+                                         class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                        <language>MESSAGE.ic('table.nodata')</language>
+                                    </div>
+                                    <div class="panel" ng-show="notificacion.array_actividades.length"
+                                         ng-click="notificacion.openmodalactividades(value.name)"
+                                         ng-repeat="(key, value) in notificacion.array_actividades | orderBy: 'order'"
+                                         style="margin-bottom: 0px; cursor: pointer;">
+                                        <div style="float: left; width: 180px; margin-left: 20px"
+                                             title="{{value.title}}">
+                                            <div class="panel panel-white"
+                                                 style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 14px; border-radius: 2px">
+                                                <div class="panel-heading"
+                                                     style="min-height: 40px; background: {{value.light_color}}; padding: 10px;">
+                                                    <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                    <i class="{{value.icon}}" style="float: right"></i>
+                                                </div>
+                                                <div class="panel-body"
+                                                     style="background: {{value.color}}; padding: 5px; text-transform: capitalize">
+                                                    {{value.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    notificacion.getActividades = function (callback) {
+                                        var animation = new ANIMATION();
+                                        animation.loading(`#actividades`, "", ``, '30');
+                                        notificacion.listactividades = [];
+                                        notificacion.actividades = {
+                                            cantidad: 0,
+                                            completados: 0,
+                                            ejecucion: 0,
+                                            pendientes: 0,
+                                            vencidos: 0,
+                                            planificados: 0,
+                                            detenidos: 0,
+                                            cancelados: 0
+                                        };
+                                        if (notificacion.departamento == "[NULL]") {
+                                            notificacion.condition = [{
+                                                field: "id",
+                                                value: notificacion.poadd,
+                                            }];
+                                        } else {
+                                            notificacion.condition = [{
+                                                field: "id",
+                                                value: notificacion.poadd,
+                                            }, {
+                                                field: "departamento",
+                                                value: notificacion.departamento
+                                            }];
+                                        }
+                                        BASEAPI.listp('vw_dashboard_actividades', {
+                                            limit: 0,
+                                            orderby: "id",
+                                            order: "asc",
+                                            where: notificacion.condition
+                                        }).then(function (result) {
+                                            notificacion.actualizacion = moment().format('DD/MM/YYYY h:mm');
+                                            notificacion.listactividades = result;
+                                            notificacion.array_actividades = [];
+                                            if (notificacion.listactividades.data) {
+                                                notificacion.actividades.cantidad = 0;
+                                                notificacion.actividades.completados = 0;
+                                                notificacion.actividades.ejecucion = 0;
+                                                notificacion.actividades.pendientes = 0;
+                                                notificacion.actividades.vencidos = 0;
+                                                notificacion.actividades.planificados = 0;
+                                                notificacion.actividades.cancelados = 0;
+                                                notificacion.actividades.detenidos = 0;
+                                                if (notificacion.listactividades.data.length > 0) {
+                                                    for (var ac = 0; ac < notificacion.listactividades.data.length; ac++) {
+                                                        notificacion.actividades.cantidad += parseInt(notificacion.listactividades.data[ac].cantidad) || 0;
+                                                        notificacion.actividades.completados += parseInt(notificacion.listactividades.data[ac].completados) || 0;
+                                                        notificacion.actividades.ejecucion += parseInt(notificacion.listactividades.data[ac].ejecucion) || 0;
+                                                        notificacion.actividades.pendientes += parseInt(notificacion.listactividades.data[ac].pendientes) || 0;
+                                                        notificacion.actividades.vencidos += parseInt(notificacion.listactividades.data[ac].vencidos) || 0;
+                                                        notificacion.actividades.planificados += parseInt(notificacion.listactividades.data[ac].planificados) || 0;
+                                                        notificacion.actividades.cancelados += parseInt(notificacion.listactividades.data[ac].cancelados) || 0;
+                                                        notificacion.actividades.detenidos += parseInt(notificacion.listactividades.data[ac].detenidos) || 0;
+                                                    }
+
+                                                    for (var i in notificacion.actividades) {
+                                                        notificacion.actividades[i] = parseInt(notificacion.actividades[i]) < 10 ? ('0' + notificacion.actividades[i]) : notificacion.actividades[i];
+                                                        if (i !== 'cantidad')
+                                                            notificacion.array_actividades.push(
+                                                                {
+                                                                    name: i == 'completados' ? 'completadas' : i == 'planificados' ? 'planificadas' : i == 'ejecucion' ? 'en ejecución' : i == 'trabajadas' ? 'trabajadas' : i == 'pendientes' ? 'Pendiente a Ejecución' : i == 'vencidos' ? 'vencidas' : i == 'detenidos' ? 'detenidas' : i == 'cancelados' ? 'canceladas' : '????',
+                                                                    value: LAN.money(notificacion.actividades[i]).value,
+                                                                    percent: Math.round((LAN.money(notificacion.actividades[i]).value / LAN.money(notificacion.actividades.cantidad).value) * 100) + '%',
+                                                                    total: LAN.money(notificacion.actividades.cantidad).value,
+                                                                    icon: i == 'completados' ? 'icon-checkmark4' : i == 'planificados' ? 'icon-brain' : i == 'ejecucion' ? 'icon-arrow-right16' : i == 'pendientes' ? 'icon-alarm-check' : i == 'vencidos' ? 'icon-alarm-cancel' : i == 'detenidos' ? 'icon-stop' : i == 'cancelados' ? 'icon-blocked' : 'icon-question3',
+                                                                    color: i == 'completados' ? '#4451DB' : i == 'planificados' ? '#5F5FAF' : i == 'ejecucion' ? '#548235' : i == 'pendientes' ? '#84a379' : i == 'vencidos' ? '#FF0000' : i == 'detenidos' ? '#F1C232' : i == 'cancelados' ? '#57595D' : '#CCCCCC',
+                                                                    order: i == 'completados' ? '7' : i == 'planificados' ? '1' : i == 'pendientes' ? '2' : i == 'ejecucion' ? '3' : i == 'vencidos' ? '4' : i == 'detenidos' ? '5' : i == 'cancelados' ? '6' : '8',
+                                                                    light_color: i == 'completados' ? '#7784FF' : i == 'planificados' ? '#9292E2' : i == 'ejecucion' ? '#87B568' : i == 'pendientes' ? '#a4de90' : i == 'vencidos' ? '#FF9999' : i == 'detenidos' ? '#FFFF7F' : i == 'cancelados' ? '#BDBFC3' : '#CCCCCC',
+                                                                    font_color: i == 'detenidos' ? 'black' : 'white',
+                                                                    title: "Hacer clic para ver detalle"
+                                                                }
+                                                            )
+                                                    }
+                                                }
+                                            }
+                                            animation.stoploading(`#actividades`);
+                                            notificacion.refreshAngular();
+                                            if (callback)
+                                                callback();
+
+                                        });
+                                    };
+
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5" id="notificaciones" style="padding: 0">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                        Alertas y Notificaciones
+                    </h6>
+                    <a style="float: right; margin-top: -20px; color: black"
+                       ng-click="notificacion.getNotificaciones()"><i title="Actualizar"
+                                                                      class="icon-rotate-cw3"></i></a>
+                </div>
+                <div class="panel-body" id="notificacionDD">
+
+                    <div ng-repeat="(key,noti) in notificacion.notifications">
+                        <div ng-show="notificacion.filter_noti(noti.rol)"
+                             class="alert alert-info alert-styled-left alert-dismissible"
+                             style="margin-bottom: 0px; padding: 5px 20px">
+                            <button style="margin-right: 15px;" type="button" class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            <span class="font-weight-semibold">
+                                {{noti.title}} -
+                            </span>
+                            {{noti.descripcion}}
+                            <a target="_blank" href="{{noti.link}}" ng-if="noti.link" class="alert-link"> - Click
+                                para mas
+                                detalles.</a>
+                        </div>
+                    </div>
+                    <script>
+                        notificacion.getNotificaciones = function (callback) {
+                            var animation = new ANIMATION();
+                            animation.loading(`#notificacionDD`, "", ``, '60');
+
+                            // if (notificacion.institucion_object.tipo === "i") {
+                            //     return d.institucion == notificacion.institucion
+                            // } else {
+                            //     return d.compania_id == notificacion.institucion && !d.institucion
+                            // }
+                            var mifinaly = notificacion.institucion_object ? notificacion.institucion : new SESSION().compania_id;
+                            var mifinalyCC = notificacion.institucion_object ? notificacion.institucion_object.tipo : "";
+                            BASEAPI.listp('vw_notificacion', {
+                                limit: 0,
+                                orderby: "priority",
+                                order: "asc",
+                                where: [
+                                    {
+                                        field: mifinalyCC === "i" ? "institucion" : "compania",
+                                        value: notificacion.institucion,
+                                    },
+                                    {
+                                        field: "priority",
+                                        value: [1, 3]
+                                    }
+                                ]
+                            }).then(function (result) {
+                                notificacion.notifications = result.data;
+                                notificacion.refreshAngular();
+                                animation.stoploading(`#notificacionDD`, "", ``, '30');
+                            });
+                        };
+                        notificacion.getActividades();
+                        notificacion.getNotificaciones();
+                        notificacion.getProductos();
+                        notificacion.filter_noti = function (object) {
+                            var rol = eval(object);
+                            if (Array.isArray(rol)) {
+                                return ARRAY.existIn(new SESSION().current().profile, rol);
+                            } else {
+                                return true;
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7" style="padding: 0">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 ng-show="notificacion.session.tipo_institucion == 1"
+                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title">Indicadores de
+                        Productos / Proyectos</h6>
+                    <h6 ng-show="notificacion.session.tipo_institucion == 2"
+                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title">Indicadores de
+                        Proyecto/Plan de Acción</h6>
+                </div>
+                <div class="panel-body">
+                    <div id="<%= 'vw_indicadores_notificacion' %>"
+                         ng-controller="<%= 'vw_indicadores_notificacion' %> as <%= 'vw_indicadores_notificacion' %>">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_indicadores_notificacion'}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'vw_indicadores_notificacion'}); %>
+                            </div>
+                        </div>
+                    </div><!--end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#vw_indicadores_notificacionTablePanel').css('height', "900px");
+    })
+</script>

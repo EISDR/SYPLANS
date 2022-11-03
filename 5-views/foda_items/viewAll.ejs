@@ -1,0 +1,62 @@
+<div class="row" style="padding-left: 9px; padding-right: 9px;">
+    <div class="col-sm-12 col-md-6">
+        <div class="panel">
+            <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                <h6 class="panel-title">Fortalezas</h6>
+            </div>
+            <div class="panel-body pesupuesto">
+                <ul class="" style="margin-bottom: 0;">
+                    <li class="" data-type="textarea" ng-repeat="value in foda_items.list_foda_items" repeat-end="foda_items.calculateEqualize();"  ng-if="value.type === 1">
+                        {{value.descripcion}} <a title="Alineado a ({{value.cantidad}}) estrategia/s" ng-click="foda_items.relateditems(value.id)">({{value.cantidad}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="panel">
+            <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                <h6 class="panel-title">Oportunidades</h6>
+             </div>
+            <div class="panel-body pesupuesto">
+                <ul class="" style="margin-bottom: 0;">
+                    <li class="" ng-repeat="value in foda_items.list_foda_items" repeat-end="foda_items.calculateEqualize();" ng-if="value.type === 3">
+                        {{value.descripcion}} <a title="Alineado a ({{value.cantidad}}) estrategia/s" ng-click="foda_items.relateditems(value.id)">({{value.cantidad}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-left: 9px; padding-right: 9px;">
+    <div class="col-sm-12 col-md-6">
+        <div class="panel">
+            <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                 <h6 class="panel-title">Debilidades</h6>
+            </div>
+            <div class="panel-body pesupuesto">
+                <ul class="" style="margin-bottom: 0;">
+                    <li class="" ng-repeat="value in foda_items.list_foda_items" repeat-end="foda_items.calculateEqualize();" ng-if="value.type === 2">
+                        {{value.descripcion}} <a title="Alineado a ({{value.cantidad}}) estrategia/s" ng-click="foda_items.relateditems(value.id)">({{value.cantidad}})</a></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+        <div class="panel">
+            <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                <h6 class="panel-title">Amenazas</h6>
+            </div>
+            <div class="panel-body pesupuesto">
+                <ul class="" style="margin-bottom: 0;">
+                    <li class="" ng-repeat="value in foda_items.list_foda_items" repeat-end="foda_items.calculateEqualize();" ng-if="value.type === 4">
+                        {{value.descripcion}} <a title="Alineado a ({{value.cantidad}}) estrategia/s" ng-click="foda_items.relateditems(value.id)">({{value.cantidad}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "chess",
+      "href": "#",
+      "text": "Gestión de Plan de Acción",
+      "menus": [
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_indicador?mejora",
+          "text": "Creación de Eventos"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_riesgo_generico",
+          "text": "Creación de Plan de Acción"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#vw_auditoria_lista_correctiva?evento",
+          "text": "Seguimiento de Acciones de mejoras"
+        }
+      ]
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "chess",
+      "href": "#",
+      "text": "Gestión de Plan de Acción",
+      "menus": [
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_indicador?mejora",
+          "text": "Creación de Eventos"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_riesgo_generico",
+          "text": "Creación de Plan de Acción"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#vw_auditoria_lista_correctiva?evento",
+          "text": "Seguimiento de Acciones de mejoras"
+        }
+      ]
+    }
+  ]
+}

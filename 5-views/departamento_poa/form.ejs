@@ -1,0 +1,144 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="panel panel-<%= COLOR.secundary %>" style="float: left; width: 100%;">
+
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+            <div class="col-sm-12 col-md-3">
+                <%-
+                FORM.select("departamento", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: true,
+                    label: "Departamento",
+                    text: "item.departamento",
+                    table: "vw_presupuesto_departamento",
+                    field: "id",
+                    columns: ["departamento"],
+                    icon: {class:"archive"},
+                    condition: "item.compania === departamento_poa.compania_id"
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%-
+                FORM.format("valor",scope, {
+                    label: "Presupuesto",
+                    placeholder: 'Presupuesto',
+                    isNumber:true,
+                    icon: {class: "cash3"},
+                    disabled: true,
+                    maxlength: 16,
+                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%-
+                FORM.inputview("restante_modi", scope, {
+                    placeholder: "Presupuesto Restante",
+                    icon: {class: "cash3"},
+                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3" ng-if="!((3 == departamento_poa.estatus_antes) || (2 == departamento_poa.estatus_antes))">
+                <%-
+                FORM.select("estatus", scope, {
+                    // allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    label: "Estatus",
+                    text: "item.nombre",
+                    table: "presupuesto_aprobado_estatus",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [{
+                            field: "id",
+                            operator: "!=",
+                            value: "3"
+                        }],
+                    },
+                    icon: {class:"archive"}
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3" ng-if="((3 == departamento_poa.estatus_antes) || (2 == departamento_poa.estatus_antes))">
+                <%-
+                FORM.select("estatus", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    label: "Estatus",
+                    text: "item.nombre",
+                    table: "presupuesto_aprobado_estatus",
+                    disabled:true,
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [{
+                            field: "id",
+                            operator: "!=",
+                            value: "3"
+                        }],
+                    },
+                    icon: {class:"archive"}
+                })
+                %>
+            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
+                <!--<textarea class="form-control" ng-model="departamento_poa.comentario"></textarea>-->
+                <%- FORM.textarea("comentario", scope, {
+                    placeholder: "Comentario"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2" style="margin-top: 24px;">
+                <button
+                        dragonlanguage="" title="Añadir Comentario"
+                        type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="departamento_poa.anadirComentario()">
+
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Añadir</language>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="mega_comentario_presupuesto_poa " ng-controller="mega_comentario_presupuesto_poa as mega_comentario_presupuesto_poa">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:'mega_comentario_presupuesto_poa'}); %>
+                    <div class="subcontent">
+                        <%- include('../../7-plugins/templates/table/base',{scope:'mega_comentario_presupuesto_poa'}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // departamento_poa.form.loadDropDown('departamento');
+</script>
+<%- FORM.footer(scope) %>

@@ -1,0 +1,28 @@
+<script>
+
+    aacontroldemando_pei.sortGrafico = (prop, reverse) => {
+        if (prop === "nombre") {
+            aacontroldemando_pei.REPORTING.sorting = "nombreasc";
+            aacontroldemando_pei.REPORTING.elementos.sort(function (a, b) {
+                return a[prop].localeCompare(b[prop]);
+            });
+            if (reverse) {
+                aacontroldemando_pei.REPORTING.elementos.sort(function (a, b) {
+                    return a[prop].localeCompare(b[prop]);
+                }).reverse();
+                aacontroldemando_pei.REPORTING.sorting = "nombredesc";
+            }
+        } else {
+            aacontroldemando_pei.REPORTING.sorting = "cumplimientoasc";
+            aacontroldemando_pei.REPORTING.elementos.sort(function (a, b) {
+                return a[prop] - b[prop];
+            });
+            if (reverse) {
+                aacontroldemando_pei.REPORTING.sorting = "cumplimientodesc";
+                aacontroldemando_pei.REPORTING.elementos.sort(function (a, b) {
+                    return b[prop] - a[prop];
+                });
+            }
+        }
+    };
+</script>

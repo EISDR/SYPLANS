@@ -1,0 +1,16 @@
+{
+  "mysqlactive": true,
+  "mysql": {
+    "host": "186.150.200.131",
+    "user": "arr",
+    "password": "%Luch@134679()^^()Mortero$",
+    "database": "syplansqa",
+    "multipleStatements": true,
+    "connectionLimit": 9999999,
+    "timezone": "UTC",
+    "dateStrings": [
+      "DATE",
+      "DATETIME"
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div class="panel panel-white" id="PlanAuditoria" style="margin-bottom: 0px;"
+                         ng-show="<%= scope %>.planes_auditoria.length > 0">
+                        <div class="panel-heading" style="padding: 10px 20px">
+                            <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                Auditorías por Estatus</h6>
+                        </div>
+                        <div class="panel-body" style="padding: 10px">
+                            <div dragonlanguage=""
+                                 style="margin-top: 15px !important;"
+                                 ng-show="!<%= scope %>.array_planes.length"
+                                 class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                <language>MESSAGE.ic('table.nodata')</language>
+                            </div>
+                            <table class="table tabla-reporte">
+                                <tr>
+                                    <th style="width: 30%">Barras</th>
+                                    <th style="width: 70%"> Gráfico</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class='col-sm-12 col-md-12'>
+                                                <div class="panel" ng-show="<%= scope %>.array_planes.length"
+                                                     ng-click="<%= scope %>.openmodalplanes(value.name)"
+                                                     ng-repeat="(key, value) in <%= scope %>.array_planes | orderBy: 'order'"
+                                                     style="margin-bottom: 0px; cursor: pointer;">
+                                                    <div title="{{value.title}}">
+                                                        <div class="panel panel-white"
+                                                             style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 15px; border-radius: 2px">
+                                                            <div class="panel-heading"
+                                                                 style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                                <language>{{value.value}}: ( {{value.percent}} )
+                                                                </language>
+                                                                <i class="{{value.icon}}" style="float: right"></i>
+                                                            </div>
+                                                            <div class="panel-body"
+                                                                 style="background: {{value.color}}; padding: 5px;">
+                                                                {{value.name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white" style="height: 690px">
+                                                    <div class="panel-body chart-container">
+                                                        <div class="chart has-fixed-height" id="area4"></div>
+                                                    </div>
+                                                </div>
+                                                <%- CHART.columns("area4", scope, {label: "."}) %>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

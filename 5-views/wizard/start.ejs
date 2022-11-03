@@ -1,0 +1,9 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+</div>
+
+<script>
+    if (wizard.open != true) {
+        wizard.start_wizard();
+        wizard.open = true;
+    }
+</script>

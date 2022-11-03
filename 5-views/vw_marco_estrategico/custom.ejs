@@ -1,0 +1,83 @@
+<ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+    <li class="">
+        <a id="tabmision" href="#mision" data-toggle="tab">
+            <i class="position-left"></i>
+            <language>Misión</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="active">
+        <a id="tabvision" href="#vision" data-toggle="tab">
+            <i class="position-left"></i>
+            <language>Visión</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="">
+        <a id="tabvalores" href="#valores" data-toggle="tab">
+            <i class="position-left"></i>
+            <language>Valores</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+</ul>
+
+<div class="panel panel-flat">
+
+     <div class="tab-content">
+        <div class="tab-pane" id="mision">
+            <div class="col-sm-12 col-md-12">
+                <textarea id="view_mision" class="form-control"  placeholder="Misión" ng-model="vw_marco_estrategico.mision"></textarea>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <br/>
+                <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0" ng-click="vw_marco_estrategico.saveMision()" ng-show="vw_marco_estrategico.allow(['button_mission'])">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane active" id="vision">
+            <div class="col-sm-12 col-md-12">
+                <textarea id="view_vision" class="form-control" placeholder="Visión" ng-model="vw_marco_estrategico.vision"></textarea>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <br/>
+                <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0" ng-click="vw_marco_estrategico.saveVision()" ng-show="vw_marco_estrategico.allow(['button_view'])">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>Guardar</language>
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane " id="valores">
+            <div id="marco_estrategico_valores" ng-controller="marco_estrategico_valores as marco_estrategico_valores">
+                <div class="panel panel-flat">
+                        <%-
+                        include('../../7-plugins/templates/table/header',{scope:'marco_estrategico_valores'});
+                        %>
+                    <div class="subcontent">
+                        <%-
+                        include('../../7-plugins/templates/table/base',{scope:'marco_estrategico_valores'});
+                        %>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#tabmision').on('click',function(){
+        autosize.destroy($('#view_mision'));
+        setTimeout(function () {
+            autosize($('#view_mision'));
+        },100);
+    });
+    $('#tabvision').on('click', function () {
+        autosize.destroy($('#view_vision'));
+        setTimeout(function () {
+            autosize($('#view_vision'));
+        }, 100);
+    });
+</script>

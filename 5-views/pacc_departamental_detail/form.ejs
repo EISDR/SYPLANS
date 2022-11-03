@@ -1,0 +1,140 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('pacc_departamento', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('unidad', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('cuatrimestre_1', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('cuatrimestre_2', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('cuatrimestre_3', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('cuatrimestre_4', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('estatus', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('cbs', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('familia', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('precio_unitario', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('costo_total', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.decimal('costo_total_real', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('procedimiento_seleccion', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('fuente_financiamiento', scope, {
+                    column: 'name',
+                    table: 'fuente_financiamiento',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "fuente_financiamiento_linked", fieldFrom: "id", fieldTo: "myid(fuente_financiamiento)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //text: 'item.name',
+                    //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('valor_adquirido', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('observacion', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('actividad', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('actividad_apoyo', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('descripcion', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.datetime('fecha_necesidad', scope, {}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

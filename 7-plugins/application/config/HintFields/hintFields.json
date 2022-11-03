@@ -1,0 +1,419 @@
+{
+  "hint_fields": [
+      {
+        "entity": "actividades_apoyo",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "actividades_apoyo",
+        "fieldName":"descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "actividades_apoyo",
+        "fieldName": "departamento",
+        "displayName": "Departamento"
+      },
+      {
+        "entity": "actividades_apoyo",
+        "fieldName": "responsable",
+        "displayName": "Responsable"
+      },
+      {
+        "entity": "actividades_apoyo",
+        "fieldName": "range_date2",
+        "displayName": "Fecha inicio / Fecha fin"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "departamento",
+        "displayName": "Departamento"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "producto",
+        "displayName": "Producto"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "fecha_inicio",
+        "displayName": "Fecha inicio"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "fecha_fin",
+        "displayName": "Fecha fin"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "resultado",
+        "displayName": "Resultado"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "presupuesto_pro",
+        "displayName": "Presupuesto"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "presupuesto_restante",
+        "displayName": "Presupuesto Disponible"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "presupuesto",
+        "displayName": "Presupuesto Asignado"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "responsable",
+        "displayName": "Responsable"
+      },
+      {
+        "entity": "actividades_poa",
+        "fieldName": "range_date",
+        "displayName": "Fecha inicio / Fecha fin"
+      },
+      {
+        "entity": "asignacion_especial_poa",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "asignacion_especial_poa",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "asignacion_especial_poa",
+        "fieldName": "departamento_solicitado",
+        "displayName": "Departamento a solicitar"
+      },
+      {
+        "entity": "asignacion_especial_poa",
+        "fieldName": "responsable",
+        "displayName": "Responsable"
+      },
+      {
+        "entity": "asignacion_especial_poa",
+        "fieldName": "range_date",
+        "displayName": "Fecha inicio / Fecha fin"
+      },
+      {
+        "entity": "clientes_compromiso",
+        "fieldName": "compromiso",
+        "displayName": "Compromiso institucional"
+      },
+      {
+        "entity": "clientes_institucion",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "clientes_institucion",
+        "fieldName": "compromiso_institucional",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "eje_estrategico",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "eje_estrategico",
+        "fieldName": "aliniacion_end",
+        "displayName": "Estrategia nacional de desarrollo"
+      },
+      {
+        "entity": "eje_estrategico",
+        "fieldName": "aliniacion_pnpsp",
+        "displayName": "Plan nacional plurianual del sector publico"
+      },
+      {
+        "entity": "eje_estrategico",
+        "fieldName": "aliniacion_ods",
+        "displayName": "Objetivos de desarrollo sostenible"
+      },
+      {
+        "entity": "eje_estrategico",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "estrategia",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "estrategia",
+        "fieldName": "eje_estrategico",
+        "displayName": "Eje Estratégico"
+      },
+      {
+        "entity": "estrategia",
+        "fieldName": "objetivo_estrategico",
+        "displayName": "Objetivo_estratégico"
+      },
+      {
+        "entity": "estrategia",
+        "fieldName": "resultado",
+        "displayName": "Resultado"
+      },
+      {
+        "entity": "foda_items",
+        "fieldName": "description",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "eje_estrategico",
+        "displayName": "Eje Estratégico"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "objetivo_estrategico",
+        "displayName": "Objetivo Estratégico"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "estrategia",
+        "displayName": "Estrategia"
+      },
+      {
+        "entity": "resultado",
+        "fieldName": "resultado",
+        "displayName": "Resultado Esperado"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "fuente",
+        "displayName": "Fuente"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "metodo_calculo",
+        "displayName": "Método de Cálculo"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "tipo_meta",
+        "displayName": "Tipo de Meta"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "direccion_meta",
+        "displayName": "Dirección de Meta"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName":"medio_verificacion",
+        "displayName": "Medio de Verificación"
+      },
+      {
+        "entity": "indicador_pei",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "departamento",
+        "displayName": "Departamento"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "producto",
+        "displayName": "Producto"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "range_date",
+        "displayName": "Fecha inicio / Fecha fin"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "fuente",
+        "displayName": "Fuente"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "metodo_calculo",
+        "displayName": "Metodo de calculo"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "tipo_meta",
+        "displayName": "Tipo de meta"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "direccion_meta",
+        "displayName": "Dirección de la meta"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "medio_verificacion",
+        "displayName": "Medio de verificación"
+      },
+      {
+        "entity": "indicador_poa",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "marco_estrategico_valores",
+        "fieldName":"nombre",
+        "displayName": "Valor"
+      },
+      {
+        "entity": "marco_estrategico_valores",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "marco_estrategicos_valores",
+        "fieldName": "nombre",
+        "displayName": "Valor"
+      },
+      {
+        "entity": "marco_estrategicos_valores",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "objetivo_estrategico",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "objetivo_estrategico",
+        "fieldName": "eje_estrategico",
+        "displayName": "Eje estratégico"
+      },
+      {
+        "entity": "objetivo_estrategico",
+        "fieldName": "Descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "pei_admin",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "pei_admin",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "pei_admin",
+        "fieldName": "estatus",
+        "displayName": "Estatus"
+      },
+      {
+        "entity": "pei_admin",
+        "fieldName": "activo",
+        "displayName": "Activo?"
+      },
+      {
+        "entity": "pesta_items",
+        "fieldName": "description",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "poa_admin",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "poa_admin",
+        "fieldName": "descripcion",
+        "displayName": "Descripción"
+      },
+      {
+        "entity": "poa_admin",
+        "fieldName": "monitoreo",
+        "displayName": "Monitoreo"
+      },
+      {
+        "entity": "poa_admin",
+        "fieldName": "activo",
+        "displayName": "Activo?"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "departamento",
+        "displayName": "Departamento"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "valor",
+        "displayName": "Presupuesto del departamento"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "presupuesto_consumido_departamento",
+        "displayName": "Presupuesto actividades asignado"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "restante_departamento",
+        "displayName": "Presupuesto restante del departamento"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "restante_modi",
+        "displayName": "Presupuesto institucional restante"
+      },
+      {
+        "entity": "presupuesto_aprobado",
+        "fieldName": "restante_departamento",
+        "displayName": "Presupuesto Restante del Departamento"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "nombre",
+        "displayName": "Nombre"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "resultado",
+        "displayName": "Resultado esperado"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "range_date",
+        "displayName": "Fecha inicio / Fecha fin"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "departamento",
+        "displayName": "Departamento"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "estado",
+        "displayName": "Estado"
+      },
+      {
+        "entity": "productos_poa",
+        "fieldName": "comentario",
+        "displayName": "Comentario"
+      }
+  ]
+}

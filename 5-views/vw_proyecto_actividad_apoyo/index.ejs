@@ -1,0 +1,31 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat" id="tabsComment">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="active_comment_actividad">
+                <a href="#mis_act_apoyo" data-toggle="tab" ng-click="vw_proyecto_actividad_apoyo.change_filters_toMines()">
+                    <i class="position-left"></i>Mis Actividades de Apoyo<i class="border-white  position-right"></i>
+                </a>
+            </li>
+            <li class="" id="activ_apoyo_tab" ng-show="vw_proyecto_actividad_apoyo.permitir != 'AD'">
+                <a href="#activ_apoyo" data-toggle="tab" ng-click="vw_proyecto_actividad_apoyo.change_filters_toOurs()">
+                    <i class="position-left"></i>Actividades de apoyo en general<i class="border-white  position-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <%- include('base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->
+<style>
+    #mis_act_apoyo .subcontent{
+        padding: 0;
+    }
+
+    #activ_apoyo .subcontent {
+        padding: 0;
+    }
+</style>

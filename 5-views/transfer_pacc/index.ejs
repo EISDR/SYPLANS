@@ -1,0 +1,59 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Transferir las Actividades POA al Plan Anual de Compras y Contrataciones</h4>
+                </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            multiple: false,
+                            truelabel: "Departamento",
+                            placeholder: "Departamentos",
+                            text: "item.nombre_pacc",
+                            table: "drp_departamento_actvidades",
+                            columns: ["nombre"],
+                            icon: {class: "archive"},
+                            condition: "(item.poa == transfer_pacc.session.poa_id)  && (item.estatus_dpto === 3)"
+                        })
+                        %>
+                    </div>
+                </div>
+                <div class='col-sm-4 col-md-4' style="float: left; padding-left: 0">
+                    <button dragonlanguage="" title="Transefir las Actividades al PACC"
+                            type="button" role="button"
+                            class=" btn bg-<%= COLOR.info %>-600 btn-labeled btn-xs"
+                            ng-click="transfer_pacc.open_audit()">
+                        <b><i class="icon-grid-alt"></i></b>
+                        <language>Ver Registro Historico de Cambios</language>
+                    </button>
+                </div>
+                <div class='col-sm-4 col-md-4' style="float: right">
+                    <button dragonlanguage="" title="Transefir las Actividades al PACC"
+                            type="button" role="button"
+                            class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-show="transfer_pacc.departamento != '[NULL]'"
+                            ng-click="transfer_pacc.transfer_acts(transfer_pacc.departamento)">
+                        <b><i class="icon-checkmark3"></i></b>
+                        <language>Transferir</language>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div><!--end-->

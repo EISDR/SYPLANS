@@ -1,0 +1,58 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Medida de Control"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="!riesgo_control.session.institucion_id">
+                <%- FORM.select('responsable', scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    column: 'name',
+                    table: 'usuario',
+                    value: 'id',
+                    text: "item.nombre + ' ' + item.apellido",
+                    condition: '(item.compania == riesgo_matriz_control.session.compania_id && item.institucion == null)',
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="riesgo_control.session.institucion_id">
+                <%- FORM.select('responsable', scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    column: 'name',
+                    table: 'usuario',
+                    value: 'id',
+                    text: "item.nombre + ' ' + item.apellido",
+                    condition: '(item.institucion == riesgo_matriz_control.session.institucion_id)',
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.daterange('range_date', scope, {
+                    from: "fecha_desde",
+                    to: "fecha_hasta"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    maxlength: 1000,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+
+
+
+

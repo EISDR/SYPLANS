@@ -1,0 +1,85 @@
+<script>
+
+</script>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+
+    <div class="panel panel-flat">
+        <div class="panel panel-<%= COLOR.secundary %>">
+            <div class="panel-heading">
+                <h6 class="panel-title" dragonlanguage>
+                    Resumen
+                    <ul class="footer-modal-req pull-right" style="margin-top: -6px;">
+                        <li class="modal-footer" dragonlanguage="">
+                            <div>
+                                <button style=" margin-right: 0"
+                                        dragonlanguage=""
+                                        ng-click = "wizard.start_wizard(wizard.controllerSave)"
+                                        type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-success-800">
+                                    <b><i class="icon-arrow-left7"></i></b>
+                                    <language>Volver</language>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </h6>
+            </div>
+
+            <ul class="pull-left indicador-reporte" style="margin-bottom: 8px;">
+                <li>
+                        <span class="indicador-padding btn border-success text-success btn-flat btn-rounded btn-icon btn-xs valign-text-bottom legitRipple">
+                            <i class="icon-checkmark3"></i>
+                        </span>
+                    <label class="text-muted">
+                        <language>Completado</language>
+                    </label>
+                </li>
+
+                <li>
+                        <span class="indicador-padding btn text-danger-800 border-danger btn-flat btn-rounded btn-icon btn-xs valign-text-bottom legitRipple">
+                            <i class="icon-checkmark3"></i>
+                        </span>
+                    <label class="text-muted">
+                        <language>No completado</language>
+                    </label>
+                </li>
+            </ul>
+
+            <div class="panel-body">
+                <div class="subcontent">
+                    <div class="container-fluid">
+                        <div class="col-md-1" style="text-align: center;" ng-repeat="(key, value) in wizard.allEntities" repeatEnd=" $('[id$='circle']').percircle();">
+                            <center>
+                                <div class="clearfix">
+                                    <a ng-if="value.complete == 'true'" href="#" title="{{value.name}}" ng-click="wizard.start_wizard(value.name)">
+                                        <div id="greencircle" data-percent="100" class="small green"></div>
+                                    </a>
+                                    <a ng-if="value.complete == 'false'" href="#" title="{{value.name}}" ng-click="wizard.start_wizard(value.name)">
+                                        <div id="greencircle" data-percent="{{value.percentage}}" class="small red"></div>
+                                    </a>
+
+                                </div>
+                                <label style="float: left;width: 100%;text-align: center">{{value.label}}</label>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <ul class="col-md-1" style="text-align: center;" ng-repeat="(key, value) in wizard.allEntities" repeatEnd=" $('[id$='circle']').percircle();">
+                            <li>
+                                <a ng-if="value.complete == 'true'" href="#" title="{{value.name}}" ng-click="wizard.start_wizard(value.name)">
+                                    <div id="greencircle" data-percent="100" class="small green"></div>
+                                </a>
+                                <a ng-if="value.complete == 'false'" href="#" title="{{value.name}}" ng-click="wizard.start_wizard(value.name)">
+                                    <div id="greencircle" data-percent="{{value.percentage}}" class="small red"></div>
+                                </a>
+                                <label style="float: left;width: 100%;text-align: center">{{value.label}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!--end-->
+

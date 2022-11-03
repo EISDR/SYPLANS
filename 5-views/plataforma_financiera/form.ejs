@@ -1,0 +1,136 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('centro_costo', scope, {
+                    column: 'name',
+                    table: 'centro_costo',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "centro_costo_linked", fieldFrom: "id", fieldTo: "myid(centro_costo)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //text: 'item.name',
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('estructura_programatica', scope, {
+                    column: 'name',
+                    table: 'estructura_programatica',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "estructura_programatica_linked", fieldFrom: "id", fieldTo: "myid(estructura_programatica)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //text: 'item.name',
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('cuenta', scope, {
+                    column: 'name',
+                    table: 'cuenta',
+                    //self: true,
+                    //allownull: true,
+                    //allownew: true,
+                    //allowedit: true,
+                    //allowview: true,
+                    //allowlist: true,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "cuenta_linked", fieldFrom: "id", fieldTo: "myid(cuenta)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    text: "item.name + ' - ' + item.tipo_cuenta_name"
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

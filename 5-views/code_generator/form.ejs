@@ -1,0 +1,30 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nomenclatura', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('modulo', scope, {disabled: true}) %>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Variables opcionales que se pueden utilizar en la nomenclatura.</h3>
+            <ul class="list-group">
+                <li><b>@YY</b>: Año actual completo</li>
+                <li><b>@Y</b>: Año actual últimos dígitos</li>
+                <li><b>@M</b>: Mes actual en 2 dígitos</li>
+                <li><b>@D</b>: Día actual en 2 dígitos</li>
+                <li><b>@S</b>: Secuencia interna</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

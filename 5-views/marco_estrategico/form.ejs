@@ -1,0 +1,40 @@
+<%-
+// FORM.tabs(scope,[
+//     {id: "mision", text: "Misión"},
+//     {id: "vision", text: "Visión"},
+//     {id: "valores", text: "Valores"}
+// ])
+%>
+<div class="tab-content">
+    <div class="tab-pane active" id="mision">
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.textarea("mision", scope, {placeholder: "Misión"}) %>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="vision">
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.textarea("vision", scope, {placeholder: "Visión"}) %>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="valores">
+
+        <!--<div id="marco_estrategico_valores" ng-controller="marco_estrategico_valores as marco_estrategico_valores">-->
+            <!--<div class="panel panel-flat">-->
+                <%-
+                // <!--include('../../7-plugins/templates/table/header',{scope:'marco_estrategico_valores'});-->
+                %>
+                <!--<div class="subcontent">-->
+                    <%-
+                    // <!--include('../../7-plugins/templates/table/base',{scope:'marco_estrategico_valores'});-->
+                    %>
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+</div>
+<%- FORM.footer(scope) %>

@@ -1,0 +1,54 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <!--                <li dragonlanguage="" style="margin-right: -10px;">-->
+                <!--                    <a ng-click="vw_alineacion_lineaestrategica.exportXLS();"><i class="icon-file-excel"></i></a>-->
+                <!--                </li>-->
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_alineacion_lineaestrategica.openmodalField('pdf');"><i
+                                class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+            </script>
+            <h4 style="text-align: center">
+                ALINEACIÓN CON LAS LÍNEAS ESTRATÉGICAS
+            </h4>
+
+
+            <table id="vw_alineacion_lineaestrategicaTable" class="table table-bordered">
+                <thead class="">
+                <tr height="20" style="background-color: #9c282d !important; color: white !important;font-weight: bold "
+                    class="centralizarth">
+                    <th style="color: white !important;">Proyecto</th>
+                    <th style="color: white !important;">Objetivos de Desarrollo Sostenibles</th>
+                    <th style="color: white !important;">Indicadores</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,row) in vw_alineacion_lineaestrategica.vw_alineacion_lineaestrategica_list">
+                    <td>
+                        {{row.nombre}}
+                    </td>
+                    <td rowspan="">
+                        <img title="{{od.nombre}}" style="float: left;width: 88px;margin-left: 10px"
+                             ng-repeat="(i,od) in row.ods"
+                             ng-src="{{vw_alineacion_lineaestrategica.odsimages[od.id]}}">
+                    </td>
+                    <td rowspan="">
+                        {{row.indicador}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!--end-->

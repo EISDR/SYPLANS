@@ -1,0 +1,36 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show=" documental.typed===2">
+                <%- FORM.input('code', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show=" documental.typed===2">
+                <%- FORM.input('version', scope, {}) %>
+            </div>
+            <div class='col-sm-{{documental.typed===1?12:8}} col-md-{{documental.typed===1?12:8}}'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 custom-upload" ng-show=" documental.typed===2">
+                <%- FORM.file("documentalfile", scope, {
+                    truetext: 'Subir Archivo',
+                    text: 'Subir Archivo',
+                    title: 'Subir Archivo',
+                    maxfiles: 1,
+                    columns: 1
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

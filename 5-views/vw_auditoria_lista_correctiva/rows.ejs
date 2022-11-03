@@ -1,0 +1,29 @@
+<td ng-if="<%= scope %>.characterist('batch')">
+     <span style="margin-top: 1px;"
+
+             ng-bind-html="<%= scope %>.drawCheck(key,row)"
+             ng-click="<%= scope %>.check(row)"
+     >
+     </span>
+</td>
+<td ng-repeat="(key, value) in <%= scope %>.columns() track by key"
+    ng-show="value.visible!=false"
+    class="{{::value.class || ''}} context-control {{value.responsive}}"
+    style="{{::value.style || ''}}"
+    data-column="{{::key}}"
+    ng-if="value.label != 'metas'"
+    oncontextmenu="return false;"
+    ng-click="<%= scope %>.cell.select($event,row);<%= scope %>.cell.click(key,value,row);"
+
+>
+
+
+    <span ng-if="key !== 'archivos'" ng-bind-html="<%= scope %>.cellValue(key,value,row)"></span>
+    <span ng-if="key === 'archivos'" ng-click="<%= scope %>.verFile(key,value,row);" ng-bind-html="<%= scope %>.cellValue(key,value,row)"></span>
+
+    <span class="handle"
+
+          ng-show="value.drag===true && <%= scope %>.dragrow"
+          ng-bind-html="<%= scope %>.drawHandler()">
+    </span>
+</td>

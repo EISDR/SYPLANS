@@ -1,0 +1,53 @@
+<div class="row" id="presupuestos_departamento">
+    <div class="col-md-12" ng-repeat="(key, value) in dashboard_departamento.list_departamento.data">
+        <div class="panel panel-white" ng-if="value.aprobado">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title">{{value.nombre}}</h6>
+            </div>
+            <div class="panel-body pesupuesto">
+                <div style="border-left: 0px !important" class="col-md-3 col-sm-12 col-md-offset-1">
+                    <label class="dash-presupuesto-monto color-aprove">{{value.aprobado}}</label>
+                    <label class="dash-presupuesto-label">Aprobado</label>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label style="cursor: pointer" ng-click="dashboard_departamento.openmodalactividades('ejecutado',value.id)"  class="dash-presupuesto-monto color-not-execute">{{value.ejecutado}}</label>
+                    <label class="dash-presupuesto-label">Ejecutado</label>
+                </div>
+                <!--<div class="col-md-2 col-sm-12">-->
+                    <!--<label class="dash-presupuesto-monto color-payment">{{value.cuentasporpagar}}</label>-->
+                    <!--<label class="dash-presupuesto-label">Cuentas por Pagar</label>-->
+                <!--</div>-->
+                <div class="col-md-2 col-sm-12">
+                    <label class="dash-presupuesto-monto color-schedule">{{value.reprogramar}}</label>
+                    <label class="dash-presupuesto-label">Disponible</label>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label style="cursor: pointer" ng-click="dashboard_departamento.openmodalactividades('no ejecutado',value.id)" class="dash-presupuesto-monto color-execute">{{value.noejecutado}}</label>
+                    <label class="dash-presupuesto-label">No Ejecutado</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="panel panel-white" ng-if="(!dashboard_departamento.list_departamento_presupuesto.data)">-->
+        <!--<div class="panel-body pesupuesto">-->
+            <!--<div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">-->
+                <!--<language>No existen departamentos con presupuesto asignado para este periodo</language>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="panel panel-white" ng-if="((dashboard_departamento.list_departamento_presupuesto.data))">-->
+        <!--<div class="panel-body pesupuesto">-->
+            <!--<div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">-->
+                <!--<language>No existen departamentos con presupuesto asignado para este periodo</language>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="panel panel-white" ng-if="(dashboard_departamento.list_departamento_presupuesto.data)">
+        <div class="panel-body pesupuesto" ng-if="((dashboard_departamento.list_departamento_presupuesto.data.length == 0))">
+            <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                <language>No existen departamentos con presupuesto asignado para este periodo.</language>
+            </div>
+        </div>
+    </div>
+
+</div>

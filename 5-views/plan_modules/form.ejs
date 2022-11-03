@@ -1,0 +1,84 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('variable', scope, {}) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!plan_modules.recibevalue">
+                <%- FORM.money('precio', scope, {
+                    //length:18
+                    //decimal:2
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="plan_modules.recibevalue">
+                <%- FORM.money('precio', scope, {
+                    //length:18
+                    //decimal:2
+                    trueplaceholder: "Precio por unidad"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.checkbox('recibevalue', scope, {truetext: "Se necesita especificar un valor entero."}) %>
+            </div>
+
+            <div class="col-sm-6 col-md-6" ng-show="!plan_modules.recibevalue">
+                <%- FORM.select("requireds", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    disabled: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "plan_modules",
+                    icon: {class: "archive"},
+                    truelabel: "Módulos requeridos antes de marcar este.",
+                    get: {
+                        table: 'plan_modules_required',
+                        fieldFrom: 'id',
+                        fieldTo: 'parent',
+                        field: 'module'
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-show="!plan_modules.recibevalue">
+                <%- FORM.select("negatives", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    disabled: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "plan_modules",
+                    icon: {class: "archive"},
+                    truelabel: "Módulos icompatibles con este.",
+                    get: {
+                        table: 'plan_modules_negative',
+                        fieldFrom: 'id',
+                        fieldTo: 'parent',
+                        field: 'module'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

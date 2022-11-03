@@ -1,0 +1,43 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+
+        <div class="subcontent" style="padding-top: 25px;">
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div class="panel panel-white">
+                        <div class="panel-heading panel-dashboard">
+                            <h6 class="panel-title">Eliminar compañía</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-6 col-md-6">
+                                <%-FORM.select("company", scope, {
+                                    allownull: false,
+                                    allowview: false,
+                                    disabled: false,
+                                    label: "Listado de compañía",
+                                    text: "item.nombre",
+                                    table: "compania",
+                                    icon: {class:"list"}
+                                }) %>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <%- FORM.checkbox("option", scope, {text: 'Opción de eliminación (NO/parcial) (SI/total)'}) %>
+                            </div>
+                            <div class="row col-sm-12 col-md-12">
+                                <label>{{delete_company.rs}}</label>  <a title="Limpiar resultado" ng-show="delete_company.rs" ng-click="delete_company.clearResult();"><i class="icon-trash"></i></a>
+                            </div>
+                            <button dragonlanguage="" title="Ejecutar"
+                                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-xs pull-right"
+                                    ng-click="delete_company.deleteCompany();">
+                                <!--<b><i class="icon-floppy-disk"></i></b>-->
+                                <language>Ejecutar</language>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!--end-->

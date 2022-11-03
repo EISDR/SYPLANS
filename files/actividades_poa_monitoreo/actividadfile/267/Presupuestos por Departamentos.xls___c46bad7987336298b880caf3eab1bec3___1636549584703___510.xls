@@ -1,0 +1,112 @@
+<html xml:lang=en-US xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'><head><meta http-equiv="Content-type" content="text/html;charset=utf-8" /><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Presupuestos por Departamentos.xls</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table id='vw_departamento_presupuestoTable' class='table table-bordered'>
+                <thead class=''>
+                <tr class='bg-secundary'>
+                    <th>Departamento</th>
+                    <th>Producto</th>
+                    <th>Presupuesto</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        DIRECCIÓN GENERAL DE CRÉDITO PÚBLICO																	
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Creación de entidad corporativa en medios afectados físicamente
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$900,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        DIRECCIÓN GENERAL DE CRÉDITO PÚBLICO																	
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Producto 4.1
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$900,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        DIRECCIÓN GENERAL DE CRÉDITO PÚBLICO																	
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Producto 4.2
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$900,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        DIRECCIÓN GENERAL DE CRÉDITO PÚBLICO																	
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Productos 4.1
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$900,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        PLANIFICACIÓN Y DESARROLLO 
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Producto 1.1
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$500,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        PLANIFICACIÓN Y DESARROLLO 
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Producto 1.5
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$500,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        PLANIFICACIÓN Y DESARROLLO 
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Productos 1.1
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$500,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        PLANIFICACIÓN Y DESARROLLO 
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Productos 1.2
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$500,000.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        Recursos Humanos
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Elaborar informes con opiniones relacionadas con aspectos financieros de los diferentes consejos consultivos en los que el Viceministerio participa. (A requerimiento)
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$475,500.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list --><tr style='vertical-align: middle' class='centralizartd ng-scope' ng-repeat='(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list'>
+                    <td rowspan='' class='ng-binding'>
+                        Recursos Humanos
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        Producto Ejemplo No. 7
+                    </td>
+                    <td rowspan='' class='ng-binding'>
+                        RD$475,500.00
+                    </td>
+                </tr><!-- end ngRepeat: (key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list -->
+                </tbody>
+            </table></body></html>

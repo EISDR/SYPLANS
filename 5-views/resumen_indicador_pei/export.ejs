@@ -1,0 +1,146 @@
+<div class="subcontent" ng-if="resumen_indicador_pei.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        id="print-button"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="resumen_indicador_pei.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="row scrollit">-->
+        <!--<table class="table table-bordered table-print" style="margin-top: 15px; width: 100%;">-->
+            <!--<thead class="">-->
+            <!--<tr class="centralizarth" style="background-color: <%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>; color: white">-->
+                <!--<th class="" rowspan="3" >Indicadores</th>-->
+                <!--<th class="" rowspan="3" >Resultado Esperado</th>-->
+                <!--<th class="" rowspan="3" >Fuente</th>-->
+                <!--<th class="" rowspan="3" >Método Calculo</th>-->
+                <!--<th class="" rowspan="3" >Unidad / Escala de Medición</th>-->
+                <!--<th class="" rowspan="3" >Dirección Meta</th>-->
+                <!--<th class="" rowspan="3" >Línea Base</th>-->
+                <!--<th class="" rowspan="3" >Medio Verificación</th>-->
+                <!--<th class="" rowspan="3" height="0">Descripción</th>-->
+                <!--<th colspan="{{resumen_indicador_pei.cantidad}}">Metas</th>-->
+            <!--</tr>-->
+            <!--<tr class="centralizarth" style="background-color:<%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>;color: white;">-->
+                <!--<th  height="20"; colspan="{{resumen_indicador_pei.cantidad}}" style="text-align: center;">-->
+                    <!--Projectadas / Alcanzadas / Varianzas-->
+                <!--</th>-->
+            <!--</tr>-->
+            <!--<tr class="centralizarth" style="background-color:<%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>;color: white;">-->
+                <!--<th ng-repeat="(column,value) in resumen_indicador_pei.headerBody_list">-->
+                    <!--{{value.name}}-->
+                <!--</th>-->
+            <!--</tr>-->
+
+            <!--</thead>-->
+            <!--<tbody  class="tb1" >-->
+            <!--<tr ng-repeat="(key,value) in resumen_indicador_pei.resumen_indicador_pei_list">-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.indicadores}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.resultado_esperado}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.fuente}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.metodo_calculo}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.tipo_meta}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.direccion_meta}}</td>-->
+                <!--<td class="alinearNumeros" style="padding-right: 8px;"  rowspan="">{{value.linea_base}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.medio_verificacion}}</td>-->
+                <!--<td rowspan="" style="padding-right: 8px;">{{value.descripcion}}</td>-->
+                <!--<td style="text-align: center; width: 8%;"  ng-repeat="(column,valuec) in resumen_indicador_pei.headerBody_list">-->
+                    <!--{{value['ano'+resumen_indicador_pei.headerBody_list[column].ano+'']}}-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <div  class="row scrollit resumen_indicador_peiTable">
+        <table id="table1" class="table table-bordered table-print" style="width: 2000px;">
+            <thead class="">
+            <tr class="centralizarth" style="background-color: <%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>; color: white">
+                <th class="nh" rowspan="3" >Indicadores</th>
+                <th ng-if="resumen_indicador_pei.session.tipo_institucion == 2" rowspan="3">Perspectiva</th>
+                <th class="nh" rowspan="3" >Resultado Esperado</th>
+                <th class="nh" rowspan="3" >Fuente</th>
+                <th class="nh" rowspan="3" >Método Calculo</th>
+                <th class="nh" rowspan="3" >Unidad / Escala de Medición</th>
+                <th class="nh" rowspan="3" >Dirección Meta</th>
+                <th class="nh" rowspan="3" >Línea Base</th>
+                <th class="nh" rowspan="3" >Medio Verificación</th>
+                <th class="nh" rowspan="3" height="0">Descripción</th>
+                <th colspan="{{resumen_indicador_pei.cantidad}}">Metas</th>
+            </tr>
+            <tr class="centralizarth" style="background-color:<%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>;color: white;">
+                <th height="20"; colspan="{{resumen_indicador_pei.cantidad}}" style="text-align: center;">
+                    Projectadas / Alcanzadas / Varianzas
+                </th>
+            </tr>
+            <tr class="centralizarth" style="background-color:<%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%>;color: white;">
+                <th ng-repeat="(column,value) in resumen_indicador_pei.headerBody_list">
+                    {{value.name}}
+                </th>
+            </tr>
+
+            </thead>
+            <tbody  class="tb1" >
+            <tr ng-repeat="(key,value) in resumen_indicador_pei.resumen_indicador_pei_list">
+                <td rowspan="" style="padding-right: 8px;">{{value.indicadores}}</td>
+                <td ng-if="resumen_indicador_pei.session.tipo_institucion == 2">Perspectiva</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.resultado_esperado}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.fuente}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.metodo_calculo}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.tipo_meta}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.direccion_meta}}</td>
+                <td class="alinearNumeros" style="padding-right: 8px;"  rowspan="">{{value.linea_base}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.medio_verificacion}}</td>
+                <td rowspan="" style="padding-right: 8px;">{{value.descripcion}}</td>
+                <td style="text-align: center; width: 8%;"  ng-repeat="(column,valuec) in resumen_indicador_pei.headerBody_list">
+                    {{value['ano'+resumen_indicador_pei.headerBody_list[column].ano+'']}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+</div>
+
+<script>
+    resumen_indicador_pei.refreshAngular();
+    // $(function() {
+    //     $("#print-button").on("click", function() {
+    //         // $(".resumen_indicador_peiTable").css('visibility', 'visible');
+    //         var th = 0;
+    //         $( ".nh" ).each(function( index ) {
+    //             th += $( this ).outerWidth();
+    //         });
+    //         var table = $("#table1"),
+    //             tableWidth = table.outerWidth(),
+    //             pageWidth = 600,
+    //             pageCount = Math.ceil(tableWidth / pageWidth),
+    //             printWrap = $("<div></div>").insertAfter(table),
+    //             i,
+    //             printPage;
+    //         for (i = 0; i < pageCount; i++) {
+    //             printPage = $("<div></div>").css({
+    //                 "overflow": "hidden",
+    //                 "width": pageWidth,
+    //                 "page-break-before": i === 0 ? "auto" : "always"
+    //             }).appendTo(printWrap);
+    //             table.clone().removeAttr("id").appendTo(printPage).css({
+    //                 "position": "relative",
+    //                 "left": -i * pageWidth
+    //             });
+    //         }
+    //         console.log(pageWidth);
+    //         table.hide();
+    //         // $(this).prop("disabled", true);
+    //         // setTimeout(function(){ $(".resumen_indicador_peiTable").css('visibility', 'hidden'); }, 2000);
+    //     });
+    // });
+</script>

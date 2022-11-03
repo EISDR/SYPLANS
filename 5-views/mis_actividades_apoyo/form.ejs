@@ -1,0 +1,93 @@
+<div ng-show="mis_actividades_apoyo.showMsjNo">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <%-
+                    // FORM.input("descripcion", scope, {placeholder: "Descripción",maxlength: 255})
+                    FORM.textarea('descripcion', scope, {
+                        label: "Descripción",
+                        placeholder: "Descripción",
+                        maxlength: 4000
+                    })
+                    %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div><br/></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-
+                    FORM.select("departamento", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        disabled: false,
+                        label: "Departamento",
+                        text: "item.nombre",
+                        table: "departamento",
+                        columns: ["id", "nombre"],
+                        icon: {class: "archive"}
+                    })
+                    %>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <%-
+                    FORM.select("responsable", scope, {
+                        allownull: false,
+                        allowview: false,
+                        multiple: false,
+                        disabled: false,
+                        label: "Responsable",
+                        table: "drp_usuario",
+                        condition: "(item.poa_id==mis_actividades_apoyo.datas.poa_id && item.departamento==mis_actividades_apoyo.form.selected('departamento').id)",
+                        icon: {class: "archive"}
+                    })
+                    %>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <%- FORM.daterange("range_date2", scope, {
+                        from: "fecha_inicio",
+                        to: "fecha_fin"
+                    }) %>
+                </div>
+                <script>
+                    mis_actividades_apoyo.range_date2_start(actividades_poa.fecha_inicio);
+                    mis_actividades_apoyo.range_date2_end(actividades_poa.fecha_fin);
+
+                    mis_actividades_apoyo.range_date2_min(actividades_poa.fecha_inicio);
+                    mis_actividades_apoyo.range_date2_max(actividades_poa.fecha_fin);
+                </script>
+            </div>
+
+        </div>
+    </div>
+    <%- FORM.footer(scope) %>
+</div>
+<div ng-show="mis_actividades_apoyo.showMsjSi">
+    <!--<div class="alert alert-warning alert-styled-right">-->
+    <!--<h2>Necesitas llenar los campos (Proyecto/Producto, Fecha inicio y Fecha fin) en el formulario de actividades POA</h2>-->
+    <!--</div>-->
+
+    <div ng-show="mis_actividades_apoyo.records.data.length<=0"
+         class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+        <language>Necesitas llenar los campos (Proyecto/Producto, Fecha inicio y Fecha fin) en el formulario de actividades POA
+        </language>
+    </div>
+</div>
+<script>
+    $('[name="mis_actividades_apoyo_fecha_inicio"]').blur(function () {
+        mis_actividades_apoyo.fecha_fin = null;
+        mis_actividades_apoyo.refresh();
+    });
+</script>

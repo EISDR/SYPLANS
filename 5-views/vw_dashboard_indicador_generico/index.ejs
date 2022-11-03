@@ -1,0 +1,86 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Indicadores Génericos/Dashboard
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{vw_dashboard_indicador_generico.actualizacion}}
+                        </a>
+
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="vw_dashboard_indicador_generico.getAll()"> <i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <div class="subcontent" id="graficos">
+                <div class="panel panel-white" style="margin-bottom: 0">
+                    <br>
+                    <div class="panel-body" style="padding: 0">
+                        <div class="row">
+                            <div style="display: none; float: right;padding-bottom: 20px;"
+                                 class="col-sm-12 col-md-12 hide_grafico1">
+                                <button id="btnDashboard"
+                                        style="float: right; padding-right: 74px;padding-left: 74px;"
+                                        dragonlanguage="" title="Ver en modo gráfico"
+                                        type="button" role="button"
+                                        class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right">
+                                    <b><i class="icon-chart"></i></b>
+                                    Ver en modo Gráfico
+                                </button>
+                            </div>
+                            <div style="float: right;padding-bottom: 20px;" class="col-sm-12 col-md-12 hide_grafico2">
+                                <button id="btnDashboard2"
+                                        style="float: right; padding-right: 74px;padding-left: 74px;"
+                                        dragonlanguage="" title="Ver en modo matriz"
+                                        type="button" role="button"
+                                        class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                        ng-click="">
+                                    <b><i class="icon-chart"></i></b>
+                                    Ver en modo matriz
+                                </button>
+                            </div>
+                        </div>
+                        <div style="display: none;" class="hide_grafico1">
+                            <%- include('dashboard',{scope:scope}); %>
+                        </div>
+                        <div class="hide_grafico2">
+                            <%- include('dashboard2',{scope:scope}); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    $('#btnDashboard').on('click', function () {
+        $('.hide_grafico1').hide();
+        $('.hide_grafico2').show();
+        if (vw_dashboard_indicador_generico.loadCharts) {
+            // dashboard_indicadores.loadCharts = false;
+            resizeCharts();
+        }
+    });
+    $('#btnDashboard2').on('click', function () {
+        $('.hide_grafico1').show();
+        $('.hide_grafico2').hide();
+        if (vw_dashboard_indicador_generico.loadCharts) {
+            vw_dashboard_indicador_generico.getIndicadores();
+            // dashboard_indicadores.loadCharts = false;
+            resizeCharts();
+        }
+    });
+</script>

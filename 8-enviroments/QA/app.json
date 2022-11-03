@@ -1,0 +1,225 @@
+{
+  "appName": "Syplans",
+  "logo": "Syplans",
+  "seguridadindicadores": "abierta",
+  "filePath": "files",
+  "appKey": "p1An1F1ka610n",
+  "mode": "QA",
+  "language": "es",
+  "home": "usuario",
+  "diasdegracia": "3",
+  "horanotificacion": "14:45",
+  "support": {
+    "email": "tec2@eisdr.com",
+    "phone": "809-316-1989"
+  },
+  "features": {
+    "fileManager": false,
+    "stepManager": true,
+    "token": true,
+    "multilanguage": false,
+    "configuration": true,
+    "onesignal": true,
+    "migrations": false,
+    "customfields": false
+  },
+  
+  "developerBy": {
+    "name": "Excellent Integrity Solutions1",
+    "profile": "https://eisdr.com",
+    "site": "https://eisdr.com",
+    "about": {
+      "en": "is a full stack nodeJS framework with a great flow of aids, code, comfort, flexibility for the use of all operating systems, connection with a highly scalable and dynamic service where the front-end and the back-end are more united than ever.",
+      "es": "aSyPlans - Software de gestión de procesos de planificación y seguimiento de acuerdos y compromisos. Es un software que facilita el control y la gestión de la planificación estratégica institucional (PEI), la planificación operativa anual (POA) y la ejecución presupuestaria dentro de una empresa. Da acompañamiento a las personas encargadas de velar por la Planificación, el Control de la Gestión y el Control de la Ejecución de las Actividades; facilitando que los objetivos sean cumplidos a tiempo y de manera eficiente tomando en cuenta la vinculación de éstos con el presupuesto institucional."
+    }
+  },
+  "black_list": [
+    "created_at",
+    "created",
+    "created_by",
+    "updated_at",
+    "updated",
+    "updated_by",
+    "deleted_at",
+    "deleted",
+    "deleted_by"
+  ],
+  
+"entities": [
+  {
+    "id": "1",
+    "controllerName": "dashboard_departamento",
+    "displayName": "(Dashboard) presupuesto Dpto."
+  },
+  {
+    "id": "2",
+    "controllerName": "dashboard",
+    "displayName": "(Dashboard) POA Departamental"
+  },
+  {
+    "id": "3",
+    "controllerName": "dashboard_cofiguration",
+    "displayName": "(Dashboard) Plan Operativo Anual"
+  },
+  {
+    "id": "4",
+    "controllerName": "dashboard_indicadores",
+    "displayName": "(Dashboard) Indicadores"
+  },
+  {
+    "id": "5",
+    "controllerName": "foda_items",
+    "displayName": "FODA"
+  },
+  {
+    "id": "6",
+    "controllerName": "pesta_items",
+    "displayName": "PESTA"
+  },
+  {
+    "id": "7",
+    "controllerName": "marco_estrategico_valores",
+    "displayName": "Marco estratégico"
+  },
+  {
+    "id": "8",
+    "controllerName": "clientes_institucion",
+    "displayName": "Compromiso institucional"
+  },
+  {
+    "id": "9",
+    "controllerName": "eje_estrategico",
+    "displayName": "Eje estratégico"
+  },
+  {
+    "id": "10",
+    "controllerName": "objetivo_estrategico",
+    "displayName": "Objetivo estratégico"
+  },
+  {
+    "id": "11",
+    "controllerName": "estrategia",
+    "displayName": "Estrategia"
+  },
+  {
+    "id": "12",
+    "controllerName": "indicador_pei",
+    "displayName": "Indicador PEI"
+  },
+  {
+    "id": "13",
+    "controllerName": "indicador_resultado_pei",
+    "displayName": "(Actualización de datos) Indicador PEI"
+  },
+  {
+    "id": "14",
+    "controllerName": "presupuesto_aprobado",
+    "displayName": "Programación de presupuesto"
+  },
+  {
+    "id": "15",
+    "controllerName": "departamento_poa",
+    "displayName": "Autorizar POA - Liberar presupuesto"
+  },
+  {
+    "id":"16",
+    "controllerName": "productos_poa",
+    "displayName": "Productos"
+  },
+  {
+    "id": "17",
+    "controllerName": "actividades_poa",
+    "displayName": "Actividades"
+  },
+  {
+    "id": "18",
+    "controllerName": "actividades_poa_monitoreo",
+    "displayName": "(Actualización de datos) Actividades"
+  },
+  {
+    "id": "19",
+    "controllerName": "actividades_apoyo",
+    "displayName": "Actividades de Apoyo"
+  },
+  {
+    "id": "20",
+    "controllerName": "drp_actividades_apoyo",
+    "displayName": "(Actualización de datos) Actividades de apoyo"
+  },
+  {
+    "id": "21",
+    "controllerName": "indicador_poa",
+    "displayName": "Indicador de Productos"
+  },
+  {
+    "id": "22",
+    "controllerName": "indicador_producto_poa",
+    "displayName": "(Actualización de datos) Indicador de Productos"
+  },
+  {
+    "id": "23",
+    "controllerName": "indicador_actividad",
+    "displayName": "Indicador de Actividades"
+  },
+  {
+    "id": "24",
+    "controllerName": "indicador_producto_poa_actividad",
+    "displayName": "(Actualización de datos) Indicador de Actividades"
+  },
+  {
+    "id": "25",
+    "controllerName": "asignacion_especial_poa",
+    "displayName": "Asignaciones especiales"
+  },
+  {
+    "id": "26",
+    "controllerName": "filtros_pei",
+    "displayName": "(Monitoreo) Filtros PEI"
+  },
+  {
+    "id": "27",
+    "controllerName": "filtros_poa",
+    "displayName": "(Monitoreo) Filtros POA"
+  },
+  {
+    "id": "28",
+    "controllerName": "end",
+    "displayName": "Estrategia nacional de desarrollo"
+  },
+  {
+    "id": "29",
+    "controllerName": "ods",
+    "displayName": "Objetivos de desarrollo sostenible"
+  },
+  {
+    "id": "30",
+    "controllerName": "objetivo",
+    "displayName": "Objetivos"
+  },
+  {
+    "id": "31",
+    "controllerName": "pnpsp",
+    "displayName": "Plan Nacional Plurianual del Sector Público"
+  },
+  {
+    "id": "32",
+    "controllerName": "razon",
+    "displayName": "Condiciones"
+  },
+  {
+    "id": "33",
+    "controllerName": "clasificadores",
+    "displayName": "Clasificadores"
+  }
+],
+  "fileType_general": {
+  "image": ["AIS","BMP","GIF","ICO","JPE","JPEG","JPG","PNG","PS","PSD","PSP","SVG","TIF"],
+  "video": ["3G2","3GP","AVI","FLV","MKV","MOV","MP4","MPA","MPE","MPEG","MPG","SWF","VOB","WMV"],
+  "audio": ["AIF","CDA","MID","MP3","MPA","OGG","WAV","WMA","WPL"],
+  "compressed": ["7Z","ARJ","DEB","PKG","RAR","RPM","TAR","ZIP"],
+  "text": ["DOC","DOCX","DOCHTML","RTF","SCP","TXT"],
+  "readonlytext": ["PDF"],
+  "excel": ["CSV","ODS","XLM","XLS","XLSHTML","XLSM","XLSX"],
+  "powerpoint": ["KEY","ODP","PPS","PPT","PPTHTML","PPTX"]
+},
+}

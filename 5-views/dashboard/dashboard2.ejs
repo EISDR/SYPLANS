@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="columnsstack"></div>
+            </div>
+            <%- CHART.columns("columnsstack", scope, {label: "Presupuestos"}) %>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class=" panel" style="background-color: #f8f8f8">
+            <div class="panel-heading panel-dashboard">
+                <h6 ng-show="dashboard.usery.tipo_institucion == 1" class="panel-title">Proyecto/Producto / Actividades / Asignaciones Especiales - <strong>POR ESTATUS</strong>
+                </h6>
+                <h6 ng-show="dashboard.usery.tipo_institucion == 2" class="panel-title">Proyecto/Plan de Acción / Actividades / Asignaciones Especiales - <strong>POR ESTATUS</strong>
+                </h6>
+            </div>
+            <div class="panel-body" style="padding: 10px 10px 10px 10px">
+                <div class="col-md-4 col-sm-4 pl-0 pr-20" style="padding: 0">
+                    <div class="panel panel-white">
+                        <div class="panel-body chart-container" style="padding: 10px 10px 20px 10px;">
+                            <div class="chart-container">
+                                <div class="chart has-fixed-height" id="pie" style="height: 350px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="dashboard.usery.tipo_institucion == 1"><%- CHART.doughnut("pie", scope, {label: "Proyecto/Producto", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %></div>
+                    <div ng-if="dashboard.usery.tipo_institucion == 2"><%- CHART.doughnut("pie", scope, {label: "Proyecto/Plan de Acción", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %></div>
+                </div>
+                <div class="col-md-4 col-sm-4 pl-0 pr-20" style="padding: 0">
+                    <div class="panel panel-white">
+                        <div class="panel-body chart-container" style="padding: 10px 10px 20px 10px;">
+                            <div class=chart-container">
+                                <div class="chart has-fixed-height" id="pie2" style="height: 350px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- CHART.doughnut("pie2", scope, {label: "Actividades", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                </div>
+                <div class="col-md-4 col-sm-4 pl-0 pr-20" style="padding: 0">
+                    <div class="panel panel-white">
+                        <div class="panel-body chart-container" style="padding: 10px 10px 20px 10px;">
+                            <div class=chart-container">
+                                <div class="chart has-fixed-height" id="pie3" style="height: 350px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- CHART.doughnut("pie3", scope, {label: "Asignaciones Especiales", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 class="panel-title"></h6>
+            </div>
+            <div class="panel-body chart-container">
+                <div class="chart has-fixed-height" id="area"></div>
+            </div>
+        </div>
+        <div ng-if="dashboard.usery.tipo_institucion == 1"><%- CHART.columns("area", scope, {label: "Indicadores de Proyecto/Producto"}) %></div>
+        <div ng-if="dashboard.usery.tipo_institucion == 2"><%- CHART.columns("area", scope, {label: "Indicadores de Proyecto/Plan de Accón"}) %></div>
+    </div>
+</div>
+

@@ -1,0 +1,42 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    resultado_view.fixFilters = [{
+        "field": "estrategia",
+        "value": estrategia.dataForView.id
+    }];
+</script>
+<div> <br></div>
+<div class="table table-togglable table-framed">
+    <div id="resultado_view " ng-controller="resultado_view as resultado_view">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'resultado_view'}); %>
+            <div class="subcontent">
+                <%- include('../../7-plugins/templates/table/base',{scope:'resultado_view'}); %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-flat ">
+   <div class="col-sm-12 col-md-12" ng-show="((estrategia.dataValuesIDs.length > 0) || (estrategia.pestaDvaluesIDs.length > 0))">
+       <div> <br></div>
+       <div ng-class="(estrategia.dataValuesIDs.length > 0 && estrategia.pestaDvaluesIDs.length > 0) ? 'col-sm-6 col-md-6' : 'col-sm-12 col-md-12'" ng-show="estrategia.dataValuesIDs.length > 0">
+           <div class="panel">
+               <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                   <h2 class="panel-title">FODA</h2>
+               </div>
+           </div>
+           <%- include('vfodaxestrategia.ejs'); %>
+       </div>
+       <div ng-class="(estrategia.pestaDvaluesIDs.length > 0 && estrategia.dataValuesIDs.length > 0) ? 'col-sm-6 col-md-6' : 'col-sm-12 col-md-12'" ng-show="estrategia.pestaDvaluesIDs.length > 0">
+           <div class="panel">
+               <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                   <h2 class="panel-title">PESTA</h2>
+               </div>
+           </div>
+           <!--<div> <br></div>-->
+           <%- include('vpestaxestrategia.ejs'); %>
+       </div>
+   </div>
+</div>
+
+

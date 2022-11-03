@@ -1,0 +1,48 @@
+<div class="col-md-6 pl-0 pr-0">
+    <div class="panel panel-<%= COLOR.secundary %> min-heigth-panel">
+        <div class="panel-heading" style="border-bottom-color: #dedede">
+            <h6 class="panel-title" dragonlanguage>
+                <language>MESSAGE.i('columns.presupuesto_dep')</language>
+                <ul class="footer-modal-req pull-right" style="margin-top: -6px;">
+                    <li class="modal-footer" dragonlanguage="">
+                        <div>
+                            <button style=" margin-right: 0"
+                                    dragonlanguage=""
+                                    type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-<%= COLOR.info %>-700">
+                                <b><i class="icon-comment"></i></b>
+                                <language>Ver comentarios</language>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="modal-footer" dragonlanguage="">
+                        <div>
+                            <button style=" margin-right: 0"
+                                    dragonlanguage=""
+                                    type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-<%= COLOR.success %>-700">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                <language>Liberar</language>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </h6>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="presupuestos">
+                        <li><label class="presupuestos-name">Presupuesto Departamanto</label><label class="presupuestos-value">10,000.00</label></li>
+                        <li><label class="presupuestos-name">Presupuesto Asignado</label><label class="presupuestos-value">8,000.00</label></li>
+                        <li><label class="presupuestos-name">Presupuesto Restante</label><label class="presupuestos-value">2,000.00</label></li>
+                        <li class="liberar"><label class="presupuestos-name">Presupuesto a Liberar</label><label class="presupuestos-value">1,000.00</label></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <%- FORM.textarea("comentario", scope, {maxlength: 4000, placeholder: "Introduzca comentario"}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('departamento', scope, {
+                    column: 'name',
+                    table: 'departamento',
+                    truelabel: "Departamento",
+                    condition: "item.compania==" + scope + ".session.compania_id && (" + scope + ".session.institucion_id?(" + scope + ".session.institucion_id==item.institucion):(item.institucion==$null))",
+                    text: 'item.nombre',
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('usuario', scope, {
+                    column: 'name',
+                    text: "item.completo",
+                    table: 'vw_usuario',
+                    truelabel: "Responsable",
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active && " + scope + ".departamento.indexOf(item.departamento+'')!==-1)",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.ngmask('tiempo_respuesta', scope, {
+                    placeholder: 'Tiempo de respuesta',
+                    label_custom: true,
+                    helptext: "Formato Horas:Minutos, ejemplo: 30:50",
+                    mask: "99:99",
+                    maxlength: 5
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.ngmask('tiempo_entrega', scope, {
+                    placeholder: 'Tiempo de entrega',
+                    label_custom: true,
+                    helptext: "Formato Horas:Minutos, ejemplo: 10:20",
+                    mask: "99:99",
+                    maxlength: 5
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.textarea('horario_prestacion', scope, {
+                    //maxlength: 200,
+                    placeholder: "Horario Prestación"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.decimal('costo', scope, {
+                    length: 18,
+                    decimal: 2
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('ser_servicio_direccion', scope, {
+                    //maxlength: 200,
+                    placeholder: "Dirigido a"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('base_legal', scope, {
+                    //maxlength: 200,
+                    placeholder: "Base Legal"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('requerimientos', scope, {
+                    //maxlength: 200,
+                    placeholder: "Requerimientos"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('pasos_solicitud', scope, {
+                    //maxlength: 200,
+                    placeholder: "Pasos para solicitar el servicio"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('formas_acceder', scope, {
+                    //maxlength: 200,
+                    placeholder: "Formas de Acceder"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('informacion_adicional', scope, {
+                    //maxlength: 200,
+                    placeholder: "Información adicional"
+                }) %>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

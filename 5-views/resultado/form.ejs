@@ -1,0 +1,406 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.select("tipo_resultado", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    label: "Tipo de Resultado Esperado",
+                    table: "tipo_resultado",
+                    text: "item.nombre",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="!resultado.session.institucion">
+                <%- FORM.select("perspectiva", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    column: "nombre",
+                    text: "item.nombre",
+                    permission: "perspectiva",
+                    table: "perspectiva",
+                    icon: {class: "archive"},
+                    truelabel: "Perspectiva (Balanced Scorecard)",
+                    query: {
+                        orderby: "no_orden",
+                    },
+                    condition: "item.compania == resultado.session.compania_id && item.institucion == 'null'"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="resultado.session.institucion">
+                <%- FORM.select("perspectiva", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    column: "nombre",
+                    text: "item.nombre_privada",
+                    permission: "perspectiva",
+                    table: "perspectiva",
+                    icon: {class: "archive"},
+                    truelabel: "Perspectiva (Balanced Scorecard)",
+                    query: {
+                        orderby: "no_orden_privada"
+                    },
+                    condition: "item.institucion == resultado.session.institucion_id"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space txtarea-mt-15">
+                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 4000}) %>
+            </div>
+        </div>
+
+        <div class="row" ng-if="resultado.session.tipo_institucion==1">
+            <%- FORM.tabs(scope, [
+                {id: "T1", text: "Lineas de Acción", icon: "icon-archive"},
+                {id: "T2", text: "Metas de los Objetivos de Desarrollo Sostenible", icon: "icon-archive"},
+                {id: "T3", text: "Compromisos nacionales e internacionales", icon: "icon-archive"},
+                {id: "T4", text: "Supuestos", icon: "icon-archive"},
+                {id: "T5", text: "Denominaciones de los PNPSP"}
+            ]) %>
+        </div>
+        <div class="row" ng-if="resultado.session.tipo_institucion==2">
+            <%- FORM.tabs(scope, [
+                {id: "T2", text: "Metas de los Objetivos de Desarrollo Sostenible", icon: "icon-archive"},
+            ]) %>
+        </div>
+        <div class="tab-content" ng-if="resultado.session.tipo_institucion==1">
+
+            <div class="tab-pane active" id="T1">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <%- FORM.select("objetivos_generales", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            label: "Objetivos Generales END",
+                            permission: "objetivo",
+                            column: "id",
+                            miplaceholder: " ",
+                            table: "drp_edt_objetivo_general",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            disabled: true,
+                            get: {
+                                table: 'drp_resultado_ogeneral',
+                                fieldFrom: 'objetivo_estrategico',
+                                fieldTo: 'objetivo_estrategico',
+                                field: 'objetivo'
+                            },
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("objetivos_especificos", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            label: "Objetivos Específicos END",
+                            permission: "objetivo_especifico",
+                            column: "id",
+                            miplaceholder: " ",
+                            table: "drp_edt_objetivo_especificio",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            disabled: true,
+                            get: {
+                                table: 'drp_resultado_oespecifico',
+                                fieldFrom: 'objetivo_estrategico',
+                                fieldTo: 'objetivo_estrategico',
+                                field: 'especifico'
+                            },
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("lineas_accion", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            label: "Líneas de Acción",
+                            permission: "linea_accion",
+                            column: "id",
+                            table: "drp_edt_linea_accion",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'resultado_linea_accion',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'linea_accion'
+                            },
+                            multiple: true,
+                            condition: "(resultado.alt.length>0?resultado.alt:resultado.objetivos_especificos).indexOf(item.objetivo_especifico+'')!==-1"
+                        }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="T2">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("ods", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            label: "Objetivos de Desarrollo Sostenible",
+                            permission: "ods",
+                            miplaceholder: " ",
+                            column: "ods",
+                            table: "ods",
+                            text: "item.edt + '. ' +item.nombre",
+                            icon: {class: "archive"},
+                            disabled: true,
+                            get: {
+                                table: 'drp_resultado_ods',
+                                fieldFrom: 'eje_estrategico',
+                                fieldTo: 'eje_estrategico',
+                                field: 'ods'
+                            },
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("metasshi", scope, {
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            label: "Metas de los Objetivos de Desarrollo Sostenible",
+                            permission: "mods",
+                            column: "id",
+                            table: "mods",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'resultado_mods',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'mods'
+                            },
+                            multiple: true,
+                            condition: "resultado.ods.indexOf(item.ods+'')!==-1"
+                        }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="T3">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("compromisos_nacionales", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowlist: false,
+                            allowedit: false,
+                            label: "Compromisos Nacionales",
+                            permission: "compromiso",
+                            column: "id",
+                            table: "compromiso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'vw_resultado_compromiso_nacional',
+                                tableDelete: 'resultado_compromiso',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'compromiso'
+                            },
+                            condition: "(item.compania==resultado.session.compania_id && item.tipo_compromiso == 1) && item.active == 1",
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("compromisos_internacionales", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowlist: false,
+                            allowedit: false,
+                            label: "Compromisos Internacionales",
+                            permission: "compromiso",
+                            column: "id",
+                            table: "compromiso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'vw_resultado_compromiso_internacional',
+                                tableDelete: 'resultado_compromiso',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'compromiso'
+                            },
+                            condition: "(item.compania==resultado.session.compania_id && item.tipo_compromiso == 2) && item.active == 1",
+                            multiple: true
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("metas_compromisos_nacionales", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowlist: false,
+                            allowedit: false,
+                            label: "Meta Compromisos Nacionales Relacionados",
+                            column: "id",
+                            table: "otros_compromiso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'vw_resultado_otros_compromisos_nacionales',
+                                tableDelete: 'resultado_otros_compromisos',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'otro_compromiso'
+                            },
+                            condition: "resultado.compromisos_nacionales.indexOf(item.compromiso+'')!==-1",
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("metas_compromisos_internacionales", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowlist: false,
+                            allowedit: false,
+                            label: "Meta Compromisos Internacionales Relacionados",
+                            column: "id",
+                            table: "otros_compromiso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'vw_resultado_otros_compromisos_internacionales',
+                                tableDelete: 'resultado_otros_compromisos',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'otro_compromiso'
+                            },
+                            condition: "resultado.compromisos_internacionales.indexOf(item.compromiso+'')!==-1",
+                            multiple: true
+                        }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="T4">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.textarea("supuestos", scope, {
+                            placeholder: "Supuestos",
+                            maxlength: 2000
+                        }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="T5">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
+                        <%- FORM.select("denominacion_pnpsp", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowlist: false,
+                            allowedit: false,
+                            label: "Denominaciones de los PNPSP",
+                            table: "vw_denominacion_pnpsp",
+                            text: "item.nombre_sec",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'resultado_denominacion_pnpsp',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'denominacion_pnpsp'
+                            },
+                            condition: "(item.compania==resultado.session.compania_id)",
+                            multiple: true
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" ng-if="resultado.session.tipo_institucion==2">
+
+            <div class="tab-pane active" id="T2">
+                <br>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==2">
+                        <%- FORM.select("ods", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            label: "Objetivos de Desarrollo Sostenible",
+                            permission: "ods",
+                            miplaceholder: " ",
+                            column: "ods",
+                            table: "ods",
+                            text: "item.edt + '. ' +item.nombre",
+                            icon: {class: "archive"},
+                            disabled: true,
+                            get: {
+                                table: 'drp_resultado_ods',
+                                fieldFrom: 'eje_estrategico',
+                                fieldTo: 'eje_estrategico',
+                                field: 'ods'
+                            },
+                            multiple: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==2">
+                        <%- FORM.select("metasshi", scope, {
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            label: "Metas de los Objetivos de Desarrollo Sostenible",
+                            permission: "mods",
+                            column: "id",
+                            table: "mods",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            get: {
+                                table: 'resultado_mods',
+                                fieldFrom: 'id',
+                                fieldTo: 'resultado',
+                                field: 'mods'
+                            },
+                            multiple: true,
+                            condition: "resultado.ods.indexOf(item.ods+'')!==-1"
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="!resultado.fromView">
+    <%- FORM.footer(scope) %>
+</div>
+
+<script>
+    $('#tabT1').css('height', 55)
+    $('#tabT2').css('height', 55)
+    $('#tabT3').css('height', 55)
+    $('#tabT4').css('height', 55)
+    $('#tabT5').css('height', 55)
+    $('#tabT5').on("click", function (){
+        resultado.form.loadDropDown('denominacion_pnpsp');
+    });
+</script>
+

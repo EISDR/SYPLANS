@@ -1,0 +1,28 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    // clientes_compromisos
+    // clientes_compromisos.form = {};
+    // clientes_compromisos.form.mode = "edit";
+    clientes_compromisos.setPermission("add",false);
+    clientes_compromisos.setPermission("edit",false);
+    clientes_compromisos.setPermission("remove",false);
+    clientes_compromisos.setPermission("view",false);
+    clientes_compromisos.setPermission("import",false);
+    clientes_compromisos.setPermission("copy",false);
+    clientes_compromisos.setPermission("actions",false);
+    clientes_compromisos.fixFilters = [{
+        "field": "cliente",
+        "value": clientes_institucion.dataForView.id
+    }];
+</script>
+<div> <br></div>
+<div class="table table-togglable table-framed">
+    <div id="clientes_compromisos " ng-controller="clientes_compromisos as clientes_compromisos">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'clientes_compromisos'}); %>
+            <div class="subcontent">
+                <%- include('../../7-plugins/templates/table/base',{scope:'clientes_compromisos'}); %>
+            </div>
+        </div>
+    </div>
+</div>

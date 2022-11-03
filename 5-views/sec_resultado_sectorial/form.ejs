@@ -1,0 +1,114 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('no_orden', scope, {
+                    maxlength: 5,
+                    trueplaceholder: "No. Secuencia"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('objetivo_sectorial', scope, {
+                    column: "objetivo_sectorial",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    text: "item.sec_nombre",
+                    table: "vw_sec_objetivo_sectorial",
+                    icon: {class: "archive"},
+                    label: "Objetivo Sectorial",
+                    condition: "(item.sector_id == sec_resultado_sectorial.session.sector_id)"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_desde",
+                    to: "fecha_hasta",
+                })%>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('responsables', scope, {
+                    column: "responsables",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: "institucion",
+                    icon: {class: "archive"},
+                    truelabel: "Instituciones Responsables",
+                    condition: "(item.compania == sec_resultado_sectorial.session.compania_id && item.sector == sec_resultado_sectorial.session.sector_id )",
+                    get: {
+                        table: 'sec_resultado_sectorial_responsable',
+                        fieldFrom: 'id',
+                        fieldTo: 'resultado_sectorial',
+                        field: 'institucion'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('involucrados', scope, {
+                    column: "involucrados",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    multiple: true,
+                    permission: "resultado",
+                    text: "item.nombre_completo",
+                    table: "involucrados",
+                    icon: {class: "archive"},
+                    truelabel: "Instituciones Involucradas",
+                    condition: "(item.compania == sec_resultado_sectorial.session.compania_id && item.active == 1) && (item.tipo == 2)",
+                    get: {
+                        table: 'sec_resultado_sectorial_involucrados',
+                        fieldFrom: 'id',
+                        fieldTo: 'resultado_sectorial',
+                        field: 'involucrado'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('descripcion', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Descripción del Resultado Esperado"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('supuestos', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Supuestos"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('poblacion_objetivo', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Población Objetivo"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('sector_economico_social', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Sector Económico Social"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+

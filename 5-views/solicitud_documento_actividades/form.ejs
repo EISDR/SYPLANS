@@ -1,0 +1,67 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Actividad"}) %>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="!solicitud_documento_actividades.session.institucion">
+                <%- FORM.select("responsable", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Responsable",
+                    condition: "(item.compania == solicitud_documento_actividades.session.compania_id && item.institucion == $null) && (item.active)",
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-4" ng-if="solicitud_documento_actividades.session.institucion">
+                <%- FORM.select("responsable", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    // multiple: true,
+                    columns: ["esresponsable"],
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Responsable",
+                    condition: "(item.institucion == solicitud_documento_actividades.session.institucion_id) && (item.active)",
+                //     get: {
+                //         table: 'auditoria_programa_plan_participantes',
+                //         fieldFrom: 'id',
+                //         fieldTo: 'programa_plan',
+                //         field: 'usuario',
+                //     },
+                // // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

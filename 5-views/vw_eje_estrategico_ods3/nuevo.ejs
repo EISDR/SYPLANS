@@ -1,0 +1,74 @@
+<div class="row text-center">
+
+    <h2>Objetivos de Desarrollo Sostenibles por Metas y sus Indicadores</h2>
+    <div class='col-sm-12 col-md-12' style="margin-top: 10px;    padding: 0px;">
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <div class="row" style="margin-top: 20px">
+                    <table class="table-responsive table table-bordered table-striped  table-togglable table-framed">
+                        <thead>
+                        <tr class="text-white bg-<%= COLOR.secundary %>">
+                            <th>Objetivos de Desarrollo Sostenible</th>
+                            <th>Meta</th>
+                            <th>Indicador de la Meta</th>
+                            <th>Proyectado</th>
+                            <th>Alcanzado</th>
+                            <th>Indicador Institucional</th>
+                            <th>Proyectado</th>
+                            <th>Alcanzado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in vw_eje_estrategico_ods3.listozo">
+
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'ods',row.ods)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'ods',row.ods,key)">
+                                {{row.ods}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'meta',row.meta)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'meta',row.meta,key)">
+                                {{row.meta}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta,key)">
+                                {{row.indicador_meta}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta,key)">
+                                {{vw_eje_estrategico_ods3.proyecto(row).mp}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'indicador_meta',row.indicador_meta,key)">
+                                {{vw_eje_estrategico_ods3.proyecto(row).ma}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto,key)">
+                                {{row.inicador_proyecto}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto,key)">
+                                {{vw_eje_estrategico_ods3.proyecto(row).pp}}
+                            </td>
+                            <td rowspan="{{vw_eje_estrategico_ods3.rowspanme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto)}}"
+                                ng-if="vw_eje_estrategico_ods3.seeme(vw_eje_estrategico_ods3.listozo,'inicador_proyecto',row.inicador_proyecto,key)">
+                                {{vw_eje_estrategico_ods3.proyecto(row).pa}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    vw_eje_estrategico_ods3.refreshAngular();
+</script>
+
+<style>
+    .grafe div {
+        height: 170px !important;
+    }
+</style>

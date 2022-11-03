@@ -1,0 +1,256 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Planificación Estratégica Institucional | Autorizar/Desautorizar PEI</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('compania_pei', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'compania',
+                                label: "Compañía",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('institucion_pei', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'institucion',
+                                label: "Institución",
+                                icon: {class: "archive"},
+                                condition: "item.compania == syplans_functions.compania_pei"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_pei == '[NULL]'">
+                            <%- FORM.select('select_pei', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre + ' (' + item.periodo_desde + ' - ' + item.periodo_hasta + ')'",
+                                table: 'pei',
+                                label: "Plan Estratégico Institucional (PEI)",
+                                icon: {class: "archive"},
+                                condition: "(item.compania == syplans_functions.compania_pei) && (item.institucion == null)"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_pei != '[NULL]'">
+                            <%- FORM.select('select_pei', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre + ' (' + item.periodo_desde + ' - ' + item.periodo_hasta + ')'",
+                                table: 'pei',
+                                label: "Plan Estratégico Institucional (PEI)",
+                                icon: {class: "archive"},
+                                condition: "item.institucion == syplans_functions.institucion_pei"
+                            }) %>
+                        </div>
+                    </div>
+                    <div class='col-sm-4 col-md-4' style="float: right">
+                        <button ng-show="syplans_functions.pei_estatus == 4"
+                                dragonlanguage="" title="Desautorizar el PEI hará que se puedan crear más registros institucionales y no permitirá actualizar los indicadores"
+                                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                ng-click="syplans_functions.update_pei(3)">
+                            <b><i class="icon-reload-alt"></i></b>
+                            <language>Desautorizar PEI</language>
+                        </button>
+                        <button ng-show="syplans_functions.pei_estatus == 3"
+                                dragonlanguage="" title="Autorizar el PEI hará que no se puedan crear más registros institucionales y permitirá actualizar los indicadores"
+                                type="button" role="button"
+                                class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="syplans_functions.update_pei(4)">
+                            <b><i class="icon-checkmark3"></i></b>
+                            <language>Autorizar PEI</language>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Plan Anual de Compras y Contrataciones | Reiniciar desde 0 el PACC </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('compania_pacc', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'compania',
+                                label: "Compañía",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('institucion_pacc', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'institucion',
+                                label: "Institución",
+                                icon: {class: "archive"},
+                                condition: "item.compania == syplans_functions.compania_pacc"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_pacc == '[NULL]'">
+                            <%- FORM.select('select_pacc', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'pacc',
+                                label: "Plan Anual de Compras y Contrataciones (PACC)",
+                                icon: {class: "archive"},
+                                condition: "(item.compania == syplans_functions.compania_pacc) && (item.institucion == null)"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_pacc != '[NULL]'">
+                            <%- FORM.select('select_pacc', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'pacc',
+                                label: "Plan Anual de Compras y Contrataciones (PACC)",
+                                icon: {class: "archive"},
+                                condition: "item.institucion == syplans_functions.institucion_pacc"
+                            }) %>
+                        </div>
+                    </div>
+                    <div class='col-sm-4 col-md-4' style="float: right">
+                        <button ng-if="syplans_functions.select_pacc != '[NULL]'"
+                                dragonlanguage="" title="Se borrarán todos los PACC departamentales y las Unidades de Compra de estos además se pondrá en estado abierto el PACC General"
+                                type="button" class="btn bg-<%= COLOR.danger %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="syplans_functions.delete_pacc()">
+                            <b><i class="icon-trash"></i></b>
+                            <language>Borrar Datos del PACC</language>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Plan Operativo Anual | Cambiar estatus del POA departamental</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('compania_poa', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'compania',
+                                label: "Compañía",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('institucion_poa', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'institucion',
+                                label: "Institución",
+                                icon: {class: "archive"},
+                                condition: "item.compania == syplans_functions.compania_poa"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_poa == '[NULL]'">
+                            <%- FORM.select('select_poa', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre + ' ( ' + item.periodo_poa + ' ) '",
+                                table: 'vw_poa',
+                                label: "Plan Operativo Anual (POA)",
+                                icon: {class: "archive"},
+                                condition: "(item.compania_id == syplans_functions.compania_poa) && (item.institucion == null)"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-if="syplans_functions.institucion_poa != '[NULL]'">
+                            <%- FORM.select('select_poa', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre + ' ( ' + item.periodo_poa + ' ) '",
+                                table: 'poa',
+                                label: "Plan Operativo Anual (POA)",
+                                icon: {class: "archive"},
+                                condition: "item.institucion == syplans_functions.institucion_poa"
+                            }) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select('select_departamento', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.departamento",
+                                table: 'vw_presupuesto_aprobado',
+                                label: "Departamento",
+                                icon: {class: "archive"},
+                                condition: "item.poa_id == syplans_functions.select_poa"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-show="syplans_functions.select_departamento != '[NULL]'">
+                            <%- FORM.select('poa_estatus', scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: 'presupuesto_aprobado_estatus',
+                                label: "Estatus",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                    <div class='col-sm-4 col-md-4' style="float: right">
+                        <button ng-if="syplans_functions.poa_estatus != '[NULL]'"
+                                dragonlanguage="" title="Se Actualizará el POA del departamento permitiendo o privando a los usuarios crear registros institucionales o trabajar indicadores"
+                                type="button" class="btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="syplans_functions.update_poa_dept()">
+                            <b><i class="icon-arrow-up-right32"></i></b>
+                            <language>Actualizar POA </language>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

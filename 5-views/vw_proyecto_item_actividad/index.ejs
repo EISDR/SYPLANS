@@ -1,0 +1,91 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row" id="hide-div">
+                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="!vw_proyecto_item_actividad.session.institucion">
+                    <%-
+                        FORM.select("departamentoPre", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allowview: false,
+                            refresh: false,
+                            multiple: false,
+                            label: "Departamento",
+                            text: "item.nombre",
+                            table: "vw_departamento_filtro",
+                            field: "id",
+                            columns: ["departamento"],
+                            icon: {class:"archive"},
+                            condition: "(item.compania == vw_proyecto_item_actividad.session.compania_id && item.institucion == $null) && item.active",
+                        })
+                    %>
+                </div>
+                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="vw_proyecto_item_actividad.session.institucion">
+                    <%-
+                        FORM.select("departamentoPre", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allowview: false,
+                            refresh: false,
+                            multiple: false,
+                            label: "Departamento",
+                            text: "item.nombre",
+                            table: "vw_departamento_filtro",
+                            field: "id",
+                            columns: ["departamento"],
+                            icon: {class:"archive"},
+                            condition: "(item.institucion == vw_proyecto_item_actividad.session.institucion_id) && item.active",
+                        })
+                    %>
+                </div>
+                <div class="col-sm-9 col-md-9" ng-if="false">
+                    <label style="float: left; width: 100%;text-align: center;">P R E S U P U E S T O</label>
+                    <br/>
+                    <hr style="margin-top: 8px;margin-bottom: 5px;"/>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                                FORM.inputview("valor",scope, {
+                                    trueplaceholder: 'Asignado al Dpto.',
+                                    icon: {class: "cash3"},
+                                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                                })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                                FORM.inputview("presupuesto_actividades",scope, {
+                                    trueplaceholder: 'Asignado a las actividades',
+                                    icon: {class: "cash3"},
+                                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                                })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                                FORM.inputview("presupuesto_restantePre", scope, {
+                                    trueplaceholder: "Disponible",
+                                    icon: {class: "cash3"},
+                                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                                })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                                FORM.inputview("presupuesto_liberado", scope, {
+                                    trueplaceholder: "A Liberar",
+                                    icon: {class: "cash3"},
+                                    format: {mask: "000,000,000.00", options: {reverse: true}}
+                                })
+                        %>
+                    </div>
+                </div>
+            </div>
+            <%- include('base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

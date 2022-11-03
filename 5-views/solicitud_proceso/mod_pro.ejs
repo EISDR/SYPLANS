@@ -1,0 +1,234 @@
+<div class="panel panel-white">
+    <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+        <h6 class="panel-title">Solicitud de Modificación de Documento</h6>
+    </div>
+    <div class="panel-body" style="padding: 20px 0;">
+        <div class="row">
+            <div class="col-md-6" style="padding: 0 0 0 10px;">
+                <div class="panel panel-white" style="box-shadow: inset 0 0 0 0 rgb(0 0 0); /* border-right: 1px solid lightgrey; */ ">
+                    <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                        <h6 class="panel-title">Información del Documento a modificar</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6" >
+                                <%- FORM.select("mod_pro_mapa_proceso", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    table: "vw_mapa_proceso",
+                                    truelabel: "Mapa de Proceso",
+                                    text: "item.nombre",
+                                    icon: {class: "archive"},
+                                    disabled:true
+                                }) %>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <%- FORM.select("mod_pro_proceso_categoria", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    table: "procesos_categoria",
+                                    truelabel: "Macroproceso",
+                                    text: "item.nombre",
+                                    icon: {class: "archive"},
+                                    disabled: true
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-6'>
+                                <%- FORM.select("mod_pro_responsable", scope, {
+                                    allowlist: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    refresh: false,
+                                    disabled: true,
+                                    column: "responsable",
+                                    table: "usuario",
+                                    truelabel: "Responsable",
+                                    text: "item.nombre + ' ' + item.apellido",
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-6'>
+                                <%- FORM.select('mod_pro_estatus', scope, {
+                                    allowedit: false,
+                                    allowlist: false,
+                                    allownew: false,
+                                    allowview: false,
+                                    text: "item.permitido",
+                                    value: "id",
+                                    table: "vw_auditoria_programa_plan_estatus",
+                                    icon: {class: "archive"},
+                                    truelabel: "Estatus del Proceso",
+                                    condition: "(item.entidad == 'procesos' && item.estatus_id != 4)",
+                                    disabled:true
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.input('mod_pro_nombre', scope, {trueplaceholder: "Nombre del Proceso", disabled: true}) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('mod_pro_alcance', scope, {
+                                    //maxlength: 200,
+                                    trueplaceholder: "Alcance",
+                                    disabled: true
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('mod_pro_objetivo', scope, {
+                                    trueplaceholder: "Objetivo",
+                                    disabled: true
+                                    //maxlength: 200,
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('mod_pro_recursos', scope, {
+                                    trueplaceholder: "Recursos (Humanos, Tecnológicos, etc) ",
+                                    disabled: true
+                                    //maxlength: 200,
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding: 0 10px 0 0;">
+                <div class="panel panel-white" style="box-shadow: inset 0 0 0 0 rgb(0 0 0); border-left: 1px solid lightgrey;">
+                    <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                        <h6 class="panel-title">Modificar Proceso <sup>(Sólo llene los campos que quiere que se modifiquen)</sup> </h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12" ng-if="!solicitud_proceso.session.institucion">
+                                <%- FORM.select("edit_pro_mapa_proceso", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    table: "vw_mapa_proceso",
+                                    truelabel: "Mapa de Proceso",
+                                    text: "item.nombre",
+                                    icon: {class: "archive"},
+                                    condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null)"
+                                }) %>
+                            </div>
+                            <div class="col-sm-12 col-md-12" ng-if="solicitud_proceso.session.institucion">
+                                <%- FORM.select("edit_pro_mapa_proceso", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    table: "vw_mapa_proceso",
+                                    truelabel: "Mapa de Proceso",
+                                    text: "item.nombre",
+                                    icon: {class: "archive"},
+                                    condition: "( item.institucion == solicitud_proceso.session.institucion_id)"
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6" >
+                                <%- FORM.select("edit_pro_proceso_categoria", scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    table: "procesos_categoria",
+                                    truelabel: "Macroproceso",
+                                    text: "item.nombre",
+                                    icon: {class: "archive"},
+                                    condition: "(item.mapa_proceso == solicitud_proceso.edit_pro_mapa_proceso)"
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-6' ng-if="!solicitud_documento.session.institucion">
+                                <%- FORM.select('edit_pro_responsable', scope, {
+                                    allowlist: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    refresh: true,
+                                    multiple: false,
+                                    column: "responsable",
+                                    label: "Responsable",
+                                    table: "usuario",
+                                    text: "item.nombre + ' ' + item.apellido",
+                                    condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && (item.active)",
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-6' ng-if="solicitud_documento.session.institucion">
+                                <%- FORM.select('edit_pro_responsable', scope, {
+                                    allowview: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowlist: false,
+                                    refresh: true,
+                                    multiple: false,
+                                    disabled: false,
+                                    column: "responsable",
+                                    label: "Responsable",
+                                    table: "vw_usuario",
+                                    text: "item.nombre + ' ' + item.apellido",
+                                    condition: "(item.institucion == solicitud_proceso.session.institucion_id) && (item.active)",
+                                    icon: {class: "archive"}
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.input('edit_pro_nombre', scope, {trueplaceholder: "Nombre del Proceso"}) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('edit_pro_alcance', scope, {
+                                        //maxlength: 200,
+                                        trueplaceholder: "Alcance",
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('edit_pro_objetivo', scope, {
+                                            trueplaceholder: "Objetivo",
+                                        //maxlength: 200,
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('edit_pro_recursos', scope, {
+                                            trueplaceholder: "Recursos (Humanos, Tecnológicos, etc) ",
+                                        //maxlength: 200,
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px">
+             <span class="label label-white text-secundary-300 label-rounded label-icon">
+                <i class="position-right"></i>
+            </span>
+            <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="solicitud_proceso.pages.form.close()">
+                <b><i class="icon-cross2"></i></b>
+                <language>Cancelar</language>
+            </button>
+            <span class="label label-white text-secundary-300 label-rounded label-icon">
+                            <i class="position-right"></i>
+                        </span>
+            <button title="Eliminar" type="button" class="btn bg-success btn-labeled btn-xs" ng-click="solicitud_proceso.mod_pro(solicitud_proceso.mod_pro_id)">
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>guardar</language>
+            </button>
+        </div>
+    </div>
+</div>
+
+

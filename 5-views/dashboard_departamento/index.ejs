@@ -1,0 +1,109 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat" style="background-color: #f8f8f8">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Presupuesto por Departamento
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{dashboard_departamento.actualizacion}}
+                        </a>
+
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="dashboard_departamento.getAll()"> <i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <div class="">
+                <div class="row">
+                    <div style="float: right;padding-bottom: 20px;" class="col-sm-12 col-md-12 hide_grafico1">
+                        <button id="btnDashboard"
+                                style="float: right; padding-right: 74px;padding-left: 74px;"
+                                dragonlanguage="" title="Ver en modo gráfico"
+                                type="button" role="button" class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right">
+                            <b><i class="icon-chart"></i></b>
+                            Ver en modo Gráfico
+                        </button>
+                    </div>
+                    <div style="display: none; float: right;padding-bottom: 20px;" class="col-sm-12 col-md-12 hide_grafico2">
+                        <button id="btnDashboard2"
+                                style="float: right; padding-right: 74px;padding-left: 74px;"
+                                dragonlanguage="" title="Ver en modo matriz"
+                                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="">
+                            <b><i class="icon-chart"></i></b>
+                            Ver en modo matriz
+                        </button>
+                    </div>
+                </div>
+                <div class="panel panel-white">
+                    <div class="panel-heading panel-dashboard">
+                        <h6 class="panel-title">Filtros de búsqueda</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-6 col-md-6">
+                            <%-FORM.select("poa", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                disabled: true,
+                                truelabel: "POA",
+                                text: "item.nombre + ' - ' + item.periodo_poa",
+                                permission: "poa",
+                                table: "poa",
+                                condition: "item.pei == dashboard_departamento.pei_id",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class="col-md-12 col-sm-12 pull-left" style="padding-right: 0;">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Buscar"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="dashboard_departamento.searchData()">
+                                <b><i class=" icon-search4"></i></b>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hide_grafico1">
+                <%- include('dashboard',{scope:scope}); %>
+            </div>
+            <div style="display: none" class="hide_grafico2">
+                <%- include('dashboard2',{scope:scope}); %>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+
+<script>
+    $('#btnDashboard').on('click',function () {
+        //
+        $('.hide_grafico1').hide();
+        $('.hide_grafico2').show();
+        resizeCharts();
+    });
+    $('#btnDashboard2').on('click',function () {
+        //
+        $('.hide_grafico1').show();
+        $('.hide_grafico2').hide();
+        resizeCharts();
+    });
+</script>

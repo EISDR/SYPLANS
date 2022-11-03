@@ -1,0 +1,298 @@
+<div class="subcontent">
+    <div class="row">
+        <div dragonlanguage=""
+             class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+            <h5>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor "Personalizado" = a 25% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</h5>
+        </div>
+    </div>
+    <div style="overflow: scroll visible; position: static; zoom: 1;">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="pdfa">
+                <div style="float: left;width: 100%">
+                    <a href="#pdf" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-printer2"></i>
+                        Formato de impresión
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+            </li>
+            <li id="xlsa">
+                <div style="float: left;width: 100%">
+                    <a href="#xls" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-file-excel"></i>
+                        Formato Excel
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="pdf">
+                <div class="active" id="pdf">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato de impresión"
+                                    ng-click="<%= scope %>.exportPDF();"
+                                    type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                                <i class="icon-printer2"></i> Descargar - Formato de impresión
+                            </button>
+                            <table class="table table-bordered" id="<%= scope %>Export" style="margin-top: 15px;">
+                                <tbody ng-repeat="(key,item) in <%= scope %>.anos"
+                                       ng-show="<%= scope %>.cumplen(item.records)">
+                                <tr>
+                                    <td colspan="{{<%= scope %>.colspaninit}}"
+                                        style="text-align: center;border-bottom-color: white;padding: 0">
+                                        <b ng-if="<%= scope %>.session.tipo_institucion == 1">MONITOREO Y SEGUIMIENTO DE PROCESO</b>
+                                        <b ng-if="<%= scope %>.session.tipo_institucion == 2">MONITOREO Y SEGUIMIENTO DE
+                                            PROYECTO/PLAN DE ACCIÓN</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="{{<%= scope %>.colspaninit}}"
+                                        style="text-align: center;border-bottom-color: white;padding: 0">
+                                        <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="{{<%= scope %>.colspaninit}}" style="text-align: center;padding: 0">
+                                        <b>{{item.compania_nombre}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="{{<%= scope %>.colspaninit}}" style="text-align: left">
+                                        <b>{{item.entidad}}</b>
+                                    </td>
+                                </tr>
+                                <tr height="20" class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Proceso</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Estatus de Proceso</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Indicador</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Fórmula Indicador</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Unidad de Medida</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Medio Verificación</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Direccións Meta</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Año Línea Base</td>
+                                    <td style="text-align: center;vertical-align: middle" rowspan="2">Valor Línea Base</td>
+
+                                    <td style="text-align: center" colspan="{{<%= scope %>.capi}}"
+                                        ng-repeat="(ka,ra ) in <%= scope %>.poa_anos">
+                                        Período {{ra}}<br>
+                                        (P-Proyectado | A-Alcanzado)
+                                    </td>
+                                </tr>
+                                <tr height="20" class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                                    <td style="text-align: center" ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in <%= scope %>.poa_valor">
+                                        {{ra.value}}
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: middle" class="centralizartd filas"
+
+                                    ng-if="(<%= scope %>.institucion!='[NULL]'? <%= scope %>.institucion==(row.institucion||row.compania):true)"
+
+                                    ng-repeat="(i,row) in item.records">
+                                    <td rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.records)}}"
+                                        ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records)">
+
+
+                                        {{row.actividad}}
+                                    </td>
+                                    <td rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.records)}}"
+                                        style="background-color: {{<%= scope %>.statusColor(row.cond,row.estatus)}};color: {{<%= scope %>.statusColorFont(row.cond,row.estatus)}}"
+                                        ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records)">
+                                        {{<%= scope %>.statusText(row.cond,row.estatus)}}
+                                    </td>
+                                    <td
+
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}"
+                                            style="padding: 7px !important;vertical-align: top !important;">
+                                        {{row.indicador}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.formula}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{<%= scope %>.tipometa(row.unidad_medida).nombre}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.medio_verificacion}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{<%= scope %>.direccionmeta(row.indicador_data.dir)}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.ano_linea_base}}
+                                    </td>
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.linea_base}}
+                                    </td>
+
+                                    <td
+                                            rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                            ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records) && ra.value!=='D' && ra.value!=='%'"
+                                            class="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}"
+                                            colspan="{{ra.value==='Alerta'?3:1}}"
+                                            ng-repeat="(ka,ra) in <%= scope %>.poa_valor"
+                                            ng-disabled="!<%= scope %>.limitPeriod(row,ra.id)"
+                                            ng-class="[!<%= scope %>.limitPeriod(row,ra.id)?'noindicador':'']"
+                                            style="{{ra.value==='Alerta'? (<%= scope %>.permissionNormal(row.indicador_id,ra.id).condition==1?'border: #ea7481 outset;':''  ):'' }}">
+                            <span ng-if="ra.value==='P'">
+                               {{<%= scope %>.ano_single(row.indicador_data.anos,ra.id,row.indicador_data.tipo_meta)}}
+                            </span>
+                                        <span ng-if="ra.value==='A'">
+                                   {{<%= scope %>.ano_single(row.indicador_data.anos_a,ra.id,row.indicador_data.tipo_meta)}}
+                               </span>
+                                        <span ng-if="ra.value==='Dedo'" style="display:none">
+                                   {{<%= scope %>.dif(row,ra)}}
+                            </span>
+                                        <span ng-if="ra.value==='%'">
+                                   {{<%= scope %>.percent(row,ra)}}%
+                            </span>
+                                        <span ng-if="ra.value==='Alerta'" ng-show="<%= scope %>.pasado(row,ra)"
+                                              ng-dblclick="<%= scope %>.alertme('warning',<%= scope %>.permissionNormal(row.indicador_id,ra.id).debug||'Es posible que se pueda modificar ya que no posee valor alcanzado.')"
+                                        >
+                               <div title="{{<%= scope %>.alert_tootip(row,ra)}}" class="shape_element"
+                                    style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};"> </div>
+
+                            </span>
+                                    </td>
+
+                                </tr>
+                                <tr style="background-color: #cccccc">
+                                    <td colspan="{{<%= scope %>.colspaninit}}" style="text-align: center">
+                                        ---
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="xls">
+                <div class="active" id="xls">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato Excel"
+                                    ng-click="<%= scope %>.exportXLS();"
+                                    type="button" class="btn bg-success btn-xs ">
+                                <i class="icon-file-excel"></i> Descargar - Formato Excel
+                            </button>
+                            <table class="table table-print" id="<%= scope %>ExportXLS" style="margin-top: 15px">
+                                <tbody ng-repeat="(key,item) in <%= scope %>.anos"
+                                       ng-show="item.records.length>0">
+
+                                <tr ng-if="!key" height="20" class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                                    <td rowspan="2">Compañía</td>
+                                    <td rowspan="2">Proceso</td>
+                                    <td rowspan="2">Estatus</td>
+                                    <td rowspan="2">Indicador</td>
+                                    <td rowspan="2">Fórmula Indicador</td>
+                                    <td rowspan="2">Unidad de Medida</td>
+                                    <td rowspan="2">Medio Verificación</td>
+                                    <td rowspan="2">Año Línea Base</td>
+                                    <td rowspan="2">Valor Línea Base</td>
+                                    <th colspan="5" ng-repeat="(ka,ra ) in <%= scope %>.poa_anos">
+                                        Período {{ra}}
+                                    </th>
+                                </tr>
+                                <tr ng-if="!key" height="20" class="centralizarth"
+                                    style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                                    <th ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in <%= scope %>.poa_valor">
+                                        {{ra.value}}
+                                    </th>
+                                </tr>
+                                <tr style="vertical-align: middle" class="centralizartd"
+
+                                    ng-if="
+                            (<%= scope %>.institucion!='[NULL]'? <%= scope %>.institucion==(row.institucion||row.compania):true)"
+
+                                    ng-repeat="(i,row) in item.records">
+                                    <td>{{row.compania_nombre}}</td>
+                                    <td>
+                                        {{row.actividad}}
+                                    </td>
+                                    <td>
+                                        {{<%= scope %>.statusText(row.cond,row.estatus)}}
+                                    </td>
+                                    <td style="padding: 7px !important;vertical-align: top !important;{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.indicador}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.formula}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{<%= scope %>.tipometa(row.unidad_medida).nombre}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.medio_verificacion}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.ano_linea_base}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}">
+                                        {{row.linea_base}}
+                                    </td>
+                                    <td style="{{(row.indicador||'').trim()?'':' background-color: gray !important;color: gray !important;'}}"
+                                        ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in <%= scope %>.poa_valor">
+                            <span ng-if="ra.value==='P'">
+                               {{<%= scope %>.ano_single(row.indicador_data.anos,ra.id,row.indicador_data.tipo_meta)}}
+                            </span>
+                                        <span ng-if="ra.value==='A'">
+                                   {{<%= scope %>.ano_single(row.indicador_data.anos_a,ra.id,row.indicador_data.tipo_meta)}}
+                               </span>
+                                        <span ng-if="ra.value==='Dedo'" style="display:none">
+                                   {{<%= scope %>.dif(row,ra)}}
+                            </span>
+                                        <span ng-if="ra.value==='%'">
+                                   {{<%= scope %>.percent(row,ra)}}%
+                            </span>
+                                        <span ng-if="ra.value==='Alerta' && row.indicador">
+                                   <div title="{{<%= scope %>.alert_tootip(row,ra)}}" class="shape_element"
+                                        style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};border-radius:100%;    height:25px;    width:25px;    text-align:center !important;    margin: auto;"> </div>
+                            </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    <%= scope %>.refreshAngular();
+</script>

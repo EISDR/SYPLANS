@@ -1,0 +1,35 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('titulo', scope, {}) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.integer('from', scope, {
+                    length: 3
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.integer('to', scope, {
+                    length: 3
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.color('color', scope, {}) %>
+            </div>
+
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.integer('orden', scope, {
+                    //length:15
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

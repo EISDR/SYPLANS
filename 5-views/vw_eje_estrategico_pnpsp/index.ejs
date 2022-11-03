@@ -1,0 +1,99 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_eje_estrategico_pnpsp.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_eje_estrategico_pnpsp.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+            </script>
+            <h4 style="text-align: center">
+                RELACION PLANIFICACIÓN ESTRATÉGICA CON PLAN NACIONAL PLURIANUAL DEL SECTOR PÚBLICO
+            </h4>
+            <table class="table table-bordered" style="margin-top: 15px;">
+
+                <tbody ng-repeat="(kp,parent) in vw_eje_estrategico_pnpsp.companiaeje">
+
+                <tr ng-if="parent.compania_nombre!=vw_eje_estrategico_pnpsp.companiaeje[kp-1].compania_nombre">
+                    <th colspan="3" style="background-color:#9c282d"></th>
+                </tr>
+                <tr ng-if="parent.compania_nombre!=vw_eje_estrategico_pnpsp.companiaeje[kp-1].compania_nombre">
+                    <th colspan="3"><b>Institución:</b> {{parent.compania_nombre}}</th>
+                </tr>
+                <tr ng-if="parent.eje_estrategico!=vw_eje_estrategico_pnpsp.companiaeje[kp-1].eje_estrategico">
+                    <th colspan="3"><b>Eje Estratégico:</b> {{parent.eje_estrategico}}</th>
+                </tr>
+                <tr height="20" class="centralizarth"
+                    ng-if="parent.eje_estrategico!=vw_eje_estrategico_pnpsp.companiaeje[kp-1].eje_estrategico"
+                    style="background-color: #9c282d !important; color: white !important; ">
+                    <th style="color: white !important;">Resultado Esperado</th>
+                    <th style="color: white !important;">Plan Nacional Plurianual del Sector Público</th>
+                    <th style="color: white !important;">Denominación Plan Nacional Plurianual del Sector Público</th>
+                </tr>
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,row) in parent.records">
+                    <td rowspan="{{vw_eje_estrategico_pnpsp.rowspanme('resultado',row.resultado)}}"
+                        ng-if="vw_eje_estrategico_pnpsp.seeme('resultado',row.resultado,key)">
+                        {{row.resultado}}
+                    </td>
+                    <td rowspan="{{vw_eje_estrategico_pnpsp.rowspanme('odsdif',row.odsdif)}}"
+                        ng-if="vw_eje_estrategico_pnpsp.seeme('odsdif',row.odsdif,key)">
+                        {{row.ods}}
+                    </td>
+                    <td>
+                        {{row.meta}}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3" style="background-color: #1a222f"></th>
+                </tr>
+                <tr>
+                    <th colspan="3"></th>
+                </tr>
+                </tbody>
+            </table>
+
+            <table id="vw_eje_estrategico_pnpspTable" class="table table-bordered" style="visibility: hidden">
+                <thead class="">
+                <tr class="centralizarth">
+                    <th>Institución</th>
+                    <th>Eje Estratégico</th>
+                    <th>Resultado Esperado</th>
+                    <th>Plan Nacional Plurianual del Sector Público</th>
+                    <th>Denominación Plan Nacional Plurianual del Sector Público</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,row) in vw_eje_estrategico_pnpsp.vw_eje_estrategico_pnpsp_list">
+                    <td rowspan="">
+                        {{row.compania_nombre}}
+                    </td>
+                    <td rowspan="">
+                        {{row.eje_estrategico}}
+                    </td>
+                    <td rowspan="">
+                        {{row.resultado}}
+                    </td>
+                    <td rowspan="">
+                        {{row.ods}}
+                    </td>
+                    <td rowspan="">
+                        {{row.meta}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!--end-->

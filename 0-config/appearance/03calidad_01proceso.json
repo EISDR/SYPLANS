@@ -1,0 +1,144 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pie-chart2",
+          "href": "#dashboard_proceso",
+          "text": "Dashboard"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?-proceso",
+          "text": "Cumplimiento de Procesos"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#vw_procesados",
+          "text": "Mapa de proceso (Vista Gerencial)"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#procesos_categoria",
+          "text": "Creación de Macroproceso"
+        },
+        {
+          "modal": "",
+          "icon": "reading",
+          "href": "#solicitud_proceso",
+          "text": "Solicitud de Procesos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#procesos",
+          "text": "Creación de procesos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#indicador_generico?vw_procesos",
+          "text": "Indicadores"
+        },
+        {
+          "modal": "",
+          "icon": "file-upload",
+          "href": "#indicador_generico_poa?vw_procesos",
+          "text": "Evaluación y carga de evidencia"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#monitoreo_generico?vw_procesos",
+          "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "modal": "",
+          "icon": "map",
+          "href": "#mapa_proceso",
+          "text": "Histórico de Macroprocesos"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?modolista-proceso",
+          "text": "Reporte Cumplimiento de Procesos"
+        }
+      ],
+      "modal": "",
+      "icon": "map5",
+      "href": "#",
+      "text": "Gestión de Proceso"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pie-chart2",
+          "href": "#dashboard_proceso",
+          "text": "Dashboard"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#vw_procesados",
+          "text": "Mapa de proceso (Vista Gerencial)"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#procesos_categoria",
+          "text": "Creación de Macroproceso"
+        },
+        {
+          "modal": "",
+          "icon": "reading",
+          "href": "#solicitud_proceso",
+          "text": "Solicitud de Procesos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#procesos",
+          "text": "Creación de procesos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#indicador_generico?vw_procesos",
+          "text": "Indicadores"
+        },
+        {
+          "modal": "",
+          "icon": "file-upload",
+          "href": "#indicador_generico_poa?vw_procesos",
+          "text": "Evaluación y carga de evidencia"
+        },
+        {
+          "modal": "",
+          "icon": "spinner10",
+          "href": "#monitoreo_proceso",
+          "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "modal": "",
+          "icon": "map",
+          "href": "#mapa_proceso",
+          "text": "Histórico de Macroprocesos"
+        }
+      ],
+      "modal": "",
+      "icon": "map5",
+      "href": "#",
+      "text": "Gestión de Proceso"
+    }
+  ]
+}

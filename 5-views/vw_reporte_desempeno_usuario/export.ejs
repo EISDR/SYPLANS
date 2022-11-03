@@ -1,0 +1,61 @@
+<div class="panel panel-flat" style="padding-bottom: 20px">
+    <div class="subcontent" style="margin-bottom: 20px;">
+        <div class="row">
+            <ul class="visible-elements" style="list-style: none; text-align: center">
+                <li dragonlanguage="">
+                    <button style="margin-top: 10px;width: 25em;"
+                            ng-disabled="vw_reporte_desempeno_usuario.dont_show_me"
+                            dragonlanguage="" title="Descargar - Formato de impresión"
+                            ng-click="<%= scope %>.exportPDF();"
+                            type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                        Descargar - Formato de impresión
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div id="TablePDF">
+            <div class="col-md-12" ng-repeat="(key1, value1) in vw_reporte_desempeno_usuario.usuarios" ng-if="value1.data.length > 0" style="border-bottom: solid 1px grey">
+                <div class="col-md-7 row scrollit" >
+                    <table class="table table-bordered" style="margin-top: 20px; max-width: 60%">
+                        <tbody class="">
+                        <tr>
+                            <td class="" style="width: 50%"><strong>Nombre:</strong></td>
+                            <td class="" style="width: 50%">{{value1.header.nombre_completo}}</td>
+                        </tr>
+                        <tr>
+                            <td class="" style="width: 50%"><strong>Departamento:</strong></td>
+                            <td class="" style="width: 50%">{{value1.header.departamento_nombre}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="vw_reporte_desempeno_usuarioTableIndex" class="table table-bordered" style="margin-bottom: 15px; max-width: 60%">
+                        <thead class="">
+                        <tr class="centralizarth" style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                            <th style="width: 50%">Actividades</th>
+                            <th style="width: 50%">Calificación</th>
+                        </tr>
+                        </thead>
+                        <tbody class="">
+                        <tr class="centralizartd" ng-repeat="(key,row) in value1.data">
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.calificacion}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Promedio</strong></td>
+                            <td>{{vw_reporte_desempeno_usuario.findAverageCal(value1.data)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="vw_reporte_desempeno_usuario.dont_show_me" style="margin-top: 50px">
+                <div  class="alert alert-primary alert-styled-left" style="font-size: 17px;">
+                    <language>No existen Datos para mostrar </language>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    vw_reporte_desempeno_usuario.refreshAngular();
+</script>

@@ -1,0 +1,26 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <%- FORM.input("name", scope, {maxlength: 50}) %>
+        </div>
+        <div class="col-sm-12 col-md-4 ">
+            <%- FORM.integer("cant_records_require", scope, {isNumber: true}) %>
+        </div>
+        <div class="col-sm-3 col-md-4">
+            <%- FORM.checkbox("require", scope, {text: 'Requerido?'}) %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-md-4">
+            <%- FORM.select("parent_entity", scope, {
+                table: "wizard",
+                icon: {class: "cube"}
+            }) %>
+        </div>
+    </div>
+
+
+</div>
+
+<%- FORM.footer(scope) %>
+

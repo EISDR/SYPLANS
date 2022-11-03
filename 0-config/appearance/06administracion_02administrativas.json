@@ -1,0 +1,66 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "help",
+          "href": "#hint_entity",
+          "condition": "baseController.session.super",
+          "text": "Campos de Ayuda"
+        },
+        {
+          "modal": "",
+          "icon": "user",
+          "href": "#group",
+          "condition": "baseController.session.super",
+          "text": "Grupos"
+        },
+        {
+          "modal": "",
+          "condition": "baseController.session.super",
+          "icon": "certificate",
+          "href": "#auditoria_entidad_flujo",
+          "text": "Módulo de Estatus"
+        }
+      ],
+      "modal": "",
+      "icon": "wrench2",
+      "href": "#",
+      "condition": "baseController.session.super",
+      "text": "Opciones Administrativas"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "help",
+          "href": "#hint_entity",
+          "condition": "baseController.session.super",
+          "text": "Campos de Ayuda"
+        },
+        {
+          "modal": "",
+          "icon": "user",
+          "href": "#group",
+          "condition": "baseController.session.super",
+          "text": "Grupos"
+        },
+        {
+          "modal": "",
+          "condition": "baseController.session.super",
+          "icon": "certificate",
+          "href": "#auditoria_entidad_flujo",
+          "text": "Módulo de Estatus"
+        }
+      ],
+      "modal": "",
+      "icon": "wrench2",
+      "href": "#",
+      "condition": "baseController.session.super",
+      "text": "Opciones Administrativas"
+    }
+  ]
+}

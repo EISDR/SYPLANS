@@ -1,0 +1,27 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-12 col-md-8">
+                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%-
+                FORM.relation("marco_estrategicos_virtudes", scope, {
+                    text: "item.nombre",
+                    table: "marco_estrategicos_virtudes",
+                    field: "marco_estrategico_valor",
+                    master: null,
+                    icon: {class:"archive"}
+                })
+                %>
+
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

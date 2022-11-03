@@ -1,0 +1,172 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4" ng-click="objetivo_estrategico.inusemessage()"
+                 ng-if="objetivo_estrategico.session.tipo_institucion === objetivo_estrategico.publica">
+                <%-
+                FORM.select("eje_estrategico", scope, {
+                    allownull: false,
+                    text: "item.nombre ",
+                    permission: "eje_estrategico",
+                    table: "drp_eje_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Eje Estratégico",
+                    // childs: [
+                    //     {
+                    //         model: 'alineacionoe'
+                    //     }
+                    // ]
+                })
+                %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-3 remove-input-space">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-12 col-md-3"
+                 ng-if="objetivo_estrategico.session.tipo_institucion !== objetivo_estrategico.publica">
+                <%-
+                FORM.select("eje_estrategico", scope, {
+                    allownull: false,
+                    text: "item.nombre ",
+                    permission: "eje_estrategico",
+                    table: "drp_eje_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Eje Estratégico"
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3"
+                 ng-if="objetivo_estrategico.current.tipo_institucion === objetivo_estrategico.publica">
+                <%-
+                FORM.select("alineacionoe", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    column: "objetivo",
+                    text: "item.nombreObjetivo ",
+                    permission: "alineacionoe",
+                    value: "id",
+                    table: "vw_alineacion_oe",
+                    icon: {class: "archive"},
+                    truelabel: "Alineación OE-END",
+                    miplaceholder: "Seleccione los objetivos que desea alinear",
+                    get: {
+                        table: 'objetivo_estrategico_oe_end',
+                        fieldFrom: 'id',
+                        fieldTo: 'objetivo_estrategico',
+                        field: 'objetivo'
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-3" ng-if="objetivo_estrategico.current.tipo_institucion === objetivo_estrategico.publica">
+                <%-FORM.select("politicas_gobierno", scope, {
+                    allowedit: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "vw_politica_gobierno",
+                    icon: {class: "archive"},
+                    truelabel: "Politicas de Gobierno",
+                    condition: "item.compania ==  objetivo_estrategico.session.compania_id",
+                    get: {
+                        table: 'objetivo_estrategico_politica_gobierno',
+                        fieldFrom: 'id',
+                        fieldTo: 'objetivo_estrategico',
+                        field: 'politica_gobierno'
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 1000}) %>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space txtarea-mt-15" ng-if="objetivo_estrategico.session.tipo_institucion === objetivo_estrategico.publica">
+                <%- FORM.tabs(scope, [
+                    {id: "T1", text: "Objetivos Específicos Institucionales", icon: "icon-archive"},
+                ]) %>
+            </div>
+            <div class="col-sm-12 col-md-12 remove-input-space txtarea-mt-15" ng-if="objetivo_estrategico.session.tipo_institucion !== objetivo_estrategico.publica">
+                <%- FORM.tabs(scope, [
+                    {id: "T1", text: "Objetivos Específicos", icon: "icon-archive"},
+                ]) %>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="T1">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <%- FORM.relation("objetivo_estrategico_especifico", scope, {
+                            text: "item.nombre",
+                            table: "objetivo_estrategico_especifico",
+                            field: "objetivo_estrategico",
+                            master: null,
+                            icon: {class:"archive"}
+                        })%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+    $(function(){
+       setTimeout(function(){
+           objetivo_estrategico.form.oldData = objetivo_estrategico.form.getAudit();
+       },2000);
+
+        $('#inputobjetivo_estrategico_alineacionoe').on('select2:unselecting', function (e) {
+            var data = e.params.args.data;
+            if (objetivo_estrategico.id) {
+                BASEAPI.list('vw_resultado_linea', {
+                    limit: 0,
+                    orderby: 'id',
+                    order: "asc",
+                    where: [
+                        {
+                            "field": "objetivo_estrategico",
+                            "value": objetivo_estrategico.id
+                        },
+                        {
+                            "field": "objetivo_general",
+                            "value": data.id
+                        }
+                    ]
+                }, function (result) {
+                    $("[name='objetivo_estrategico_alineacionoe']").select2('close');
+                    if (result.data.length > 0) {
+                        SWEETALERT.show({
+                            type: 'warning',
+                            message: `<p>No puede borrar una relación con un Objetivo General END mientras exista un Resultado Esperado asociado a una Línea de Acción que corresponda al Objetivo General END que desee borrar</p>`,
+                            confirm: function (){
+                                objetivo_estrategico.alineacionoe.push(data.id);
+                                objetivo_estrategico.form.loadDropDown('alineacionoe');
+                            }
+                        })
+                    }
+                });
+
+            }
+        });
+    });
+</script>

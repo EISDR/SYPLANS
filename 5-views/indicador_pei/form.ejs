@@ -1,0 +1,275 @@
+<style>
+    .icon-help {
+        cursor: pointer;
+        margin-left: 12px;
+        color: #989f9369 !important;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row" ng-show="indicador_pei.showFuente===true">
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.select("ws_connection", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection",
+                    icon: {class: "archive"},
+                    truelabel: "Base de Datos Externa"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.select("ws_connection_field", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection_field",
+                    icon: {class: "archive"},
+                    truelabel: "Fuente Externa",
+                    condition: "item.ws_connection == indicador_pei.ws_connection"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 " ng-show="indicador_pei.ws_connection_field!=='[NULL]'">
+                <h3>{{indicador_pei.ws_connection_field_object.ws_connection_name}} |
+                    {{indicador_pei.ws_connection_field_object.name}}: {{indicador_pei.resultExterno}}</h3>
+            </div>
+        </div>
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 1000,
+                    trueplaceholder: "Indicador PEI",
+                    popover: {
+                        title: "Nombre del Indicador",
+                        content: "Captura el Nombre del Indicador"
+                    },
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.textarea("descripcion", scope, {
+                    maxlength: 4000,
+                    trueplaceholder: "Descripción Indicador PEI"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("eje_estrategico", scope, {
+                    text: "item.nombre",
+                    permission: "eje_estrategico",
+                    table: "drp_eje_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Eje Estratégico",
+                    popover: {
+                        title: "Eje Estratégico",
+                        content: "Captura los Ejes Estratégicos"
+                    },
+                    condition: "indicador_pei.conditionPei.estatus && item.pei == indicador_pei.conditionPei.pei"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("objetivo_estrategico", scope, {
+                    text: "item.nombre",
+                    permission: "objetivo_estrategico",
+                    table: "drp_objetivo_estrategico",
+                    icon: {class: "archive"},
+                    label: "Objetivo Estratégico",
+                    popover: {
+                        title: "Objetivo Estratégico",
+                        content: "Captura los Objetivos Estratégicos"
+                    },
+                    condition: "item.eje_estrategico == indicador_pei.eje_estrategico"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("estrategia", scope, {
+                    text: "item.nombre",
+                    permission: "estrategia",
+                    table: "drp_estrategia",
+                    icon: {class: "archive"},
+                    label: "Estrategia",
+                    condition: "item.objetivo_estrategico == indicador_pei.objetivo_estrategico",
+                    popover: {
+                        title: "Estrategia",
+                        content: "Captura las Estrategias"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("resultado", scope, {
+                    text: "item.nombre",
+                    permission: "resultado",
+                    table: "drp_resultado",
+                    icon: {class: "archive"},
+                    label: "Resultado Esperado",
+                    condition: "item.estrategia == indicador_pei.estrategia",
+                    popover: {
+                        title: "Resultados Esperados",
+                        content: "Captura los Resultados Esperados"
+                    }
+                }) %>
+            </div>
+        </div>
+
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.textarea("fuente", scope, {
+                    maxlength: 255,
+                    popover: {
+                        title: "Fuente",
+                        content: "Captura la Fuente"
+                    },
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.textarea("metodo_calculo", scope, {
+                    maxlength: 255,
+                    placeholder: "Método Cálculo",
+                    popover: {
+                        title: "Método Cálculo",
+                        content: "Captura el Método de Cálculo"
+                    },
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
+                    trueplaceholder: "Desagregación Demográfica Geográfica",
+                    maxlength: 4000
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.select("caracteristica_indicador", scope, {
+                    text: "item.nombre",
+                    table: "caracteristica_indicador",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "Caracteristica",
+                    condition: "item.compania == indicador_pei.session.compania_id && item.active == 1",
+                    get: {
+                        table: 'caracteristica_indicador_pei',
+                        tableDelete: 'caracteristica_indicador_pei',
+                        fieldFrom: 'id',
+                        fieldTo: 'indicador_pei',
+                        field: 'caracteristica'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+            <div class="col-sm-8 col-md-8">
+                <%- FORM.textarea("observacion", scope, {
+                    maxlength: 1000,
+                    label: "Observación",
+                    label_custom: true
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-if="!indicador_pei.session.institucion_id">
+                <%- FORM.select("unidad_ejecutora", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    label: "Unidad Ejecutora",
+                    condition: "item.compania == indicador_pei.session.compania_id && item.institucion == null"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-if="indicador_pei.session.institucion_id">
+                <%- FORM.select("unidad_ejecutora", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    label: "Unidad Ejecutora",
+                    condition: "item.institucion == indicador_pei.session.institucion_id"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+            <div class="col-sm-12 col-md-2">
+                <div>
+                    <%- FORM.select("tipo_meta", scope, {
+                        allowedit: false,
+                        allownew: false,
+                        allowview: false,
+                        allowlist: false,
+                        column: "tipo_meta",
+                        text: "item.nombre",
+                        table: "tipoMeta",
+                        icon: {class: "archive"},
+                        label: "Tipo Meta",
+                        popover: {
+                            title: "Tipo Meta",
+                            content: "Captura los tipos de metas"
+                        },
+                    }) %>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-2">
+                <%- FORM.select("direccion_meta", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "direccionMeta",
+                    icon: {class: "archive"},
+                    label: "Dirección Meta",
+                    popover: {
+                        title: "Dirección Meta",
+                        content: "Captura la Dirección de la Meta"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("ano_linea_base", scope, {
+                    placeholder: "Año Línea Base",
+                    maxlength: 4
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2" id="subcontainerLineaBase">
+
+            </div>
+            <div class="col-sm-4 col-md-4 remove-input-space">
+                <%- FORM.textarea("medio_verificacion", scope, {
+                    maxlength: 1000,
+                    placeholder: "Medio Verificación",
+                    popover: {
+                        title: "Medio Verificación",
+                        content: "Captura el Medio de Verificación"
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="indicador_pei.showFuente!==true">
+
+        </div>
+        <div ng-if="indicador_pei.form.mode == 'edit' && indicador_pei.showFuente!==true" class="row limpiar"
+             style="margin-bottom: 20px;">
+            <div class="subcontainer2 clearHtml">
+            </div>
+        </div>
+        <div ng-if="indicador_pei.form.mode == 'new' && indicador_pei.showFuente!==true" class="row"
+             style="margin-bottom: 20px;">
+            <div class="subcontainer1 clearHtml">
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+    $('[name="indicador_pei_linea_base"]').css("margin-top", "-6px");
+</script>

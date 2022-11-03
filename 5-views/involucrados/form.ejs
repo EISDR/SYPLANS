@@ -1,0 +1,32 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre_completo', scope, {
+                    trueplaceholder: "Involucrado"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('correo', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="involucrados.session.tipo_institucion===1">
+                <%- FORM.select('tipo', scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    column: 'name',
+                    table: 'involucrados_tipo',
+                    text: 'item.nombre'
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

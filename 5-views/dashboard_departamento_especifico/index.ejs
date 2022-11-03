@@ -1,0 +1,32 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Departamento de {{dashboard_departamento_especifico.departamento_objeto.nombre}}
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{dashboard_departamento_especifico.actualizacion}}
+                        </a>
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="dashboard_departamento_especifico.getAll()"> <i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+
+
+            <%- include('dashboard',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

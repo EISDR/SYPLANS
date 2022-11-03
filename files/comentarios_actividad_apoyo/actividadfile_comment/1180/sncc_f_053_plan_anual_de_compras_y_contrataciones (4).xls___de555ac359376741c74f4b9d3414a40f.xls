@@ -1,0 +1,335 @@
+<html xml:lang=en-US xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'><head><meta http-equiv="Content-type" content="text/html;charset=utf-8" /><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>PACC - SNCC.F053</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table class=' table-print table-togglable table-framed sindu-table' id='tb-custom24' style='width: 2400px !important; display: none'>
+            <thead class=''>
+            <tr class=''>
+                <th rowspan='5' style='border: none; font-family: 'Arial Narrow';' class='ng-binding'>Ministerio de Hacienda</th>
+                <th rowspan='5' colspan='13' style'border:='' none'=''></th>
+            </tr>
+            <tr>
+                <th style='border: 1px solid lightgray'>Fecha de Revisión</th>
+                <th style='border: 1px solid lightgray' class='ng-binding'> 13 de septiembre de 2021 4:03 PM</th>
+            </tr>
+            <tr>
+                <th style='border: 1px solid lightgray'>Fecha de Aprobación</th>
+                <th style='border: 1px solid lightgray' class='ng-binding'> 6 de septiembre de 2021 9:41 AM</th>
+            </tr>
+            <tr>
+                <th style='border: 1px solid lightgray'>Versión</th>
+                <th style='border: 1px solid lightgray' class='ng-binding'> 1.0</th>
+            </tr>
+            <tr>
+                <th style='border: 1px solid lightgray'>Cantidad de Unidades de Compra</th>
+                <th style='border: 1px solid lightgray' class='ng-binding'> 5</th>
+            </tr>
+            <tr>
+                <th colspan='2' style='border: 1px solid lightgray; font-weight: bold; font-size: 16px !important' class='ng-binding'>Plan Anual de compras y contrataciónes del año: 2020</th>
+                <th colspan='13' style='border: 1px solid lightgray; font-weight: bold; font-size: 16px !important; text-align: center' class='ng-binding'>Recursos Humanos</th>
+            </tr>
+            <tr style='font-family: 'Arial Narrow'; font-size: 14px'>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th style='background-color: rgb(108,0,0);color:white; ' colspan='4'>
+                    Fecha de Necesidad
+                </th>
+            </tr>
+            <tr class='bg-secundary' style='background-color: rgb(108,0,0);color:white;font-family: 'Arial Narrow';font-size: 14px'>
+                <th width='200px' style='height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Código de Catálogo de Bienes y Servicios (CBS)
+                </th>
+                <th width='200px' style='height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Clasificador Presupuestario
+                </th>
+                <th width='300px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Descripción
+                </th>
+                <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Unidad de Medida
+                </th>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Trimestre 1
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Trimestre 2
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Trimestre 3
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='mso-rotate: 90; transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Trimestre 4
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <th style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>Cantidad Total
+                </th>
+                <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Precio Unitario
+                </th>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Costo Trimestre 1
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Costo Trimestre 2
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Costo Trimestre 3
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    Costo Trimestre 4
+                </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Costo Total Unitario
+                </th>
+                <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                    Observación
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+                <td class='ng-binding'>
+                    50112002 -
+                    Carnes procesadas y preparadas congelado
+                </td>
+                <td class='ng-binding'>
+                    2.3.1.1.01 -
+                    Alimentos y bebidas para personas
+                </td>
+                <td class='ng-binding'>
+                    Botella de aguz
+                </td>
+                <td class='ng-binding'>
+                    Cajas
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    5
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    10
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    15
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    20
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        50
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    30
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    150
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    300
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    450
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    600
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        1500
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    Este registro sera borrado sin revisión ni nada
+                </td>
+            </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+                <td class='ng-binding'>
+                    50112001 -
+                    Carnes procesadas y preparadas fresco
+                </td>
+                <td class='ng-binding'>
+                    2.3.1.1.01 -
+                    Alimentos y bebidas para personas
+                </td>
+                <td class='ng-binding'>
+                    Laptop
+                </td>
+                <td class='ng-binding'>
+                    Unidad
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    10
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    5
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    1
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    3
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        19
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    60
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    600
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    300
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    60
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    180
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        1140
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    
+                </td>
+            </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+                <td class='ng-binding'>
+                     -
+                    
+                </td>
+                <td class='ng-binding'>
+                     -
+                    
+                </td>
+                <td class='ng-binding'>
+                    Mascarillas
+                </td>
+                <td class='ng-binding'>
+                    Cajas
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        400
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    0
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        0
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    ESTE REGISTRO SERÁ BORRADO CON DATOS INCOMPLETOS Y ADEMAS CON UN REGISTRO EN REVISION
+                </td>
+            </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+                <td class='ng-binding'>
+                    10101515 -
+                    Armadillos
+                </td>
+                <td class='ng-binding'>
+                    2.3.1.3.01 -
+                    Productos pecuarios
+                </td>
+                <td class='ng-binding'>
+                    Printer
+                </td>
+                <td class='ng-binding'>
+                    Unidad
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    5
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    10
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        15
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    30
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    150
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    300
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    0
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        450
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    
+                </td>
+            </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+                <td class='ng-binding'>
+                    40101504 -
+                    Compuertas de ventilación
+                </td>
+                <td class='ng-binding'>
+                    2.3.9.8.01 -
+                    Otros repuestos y accesorios menores
+                </td>
+                <td class='ng-binding'>
+                    Resaltadores
+                </td>
+                <td class='ng-binding'>
+                    Cajas
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    50
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    50
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    100
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        300
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    300
+                </td>
+                <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    15000
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    15000
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    30000
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                    30000
+                </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+                <td>
+                    <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                        90000
+                    </div>
+                </td>
+                <td class='ng-binding'>
+                    
+                </td>
+            </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --></tbody>
+        </table></body></html>

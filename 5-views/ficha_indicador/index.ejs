@@ -1,0 +1,110 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <script>
+
+    </script>
+    <div ng-show="false">
+        <%- FORM.select("tipo_meta", scope, {
+            allowedit: false,
+            allownew: false,
+            allowview: false,
+            allowlist: false,
+            refresh: false,
+            column: "tipo_meta",
+            text: "item.nombre",
+            table: "tipoMeta",
+            icon: {class: "archive"},
+            label: "Tipo Meta",
+            popover: {
+                title: "Tipo Meta",
+                content: "Captura los tipos de metas"
+            },
+        }) %>
+        <%- FORM.selectsimple("periodos", scope, {
+            multiple: true,
+            text: "item.name",
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-sd-12">
+            <table class="" style="margin: 0 30% 5% 28%">
+                <tr>
+                    <th>
+                        <img style="max-height: 70px"
+                             data-dragonfile="{{ficha_indicador.dataIndicador.institucion?'institucion':'compania'}}/logo/{{ficha_indicador.dataIndicador.institucion||ficha_indicador.dataIndicador.compania}}"
+                             src="assets/images/placeholder.jpg" alt="">
+                    </th>
+                </tr>
+                <tr>
+                    <th style=" text-align: center;" colspan="4"><h1 style="margin: 0px; font-size: 28px">Ficha de indicadores</h1></th>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="4"><h4 class="padding-header-g">Unidad Ejecutora: {{ficha_indicador.dataIndicador.departamento_nombre}}</h4></td>
+                </tr>
+                <tr class="bg-<%= COLOR.primary %>">
+                    <td class="border-header-g" colspan="4"><h4 class="padding-subHeader-g"><strong>Información General del Indicador: </strong></h4></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" rowspan="3"><p class="padding-subHeader-initial"><strong>Nombre del Indicador:</strong> {{ficha_indicador.dataIndicador.nombre||ficha_indicador.dataIndicador.Nombre}}</p></td>
+                    <td class="top-border" colspan="2" style="background: lightgray"><p class="padding-subHeader-g">Línea Base </p></td>
+                </tr>
+                <tr>
+                    <td class="mid-border" colspan="2"><p class="padding-subHeader-initial"><strong>Año&emsp;: </strong>{{ficha_indicador.dataIndicador.ano_linea_base}}</p></td>
+                </tr>
+                <tr>
+                    <td class="bot-border" colspan="2"><p class="padding-subHeader-initial"><strong>Valor &nbsp;: </strong>{{ficha_indicador.dataIndicador.linea}} </p></td>
+                </tr>
+                <tr>
+                    <td class="top-border" style="max-width: 150px; word-wrap: break-word;"><p class="padding-subHeader-initial"><strong ng-show="ficha_indicador.eltype!=='indicador generico'">Línea Estratégica (PG):</strong> {{ficha_indicador.dataIndicador.politicas_gobierno}} </p></td>
+                    <td class="top-border" colspan="2" style="background: lightgray"><p class="padding-subHeader-g" style="font-size: 14px">{{ficha_indicador.dataIndicador.ano_meta ? 'Meta' : 'Metas' }}</p></td>
+                </tr>
+                <tr>
+                    <td class="bot-border" rowspan="{{ficha_indicador.rowspan}}"><p class="padding-subHeader-initial"><strong ng-show="ficha_indicador.eltype!=='indicador generico'">Objetivo Estratégico:</strong> {{ficha_indicador.dataIndicador.objetivo_estrategico}}</p></td>
+                    <td class="bot-border"><p class="padding-subHeader-initial"><strong>{{ficha_indicador.dataIndicador.ano_meta ? 'Año' : 'Periodo' }}: </strong></p></td>
+                    <td class="bot-border"><p class="padding-subHeader-initial"><strong>Valor: </strong></p></td>
+                </tr>
+                <tr ng-repeat="(key, value) in ficha_indicador.newArray">
+                    <td class="bot-border"> <p class="padding-subHeader-initial"> {{value.periodo}}</p></td>
+                    <td class="bot-border"> <p class="padding-subHeader-initial"> {{value.valor}}</p></td>
+                </tr>
+                <tr class="top-border bg-<%= COLOR.primary %>">
+                    <td class="border-header-g" colspan="4"><h4 class="padding-subHeader-g"><strong>Características del Indicador: </strong></h4></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="4" style="max-width: 150px; word-wrap: break-word;"><p class="padding-subHeader-initial" style="font-size: 16px; float: left;"><strong>Clasificación:</strong> {{ficha_indicador.dataIndicador.caracteristicas}}</p></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" ><h6 class="padding-subHeader-g"> <strong>Frecuencia de Medición:</strong> {{ficha_indicador.monitoreo}}</h6></td>
+                    <td class="border-header-g" colspan="2"><h6 class="padding-subHeader-g"> <strong>Unidad de Medida:</strong> {{ficha_indicador.form.selected('tipo_meta').nombre}}</h6> </td>
+                </tr>
+                <tr class="top-border bg-<%= COLOR.primary %>">
+                    <td class="border-header-g" colspan="3"><h4 class="padding-subHeader-g"><strong>Cálculo y especificación de datos </strong></h4></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="3"><h6 class="padding-subHeader-initial"><strong>Fórmula de Cálculo:</strong> {{ficha_indicador.dataIndicador.metodo}}</h6></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="3"><h6 class="padding-subHeader-initial"><strong>Desagregación Demográfica y Geográfica:</strong> {{ficha_indicador.dataIndicador.desagregacion_demografica_geografia}}</h6></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="3"><h6 class="padding-subHeader-initial"><strong>Fuente del Dato:</strong> {{ficha_indicador.dataIndicador.fuente}}</h6></td>
+                </tr>
+                <tr>
+                    <td class="border-header-g" colspan="3"><h6 class="padding-subHeader-initial"><strong>Observación:</strong> {{ficha_indicador.dataIndicador.observacion}}</h6></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    $(function(){
+
+        ficha_indicador.refreshAngular();
+        setTimeout(function () {
+            $('[data-dragonfile]').each(function () {
+                FILE.runServerFile($(this))
+            });
+        },500);
+    });
+</script>

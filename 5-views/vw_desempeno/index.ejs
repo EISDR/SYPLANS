@@ -1,0 +1,105 @@
+<style>
+    .scrollit {
+        overflow: scroll;
+    }
+</style>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" ng-if="<%= scope %>.session.tipo_institucion == 1" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Gráfico de cumplimiento: Proyecto/Producto / Actividades
+                        </a>
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" ng-if="<%= scope %>.session.tipo_institucion == 2" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Gráfico de cumplimiento: Proyecto/Plan de Acción / Actividades
+                        </a>
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li ng-click="vw_desempeno.loadAll()" class="visible-lg visible-md"
+                        style="    margin-top: 5px;">
+                        <a><i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+
+            <div class="row" id="gracontent">
+                <div class="col-md-12 col-sm-12 select-heigt">
+                    <%- FORM.selectsimple("periodos", scope, {
+                        multiple: true,
+                        miplaceholder: "Seleccione",
+                        text: "item.name",
+                        icon: {class: "archive"}
+                    }) %>
+                    <button
+                            style="margin-right: 0"
+                            dragonlanguage="" title="Buscar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                            ng-click="vw_desempeno.loadAll()">
+                        <b><i class=" icon-search4"></i></b>
+                        Buscar
+                    </button>
+                </div>
+
+                <div class="col-md-12">
+                    <div class=" panel" style="background-color: #f8f8f8">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 pl-12 pr-20" ng-show="vw_desempeno.bar">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading panel-dashboard">
+                                        <h6 class="panel-title"></h6>
+                                    </div>
+                                    <div class="panel-body chart-container">
+                                        <div class="chart-container">
+                                            <div class="chart has-fixed-height" id="desempeno_ap"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="<%= scope %>.session.tipo_institucion == 1" >
+                                    <%- CHART.columns("desempeno_ap", scope, {label: "Relación de cumplimiento Proyecto/Productos y actividades"}) %>
+                                </div>
+                                <div ng-if="<%= scope %>.session.tipo_institucion == 2" >
+                                    <%- CHART.columns("desempeno_ap", scope, {label: "Relación de cumplimiento Proyecto/Plan de Acción y actividades"}) %>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 pl-0 pr-20" ng-show="vw_desempeno.pies" style="padding: 0">
+                                <div class="panel panel-white">
+                                    <div class="panel-body chart-container" style="padding: 10px 10px 10px 10px">
+                                        <div class=chart-container">
+                                            <div class="chart has-fixed-height" id="desempeno_a" style="height: 350px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%- CHART.doughnut("desempeno_a", scope, {label: "Distribución del nivel de cumplimiento - Actividades", radius: ["25%","60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                            </div>
+                            <div class="col-md-6 col-sm-6 pl-0 pr-20" ng-show="vw_desempeno.pies" style="padding: 0">
+                                <div class="panel panel-white">
+                                    <div class="panel-body chart-container" style="padding: 10px 10px 10px 10px">
+                                        <div class=chart-container">
+                                            <div class="chart has-fixed-height" id="desempeno_p" style="height: 350px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="<%= scope %>.session.tipo_institucion == 1" >
+                                    <%- CHART.doughnut("desempeno_p", scope, {label: "Distribución del nivel de cumplimiento - Proyecto/Producto", radius: ["25%","60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                                </div>
+                                <div ng-if="<%= scope %>.session.tipo_institucion == 2" >
+                                    <%- CHART.doughnut("desempeno_p", scope, {label: "Distribución del nivel de cumplimiento - Proyecto/Plan de Acción", radius: ["25%","60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div><!--end-->

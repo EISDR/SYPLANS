@@ -1,0 +1,290 @@
+<style>
+    .countFile .legitRipple {
+        height: 40px !important;
+        width: 230px !important;
+        margin-top: 10px !important;
+        float: right;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h5 class="panel-title">Información de la actividad</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-8 col-md-8">
+                        <%- FORM.inputview("nombre", scope, {placeholder: "Nombre"}) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <%- FORM.inputview("responsable", scope, {trueplaceholder: "Responsable"}) %>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-3 col-md-3">
+                        <%- FORM.inputview("proyecto_item_nombre", scope, {trueplaceholder: "Proyecto/Producto Estratégico"}) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <%- FORM.daterange("range_date", scope, {
+                            from: "from",
+                            to: "to",
+                            disabled: true
+                        }) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <%-FORM.inputview("presupuesto_ver", scope, {placeholder: "Presupuesto Asignado"} )%>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <%-FORM.inputview("show_presupuesto_consumido", scope, {placeholder: "Presupuesto Ejecutado"} )%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                <h5 class="panel-title">Trabajar actividad</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-2 col-md-2'>
+                        <%- FORM.select('estatus_id', scope, {
+                            allownull: false,
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            text: "item.nombre",
+                            disabled: true,
+                            value: "id",
+                            table: "vw_auditoria_programa_plan_estatus",
+                            icon: {class: "archive"},
+                            truelabel: "Estatus",
+                        }) %>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-show="false">
+                        <%-FORM.inputview("presupuesto_consumido_ver", scope, {placeholder: "Presupuesto Consumido", maxlength: 16})%>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-show="false">
+                        <%-FORM.money("act_presupuesto_consumido", scope, {placeholder: "Añadir Presupuesto Consumido", maxlength: 16})%>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '3' && !<%= scope %>.dont_show_money">
+                        <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3, disabled: true}) %>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-show="false">
+                        <%-FORM.money("presupuesto", scope, {placeholder: "Presupuesto Asignado", maxlength: 16})%>
+                    </div>
+                    <div class="col-sm-2 col-md-2" ng-show="false">
+                        <%-FORM.inputview("presupuesto_restante", scope, {placeholder: "Presupuesto Disponible", maxlength: 16})%>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-3 col-md-3" ng-show="<%= scope %>.estatus_id == '6'" ng-if="!<%= scope %>.session.institucion_id">
+                        <%- FORM.select("razon", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            disabled: true,
+                            text: "item.nombre_razon",
+                            table: "razon",
+                            columns: ["nombre"],
+                            icon: {class: "archive"},
+                            condition: "(item.tipo == 1) && (item.compania== vw_proyecto_item_actividad.session.compania_id && item.institucion == $null) && item.active == 1"
+                        }) %>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3" ng-show="<%= scope %>.estatus_id == '1'" ng-if="<%= scope %>.session.institucion_id">
+                        <%- FORM.select("razon", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            disabled: true,
+                            text: "item.nombre_razon",
+                            table: "razon",
+                            columns: ["nombre"],
+                            icon: {class: "archive"},
+                            condition: "(item.tipo==1) && (item.institucion==vw_proyecto_item_actividad.session.institucion_id) && item.active == 1"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <%- FORM.textarea("comentario", scope, {placeholder: "Comentario", disabled: true}) %>
+                    </div>
+                </div>
+                <div class="row" ng-show="false">
+                    <div class="col-sm-6 col-md-6"></div>
+                    <div class="col-sm-6 col-md-6" style="margin-top: 5px;">
+                        <div class="modal-footer dragonformfooter"
+                             style="padding: 0px !important;margin-bottom: 5px !important;" dragonlanguage="" id="">
+                            <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+                                <i class="position-right"></i>
+                            </span>
+
+                            <button
+
+                                    dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                                    style="margin-right: 0px"
+                                    type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.pages.form.close()">
+                                <b><i class="icon-cross2"></i></b>
+                                <language>MESSAGE.ic('mono.cancel')</language>
+                            </button>
+                            <button dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                    ng-click="<%= scope %>.saveActividad()">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                <language>MESSAGE.ic('mono.save')</language>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat" id="tabsComment">
+            <div class="subcontent" style="padding-top: 0px;">
+                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                    <li class="active" id="activ_apoyo_tab">
+                        <a href="#activ_apoyo" data-toggle="tab" ng-click="actividades_poa_monitoreo.make_alert()">
+                            <i class="position-left"></i>
+                            Actividades de apoyo
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" id="active_comment_actividad">
+                        <a href="#comment" data-toggle="tab" ng-click="<%= scope %>.change_normal_comments()">
+                            <i class="position-left"></i>
+                            Comentarios
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" id="activ_apoyo_tab">
+                        <a href="#comment_money" data-toggle="tab" ng-click="<%= scope %>.change_money_comments()">
+                            <i class="position-left"></i>
+                            Histórico de Presupuesto Consumido
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div id="comentarios_p_actividad" ng-controller="comentarios_p_actividad as comentarios_p_actividad">
+                    <div id="comentarios_p_actividad_apoyo" ng-controller="comentarios_p_actividad_apoyo as comentarios_p_actividad_apoyo">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="activ_apoyo">
+                                <script>
+                                    p_actividades_asociadas_view.fixFilters = [{
+                                        "field": "proyecto_actividad",
+                                        "value": vw_proyecto_item_actividad.id
+                                    }];
+                                </script>
+                                <div><br></div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="table table-togglable table-framed">
+                                        <div id="p_actividades_asociadas_view "
+                                             ng-controller="p_actividades_asociadas_view as p_actividades_asociadas_view">
+                                            <div class="panel panel-flat">
+                                                <%- include('../../7-plugins/templates/table/header',{scope:'p_actividades_asociadas_view'}); %>
+                                                <div class="subcontent">
+                                                    <%- include('../../7-plugins/templates/table/base',{scope:'p_actividades_asociadas_view'}); %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_p_actividad_apoyo'}); %>
+                                        <div class="subcontent">
+                                            <%- include('../../5-views/comentarios_p_actividad_apoyo/base',{scope:'comentarios_p_actividad_apoyo'}); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="comment">
+                                <div class="">
+                                    <div class="row" ng-show="false">
+                                        <div class="col-sm-4 col-md-4">
+                                            <%- FORM.textarea("comentario_comment", scope, {placeholder: "Comentario"}) %>
+
+                                        </div>
+                                        <div class="col-sm-3 col-md-3" style="margin-top: 23px;">
+                                            <div class="modal-footer dragonformfooter" style="padding-right: 0px;"
+                                                 dragonlanguage="" id="">
+                                                <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+                                                    <i class="position-right"></i>
+                                                </span>
+                                                <button ng-show="<%= scope %>.form.mode!=='new'"
+                                                        dragonlanguage="" title="MESSAGE.ic('mono.SaveAndContinueLabel')"
+                                                        type="button" role="button"
+                                                        class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                                        ng-click="<%= scope %>.soloAnadirComentario()">
+                                                    <b><i class="icon-floppy-disk"></i></b>
+                                                    <language>MESSAGE.ic('mono.saveComment')</language>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 col-md-5 center-profile-image countFile" ng-show="actividades_poa_monitoreo.mostrar_comentario">
+                                            <%- FORM.file("actividadfile_comment", scope, {
+                                                title: 'Subir Evidencia',
+                                                maxfiles: 999,
+                                                columns: 4,
+                                                truetext: 'Subir Evidencia',
+                                            // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                                            // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                                            }) %>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div><br/></div>
+                                    </div>
+                                    <div class="panel panel-flat">
+                                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_p_actividad'}); %>
+                                        <div class="subcontent">
+                                            <%- include('base',{scope:'comentarios_p_actividad'}); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="comment_money">
+                                <div class="panel panel-flat">
+                                    <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_p_actividad'}); %>
+                                    <div class="subcontent">
+                                        <%- include('base',{scope:'comentarios_p_actividad'}); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('[name="vw_proyecto_item_actividad_actividadfile"]').css({
+        width: '185px !import',
+        height: 'none !import'
+    });
+    p_actividades_asociadas_view.cell.dblselect = function (row) {
+    };
+    comentarios_p_actividad_apoyo.cell.dblselect = function (row) {
+    };
+    if (comentarios_p_actividad.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_p_actividad.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion){
+        comentarios_p_actividad.setPermission("actions", false);
+        comentarios_p_actividad.setPermission("remove", false);
+    }else{
+        comentarios_p_actividad.setPermission("actions", true);
+        comentarios_p_actividad.setPermission("remove", true);
+    }
+</script>
+
+
+
+
+

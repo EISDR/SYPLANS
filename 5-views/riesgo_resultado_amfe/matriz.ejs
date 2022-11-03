@@ -1,0 +1,160 @@
+<style>
+    .mbuton:hover {
+        border: 3px solid darkblue !important;
+    }
+</style>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                <!--Breadcrumb and Table Options-->
+                <div class="breadcrumb-line">
+
+                    <%- include('../../7-plugins/templates/header/rastro',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                    <a ng-click="<%= scope %>.getrefresh();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;" title="PDF">
+                    <a ng-click="<%= scope %>.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+                <%= scope %>.disablealls = true;
+            </script>
+
+            <div class="alert alert-info alert-styled-left alert-dismissible"
+                 style="margin-bottom: 0px; padding: 5px 20px">
+                <span class="font-weight-semibold">Nota:</span>
+                Hacer clic en las celdas para cambiar y actualizar el resultado.
+            </div>
+            <div class="alert alert-info alert-styled-left alert-dismissible"
+                 style="margin-bottom: 0px; padding: 5px 20px">
+                <span class="font-weight-semibold">Nota:</span>
+                Hacer clic en los botones circulares para vizualizar la matriz resultante con dicho filtro.
+            </div>
+
+            <div ng-if="riesgo_resultado.resultados.length===0"
+                 class="alert alert-warning alert-styled-left alert-dismissible"
+                 style="margin-bottom: 0px; padding: 5px 20px">
+                    <span class="font-weight-semibold">
+                                Validación:
+                            </span>
+                Debe administrar los niveles de riesgo para poder hacer uso de la matriz de calor
+                <a href="#riesgo_resultado?{{riesgo_resultado.entidad}}" class="alert-link"> - Click para administrar
+                    niveles de riesgo</a>
+            </div>
+            <div ng-if="riesgo_resultado.impactos.length===0"
+                 class="alert alert-warning alert-styled-left alert-dismissible"
+                 style="margin-bottom: 0px; padding: 5px 20px">
+                    <span class="font-weight-semibold">
+                                Validación:
+                            </span>
+                Debe administrar los impactos para poder hacer uso de la matriz de calor
+                <a href="#riesgo_impacto?{{riesgo_resultado.entidad}}" class="alert-link"> - Click para administrar
+                    impactos</a>
+            </div>
+            <div ng-if="riesgo_resultado.probabilidades.length===0"
+                 class="alert alert-warning alert-styled-left alert-dismissible"
+                 style="margin-bottom: 0px; padding: 5px 20px">
+                    <span class="font-weight-semibold">
+                                Validación:
+                            </span>
+                Debe administrar los probabilidades para poder hacer uso de la matriz de calor
+                <a href="#riesgo_probabilidad?{{riesgo_resultado.entidad}}" class="alert-link"> - Click para administrar
+                    probabilidades</a>
+            </div>
+
+
+            <div style="text-align: center;overflow: scroll visible; position: static; zoom: 1;min-height: 400px"
+                 id="minusubcontent"
+                 ng-if="riesgo_resultado.resultados.length!==0 && riesgo_resultado.probabilidades.length!==0 && riesgo_resultado.impactos.length!==0">
+
+                <table id="report" style="margin-top: 15px;">
+
+                    <tr>
+                        <td colspan="{{riesgo_resultado.E(0).length+2   }}">
+                            <h4>Matriz de Calor para {{ riesgo_resultado.empresita}}</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{riesgo_resultado.E(0).length+2   }}">
+                            <div class="" style="padding: 0 20px 10px 20px;">
+                                <ul id="leyendas"
+                                    style="padding: 24px 0;border: none;    list-style: none;    margin-bottom: 0;      border-radius: 3px;">
+                                    <li ng-repeat="(r,resultados) in riesgo_resultado.resultados">
+                                        <label style="background-color: {{resultados.color}};    border-radius: 100%;    height: 25px;    width: 25px;    text-align: center;    margin-right: 7px;    margin-left: 27px;    margin-top: -6px;    float: left;"></label>
+                                        <label style="font-weight: bold;float: left;    margin-left: -3px;">
+                                            {{resultados.nombre}} </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="(i,impacto) in riesgo_resultado.E(0)">
+                        <td rowspan="{{riesgo_resultado.E(0).length}}"
+                            style="text-align: center;font-weight: bold;transform: rotate(-90deg);font-size: 20px !important;"
+                            ng-if="i===0">
+                            <i title="Invertir" ng-click="riesgo_resultado.Invertir()" style="cursor: pointer;"
+                               class="icon-tab"></i> {{riesgo_resultado.orderst[0]}}   
+                        </td>
+                        <td style="text-align: center;font-weight: bold;border-left:3px black solid;">
+                                {{impacto.nombre}}    
+                        </td>
+                        <td style="background-color: {{riesgo_resultado.getM(probabilidad.id,impacto.id).color}};border: 1px black solid;width: 100px;height: 100px;text-align: center;{{(p==0)?'border-left:3px black solid;':''}}{{(i==(riesgo_resultado.E(1).length-1))?'border-bottom:3px black solid;':''}}"
+                            ng-repeat="(p,probabilidad) in riesgo_resultado.E(1)"
+                            id="item_p{{probabilidad.id}}_i{{impacto.id}}"
+                        >
+                            <button ng-click="riesgo_resultado.datamon(probabilidad,impacto)"
+                                    style="margin-left: 15px;    margin-bottom: 15px;    border-radius: 1000%;visibility: {{riesgo_resultado.counts(probabilidad.id,impacto.id)?'visible':'hidden'}}"
+                                    class="btn btn-default mbuton" title="{{impacto.nombre}} X {{probabilidad.nombre}}">
+                                <span style="font-weight: bold">{{riesgo_resultado.counts(probabilidad.id,impacto.id)}}</span>
+                            </button>
+                            <br>
+
+                            <i ng-click="riesgo_resultado.saveM(probabilidad.id,impacto.id,1)" style="cursor: pointer;"
+                               class="icon-circle-left2"></i>  {{riesgo_resultado.getM(probabilidad.id,impacto.id).nombre}}  <i
+                                    ng-click="riesgo_resultado.saveM(probabilidad.id,impacto.id)"
+                                    style="cursor: pointer;" class="icon-circle-right2"></i>
+                        </td>
+                    </tr>
+                    <tr ng-if="riesgo_resultado.E(1)">
+                        <td style="width: 100px;height: 50px;text-align: center;">
+
+                        </td>
+                        <td style="width: 100px;height: 50px;text-align: center;">
+
+                        </td>
+                        <td style="width: 100px;height: 50px;text-align: center;font-weight: bold;border-bottom: 3px black solid"
+                            ng-repeat="(p,probabilidad) in riesgo_resultado.E(1)">
+                            {{probabilidad.nombre}}
+                        </td>
+                    </tr>
+                    <tr ng-if="riesgo_resultado.E(1)">
+                        <td style="width: 100px;height: 50px;text-align: center;">
+
+                        </td>
+                        <td style="width: 100px;height: 50px;text-align: center;">
+
+                        </td>
+                        <td colspan="{{riesgo_resultado.E(1).length}}"
+                            style="text-align: center;font-weight: bold;font-size: 20px !important;">
+                            <i title="Invertir" ng-click="riesgo_resultado.Invertir()" style="cursor: pointer;"
+                               class="icon-tab"></i> {{riesgo_resultado.orderst[1]}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{riesgo_resultado.E(1).length+2   }}">
+                            <h4>{{riesgo_resultado.fechita}}</h4>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

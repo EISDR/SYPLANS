@@ -1,0 +1,130 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('no_orden', scope, {
+                    maxlength: 5,
+                    trueplaceholder: "No. Secuencia"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4' style="margin-top: 15px">
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('programa_sectorial', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    text: "item.sec_nombre",
+                    table: "vw_sec_programa_sectorial",
+                    icon: {class: "archive"},
+                    label: "Programa Sectorial",
+                    condition: "(item.sector_id == sec_productos_terminales.session.sector_id) && (item.active == 1)"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-4'>
+                <%- FORM.select('objetivos_estrategicos', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    multiple: true,
+                    text: "item.no_objetivo + ' ' + item.nombre",
+                    table: "vw_objetivo_estrategico",
+                    icon: {class: "archive"},
+                    label: "Objetivos Estratégicos",
+                    condition: "(item.compania == sec_productos_terminales.session.compania_id)",
+                    controller: "objetivo_estrategico",
+                    get: {
+                        table: 'objetivo_estrategico_productos_terminales',
+                        fieldFrom: 'id',
+                        fieldTo: 'producto_terminal',
+                        field: 'objetivo_estrategico'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4" style="margin-top: 15px">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_desde",
+                    to: "fecha_hasta",
+                })%>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('responsables', scope, {
+                    column: "responsables",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: "institucion",
+                    icon: {class: "archive"},
+                    label: "Responsables",
+                    condition: "(item.compania == sec_productos_terminales.session.compania_id && item.sector == sec_productos_terminales.session.sector_id )",
+                    get: {
+                        table: 'sec_productos_terminales_responsable',
+                        fieldFrom: 'id',
+                        fieldTo: 'producto_terminal',
+                        field: 'institucion'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('involucrados', scope, {
+                    column: "involucrados",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    multiple: true,
+                    permission: "resultado",
+                    text: "item.nombre_completo",
+                    table: "involucrados",
+                    icon: {class: "archive"},
+                    label: "Involucrados",
+                    condition: "(item.compania == sec_productos_terminales.session.compania_id && item.active == 1) && (item.tipo == 4)",
+                    get: {
+                        table: 'sec_productos_terminales_involucrados',
+                        fieldFrom: 'id',
+                        fieldTo: 'producto_terminal',
+                        field: 'involucrado'
+                    }
+                }) %>
+            </div>
+            <div class="row">
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.textarea('descripcion', scope, {
+                        //maxlength: 200,
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6'>
+                    <%- FORM.textarea('supuestos', scope, {
+                        //maxlength: 200,
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-12 col-md-12'>
+                    <%- FORM.relation('sec_productos_terminales_finazas', scope, {
+                        text: "item.ano",
+                        table: "sec_productos_terminales_finazas",
+                        field: "producto_terminal",
+                        master: null,
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- FORM.footer(scope) %>
+
+
+
+
+

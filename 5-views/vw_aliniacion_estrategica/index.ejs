@@ -1,0 +1,90 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_aliniacion_estrategica.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_aliniacion_estrategica.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <%- include('../filter_ID',{scope:scope}); %>
+            <script>
+                <%= scope %>.disabledepa = true;
+            </script>
+            <h4 style="text-align: center">
+                CUADRO DE ALINEACIÓN DE LA ESTRATEGIA NACIONAL DE DESARROLLO
+            </h4>
+            <h4 style="text-align: center;font-size: 14px !important;text-transform: uppercase">
+                OBJETIVOS DE DESARROLLO SOSTENIBLE Y PLANES ESTRATÉGICOS INSTITUCIONALES DE
+                {{vw_aliniacion_estrategica.user.compania }} {{vw_aliniacion_estrategica.user.sigla?('('+vw_aliniacion_estrategica.user.sigla+')'):''}} Y SUS
+                DIRECCIONES GENERALES
+            </h4>
+            <table id="vw_aliniacion_estrategicaTable" class="table table-bordered" style="margin-top: 15px;">
+
+                <tbody ng-repeat="(kend,end) in vw_aliniacion_estrategica.ends">
+
+                <td colspan="5"
+                    style="background-color: #d2ab4f;font-size: 18px !important; color: white;font-weight: bold;text-align: left">
+                    Eje END: {{end.end}}
+                </td>
+                <tr>
+                    <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                        Objetivo General
+                    </th>
+                    <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                        Objetivo Específico
+                    </th>
+                    <th style="background-color: #9dbcd1;width: 16.6%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                        Línea de Acción
+                    </th>
+                    <th style="background-color: #9dbcd1;width: 20%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                        Objetivos Desarrollo Sostenible
+                    </th>
+                    <th style="background-color: #9dbcd1;width: 30%;color: white;font-weight: bold;font-size: 14px;text-align: center">
+                        Resultados
+                    </th>
+                </tr>
+
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,row) in vw_aliniacion_estrategica.vw_aliniacion_estrategica_list"
+                    ng-if="row.end==end.end && vw_aliniacion_estrategica.companiasel==row.compania_base">
+
+                    <td style="background-color: #f1f4f8; color: black"
+                        rowspan="{{vw_aliniacion_estrategica.rowspanme('objetivo_general',row.objetivo_general)}}"
+                        ng-if="vw_aliniacion_estrategica.seeme('objetivo_general',row.objetivo_general,key)">
+                        {{row.objetivo_general}}
+                    </td>
+                    <td style="background-color: #f1f4f8; color: black;"
+                        rowspan="{{vw_aliniacion_estrategica.rowspanme('objetivo_especifico',row.objetivo_especifico)}}"
+                        ng-if="vw_aliniacion_estrategica.seeme('objetivo_especifico',row.objetivo_especifico,key)">
+                        {{row.objetivo_especifico}}
+                    </td>
+                    <td style="background-color: #f1f4f8; color: black"
+                        rowspan="{{vw_aliniacion_estrategica.rowspanme('linea_accion',row.linea_accion)}}"
+                        ng-if="vw_aliniacion_estrategica.seeme('linea_accion',row.linea_accion,key)">
+                        {{row.linea_accion}}
+                    </td>
+                    <td style="background-color: #f1f4f8; color: black;"
+                        rowspan="{{vw_aliniacion_estrategica.rowspanme('metagroup',row.metagroup)}}"
+                        ng-if="vw_aliniacion_estrategica.seeme('metagroup',row.metagroup,key)">
+                        {{row.meta}}
+                    </td>
+                    <td style="background-color: #f1f4f8; color: black;">
+                        <b>{{row.pei}}</b>/<b>{{row.institucion}}</b>
+                        <br>
+                        <b style="color:darkblue;font-weight: bold">Eje estratégico: </b>{{row.eje_estrategico}}
+                        <br>
+                        <b style="color:darkblue;font-weight: bold">RE: </b>{{row.resultado}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!--end-->

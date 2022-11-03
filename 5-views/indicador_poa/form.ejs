@@ -1,0 +1,304 @@
+<style>
+    .icon-help {
+        cursor: pointer;
+        margin-left: 12px;
+        color: #989f9369 !important;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row" ng-show="indicador_poa.showFuente===true">
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.select("ws_connection", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection",
+                    icon: {class: "archive"},
+                    truelabel: "Base de Datos Externa"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.select("ws_connection_field", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection_field",
+                    icon: {class: "archive"},
+                    truelabel: "Fuente Externa",
+                    condition: "item.ws_connection == indicador_poa.ws_connection"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 " ng-show="indicador_poa.ws_connection_field!=='[NULL]'">
+                <h3>{{indicador_poa.ws_connection_field_object.ws_connection_name}} |
+                    {{indicador_poa.ws_connection_field_object.name}}: {{indicador_poa.resultExterno}}</h3>
+            </div>
+        </div>
+        <div ng-show="indicador_poa.showFuente!==true" class="row">
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 255,
+                    placeholder: "Nombre del Indicador",
+                    popover: {
+                        title: "Nombre",
+                        content: "Captura el nombre"
+                    }
+                }) %>
+            </div>
+
+            <div class="col-sm-12 col-md-6 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {
+                    maxlength: 4000,
+                    label: "Descripción del Indicador",
+                    label_custom: true
+                    // inputPlaceholder: "Descripción del indicador"
+                }) %>
+            </div>
+
+            <div ng-show="!indicador_poa.dont_show_productos">
+                <div class="col-sm-2 col-md-2">
+                    <%-
+                            FORM.select("departamento", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                truelabel: "Departamento",
+                                text: "item.nombre",
+                                table: "vw_presupuesto_departamento",
+                                columns: ["nombre"],
+                                icon: {class: "archive"},
+                                condition: "(item.compania == indicador_poa.conditionPoa.compania_id && item.estatus == 1 && item.poa==indicador_poa.conditionPoa.poa_id) && item.active == 1",
+                                popover: {
+                                    title: "Departamento",
+                                    content: "Captura el departamento"
+                                }
+                            })
+                    %>
+                </div>
+                <div ng-if="indicador_poa.departamento == '0' && indicador_poa.session.tipo_institucion == 1" class="col-sm-12 col-md-4  remove-input-space">
+                    <%- FORM.select("producto", scope, {
+                        text: "item.nombre",
+                        table: "drp_productos_poa_indi",
+                        permission: "productos_poa",
+                        icon: {class: "archive"},
+                        truelabel: "Proyecto/Producto",
+                        popover: {
+                            title: "Proyecto/Producto",
+                            content: "Captura los Proyectos/Productos"
+                        },
+                        condition: "item.poa == indicador_poa.conditionPoa.poa_id"
+                    }) %>
+                </div>
+                <div ng-if="indicador_poa.departamento == '0' && indicador_poa.session.tipo_institucion == 2" class="col-sm-12 col-md-4  remove-input-space">
+                    <%- FORM.select("producto", scope, {
+                        text: "item.nombre",
+                        table: "drp_productos_poa_indi",
+                        permission: "productos_poa",
+                        icon: {class: "archive"},
+                        truelabel: "Proyecto/Plan de Acción",
+                        popover: {
+                            title: "Proyecto/Plan de Acción",
+                            content: "Captura los Proyecto/Plan de Acción"
+                        },
+                        condition: "item.poa == indicador_poa.conditionPoa.poa_id"
+                    }) %>
+                </div>
+                <div ng-if="indicador_poa.departamento != '0' && indicador_poa.session.tipo_institucion == 1" class="col-sm-12 col-md-4  remove-input-space">
+                    <%-
+                    FORM.select("producto", scope, {
+                        text: "item.nombre",
+                        table: "drp_productos_poa_indi",
+                        icon: {class: "archive"},
+                        label: "Proyecto/Producto",
+                        permission: "productos_poa",
+                        popover: {
+                            title: "Proyecto/Producto",
+                            content: "Captura los Proyectos/Productos"
+                        },
+                        condition: "item.departamento == indicador_poa.departamento && item.poa==indicador_poa.conditionPoa.poa_id"
+                    })
+                    %>
+                </div>
+                <div ng-if="indicador_poa.departamento != '0' && indicador_poa.session.tipo_institucion == 2" class="col-sm-12 col-md-4  remove-input-space">
+                    <%-
+                        FORM.select("producto", scope, {
+                            text: "item.nombre",
+                            table: "drp_productos_poa_indi",
+                            icon: {class: "archive"},
+                            label: "Proyecto/Plan de Acción",
+                            permission: "productos_poa",
+                            popover: {
+                                title: "Proyecto/Plan de Acción",
+                                content: "Captura los Proyectos/Planes de Acción"
+                            },
+                            condition: "item.departamento == indicador_poa.departamento && item.poa==indicador_poa.conditionPoa.poa_id"
+                        })
+                    %>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <%- FORM.daterange("range_date", scope, {
+                        from: "fecha_inicio",
+                        to: "fecha_fin",
+                        disabled: true,
+                        label_custom: true,
+                        label: "Fecha inicio / Fecha fin"
+                    }) %>
+                </div>
+            </div>
+        </div>
+        <div ng-show="indicador_poa.showFuente!==true" class="row">
+            <div class="col-sm-3 col-md-3 drp-pt remove-input-space">
+                <%- FORM.textarea("fuente", scope, {
+                    maxlength: 255,
+                    popover: {
+                        title: "Fuente",
+                        content: "Captura la fuente"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("metodo_calculo", scope, {
+                    maxlength: 255,
+                    label: "Método de Cálculo",
+                    label_custom: true,
+                    popover: {
+                        title: "Método de Cálculo",
+                        content: "Captura el método de cálculo"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
+                    trueplaceholder: "Desagregación Demográfica Geográfica",
+                    maxlength: 4000
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.select("caracteristica_indicador", scope, {
+                    text: "item.nombre",
+                    table: "caracteristica_indicador",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "Caracteristica",
+                    condition: "item.compania == indicador_poa.session.compania_id && item.active == 1",
+                    get: {
+                        table: 'caracteristica_indicador_poa',
+                        tableDelete: 'caracteristica_indicador_poa',
+                        fieldFrom: 'id',
+                        fieldTo: 'indicador_poa',
+                        field: 'caracteristica'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div ng-show="indicador_poa.showFuente!==true" class="row">
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("medio_verificacion", scope, {
+                    maxlength: 1000,
+                    label: "Medio de Verificación",
+                    label_custom: true,
+                    popover: {
+                        title: "Medio de Verificación",
+                        content: "Captura el medio de verificación"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("observacion", scope, {
+                    maxlength: 1000,
+                    label: "Observación",
+                    label_custom: true
+                }) %>
+            </div>
+        </div>
+        <div ng-show="indicador_poa.showFuente!==true" class="row">
+            <div class="col-sm-12 col-md-3" ng-show="false">
+                <%- FORM.select("indicador_pei", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "z_indicador_pei",
+                    icon: {class: "archive"},
+                    label: "Indicador PEI asociado",
+                    condition: "(item.pei == indicador_poa.session.pei_id && item.tipo_meta!=2) && (item.producto+'')==indicador_poa.producto+''"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3 ">
+                <div>
+                    <%- FORM.select("tipo_meta", scope, {
+                        allowedit: false,
+                        allownew: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        column: "tipo_meta",
+                        text: "item.nombre",
+                        table: "tipoMeta",
+                        icon: {class: "archive"},
+                        label: "Tipo de dato de la meta",
+                        popover: {
+                            title: "Tipo Meta",
+                            content: "Captura los tipos de metas"
+                        }
+                    }) %>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 ">
+                <%- FORM.select("direccion_meta", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "direccionMeta",
+                    icon: {class: "archive"},
+                    label: "Dirección de la Meta",
+                    popover: {
+                        title: "Dirección Meta",
+                        content: "Captura las Direcciónes de la meta"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("ano_linea_base", scope, {
+                    placeholder: "Año Línea Base",
+                    maxlength: 4
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2" id="subcontainerLineaBase">
+            </div>
+        </div>
+
+        <div ng-show="indicador_poa.showFuente!==true" class="row">
+
+
+        </div>
+
+    </div>
+
+    <div  ng-show="indicador_poa.form.mode == 'edit' && indicador_poa.showFuente!==true " class="row" style="margin-bottom: 20px;">
+        <div  class="subcontainer2 clearHtml">
+        </div>
+    </div>
+    <div ng-show="indicador_poa.form.mode == 'new' && indicador_poa.showFuente!==true" class="row" style="margin-bottom: 20px;">
+        <div  class="subcontainer1 clearHtml">
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+    $('[name="indicador_poa_linea_base"]').css("margin-top", "-6px");
+    $('[name="indicador_poa_fuente"]').css("margin-top", "-6px");
+</script>

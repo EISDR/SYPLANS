@@ -1,0 +1,106 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div id="invisible"></div>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row" id="hide-div">
+                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important">
+                    <%-
+                    FORM.select("departamentoPre", scope, {
+                        forme: "filtros",
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        refresh: false,
+                        multiple: false,
+                        label: "Departamento",
+                        text: "item.departamento",
+                        table: "vw_presupuesto_departamento",
+                        field: "id",
+                        columns: ["departamento"],
+                        icon: {class: "archive"},
+                        condition: "item.poa == actividades_poa_monitoreo.poa_id"
+                    })
+                    %>
+                </div>
+                <div class="col-sm-9 col-md-9">
+                    <label style="float: left; width: 100%;text-align: center;">P R E S U P U E S T O</label>
+                    <br/>
+                    <hr style="margin-top: 8px;margin-bottom: 5px;"/>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.inputview("valor", scope, {
+                            trueplaceholder: 'Asignado al Dpto.',
+                            icon: {class: "cash3"},
+                            format: {mask: "000,000,000.00", options: {reverse: true}}
+                        })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.inputview("presupuesto_actividades", scope, {
+                            trueplaceholder: 'Asignado a las actividades',
+                            icon: {class: "cash3"},
+                            format: {mask: "000,000,000.00", options: {reverse: true}}
+                        })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.inputview("presupuesto_restantePre", scope, {
+                            trueplaceholder: "Disponible",
+                            icon: {class: "cash3"},
+                            format: {mask: "000,000,000.00", options: {reverse: true}}
+                        })
+                        %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%-
+                        FORM.inputview("presupuesto_liberado", scope, {
+                            trueplaceholder: "A Liberar",
+                            icon: {class: "cash3"},
+                            format: {mask: "000,000,000.00", options: {reverse: true}}
+                        })
+                        %>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="padding: 0 20px 0 20px;">
+                <br>
+                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                    <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                        <label class="labelRedondo"> Planificada </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                        <label class="labelRedondo"> En ejecución </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                        <label class="labelRedondo"> Vencida </label></li>
+
+                    <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                        <label class="labelRedondo"> Ninguna Condición </label></li>
+                </ul>
+                <br>
+            </div>
+            <%-
+            include('base',{scope:scope});
+            %>
+
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    // $(function(){
+    //     setTimeout(function(){
+    //         if (actividades_poa_monitoreo.form.selected('departamentoPre')){
+    //             actividades_poa_monitoreo.valor = LAN.money(actividades_poa_monitoreo.form.selected('departamentoPre').valor).format(true);
+    //             actividades_poa_monitoreo.presupuesto_restantePre = LAN.money(actividades_poa_monitoreo.form.selected('departamentoPre').presupuesto_restante).format(true);
+    //             actividades_poa_monitoreo.presupuesto_actividades = LAN.money(actividades_poa_monitoreo.form.selected('departamentoPre').presupuesto_actividades).format(true);
+    //             actividades_poa_monitoreo.presupuesto_liberado = LAN.money(actividades_poa_monitoreo.form.selected('departamentoPre').presupuesto_liberado).format(true);
+    //             actividades_poa_monitoreo.refrescarInputs();
+    //         }
+    //     },1000)
+    // })
+</script>

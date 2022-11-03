@@ -1,0 +1,38 @@
+<script>
+    <%= scope %>.mostrarnull = false;
+    <%= scope %>.mostrarnulltext = "Ocultar No Evaluados";
+    <%= scope %>.toggleNull =()=>{
+        <%= scope %>.mostrarnull = !<%= scope %>.mostrarnull;
+        if(!<%= scope %>.mostrarnull){
+            <%= scope %>.mostrarnulltext = "Ocultar No Evaluados";
+        }else{
+            <%= scope %>.mostrarnulltext = "Mostrar No Evaluados";
+        }
+        <%= scope %>.refreshAnbgular();
+    };
+    <%= scope %>.sortGrafico = (prop, reverse) => {
+        if (prop === "nombre") {
+            <%= scope %>.REPORTING.sorting = "nombreasc";
+            <%= scope %>.REPORTING.elementos.sort(function (a, b) {
+                return a[prop].localeCompare(b[prop]);
+            });
+            if (reverse) {
+                <%= scope %>.REPORTING.elementos.sort(function (a, b) {
+                    return a[prop].localeCompare(b[prop]);
+                }).reverse();
+                <%= scope %>.REPORTING.sorting = "nombredesc";
+            }
+        } else {
+            <%= scope %>.REPORTING.sorting = "cumplimientoasc";
+            <%= scope %>.REPORTING.elementos.sort(function (a, b) {
+                return a[prop] - b[prop];
+            });
+            if (reverse) {
+                <%= scope %>.REPORTING.sorting = "cumplimientodesc";
+                <%= scope %>.REPORTING.elementos.sort(function (a, b) {
+                    return b[prop] - a[prop];
+                });
+            }
+        }
+    };
+</script>

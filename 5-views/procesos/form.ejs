@@ -1,0 +1,287 @@
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                 data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row" ng-if="procesos.directo">
+            <div class="col-sm-3 col-md-3" ng-if="!procesos.session.institucion">
+                <%- FORM.select("mapa_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "vw_mapa_proceso",
+                    truelabel: "Mapa de Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == procesos.session.compania_id && item.institucion == $null) && item.condicion == 'Vigente'"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3" ng-if="procesos.session.institucion">
+                <%- FORM.select("mapa_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "mapa_proceso",
+                    truelabel: "Mapa de Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.institucion == procesos.session.institucion_id)"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3" ng-if="!procesos.session.institucion">
+                <%- FORM.select("procesos_categoria", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.mapa_proceso == procesos.mapa_proceso)"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class="col-sm-3 col-md-3" ng-if="!procesos.session.institucion">
+                <%- FORM.select("responsable", scope, {
+                    allowview: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    refresh: true,
+                    multiple: false,
+                    disabled: false,
+                    column: "responsable",
+                    table: "vw_usuario",
+                    text: "item.nombre + ' ' + item.apellido",
+                    condition: "(item.compania == procesos.session.compania_id && item.institucion == $null) && (item.active)",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3" ng-if="procesos.session.institucion">
+                <%- FORM.select("responsable", scope, {
+                    allowview: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    refresh: true,
+                    multiple: false,
+                    disabled: false,
+                    column: "responsable",
+                    table: "vw_usuario",
+                    text: "item.nombre + ' ' + item.apellido",
+                    condition: "(item.institucion == procesos.session.institucion_id) && (item.active)",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode==='new'">
+                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
+                <script>
+                    procesos.initstatus = procesos.firststatus.nombre;
+                    procesos.refreshAngular();
+                </script>
+            </div>
+            <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode!=='new'">
+                <%- FORM.select('estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    allownull: false,
+                    column: 'name',
+                    text: "item.permitido",
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    condition: "(item.plan_status == procesos.my_true_estatus && item.entidad == 'procesos') && procesos.allow_auth(item.id)"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
+                <%- FORM.file("procesofile", scope, {
+                    title: 'Subir Imagen',
+                    maxfiles: 999,
+                    columns: 4,
+                    truetext: 'Subir Imagen',
+                    imagefloat: "right",
+                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                    // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('objetivo', scope, {
+                    trueplaceholder: "Objetivo"
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('recursos', scope, {
+                    trueplaceholder: "Recursos (Humanos, Tecnológicos, etc) "
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('alcance', scope, {
+                    trueplaceholder: "Alcance"
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.html('descripcion', scope, {
+                    placeholder: "Descripción"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="nav nav-primary nav-tabs primary nav-justified">
+
+                <li class="active">
+                    <a href="#tabA" data-toggle="tab" id="tabidA" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Elementos del Proceso</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#tabB" data-toggle="tab" id="tabidB" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Documentos Asociado al Proceso</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabA">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <%- FORM.relation("procesos_elemento", scope, {
+                                text: "item.nombre",
+                                table: "procesos_elemento",
+                                field: "proceso",
+                                master: null,
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tabB">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <%- FORM.relation("documentos_asociados", scope, {
+                                text: "item.nombre",
+                                table: "documentos_asociados",
+                                field: "proceso",
+                                custombase: "documentos_asociados",
+                                master: null,
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                 data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    procesos.setPermission("file.upload", true);
+    procesos.setPermission("file.remove", true);
+    $(function () {
+        $('[name="procesos_procesofile"]').css({height: ''});
+    });
+</script>
+
+
+
+

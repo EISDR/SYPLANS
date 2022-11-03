@@ -1,0 +1,2382 @@
+{
+  "hint_fields": [
+    {
+      "entity": "dashboard_departamento",
+      "fieldName": "poa",
+      "displayName": "POA"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "control_mando",
+      "fieldName": "filter_objetivo",
+      "displayName": "Objetivos Estratégicos"
+    },
+    {
+      "entity": "control_mando",
+      "fieldName": "filter_departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "control_mando",
+      "fieldName": "filter_usuario",
+      "displayName": "Usuario"
+    },
+    {
+      "entity": "control_mando_b",
+      "fieldName": "filter_departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "control_mando_b",
+      "fieldName": "filter_usuario",
+      "displayName": "Usuario"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "programa_sectoriales",
+      "displayName": "Programas Sectoriales"
+    },
+    {
+      "entity": "dashboard",
+      "fieldName":"poa",
+      "displayName": "POA"
+    },
+    {
+      "entity": "dashboard",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "dashboard_cofiguration",
+      "fieldName": "vw_dashboard_poas",
+      "displayName": "POA"
+    },
+    {
+      "entity": "dashboard_cofiguration",
+      "fieldName": "periodos",
+      "displayName": "Periodos"
+    },
+    {
+      "entity": "dashboard_indicadores",
+      "fieldName": "poa",
+      "displayName": "POA"
+    },
+    {
+      "entity": "dashboard_indicadores",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "eje_estrategico",
+      "displayName": "Eje Estratégico"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "objetivo_estrategico",
+      "displayName": "Objetivo Estratégico Institucional"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "objetivo_específico",
+      "displayName": "Objetivo Específico Institucional"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "estrategia",
+      "displayName": "Estrategia"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "resultado",
+      "displayName": "Resultado Esperado"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "indicador",
+      "displayName": "Indicador"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "end",
+      "displayName": "Estrategia Nacional de Desarrollo"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "ods",
+      "displayName": "Objetivo de Desarrollo Sostenible"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "pnpsp",
+      "displayName": "Plan Nacional Plurianual del Sector Público"
+    },
+    {
+      "entity": "organigrama_pei",
+      "fieldName": "politica",
+      "displayName": "Política de Gobierno"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "presupuesto_detenido_departamento",
+      "displayName": "Presupuesto Detenido"
+    },
+    {
+      "entity": "indicador_resultado_pei",
+      "fieldName": "resultado",
+      "displayName": "Resultado Esperado"
+    },
+    {
+      "entity": "indicador_resultado_pei",
+      "fieldName": "estrategia_resultado",
+      "displayName": "Estrategia"
+    },
+    {
+      "entity": "indicador_resultado_pei",
+      "fieldName": "indicador_pei",
+      "displayName": "Indicador PEI"
+    },
+    {
+      "entity": "departamento_poa",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "departamento_poa",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "departamento_poa",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "departamento_poa",
+      "fieldName": "comentarioDepartamental",
+      "displayName": "(Liberar Presupuesto) Comentario"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "presupuesto",
+      "displayName": "Presupuesto Asignado"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "razon",
+      "displayName": "Condición"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "calificacion",
+      "displayName": "Calificación"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "comentario_comment",
+      "displayName": "(Tab de comentarios) Comentario"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName":"descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "range_date2",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "presupuesto_restante",
+      "displayName": "Presupuesto Disponible"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "presupuesto",
+      "displayName": "Presupuesto"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "tipo_inversion",
+      "displayName": "Tipo de inversión"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "bienes_permiso",
+      "displayName": "Código de Bienes y Servicios"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "bienes_permiso_nombre",
+      "displayName": "Descripción de Bienes y Servicios"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "presupuestario",
+      "displayName": "Objeto de Gasto"
+    },
+    {
+      "entity": "actividades_apoyo",
+      "fieldName": "presupuestario_nombre",
+      "displayName": "Descripción del Objeto"
+    },
+    {
+      "entity": "drp_actividades_apoyo",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "drp_actividades_apoyo",
+      "fieldName": "act_apoyo_presupuesto",
+      "displayName": "Presupuesto a Asignar"
+    },
+    {
+      "entity": "drp_actividades_apoyo",
+      "fieldName": "razon",
+      "displayName": "Condición"
+    },
+    {
+      "entity": "drp_actividades_apoyo",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "indicador_producto_poa",
+      "fieldName": "producto",
+      "displayName": "Proyecto/Producto"
+    },
+    {
+      "entity": "indicador_producto_poa",
+      "fieldName": "departamento_nombre",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "indicador_producto_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha Inicio / Fecha Fin"
+    },
+    {
+      "entity": "indicador_producto_poa",
+      "fieldName": "indicador_poa",
+      "displayName": "Indicador"
+    },
+    {
+      "entity": "indicador_producto_poa",
+      "fieldName": "departamentoX",
+      "displayName": "Proyecto/Producto - Departamento"
+    },
+    {
+      "entity": "indicador_producto_poa_actividad",
+      "fieldName": "producto",
+      "displayName": "Indicador de Proyecto/Producto"
+    },
+    {
+      "entity": "indicador_producto_poa_actividad",
+      "fieldName": "actividad",
+      "displayName": "Nombre de Actividad"
+    },
+    {
+      "entity": "indicador_producto_poa_actividad",
+      "fieldName": "departamento_nombre",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "indicador_producto_poa_actividad",
+      "fieldName": "indicador_poa",
+      "displayName": "Indicador de Actividad"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "pei",
+      "displayName": "PEI"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "eje_estrategico_pei",
+      "displayName": "Eje Estratégico"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "objetivo_estrategico_pei",
+      "displayName": "Objetivo Estratégico"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "estrategia_pei",
+      "displayName": "Estrategia"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "resultado_pei",
+      "displayName": "Resultado Esperado"
+    },
+    {
+      "entity": "filtros_pei",
+      "fieldName": "estado_pei",
+      "displayName": "Estado"
+    },
+    {
+      "entity": "filtros_poa",
+      "fieldName": "poa",
+      "displayName": "POA"
+    },
+    {
+      "entity": "filtros_poa",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "filtros_poa",
+      "fieldName": "productos_poa",
+      "displayName": "Proyecto/Producto"
+    },
+    {
+      "entity": "filtros_poa",
+      "fieldName": "actividades_poa",
+      "displayName": "Actividades"
+    },
+    {
+      "entity": "razon",
+      "fieldName": "nombre_razon",
+      "displayName": "Condición"
+    },
+    {
+      "entity": "razon",
+      "fieldName": "tipo",
+      "displayName": "Sección"
+    },
+    {
+      "entity": "razon",
+      "fieldName": "description",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "clasificadores",
+      "fieldName": "code",
+      "displayName": "Código"
+    },
+    {
+      "entity": "clasificadores",
+      "fieldName": "nombre_clasificador",
+      "displayName": "Clasificador"
+    },
+    {
+      "entity": "clasificadores",
+      "fieldName": "description",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "razon",
+      "fieldName": "compania",
+      "displayName": "Compañía"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "producto",
+      "displayName": "Proyecto/Producto"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "involucrados",
+      "displayName": "Involucrados"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "fecha_inicio",
+      "displayName": "Fecha inicio"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "fecha_fin",
+      "displayName": "Fecha fin"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "resultado",
+      "displayName": "Resultado Esperado"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "presupuesto_pro",
+      "displayName": "Presupuesto asignado al Dpto."
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "presupuesto_restante",
+      "displayName": "Presupuesto Restante"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "presupuesto",
+      "displayName": "Presupuesto Asignado a las Actividades"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "tipo_inversion",
+      "displayName": "Tipo de inversión"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "bienes_permiso",
+      "displayName": "Código de Bienes y Servicios"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "bienes_permiso_nombre",
+      "displayName": "Descripción de Bienes y Servicios"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "presupuestario",
+      "displayName": "Objeto de Gasto"
+    },
+    {
+      "entity": "actividades_poa",
+      "fieldName": "presupuestario_nombre",
+      "displayName": "Descripción del Objeto"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "departamento_solicitado",
+      "displayName": "Departamento a solicitar"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "clientes_compromiso",
+      "fieldName": "compromiso",
+      "displayName": "Compromiso institucional"
+    },
+    {
+      "entity": "clientes_institucion",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "clientes_institucion",
+      "fieldName": "compromiso_institucional",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "aliniacion_end_mul",
+      "displayName": "Estrategia nacional de desarrollo"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "aliniacion_pnpsp_mul",
+      "displayName": "Plan nacional plurianual del sector publico"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "aliniacion_ods_mul",
+      "displayName": "Objetivos de desarrollo sostenible"
+    },
+    {
+      "entity": "eje_estrategico",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "eje_estrategico",
+      "displayName": "Eje Estratégico"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "objetivo_estrategico",
+      "displayName": "Objetivo Estratégico"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "objetivos_especificos",
+      "displayName": "Objetivos Específicos END"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "fortaleza",
+      "displayName": "Fortalezas"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "oportunidad",
+      "displayName": "Oportunidades"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "debilidad",
+      "displayName": "Debilidades"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "amenaza",
+      "displayName": "Amenazas"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "politico",
+      "displayName": "Político"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "economico",
+      "displayName": "Económico"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "social",
+      "displayName": "Social"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "tecnologico",
+      "displayName": "Tecnológico"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "ambiental",
+      "displayName": "Ambiental"
+    },
+    {
+      "entity": "estrategia",
+      "fieldName": "legal",
+      "displayName": "Legal"
+    },
+    {
+      "entity": "foda_items",
+      "fieldName": "description",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "perspectiva",
+      "displayName": "Perspectiva"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "objetivos_generales",
+      "displayName": "Objetivos Generales END"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "objetivos_especificos",
+      "displayName": "Objetivos Específicos END"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "lineas_accion",
+      "displayName": "Líneas de Acción"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "ods",
+      "displayName": "Objetivos de Desarrollo Sostenible"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "metasshi",
+      "displayName": "Metas de los Objetivos de Desarrollo Sostenible"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "compromisos_nacionales",
+      "displayName": "Compromisos Nacionales"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "compromisos_internacionales",
+      "displayName": "Compromisos Internacionales"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "metas_compromisos_nacionales",
+      "displayName": "Metas Compromisos Nacionales Relacionados"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "metas_compromisos_internacionales",
+      "displayName": "Metas Compromisos Internacionales Relacionados"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "supuestos",
+      "displayName": "Supuestos"
+    },
+    {
+      "entity": "resultado",
+      "fieldName": "denominacion_pnpsp",
+      "displayName": "Denominaciones de los PNPSP"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "fuente",
+      "displayName": "Fuente"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "metodo_calculo",
+      "displayName": "Método de Cálculo"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "tipo_meta",
+      "displayName": "Tipo de Meta"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "direccion_meta",
+      "displayName": "Dirección de Meta"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName":"linea_base",
+      "displayName": "Línea Base"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName":"medio_verificacion",
+      "displayName": "Medio de Verificación"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "eje_estrategico",
+      "displayName": "Eje Estratégico"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "objetivo_estrategico",
+      "displayName": "Objetivo Estratégico Institucional"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "estrategia",
+      "displayName": "Estrategia"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "resultado",
+      "displayName": "Resultado Esperado"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "desagregacion_demografica_geografia",
+      "displayName": "Desagregación Demográfica Geográfica"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "caracteristica_indicador",
+      "displayName": "Característica de Indicador"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "observacion",
+      "displayName": "Observación"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "unidad_ejecutora",
+      "displayName": "Unidad Ejecutora"
+    },
+    {
+      "entity": "indicador_pei",
+      "fieldName": "ano_linea_base",
+      "displayName": "Año Línea Base"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "producto",
+      "displayName": "Proyecto/Producto"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "fuente",
+      "displayName": "Fuente"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "metodo_calculo",
+      "displayName": "Método de Cálculo"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "desagregacion_demografica_geografia",
+      "displayName": "Desagregación Demográfica Geográfica"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "caracteristica_indicador",
+      "displayName": "Característica de indicador"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "tipo_meta",
+      "displayName": "Tipo de meta"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "direccion_meta",
+      "displayName": "Dirección de la meta"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "linea_base",
+      "displayName": "Línea Base"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "medio_verificacion",
+      "displayName": "Medio de verificación"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "observacion",
+      "displayName": "Observación"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "indicador_pei",
+      "displayName": "Indicador PEI asociado"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "ano_linea_base",
+      "displayName": "Año Línea Base"
+    },
+    {
+      "entity": "indicador_poa",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "departamento",
+      "displayName": "Departamentos"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "producto",
+      "displayName": "Proyecto/Producto"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "actividades_poa",
+      "displayName": "Actividades"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "fuente",
+      "displayName": "Fuente"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "metodo_calculo",
+      "displayName": "Método de Cálculo"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "desagregacion_demografica_geografia",
+      "displayName": "Desagregación Demográfica Geográfica"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "caracteristica_indicador",
+      "displayName": "Característica de indicador"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "tipo_meta",
+      "displayName": "Tipo de meta"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "direccion_meta",
+      "displayName": "Dirección de la meta"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "linea_base",
+      "displayName": "Línea Base"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "medio_verificacion",
+      "displayName": "Medio de verificación"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "observacion",
+      "displayName": "Observación"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "indicador_poa",
+      "displayName": "Relación Indicador Proyecto/Producto"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "ano_linea_base",
+      "displayName": "Año Línea Base"
+    },
+    {
+      "entity": "indicador_actividad",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "marco_estrategico_valores",
+      "fieldName":"nombre",
+      "displayName": "Valor"
+    },
+    {
+      "entity": "marco_estrategico_valores",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "marco_estrategicos_virtudes",
+      "fieldName": "nombre",
+      "displayName": "Valor"
+    },
+    {
+      "entity": "marco_estrategicos_virtudes",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "objetivo_estrategico",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "objetivo_estrategico",
+      "fieldName": "eje_estrategico",
+      "displayName": "Eje estratégico"
+    },
+    {
+      "entity": "objetivo_estrategico",
+      "fieldName": "Descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "objetivo_estrategico",
+      "fieldName": "alineacionoe",
+      "displayName": "Alineación OE-END"
+    },
+    {
+      "entity": "objetivo_estrategico",
+      "fieldName": "politicas_gobierno",
+      "displayName": "Politicas de Gobierno"
+    },
+    {
+      "entity": "objetivo_estrategico_especifico",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "objetivo_estrategico_especifico",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "pei_admin",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "pei_admin",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "pei_admin",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "pei_admin",
+      "fieldName": "activo",
+      "displayName": "Activo?"
+    },
+    {
+      "entity": "pesta_items",
+      "fieldName": "description",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "poa_admin",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "poa_admin",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "poa_admin",
+      "fieldName": "monitoreo",
+      "displayName": "Monitoreo"
+    },
+    {
+      "entity": "poa_admin",
+      "fieldName": "activo",
+      "displayName": "Activo?"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "valor",
+      "displayName": "Presupuesto del departamento"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "presupuesto_consumido_departamento",
+      "displayName": "Presupuesto actividades asignado"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "presupuesto_detenido_departamento",
+      "displayName": "Presupuesto Detenido"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "restante_departamento",
+      "displayName": "Presupuesto restante del departamento"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "restante_modi",
+      "displayName": "Presupuesto institucional restante",
+      "cousin": "restante"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "presupuesto_institucional_p",
+      "displayName": "Presupuesto Institucional"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "presupuesto_consumido",
+      "displayName": "Presupuesto Institucional Asignado"
+    },
+    {
+      "entity": "presupuesto_aprobado",
+      "fieldName": "restante",
+      "displayName": "Presupuesto Institucional Restante"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "resultado",
+      "displayName": "Resultado esperado"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "involucrados",
+      "displayName": "Involucrados"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "estado",
+      "displayName": "Estado"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "end",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "end",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "objetivo",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "objetivo",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "ods",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "ods",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "pnpsp",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "pnpsp",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "productos_poa",
+      "fieldName": "eje_estrategico",
+      "displayName": "sd"
+    },
+    {
+      "entity": "riesgo_probabilidad",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "riesgo_probabilidad",
+      "fieldName": "valor",
+      "displayName": "Valor"
+    },
+    {
+      "entity": "riesgo_probabilidad",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "riesgo_impacto",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "riesgo_impacto",
+      "fieldName": "valor",
+      "displayName": "Valor"
+    },
+    {
+      "entity": "riesgo_impacto",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "riesgo_resultado",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "riesgo_resultado",
+      "fieldName": "color",
+      "displayName": "Color"
+    },
+    {
+      "entity": "riesgo_resultado",
+      "fieldName": "valor",
+      "displayName": "Rango Desde"
+    },
+    {
+      "entity": "riesgo_resultado",
+      "fieldName": "valor_to",
+      "displayName": "Rango Hasta"
+    },
+    {
+      "entity": "riesgo_resultado",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "causa_debilidad",
+      "displayName": "Causa o Debilidad"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "consecuencia",
+      "displayName": "Efecto"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "factor_riesgo",
+      "displayName": "Factor de Riesgo"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "proceso",
+      "displayName": "Proceso"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "probabilidad",
+      "displayName": "Probabilidad"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "impacto",
+      "displayName": "Impacto"
+    },
+    {
+      "entity": "riesgo_a",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "recursos_financieros",
+      "displayName": "Recursos Financieros"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "efectividad",
+      "displayName": "Efectividad(%)"
+    },
+    {
+      "entity": "riesgo_control",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "registro",
+      "displayName": "Registro"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "riesgo_a",
+      "displayName": "Riesgo"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "causa_debilidad",
+      "displayName": "Causa o Debilidad"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "consecuencia",
+      "displayName": "Efecto"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "factor_riesgotext",
+      "displayName": "Factor de Riesgo"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "procesotext",
+      "displayName": "Proceso"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "probabilidad",
+      "displayName": "Probabilidad"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "impacto",
+      "displayName": "Impacto"
+    },
+    {
+      "entity": "riesgo",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_entidad",
+      "displayName": "Entidad",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_registro",
+      "displayName": "Nombre",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_riesgo_a",
+      "displayName": "Riesgo",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_causa_debilidad",
+      "displayName": "Causa o Debilidad",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_consecuencia",
+      "displayName": "Efecto",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_factor_riesgo",
+      "displayName": "Factor de Riesgo",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_proceso",
+      "displayName": "Proceso",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_probabilidad",
+      "displayName": "Probabilidad",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_impacto",
+      "displayName": "Impacto",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "view_descripcion",
+      "displayName": "Descripción",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "estrategia",
+      "displayName": "Estrategia",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "estado_plan_accion",
+      "displayName": "Estado",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "estrategia_nombre",
+      "displayName": "Estrategia (opción Ver)",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "vw_riesgo",
+      "fieldName": "estado_plan_accion_nombre",
+      "displayName": "Estado (opción Ver)",
+      "trueEntity": "riesgo_a"
+    },
+    {
+      "entity": "estrategia_tratamiento",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "estrategia_tratamiento",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "monitoreo_producto",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "monitoreo_producto",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "monitoreo_actividad",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "monitoreo_actividad",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "departamento_solicitado",
+      "displayName": "Departamento Solicitado"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "range_date",
+      "displayName": "Fecha Inicio / Fecha Fin"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "nombre",
+      "displayName": "(Opción Trabajar) Nombre",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "departamento_solicitante",
+      "displayName": "(Opción Trabajar) Departamento Solicitante",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "departamento_solicitado",
+      "displayName": "(Opción Trabajar) Departamento solicitado",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "responsable",
+      "displayName": "(Opción Trabajar) Responsable",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "range_date",
+      "displayName": "(Opción Trabajar) Fecha Inicio / Fecha Fin",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "comentario",
+      "displayName": "(Opción Trabajar) Comentario",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "estatus",
+      "displayName": "(Opción Trabajar) Estado",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "asignacion_especial_poa",
+      "fieldName": "razon",
+      "displayName": "(Opción Trabajar) Condición",
+      "trueEntity": "asignacion_especial_poa_monitoreo"
+    },
+    {
+      "entity": "end",
+      "fieldName": "edt",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "objetivo",
+      "fieldName": "edt",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "objetivo_especifico",
+      "fieldName": "objetivo",
+      "displayName": "Objetivo General"
+    },
+    {
+      "entity": "objetivo_especifico",
+      "fieldName": "edt",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "objetivo_especifico",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "objetivo_especifico",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "objetivo",
+      "displayName": "Objetivo General"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "objetivo_especifico",
+      "displayName": "Objetivo Específico"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "edt",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "politicas_gobierno",
+      "displayName": "Políticas Gobierno"
+    },
+    {
+      "entity": "linea_accion",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "mods",
+      "fieldName": "edt",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "mods",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "mods",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "denominacion_pnpsp",
+      "fieldName": "no_secuencia",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "denominacion_pnpsp",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "denominacion_pnpsp",
+      "fieldName": "impacto_denominacion",
+      "displayName": "Impactos de la política"
+    },
+    {
+      "entity": "denominacion_pnpsp",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "monitoreo_productov",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "monitoreo_productov",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "monitoreo_actividadv",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "monitoreo_actividadv",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "vw_desempeno",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "vw_desempeno",
+      "fieldName": "poadd",
+      "displayName": "POA"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "nivel",
+      "displayName": "Nivel"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "segmento",
+      "displayName": "Segmento"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "familia",
+      "displayName": "Familia"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "clase",
+      "displayName": "Clase"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "material",
+      "displayName": "Material"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "desc_es",
+      "displayName": "Descripción en Español"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "desc_en",
+      "displayName": "Descripción en Inglés"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "codigo_clasificador_obj1",
+      "displayName": "Código Clasificador por Objeto del Gasto I"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "codigo_clasificador_obj2",
+      "displayName": "Código clasificador por Objeto del Gasto II"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "desc_clasificador_obj1",
+      "displayName": "Descripción Clasificador por Objeto del Gasto I"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "desc_clasificador_obj2",
+      "displayName": "Descripción Clasificador por Objeto del Gasto II"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "definicion",
+      "displayName": "Definición"
+    },
+    {
+      "entity": "catalogo_bienes_servicios",
+      "fieldName": "sinonimos",
+      "displayName": "Sinónimos"
+    },
+    {
+      "entity": "caracteristica_indicador",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "caracteristica_indicador",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "perspectiva",
+      "fieldName": "no_orden",
+      "displayName": "No. orden"
+    },
+    {
+      "entity": "perspectiva",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "perspectiva",
+      "fieldName": "icono",
+      "displayName": "Ícono"
+    },
+    {
+      "entity": "perspectiva",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "vw_compromiso",
+      "fieldName": "tipo_compromiso",
+      "displayName": "Tipo de Compromiso"
+    },
+    {
+      "entity": "vw_compromiso",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "vw_compromiso",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "otros_compromiso",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "otros_compromiso",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "involucrados",
+      "fieldName": "nombre_completo",
+      "displayName": "Involucrado"
+    },
+    {
+      "entity": "involucrados",
+      "fieldName": "correo",
+      "displayName": "Correo"
+    },
+    {
+      "entity": "involucrados",
+      "fieldName": "tipo",
+      "displayName": "Tipo"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "title",
+      "displayName": "Título"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "rol",
+      "displayName": "Grupo"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "link",
+      "displayName": "Link"
+    },
+    {
+      "entity": "notificacion",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "procedimiento_seleccion",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "procedimiento_seleccion",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "fuente_financiamiento",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "fuente_financiamiento",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "politica_gobierno",
+      "fieldName": "no_secuencia",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "politica_gobierno",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "politica_gobierno",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "impacto_politica",
+      "fieldName": "no_secuencia",
+      "displayName": "No. Secuencia"
+    },
+    {
+      "entity": "impacto_politica",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "impacto_politica",
+      "fieldName": "impacto_denominacion",
+      "displayName": "Denominación Resultado PNPSP"
+    },
+    {
+      "entity": "impacto_politica",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "registro",
+      "displayName": "Registro"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "descripcion",
+      "displayName": "Descripción del Indicador"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "fuente",
+      "displayName": "Fuente"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "metodo_calculo",
+      "displayName": "Método de Cálculo"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "desagregacion_demografica_geografia",
+      "displayName": "Desagregación Demográfica Geográfica"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "caracteristica_indicador",
+      "displayName": "Característica Indicador"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "medio_verificacion",
+      "displayName": "Medio de Verificación"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "observacion",
+      "displayName": "Observación"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "tipo_meta",
+      "displayName": "Tipo de dato de la meta"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "direccion_meta",
+      "displayName": "Dirección de la meta"
+    },
+    {
+      "entity": "indicador_generico",
+      "fieldName": "ano_linea_base",
+      "displayName": "Año Línea Base"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "ano_planificacion",
+      "displayName": "Año de planificación"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "codigo_plan",
+      "displayName": "Código PACC"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "nombre",
+      "displayName": "Plan Anual de Compras y Contrataciones"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "empresa",
+      "displayName": "Entidad Gubernalmental"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "capitulo",
+      "displayName": "Capítulo"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "sub_capitulo",
+      "displayName": "Sub Capítulo"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "fecha_revision",
+      "displayName": "Fecha de revisión"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "fecha_presentacion",
+      "displayName": "Fecha de Presentación"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "ano_planificacion_view",
+      "displayName": "Año de Planificación"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "sigla",
+      "displayName": "Código de la Entidad Gubernalmental"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "unidad",
+      "displayName": "Unidad Ejecutora"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "unidad_compra",
+      "displayName": "Unidad de Compra"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "fecha_aprobacion",
+      "displayName": "Fecha de Aprobación"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "cantidad",
+      "displayName": "Cantidad total de Unidades de Compra"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "version",
+      "displayName": "Versión del Plan"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "pacc",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "transfer_pacc",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "vw_pacc",
+      "fieldName": "comentario_pacc_dept",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "consolidacion",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "consolidacion",
+      "fieldName": "comentario_pacc_dept",
+      "displayName": "(PACC Departamental) Comentario"
+    },
+    {
+      "entity": "unificacion",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "before_descripcion",
+      "displayName": "Descripción Anterior"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "next_descripcion",
+      "displayName": "Descripción Siguiente"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "before_descripcion_larga",
+      "displayName": "Descripción Larga Anterior"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "next_descripcion_larga",
+      "displayName": "Descripción Larga Siguiente"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "status_before",
+      "displayName": "Estatus anteriores"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "status_next",
+      "displayName": "Estatus siguientes"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "color",
+      "displayName": "Color Anterior"
+    },
+    {
+      "entity": "pacc_status",
+      "fieldName": "color_next",
+      "displayName": "Color Siguiente"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "descripcion_before",
+      "displayName": "Descripción Anterior"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "descripcion",
+      "displayName": "Descripción Siguiente"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "descripcion_larga_before",
+      "displayName": "Descripción Larga Anterior"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "descripcion_larga",
+      "displayName": "Descripción Larga Siguiente"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "status_before",
+      "displayName": "Estatus anteriores"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "status_next",
+      "displayName": "Estatus siguientes"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "color",
+      "displayName": "Color Anterior"
+    },
+    {
+      "entity": "pacc_departamento_status",
+      "fieldName": "color_next",
+      "displayName": "Color Siguiente"
+    },
+    {
+      "entity": "aprobacion_mae",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "aprobacion_dgcp",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "aprobacion_digepres",
+      "fieldName": "comentario",
+      "displayName": "Comentario"
+    },
+    {
+      "entity": "vw_auditoria_programa",
+      "fieldName": "ano_planificacion",
+      "displayName": "Año de Planificación"
+    },
+    {
+      "entity": "vw_auditoria_programa",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "vw_auditoria_programa",
+      "fieldName": "range_date",
+      "displayName": "Fecha Inicio / Fecha Fin"
+    },
+    {
+      "entity": "vw_auditoria_programa",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "vw_auditoria_programa",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "range_date",
+      "displayName": "Fecha Inicio / Fecha Fin"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "tipo_auditoria",
+      "displayName": "Tipo de Auditoría"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "objetivo",
+      "displayName": "Objetivos"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "alcance",
+      "displayName": "Alcance"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_plan_departamento",
+      "displayName": "Departamentos Involucrados"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_plan_participantes",
+      "displayName": "Participantes"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_plan_responsable",
+      "displayName": "Auditores"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_plan_proceso",
+      "displayName": "Procesos a Auditar"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_plan_documentos_asociados",
+      "displayName": "Documentos Asociados"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "documento_responsable",
+      "displayName": "(Trabajar Documento Asociado) Agregar Auditores"
+    },
+    {
+      "entity": "auditoria_programa_plan",
+      "fieldName": "observaciones",
+      "displayName": "(Trabajar Documento Asociado) Observación"
+    },
+    {
+      "entity": "vw_correctiva",
+      "fieldName": "plan",
+      "displayName": "Auditoría"
+    },
+    {
+      "entity": "vw_correctiva",
+      "fieldName": "auditoria_nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "vw_correctiva",
+      "fieldName": "auditoria_range_date",
+      "displayName": "Fecha Inicio / Fecha Fin"
+    },
+    {
+      "entity": "vw_correctiva",
+      "fieldName": "auditoria_objetivo",
+      "displayName": "Objetivos"
+    },
+    {
+      "entity": "vw_correctiva",
+      "fieldName": "auditoria_alcance",
+      "displayName": "Alcance"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "ejecucion",
+      "displayName": "Fecha de Ejecución"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "descripcion",
+      "displayName": "Observación de Acción Preventiva"
+    },
+    {
+      "entity": "auditoria_lista_correctiva",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "auditoria_lista_correctiva",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "auditoria_lista_correctiva",
+      "fieldName": "departamento",
+      "displayName": "Departamento"
+    },
+    {
+      "entity": "auditoria_lista_correctiva",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "auditoria_lista_correctiva",
+      "fieldName": "ejecucion",
+      "displayName": "Fecha de Ejecución"
+    },
+    {
+      "entity": "auditoria_lista_preventiva",
+      "fieldName": "descripcion",
+      "displayName": "Observación de Acción Correctiva"
+    },
+    {
+      "entity": "tipo_auditorias",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "tipo_auditorias",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "tipo_auditores",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "tipo_auditores",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "tipo_rol_auditores",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "tipo_rol_auditores",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "tipo_inconformidad",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "tipo_inconformidad",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    }
+  ]
+}

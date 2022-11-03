@@ -1,0 +1,136 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                    <a ng-click="resumen_poa.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="">
+                    <a ng-click="resumen_poa.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div ng-repeat="(key1,value1) in resumen_poa.resumen_poa_fin">
+                <div class="row scrollit" ng-if="value1.data.length > 0">
+                    <table class="table table-bordered" style="margin-top: 20px;">
+                        <tbody class="">
+                        <tr>
+                            <td class="">Eje Estratégico:</td>
+                            <td class="">{{value1.header.eje_estrategico}}</td>
+                        </tr>
+                        <tr>
+                            <td class="">Objetivo Estratégico:</td>
+                            <td class="">{{value1.header.objetivo_estrategico}}</td>
+                        </tr>
+                        <tr>
+                            <td class="">Estrategia:</td>
+                            <td class="">{{value1.header.estrategia}}</td>
+                        </tr>
+                        <tr style="font-weight: bold" ng-show="resumen_poa.session.tipo_institucion == 2">
+                            <td class="">Perspectiva:</td>
+                            <td class="">{{value1.header.perspectiva}}</td>
+                        </tr>
+                        <tr style="font-weight: bold">
+                            <td class="">Resultado Esperado:</td>
+                            <td class="">{{value1.header.resultado}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="resumen_poaTableIndex" class="table table-bordered"
+                           style="margin-top: 15px;">
+                        <thead class="">
+                        <tr class="centralizarth"
+                            style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                            <th ng-show="resumen_poa.session.tipo_institucion == 1" rowspan="3">Proyecto/Producto</th>
+                            <th ng-show="resumen_poa.session.tipo_institucion == 2" rowspan="3">Proyecto/Plan de Acción</th>
+                            <th rowspan="3">Actividades</th>
+                            <th rowspan="3">Fecha Inicio</th>
+                            <th rowspan="3">Fecha Fin</th>
+                            <th colspan="2"> Recursos</th>
+                        </tr>
+                        <tr class="centralizarth"
+                            style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                            <th>No Financieros</th>
+                            <th>Financieros</th>
+                        </tr>
+                        </thead>
+                        <tbody class="">
+                        <tr class="centralizartd" ng-repeat="(key,row) in value1.data">
+                            <td rowspan="{{resumen_poa.rowspanme('producto',row.producto, value1.data)}}"
+                                ng-if="resumen_poa.seeme('producto',row.producto,key, value1.data)">
+                                {{row.producto}}
+                            </td>
+                            <td>{{row.actividad}}</td>
+                            <td>{{row.fecha_inicio}}</td>
+                            <td>{{row.fecha_fin}}</td>
+                            <td class="">
+                                <ul>
+                                    <li ng-repeat="(key3, value3) in row.nofinancieros">
+                                        {{value3}}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="alinearNumeros">{{row.presupuesto ?
+                                resumen_poa.LAN.money(row.presupuesto).format(true) : ''}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="" id="resumen_poaTable" style="display: none">
+            <table class="table table-bordered">
+                <thead class="">
+                <tr class="centralizarth">
+                    <th style="text-align: center;" rowspan="2">Eje Estratégico</th>
+                    <th style="text-align: center;" rowspan="2">Objetivo Estratégico</th>
+                    <th style="text-align: center;" rowspan="2">Estrategia</th>
+                    <th ng-if="resumen_poa.session.tipo_institucion == 2" style="text-align: center;" rowspan="2">Perspectiva</th>
+                    <th style="text-align: center;" rowspan="2">Resultado Esperado</th>
+                    <th style="text-align: center;" rowspan="2">Proyecto/Producto</th>
+                    <th style="text-align: center;" rowspan="2">Actividades</th>
+                    <th style="text-align: center;" rowspan="2">Fecha Inicio</th>
+                    <th style="text-align: center;" rowspan="2">Fecha Fin</th>
+                    <th colspan="2"> Recursos</th>
+                </tr>
+                <tr class="centralizarth">
+                    <th >No Financieros</th>
+                    <th >Financieros</th>
+                </tr>
+                </thead>
+                <tbody class="">
+                <tr ng-repeat="(key,row) in resumen_poa.excelData">
+                    <td style="vertical-align: middle;">{{row.header_data[0].header.eje_estrategico}}</td>
+                    <td style="vertical-align: middle;">{{row.header_data[0].header.objetivo_estrategico}}</td>
+                    <td style="vertical-align: middle;">{{row.header_data[0].header.estrategia}}</td>
+                    <td ng-if="resumen_poa.session.tipo_institucion == 2" style="vertical-align: middle;">{{row.header_data[0].header.perspectiva}}</td>
+                    <td style="vertical-align: middle;">{{row.header_data[0].header.resultado}}</td>
+                    <td style="vertical-align: middle;">{{row.producto}}</td>
+                    <td style="vertical-align: middle;">{{row.actividad}}</td>
+                    <td style="vertical-align: middle;">{{row.fecha_inicio}}</td>
+                    <td style="vertical-align: middle;">{{row.fecha_fin}}</td>
+                    <td style="text-align: left; vertical-align: middle;">
+                        <ul>
+                            <li ng-repeat="(key3, value3) in row.nofinancieros">
+                                {{value3}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td style="text-align: left; vertical-align: middle;">{{row.presupuesto ?
+                        resumen_poa.LAN.money(row.presupuesto).format(false) : ''}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div><!--end-->
+
+
+

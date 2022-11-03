@@ -1,0 +1,34 @@
+<script>
+    <%= scope %>.loadAllThis = (data) => {
+        setTimeout(() => {
+            data.forEach((grafico, ix) => {
+                <%= scope %>.dibujaGracfico(grafico.divID, grafico.porcentaje, grafico.color, 300, 250);
+            });
+        }, 50);
+    };
+
+    <%= scope %>.loadThis = (name, data) => {
+        setTimeout(() => {
+            <%= scope %>.dibujaGracfico(`${name}`, data.porcentaje, data.color, 300, 250);
+        }, 50);
+    };
+
+    <%= scope %>.exportXLS = function () {
+        if(<%= scope %>.modolista){
+            var url = $("#exportelementos").excelexportjs({
+                containerid: "exportelementos",
+                datatype: 'table',
+                worksheetName: <%= scope %>.REPORTING.titulo,
+                returnUri: true
+            });
+            DOWNLOAD.excel(<%= scope %>.REPORTING.titulo, url);
+        }else{
+            $("#exportelementos").printThis({
+                importCSS: false,                // import parent page css
+                loadCSS: "../styles/planificacion/stylePrint.css?node="+new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                printDelay: 333,
+                pageTitle:<%= scope %>.REPORTING.titulo
+            });
+        }
+    };
+</script>

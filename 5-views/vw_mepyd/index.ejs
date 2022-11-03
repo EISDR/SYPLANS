@@ -1,0 +1,49 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                    <a ng-click="<%= scope %>.getrefresh();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;" title="Exportar">
+                    <a ng-click="<%= scope %>.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;" title="PDF">
+                    <a ng-click="<%= scope %>.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="row">
+                <button title="Generar Reporte MEPYD"
+                        type="button" role="button"
+                        class=" btn bg-<%= COLOR.info %>-600 btn-labeled btn-xs"
+                        style="float: right; margin-top: 10px"
+                        ng-click="<%= scope %>.generarReporte()">
+                    <b><i class="icon-grid-alt"></i></b>
+                    Generar Reporte MEPYD
+                </button>
+            </div>
+            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
+                <table class="table table-bordered" id="report" style="margin-top: 15px;width: 4000px">
+                    <%- include('table',{scope:scope}); %>
+                </table>
+            </div>
+            <table id="XLS" style="visibility: hidden">
+                <thead>
+                <tr class="centralizarth">
+                    <th ng-repeat="(key,val) in <%= scope %>.exportFields">{{val.label}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="vertical-align: middle" class="centralizartd"
+                    ng-repeat="(key,rows) in <%= scope %>.report">
+                    <td ng-repeat="(key,val) in <%= scope %>.exportFields">{{<%= scope %>.xlsPrint(rows,val)}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div><!--end-->
+</div>

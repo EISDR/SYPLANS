@@ -1,0 +1,67 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row" ng-show="!pacc_departamental_detail.dont_comment">
+                <div class="row">
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('detail_comentario', scope, {
+                            placeholder: "Comentario"
+                        }) %>
+                    </div>
+                    <div class='col-sm-1 col-md-1'>
+                    </div>
+                    <div class='col-sm-3 col-md-3' ng-show="!pacc_departamental_detail.dont_show_me">
+                        <%- FORM.checkbox('revision', scope, {
+                            text: "¿Revisión?"
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <button
+
+                            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                            onclick="MODAL.close()">
+                        <b><i class="icon-cross2"></i></b>
+                        <language>MESSAGE.ic('mono.cancel')</language>
+                    </button>
+                    <button ng-show="<%= scope %>.form.mode!=='new'"
+                            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                            type="button" role="button"
+                            class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="<%= scope %>.save_coment()">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>MESSAGE.ic('mono.save')</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+                <div class="tab-content" id="vw_comentarios_pacc_dept_detail"
+                     ng-controller="vw_comentarios_pacc_dept_detail as vw_comentarios_pacc_dept_detail">
+                    <div class="panel panel-flat">
+                        <%-
+                        include('../../7-plugins/templates/table/header',{scope:'vw_comentarios_pacc_dept_detail'});
+                        %>
+                        <div class="subcontent">
+                            <%-
+                            include('../../7-plugins/templates/table/base',{scope:'vw_comentarios_pacc_dept_detail'});
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    pacc_departamental_detail.refreshAngular();
+    if (Row_id) {
+        pacc_departamental_detail.id = Row_id;
+    }
+    if (Trimestre) {
+        pacc_departamental_detail.Trimestre = Trimestre;
+    } else {
+        pacc_departamental_detail.Trimestre = undefined;
+    }
+</script>

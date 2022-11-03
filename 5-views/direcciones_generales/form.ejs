@@ -1,0 +1,64 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="direcciones_generales.show_field">
+                <%- FORM.select('viceministerio', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    label: "Viceministerio",
+                    text: "item.nombre",
+                    table: "viceministerios",
+                    columns: ["nombre"],
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <%- FORM.relation("direcciones_area", scope, {
+                table: "direcciones_area",
+                field: "direccion_general",
+                master: null,
+                icon: {class: "archive"}
+            }) %>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    $(function (){
+        $('[name="direcciones_generales_nombre"]').keyup(function (){
+            console.log("hola");
+            setTimeout(function (){
+                if (!DSON.oseaX($('[name="direcciones_generales_nombre"]').val())){
+                    direcciones_generales.validate.nombre.valid = true;
+                    direcciones_generales.validate.nombre.type = "success";
+                    direcciones_generales.refreshAngular();
+                }else {
+                    direcciones_generales.validate.nombre.valid = false;
+                    direcciones_generales.validate.nombre.type = "error";
+                    direcciones_generales.refreshAngular();
+                }
+                direcciones_generales.refreshAngular();
+            },100);
+            direcciones_generales.refreshAngular();
+        })
+
+    });
+</script>
+
+
+

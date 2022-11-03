@@ -1,0 +1,14 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="fortaleza">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space">
+                <%-
+                FORM.textarea('description',scope,{label:"Descripción", placeholder:"Descripción",maxlength:9999})
+                %>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<%- FORM.footer(scope) %>

@@ -1,0 +1,175 @@
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <%- FORM.input("nombre", scope, {maxlength: 255, placeholder:"Actividad"}) %>
+    </div>
+    <div class="col-sm-12 col-md-12" ng-if="mega_producto.session.tipo_institucion == 1">
+        <%-
+        FORM.select("producto", scope, {
+            allownew: true,
+            allowedit: true,
+            allowview: true,
+            allowlist: true,
+            refresh: true,
+            label: "Proyecto/Producto",
+            placeholder: "Productos",
+            text: "item.producto",
+            table: "vw_productos_poa_resultado",
+            columns: ["nombre"],
+            icon: {class:"archive"}
+        })
+        %>
+    </div>
+    <div class="col-sm-12 col-md-12" ng-if="mega_producto.session.tipo_institucion == 2">
+        <%-
+            FORM.select("producto", scope, {
+                allownew: true,
+                allowedit: true,
+                allowview: true,
+                allowlist: true,
+                refresh: true,
+                label: "Proyecto/Plan de Acción",
+                placeholder: "Proyecto/Plan de Acción",
+                text: "item.producto",
+                table: "vw_productos_poa_resultado",
+                columns: ["nombre"],
+                icon: {class:"archive"}
+            })
+        %>
+    </div>
+</div>
+<div class="row">
+    <div> <br/> </div>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <label>Departamento</label>
+        <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.departamento"/>
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <label>Fecha Inicio</label>
+        <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.fecha_inicio.split('T')[0]"/>
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <label>Fecha Fin</label>
+        <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.fecha_fin.split('T')[0]"/>
+    </div>
+    <div class="col-sm-3 col-md-5">
+        <label>Resultado</label>
+        <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.resultado"/>
+    </div>
+</div>
+<div class="row">
+    <div> <br/> </div>
+</div>
+<div class="row">
+    <div> <br/> </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-12 col-md-2 form-group-material form-group has-feedback  has-feedback-left">
+        <label class="control-label is-visible">Presupuesto</label>
+        <input type="text" disabled class="form-control" id="presupuesto_pro" ng-model="actividades_poa.producto_object.presupuesto"/>
+        <div class="form-control-feedback ng-scope" ng-if="actividades_poa.form.options.presupuesto.icon.class!=='none'" style="margin-left: 10px;">
+            <i class="icon-cash3">
+
+            </i>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 form-group-material form-group has-feedback  has-feedback-left">
+        <label class="control-label is-visible">Presupuesto Restante</label>
+        <input type="text" disabled class="form-control" id="presupuesto_restante" value="{{actividades_poa.presupuesto_restante_calculate()}}"/>
+        <div class="form-control-feedback ng-scope" ng-if="actividades_poa.form.options.presupuesto.icon.class!=='none'" style="margin-left: 10px;">
+            <i class="icon-cash3">
+
+            </i>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-2">
+        <%-
+        FORM.format("presupuesto", scope, {
+            isNumber: true,
+            icon: {class: "cash3"},
+            maxlength:15,
+            placeholder: "Presupuesto a Asignar",
+            format: {mask: "000,000,000.00", options: {reverse: true}}
+        })
+        %>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+        <%-
+        FORM.select("responsable", scope, {
+            allownull: false,
+            allowview: false,
+            refresh: true,
+            multiple: false,
+            disabled: false,
+            column: "responsable",
+            table: "usuario",
+            text: "item.nombre + ' ' + item.apellido",
+            icon: {class: "archive"}
+        })
+        %>
+    </div>
+
+</div>
+<div class="row">
+    <div> <br/> </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-4 col-md-4">
+        <%- FORM.daterange("range_date",scope, {
+            from: "fecha_inicio",
+            to: "fecha_fin"
+        })%>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <%- FORM.relation("actividades_apoyo", scope, {
+            text: "item.nombre",
+            table: "actividades_apoyo",
+            field: "actividades_poa",
+            master: null,
+            icon: {class:"archive"}
+        })%>
+    </div>
+</div>
+
+</div>
+<%- FORM.footer(scope) %>
+<script>
+
+    $('[name="actividades_poa_fecha_inicio"]').attr('autocomplete', 'off');
+    $('[name="actividades_poa_fecha_fin"]').attr('autocomplete', 'off');
+
+    // setTimeout(function () {
+    //     $("[name='actividades_poa_producto']").trigger('change');
+    // },500);
+
+    // $("[name='actividades_poa_producto']").change(function () {
+    //
+    //     if(actividades_poa.producto_object) {
+    //
+    //     }
+    //
+    // });
+    //
+    // $('[name="actividades_poa_fecha_inicio"]').blur(function (){
+    //     actividades_poa.fecha_fin = null;
+    //     if(actividades_poa.producto_object){
+    //         actividades_poa.form.options.fecha_fin.maxDate = actividades_poa.producto_object.fecha_fin.split('T')[0];
+    //     }
+    //
+    //     actividades_poa.form.options.fecha_fin.minDate = actividades_poa.fecha_inicio_DragonClean;
+    //     actividades_poa.refreshAngular();
+    // });
+
+</script>

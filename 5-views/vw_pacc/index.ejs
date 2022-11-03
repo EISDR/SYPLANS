@@ -1,0 +1,237 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent" ng-show="!vw_pacc.show_next_tab">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h5 style="margin-top: 5px; margin-bottom: 5px;">Trabajar PACC General</h5>
+                </div>
+                <div class="panel-body" style="padding-bottom: 0px">
+                    <div>
+                        <div class="row">
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.inputview('codigo_plan', scope, {
+                                    trueplaceholder: "Código PACC",
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.inputview('nombre', scope, {
+                                    trueplaceholder: "PACC",
+                                    inputPlaceholder: "Nombre del PACC",
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.inputview('ano_planificacion_view', scope, {
+                                    trueplaceholder: "Año de Planificación",
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.inputview('cantidad', scope, {
+                                    trueplaceholder: "Cantidad total de Unidades de Compra",
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.date('fecha_revision', scope, {
+                                    placeholder: "Fecha de revisión",
+                                    disabled: true
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.date('fecha_presentacion', scope, {
+                                    disabled: true
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.date('fecha_aprobacion', scope, {
+                                    disabled:true
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.inputview('estatus', scope, {
+                                    trueplaceholder: "Estatus",
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.inputview('descripcion', scope, {}) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                    <li id="todos_tab"  class="active">
+                        <a href="#todos" data-toggle="tab" ng-click="vw_pacc.filterDept(0, vw_pacc.id)" style=" height: 60px;">
+                            <i class="position-left"></i>
+                            <language>Todos</language>
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" ng-repeat="(key, value) in vw_pacc.pacc_departamento_list">
+                        <a href="#oportunidad" data-toggle="tab" ng-click="vw_pacc.show_paccDetail(value)" style=" height: 60px;">
+                            <i class="position-left"></i>
+                            <language>{{value.departamento_nombre}}</language>
+                            <br>
+                            <small>{{value.estatus_nombre}}</small>
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="pacc_departamental" ng-controller="pacc_departamental as pacc_departamental">
+                <div class="panel panel-flat">
+                    <%-
+                        include('../../7-plugins/templates/table/header',{scope:'pacc_departamental'});
+                    %>
+                    <div class="subcontent">
+                        <%-
+                            include('../../7-plugins/templates/table/base',{scope:'pacc_departamental'});
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent" ng-show="vw_pacc.show_next_tab">
+            <div class="row">
+                <button
+                        style="margin-right: 0; float: right !important"
+                        dragonlanguage="" title="Atrás"
+                        type="button" role="button"
+                        class="bg-<%= COLOR.warning %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                        ng-click="vw_pacc.back()">
+                    <b><i class="icon-arrow-left8"></i></b>
+                    Atrás
+                </button>
+            </div>
+            <div class="row">
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('referencia', scope, {
+                        placeholder: "Referencia",
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('departamento', scope, {
+                        placeholder: "Departamento",
+                    }) %>
+                </div>
+                <div class='col-sm-4 col-md-4'>
+                    <%- FORM.inputview('codigo_dept', scope, {
+                        placeholder: "Código",
+                    }) %>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h5 style="margin-top: 5px; margin-bottom: 5px;">Evaluar PACC Departamental</h5>
+                </div>
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class='col-sm-8 col-md-8'>
+                            <%- FORM.textarea('comentario_pacc_dept', scope, {
+                                placeholder: "Comentario",
+                                inputPlaceholder: "Escriba su comentario",
+                                link: "Ver comentarios",
+                                link_title: "Dar clic para ver los comentarios..."
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.inputview('pacc_departamento_show_estatus', scope, {
+                                trueplaceholder: "Estado",
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4' ng-show="false">
+                            <%- FORM.select('pacc_departamento_estatus', scope, {
+                                allownull:false,
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                column: "nombre",
+                                table: "pacc_departamento_status",
+                                text: "item.nombre + '(' + item.descripcion + ')'",
+                                query: {
+                                    order: "desc",
+                                    orderby: "id",
+                                },
+                                label: "Estatus",
+                                icon: {class: "cube"}
+                            }) %>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="!vw_pacc.evaluated">
+                        <button
+
+                                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                                ng-click="vw_pacc.go_back()">
+                            <b><i class="icon-cross2"></i></b>
+                            <language>Volver atrás</language>
+                        </button>
+                        <button ng-repeat="(key, value) in vw_pacc.next_status.data"
+                                style="background-color: {{value.color}}; color: white; float: right !important"
+                                dragonlanguage="" title="{{value.descripcion_larga}}"
+                                type="button" role="button"
+                                class=" btn btn-labeled btn-xs pull-right"
+                                ng-click="<%= scope %>.save_comment(value.id, 'next')">
+                            <b><i class="icon-floppy-disk"></i></b>
+                            {{value.descripcion}}
+                        </button>
+                        <button ng-repeat="(key, value) in vw_pacc.before_status.data"
+                                style="background-color: {{value.color}}; color: white; float: right !important"
+                                dragonlanguage="" title="{{value.descripcion_larga}}"
+                                type="button" role="button"
+                                class=" btn btn-labeled btn-xs pull-right"
+                                ng-click="<%= scope %>.save_comment(value.id, 'before')">
+                            <b><i class="icon-floppy-disk"></i></b>
+                            {{value.descripcion}}
+                        </button>
+                    </div>
+                    <div class="row" ng-show="vw_pacc.evaluated">
+                        <button
+                                dragonlanguage="" title="Continuar"
+                                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="vw_pacc.go_back()">
+                            <b><i class="icon-arrow-right8"></i></b>
+                            <language>Continuar</language>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                        <label class="labelRedondo"> Revisión </label></li>
+                    <li><label class="ponerRedondo" style="background-color: #e0c10d;"></label>
+                        <label class="labelRedondo"> Trabajado </label></li>
+                    <li><label class="ponerRedondo" style="background-color: #c2c2c2;"></label>
+                        <label class="labelRedondo"> Normal </label></li>
+                </ul>
+            </div>
+            <div class="row" id="vw_pacc_departamental_detail" ng-controller="vw_pacc_departamental_detail as vw_pacc_departamental_detail">
+                <div class="panel panel-flat">
+                    <%-
+                    include('../../7-plugins/templates/table/header',{scope:'vw_pacc_departamental_detail'});
+                    %>
+                    <div class="subcontent">
+                        <%-
+                                include('../../5-views/vw_pacc_departamental_detail/base',{scope:'vw_pacc_departamental_detail'});
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

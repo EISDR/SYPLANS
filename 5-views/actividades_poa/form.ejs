@@ -1,0 +1,403 @@
+<div ng-show="actividades_poa.showMsjNo">
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <%- FORM.textarea("nombre", scope, {maxlength: 1000, placeholder: "Actividad"}) %>
+    </div>
+    <div class="col-sm-4 col-md-4" ng-show="!actividades_poa.dont_show_productos">
+        <%-
+        FORM.select("departamento", scope, {
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: false,
+            multiple: false,
+            truelabel: "Departamento",
+            placeholder: "Departamentos",
+            text: "item.nombre",
+            table: "drp_departamento_actvidades",
+            columns: ["nombre"],
+            icon: {class: "archive"},
+            condition: "item.poa = actividades_poa.session.poa_id && item.active == 1"
+        })
+        %>
+    </div>
+    <div class="col-sm-4 col-md-4" ng-if="actividades_poa.session.tipo_institucion == 1" ng-show="!actividades_poa.dont_show_productos">
+        <%-
+        FORM.select("producto", scope, {
+            // allownew: false,
+            // allowedit: false,
+            // allowview: false,
+            // allowlist: false,
+            // refresh: false,
+            multiple: false,
+            truelabel: "Proyecto/Producto",
+            permission: "productos_poa",
+            placeholder: "Productos",
+            text: "item.producto",
+            table: "vw_productos_poa_resultado_corta",
+            columns: ["producto"],
+            icon: {class: "archive"},
+            condition: "item.departamento_id == actividades_poa.departamento && item.poa == actividades_poa.poa_id"
+        })
+        %>
+    </div>
+    <div class="col-sm-4 col-md-4" ng-if="actividades_poa.session.tipo_institucion == 2" ng-show="!actividades_poa.dont_show_productos">
+        <%-
+        FORM.select("producto", scope, {
+            // allownew: false,
+            // allowedit: false,
+            // allowview: false,
+            // allowlist: false,
+            // refresh: false,
+            multiple: false,
+            label: "Proyecto/Plan de Acción",
+            permission: "productos_poa",
+            placeholder: "Proyecto/Plan de Acción",
+            text: "item.producto",
+            table: "vw_productos_poa_resultado_corta",
+            columns: ["producto"],
+            icon: {class: "archive"},
+            condition: "item.departamento_id == actividades_poa.departamento && item.poa == actividades_poa.poa_id"
+        })
+        %>
+    </div>
+    <div class="col-sm-4 col-md-4" ng-show="actividades_poa.dont_show_productos">
+        <%- FORM.inputview("show_dept", scope, {placeholder: "Departamento", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-4 col-md-4" ng-show="actividades_poa.dont_show_productos">
+        <%- FORM.inputview("show_prod", scope, {placeholder: "Producto", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-4 col-md-4">
+        <%- FORM.select("involucrados", scope, {
+            column: "involucrados",
+            allownew: false,
+            allowedit: false,
+            allowlist: false,
+            allowview: false,
+            multiple: true,
+            permission: "resultado",
+            text: "item.nombre_completo",
+            table: "involucrados",
+            icon: {class: "archive"},
+            label: "Involucrados",
+            condition: "(item.compania == actividades_poa.session.compania_id && item.active == 1) && (item.tipo == 5)",
+            get: {
+                table: 'actividades_poa_involucrado',
+                tableDelete: 'actividades_poa_involucrado',
+                fieldFrom: 'id',
+                fieldTo: 'actividad',
+                field: 'involucrado'
+            }
+        }) %>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-2 col-md-2">
+        <label>Fecha inicio</label>
+        <input type="text" disabled class="form-control"
+               ng-model="actividades_poa.producto_poa_fecha_inicio"/>
+    </div>
+    <div class="col-sm-2 col-md-2">
+        <label>Fecha fin</label>
+        <input type="text" disabled class="form-control"
+               ng-model="actividades_poa.producto_poa_fecha_fin"/>
+    </div>
+    <div class="col-sm-8 col-md-8" ng-show="actividades_poa.dont_show_productos">
+        <%- FORM.inputview("show_resultado", scope, {placeholder: "Resultado Esperado", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-8 col-md-8" ng-show="!actividades_poa.dont_show_productos">
+        <label>Resultado Esperado</label>
+        <input type="text" disabled class="form-control"
+               ng-model="actividades_poa.form.selected('producto').resultado"/>
+    </div>
+</div>
+
+<div class="row">
+    <div><br/></div>
+</div>
+
+
+<div ng-style="!actividades_poa.maneja_presupuesto ? {'margin-left': '-10px', 'margin-right': '-10px'} : ''"
+     ng-class="actividades_poa.maneja_presupuesto ? 'row': ''">
+    <div class="col-sm-2 col-md-2 form-group-material has-feedback  has-feedback-left" ng-show="!actividades_poa.dont_show_productos">
+        <%-
+        FORM.money("presupuesto_pro", scope, {placeholder: "Presupuesto asignado al Dpto.", disabled: true})
+        %>
+    </div>
+    <div class="col-sm-2 col-md-2" ng-show="actividades_poa.dont_show_productos">
+        <%- FORM.inputview("show_presupuesto", scope, {placeholder: "Presupuesto asignado al Dpto.", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-2 col-md-2 form-group-material  has-feedback  has-feedback-left">
+        <%-
+        FORM.money("presupuesto_restante", scope, {
+            label: "Presupuesto Restante",
+            placeholder: "Presupuesto Restante",
+            disabled: true
+        })
+        %>
+    </div>
+    <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic">
+        <%- FORM.checkbox("maneja_presupuesto", scope, {text: "¿Maneja el presupuesto en las actividades apoyo?"}) %>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <%-
+        FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado a las actividades", maxlength: 15})
+        %>
+    </div>
+</div>
+<div class="row">
+    <br>
+</div>
+<div>
+    <div class="col-sm-3 col-md-3">
+        <%- FORM.daterange("range_date", scope, {
+            from: "fecha_inicio",
+            to: "fecha_fin"
+        }) %>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <%-
+        FORM.select("responsable", scope, {
+            allowview: false,
+            refresh: true,
+            multiple: false,
+            disabled: false,
+            column: "responsable",
+            table: "vw_usuario",
+            controller: "usuario",
+            permission: "usuario",
+            text: "item.nombre + ' ' + item.apellido",
+            condition: "((item.departamento == actividades_poa.departamento || item.secundarios.indexOf('('+actividades_poa.departamento+')')!==-1) && item.compania ==  actividades_poa.compania) && (item.active)",
+            icon: {class: "archive"}
+        })
+        %>
+    </div>
+    <div ng-show="actividades_poa.session.maneja_pacc == 1">
+        <div class="col-sm-3 col-md-3" ng-show="!actividades_poa.maneja_presupuesto">
+            <%-
+            FORM.select("tipo_inversion", scope, {
+                allowedit: false,
+                allownew: false,
+                allowview: false,
+                allowlist: false,
+                refresh: true,
+                multiple: false,
+                disabled: false,
+                label: "Tipo de inversión",
+                column: "tipo_inversion",
+                table: "tipo_inversion",
+                text: "item.nombre",
+                icon: {class: "archive"}
+            })
+            %>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div><br/></div>
+</div>
+<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1 && !actividades_poa.maneja_presupuesto"
+     style="margin-top: 20px">
+    <div class="col-sm-12 col-md-12">
+        <button
+                title="{{actividades_poa.bienes_permiso?'Cambie':'Seleccione'}} Código CBS, Descripción u Objeto de Gasto, mediante una búsqueda rápida."
+                type="button" role="button"
+                class=" btn bg-{{actividades_poa.bienes_permiso?'success':'warning'}}-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.cbslist()">
+            <b><i class="icon-search4"></i></b>
+            {{actividades_poa.bienes_permiso?'Cambie':'Seleccione'}} el Código CBS, Descripción u Objeto de Gasto.
+        </button>
+    </div>
+</div>
+<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1" style="margin-top: 20px">
+    <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
+        <%- FORM.inputview("bienes_permiso", scope, {placeholder: "Código de Bienes y Servicios", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
+        <%- FORM.inputview("bienes_permiso_nombre", scope, {
+            placeholder: "Descripción de Bienes y Servicios",
+            posttype: "text"
+        }) %>
+    </div>
+</div>
+<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1">
+    <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
+        <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
+    </div>
+    <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
+        <%- FORM.inputview("presupuestario_nombre", scope, {placeholder: "Descripción del Objeto", posttype: "text"}) %>
+    </div>
+</div>
+<div class="row">
+    <div><br/></div>
+</div>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="actividades_poa.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+        <button ng-show="<%= scope %>.form.mode!=='new'"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+            <button
+                    style="margin-right: 1px !important;"
+                    dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                    ng-click="<%= scope %>.pages.form.save()">
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>MESSAGE.ic('mono.save')</language>
+            </button>
+            <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                     data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-left">
+                <li>
+                    <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                        <i class="icon-floppy-disks"></i>
+                        <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+<div class="panel panel-flat" id="tabsAsig">
+    <div class="subcontent" style="padding-top: 50px;">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="active_asignacion">
+                <a href="#actCrear" data-toggle="tab" ng-click="">
+                    <i class="position-left"></i>
+                    Actividades Apoyo
+                    <i class="border-white  position-right"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="actCrear">
+                <%- FORM.relation("actividades_apoyo", scope, {
+                    text: "item.nombre",
+                    table: "actividades_apoyo",
+                    field: "actividades_poa",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="actividades_poa.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+        <button ng-show="<%= scope %>.form.mode!=='new'"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+            <button
+                    style="margin-right: 1px !important;"
+                    dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                    ng-click="<%= scope %>.pages.form.save()">
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>MESSAGE.ic('mono.save')</language>
+            </button>
+            <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                     data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-left">
+                <li>
+                    <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                        <i class="icon-floppy-disks"></i>
+                        <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ng-show="actividades_poa.showMsjSi">
+
+    <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+        <language>Necesitas llenar los campos (Nombre, Departamento, Resultado, Fecha inicio y Fecha fin) en el formulario de Productos
+        </language>
+    </div>
+</div>
+
+<script>
+    $('[name="actividades_poa_fecha_inicio"]').attr('autocomplete', 'off');
+    $('[name="actividades_poa_fecha_fin"]').attr('autocomplete', 'off');
+    actividades_poa.presupuesto_restante = LAN.money(actividades_poa.presupuesto_restante_calculate()).format(false);
+    if (typeof productos_poa !== 'undefined') {
+        if (typeof productos_poa !== 'not defined') {
+            if (productos_poa) {
+                actividades_poa.producto_poa_fecha_inicio = moment(productos_poa.fecha_inicio.split('T')[0]).format('DD/MM/YYYY');
+                actividades_poa.producto_poa_fecha_fin = moment(productos_poa.fecha_fin.split('T')[0]).format('DD/MM/YYYY');
+                actividades_poa.departamento = productos_poa.departamento_object ? productos_poa.departamento_object.id + "" : "";
+                actividades_poa.departamento = productos_poa.departamento_object ? productos_poa.departamento_object.id + "" : "";
+                actividades_poa.form.loadDropDown('departamento');
+            }
+        }
+    }
+    document.getElementById("closeModal").onclick = actividades_poa.closeModal = function () {
+        if (actividades_poa.form.mode == 'new'){
+            BASEAPI.deleteall('actividades_apoyo', [
+                {
+                    field: "tempid",
+                    value: actividades_poa.actividades_apoyo
+                }
+            ], function (result) {
+                actividades_poa.dont_show_productos = false;
+                MODAL.close();
+            });
+        }else{
+            actividades_poa.dont_show_productos = false;
+            MODAL.close();
+        }
+    }
+    // $('[name="bienes_permiso"]').select2();
+    // $('[name="bienes_permiso_nombre"]').select2();
+    // $('[name="bienes_permiso"]').on('change', function (){
+    //     actividades_poa.biene_permiso_nombre = $(this).children("option:selected").attr('nombre');
+    //     $('[name="bienes_permiso_nombre"]').val(actividades_poa.biene_permiso_nombre);
+    //     $('[name="bienes_permiso_nombre"]').trigger('change.select2');
+    // });
+    // $('[name="bienes_permiso_nombre"]').on('change', function (){
+    //     actividades_poa.biene_permiso = $(this).children("option:selected").attr('material');
+    //     $('[name="bienes_permiso"]').val(actividades_poa.biene_permiso);
+    //     $('[name="bienes_permiso"]').trigger('change.select2');
+    // });
+</script>

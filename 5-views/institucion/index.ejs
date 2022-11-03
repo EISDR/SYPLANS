@@ -1,0 +1,20 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+
+    <div class="panel panel-flat">
+
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row">
+                <button style="margin: 10px;float: left"
+                        dragonlanguage=""
+                        ng-click="institucion.volver();"
+                        type="button" role="button" class=" btn btn-labeled btn-xs pull-right bg-warning-800">
+                    <b><i class="icon-arrow-left7"></i></b>
+                    <language>Volver a Compañías</language>
+                </button>
+            </div>
+
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

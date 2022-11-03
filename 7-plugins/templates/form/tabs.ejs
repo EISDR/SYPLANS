@@ -1,0 +1,11 @@
+<ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+    <% var first = "active"; for(var tab of tabs) { %>
+        <li class="<%= first %>">
+            <a href="#<%= tab.id %>" data-toggle="tab" id="tab<%= tab.id %>">
+                <i class="<%= tab.icon %> position-left" style="<%= tab.icon_style %>"></i>
+                <language>MESSAGE.icspace('columns.<%= tab.text %>','<%= tab.text %>')</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+    <% first = ""; } %>
+</ul>

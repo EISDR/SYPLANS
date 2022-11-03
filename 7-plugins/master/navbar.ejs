@@ -1,0 +1,850 @@
+<!-- Main navbar -->
+<div class="navbar navbar-inverse  bg-<%= COLOR.primary %>-700" ng-show="baseController.isLogged"
+     style="border-top-right-radius: 20px;    border-top-left-radius: 20px;">
+    <div class="navbar-header  bg-<%= COLOR.primary %>-700"
+         style="text-align: center;    border-top-left-radius: 20px;">
+        <a class="visible-lg visible-md visible-sm navbar-brand bg-<%= COLOR.primary %>-700 sidebar-mobile-main-toggle"
+           style="width: 100%;padding: 21px; border-top-left-radius: 20px;">
+
+            <span class="navbar-brand-text" ng-if="(baseController.selectedSeparator||'').indexOf('España')===-1"
+                  style="font-size: 50px !important;font-family: Microsoft Himalaya">SYPLANS</span>
+
+            <span class="navbar-brand-text" ng-if="(baseController.selectedSeparator||'').indexOf('España')!==-1"
+                  style="font-size: 50px !important;font-family: Microsoft Himalaya">SYPLANS - ODS</span>
+        </a>
+        <a class="visible-xs navbar-brand bg-<%= COLOR.primary %>-700 sidebar-mobile-main-toggle" style="width: 100%">
+            <span id="apptitle" class="navbar-brand-text" style="font-family: Microsoft Himalaya">
+                SYPLANS
+            </span>
+        </a>
+        <ul class="nav navbar-nav visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-mobile" ng-show="!baseController.isClient">
+        <ul ng-show="!baseController.isClient" class="nav navbar-nav">
+            <li>
+                <a id="HideMenu" class=" btn bg-primary legitRipple sidebar-control sidebar-main-toggle hidden-xs"
+                   data-popup="tooltip"
+                   data-placement="bottom" data-container="body"
+                   title="Colapsar o Extender el menú">
+                    <i class=" icon-equalizer2"></i>
+                </a>
+            </li>
+<!--            <li class="dropdown mega-menu mega-menu-wide active">-->
+<!--                <a href="#" class="menutote dropdown-toggle btn bg-primary legitRipple sidebar-control"-->
+<!--                   data-toggle="dropdown"-->
+<!--                   aria-expanded="false">-->
+<!--                    <i class="icon-menu7 position-left"></i> Menu <span class="caret"></span>-->
+<!--                </a>-->
+
+<!--                <div class="dropdown-menu dropdown-content gasbomenu" style="margin-top: -50px;">-->
+<!--                    <div class="dropdown-content-body bg-<%= COLOR.extra %>-700">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-3  bg-<%= COLOR.extra %>-700"-->
+<!--                                 ng-repeat="(s,separator) in baseController.myMenuSeparators()">-->
+<!--                                <span class="menu-heading underlined text-center" style="font-weight: bold">{{separator.text.replaceAll('-','').trim()}}</span>-->
+<!--                                <ul id="dragonmenuSort" data-nivel="1"-->
+<!--                                    class=" sort-menu navigation navigation-main navigation-accordion dragon-menu bg-<%= COLOR.extra %>-700 ">-->
+<!--                                    <li ng-show="{{(menu.condition?$eval(menu.condition):true)}}"-->
+<!--                                        ng-if="!menu.disable && menu.mark===separator.text"-->
+<!--                                        ng-repeat="(key, menu) in baseController.elelemenu"-->
+<!--                                        class="{{menu.class}} jsonData"-->
+<!--                                        data-text="{{menu.text}}" data-href="{{menu.href}}" data-icon="{{menu.icon}}"-->
+<!--                                        data-modal="{{menu.modal}}" data-menus="{{menu.menus}}" ng-class="">-->
+
+
+<!--                                        <a ng-if="menu.disable" href="javascript:void(0)" onclick="false"-->
+<!--                                           data-mark="{{menu.mark}}"-->
+<!--                                           title="{{baseController.menuLabel(menu)}}"-->
+
+<!--                                           style="cursor: auto;text-align: center !important;"-->
+<!--                                           class="bg-extra-500 {{menu.modal?'modalmenu':''}} edit-hide">-->
+<!--                            <span style="text-transform: uppercase">-->
+<!--                                {{baseController.menuLabel(menu)}}-->
+<!--                            </span>-->
+<!--                                        </a>-->
+<!--                                        <a ng-if="!menu.disable" data-modal="{{menu.modal}}" href="{{menu.href}}"-->
+<!--                                           data-mark="{{menu.mark}}"-->
+<!--                                           title="{{baseController.menuLabel(menu)}}"-->
+<!--                                           class="bg-extra-700 {{menu.modal?'modalmenu':''}} edit-hide">-->
+<!--                                            <i class="icon-{{menu.icon}}"></i>-->
+<!--                                            <span style="width: 70% !important;">-->
+<!--                                {{baseController.menuLabel(menu)}}-->
+<!--                            </span>-->
+<!--                                        </a>-->
+
+
+<!--                                        <ul data-nivel="2" class="sort-menu" ng-if="menu.menus">-->
+<!--                                            <li ng-show="{{(segundo.condition?$eval(segundo.condition):true)}}"-->
+<!--                                                ng-repeat="(key2, segundo) in menu.menus"-->
+<!--                                                ng-init="innerIndex2=$parent.$index + '' + $index"-->
+<!--                                                class="{{segundo.class}}"-->
+<!--                                                data-text="{{segundo.text}}" data-href="{{segundo.href}}"-->
+<!--                                                data-icon="{{segundo.icon}}"-->
+<!--                                                data-modal="{{segundo.modal}}" data-menus="{{segundo.menus}}">-->
+<!--                                                <a data-modal="{{segundo.modal}}" href="{{segundo.href}}"-->
+<!--                                                   data-mark="{{segundo.mark}}"-->
+<!--                                                   title="{{baseController.menuLabel(segundo)}}"-->
+<!--                                                   class="bg-extra-700 {{segundo.modal?'modalmenu':''}} edit-hide">-->
+<!--                                                    <i class="icon-{{segundo.icon}}"></i>-->
+<!--                                                    <span style="width: 60% !important;">-->
+<!--                                        {{baseController.menuLabel(segundo)}}-->
+<!--                                     </span>-->
+<!--                                                </a>-->
+
+
+<!--                                                <ul data-nivel="3" class="sort-menu" ng-if="segundo.menus">-->
+<!--                                                    <li ng-show="{{(tercero.condition?$eval(tercero.condition):true)}}"-->
+<!--                                                        ng-repeat="(key3, tercero) in segundo.menus"-->
+<!--                                                        ng-init="innerIndex3= innerIndex2 + '' + $index"-->
+<!--                                                        class="{{tercero.class}}" data-text="{{tercero.text}}"-->
+<!--                                                        data-href="{{tercero.href}}" data-icon="{{tercero.icon}}"-->
+<!--                                                        data-modal="{{tercero.modal}}" data-menus="{{tercero.menus}}">-->
+<!--                                                        <a data-modal="{{tercero.modal}}" href="{{tercero.href}}"-->
+<!--                                                           title="{{baseController.menuLabel(tercero)}}"-->
+<!--                                                           data-mark="{{tercero.mark}}"-->
+<!--                                                           class="bg-extra-700 {{tercero.modal?'modalmenu':''}} edit-hide">-->
+<!--                                                            <i class="icon-{{tercero.icon}}"></i>-->
+<!--                                                            <span style="width: 60% !important;">-->
+<!--                                        {{baseController.menuLabel(tercero)}}-->
+<!--                                     </span>-->
+<!--                                                        </a>-->
+
+
+<!--                                                        <ul class="sort-menu" ng-if="tercero.menus">-->
+<!--                                                            <li ng-repeat="(key4, cuarto) in tercero.menus"-->
+<!--                                                                ng-init="innerIndex4= innerIndex3 + '' + $index"-->
+<!--                                                                class="{{cuarto.class}}" data-text="{{cuarto.text}}"-->
+<!--                                                                data-href="{{cuarto.href}}" data-icon="{{cuarto.icon}}"-->
+<!--                                                                data-modal="{{cuarto.modal}}"-->
+<!--                                                                data-menus="{{cuarto.menus}}">-->
+<!--                                                                <a data-modal="{{cuarto.modal}}" href="{{cuarto.href}}"-->
+<!--                                                                   data-mark="{{cuarto.mark}}"-->
+<!--                                                                   title="{{baseController.menuLabel(cuarto)}}"-->
+<!--                                                                   class="bg-extra-700 {{cuarto.modal?'modalmenu':''}} edit-hide">-->
+<!--                                                                    <i class="icon-{{cuarto.icon}}"></i>-->
+<!--                                                                    <span style="width: 50% !important;">-->
+<!--                                                        {{baseController.menuLabel(cuarto)}}-->
+<!--                                                    </span>-->
+<!--                                                                </a>-->
+
+
+<!--                                                                <div class="form-cuarto-edit{{innerIndex4}} form-menu show-form"-->
+<!--                                                                     style="display: none">-->
+<!--                                                                    <div class="row">-->
+<!--                                                                        <div class="col-md-12">-->
+<!--                                                                            <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                <label class="control-label is-visible animate ng-binding">Nombre</label>-->
+<!--                                                                                <input class="form-control" type="text"-->
+<!--                                                                                       value="{{baseController.menus[key].menus[key2].menus[key3].menus[key4].text}}"-->
+<!--                                                                                       name="text{{'form-cuarto-edit' + innerIndex4}}">-->
+<!--                                                                            </div>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="row">-->
+<!--                                                                        <div class="col-md-12">-->
+<!--                                                                            <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                <label class="control-label is-visible animate ng-binding">URL</label>-->
+<!--                                                                                <input class="form-control" type="text"-->
+<!--                                                                                       value="{{baseController.menus[key].menus[key2].menus[key3].menus[key4].href}}"-->
+<!--                                                                                       name="href{{'form-cuarto-edit' + innerIndex4}}">-->
+<!--                                                                            </div>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="row">-->
+<!--                                                                        <div class="col-md-12">-->
+<!--                                                                            <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                <label class="control-label is-visible">Iconos</label>-->
+<!--                                                                                <select id="icon{{'form-cuarto-edit' + innerIndex4}}"-->
+<!--                                                                                        name="icon{{'form-cuarto-edit' + innerIndex4}}">-->
+<!--                                                                                    <option value="">Seleccione un-->
+<!--                                                                                        icono-->
+<!--                                                                                    </option>-->
+<!--                                                                                    <option ng-repeat="icon in baseController.iconList"-->
+<!--                                                                                            ng-selected="{{icon == baseController.menus[key].menus[key2].menus[key3].menus[key4].icon}}"-->
+<!--                                                                                            data-icon="{{icon}}"-->
+<!--                                                                                            value="{{icon}}">-->
+<!--                                                                                        {{icon}}-->
+<!--                                                                                    </option>-->
+<!--                                                                                </select>-->
+<!--                                                                            </div>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="row">-->
+<!--                                                                        <div class="col-md-12"-->
+<!--                                                                             style="text-align: right;">-->
+<!--                                                                            <input class="form-check-input"-->
+<!--                                                                                   type="checkbox"-->
+<!--                                                                                   name="modal_full{{'form-cuarto-edit' + innerIndex4}}"-->
+<!--                                                                                   ng-checked="baseController.menus[key].menus[key2].menus[key3].menus[key4].modal">-->
+<!--                                                                            <label class="form-check-label"-->
+<!--                                                                                   for="defaultCheck1">-->
+<!--                                                                                Abrir menú en un modal-->
+<!--                                                                            </label>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="row" style="text-align: center">-->
+<!--                                                                        <button type="button"-->
+<!--                                                                                ng-click="baseController.edit_menu('cuarto', 'form-cuarto-edit', innerIndex4, key, key2, key3, key4)"-->
+<!--                                                                                class="swal2-confirm btn btn-xs btn-success"-->
+<!--                                                                                aria-label="">Guardar-->
+<!--                                                                        </button>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
+
+<!--                                                                <ul class="sort-menu" ng-if="cuarto.menus">-->
+<!--                                                                    <li ng-repeat="(key5, quinto) in cuarto.menus track by key5"-->
+<!--                                                                        ng-init="innerIndex5= innerIndex4 + '' + $index"-->
+<!--                                                                        class="{{quinto.class}}"-->
+<!--                                                                        data-text="{{quinto.text}}"-->
+<!--                                                                        data-href="{{quinto.href}}"-->
+<!--                                                                        data-icon="{{quinto.icon}}"-->
+<!--                                                                        data-modal="{{quinto.modal}}">-->
+<!--                                                                        <a data-modal="{{quinto.modal}}"-->
+<!--                                                                           href="{{quinto.href}}"-->
+<!--                                                                           class="bg-extra-700 {{quinto.modal?'modalmenu':''}} edit-hide">-->
+<!--                                                                            <i class="icon-{{quinto.icon}}"></i>-->
+<!--                                                                            <span>-->
+<!--                                                                 {{baseController.menuLabel(quinto)}}-->
+<!--                                                            </span>-->
+<!--                                                                        </a>-->
+
+
+<!--                                                                        <div class="form-quinto-edit{{innerIndex5}} form-menu show-form"-->
+<!--                                                                             style="display: none">-->
+<!--                                                                            <div class="row">-->
+<!--                                                                                <div class="col-md-12">-->
+<!--                                                                                    <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                        <label class="control-label is-visible animate ng-binding">Nombre</label>-->
+<!--                                                                                        <input class="form-control"-->
+<!--                                                                                               type="text"-->
+<!--                                                                                               value="{{baseController.menus[key].menus[key2].menus[key3].menus[key4].menus[key5].text}}"-->
+<!--                                                                                               name="text{{'form-quinto-edit' + innerIndex5}}">-->
+<!--                                                                                    </div>-->
+<!--                                                                                </div>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="row">-->
+<!--                                                                                <div class="col-md-12">-->
+<!--                                                                                    <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                        <label class="control-label is-visible animate ng-binding">URL</label>-->
+<!--                                                                                        <input class="form-control"-->
+<!--                                                                                               type="text"-->
+<!--                                                                                               value="{{baseController.menus[key].menus[key2].menus[key3].menus[key4].menus[key5].href}}"-->
+<!--                                                                                               name="href{{'form-quinto-edit' + innerIndex5}}">-->
+<!--                                                                                    </div>-->
+<!--                                                                                </div>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="row">-->
+<!--                                                                                <div class="col-md-12">-->
+<!--                                                                                    <div class="remove-input-space form-group-material form-group has-feedback has-feedback-left">-->
+<!--                                                                                        <label class="control-label is-visible">Iconos</label>-->
+<!--                                                                                        <select id="icon{{'form-quinto-edit' + innerIndex5}}"-->
+<!--                                                                                                name="icon{{'form-quinto-edit' + innerIndex5}}">-->
+<!--                                                                                            <option value="">Seleccione-->
+<!--                                                                                                un icono-->
+<!--                                                                                            </option>-->
+<!--                                                                                            <option ng-repeat="icon in baseController.iconList"-->
+<!--                                                                                                    ng-selected="{{icon == baseController.menus[key].menus[key2].menus[key3].menus[key4].menus[key5].icon}}"-->
+<!--                                                                                                    data-icon="{{icon}}"-->
+<!--                                                                                                    value="{{icon}}">-->
+<!--                                                                                                {{icon}}-->
+<!--                                                                                            </option>-->
+<!--                                                                                        </select>-->
+<!--                                                                                    </div>-->
+<!--                                                                                </div>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="row">-->
+<!--                                                                                <div class="col-md-12"-->
+<!--                                                                                     style="text-align: right;">-->
+<!--                                                                                    <input class="form-check-input"-->
+<!--                                                                                           type="checkbox"-->
+<!--                                                                                           name="modal_full{{'form-quinto-edit' + innerIndex5}}"-->
+<!--                                                                                           ng-checked="baseController.menus[key].menus[key2].menus[key3].menus[key4].menus[key5].modal">-->
+<!--                                                                                    <label class="form-check-label"-->
+<!--                                                                                           for="defaultCheck1">-->
+<!--                                                                                        Abrir menú en un modal-->
+<!--                                                                                    </label>-->
+<!--                                                                                </div>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="row" style="text-align: center">-->
+<!--                                                                                <button type="button"-->
+<!--                                                                                        ng-click="baseController.edit_menu('quinto', 'form-quinto-edit', innerIndex5, key, key2, key3, key4, key5)"-->
+<!--                                                                                        class="swal2-confirm btn btn-xs btn-success"-->
+<!--                                                                                        aria-label="">Guardar-->
+<!--                                                                                </button>-->
+<!--                                                                            </div>-->
+<!--                                                                        </div>-->
+<!--                                                                    </li>-->
+<!--                                                                </ul>-->
+<!--                                                            </li>-->
+<!--                                                        </ul>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+
+            <li>
+                <a id="HideMenu" class="sidebar-control sidebar-main-hide hidden-xs legitRipple" data-popup="tooltip"
+                   data-placement="bottom" data-container="body" dragonlanguage
+                   title="MESSAGE.i('navbar.HideMenu_toolkit')">
+                    <i class="icon-lan3"></i>
+                </a>
+            </li>
+            <li>
+                <a id="RestoreallConfiguration" class="sidebar-control" onclick="STORAGE.clearAll()"
+                   data-popup="tooltip"
+                   data-placement="bottom" data-container="body" dragonlanguage
+                   title="MESSAGE.i('navbar.RestoreallConfiguration_toolkit')">
+                    <i class="icon-loop"></i>
+                    <span class="hidden-lg"><language>MESSAGE.i('navbar.RestoreallConfiguration')</language></span>
+                </a>
+            </li>
+            <li id="helpOptions">
+                <a onclick="showAccess()" class="dropdown-toggle legitRipple sidebar-control" aria-expanded="false">
+                    <i class="icon-accessibility2" title="Menú de accesibilidad"></i>
+                    <span class="hidden-lg"><language>Menú de accesibilidad</language></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left" style="min-width: 290px !important;">
+                    <a title="Cerrar" onclick="showAccess()" style="color: #000 !important; margin-left: 256px;">
+                        <i style="font-size: 20px !important;" class="icon-cross"></i>
+                    </a>
+                    <li id="keyboard" title="Navegar por teclado">
+                        <a onclick="keydownOn()" style="color: #000 !important;">
+                            <i class="icon-keyboard"></i>
+                            Navegar por teclado
+                        </a>
+                    </li>
+                    <li id="grayscale" title="Escala de Grises">
+                        <a onclick="grayscaleOn()" style="color: #000 !important;">
+                            <i class="icon-eye-blocked"></i>
+                            Escala de Grises
+                        </a>
+                    </li>
+
+                    <li id="zoom1" title="Lupa Agrandar">
+                        <a id="zoom-in" style="color: #000 !important;">
+                            <i class="icon-zoomin3"></i>
+                            Lupa Agrandar
+                        </a>
+                    </li>
+
+                    <li id="zoom2" title="Lupa Minimizar">
+                        <a id="zoom-out" style="color: #000 !important;">
+                            <i class="icon-zoomout3"></i>
+                            Lupa Minimizar
+                        </a>
+                    </li>
+
+                    <li id="animation2" title="Bloquear Animaciones">
+                        <a onclick="animationOn()" style="color: #000 !important;">
+
+                            <i><img src="files/configuration/icon_image/lightbulb.png"
+                                    alt="Verificar la ruta de la imagen" width="23"
+                                    style="margin-left: -4px;margin-top: -4px;"></i>
+                            Bloquear Animaciones
+                        </a>
+                    </li>
+
+                    <li title="Restablecer opciones de accesibilidad">
+                        <a onclick="STORAGE.restore()" style="color: #000 !important;">
+                            <i class="icon-loop"></i>
+                            Restablecer opciones de accesibilidad
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <li ng-if="baseController.features.configuration===true && ([1,4,5].indexOf(baseController.session.profile)!==-1)">
+                <a class="sidebar-control"
+                   onclick="MODAL.rawModal('Repositorio de Archivos', 'information/filemanager', 'folder6', 'modal-full', 'information')"
+                   data-popup="tooltip"
+                   data-placement="bottom" data-container="body" dragonlanguage
+                   title="Repositorio de Archivos">
+                    <i class=" icon-folder6"></i>
+                </a>
+            </li>
+
+            <li ng-if="baseController.features.configuration===true">
+                <a id="configuration" class="sidebar-control"
+                   onclick="MODAL.rawModal('Administrar Menú', 'information/taxonomia', 'menu6', 'modal-full', 'information')"
+                   data-popup="tooltip"
+                   data-placement="bottom" data-container="body" dragonlanguage
+                   title="Administrar Menú">
+                    <i class=" icon-menu6"></i>
+                </a>
+            </li>
+
+
+            <li ng-show="!baseController.session.nombre"
+                ng-if="baseController.features.configuration===true && (baseController.isSuper || baseController.isAdmin)">
+                <a id="configuration" class="sidebar-control" onclick="CONFIGURATION.OPEN()" data-popup="tooltip"
+                   data-placement="bottom" data-container="body" dragonlanguage
+                   title="MESSAGE.ic('mono.config_toolkit')">
+                    <i class=" icon-cog2"></i>
+                </a>
+            </li>
+
+            <li ng-if="baseController.mode==='developer'"
+                class="dropdown dropdownwithoptions" dragonlanguage="">
+                <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">
+                    <i class="icon-equalizer"></i>
+                    <language>MESSAGE.ic('mono.managers')</language>
+                    <i class="caret"></i>
+                </a>
+                <ul class="dropdown-menu " id="dragonsecondmenu" style="color:#000 !important;">
+                    <li ng-if="baseController.mode==='developer'">
+                        <a class="sidebar-control" onclick="new HTTP().openManager()" data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.i('navbar.RequestManager')">
+
+                            <i class="icon-git-pull-request"></i>
+                            <language>MESSAGE.ic('navbar.RequestManager')</language>
+                            <span class="badge bg-<%= COLOR.secundary %>">{{baseController.WARNINGREQUESTS.length}}</span>
+                        </a>
+                    </li>
+                    <li ng-if="baseController.features.fileManager===true && (baseController.isSuper || baseController.isAdmin)">
+                        <a class="sidebar-control" onclick="FILEMANAGER.OPEN(['/'])" data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.i('navbar.FileManager')">
+                            <i class="icon-folder-open"></i>
+                            <language>MESSAGE.ic('navbar.FileManager')</language>
+                        </a>
+                    </li>
+                    <li ng-if="baseController.features.stepManager===true && baseController.mode==='developer'">
+                        <a class="sidebar-control" onclick="STEP.OPEN()" data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.i('navbar.StepManager')">
+                            <i class=" icon-stack-text"></i>
+                            <language>MESSAGE.ic('navbar.StepManager')</language>
+                        </a>
+                    </li>
+                    <li ng-show="!baseController.isClient" ng-if="baseController.mode==='developer'">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.messages'),'language','comment',undefined,'language');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('mono.messages')">
+                            <i class=" icon-comment"></i>
+                            <language>MESSAGE.ic('mono.messages')</language>
+                        </a>
+                    </li>
+                    <li ng-show="!baseController.isClient"
+                        ng-if="baseController.mode==='developer'">
+                        <a class="sidebar-control" onclick="MESSAGE.OPEN()" data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.i('navbar.MessageManager')">
+                            <i class=" icon-sphere"></i>
+                            <language>MESSAGE.ic('navbar.MessageManager')</language>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li ng-if="((baseController.isSuper) || (baseController.features.onesignal===true || baseController.features.customfields===true))  && baseController.mode==='developer'"
+                class="dropdown dropdownwithoptions" dragonlanguage="">
+                <!--<li-->
+                <!--class="dropdown dropdownwithoptions" dragonlanguage="">-->
+                <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">
+                    <i class="icon-equalizer"></i>
+                    <language>MESSAGE.ic('mono.datacenter')</language>
+                    <i class="caret"></i>
+                </a>
+                <ul class="dropdown-menu " id="datacenteroptions" style="color:#000 !important;">
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin)">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.initial_entities'),'wizard','icon-add',undefined,'wizard');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('mono.initial_entities')">
+                            <i class=" icon-add"></i>
+                            <language>MESSAGE.ic('mono.initial_entities')</language>
+                        </a>
+                    </li>
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin)">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.wizard2'),'wizard/start','icon-menu',undefined,'wizard');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('mono.wizard2')">
+                            <i class=" icon-menu"></i>
+                            <language>MESSAGE.ic('mono.wizard2')</language>
+                        </a>
+                    </li>
+                    <li ng-if="(baseController.isSuper)">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.diskdata'), 'information/storage', 'cabinet', 'modal-lg', 'information')">
+                            <language>MESSAGE.ic('mono.diskdata')</language>
+                            <i class="icon-cabinet"></i>
+                        </a>
+                    </li>
+                    <li ng-if="baseController.features.onesignal===true && (baseController.isSuper)">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.notifications'),'notifications','bubble-notification',undefined,'notifications');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('mono.notifications')">
+                            <i class="icon-bubble-notification"></i>
+                            <language>MESSAGE.ic('mono.notifications')</language>
+                        </a>
+                    </li>
+                    <li ng-if="baseController.features.customfields===true">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('mono.customfield'),'customfield','magic-wand',undefined,'customfield');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('mono.customfield')">
+                            <i class=" icon-magic-wand"></i>
+                            <language>MESSAGE.ic('mono.customfield')</language>
+                        </a>
+                    </li>
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin) && baseController.mode==='developer'">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('columns.curreny_plural'),'base_currency','coin-dollar',undefined,'base_currency');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('columns.curreny_plural')">
+                            <i class="icon-coin-dollar"></i>
+                            <language>MESSAGE.ic('columns.curreny_plural')</language>
+                        </a>
+                    </li>
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin) && baseController.mode==='developer'"
+                        class="divider"></li>
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin) && baseController.mode==='developer'">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('columns.mime_plural'),'mime','book',undefined,'mime');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('columns.mime_plural')">
+                            <i class="icon-book"></i>
+                            <language>MESSAGE.ic('columns.mime_plural')</language>
+                        </a>
+                    </li>
+
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin) && baseController.mode==='developer'">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('columns.fieldtype_plural'),'fieldtype','terminal',undefined,'fieldtype');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('columns.fieldtype_plural')">
+                            <i class="icon-terminal"></i>
+                            <language>MESSAGE.ic('columns.fieldtype_plural')</language>
+                        </a>
+                    </li>
+
+                    <li ng-if="(baseController.isSuper || baseController.isAdmin) && baseController.mode==='developer'">
+                        <a class="sidebar-control"
+                           onclick="MODAL.rawModal(MESSAGE.ic('columns.interval_plural'),'interval','alarm',undefined,'interval');"
+                           data-popup="tooltip"
+                           data-placement="bottom" data-container="body" dragonlanguage
+                           title="MESSAGE.ic('columns.interval_plural')">
+                            <i class="icon-alarm"></i>
+                            <language>MESSAGE.ic('columns.interval_plural')</language>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+        <ul class="nav navbar-nav">
+
+
+            <li class="dropdown language-switch dropdownwithoptions"
+                ng-if="baseController.features.multilanguage===true">
+                <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false"><img
+                            src="assets/images/flags/{{baseController.currentLang.flag}}.png" alt=""
+                            class="position-left"> {{baseController.currentLang.name}} <i class="caret"></i></a>
+                <ul class="dropdown-menu">
+                    <li
+                            ng-repeat="(key,lan) in baseController.SHOWLANGS track by key"
+                            class="{{baseController.currentLang.code===lan.code?'bg-<%= COLOR.primary %>':''}}">
+                        <a style="color: #000 !important;" ng-click="baseController.changeLanguage(lan)">
+                            <img src="assets/images/flags/{{lan.flag}}.png" alt="">{{lan.name}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown dropdownwithoptions"
+                ng-show="baseController.isSuper && baseController.menusList.length>1"
+                dragonlanguage="">
+                <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">
+                    <i class="icon-menu9"></i>
+                    <span>
+                                <language>MESSAGE.i('menu.list')</language>
+                            </span>
+                </a>
+                <ul class="dropdown-menu ">
+                    <li ng-repeat="(key, menu) in baseController.menusList track by key"
+                        class="{{baseController.currentMenu===menu.href?'bg-primary':''}}">
+                        <a data-modal="{{menu.modal}}" ng-click="baseController.changeMenu(menu)"
+                           style="color: black !important;">
+                            <i class="icon-{{menu.icon}}"></i>
+                            <span>
+                                        {{baseController.menuLabel(menu)}}
+                                     </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="navbar-right" ng-show="baseController.isLogged">
+            <ul class="nav navbar-nav">
+
+                <li>
+                    <a
+                            target="_blank" data-popup="tooltip"
+                            data-placement="bottom"
+                            href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
+                            data-container="body" title="Documentación en Línea"><i class="icon-info22"></i></a>
+                </li>
+                <li ng-if="baseController.isSuper">
+                    <a
+                            target="_blank" data-popup="tooltip"
+                            data-placement="bottom"
+                            href="/Syplans/docs/lastreport.html"
+                            data-container="body" title="Reporte de Performance"><i class="icon-pie-chart3"></i></a>
+                </li>
+                <li>
+                    <a href="http://186.150.200.131:8081/sstickets_eis" target="_blank" data-popup="tooltip"
+                       data-placement="bottom"
+                       data-container="body" title="Mesa de Ayuda"><i class="icon-headset"></i></a>
+                </li>
+                <li>
+                    <hr style="border: none;border-left: 1px solid hsla(200, 10%, 50%,100);height: 28px;width: 1px;margin-top: 10px;margin-bottom: 10px;">
+                </li>
+                <li class="dropdown dropdown-poa" style="color:#000 !important;">
+                    <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">
+                        <span>{{baseController.poaFullName}}</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right navbar-inverse  bg-<%= COLOR.primary %>-700">
+                        <li dragonlanguage="" ng-repeat="(key, poa) in baseController.poaList track by key"
+                            ng-if="!poa.selected">
+                            <a class="bg-extra-700" ng-click="baseController.poaUpdate(poa);">
+                                {{poa.nombre + ' - ' + poa.periodo_poa}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <hr style="border: none;border-left: 1px solid hsla(200, 10%, 50%,100);height: 28px;width: 1px;margin-top: 10px;margin-bottom: 10px;">
+                </li>
+                <li>
+                    <a href="javascript:void(0)">{{baseController.session.institucion?baseController.session.institucion:baseController.session.compania}}
+                    </a>
+                </li>
+                <li>
+                    <hr style="border: none;border-left: 1px solid hsla(200, 10%, 50%,100);height: 28px;width: 1px;margin-top: 10px;margin-bottom: 10px;">
+                </li>
+                <li class="dropdown dropdown-user" style="color:#000 !important;">
+                    <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">
+
+                        <img id="profileImage"
+                             data-dragonfile="/{{::baseController.path}}/profileimage/{{::baseController.userID}}"
+                             src="assets/images/placeholder.jpg" alt="">
+
+                        <span>{{::baseController.fullName}}</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li dragonlanguage="">
+                            <a style="color: #000 !important;" onclick="new SESSION().myprofile()">
+                                <i class="icon-user-plus"></i>
+                                <language>MESSAGE.ic('mono.myprofile')</language>
+                            </a>
+                        </li>
+                        <li dragonlanguage="">
+                            <a style="color: #000 !important;"
+                               onclick="new SESSION().abount()">
+                                <i class="icon-info3"></i>
+                                <language>MESSAGE.ic('mono.about')</language>
+                            </a>
+                        </li>
+                        <!--<li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>-->
+                        <li class="divider"></li>
+                        <!--<li><a href="#"><i class="icon-cog5"></i> Account settings </a></li>-->
+                        <li>
+                            <a style="color: #000 !important;" onclick="new SESSION().logoff()" dragonlanguage><i
+                                        class="icon-switch2"></i>
+                                <language>MESSAGE.i('navbar.Logout')</language>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /main navbar -->
+
+<script>
+    //function show and hide dropdown
+    function showAccess() {
+        var bool = false;
+        bool = $('#helpOptions').hasClass("open");
+        if (bool) {
+            $('#helpOptions').removeClass("open");
+        } else
+            $('#helpOptions').addClass("open");
+    }
+
+    //function zoom
+    $('#zoom-in').click(function () {
+        updateZoom(0.1);
+        $('#zoom1').addClass("active2");
+        $('#zoom2').removeClass("active2");
+    });
+    $(document).on("click", ".gasbomenu a:not(.has-ul)", function () {
+        $('.menutote').trigger("click");
+
+    });
+    $('#zoom-out').click(function () {
+        updateZoom(-0.1)
+        $('#zoom2').addClass("active2");
+        $('#zoom1').removeClass("active2");
+    });
+    zoomLevel = 1;
+    var updateZoom = function (zoom) {
+        zoomLevel += zoom;
+        $('body').css({zoom: zoomLevel, '-moz-transform': 'scale(' + zoomLevel + ')'});
+    }
+
+    //function zoom keydown
+    keydownOnOf = STORAGE.get('keydownOn');
+
+    function keydownOn() {
+        if (keydownOnOf || !STORAGE.exist('keydownOn')) {
+            document.onkeydown = function (e) {
+                if (e.ctrlKey && e.altKey && e.which == 76) {
+                    $("#LiteMenu").click();
+                }
+                if (e.ctrlKey && e.altKey && e.which == 72) {
+                    $("#HideMenu").click();
+                }
+                if (e.ctrlKey && e.altKey && e.which == 82) {
+                    $("#RestoreallConfiguration").click();
+                }
+                if (e.ctrlKey && e.altKey && e.which == 67) {
+                    $("#configuration").click();
+                }
+                if (e.which == 27) {
+                    $("#closeModal").click();
+                }
+            };
+            keydownOnOf = false;
+            $('#keyboard').addClass("active2");
+            STORAGE.add('keydownOn', true);
+        } else {
+            document.onkeydown = function (e) {
+                if (e.ctrlKey && e.altKey && e.which == 76) {
+                }
+                if (e.ctrlKey && e.altKey && e.which == 72) {
+                }
+                if (e.ctrlKey && e.altKey && e.which == 82) {
+                }
+                if (e.ctrlKey && e.altKey && e.which == 67) {
+                }
+                if (e.which == 27) {
+                }
+            };
+            keydownOnOf = true;
+            $('#keyboard').removeClass("active2");
+            STORAGE.add('keydownOn', false);
+        }
+    }
+
+    //function grayscale
+    grayscaleOnOf = STORAGE.get('grays');
+
+    function grayscaleOn() {
+        if (grayscaleOnOf || !STORAGE.exist('grays')) {
+            $('body').css("filter", "grayscale(1)");
+            grayscaleOnOf = false;
+            $('#grayscale').addClass("active2");
+            STORAGE.add('grays', true);
+        } else {
+            $('body').css("filter", "grayscale(0)");
+            grayscaleOnOf = true;
+            $('#grayscale').removeClass("active2");
+            STORAGE.add('grays', false);
+        }
+    }
+
+    //function animation
+    animationOnOf = STORAGE.get('animation');
+
+    function animationOn() {
+        if (!animationOnOf) {
+            STORAGE.add('animation', true);
+            $('#animation2').removeClass("active2");
+        } else {
+            STORAGE.add('animation', false);
+            $('#animation2').addClass("active2");
+        }
+        location.reload();
+    }
+
+    //execute default functions
+    if (STORAGE.exist('keydownOn')) {
+        keydownOn();
+    }
+    if (STORAGE.exist('grays')) {
+        grayscaleOn();
+    }
+    $(document).ready(function () {
+        if (!animationOnOf) {
+            $('#animation2').removeClass("active2");
+        } else {
+            $('#animation2').addClass("active2");
+        }
+    });
+
+    var editar_menu = function () {
+        $(".edit-hide").hide();
+        $(".editar-menu").show();
+    }
+
+    var ejecutadora = function () {
+        SERVICE.planificacion_exec_functions.rollback({}, function (data) {
+            location.reload();
+        });
+    }
+
+    var restaurar_menu = function () {
+        SWEETALERT.loading({message: "Restaurando..."});
+        location.reload();
+    }
+
+    var cancelar_edicion = function () {
+        $(".editar-menu").hide();
+        $(".edit-hide").show();
+    }
+
+    var guardar_menu = function () {
+        SWEETALERT.confirm({
+            message: "Desea guardar los cambios realizados en el menú?",
+            confirm: function () {
+                baseController.refreshAngular();
+                var jsonMenu = baseController.menus;
+                console.log(jsonMenu);
+                SWEETALERT.loading({message: "Guardando..."});
+                BASEAPI.ajax.post('/menu/edit', {json: JSON.stringify(jsonMenu)}, function () {
+                    SWEETALERT.loading({message: MESSAGE.ic('mono.saving')});
+                    setTimeout(() => {
+                        location.reload();
+                    }, 8000);
+                });
+            }
+        });
+    }
+</script>

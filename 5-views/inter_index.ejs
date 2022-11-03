@@ -1,0 +1,75 @@
+<script>
+    if (<%= scope %>.fixFilters){
+        if (new SESSION().current().intersectorial) {
+
+        } else {
+            if (<%= scope %>.fixFilters.filter(d => d.field === 'compania').length === 0){
+                <%= scope %>.
+                fixFilters.push(
+                    {
+                        field: "compania",
+                        value: new SESSION().current().compania_id
+                    },
+                    {
+                        field: "institucion",
+                        operator: "is",
+                        value: "$null"
+                    }
+                );
+            }
+        }
+        if (!new SESSION().current().interinstitucional && new SESSION().current().institucion_id) {
+
+            if (<%= scope %>.fixFilters.filter(d => d.field === 'institucion').length === 0){
+                <%= scope %>.fixFilters.push(
+                    {
+                        field: "institucion",
+                        value: new SESSION().current().institucion_id
+                    }
+                );
+            }
+        }
+    }else{
+        if (new SESSION().current().intersectorial) {
+
+        } else {
+            <%= scope %>.fixFilters = [
+                {
+                    field: "compania",
+                    value: new SESSION().current().compania_id
+                },
+                {
+                    field: "institucion",
+                    operator: "is",
+                    value: "$null"
+                }
+            ];
+            if (new SESSION().current().interinstitucional) {
+                <%= scope %>.fixFilters = [
+                    {
+                        field: "compania",
+                        value: new SESSION().current().compania_id
+                    },
+                    {
+                        field: "institucion",
+                        operator: "is",
+                        value: "$null"
+                    }
+                ];
+            }
+        }
+        if (!new SESSION().current().interinstitucional && new SESSION().current().institucion_id) {
+            <%= scope %>.
+            fixFilters = [
+                {
+                    field: "compania",
+                    value: new SESSION().current().compania_id
+                },
+                {
+                    field: "institucion",
+                    value: new SESSION().current().institucion_id
+                }
+            ];
+        }
+    }
+</script>

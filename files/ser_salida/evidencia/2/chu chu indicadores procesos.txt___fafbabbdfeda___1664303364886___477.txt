@@ -1,0 +1,30 @@
+insert into indicador_generico (table_,registro,nombre, descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion, ano_linea_base,desagregacion_demografica_geografia,observacion, poa_monitoreo, compania)
+select 9001, t.actividades_poa, t.nombre, t.descripcion,t.fuente,t.metodo_calculo,t.tipo_meta,t.direccion_meta,t.linea_base,t.medio_verificacion,t.ano_linea_base,t.desagregacion_demografica_geografia,t.observacion,t.poa_monitoreo,p.compania from indicador_proceso t join vw_procesos p on p.id = t.actividades_poa where p.compania = 58;
+
+insert into indicador_generico_periodo(indicador_generico,periodo,valor) 
+SELECT DISTINCT
+	(
+	SELECT 
+		ig.id 
+	FROM
+		indicador_generico ig
+		JOIN indicador_proceso pp ON pp.actividades_poa = ig.registro
+	WHERE
+		pp.id = t.indicador_proceso and pp.nombre = ig.nombre AND ig.table_ = 9001
+		LIMIT 1 
+	),
+	t.periodo,
+	t.valor 
+FROM
+	indicador_proceso_periodo t 
+WHERE
+	(
+	SELECT DISTINCT
+		ig.id 
+	FROM
+		indicador_generico ig
+		JOIN indicador_proceso pp ON pp.actividades_poa = ig.registro 
+	WHERE
+		pp.id = t.indicador_proceso and pp.nombre = ig.nombre AND ig.table_ = 9001 
+	LIMIT 1 
+	) IS NOT NULL

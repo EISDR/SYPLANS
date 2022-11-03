@@ -1,0 +1,103 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000, placeholder:"Nombre"}) %>
+            </div>
+
+            <div class="col-sm-12 col-md-8 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 4000, placeholder:"Descripción"}) %>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4 form-group-material form-group has-feedback  has-feedback-left">
+                <label class="control-label is-visible">Periodo PEI</label>
+                <select ng-model="poa.pei" name="pei" id="pei" style="width:100%">
+                    <option style="padding-left: 15px !important" value="">Seleccione una Opción</option>
+                    <option style="padding-left: 15px !important" ng-repeat="value in poa.drp_pei" value="{{value.id}}">{{value.nombre + " " + value.periodo_desde + " - " + value.periodo_hasta}}</option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;" >
+                    <i class="icon-archive">
+                    </i>
+                </div>
+                <span ng-if="poa.validate['pei'].messages.length > 0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in poa.validate['pei'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                 </span>
+            </div>
+            <div class="col-sm-12 col-md-3 form-group-material form-group has-feedback  has-feedback-left">
+                <label class="control-label is-visible">Periodo POA</label>
+                <select ng-model="poa.periodo_poa" name="periodo_poa" id="poa" class="form-control">
+                    <option value="">Seleccione</option>
+                    <option ng-repeat="value in poa.periodos_poa"  value="{{value}}">{{value}}</option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                    <i class="icon-archive">
+                    </i>
+                </div>
+                <span ng-if="poa.validate['periodo_poa'].messages.length > 0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in poa.validate['periodo_poa'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                 </span>
+            </div>
+
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("monitoreo", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    column: "nombre",
+                    text:"item.nombre",
+                    table: "poa_monitoreo",
+                    label: "Monitoreo",
+                    icon: {class: "cube"},
+                    query: {
+                        orderby: "cantidad",
+                        order: "desc",
+                        distinct: false
+                    },
+                }) %>
+            </div>
+            <!--<div class="col-sm-12 col-md-3">-->
+                    <!--<- FORM.select("estado", scope, {-->
+                        <!--allownull: false,-->
+                        <!--allownew: false,-->
+                        <!--allowedit: false,-->
+                        <!--allowview: false,-->
+                        <!--allowlist: false,-->
+                        <!--refresh: false,-->
+                        <!--text: "item.nombre",-->
+                        <!--table: "poa_estatus",-->
+                        <!--icon: {class: "archive"},-->
+                        <!--label: "Estatus"-->
+                    <!--}) >-->
+            <!--</div>-->
+            <div class="col-sm-12 col-md-2" id="checkDinamic">
+                <%- FORM.checkbox("activo", scope, {text: 'Activo?'}) %>
+            </div>
+        </div>
+        <!--<div class="row">-->
+
+            <input type="text" id="refh" style="display: none;" ng-model="poa.refreshModal">
+        <!--</div>-->
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+<style>
+    .select2-selection__rendered {
+        padding-left: 25px;
+    }
+</style>
+<script>
+    $('[name="pei"]').select2();
+    $('[name="periodo_poa"]').select2();
+    $("#refh").val('').trigger('change');
+</script>

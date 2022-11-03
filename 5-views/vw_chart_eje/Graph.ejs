@@ -1,0 +1,40 @@
+<script>
+    $(function (){
+        if (typeof organigrama_pei != "undefined") {
+            if (typeof organigrama_pei !== 'not defined') {
+                if (organigrama_pei) {
+                    setTimeout(function () {
+                        vw_chart_eje.loadDiagram3(organigrama_pei.origen,organigrama_pei.key,organigrama_pei.type, organigrama_pei.childrenArray);
+                    }, 500)
+                }
+            }
+        }
+    })
+</script>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>" >
+    <div class="row">
+        <button
+                 dragonlanguage="" title="Alejar hasta encajar en pantalla"
+                 type="button" class="btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-right"
+                ng-click="vw_chart_eje.zoom_to_fit()">
+            <b><i class="icon-shutter"></i></b>
+            <language>Ajustar</language>
+        </button>
+        <button
+                dragonlanguage="" title="Alejar hasta encajar en pantalla"
+                type="button" class="btn bg-<%= COLOR.default %> btn-labeled btn-xs pull-right"
+                ng-click="vw_chart_eje.zoom_out()">
+            <b><i class="icon-zoomout3"></i></b>
+            <language>Alejar</language>
+        </button>
+        <button
+                dragonlanguage="" title="Alejar hasta encajar en pantalla"
+                type="button" class="btn bg-<%= COLOR.default %> btn-labeled btn-xs pull-right"
+                ng-click="vw_chart_eje.zoom_in()">
+            <b><i class="icon-zoomin3"></i></b>
+            <language>Acercar</language>
+        </button>
+    </div>
+    <div id="myDiagramDiv" style="width: 100%; height: 100%; border: 1px solid black; margin-top: 10px; position: relative">
+
+    </div>

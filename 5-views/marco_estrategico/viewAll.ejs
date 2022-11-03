@@ -1,0 +1,24 @@
+<div class="panel panel-flat" style="padding: 10px;">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <label>Misión</label>
+            <textarea class="form-control" placeholder="Misión" rows="10" cols="80" maxlength="1000" disabled="true" ng-model="marco_estrategico.misionDisabled"></textarea>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <label>Visión</label>
+            <textarea class="form-control" placeholder="Misión" rows="10" cols="80" maxlength="1000" disabled="true" ng-model="marco_estrategico.visionDisabled"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h2>Valores</h2>
+        </div>
+        <div class="col-sm-12 col-md-12">
+            <%-
+            include('../../7-plugins/templates/table/base',{scope:'marco_estrategico_valores'});
+            %>
+        </div>
+    </div>
+
+</div>
+

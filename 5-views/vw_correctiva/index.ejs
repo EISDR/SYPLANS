@@ -1,0 +1,150 @@
+
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row">
+                <div class="col-sm-6 col-md-6" style="margin-top: 11px !important">
+                    <%- FORM.select("plan", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowlist: false,
+                        allowview: false,
+                        refresh: false,
+                        multiple: false,
+                        label: "Auditoría",
+                        text: "item.plan_nombre",
+                        table: "vw_correctiva_filter",
+                        field: "id",
+                        icon: {class: "archive"},
+                        condition: "item.compania == vw_correctiva.session.compania_id && item.estatus_plan == 5"
+                    }) %>
+                </div>
+            </div>
+            <div class="row" id="showInfo" style="display: none">
+                <div class="tab-pane active" id="basic">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                            <label style="font-family: 'Arial Narrow'; font-size: 21px;">Información de la Auditoría</label>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class='col-sm-3 col-md-3'>
+                                    <%- FORM.inputview('auditoria_nombre', scope, {
+                                        trueplaceholder: "Nombre",
+                                    }) %>
+                                </div>
+                                <div class='col-sm-3 col-md-3'>
+                                    <%- FORM.inputview('auditoria_range_date', scope, {
+                                        trueplaceholder: "Fecha Inicio / Fecha Fin",
+                                    }) %>
+                                </div>
+                                <div class='col-sm-3 col-md-3'>
+                                </div>
+                                <div class='col-sm-3 col-md-3'>
+                                    <%- FORM.select('estatus', scope, {
+                                        allowedit: false,
+                                        allowlist: false,
+                                        allownew: false,
+                                        allowview: false,
+                                        text: "item.permitido",
+                                        disabled: true,
+                                        value: "id",
+                                        table: "vw_auditoria_programa_plan_estatus",
+                                        icon: {class: "archive"},
+                                        truelabel: "Estado del Plan de Acción",
+                                        condition: "item.entidad == 'vw_correctiva'"
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-sm-6 col-md-6'>
+                                    <%- FORM.textarea('auditoria_objetivo', scope, {
+                                        trueplaceholder: "Objetivos",
+                                        disabled: true
+                                    }) %>
+                                </div>
+                                <div class='col-sm-6 col-md-6'>
+                                    <%- FORM.textarea('auditoria_alcance', scope, {
+                                        trueplaceholder: "Alcance",
+                                        disabled: true
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4" style="margin-top: 16px">
+                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Participantes departamentales de la auditoria</label>
+                                    <ol ng-show="vw_correctiva.auditoria_participantes.data.length > 0" style="">
+                                        <li ng-repeat="(key,row) in vw_correctiva.auditoria_participantes.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
+                                            {{row.usuario_nombre}} - {{row.usuario_departamento}}
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="col-sm-12 col-md-4" style="margin-top: 16px">
+                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Auditores </label>
+                                    <ol ng-show="vw_correctiva.auditoria_auditores.data.length > 0" style="">
+                                        <li ng-repeat="(key,row) in vw_correctiva.auditoria_auditores.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
+                                            {{row.usuario_nombre}} {{row.lider ? '(Líder)' : '' }}
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="col-sm-12 col-md-4" style="margin-top: 16px">
+                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Cantidad de no Comformidad por Tipo  </label>
+                                    <ul ng-show="vw_correctiva.auditoria_tipo_inconformidad.data.length > 0" style="">
+                                        <li ng-repeat="(key,row) in vw_correctiva.auditoria_tipo_inconformidad.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
+                                            {{row.nombre}}: {{row.registros_malos }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="showtble" style="display: none" oncontextmenu="return false;">
+                <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>" style="margin-bottom: 0">
+                    <!--Breadcrumb and Table Options-->
+                    <div class="breadcrumb-line">
+                        <ul class="breadcrumb visible-lg visible-md" dragonlanguage="">
+                            <li class="active">
+                                <a data-function="menu" href="javascript:void(0)">
+                                    Puntos Auditados con observaciones de No Conformidad
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Breadcrumb and Table Options-->
+                </div>
+                <div class="" >
+                    <br>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #5de362;"></label>
+                            <label class="labelRedondo"> En Ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Retrazado </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Finalizado </label></li>
+                    </ul>
+                </div>
+                <%- include('base',{scope:scope}); %>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<div id="<%= 'auditoria_programa_plan_documentos_asociados_listaverificacion' %>"
+     ng-controller="<%= 'auditoria_programa_plan_documentos_asociados_listaverificacion' %> as <%= 'auditoria_programa_plan_documentos_asociados_listaverificacion' %>">
+</div>
+<script>
+    $(function(){
+        $(document).bind("contextmenu",function(e){
+            return false;
+        });
+    })
+</script>

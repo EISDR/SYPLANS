@@ -1,0 +1,83 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class="col-sm-5 col-md-5">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 9999}) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("resultado", scope, {
+                    column: "resultado",
+                    text:"item.nombre",
+                    table: "drp_resultado",
+                    permission: "resultado",
+                    icon: {class: "archive"},
+                    label: "Resultado esperado"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-if="drp_productos_poa.estado == '3'" class="col-sm-12 col-md-3">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin",
+                    disabled: true,
+                })%>
+            </div>
+            <div ng-if="drp_productos_poa.estado != '3'" class="col-sm-4 col-md-4">
+                <%- FORM.daterange("range_date",scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin"
+                })%>
+            </div>
+            <div class="col-sm-4 col-md-4 drp-pt" ng-disabled="true">
+                <%-FORM.select("estado", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "productos_poa_status",
+                    field: "id",
+                    columns: ["id","nombre"],
+                    icon: {class:"archive"}
+                }) %>
+
+            </div>
+        </div>
+        <div id="contenedor" ng-show="((drp_productos_poa.old_estado != 0 &&  drp_productos_poa.old_estado.toString() != drp_productos_poa.estado ) && drp_productos_poa.form.mode !== FORM.modes.new) || drp_productos_poa.estado == '3'">
+            <div class="row" style="padding-top: 20px;">
+                <div ng-show="drp_productos_poa.estado != '3'" class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
+                    <%- FORM.textarea("comentario", scope, {
+                        placeholder: "Comentario"
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div id="comentarios_productos_poa" ng-controller="comentarios_productos_poa as comentarios_productos_poa">
+                    <div class="panel panel-flat">
+                        <%- include('../../7-plugins/templates/table/header',{scope:'comentarios_productos_poa'}); %>
+                        <div class="subcontent">
+                            <%- include('../../7-plugins/templates/table/base',{scope:'comentarios_productos_poa'}); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+    // $('[name = "productos_poa_fecha_inicio"]').blur(function () {
+    //     productos_poa.fecha_fin = null;
+    //     productos_poa.refreshAngular();
+    // });
+    var d = new Date();
+    d = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + (d.getDate() - 1);
+    drp_productos_poa.range_date_min(d);
+    drp_productos_poa.range_date_max(''+(parseInt(moment().format('YYYY'))+ 1));
+</script>

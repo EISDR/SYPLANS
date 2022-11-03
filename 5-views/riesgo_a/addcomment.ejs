@@ -1,0 +1,61 @@
+<div class="subcontent">
+    <div ng-show="indicador_producto_poa.edit" class="row">
+        <div class="col-sm-10 col-md-10" style="padding-bottom: 30px;">
+            <%- FORM.textarea("comentario", scope, {
+                placeholder: "Comentario"
+            }) %>
+        </div>
+        <div class="col-sm-2 col-md-2" style="margin-top: 24px;">
+            <button
+                    dragonlanguage="" title="Agregar Comentario"
+                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                    ng-click="indicador_producto_poa.add_comentario()">
+
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>Agregar</language>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="vw_comentarios" ng-controller="vw_comentarios as vw_comentarios">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_comentarios'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_comentarios'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<textarea style="overflow: hidden; overflow-wrap: break-word;" ng-disabled="!indicador_producto_poa.edit" ng-model="indicador_producto_poa.commentValue" class="form-control comment_result"></textarea>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<script>-->
+    <!--setTimeout(function () {-->
+        <!--autosize($('.comment_result'));-->
+    <!--},100);-->
+
+    <!--$('#btnS').on('click',function () {-->
+        <!--$(`[name=${indicador_producto_poa.commentName}]`).val($('.comment_result').val());-->
+        <!--var comment = $('.comment_result').val();-->
+        <!--SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});-->
+        <!--BASEAPI.updateall('indicador_poa_periodo', {-->
+            <!--"comentario": comment,-->
+            <!--"updated_at":  new date().now(),-->
+            <!--'updated_by': indicador_producto_poa.usuario_id,-->
+            <!--where: [{-->
+                <!--"field": "id",-->
+                <!--"value": indicador_producto_poa.ids-->
+            <!--}]-->
+        <!--}, function (result) {-->
+
+        <!--});-->
+        <!--SWEETALERT.stop();-->
+        <!--MODAL.close();-->
+    <!--});-->
+<!--</script>-->

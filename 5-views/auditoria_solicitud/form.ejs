@@ -1,0 +1,52 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class="col-sm-8 col-md-8">
+
+                <%- FORM.select("procesos", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: true,
+                    column: "procesos",
+                    text: "item.nombre_drp",
+                    value: "id",
+                    table: "vw_procesos",
+                    icon: {class: "archive"},
+                    truelabel: "Procesos",
+                    condition: "(item.compania == auditoria_solicitud.session.compania_id && auditoria_solicitud.institucion == $null)",
+                    get: {
+                        table: 'auditoria_solicitud_proceso',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'auditoria_solicitud'
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('estatus', scope, {
+                    column: 'name',
+                    text: "item.nombre",
+                    table: 'auditoria_solicitud_status'
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

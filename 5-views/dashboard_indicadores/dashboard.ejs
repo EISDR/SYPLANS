@@ -1,0 +1,45 @@
+<style>
+    .dash-presupuesto-detalle {
+        cursor: pointer;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6" id="indicadores">
+        <div id="vw_dashboard_productosgrid_pei" ng-show="dashboard_indicadores.departamento!= '[NULL]'"
+             ng-controller="vw_dashboard_productosgrid_pei as vw_dashboard_productosgrid_pei">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productosgrid_pei'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productosgrid_pei'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+    <div class="col-md-6" id="indicadores">
+        <div id="vw_dashboard_productosgrid" ng-show="dashboard_indicadores.departamento!= '[NULL]'"
+             ng-controller="vw_dashboard_productosgrid as vw_dashboard_productosgrid">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productosgrid'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productosgrid'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6" id="indicadores">
+        <div id="vw_dashboard_productosgrid_actividades" ng-show="dashboard_indicadores.departamento!= '[NULL]'"
+             ng-controller="vw_dashboard_productosgrid_actividades as vw_dashboard_productosgrid_actividades">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productosgrid_actividades'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productosgrid_actividades'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>

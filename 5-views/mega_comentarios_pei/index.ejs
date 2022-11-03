@@ -1,0 +1,23 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="subcontent min-subcontent" style="padding-top: 20px;">
+            <div class="row" ng-show="mega_comentarios_pei.show_comment">
+                <div class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
+                    <label class="control-label">Comentario</label>
+                    <textarea class="form-control" ng-model="mega_comentarios_pei.comentario"></textarea>
+                </div>
+                <div class="col-sm-12 col-md-2" style="margin-top: 53px;margin-right: 0">
+                    <button
+                            dragonlanguage="" title="Añadir Comentario"
+                            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="mega_comentarios_pei.anadirComentario()">
+
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>Añadir</language>
+                    </button>
+                </div>
+            </div>
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

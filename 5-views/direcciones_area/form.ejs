@@ -1,0 +1,55 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="direcciones_area.show_field">
+                <%- FORM.select('direccion_general', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    label: "Dirección General",
+                    text: "item.nombre",
+                    table: "direcciones_generales",
+                    columns: ["nombre"],
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    $(function (){
+        $('[name="direcciones_area_nombre"]').keyup(function (){
+            setTimeout(function (){
+                if (!DSON.oseaX($('[name="direcciones_area_nombre"]').val())){
+                    direcciones_area.validate.nombre.valid = true;
+                    direcciones_area.validate.nombre.type = "success";
+                    direcciones_area.refreshAngular();
+                }else {
+                    direcciones_area.validate.nombre.valid = false;
+                    direcciones_area.validate.nombre.type = "error";
+                    direcciones_area.refreshAngular();
+                }
+                direcciones_area.refreshAngular();
+            },100);
+            direcciones_area.refreshAngular();
+        })
+
+    });
+</script>
+
+
+

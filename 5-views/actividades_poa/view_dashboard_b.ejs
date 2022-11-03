@@ -1,0 +1,41 @@
+<div id="actividades_poa " ng-controller="actividades_poa as actividades_poa">
+    <script>
+        actividades_poa.dataForView = (control_mando_b).dataForView2;
+    </script>
+    <%- include('../../7-plugins/templates/table/view',{scope:'actividades_poa'}); %>
+</div>
+
+<div><br></div>
+<div class="table table-togglable table-framed">
+    <script>
+        actividades_asociadas_view.fixFilters = [{
+            "field": "actividades_poa",
+            "value": actividades_poa.dataForView.id
+        }];
+    </script>
+    <div id="actividades_asociadas_view " ng-controller="actividades_asociadas_view as actividades_asociadas_view">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'actividades_asociadas_view'}); %>
+            <div class="subcontent">
+                <div class="col-md-5" style="padding: 0; margin-top: -15px">
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                            <label class="labelRedondo"> Planificada </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> En ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Vencida </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Ninguna Condición </label></li>
+                    </ul>
+                </div>
+                <div class="col-md-12" style="padding: 0">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'actividades_asociadas_view'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

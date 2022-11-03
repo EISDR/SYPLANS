@@ -1,0 +1,105 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                <!--Breadcrumb and Table Options-->
+                <div class="breadcrumb-line">
+
+                    <%- include('../../7-plugins/templates/header/rastro',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div class="row">
+                        <div class="panel panel-default">
+                        <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #ddd;">
+                            <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; font-weight: bold">Mapa de Procesos Actual</label>
+                        </div>
+                        <div class="panel-body" style="padding-bottom: 0;">
+                            <div class="row">
+                                <div class='col-sm-4 col-md-4'  ng-if="<%= scope%>.current_estatus == 3">
+                                    <%- FORM.inputview('nombre', scope, {}) %>
+                                </div>
+                                <div class='col-sm-4 col-md-4'  ng-if="<%= scope%>.current_estatus != 3">
+                                    <%- FORM.input('nombre', scope, {}) %>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <%- FORM.daterange("range_date", scope, {
+                                        from: "fecha_inicio",
+                                        to: "fecha_fin",
+                                    }) %>
+                                </div>
+                                <div class='col-sm-4 col-md-4'>
+                                    <%- FORM.select('estatus', scope, {
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        allownull: false,
+                                        value: "id",
+                                        text: "item.nombre",
+                                        table: "vw_auditoria_programa_plan_estatus",
+                                        icon: {class: "archive"},
+                                        truelabel: "Estatus",
+                                        condition: "item.plan_status == mapa_proceso.current_estatus && item.entidad == 'mapa_proceso'"
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.current_estatus != 3">
+                                    <%- FORM.textarea('descripcion', scope, {
+                                            //maxlength: 200,
+                                    }) %>
+                                </div>
+                                <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.current_estatus == 3">
+                                    <%- FORM.textarea('descripcion', scope, {
+                                        disabled: true
+                                                //maxlength: 200,
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="<%= scope%>.current_estatus != 3">
+                                <div class="col-md-9 col-sm-9"></div>
+                                <div class="col-md-3 col-sm-3">
+                                    <button
+                                            style="margin-right: 0px; margin-left: 10px"
+                                            dragonlanguage="" title="Cancelar"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                            ng-click="<%= scope%>.cancelar();">
+                                        <b><i class="icon-cross2"></i></b>
+                                        Cancelar
+                                    </button>
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Guardar"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                            ng-click="<%= scope%>.saveData();">
+                                        <b><i class=" icon-floppy-disk"></i></b>
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-flat">
+                            <%-include('../../7-plugins/templates/table/header',{scope:'mapa_proceso'});%>
+                            <div class="subcontent">
+                                <%-include('../../7-plugins/templates/table/base',{scope:'mapa_proceso'});%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

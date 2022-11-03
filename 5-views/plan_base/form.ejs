@@ -1,0 +1,83 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('nota', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('notadesc', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.money('cantidad_usuario_departamental', scope, {
+                    //length:15,
+                    trueplaceholder: "Cantidad de Usuarios con Roles Departamentales"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.money('precio', scope, {
+                    //length:15,
+                    label: "Precio del Plan",
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.money('cantidad_usuario_planificacion', scope, {
+                    length: 4,
+                    trueplaceholder: "Cantidad de Usuarios con Rol de Planificación"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.money('cantidad_admin', scope, {
+                    length: 4,
+                    trueplaceholder: "Cantidad de Usuarios con Rol de Administrador"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('multiinstitucion', scope, {text: 'Multiinstitucional'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('pacc', scope, {truetext: 'Plan Anual Compras Contrataciones (PACC)'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('riesgo', scope, {truetext: 'Módulo Prevención de Riesgos – Planificación Estratégica'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('privada', scope, {truetext: 'Empresa Privada'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('multianual', scope, {truetext: 'Soporte para Múltiples Años'}) %>
+            </div>
+
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('creacion_poa_flexibles', scope, {truetext: 'Creación de POA Flexible'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('evidencias_flexibles', scope, {truetext: 'Evidencias de Indicadores Flexible'}) %>
+            </div>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('activo', scope) %>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

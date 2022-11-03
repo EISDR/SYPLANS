@@ -1,0 +1,218 @@
+<style>
+    .icon-help {
+        cursor: pointer;
+        margin-left: 12px;
+        color: #989f9369 !important;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row" ng-show="indicador_proceso.showFuente===true">
+            <div class="col-sm-4 col-md-4 ">
+                <%- FORM.select("ws_connection", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection",
+                    icon: {class: "archive"},
+                    truelabel: "Base de Datos Externa"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 ">
+                <%- FORM.select("ws_connection_field", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.name",
+                    table: "ws_connection_field",
+                    icon: {class: "archive"},
+                    truelabel: "Fuente Externa",
+                    condition: "item.ws_connection == indicador_proceso.ws_connection"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 " ng-show="indicador_proceso.ws_connection_field!=='[NULL]'">
+                <h3>{{indicador_proceso.ws_connection_field_object.ws_connection_name}} |
+                    {{indicador_proceso.ws_connection_field_object.name}}: {{indicador_proceso.resultExterno}}</h3>
+            </div>
+        </div>
+        <div ng-show="indicador_proceso.showFuente!==true" class="row">
+            <div class="col-sm-4 col-md-4 ">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 1000,
+                    placeholder: "Nombre del Indicador",
+                    popover: {
+                        title: "Nombre",
+                        content: "Captura el nombre"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {
+                    maxlength: 4000,
+                    placeholder: "Descripción del Indicador"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 ">
+                <%- FORM.select("actividades_poa", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "vw_procesos_grid",
+                    icon: {class: "archive"},
+                    truelabel: "Proceso",
+                    condition: "item.compania == indicador_proceso.session.compania_id",
+                }) %>
+            </div>
+        </div>
+
+
+        <div ng-show="indicador_proceso.showFuente!==true" class="row">
+            <div class="col-sm-3 col-md-3 drp-pt remove-input-space">
+                <%- FORM.textarea("fuente", scope, {
+                    maxlength: 4000,
+                    popover: {
+                        title: "Fuente",
+                        content: "Captura la fuente"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("metodo_calculo", scope, {
+                    maxlength: 4000,
+                    placeholder: "Método Cálculo",
+                    popover: {
+                        title: "Método de Cálculo",
+                        content: "Captura el método de cálculo"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
+                    trueplaceholder: "Desagregación Demográfica Geográfica",
+                    maxlength: 4000
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 remove-input-space">
+                <%- FORM.select("caracteristica_indicador", scope, {
+                    text: "item.nombre",
+                    table: "caracteristica_indicador",
+                    multiple: true,
+                    icon: {class: "archive"},
+                    label: "Caracteristica",
+                    condition: "item.compania == indicador_proceso.session.compania_id && item.active == 1",
+                    get: {
+                        table: 'caracteristica_indicador_proceso',
+                        tableDelete: 'caracteristica_indicador_proceso',
+                        fieldFrom: 'id',
+                        fieldTo: 'indicador_proceso',
+                        field: 'caracteristica'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div ng-show="indicador_proceso.showFuente!==true" class="row">
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("medio_verificacion", scope, {
+                    maxlength: 4000,
+                    placeholder: "Medio Verificación",
+                    popover: {
+                        title: "Medio Verificación",
+                        content: "Captura el medio de verificación"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 remove-input-space">
+                <%- FORM.textarea("observacion", scope, {
+                    maxlength: 1000,
+                    label: "Observación",
+                    label_custom: true
+                }) %>
+            </div>
+        </div>
+        <div ng-show="indicador_proceso.showFuente!==true" class="row">
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("poa_monitoreo", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    traduce: false,
+                    text: "item.nombre",
+                    table: "poa_monitoreo",
+                    icon: {class: "archive"},
+                    label: "Periodicidad"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2 ">
+                <div>
+                    <%- FORM.select("tipo_meta", scope, {
+                        allowedit: false,
+                        allownew: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        column: "tipo_meta",
+                        text: "item.nombre",
+                        table: "tipoMeta",
+                        icon: {class: "archive"},
+                        label: "Tipo Meta",
+                        popover: {
+                            title: "Tipo Meta",
+                            content: "Captura los tipos de metas"
+                        },
+                    }) %>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 ">
+                <%- FORM.select("direccion_meta", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "direccionMeta",
+                    icon: {class: "archive"},
+                    label: "Dirección Meta",
+                    popover: {
+                        title: "Dirección Meta",
+                        content: "Captura las Direcciónes de la meta"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <%- FORM.integer("ano_linea_base", scope, {
+                    placeholder: "Año Línea Base",
+                    maxlength: 4
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-2" id="subcontainerLineaBase">
+            </div>
+        </div>
+
+
+        <div ng-show="indicador_proceso.form.mode == 'edit' && indicador_proceso.showFuente!==true" class="row"
+             style="margin-bottom: 20px;">
+            <div class="subcontainer2 clearHtml">
+            </div>
+        </div>
+        <div ng-show="indicador_proceso.form.mode == 'new' && indicador_proceso.showFuente!==true" class="row"
+             style="margin-bottom: 20px;">
+            <div class="subcontainer1 clearHtml">
+            </div>
+        </div>
+    </div>
+    <%- FORM.footer(scope) %>
+    <script>
+        $('[name="indicador_proceso_linea_base"]').css("margin-top", "-6px");
+        $('[name="indicador_proceso_fuente"]').css("margin-top", "-6px");
+    </script>

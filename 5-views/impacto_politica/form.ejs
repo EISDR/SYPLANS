@@ -1,0 +1,59 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.integer('no_secuencia', scope, {
+                    maxlength: 5,
+                    placeholder: "No. Secuencia"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%-FORM.select("impacto_denominacion", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: true,
+                    multiple: true,
+                    text: "item.nombre_sec ",
+                    value: "id",
+                    table: "vw_denominacion_pnpsp",
+                    icon: {class: "archive"},
+                    truelabel: "Denominación Resultado PNPSP",
+                    condition: "item.compania == impacto_politica.session.compania_id",
+                    get: {
+                        table: 'politica_denominacion_pnpsp',
+                        fieldFrom: 'id',
+                        fieldTo: 'impacto_politica',
+                        field: 'denominacion_pnpsp'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })
+                %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

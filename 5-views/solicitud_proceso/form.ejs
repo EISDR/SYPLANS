@@ -1,0 +1,235 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.select('tipo_accion', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: 'solicitud_documento_tipo_accion',
+                    truelabel: 'Tipo de Acción',
+                    icon: {class: "archive"},
+                    text: 'item.nombre'
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-3' ng-show="solicitud_proceso.tipo_accion != '1' && solicitud_proceso.tipo_accion != '[NULL]'" ng-if="!solicitud_proceso.session.institucion">
+                <%- FORM.select('proceso', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: 'vw_procesos',
+                    truelabel: 'Proceso',
+                    icon: {class: "archive"},
+                    text: 'item.nombre',
+                    condition: "((item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && item.estatus_id == 3)"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-3' ng-show="solicitud_proceso.tipo_accion != '1' && solicitud_proceso.tipo_accion != '[NULL]'" ng-if="solicitud_proceso.session.institucion">
+                <%- FORM.select('proceso', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: 'vw_procesos',
+                    truelabel: 'Proceso',
+                    icon: {class: "archive"},
+                    text: 'item.nombre',
+                    condition: "(item.institucion == solicitud_proceso.session.institucion_id && item.estatus_id == 3)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-show="solicitud_proceso.tipo_accion == '3' || solicitud_proceso.tipo_accion == '2'">
+                <%- FORM.select('estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.permitido",
+                    value: "id",
+                    table: "vw_auditoria_programa_plan_estatus",
+                    icon: {class: "archive"},
+                    truelabel: "Estatus",
+                    condition: "(item.plan_status == solicitud_proceso.my_true_estatus && item.entidad == 'solicitud_proceso')"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="solicitud_proceso.tipo_accion == '3' || solicitud_proceso.tipo_accion == '2'">
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Solicitud"}) %>
+            </div>
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.textarea('descripcion', scope, {
+                    trueplaceholder: "Descripción"
+                            //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="panel panel-white" ng-show="solicitud_proceso.tipo_accion !='[NULL]'">
+            <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                <h6 class="panel-title">Datos del Solicitante</h6>
+            </div>
+            <div class="panel-body">
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('nombre_solicitante', scope, {trueplaceholder: "Nombre del Solicitante"}) %>
+                </div>
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('departamento_solicitante', scope, {trueplaceholder: "Departamento del Solicitante"}) %>
+                </div>
+                <div class='col-sm-12 col-md-4'>
+                    <%- FORM.inputview('fecha_solicitante', scope, {trueplaceholder: "Fecha de la Solicitud"}) %>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-white" ng-show="solicitud_proceso.tipo_accion == '1'">
+            <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+                <h6 class="panel-title">Solicitud de Creación de un Proceso</h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3" ng-if="!solicitud_proceso.session.institucion">
+                        <%- FORM.select("mapa_proceso", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "vw_mapa_proceso",
+                            truelabel: "Mapa de Proceso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && item.condicion == 'Vigente'"
+                        }) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3" ng-if="solicitud_proceso.session.institucion">
+                        <%- FORM.select("mapa_proceso", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "mapa_proceso",
+                            truelabel: "Mapa de Proceso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.institucion == solicitud_proceso.session.institucion_id)"
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <%- FORM.select("proceso_categoria", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            table: "procesos_categoria",
+                            truelabel: "Macroproceso",
+                            text: "item.nombre",
+                            icon: {class: "archive"},
+                            condition: "(item.mapa_proceso == solicitud_proceso.mapa_proceso)"
+                        }) %>
+                    </div>
+                    <div class="col-sm-12 col-md-3" ng-if="!solicitud_proceso.session.institucion">
+                        <%- FORM.select("responsable", scope, {
+                            allowlist: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            refresh: true,
+                            multiple: false,
+                            column: "responsable",
+                            table: "usuario",
+                            text: "item.nombre + ' ' + item.apellido",
+                            condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && (item.active)",
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                    <div class="col-sm-3 col-md-3" ng-if="solicitud_proceso.session.institucion">
+                        <%- FORM.select("responsable", scope, {
+                            allowview: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowlist: false,
+                            refresh: true,
+                            multiple: false,
+                            disabled: false,
+                            column: "responsable",
+                            table: "vw_usuario",
+                            text: "item.nombre + ' ' + item.apellido",
+                            condition: "(item.institucion == solicitud_proceso.session.institucion_id) && (item.active)",
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-3' ng-show="solicitud_proceso.tipo_accion == '1'">
+                        <%- FORM.select('estatus', scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            text: "item.permitido",
+                            value: "id",
+                            table: "vw_auditoria_programa_plan_estatus",
+                            icon: {class: "archive"},
+                            truelabel: "Estatus",
+                            condition: "(item.plan_status == solicitud_proceso.my_true_estatus && item.entidad == 'solicitud_proceso')"
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-6'>
+                        <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Solicitud"}) %>
+                    </div>
+                    <div class='col-sm-12 col-md-6'>
+                        <%- FORM.input('nombre_proceso', scope, {trueplaceholder: "Nombre del Proceso"}) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('objetivo', scope, {
+                            trueplaceholder: "Objetivo"
+                                    //maxlength: 200,
+                        }) %>
+                    </div>
+                    <div class='col-sm-6 col-md-6'>
+                        <%- FORM.textarea('recursos', scope, {
+                                //maxlength: 200,
+                                trueplaceholder: "Recursos (Humanos, Tecnológicos, etc)",
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('alcance', scope, {
+                                //maxlength: 200,
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('descripcion', scope, {
+                            trueplaceholder: "Descripción"
+                        }) %>
+                    </div>
+                </div>
+                <%- FORM.footer(scope) %>
+            </div>
+        </div>
+        <div class="panel panel-white" ng-show="solicitud_proceso.tipo_accion == '2' && solicitud_proceso.proceso != '[NULL]'">
+            <%- include('mod_pro',{scope: scope}); %>
+        </div>
+        <div class="panel panel-white" ng-show="solicitud_proceso.tipo_accion == '3' && solicitud_proceso.proceso != '[NULL]'">
+            <%- include('delete_pro',{scope: scope}); %>
+        </div>
+    </div>
+</div>
+<div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px" ng-show="solicitud_proceso.proceso == '[NULL]' && solicitud_proceso.tipo_accion !== '1'">
+     <span class="label label-white text-secundary-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+    <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="solicitud_proceso.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>Cancelar</language>
+    </button>
+</div>
+
+
+
+
+

@@ -1,0 +1,48 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('controller', scope, { trueplaceholder: "Hash del controlador" }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+
+        <div class="tab-pane active" id="AP2">
+            <%- FORM.relation("auditorias", scope, {
+                text: "item.nombre",
+                table: "auditoria_programa_plan_estatus",
+                field: "entidad",
+                master: null,
+                icon: {class: "archive"}
+            }) %>
+        </div>
+
+        <div class="tab-pane active" id="AP">
+            <%- FORM.relation("acciones", scope, {
+                text: "item.nombre",
+                table: "auditoria_programa_plan_action",
+                field: "entidad",
+                master: null,
+                icon: {class: "archive"}
+            }) %>
+        </div>
+
+
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

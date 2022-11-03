@@ -1,0 +1,14 @@
+{
+  "domain": "186.150.200.131",
+  "subdomain": "",
+  "folder": "Syplans",
+  "ssl": false,
+  "port": "2020",
+  "proxy":{
+  "domain": "186.150.200.131",
+  "subdomain": "",
+  "ssl": false,
+  "port": "2020",
+  "folder": "Syplans"
+  }
+}

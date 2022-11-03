@@ -1,0 +1,68 @@
+CRUD_pei_estatus = {};
+DSON.keepmerge(CRUD_pei_estatus, CRUDDEFAULTS);
+DSON.keepmerge(CRUD_pei_estatus, {
+    table: {
+        engine: 'my',
+        columns: {
+            id: {
+                label: "ID",
+                sorttype: "numeric",
+                class: "text-left",
+                exportExample: false,
+                dead: true
+            },
+            nombre: {
+                label: "Nombre",
+                shorttext: 370
+            },
+            descripcion: {
+                label: "Descripción",
+                shorttext: 370
+            },
+            created_at: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                sorttype: "datetime",
+                formattype:"datetime"
+            },
+            updated_at: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                sorttype: "datetime",
+                formattype:"datetime"
+            },
+            deleted_at: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                dead: true
+            },
+            created_by: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                dead: true
+            },
+            updated_by: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                dead: true
+            },
+            deleted_by: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                dead: true
+            },
+        },
+    }
+});

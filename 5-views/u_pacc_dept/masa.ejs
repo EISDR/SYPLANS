@@ -1,0 +1,165 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div dragonlanguage=""
+                 class="alert alpha-<%= COLOR.warning %> border-<%= COLOR.warning %>">
+                Se actualizarán todos los registros que coincidan con el filtro de búsqueda "{{u_pacc_dept.filtro}}"
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("masa_familia", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Familia - (Código de Catálogo de Bienes y Servicios)",
+                    table: "vw_bienes_servicio_large",
+                    value: "familia",
+                    text: "item.familianombre",
+                    search: "familianombre",
+                    icon: {class: "archive"},
+                    query: {
+                        columns: ["familia", "familianombre"],
+                        limit: 100,
+                        page: 1,
+                        more: true,
+                        distinct: true,
+                        where: [
+                            {
+                                field: "id",
+                                operator: "like",
+                                value: "%0000"
+                            }
+                        ]
+                    }
+                })
+                %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("masa_biene", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Código de Catálogo de Bienes y Servicios (CBS)",
+                    table: "vw_bienes_servicio_large",
+                    value: "id",
+                    text: "item.cbsnombre",
+                    search: "cbsnombre",
+                    icon: {class: "archive"},
+                    query: {
+                        limit: 100,
+                        page: 1,
+                        where: [
+                            {
+                                field: "id",
+                                operator: "not like",
+                                value: "%0000"
+                            }
+                        ]
+                    },
+                })
+                %>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("masa_unidad_medida", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Unidad de medida",
+                    table: "unidad_medida",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "item.compania==u_pacc_dept.us.compania_id"
+                })
+                %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.money("masa_precio_unitario", scope, {placeholder: "Precio Unitario"})
+                %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("masa_procedimiento_seleccion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Procedimiento de Selección",
+                    table: "procedimiento_seleccion",
+                    text: "item.nombre",
+                    condition: "item.compania==u_pacc_dept.us.compania_id",
+                    icon: {class: "archive"}
+                })
+                %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%-
+                FORM.select("masa_fuente_financiamiento", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Fuente de Financiamiento",
+                    table: "fuente_financiamiento",
+                    text: "item.nombre",
+                    condition: "item.compania==u_pacc_dept.us.compania_id",
+                    icon: {class: "archive"}
+                })
+                %>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+     </span>
+    <button dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="u_pacc_dept.modal.close()">
+        <b><i class="icon-cross2"></i></b>
+        Cancelar
+    </button>
+    <button type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="u_pacc_dept.updateDataMasa()">
+        <b><i class="icon-floppy-disk"></i></b>
+        Actualizar
+    </button>
+
+
+</div>
+
+
+
+
+

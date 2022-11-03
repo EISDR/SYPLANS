@@ -1,0 +1,15 @@
+<script>
+    aacontroldemando_pei.loadAllThis = (data) => {
+        setTimeout(() => {
+            data.forEach((grafico, ix) => {
+                aacontroldemando_pei.dibujaGracfico(grafico.divID, grafico.porcentaje, grafico.color, 300, 250);
+            });
+        }, 50);
+    };
+
+    aacontroldemando_pei.loadThis = (name, data) => {
+        setTimeout(() => {
+            aacontroldemando_pei.dibujaGracfico(`${name}`, data.porcentaje, data.color, 300, 250);
+        }, 50);
+    };
+</script>

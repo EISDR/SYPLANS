@@ -1,0 +1,52 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.select('tipo', scope, {
+                    text: "item.nombre",
+                    column: 'nombre',
+                    value: "nombre",
+                    table: 'plantilla_variable_tipo',
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('etiqueta', scope, {}) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('indice', scope, {
+                    text: "item.id",
+                    column: 'id',
+                    value: "id",
+                    truelabel: "Orden",
+                    table: 'persona',
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('tamano', scope, {
+                    text: "item.id",
+                    column: 'id',
+                    value: "id",
+                    table: 'persona',
+                    truelabel: "Tamaño",
+                    condition: "item.id<=12"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.checkbox('requerido', scope, {
+                    //length:15
+                }) %>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

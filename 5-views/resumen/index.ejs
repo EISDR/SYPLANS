@@ -1,0 +1,278 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line" style="position: static;">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            {{resumen.headertitle}}
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{resumen.actualizacion}}
+                        </a>
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="resumen.refreshPanels()">
+                            <i title="Actualizar"
+                               class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <div id="estrategia" ng-controller="estrategia as estrategia">
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.box("mision", scope, {
+                        column: "mision",
+                        text: "item.mision",
+                        multiple: false,
+                        height: 200,
+                        table: "marco_estrategico",
+                        label: "Misión",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.box("vision", scope, {
+                        column: "vision",
+                        text: "item.vision",
+                        multiple: false,
+                        height: 200,
+                        table: "vw_marco_estrategico",
+                        label: "Visión",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+                <div class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.box("clientes", scope, {
+                        column: "nombre",
+                        text: "item.nombre",
+                        height: 278,
+                        table: "clientes_institucion",
+                        label: "Grupos de Interés",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+                <div class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.box("valores", scope, {
+                        column: "nombre",
+                        text: "item.nombre",
+                        height: 278,
+                        table: "marco_estrategico_valores",
+                        label: "Valores",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.custom_box("eje_estrategico", scope, {
+                        column: "nombre",
+                        text: "item.nombre_sin_hijos",
+                        child_group: "item.objetivos_estrategicos",
+                        child_group_title:"Objetivos estratégicos",
+                        child_group_click_title:"Objetivos estratégicos dar click para ver más...",
+                        child_group_count:"item.count_objetivo",
+                        custom_class: "custom_list",
+                        one_group: "item.relation_end",
+                        one_group_title:"Estrategia Nacional de Desarrollo",
+                        one_group_click_title:"Estrategia Nacional de Desarrollo dar click para ver más...",
+                        one_group_click_name:"(END)",
+                        one_group_count:"item.count_number",
+                        two_group: "item.relation_pnpsp",
+                        two_group_title:"Plan Nacional Plurianual del Sector Público",
+                        two_group_click_title:"Plan Nacional Plurianual del Sector Público dar click para ver más...",
+                        two_group_click_name:"(PNPSP)",
+                        two_group_count:"item.count_number",
+                        three_group: "item.relation_ods",
+                        three_group_title:"Objetivos de Desarrollo Sostenible",
+                        three_group_click_title:"Objetivos de Desarrollo Sostenible dar click para ver más...",
+                        three_group_click_name:"(ODS)",
+                        three_group_count:"item.count_number",
+                        height: 200,
+                        table: "drp_eje_estrategico",
+                        truelabel: "Ejes Estratégicos",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.custom_box("objetivos", scope, {
+                        column: "descripcion",
+                        text: "item.nombre_sin_hijos",
+                        parent_group: "item.eje_estrategico_nombre",
+                        parent_group_count: "item.count_eje",
+                        parent_group_click_title:"Eje estratégico dar click para ver más...",
+                        parent_group_title:"Eje estratégico",
+                        child_group: "item.estrategias",
+                        child_group_count: "item.count_estrategia",
+                        child_group_click_title:"Estrategias dar click para ver más...",
+                        child_group_title:"Estrategias",
+                        second_child_group: "item.objetivos_end",
+                        second_child_group_count: "item.count_estrategia",
+                        second_child_group_click_title:"Alineación con Objetivos END dar click para ver más...",
+                        second_child_group_title:"Objetivos Estratégicos END",
+                        second_child_group_name:"(Objetivos Estratégicos END)",
+                        height: 200,
+                        table: "drp_objetivo_estrategico",
+                        label: "Objetivos Estratégicos",
+                        custom_class: "custom_list",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        max: 9999
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.custom_box("drp_estrategia", scope, {
+                        column: "nombre",
+                        text: "item.nombre_sin_hijos",
+                        parent_group: "item.objetivo_estrategico_nombre",
+                        parent_group_count:"item.count_objetivo",
+                        parent_group_click_title:"Objetivo estratégico dar click para ver más...",
+                        parent_group_title:"Objetivo estratégico",
+                        child_group: "item.resultados",
+                        child_group_count:"item.count_resultado",
+                        child_group_click_title:"Resultados esperados dar click para ver más...",
+                        child_group_title:"Resultados esperados",
+                        custom_class: "custom_list",
+                        custom_window: "item.count_foda",
+                        custom_window_title: "Alineación con el FODA",
+                        custom_window2: "item.count_pesta",
+                        custom_window2_title: "Alineación con el PESTAL",
+                        one_group: "item.objetivos_especificos",
+                        one_group_title:"Objetivos Específicos END",
+                        one_group_click_title:"Objetivos Específicos END dar click para ver más...",
+                        one_group_click_name:"(Objetivos Específicos END)",
+                        height: 75,
+                        table: "drp_estrategia",
+                        label: "Estrategias",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+                <div ng-if="resumen.session.tipo_institucion == 1" class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.custom_box("resultados", scope, {
+                        column: "nombre",
+                        text: "item.nombre_sin_hijos",
+                        parent_group: "item.estrategia_nombre",
+                        parent_group_count:"item.count_estrategia",
+                        parent_group_click_title:"Estrategia dar click para ver más...",
+                        parent_group_title:"Estrategia",
+                        child_group: "item.productos_poa",
+                        child_group_count:"item.count_producto",
+                        child_group_click_title:"Proyecto/Producto dar click para ver más...",
+                        child_group_title:"Proyecto/Producto",
+                        custom_class: "custom_list",
+                        storage_child: "perspectiva",
+                        storage_child_group:"storage_item.nombre",
+                        storage_child_condition: "item.perspectiva == storage_item.id",
+                        storage_child_group_title: "Perspectiva",
+                        one_group: "item.lineas_accion",
+                        one_group_title:"Líneas de Acción",
+                        one_group_click_title:"Líneas de Acción dar click para ver más...",
+                        one_group_click_name:"(Líneas de Acción)",
+                        height: 75,
+                        table: "drp_resultado",
+                        label: "Resultados Esperados",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+                <div ng-if="resumen.session.tipo_institucion == 2" class="col-sm-6 col-md-6 list-style-resumen">
+                    <%- FORM.custom_box("resultados", scope, {
+                        column: "nombre",
+                        text: "item.nombre_sin_hijos",
+                        parent_group: "item.estrategia_nombre",
+                        parent_group_count:"item.count_estrategia",
+                        parent_group_click_title:"Estrategia dar click para ver más...",
+                        parent_group_title:"Estrategia",
+                        child_group: "item.productos_poa",
+                        child_group_count:"item.count_producto",
+                        child_group_click_title:"Proyecto/Plan de Acción dar click para ver más...",
+                        child_group_title:"Proyecto/Plan de Acción",
+                        custom_class: "custom_list",
+                        storage_child: "perspectiva",
+                        storage_child_group:"storage_item.nombre",
+                        storage_child_condition: "item.perspectiva == storage_item.id",
+                        storage_child_group_title: "Perspectiva",
+                        one_group: "item.lineas_accion",
+                        one_group_title:"Líneas de Acción",
+                        one_group_click_title:"Líneas de Acción dar click para ver más...",
+                        one_group_click_name:"(Líneas de Acción)",
+                        height: 75,
+                        table: "drp_resultado",
+                        label: "Resultados Esperados",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+                <div class="col-sm-12 col-md-12 list-style-resumen">
+                    <%- FORM.custom_box("indicadores_impacto", scope, {
+                        column: "nombre",
+                        text: "item.nombre",
+                        parent_group: "item.resultados",
+                        parent_group_count:"item.count_resultados",
+                        parent_group_click_title:"Resultado Esperado dar click para ver más...",
+                        parent_group_title:"Resultado Esperado",
+                        height: 200,
+                        table: "vw_indicador_pei",
+                        label: "Indicadores PEI",
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false
+                    }) %>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div><!--end-->

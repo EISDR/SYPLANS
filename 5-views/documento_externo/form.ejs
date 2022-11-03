@@ -1,0 +1,41 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('institucion_duena', scope, {trueplaceholder: "Institución Titular"}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.date('fecha_creacion', scope, {
+                    placeholder: "Fecha Creación", label_custom: true,
+                    label: "Fecha Creación"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.file("evidencia", scope, {
+                    title: 'Subir Documento',
+                    maxfiles: 999,
+                    columns: 4,
+                    truetext: 'Subir Documento'
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (documento_externo.mode === "new") {
+        documento_externo.fecha_creacion = moment(new Date()).format("YYYY/MM/DD");
+        setTimeout(() => {
+            documento_externo.refreshAngular();
+
+        }, 100);
+    }
+</script>
+<%- FORM.footer(scope) %>
+
+
+
+
+

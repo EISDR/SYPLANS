@@ -1,0 +1,21 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <br>
+                <div class="tab-content" id="vw_comentarios_pacc_departamento" ng-controller="vw_comentarios_pacc_departamento as vw_comentarios_pacc_departamento">
+                    <div class="panel panel-flat">
+                        <%-
+                        include('../../7-plugins/templates/table/header',{scope:'vw_comentarios_pacc_departamento'});
+                        %>
+                        <div class="subcontent">
+                            <%-
+                                    include('../../7-plugins/templates/table/base',{scope:'vw_comentarios_pacc_departamento'});
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->

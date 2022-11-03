@@ -1,0 +1,114 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row" ng-if="auditoria_programa_plan_documentos_asociados_listaverificacion.from_where == 'no cumple'">
+            <div class='col-sm-3 col-md-3'  ng-if="!auditoria_programa_plan_documentos_asociados_listaverificacion.session.institucion">
+                <%- FORM.select('tipo_inconformidad', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "tipo_inconformidad",
+                    icon: {class: "archive"},
+                    truelabel: "Tipo de no Conformidad",
+                    condition: "(item.compania == auditoria_programa_plan_documentos_asociados_listaverificacion.session.compania_id && item.institucion == $null)",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="auditoria_programa_plan_documentos_asociados_listaverificacion.session.institucion">
+                <%- FORM.select('tipo_inconformidad', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "tipo_inconformidad",
+                    icon: {class: "archive"},
+                    truelabel: "Tipo de no Conformidad",
+                    condition: "(item.institucion == auditoria_programa_plan_documentos_asociados_listaverificacion.session.institucion_id)",
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6' ng-show="<%= scope%>.from_work">
+                <%- FORM.textarea('observaciones', scope, { trueplaceholder: "Descripción del hallazgo"}) %>
+            </div>
+            <div class="col-sm-4 col-md-4 center-profile-image countFile" style="padding: 1% 10% 0 10%;" ng-show="<%= scope%>.from_work">
+                <%- FORM.file("listaverificacionfile", scope, {
+                    title: 'Subir Evidencia',
+                    maxfiles: 999,
+                    columns: 4,
+                    truetext: 'Subir Evidencia',
+                    imagefloat: "right",
+                // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="!<%= scope%>.from_work">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    trueplaceholder: "Puntos de Verificación"
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                 data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("file.upload", true);
+    auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("file.remove", true);
+    $(function(){
+        $('[name="auditoria_programa_plan_documentos_asociados_listaverificacion_listaverificacionfile"]').css({height: ''});
+    });
+    auditoria_programa_plan_documentos_asociados_listaverificacion.refreshAngular();
+</script>
+
+
+
+
+

@@ -1,0 +1,429 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 drp-pt">
+                <%- FORM.select("eje_estrategico", scope, {
+                    text: "item.nombre",
+                    permission: "eje_estrategico",
+                    table: "drp_eje_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Eje Estratégico Institucional",
+                    condition: "item.pei == estrategia.pei.data[0].id"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4 drp-pt" ng-if="estrategia.session.tipo_institucion === 1">
+                <%- FORM.select("objetivo_estrategico", scope, {
+                    text: "item.nombre",
+                    permission: "objetivo_estrategico",
+                    table: "drp_objetivo_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Objetivo Estratégico Institucional",
+                    condition: "item.eje_estrategico == estrategia.eje_estrategico"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-4 drp-pt" ng-if="estrategia.session.tipo_institucion !== 1">
+                <%- FORM.select("objetivo_estrategico", scope, {
+                    text: "item.nombre_sin_hijos",
+                    permission: "objetivo_estrategico",
+                    table: "drp_objetivo_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Objetivo Estratégico Institucional",
+                    condition: "item.eje_estrategico == estrategia.eje_estrategico"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" style="margin-top: 8px" ng-if="estrategia.session.tipo_institucion==1">
+                <%- FORM.select("objetivos_especificos", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    truelabel: "Objetivos Específicos END",
+                    permission: "objetivo_especifico",
+                    column: "id",
+                    table: "drp_edt_objetivo_especificio_est",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    get: {
+                        table: 'estrategia_objetivo_especifico',
+                        fieldFrom: 'id',
+                        fieldTo: 'estrategia',
+                        field: 'objetivo_especifico'
+                    },
+                    multiple: true,
+                    condition: "item.objetivo_estrategico==estrategia.objetivo_estrategico"
+                }) %>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8 col-md-8 remove-input-space">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 1000,
+                    trueplaceholder: "Nombre Estrategia"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+        <li class="active">
+            <a href="#relation" data-toggle="tab" ng-click="">
+                <i class="position-left"></i>
+                <language>Resultado Esperado</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#foda" data-toggle="tab" ng-click="">
+                <i class="position-left"></i>
+                <language>FODA</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#pesta" data-toggle="tab" ng-click="equlizer('pesta')">
+                <i class="position-left"></i>
+                <language>PESTAL</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="relation">
+            <%- FORM.relation("resultado", scope, {
+                table: "resultado",
+                field: "estrategia",
+                master: null,
+                icon: {class: "archive"}
+            }) %>
+        </div>
+        <div class="tab-pane" id="foda">
+            <div class="row" style="padding-left: 9px; padding-right: 9px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Fortalezas</h6>
+                        </div>
+                        <div class="panel-body foda">
+                            <%- FORM.select("fortaleza", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_foda_items_fortaleza",
+                                icon: {class: "archive"},
+                                label: "Fortalezas",
+                                get: {
+                                    table: 'vw_estrategia_foda_1',
+                                    tableDelete: 'estrategia_foda',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'foda'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Oportunidades</h6>
+                        </div>
+                        <div class="panel-body foda">
+                            <%- FORM.select("oportunidad", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_foda_items_oportunidad",
+                                icon: {class: "archive"},
+                                label: "Oportunidades",
+                                get: {
+                                    table: 'vw_estrategia_foda_3',
+                                    tableDelete: 'estrategia_foda',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'foda'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left: 9px; padding-right: 9px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Debilidades</h6>
+                        </div>
+                        <div class="panel-body foda">
+                            <%- FORM.select("debilidad", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_foda_items_debilidad",
+                                icon: {class: "archive"},
+                                label: "Debilidades",
+                                get: {
+                                    table: 'vw_estrategia_foda_2',
+                                    tableDelete: 'estrategia_foda',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'foda'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Amenazas</h6>
+                        </div>
+                        <div class="panel-body foda">
+                            <%- FORM.select("amenaza", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_foda_items_amenaza",
+                                icon: {class: "archive"},
+                                label: "Amenazas",
+                                get: {
+                                    table: 'vw_estrategia_foda_4',
+                                    tableDelete: 'estrategia_foda',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'foda'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="pesta">
+            <div class="row" style="padding-left: 9px; padding-right: 9px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Político</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("politico", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Político",
+                                get: {
+                                    table: 'vw_estrategia_pesta_1',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Económico</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("economico", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Económico",
+                                get: {
+                                    table: 'vw_estrategia_pesta_2',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left: 9px; padding-right: 9px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Social</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("social", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Social",
+                                get: {
+                                    table: 'vw_estrategia_pesta_3',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Tecnológico</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("tecnologico", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Tecnológico",
+                                get: {
+                                    table: 'vw_estrategia_pesta_4',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left: 9px; padding-right: 9px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Ambiental</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("ambiental", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Ambiental",
+                                get: {
+                                    table: 'vw_estrategia_pesta_5',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading panel-dashboard bg-<%= COLOR.secundary %>">
+                            <h6 class="panel-title">Legal</h6>
+                        </div>
+                        <div class="panel-body pesta">
+                            <%- FORM.select("legal", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: true,
+                                column: "estrategia",
+                                text: "item.descripcion",
+                                value: "id",
+                                table: "vw_pesta_items",
+                                icon: {class: "archive"},
+                                label: "Legal",
+                                get: {
+                                    table: 'vw_estrategia_pesta_6',
+                                    tableDelete: 'estrategia_pesta',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'estrategia',
+                                    field: 'pesta'
+                                },
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+
+</script>

@@ -1,0 +1,338 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <script>
+        <%= scope %>.filtersession = new SESSION().current();
+        <%= scope %>.disabledepa = false;
+        <%= scope %>.companiasel = new SESSION().current().compania_id;
+
+        if (new SESSION().current().interinstitucional) {
+            <%= scope %>.
+            soyII = true;
+
+            if (<%= scope %>.
+            filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general).length > 0 ||
+            <%= scope %>.
+            filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general).length > 0
+        )
+            {
+                <%= scope %>.
+                soyEN = true;
+            }
+        }
+        <%= scope %>.institucion = <%= scope %>.companiasel + "";
+        <%= scope %>.$scope.$watch('<%= scope %>.institucion', function (value) {
+            <%= scope %>.
+            poa = <%= scope %>.
+            institucion_object.poa + "";
+        });
+    </script>
+    <div class="panel panel-flat" style="background-color: #f8f8f8">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Procesos/Dashboard
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{dashboard_proceso.actualizacion}}
+                        </a>
+
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="dashboard_proceso.getAll()"> <i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent" id="graficos">
+            <div ng-show="false">
+                <div class="panel panel-white">
+                    <div class="panel-heading panel-dashboard">
+                        <h6 class="panel-title">Filtros de búsqueda</h6>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII" style="display: none">
+                            <%- FORM.select("institucion", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: true,
+                                todos: true,
+                                disabled: true,
+                                text: "item.nombre",
+                                table: "vw_instituciones",
+                                icon: {class: "archive"},
+                                label: "Institución",
+                                query: {
+                                    orderby: "tipo",
+                                    order: "asc"
+                                },
+                                condition: "item.compania==" + scope + ".companiasel"
+                            }) %>
+                        </div>
+                        <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyII">
+                            <%- FORM.select("institucion", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: true,
+                                todos: true,
+                                text: "item.nombre",
+                                table: "vw_instituciones",
+                                icon: {class: "archive"},
+                                label: "Institución",
+                                query: {
+                                    orderby: "tipo",
+                                    order: "asc"
+                                },
+                                condition: "item.compania==" + scope + ".companiasel"
+                            }) %>
+                        </div>
+                        <div class="col-sm-6 col-md-6" ng-if="dashboard_indicadores.session.tipo_institucion == 1">
+                            <%- FORM.select("poa", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                truelabel: "POA",
+                                text: "item.nombre + ' - ' + item.periodo_poa",
+                                permission: "poa",
+                                table: "vw_poa_ddl",
+                                condition: "item.entidad == dashboard_indicadores.institucion",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class="col-sm-6 col-md-6" ng-if="dashboard_indicadores.session.tipo_institucion == 2">
+                            <%- FORM.select("poa", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                truelabel: "Gestión Presupuestaria",
+                                text: "item.nombre + ' - ' + item.periodo_poa",
+                                permission: "poa",
+                                table: "vw_poa_ddl",
+                                condition: "item.entidad == dashboard_indicadores.institucion",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <%- FORM.select("departamento", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                disabled: true,
+                                text: "item.nombre",
+                                permission: "departamento",
+                                table: "vw_departamentos_dashboard",
+                                condition: "(item.compania == dashboard_indicadores.compania_id || item.compania == 0) && (item.poa == dashboard_indicadores.poa || item.poa == 0)",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                        <div class="col-md-12 col-sm-12 pull-left" style="padding-right: 0;">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Buscar"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="dashboard_indicadores.searchData()">
+                                <b><i class=" icon-search4"></i></b>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="panel panel-white" style="margin-bottom: 0">
+                    <div class="panel-heading panel-dashboard">
+                        <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">Distribución por
+                            Estatus</h6>
+                    </div>
+                    <div class="panel-body" style="padding: 0">
+                        <div class="col-md-12" style="padding: 0">
+                            <div class="panel panel-white" id="PlanAuditoria" style="margin-bottom: 0px;">
+                                <div class="panel-heading" style="padding: 10px 20px">
+                                    <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Auditorías</h6>
+                                </div>
+                                <div class="panel-body" style="padding: 10px">
+                                    <div dragonlanguage=""
+                                         style="margin-top: 15px !important;"
+                                         ng-show="!dashboard_proceso.array_planes.length"
+                                         class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                        <language>MESSAGE.ic('table.nodata')</language>
+                                    </div>
+                                    <div class="panel" ng-show="dashboard_proceso.array_planes.length"
+                                         ng-click="dashboard_proceso.openmodalplanes(value.name)"
+                                         ng-repeat="(key, value) in dashboard_proceso.array_planes | orderBy: 'order'"
+                                         style="margin-bottom: 0px; cursor: pointer;">
+                                        <div title="{{value.title}}"
+                                             style="float: left; width: 180px; margin-left: 15px">
+                                            <div class="panel panel-white"
+                                                 style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 15px; border-radius: 2px">
+                                                <div class="panel-heading"
+                                                     style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                    <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                    <i class="{{value.icon}}" style="float: right"></i>
+                                                </div>
+                                                <div class="panel-body"
+                                                     style="background: {{value.color}}; padding: 5px;">
+                                                    {{value.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding: 0">
+                            <div class="panel panel-white" id="procesos" style="margin-bottom: 0px;">
+                                <div class="panel-heading" style="padding: 10px 20px">
+                                    <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Procesos</h6>
+                                </div>
+                                <div class="panel-body" style="padding: 10px">
+                                    <div dragonlanguage=""
+                                         style="margin-top: 15px !important;"
+                                         ng-show="!dashboard_proceso.array_procesos.length"
+                                         class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                        <language>MESSAGE.ic('table.nodata')</language>
+                                    </div>
+                                    <div class="panel" ng-show="dashboard_proceso.array_procesos.length"
+                                         ng-click="dashboard_proceso.openmodalprocesos(value.name)"
+                                         ng-repeat="(key, value) in dashboard_proceso.array_procesos | orderBy: 'order'"
+                                         style="margin-bottom: 0px; cursor: pointer;">
+                                        <div style="float: left; width: 180px; margin-left: 20px"
+                                             title="{{value.title}}">
+                                            <div class="panel panel-white"
+                                                 style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 15px; border-radius: 2px">
+                                                <div class="panel-heading"
+                                                     style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                    <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                    <i class="{{value.icon}}" style="float: right"></i>
+                                                </div>
+                                                <div class="panel-body"
+                                                     style="background: {{value.color}}; padding: 5px;">
+                                                    {{value.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding: 0">
+                            <div class="panel panel-white" id="documentos" style="margin-bottom: 0px;">
+                                <div class="panel-heading" style="padding: 10px 20px">
+                                    <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
+                                        Documentos</h6>
+                                </div>
+                                <div class="panel-body" style="padding: 10px">
+                                    <div dragonlanguage=""
+                                         style="margin-top: 15px !important;"
+                                         ng-show="!dashboard_proceso.array_documentos.length"
+                                         class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                        <language>MESSAGE.ic('table.nodata')</language>
+                                    </div>
+                                    <div class="panel" ng-show="dashboard_proceso.array_documentos.length"
+                                         ng-click="dashboard_proceso.openmodaldocumentos(value.name)"
+                                         ng-repeat="(key, value) in dashboard_proceso.array_documentos | orderBy: 'order'"
+                                         style="margin-bottom: 0px; cursor: pointer;">
+                                        <div style="float: left; width: 180px; margin-left: 20px"
+                                             title="{{value.title}}">
+                                            <div class="panel panel-white"
+                                                 style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 15px; border-radius: 2px">
+                                                <div class="panel-heading"
+                                                     style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                    <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                    <i class="{{value.icon}}" style="float: right"></i>
+                                                </div>
+                                                <div class="panel-body"
+                                                     style="background: {{value.color}}; padding: 5px;">
+                                                    {{value.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel panel-white" style="margin-bottom: 0">
+                <br>
+                <div class="panel-body" style="padding: 0">
+                    <div class="row">
+                        <div style="display: none; float: right;padding-bottom: 20px;"
+                             class="col-sm-12 col-md-12 hide_grafico1">
+                            <button id="btnDashboard"
+                                    style="float: right; padding-right: 74px;padding-left: 74px;"
+                                    dragonlanguage="" title="Ver en modo gráfico"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right">
+                                <b><i class="icon-chart"></i></b>
+                                Ver en modo Gráfico
+                            </button>
+                        </div>
+                        <div style="float: right;padding-bottom: 20px;" class="col-sm-12 col-md-12 hide_grafico2">
+                            <button id="btnDashboard2"
+                                    style="float: right; padding-right: 74px;padding-left: 74px;"
+                                    dragonlanguage="" title="Ver en modo matriz"
+                                    type="button" role="button"
+                                    class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                                    ng-click="">
+                                <b><i class="icon-chart"></i></b>
+                                Ver en modo matriz
+                            </button>
+                        </div>
+                    </div>
+                    <div style="display: none;" class="hide_grafico1">
+                        <%- include('dashboard',{scope:scope}); %>
+                    </div>
+                    <div class="hide_grafico2">
+                        <%- include('dashboard2',{scope:scope}); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#btnDashboard').on('click', function () {
+        $('.hide_grafico1').hide();
+        $('.hide_grafico2').show();
+        if (dashboard_proceso.loadCharts) {
+            // dashboard_indicadores.loadCharts = false;
+            resizeCharts();
+        }
+    });
+    $('#btnDashboard2').on('click', function () {
+        $('.hide_grafico1').show();
+        $('.hide_grafico2').hide();
+        if (dashboard_proceso.loadCharts) {
+            // dashboard_indicadores.loadCharts = false;
+            resizeCharts();
+        }
+    });
+</script>

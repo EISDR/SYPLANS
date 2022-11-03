@@ -1,0 +1,31 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('objetivo_localizacion', scope, {
+                    column: 'consideraciones',
+                    table: 'objetivo_localizacion',
+                    truelabel: "Objetivo de la Localización",
+                    text: 'item.consideraciones'
+
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation('responsable_objetivo', scope, {
+                    text: "item.nombre",
+                    table: "responsable_objetivo",
+                    field: "programa_objetivo",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

@@ -1,0 +1,76 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+
+        <div class="" >
+            <div class="row">
+                <div class="col-sm-6 col-md-12 remove-input-space">
+                    <%- FORM.input("nombre", scope, {
+                        maxlength: 1000
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-12 remove-input-space">
+                    <%- FORM.textarea("descripcion", scope, {placeholder:"Descripción",maxlength: 4000}) %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6" ng-if="drp_objetivo_estrategico.session.tipo_institucion === drp_objetivo_estrategico.publica">
+                    <%- FORM.select("eje_estrategico", scope, {
+                        allownull: false,
+                        column: "nombre",
+                        text:"item.nombre ",
+                        table: "drp_eje_estrategico_end",
+                        icon: {class: "archive"},
+                        label: "Eje Estratégico",
+                        // childs: [
+                        //     {
+                        //         model: 'alineacionoe'
+                        //     }
+                        // ]
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="drp_objetivo_estrategico.session.tipo_institucion !== drp_objetivo_estrategico.publica">
+                    <%-
+                    FORM.select("eje_estrategico", scope, {
+                        allownull: false,
+                        column: "nombre",
+                        text:"item.nombre ",
+                        table: "drp_eje_estrategico",
+                        icon: {class: "archive"},
+                        label: "Eje Estratégico"
+                    })
+                    %>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="drp_objetivo_estrategico.session.tipo_institucion === drp_objetivo_estrategico.publica">
+                    <%-
+                    FORM.select("alineacionoe", scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        refresh: true,
+                        multiple: true,
+                        column: "alineacionoe_nombreObjetivo",
+                        text:"item.nombreObjetivo ",
+                        value: "idObjetivo",
+                        table: "alineacionoe",
+                        icon: {class: "archive"},
+                        label: "Alineación OE-END",
+                        condition:"item.id == drp_objetivo_estrategico.eje_estrategico && drp_objetivo_estrategico.eje_estrategico != '[NULL]'"
+                        // get: {table: 'alineacionoe', fieldFrom: 'id', fieldTo: 'id', field: 'idObjetivo'},
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // }
+                    })
+                    %>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+<script>
+    // $('[name="drp_objetivo_estrategico_alineacionoe"]').trigger('change');
+</script>

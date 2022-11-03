@@ -1,0 +1,260 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 " ng-if="riesgo.session.institucion">
+                <%- FORM.select("riesgo_historico", scope, {
+                    allownew: false,
+                    allowview: false,
+                    allowedit: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "vw_riesgo_historico",
+                    icon: {class: "archive"},
+                    label: "Riesgo",
+                    condition: "(item.institucion  == riesgo.session.institucion_id)  && (item.condicion == 'Vigente')"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 " ng-if="!riesgo.session.institucion">
+                <%- FORM.select("riesgo_historico", scope, {
+                    allownew: false,
+                    allowview: false,
+                    allowedit: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "vw_riesgo_historico",
+                    icon: {class: "archive"},
+                    label: "Periodo de la gestion del riesgo",
+                    condition: "(item.compania == riesgo.session.compania_id && item.institucion == null)  && (item.condicion == 'Vigente')"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3 " id="registrodiv">
+                <%- FORM.select("registro", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre_drp",
+                    table: url.split('query=')[1].replaceAll('RF', ''),
+                    icon: {class: "archive"},
+                    label: "Registro",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        orderby: "procesos_categoria",
+                        order: "asc"
+                    }
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
+                <%- FORM.select("mamfe_elemento", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "vw_procesos_elemento",
+                    icon: {class: "archive"},
+                    truelabel: "Elemento del Proceso",
+                    condition: "item.id == riesgo.registro"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
+                <%- FORM.select("mamfe_elemento", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    refresh: false,
+                    text: "item.nombre",
+                    table: "vw_procesos_elemento",
+                    icon: {class: "archive"},
+                    truelabel: "Elemento del Proceso",
+                    condition: "item.proceso == riesgo.registro"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
+                <%- FORM.select("riesgo_a", scope, {
+                    allownull: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "vw_riesgo_a",
+                    icon: {class: "archive"},
+                    truelabel: "Modo de fallo",
+                    condition: "(item.institucion  == riesgo.session.institucion_id)  && (item.entidad == riesgo.drp_entidad && item.active == 1 && item.mamfe==1)"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
+                <%- FORM.select("riesgo_a", scope, {
+                    allownull: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "vw_riesgo_a",
+                    icon: {class: "archive"},
+                    truelabel: "Modo de fallo",
+                    condition: "((item.compania == riesgo.session.compania_id && item.institucion == null))  && (item.entidad == riesgo.drp_entidad && item.active == 1 && item.mamfe==1)"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
+                <%- FORM.select("departamento", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamento",
+                    condition: "(item.compania == riesgo.session.compania_id && item.institucion == null) && item.active == 1"
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
+                <%- FORM.select("departamento", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamento",
+                    condition: "(item.institucion  == riesgo.session.institucion_id) && (item.active == 1)"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4' ng-show="false">
+                <%- FORM.input('nombre', scope, {readonly: true}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('mamfe_efecto', scope, {
+                    trueplaceholder: "Efecto", disabled: true
+
+                }) %>
+            </div>
+
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('mamfe_causa', scope, {
+                    trueplaceholder: "Causa", disabled: true
+                }) %>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_gravedad', scope, {
+                    trueplaceholder: "Gravedad (G)", disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_ocurrencia', scope, {
+                    trueplaceholder: "Ocurrencia (O)", disabled: true
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('mamfe_deteccion', scope, {
+                    trueplaceholder: "Detección (D)", disabled: true
+                }) %>
+            </div>
+
+            <div class='col-sm-3 col-md-3'>
+                <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                    <label class="control-label is-visible animate ng-binding" style="color:#000000 !important;">
+                        Índice de Prioridad de Riesgos (IPR=GxOxD)
+                    </label>
+
+                    <input readonly
+                           value="{{(riesgo.mamfe_gravedad||0)*(riesgo.mamfe_ocurrencia||0)*(riesgo.mamfe_deteccion||0)}}"
+                           type="text"
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                           style="padding-left: 31px !important;" placeholder="" disabled="disabled">
+
+                    <div class="form-control-feedback ng-scope" style="top: 35px">
+                        <i class="text-secundary icon-lock2">
+
+                        </i>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="false">
+                <div class='col-sm-3 col-md-3'>
+                    <%- FORM.integer('mamfe_gravedad_current', scope, {
+                        trueplaceholder: "Valoración Gravedad (G)"
+                    }) %>
+                </div>
+                <div class='col-sm-3 col-md-3'>
+                    <%- FORM.integer('mamfe_ocurrencia_current', scope, {
+                        trueplaceholder: "Valoración Ocurrencia (O)"
+                    }) %>
+                </div>
+                <div class='col-sm-3 col-md-3'>
+                    <%- FORM.integer('mamfe_deteccion_current', scope, {
+                        trueplaceholder: "Valoración Detección (D)"
+                    }) %>
+                </div>
+
+                <div class='col-sm-3 col-md-3'>
+                    <div class="form-group-material form-group has-feedback has-secundary-600  has-feedback-left">
+                        <label class="control-label is-visible animate ng-binding" style="color:#000000 !important;">
+                            Valoración Índice de Prioridad de Riesgos (IPR=GxOxD)
+                        </label>
+
+                        <input readonly
+                               value="{{(riesgo.mamfe_gravedad_current||0)*(riesgo.mamfe_ocurrencia_current||0)*(riesgo.mamfe_deteccion_current||0)}}"
+                               type="text"
+                               class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
+                               style="padding-left: 31px !important;" placeholder="" disabled="disabled">
+
+                        <div class="form-control-feedback ng-scope" style="top: 35px">
+                            <i class="text-secundary icon-lock2">
+
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                    disabled: true
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div id="<%= 'riesgo_control' %>" ng-controller="<%= 'riesgo_control' %> as <%= 'riesgo_control' %>">
+
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:'riesgo_control'}); %>
+                    <div class="subcontent">
+                        <%- include('../../7-plugins/templates/table/base',{scope:'riesgo_control'}); %>
+                    </div>
+                </div>
+                <script>
+                    riesgo_control.fixFilters = [{field: 'riesgo', value: riesgo.riesgo_a}];
+                    riesgo_control.setPermission("actions", false);
+                    riesgo_control.setPermission("add", false);
+                    riesgo_control.setPermission("edit", false);
+                    riesgo_control.setPermission("remove", false);
+                    // riesgo_control.setPermission("active", false);
+                    riesgo_control.setPermission("view", false);
+                    // riesgo_control.setPermission("copy", false);
+                    riesgo_control.setPermission("audit", true);
+                </script>
+            </div><!--end-->
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+
+
+
+

@@ -1,0 +1,53 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nombre_razon', scope, {}) %>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <%-FORM.select("tipo", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Sección",
+                    text: "item.nombre",
+                    table: "tipo_razon",
+                    columns: ["id", "nombre"],
+                    icon: {class: "archive"},
+                    condition: 'item.id > 0'
+                })%>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('description', scope, {
+                    label: "Descripción",
+                    placeholder: "Descripción"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="false">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select("compania", scope, {
+                    label: "Compania",
+                    placeholder: "Compania",
+                    text: "item.nombre",
+                    table: "compania",
+                    columns: ["nombre"],
+                    icon: {class:"archive"}
+                })%>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

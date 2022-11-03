@@ -1,0 +1,18 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    vw_procesos.fixFilters = [{
+        "field": "procesos_categoria",
+        "value": procesos_categoria.dataForView.id
+    }];
+</script>
+<div><br></div>
+<div class="table table-togglable table-framed">
+    <div id="vw_procesos " ng-controller="vw_procesos as vw_procesos">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'vw_procesos'}); %>
+            <div class="subcontent">
+                <%- include('../../7-plugins/templates/table/base',{scope:'vw_procesos'}); %>
+            </div>
+        </div>
+    </div>
+</div>

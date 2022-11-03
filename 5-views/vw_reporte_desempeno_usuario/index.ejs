@@ -1,0 +1,144 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                    <a ng-click="<%= scope %>.get_actividades();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="">
+                    <a ng-click="<%= scope %>.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;" title="PDF">
+                    <a ng-click="<%= scope %>.openmodalField('pdf');"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <h4 style="text-align: center">
+                Reporte de Eficiencia por Usuario
+            </h4>
+            <div class="col-sm-12 col-md-12" style="padding-left: 0">
+                <div class='col-sm-6 col-md-6' style="padding-left: 0" ng-if="!vw_reporte_desempeno_usuario.session.institucion_id">
+                    <%- FORM.select('filter_departamento', scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        text: "item.nombre",
+                        table: 'vw_departamento_filtro',
+                        label: "Departamento",
+                        icon: {class: "archive"},
+                        condition: "item.compania==vw_reporte_desempeno_usuario.session.compania_id && item.institucion==null"
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6' style="padding-left: 0" ng-if="vw_reporte_desempeno_usuario.session.institucion_id">
+                    <%- FORM.select('filter_departamento', scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        text: "item.nombre",
+                        table: 'vw_departamento_filtro',
+                        label: "Departamento",
+                        icon: {class: "archive"},
+                        condition: "item.institucion==vw_reporte_desempeno_usuario.session.institucion_id"
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6' style="padding-left: 0" ng-if="!vw_reporte_desempeno_usuario.session.institucion_id">
+                    <%- FORM.select('filter_usuario', scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        text: "item.completo",
+                        table: 'vw_usuario',
+                        label: "Usuario",
+                        icon: {class: "archive"},
+                        condition: "(item.compania==vw_reporte_desempeno_usuario.session.compania_id) && (item.institucion==null)"
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6' style="padding-left: 0" ng-if="vw_reporte_desempeno_usuario.session.institucion_id">
+                    <%- FORM.select('filter_usuario', scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        text: "item.completo",
+                        table: 'vw_usuario',
+                        label: "Usuario",
+                        icon: {class: "archive"},
+                        condition: "(item.institucion==vw_reporte_desempeno_usuario.session.institucion_id)"
+                    }) %>
+                </div>
+            </div>
+            <div id="reload_container">
+                <div class="col-md-12" ng-repeat="(key1, value1) in vw_reporte_desempeno_usuario.usuarios" ng-if="value1.data.length > 0" style="border-bottom: solid 1px grey">
+                    <div id="TablePDF" class="col-md-7 row scrollit">
+                        <table class="table table-bordered" style="margin-top: 20px; max-width: 60%">
+                            <tbody class="">
+                                <tr>
+                                    <td class="" style="width: 50%"><strong>Nombre:</strong></td>
+                                    <td class="" style="width: 50%">{{value1.header.nombre_completo}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="" style="width: 50%"><strong>Departamento:</strong></td>
+                                    <td class="" style="width: 50%">{{value1.header.departamento_nombre}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="vw_reporte_desempeno_usuarioTableIndex" class="table table-bordered" style="margin-bottom: 15px; max-width: 60%">
+                            <thead class="">
+                                <tr class="centralizarth" style="background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">
+                                    <th style="width: 50%">Actividades</th>
+                                    <th style="width: 50%">Calificación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr class="centralizartd" ng-repeat="(key,row) in value1.data">
+                                    <td>{{row.nombre}}</td>
+                                    <td>{{row.calificacion}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Promedio</strong></td>
+                                    <td>{{vw_reporte_desempeno_usuario.findAverageCal(value1.data)}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-show="vw_reporte_desempeno_usuario.dont_show_me">
+                    <div  class="alert alert-primary alert-styled-left" style="font-size: 17px;">
+                        <language>No existen Datos para mostrar </language>
+                    </div>
+                </div>
+            </div>
+            <div id="desempenoTable" style="display: none">
+                <table class="table table-bordered">
+                    <thead class="">
+                    <tr class="centralizarth" >
+                        <th style="text-align: center; color: white; background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">Departamento</th>
+                        <th style="text-align: center; color: white; background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">Responsable</th>
+                        <th style="text-align: center; color: white; background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">Actividad</th>
+                        <th style="text-align: center; color: white; background-color:<%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %>;">Calificación</th>
+                    </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr ng-repeat="(key,row) in vw_reporte_desempeno_usuario.actividades_list">
+                            <td style="vertical-align: middle;">{{row.departamento_nombre}}</td>
+                            <td style="vertical-align: middle;">{{row.responsable_nombre}}</td>
+                            <td style="vertical-align: middle;">{{row.nombre}}</td>
+                            <td style="vertical-align: middle;">{{row.calificacion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    vw_reporte_desempeno_usuario.refreshAngular();
+</script>

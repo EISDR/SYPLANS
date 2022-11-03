@@ -1,0 +1,85 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-12 col-md-1'>
+                <%- FORM.integer('orden', scope, { trueplaceholder: "No. Secuencia"}) %>
+            </div>
+            <div class='col-sm-12 col-md-2'>
+                <%- FORM.integer('code', scope, { trueplaceholder: "Número Identificador"}) %>
+            </div>
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("estatus_permitido", scope, {
+                    allowedit:false,
+                    allownew: false,
+                    allowview:false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: true,
+                    text:"item.nombre",
+                    value: "id",
+                    table: "auditoria_programa_plan_estatus",
+                    icon: {class: "archive"},
+                    truelabel: "Estatus permitidos",
+                    condition:"item.entidad == auditoria_programa_plan_estatus.entidad && item.id != auditoria_programa_plan_estatus.id",
+                    get: {
+                        table: 'auditoria_programa_plan_estatus_permitido',
+                        fieldFrom: 'id',
+                        fieldTo: 'plan_status',
+                        field: 'estatus_permitido'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("rol_permitido", scope, {
+                    allowedit:false,
+                    allownew: false,
+                    allowview:false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: true,
+                    text:"item.name",
+                    value: "id",
+                    table: "a_clone_group",
+                    icon: {class: "archive"},
+                    truelabel: "Roles permitidos",
+                    get: {
+                        table: 'auditoria_programa_plan_estatus_rol',
+                        fieldFrom: 'id',
+                        fieldTo: 'plan_status',
+                        field: 'rol'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-1'>
+                <%- FORM.ngmask('tiempo_estimado', scope, {placeholder: 'Tiempo Estimado', label_custom: true, mask: "99:99", maxlength: 5}) %>
+            </div>
+            <div class='col-sm-12 col-md-11'>
+                <%- FORM.textarea('descripcion', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

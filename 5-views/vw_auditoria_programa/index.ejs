@@ -1,0 +1,160 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div ng-show="!<%= scope%>.created">
+                        <div class="col-sm-12 col-md-3 form-group-material form-group has-feedback  has-feedback-left">
+                            <label class="control-label is-visible">Año de Planificación</label>
+                            <select ng-model="vw_auditoria_programa.poa" name="poa" id="poa" class="form-control">
+                                <option value="[NULL]">Seleccione</option>
+                                <option ng-repeat="value in vw_auditoria_programa.lista_ano" ng-show="value >= vw_auditoria_programa.current_year " value="{{value}}">{{value}}</option>
+                            </select>
+                            <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                                <i class="icon-archive">
+                                </i>
+                            </div>
+                            <span ng-if="vw_auditoria_programa.validate['poa'].messages.length > 0" class="help-block">
+                                <p class="text-{{validation.type}}"
+                                   ng-repeat="(key,validation) in vw_auditoria_programa.validate['poa'].messages track by key">
+                                       <i class="{{validation.icon}}"></i> {{validation.message}}
+                                </p>
+                            </span>
+                        </div>
+                        <button ng-show="!<%= scope%>.created"
+                                style="margin-right: 0; margin-top: 25px"
+                                dragonlanguage="" title="Continuar"
+                                type="button" role="button"
+                                class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                ng-click="<%= scope%>.saveData();">
+                            <b><i class="icon-arrow-right7"></i></b>
+                            Continuar
+                        </button>
+                    </div>
+                    <div class="row" ng-show="<%= scope%>.created">
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'  ng-if="<%= scope%>.created && <%= scope%>.current_estatus == 5">
+                                <%- FORM.inputview('nombre', scope, {}) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'  ng-if="<%= scope%>.created && <%= scope%>.current_estatus != 5">
+                                <%- FORM.input('nombre', scope, {}) %>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <%- FORM.daterange("range_date", scope, {
+                                    from: "fecha_inicio",
+                                    to: "fecha_fin",
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4' ng-show="<%= scope%>.created">
+                                <%- FORM.select('estatus', scope, {
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    allownull: false,
+                                    refresh: false,
+                                    value: "id",
+                                    text: "item.nombre",
+                                    table: "vw_auditoria_programa_plan_estatus",
+                                    icon: {class: "archive"},
+                                    truelabel: "Estatus",
+                                    condition: "(item.plan_status == vw_auditoria_programa.current_estatus && item.entidad == 'vw_auditoria_programa') && vw_auditoria_programa.allow_action(item.id)"
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.created && <%= scope%>.current_estatus != 5">
+                                <%- FORM.textarea('descripcion', scope, {
+                                        //maxlength: 200,
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.created && <%= scope%>.current_estatus == 5">
+                                <%- FORM.textarea('descripcion', scope, {
+                                    disabled: true
+                                        //maxlength: 200,
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="<%= scope%>.current_estatus != 5">
+                        <div class="col-md-9 col-sm-9"></div>
+                        <div class="col-md-3 col-sm-3 pull-left" style="margin-top: 25px">
+                            <button ng-show="<%= scope%>.created"
+                                    style="margin-right: 0px; margin-left: 10px"
+                                    dragonlanguage="" title="Cancelar"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope%>.cancelar();">
+                                <b><i class="icon-cross2"></i></b>
+                                Cancelar
+                            </button>
+                            <button ng-show="<%= scope%>.created"
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Guardar"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope%>.saveData();">
+                                <b><i class=" icon-floppy-disk"></i></b>
+                                Guardar
+                            </button>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 0">
+                        <div class="panel panel-white" id="PlanAuditoria" style="margin-bottom: 0px;" ng-show="<%= scope %>.planes_auditoria.length > 0">
+                            <div class="panel-heading" style="padding: 10px 20px">
+                                <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">Auditorías por Estatus</h6>
+                            </div>
+                            <div class="panel-body" style="padding: 10px">
+                                <div dragonlanguage=""
+                                     style="margin-top: 15px !important;"
+                                     ng-show="!<%= scope %>.array_planes.length"
+                                     class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                                    <language>MESSAGE.ic('table.nodata')</language>
+                                </div>
+                                <div class="panel" ng-show="<%= scope %>.array_planes.length"
+                                     ng-click="<%= scope %>.openmodalplanes(value.name)"
+                                     ng-repeat="(key, value) in <%= scope %>.array_planes | orderBy: 'order'"
+                                     style="margin-bottom: 0px; cursor: pointer;">
+                                    <div title="{{value.title}}" style="float: left; width: 180px; margin-left: 15px">
+                                        <div class="panel panel-white"
+                                             style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 15px; border-radius: 2px">
+                                            <div class="panel-heading"
+                                                 style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
+                                                <language>{{value.value}}: ( {{value.percent}} )</language>
+                                                <i class="{{value.icon}}" style="float: right"></i>
+                                            </div>
+                                            <div class="panel-body"
+                                                 style="background: {{value.color}}; padding: 5px;">
+                                                {{value.name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<style>
+    .select2-selection__rendered {
+        padding-left: 25px;
+    }
+</style>
+<script>
+    $('[name="poa"]').select2();
+</script>

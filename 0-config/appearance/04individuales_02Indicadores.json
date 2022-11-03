@@ -1,0 +1,106 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "chart",
+      "href": "#",
+      "text": "Gestión de Indicadores",
+      "menus": [
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "stats-bars2",
+          "href": "#aacontroldemandog",
+          "text": "Cumplimiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "stats-bars2",
+          "href": "#aacontroldemandog?modolista",
+          "text": "Reporte de Cumplimiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "stats-bars2",
+          "href": "#vw_dashboard_indicador_generico",
+          "text": "Dashboard"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_indicador",
+          "text": "Creación de Eventos"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "notebook",
+          "href": "#indicador_generico?vw_evento_indicador",
+          "text": "Creación de Indicadores"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "eye2",
+          "href": "#monitoreo_generico",
+          "text": "Monitoreo de Indicadores"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "eye2",
+          "href": "#indicador_generico_poa",
+          "text": "Evaluación y Carga de Evidencia"
+        }
+      ]
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "chart",
+      "href": "#",
+      "text": "Gestión de Indicadores",
+      "menus": [
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "stats-bars2",
+          "href": "#aacontroldemandog",
+          "text": "Cumplimiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "stats-bars2",
+          "href": "#vw_dashboard_indicador_generico",
+          "text": "Dashboard"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#evento_indicador",
+          "text": "Creación de Eventos"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "medal",
+          "href": "#indicador_generico?vw_evento_indicador",
+          "text": "Creación de Indicadores"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "eye2",
+          "href": "#indicador_generico_poa",
+          "text": "Evaluación y Carga de Evidencia"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-3 remove-input-space">
+                <%- FORM.input("nombre", scope, {
+                    maxlength: 64
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3 drp-pt">
+                <%- FORM.select("aliniacion_end", scope, {
+                    column: "end_nombre",
+                    text: "item.nombre",
+                    table: "end",
+                    icon: {class: "archive"},
+                    label: "Eje END"
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3 drp-pt">
+                <%- FORM.select("aliniacion_pnpsp", scope, {
+                    column: "pnpsp_nombre",
+                    text: "item.nombre",
+                    table: "pnpsp",
+                    icon: {class: "archive"},
+                    label: "Alineación PNPSP"
+                }) %>
+            </div>
+
+            <div class="col-sm-12 col-md-3 drp-pt">
+                <%- FORM.select("aliniacion_ods", scope, {
+                    column: "ods_nombre",
+                    text: "item.nombre",
+                    table: "ods",
+                    icon: {class: "archive"},
+                    label: "Alineación ODS"
+                }) %>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción"}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+<script>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    };
+    $('[name="eje_estrategico_no_orden"]').on("keypress", function (event) {
+        return isNumberKey(event);
+    });
+
+</script>

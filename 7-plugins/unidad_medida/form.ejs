@@ -1,0 +1,46 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('compania', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: 'compania',
+                    label: "Compañía",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                    <%- FORM.select('institucion', scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        text: "item.nombre",
+                        table: 'institucion',
+                        label: "Institución",
+                        icon: {class: "archive"},
+                        condition: "item.compania == unidad_medida.compania"
+                    }) %>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.input("nombre", scope, {maxlength: 50}) %>
+            </div>
+            <div class="col-sm-9 col-md-9">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 200}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

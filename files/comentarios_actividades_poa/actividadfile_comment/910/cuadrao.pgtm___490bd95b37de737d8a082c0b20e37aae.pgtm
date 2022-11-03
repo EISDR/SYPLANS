@@ -1,0 +1,850 @@
+<Project version="17.10.0.1" localizationFileName="C:\Program Files (x86)\SQL Maestro Group\PHP Generator for MySQL Professional\lang.en.php" phpDriver="1" outputPath="C:\xampp\htdocs\cuadrao" copySystemFiles="true" outputFilesExtension="php" colorSchemeName="united-compact">
+  <ConnectionOptions host="localhost" port="3306" login="root" password="" database="cuadrao" client_encoding="utf8">
+    <ssh_secure secure="false" port="22" authentication_mode="0"/>
+    <http_tunnel tunneling="false" url="">
+      <http_proxy_server use_proxy="false" port="8080"/>
+      <http_authentication/>
+    </http_tunnel>
+  </ConnectionOptions>
+  <ScriptConnectionOptions host="localhost" port="3306" login="root" password="" database="cuadrao" client_encoding="utf8">
+    <ssh_secure secure="false" port="22" authentication_mode="0"/>
+    <http_tunnel tunneling="false" url="">
+      <http_proxy_server use_proxy="false" port="8080"/>
+      <http_authentication/>
+    </http_tunnel>
+  </ScriptConnectionOptions>
+  <DataSources>
+    <DataSource name="admin"/>
+    <DataSource name="appointment"/>
+    <DataSource name="category"/>
+    <DataSource name="client"/>
+    <DataSource name="pageinfo"/>
+    <DataSource name="photographer"/>
+    <DataSource name="portfolio"/>
+  </DataSources>
+  <Presentation disableMagicQuotesRuntime="false" showEnvironmentVariables="false" showExecutedQueries="false" showPHPErrorsAndWarnings="false" enableInactivityTimeout="true" inactivityTimeoutInterval="60">
+    <Pages>
+      <Page type="table" tableName="admin" numberByDataSource="0" fileName="admin" caption="Admin" shortCaption="Admin" groupName="Administration" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="username" caption="Username" showColumnFilter="false" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="name" caption="Name" showColumnFilter="false" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="lastname" caption="Lastname" showColumnFilter="false" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="password" caption="Password" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="password" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="username"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+          </Compare>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="appointment" numberByDataSource="0" fileName="appointment" caption="Appointment" shortCaption="Appointment" groupName="Cllient" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="start" caption="Start" canSetNull="true" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="Y-m-d H:i:s"/>
+            <EditProperties type="dateTime" dateTimeFormat="Y-m-d H:i:s" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="end" caption="End" canSetNull="true" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="Y-m-d H:i:s"/>
+            <EditProperties type="dateTime" dateTimeFormat="Y-m-d H:i:s" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="client" caption="Client" canSetNull="true" selectedFilterOperators="1573119">
+            <Lookup tableName="client" linkFieldName="id" displayFieldName="name" lookupFilter="" useLookupOrdering="true" lookupOrdering="0"/>
+            <ViewProperties type="text"/>
+            <EditProperties type="comboBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="paid" caption="Paid" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="checkBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="accepted" caption="Accepted" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="checkBox"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="start"/>
+            <Column fieldName="end"/>
+            <Column fieldName="client"/>
+            <Column fieldName="paid"/>
+            <Column fieldName="accepted"/>
+          </Compare>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="client" numberByDataSource="0" fileName="client" caption="Client" shortCaption="Client" groupName="Cllient" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="name" caption="Name" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="lastname" caption="Lastname" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="phone" caption="Phone" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+            <Validators>
+              <DigitsClientValidatorInfo enabled="true"/>
+            </Validators>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="email" caption="Email" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+            <Validators>
+              <EmailClientValidatorInfo enabled="true"/>
+            </Validators>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="password" caption="Password" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="password" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="category" caption="Category" canSetNull="true" selectedFilterOperators="1573119">
+            <Lookup tableName="category" linkFieldName="id" displayFieldName="name" lookupFilter="" useLookupOrdering="true" lookupOrdering="0"/>
+            <ViewProperties type="text"/>
+            <EditProperties type="comboBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="indentification" caption="Indentification" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="maskedit" mask="999-9999999-9"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="link" caption="Link" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textArea" columnCount="50" rowCount="8" placeholder=""/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="confirmed" caption="Confirmed" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="checkBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="preferences" caption="Preferences" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="phone"/>
+            <Column fieldName="email"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+            <Column fieldName="indentification"/>
+            <Column fieldName="link" visible="false"/>
+            <Column fieldName="confirmed"/>
+            <Column fieldName="preferences"/>
+          </Compare>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="category" numberByDataSource="0" fileName="category" caption="Category" shortCaption="Category" groupName="Photographer" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="name" caption="Name" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="description" caption="Description" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="icon" caption="Icon" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="imageUploadToFolder" acceptableFileTypes="image/*" directoryToUpload="icons/%id%" generateRandomFileName="true" fileNameTemplate="%original_file_name%" replaceFilesIfExists="true" thumbnailResizeType="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="name"/>
+            <Column fieldName="description"/>
+            <Column fieldName="icon"/>
+          </Compare>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="pageinfo" numberByDataSource="0" fileName="pageinfo" caption="Pageinfo" shortCaption="Pageinfo" groupName="Administration" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="key" caption="Key" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="value" caption="Value" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="htmlWysiwyg"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="key"/>
+            <Column fieldName="value"/>
+          </Compare>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="photographer" numberByDataSource="0" fileName="photographer" caption="Photographer" shortCaption="Photographer" groupName="Photographer" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="email" caption="Email" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+            <Validators>
+              <EmailClientValidatorInfo enabled="true"/>
+            </Validators>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="name" caption="Name" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="lastname" caption="Lastname" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="password" caption="Password" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="75"/>
+            <EditProperties type="password" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="category" caption="Category" canSetNull="true" selectedFilterOperators="1573119">
+            <Lookup tableName="category" linkFieldName="id" displayFieldName="name" lookupFilter="" useLookupOrdering="true" lookupOrdering="0"/>
+            <ViewProperties type="text"/>
+            <EditProperties type="comboBox"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </List>
+          <View>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </View>
+          <Edit>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </Print>
+          <Export>
+            <Column fieldName="id"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="email"/>
+            <Column fieldName="name"/>
+            <Column fieldName="lastname"/>
+            <Column fieldName="password"/>
+            <Column fieldName="category"/>
+          </Compare>
+        </Columns>
+        <Details>
+          <Detail caption="Portfolio">
+            <Page type="table" tableName="portfolio" numberByDataSource="0" fileName="" caption="Portfolio" shortCaption="Portfolio" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false">
+              <BeforeGridText/>
+              <DetailedDescription/>
+              <ColumnPresentations>
+                <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="name" caption="Name" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text"/>
+                  <EditProperties type="textBox" maxLength="50"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="description" caption="Description" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text" maxLength="75"/>
+                  <EditProperties type="textArea" columnCount="50" rowCount="8" placeholder=""/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="category" caption="Category" canSetNull="true" selectedFilterOperators="1573119">
+                  <Lookup tableName="category" linkFieldName="id" displayFieldName="name" lookupFilter="" useLookupOrdering="true" lookupOrdering="0"/>
+                  <ViewProperties type="text"/>
+                  <EditProperties type="comboBox"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="tags" caption="Tags" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text" maxLength="75"/>
+                  <EditProperties type="checkBoxGroup" displayMode="0">
+                    <Values>
+                      <Value name="Boda" caption="Boda"/>
+                      <Value name="15 Años" caption="15 Años"/>
+                    </Values>
+                  </EditProperties>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="photographer" caption="Photographer" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+              </ColumnPresentations>
+              <Columns>
+                <List>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </List>
+                <View>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </View>
+                <Edit>
+                  <Column fieldName="id" visible="false"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </Edit>
+                <Insert>
+                  <Column fieldName="id" visible="false"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </Insert>
+                <QuickFilter>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </QuickFilter>
+                <FilterBuilder>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </FilterBuilder>
+                <Print>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </Print>
+                <Export>
+                  <Column fieldName="id"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </Export>
+                <Compare>
+                  <Column fieldName="id" visible="false"/>
+                  <Column fieldName="name"/>
+                  <Column fieldName="description"/>
+                  <Column fieldName="category"/>
+                  <Column fieldName="tags"/>
+                  <Column fieldName="photographer" visible="false"/>
+                </Compare>
+              </Columns>
+              <Details/>
+              <RecordPermissions useRecordPermissions="false"/>
+              <PartitionNavigators/>
+            </Page>
+            <MasterForeignKeyColumnMap>
+              <FieldMap masterColumnName="id" foreginColumnName="photographer"/>
+            </MasterForeignKeyColumnMap>
+          </Detail>
+        </Details>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+    </Pages>
+    <UserAuthorization type="tableBased" tableName="admin" userIdField="id" userNameField="username" passwordField="password" allowUserToChangePassword="true"/>
+    <UserGrants enableGuestAccess="false">
+      <UserGrant userName="defaultUser" select="1" admin="1"/>
+      <UserGrant userName="ronald" admin="1"/>
+      <UserPageGrants>
+        <PageGrants userName="defaultUser">
+          <PageGrant pageName="admin"/>
+          <PageGrant pageName="appointment"/>
+          <PageGrant pageName="client"/>
+          <PageGrant pageName="category"/>
+          <PageGrant pageName="pageinfo"/>
+          <PageGrant pageName="photographer"/>
+          <PageGrant pageName="photographer.portfolio"/>
+        </PageGrants>
+        <PageGrants userName="ronald">
+          <PageGrant pageName="admin"/>
+          <PageGrant pageName="appointment"/>
+          <PageGrant pageName="client"/>
+          <PageGrant pageName="category"/>
+          <PageGrant pageName="pageinfo"/>
+          <PageGrant pageName="photographer"/>
+          <PageGrant pageName="photographer.portfolio"/>
+        </PageGrants>
+      </UserPageGrants>
+    </UserGrants>
+    <Header/>
+    <Footer/>
+    <PHPOptions/>
+    <Groups>
+      <Group caption="Administration"/>
+      <Group caption="Photographer"/>
+      <Group caption="Cllient"/>
+    </Groups>
+    <outgoingMailSettings mailer="0" fromEmail="" fromName=""/>
+  </Presentation>
+  <UserCSS/>
+  <UserJS/>
+  <ExcludedPaths/>
+  <DefaultPageProperties recordsPerPage="20" NavigatorPosition="3" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" exportToExcelAvailable2="5" exportToWordAvailable2="5" exportToXmlAvailable2="5" exportToCsvAvailable2="5" exportToPdfAvailable2="5" printerFriendlyAvailable2="5" useActionImages="true" showKeyColumnsImagesInGridHeader="false"/>
+  <DefaultDataFormats numberAfterDecimal="4" DecimalSeparator="." ThousandSeparator="," DateTimeFormat="Y-m-d H:i:s" DateFormat="Y-m-d" firstDayOfWeek="0"/>
+</Project>

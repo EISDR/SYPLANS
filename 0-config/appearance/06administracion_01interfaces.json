@@ -1,0 +1,36 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "display4",
+          "href": "#ws_connection",
+          "text": "Servicios Web"
+        }
+      ],
+      "modal": "",
+      "icon": "make-group",
+      "href": "#",
+      "condition": "baseController.session.super",
+      "text": "Módulo de Interfaces"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "display4",
+          "href": "#ws_connection",
+          "text": "Servicios Web"
+        }
+      ],
+      "modal": "",
+      "icon": "make-group",
+      "href": "#",
+      "condition": "baseController.session.super",
+      "text": "Módulo de Interfaces"
+    }
+  ]
+}

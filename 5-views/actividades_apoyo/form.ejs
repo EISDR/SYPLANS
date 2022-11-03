@@ -1,0 +1,233 @@
+<div ng-show="actividades_apoyo.showMsjNo">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <%-
+                    FORM.textarea('descripcion', scope, {
+                        label: "Descripción",
+                        placeholder: "Descripción",
+                        maxlength: 4000
+                    })
+                    %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%- FORM.daterange("range_date2", scope, {
+                        from: "fecha_inicio",
+                        to: "fecha_fin"
+                    }) %>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <%-
+                    FORM.select("estatus", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        disabled: true,
+                        label: "Estatus",
+                        text: "item.nombre",
+                        table: "actividades_apoyo_estatus",
+                        columns: ["id", "nombre"],
+                        icon: {class: "archive"}
+                    })
+                    %>
+                </div>
+                <div style="text-align: center;" class="col-sm-4 col-md-4" id="checkDinamic"
+                     ng-show="actividades_poa.maneja_presupuesto">
+                    <%- FORM.checkbox("maneja_presupuesto_act_apoyo", scope, {truetext: 'Maneja presupuesto?'}) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.select("departamento", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        disabled: false,
+                        truelabel: "Departamento",
+                        text: "item.nombre",
+                        table: "drp_departamento_actvidades",
+                        columns: ["id", "nombre"],
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <%- FORM.select("responsable", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: true,
+                        multiple: false,
+                        disabled: false,
+                        label: "Responsable",
+                        table: "drp_usuario",
+                        condition: "(item.poa_id==actividades_apoyo.datas.poa_id && item.departamento==actividades_apoyo.form.selected('departamento').id) && (item.active)",
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+            </div>
+            <div class="row" ng-show="false">
+                <div class="col-sm-2 col-md-2 form-group-material has-feedback  has-feedback-left">
+                    <%-
+                    FORM.money("presupuesto_pro", scope, {placeholder: "Presupuesto", disabled: true})
+                    %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4 form-group-material  has-feedback  has-feedback-left"
+                     ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
+                    <%-
+                    FORM.money("presupuesto_restante", scope, {placeholder: "Presupuesto Disponible", disabled: true})
+                    %>
+                </div>
+                <div class="col-sm-4 col-md-4" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
+                    <%-
+                    FORM.money("presupuesto", scope, {placeholder: "Presupuesto Asignado", maxlength: 15})
+                    %>
+                </div>
+                <div ng-show="actividades_apoyo.session.tipo_institucion == 1">
+                    <div class="col-sm-4 col-md-4" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                        <%-
+                        FORM.select("tipo_inversion", scope, {
+                            allowedit: false,
+                            allownew: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            multiple: false,
+                            disabled: false,
+                            label: "Tipo de inversión",
+                            column: "tipo_inversion",
+                            table: "tipo_inversion",
+                            text: "item.nombre",
+                            icon: {class: "archive"}
+                        })
+                        %>
+                    </div>
+                </div>
+                <script>
+                    // actividades_apoyo.range_date2_start(actividades_poa.fecha_inicio);
+                    // actividades_apoyo.range_date2_end(actividades_poa.fecha_fin);
+
+
+                </script>
+            </div>
+            <div class="row"
+                 ng-show="(actividades_apoyo.session.tipo_institucion == 1 && actividades_apoyo.maneja_presupuesto_act_apoyo) && actividades_poa.session.maneja_pacc == 1"
+                 style="margin-top: 20px">
+                <div class="col-sm-12 col-md-12">
+                    <button
+                            title="{{actividades_apoyo.bienes_permiso?'Cambie':'Seleccione'}} Código CBS, Descripción u Objeto de Gasto, mediante una búsqueda rápida."
+                            type="button" role="button"
+                            class=" btn bg-{{actividades_apoyo.bienes_permiso?'success':'warning'}}-800 btn-labeled btn-xs"
+                            ng-click="actividades_poa.cbslist(true)">
+                        <b><i class="icon-search4"></i></b>
+                        {{actividades_apoyo.bienes_permiso?'Cambie':'Seleccione'}} el Código CBS, Descripción u Objeto
+                        de Gasto.
+                    </button>
+                </div>
+            </div>
+            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.session.maneja_pacc == 1" style="margin-top: 20px">
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
+                    <%- FORM.inputview("bienes_permiso", scope, {
+                        placeholder: "Código de Bienes y Servicios",
+                        posttype: "text"
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                    <%- FORM.inputview("bienes_permiso_nombre", scope, {
+                        placeholder: "Descripción de Bienes y Servicios",
+                        posttype: "text"
+                    }) %>
+                </div>
+            </div>
+            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.session.maneja_pacc == 1">
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
+                    <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                    <%- FORM.inputview("presupuestario_nombre", scope, {
+                        placeholder: "Descripción del Objeto",
+                        posttype: "text"
+                    }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                ng-click="actividades_apoyo.closeModal()">
+            <b><i class="icon-cross2"></i></b>
+            <language>MESSAGE.ic('mono.cancel')</language>
+        </button>
+        <button ng-show="<%= scope %>.form.mode!=='new'"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+            <button
+                    style="margin-right: 1px !important;"
+                    dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                    type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                    ng-click="<%= scope %>.pages.form.save()">
+                <b><i class="icon-floppy-disk"></i></b>
+                <language>MESSAGE.ic('mono.save')</language>
+            </button>
+            <button style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-left">
+                <li>
+                    <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                        <i class="icon-floppy-disks"></i>
+                        <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ng-show="actividades_apoyo.showMsjSi">
+
+    <div ng-show="actividades_apoyo.records.data.length<=0"
+         class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+        <language  ng-show="actividades_apoyo.session.tipo_institucion == 1">Necesitas llenar los campos (Proyecto/Producto, Fecha inicio y Fecha fin) en el formulario de actividades POA
+        </language>
+        <language  ng-show="actividades_apoyo.session.tipo_institucion == 2">Necesitas llenar los campos (Proyecto/Plan de Acción, Fecha inicio y Fecha fin) en el formulario de actividades POA
+        </language>
+    </div>
+</div>
+<script>
+    $('[name="actividades_apoyo_fecha_inicio"]').blur(function () {
+        actividades_apoyo.fecha_fin = null;
+        actividades_apoyo.refresh();
+    });
+</script>

@@ -1,0 +1,70 @@
+<div class="row">
+    <table class="table table-bordered" id="tb-custom">
+        <thead class="">
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>" dragonlanguage><language>MESSAGE.i('columns.created_at')</language></th>
+                <th id="created_at"></th>
+            </tr>
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>"dragonlanguage><language>MESSAGE.i('columns.created_by')</language></th>
+                <th id="created_by"></th>
+            </tr>
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>"dragonlanguage><language>MESSAGE.i('columns.created_ip')</language></th>
+                <th id="created_by_ip"></th>
+            </tr>
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>"dragonlanguage><language>MESSAGE.i('columns.updated_at')</language></th>
+                <th id="updated_at"></th>
+            </tr>
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>"dragonlanguage><language>MESSAGE.i('columns.updated_by')</language></th>
+                <th id="updated_by"></th>
+            </tr>
+            <tr>
+                <th width="30%" class="bg-<%= COLOR.secundary %>"dragonlanguage><language>MESSAGE.i('columns.updated_ip')</language></th>
+                <th id="updated_by_ip"></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<!--Table List-->
+<script>
+    $(function() {
+        var created_info;
+        var updated_info;
+        var currentsession = new SESSION().current();
+        BASEAPI.listp('dragon_audit',{
+            limit: 0,
+            orderby: "date",
+            order: "desc"
+        }).then(function (data) {
+            created_info = data.data;
+            console.log(created_info);
+            created_info = data.data.filter(d => {
+                if(d.dataJson)
+                return (d.action == "insert" && ( (d.modelname == <%= scope %>.crudConfig.table.view || d.modelname == <%= scope %>.modelName ) || (d.modelname == <%= scope %>.auditModel) ) ) && ((<%= scope %>.dataForView.id == d.dataJson.id && d.compania == currentsession.compania_id)  && (d.poa == currentsession.poa_id || d.pei == currentsession.pei_id) );
+            });
+            updated_info = data.data.filter(d => {
+                if(d.updatedJson)
+                return (d.action == "update" && ( (d.modelname == <%= scope %>.crudConfig.table.view || d.modelname == <%= scope %>.modelName ) || (d.modelname == <%= scope %>.auditModel) ) ) && ((<%= scope %>.dataForView.id == d.updatedJson.id && d.compania == currentsession.compania_id)  && (d.poa == currentsession.poa_id || d.pei == currentsession.pei_id)) ;
+            });
+            created_info = data.data.filter(d => {
+                if(d.dataJson)
+                return (d.action == "insert" && ( (d.modelname == <%= scope %>.crudConfig.table.view || d.modelname == <%= scope %>.modelName ) || (d.modelname == <%= scope %>.auditModel) ) ) && ((<%= scope %>.dataForView.id == d.dataJson.id ));
+            });
+           <%= scope %>.refreshAngular();
+            console.log(created_info, updated_info, currentsession);
+            if(created_info.length > 0) {
+                document.getElementById("created_at").innerHTML = LAN.datetime(created_info[0].date);
+                document.getElementById("created_by").innerHTML = created_info[0].username;
+                document.getElementById("created_by_ip").innerHTML = created_info[0].ip;
+            }
+            if(updated_info.length > 0) {
+                document.getElementById("updated_at").innerHTML = LAN.datetime(updated_info[0].date);
+                document.getElementById("updated_by").innerHTML = updated_info[0].username;
+                document.getElementById("updated_by_ip").innerHTML = updated_info[0].ip;
+            }
+        });
+    });
+</script>

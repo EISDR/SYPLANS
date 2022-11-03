@@ -1,0 +1,52 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="panel panel-flat">
+                <%- include('custom') %>
+                <div class="subcontent">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3">
+                            <%-
+                            FORM.money("presupuesto_institucional_p", scope, {placeholder: "Presupuesto Institucional"})
+                            %>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <%-
+                            FORM.money("presupuesto_consumido", scope, {placeholder: "Presupuesto Institucional Asignado",disabled:true})
+                            %>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <%-
+                            FORM.money("restante", scope, {placeholder: "Presupuesto Institucional Restante",disabled:true})
+                            %>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <button type="button" style="margin: 3px;margin-top: 24px;"
+                                    class="btn bg-<%= COLOR.success %> btn-xs btn-labeled  mr-0"
+                                    ng-click="presupuesto_aprobado.update()"
+                                    ng-show="presupuesto_aprobado.allow(['update_budget']) && presupuesto_aprobado.check_poa_close()">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                <language>Guardar</language>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!--<div> <h2>Presupuesto por Departamento</h2> </div>-->
+                    </div>
+
+                    <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+
+                    <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div><!--end-->
+
+<script>
+    // $('[name="presupuesto_aprobado_presupuesto_institucional_p"]').mask('000,000,000.00', {reverse: true});
+</script>

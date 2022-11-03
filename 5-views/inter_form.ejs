@@ -1,0 +1,65 @@
+<script>
+    if (new SESSION().current().intersectorial) {
+        <%= scope %>.
+        soyIS = true;
+        <%= scope %>.
+        misectory = new SESSION().current().sector_id;
+        <%= scope %>.
+        companiasel = new SESSION().current().compania_id;
+    }
+    if (new SESSION().current().interinstitucional) {
+        <%= scope %>.
+        soyII = true;
+        <%= scope %>.
+        companiasel = new SESSION().current().compania_id;
+    }
+</script>
+<div class="row">
+    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyIS">
+        <%- FORM.select("compania", scope, {
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: true,
+            overall: true,
+            text: "item.nombre",
+            table: "compania",
+            icon: {class: "archive"},
+            label: "Compañía",
+            disable: false,
+            condition: "item.tipo_institucion==1 && item.sector==" + scope + ".misectory"
+        }) %>
+    </div>
+
+    <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyIS && <%= scope %>.soyII">
+        <%- FORM.select("compania", scope, {
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: true,
+            overall: true,
+            text: "item.nombre",
+            table: "compania",
+            icon: {class: "archive"},
+            label: "Compañía",
+            disable: false,
+            condition: "item.id==" + scope + ".companiasel"
+        }) %>
+    </div>
+    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyIS || <%= scope %>.soyII">
+        <%- FORM.select("institucion", scope, {
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: true,
+            text: "item.nombre",
+            table: "institucion",
+            icon: {class: "archive"},
+            label: "Institución",
+            condition: "item.compania==" + scope + ".companiasel"
+        }) %>
+    </div>
+</div>

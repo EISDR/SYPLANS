@@ -1,0 +1,148 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#code_generator",
+          "text": "Nomenclaturas"
+        },
+        {
+          "modal": "",
+          "icon": "office",
+          "href": "#compania",
+          "text": "Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "book",
+          "href": "#login_history",
+          "text": "Historial de Accesos"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#tipo_institucion",
+          "condition": "baseController.session.super",
+          "text": "Tipo de institución"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#delete_company",
+          "condition": "baseController.session.super",
+          "text": "Eliminar Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#syplans_functions",
+          "condition": "baseController.session.super",
+          "text": "Funciones Generales de Syplans"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "office",
+              "href": "#import_entity",
+              "text": "Entidades del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_entity_fields",
+              "text": "Campos del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_actions",
+              "text": "Importar"
+            }
+          ],
+          "modal": "",
+          "icon": "user-tie",
+          "href": "#",
+          "condition": "baseController.session.super",
+          "text": "Modulo de import"
+        }
+      ],
+      "modal": "",
+      "icon": "user-tie",
+      "href": "#",
+      "text": "Administrador"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "office",
+          "href": "#compania",
+          "text": "Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "book",
+          "href": "#login_history",
+          "text": "Historial de Accesos"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#tipo_institucion",
+          "condition": "baseController.session.super",
+          "text": "Tipo de institución"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#delete_company",
+          "condition": "baseController.session.super",
+          "text": "Eliminar Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "lifebuoy",
+          "href": "#syplans_functions",
+          "condition": "baseController.session.super",
+          "text": "Funciones Generales de Syplans"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "office",
+              "href": "#import_entity",
+              "text": "Entidades del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_entity_fields",
+              "text": "Campos del import"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_actions",
+              "text": "Importar"
+            }
+          ],
+          "modal": "",
+          "icon": "user-tie",
+          "href": "#",
+          "condition": "baseController.session.super",
+          "text": "Modulo de import"
+        }
+      ],
+      "modal": "",
+      "icon": "user-tie",
+      "href": "#",
+      "text": "Administrador"
+    }
+  ]
+}

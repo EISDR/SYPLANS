@@ -1,0 +1,60 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4' ng-if="perspectiva.session.super">
+                <%- FORM.select('compania', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: 'compania',
+                    label: "Compañía",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="perspectiva.session.super">
+                <%- FORM.select('institucion', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: 'institucion',
+                    label: "Institución",
+                    icon: {class: "archive"},
+                    condition: "item.compania == perspectiva.compania"
+                }) %>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-2">
+                <%- FORM.integer("no_orden", scope, {trueplaceholder:"No. orden", maxlength: 1000}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('icono', scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: 'iconos',
+                    label: "Ícono",
+                    icon: {class: "archive"}
+                }) %>
+              {{perspectiva.icono.replace('icon-','')}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.textarea("descripcion", scope, {trueplaceholder:"Descripción", maxlength: 4000}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

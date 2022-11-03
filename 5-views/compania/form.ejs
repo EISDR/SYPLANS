@@ -1,0 +1,320 @@
+<div>
+    <div class="row">
+
+        <div class="col-sm-3 col-md-3">
+            <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <%- FORM.input("sigla", scope, {maxlength: 15, placeholder: "Siglas"}) %>
+        </div>
+        <div class="col-sm-6 col-md-6 remove-input-space">
+            <%- FORM.textarea("direccion", scope, {maxlength: 4000, placeholder: "Dirección"}) %>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-2">
+            <%- FORM.mask("telefono", scope, {
+                mask: "(999) 999-9999",
+                placeholder: "Teléfono",
+                icon: {class: "phone"},
+            }) %>
+        </div>
+
+        <div class="col-sm-3 col-md-3">
+            <%- FORM.select("tipo_institucion", scope, {
+                allownew: false,
+                allowedit: false,
+                allowview: false,
+                allowlist: false,
+                refresh: false,
+                column: "tipo_institucion_nombre",
+                text: "item.nombre",
+                table: "tipo_institucion",
+                label: "Tipo de Compañía",
+                icon: {class: "archive"},
+            }) %>
+        </div>
+
+        <div class="col-sm-3 col-md-3" ng-show="compania.tipo_institucion==1">
+            <%- FORM.select("sector", scope, {
+                allowedit: false,
+                allowview: false,
+                allowlist: false,
+                column: "sector",
+                text: "item.nombre",
+                table: "sector",
+                label: "Sector",
+                icon: {class: "archive"}
+            }) %>
+        </div>
+
+        <div class="col-sm-4 col-md-4" ng-show="compania.form.mode!=='new'">
+            <%- FORM.select("responsable", scope, {
+                column: "usuario_nombre",
+                text: "item.nombre + ' ' + item.apellido + ' - '  +  (item.cargo != 'null' ? item.cargo_nombre + ' - ' : '')  + item.correo ",
+                table: "usuario",
+                icon: {class: "archive"},
+                label: "Responsable",
+                condition: "((item.active && item.compania==compania.id) && (item.active && item.compania==compania.id && item.profile==1 && (item.interinstitucional==1 || item.institucion==null) ))",
+            }) %>
+        </div>
+
+    </div>
+
+    <!--<div class="row">-->
+    <!---->
+    <!--</div>-->
+
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 1000}) %>
+        </div>
+        <div class="col-sm-4 col-md-4 custom-upload">
+            <%- FORM.file("logo", scope, {
+                show: 'image',
+                image: 130,
+                title: 'Subir logo de la compañía',
+                truetext: 'Logo de la compañía',
+                maxfiles: 1,
+                columns: 1,
+                acceptedFiles: "image/*",
+                acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen"
+            }) %>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <%- FORM.select("moneda", scope, {
+                column: "moneda",
+                text: "item.nombre",
+                table: "moneda",
+                icon: {class: "archive"},
+                label: "Moneda"
+            }) %>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 20px" ng-if="compania.tipo_institucion==2 && compania.session.super">
+        <div class="col-sm-3 col-md-2">
+            <%- FORM.checkbox("maneja_institucion", scope, {text: 'Multi-Entidades?'}) %>
+        </div>
+        <div style="text-align: center;" class="col-sm-3 col-md-2">
+            <%- FORM.checkbox("maneja_pacc", scope, {text: "¿Maneja PACC?"}) %>
+        </div>
+        <div style="text-align: center;" class="col-sm-2 col-md-2">
+            <%- FORM.checkbox("maneja_ods", scope, {text: "¿Maneja Objetivos de Desarrollo Sostenibles?"}) %>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 20px" ng-if="compania.tipo_institucion==1 && compania.session.super">
+        <div class="col-sm-3 col-md-2">
+            <%- FORM.checkbox("maneja_institucion", scope, {text: 'Maneja Instituciones?'}) %>
+        </div>
+        <div style="text-align: center;" class="col-sm-2 col-md-2">
+            <%- FORM.checkbox("maneja_pacc", scope, {text: "¿Maneja PACC?"}) %>
+        </div>
+        <div style="text-align: center;" class="col-sm-2 col-md-2">
+            <%- FORM.checkbox("meneja_estatus_producto_por_actividades", scope, {text: "¿Maneja el estatus de los Productos por Actividades?"}) %>
+        </div>
+    </div>
+</div>
+
+
+<div id="tabcompania" ng-show="compania.form.mode!=='new'">
+    <ul class="nav nav-primary nav-tabs primary nav-justified" ng-show="compania.tipo_institucion==1">
+
+        <li class="active" ng-click="compania.undo_todo()">
+            <a href="#PEI1" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                <i class="icon-archive position-left"></i>
+                <language>Pei</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-click="compania.undo_todo()">
+            <a href="#POA1" data-toggle="tab" id="tabPOA1">
+                <i class="icon-html5 position-left"></i>
+                <language>Poa</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li ng-show="(compania.tipo_institucion == 1 ) && !compania.solopaipoa" ng-click="compania.undo_todo()">
+            <a href="#VIC1" data-toggle="tab" id="tabVIC1" aria-expanded="true">
+                <i class="icon-html5 position-left"></i>
+                <language>Viceministerios</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="(compania.tipo_institucion == 1 ) && !compania.solopaipoa" ng-click="compania.filter_general()">
+            <a href="#DIRG" data-toggle="tab" id="tabDIRG" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Direcciones generales</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="(compania.tipo_institucion == 1 ) && !compania.solopaipoa" ng-click="compania.filter_area()">
+            <a href="#DIRA" data-toggle="tab" id="tabDIRA" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Direcciones áreas</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="!compania.solopaipoa" ng-click="compania.undo_todo()">
+            <a href="#CA1" data-toggle="tab" id="tabCA1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Cargos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="!compania.solopaipoa" ng-click="compania.undo_todo()">
+            <a href="#DEP1" data-toggle="tab" id="tabDEP1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Departamentos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="!compania.solopaipoa" ng-click="compania.undo_todo()">
+            <a href="#DEP12" data-toggle="tab" id="tabDEP12" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Usuarios</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+    </ul>
+
+    <ul class="nav nav-primary nav-tabs primary nav-justified" ng-show="compania.tipo_institucion==2">
+
+        <li class="active">
+            <a href="#PEI1" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                <i class="icon-archive position-left"></i>
+                <language>Pei</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="">
+            <a href="#POA1" data-toggle="tab" id="tabPOA1">
+                <i class="icon-html5 position-left"></i>
+                <language>Poa</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+
+        <li class="" ng-show="!compania.solopaipoa">
+            <a href="#CA1" data-toggle="tab" id="tabCA1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Cargos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="!compania.solopaipoa">
+            <a href="#DEP1" data-toggle="tab" id="tabDEP1" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Departamentos</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+        <li class="" ng-show="!compania.solopaipoa">
+            <a href="#DEP12" data-toggle="tab" id="tabDEP12" aria-expanded="false">
+                <i class="icon-html5 position-left"></i>
+                <language>Usuarios</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+
+
+    </ul>
+</div>
+
+<div id="tabmejor" class="tab-content" ng-show="compania.form.mode!=='new'">
+    <div class="tab-pane active" id="PEI1">
+        <%- FORM.relation("pei", scope, {
+            table: "pei",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+
+    <div class="tab-pane" id="POA1">
+        <div id="poa" ng-controller="poa as poa">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'poa'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'poa'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="VIC1">
+        <%- FORM.relation("viceministeriosd", scope, {
+            table: "viceministerios",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <div class="tab-pane" id="DIRG">
+        <%- FORM.relation("direcciones_generales", scope, {
+            table: "direcciones_generales",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <div class="tab-pane" id="DIRA">
+        <%- FORM.relation("direcciones_area", scope, {
+            table: "direcciones_area",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <div class="tab-pane" id="CA1">
+        <%- FORM.relation("cargos", scope, {
+            table: "cargo",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+    <div class="tab-pane" id="DEP1">
+        <%- FORM.relation("departamentos", scope, {
+            table: "departamento",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+
+    <div class="tab-pane" id="DEP12">
+        <%- FORM.relation("usuarios", scope, {
+            table: "usuario",
+            field: "compania",
+            master: null,
+            icon: {class: "archive"}
+        }) %>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+<script>
+    if (compania.form.mode === 'new') {
+        $("#tabcompania").remove();
+        $("#tabmejor").remove();
+    }
+    // compania_telefono
+    // var o = new Option("Seleccione", "value", true);
+    // $(o).html("Seleccione");
+    // $('[name="compania_responsable"]').append(o);
+</script>

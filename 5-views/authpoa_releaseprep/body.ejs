@@ -1,0 +1,71 @@
+<style>
+    .modal-content {
+        background: #f8f8f8;
+    }
+</style>
+
+<div class="row" style="margin-right: 0; margin-left: 0;">
+
+    <div class="col-md-12 pl-0 pr-0">
+        <div class="panel panel-<%= COLOR.secundary %>">
+            <div class="panel-heading" style="border-bottom-color: #dedede">
+                <h6 class="panel-title" dragonlanguage>
+                    <language>MESSAGE.i('columns.department')</language>
+                </h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <%- FORM.select("department", scope, {
+                            text: "item.nombre",
+                            table: "departamento",
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('estatus_poa');%>
+    <%- include('presupuesto');%>
+
+</div>
+
+<div class="row" style="margin-right: 0; margin-left: 0;">
+    <div class="col-md-12 pl-0 pr-0">
+        <div class="panel panel-<%= COLOR.secundary %>">
+            <div class="panel-heading" style="border-bottom-color: #dedede">
+                <h6 class="panel-title" dragonlanguage>
+                    <language>MESSAGE.i('columns.data')</language>
+                </h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 page-header-margin">
+                        <div id="vw_productos_auth_poa" ng-controller="vw_productos_auth_poa as vw_productos_auth_poa">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_productos_auth_poa'}); %>
+                            <div class="panel panel-flat">
+                                <div class="subcontent">
+                                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_productos_auth_poa'}); %>
+
+                                </div>
+                            </div>
+                        </div><!--end-->
+                    </div>
+                    <div class="col-md-6 page-header-margin">
+                        <div id="vw_actividades_auth_poa" ng-controller="vw_actividades_auth_poa as vw_actividades_auth_poa">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_actividades_auth_poa'}); %>
+                            <div class="panel panel-flat">
+                                <div class="subcontent">
+                                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_actividades_auth_poa'}); %>
+                                </div>
+                            </div>
+                        </div><!--end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

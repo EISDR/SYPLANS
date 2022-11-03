@@ -1,0 +1,55 @@
+<style>
+    .scrollit {
+        overflow:scroll;
+    }
+</style>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li ng-if="dashboard_cofiguration.session.tipo_institucion == 1" class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Plan Operativo Anual – {{ dashboard_cofiguration.departamento_mostrar }}
+                        </a>
+                    </li>
+                    <li ng-if="dashboard_cofiguration.session.tipo_institucion == 2" class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Gestión Presupuestaria – {{ dashboard_cofiguration.departamento_mostrar }}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li ng-click="dashboard_cofiguration.openReport();">
+                        <!--<a href="#">Visualizar Plan Operativo</a>-->
+                        <!--<a><i title="Visualizar Plan Operativo" class=" icon-file-eye2"></i></a>-->
+                    </li>
+                    <li ng-click="dashboard_cofiguration.refresBars();" class="visible-lg visible-md">
+                        <a><i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <%- include('dashboard',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2({
+            placeholder: "Plan Operativo",
+            allowClear: true
+        });
+
+        $('.js-example-basic-single-2').select2({
+            placeholder: "Trimestre",
+            allowClear: true
+        });
+
+        $('.pages').select2();
+    });
+</script>

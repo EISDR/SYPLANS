@@ -1,0 +1,81 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="vw_reporte_act_riesgo.get_riesgos();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a title="Exportar/Imprimir" ng-click="vw_reporte_act_riesgo.openmodalField('pdf');"><i
+                                class="icon-file-download2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
+                <table class="table table-bordered" id="obj_riesgoTable" style="margin-top: 15px;">
+                    <tr>
+                        <td ng-if="!<%= scope %>.productos.length" style="text-align: left">
+                            <h5>No se han encontrado datos en este reporte.</h5>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td ng-if="<%= scope %>.productos.length" colspan="3" style="text-align: left">
+                            <h6 style="margin: 0"><strong>"{{vw_reporte_act_riesgo.session.institucion ? vw_reporte_act_riesgo.session.institucion : vw_reporte_act_riesgo.session.compania}}"</strong></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ng-if="<%= scope %>.productos.length" colspan="3" style="text-align: left">
+                            <strong>Reporte de riesgos asociados a las Actividades</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: left">
+                            <span style="padding: 20px"> </span>
+                        </td>
+                    </tr>
+                    <tbody ng-repeat="(key,item) in vw_reporte_act_riesgo.productos">
+                    <tr>
+                        <td colspan="3" style="text-align: left"><b>Proyecto/Producto:
+                                {{item.producto}}</b>
+                        </td>
+                    </tr>
+                    <tr height="20" class="centralizarth"
+                        style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                        <td style="text-align: center;vertical-align: middle">Actividad</td>
+                        <td style="text-align: center;vertical-align: middle">Riesgo</td>
+                        <td style="text-align: center;vertical-align: middle">Controles de Riesgo</td>
+                    </tr>
+                    <tr ng-repeat="(i,row) in item.records">
+                        <td rowspan="{{vw_reporte_act_riesgo.rowspanme('producto',row.producto, null, null, item.records)}}"
+                            ng-if="vw_reporte_act_riesgo.seeme('producto',row.producto,i, null, null, item.records)"
+                            style="vertical-align: middle">
+                            {{row.actividad}}
+                        </td>
+                        <td rowspan="{{vw_reporte_act_riesgo.rowspanme('nombre',row.nombre,'producto',row.producto, item.records)}}"
+                            ng-if="vw_reporte_act_riesgo.seeme('nombre',row.nombre,i,'producto', row.producto, item.records)"
+                            style="vertical-align: middle">
+                            {{row.nombre}}
+                        </td>
+                        <td>
+                            {{row.riesgo_control}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #cccccc">
+                        <td colspan="3" style="text-align: center">
+                            ---
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    vw_reporte_act_riesgo.refreshAngular();
+</script>

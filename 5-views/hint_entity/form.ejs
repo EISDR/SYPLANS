@@ -1,0 +1,48 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4' ng-if=" hint_entity.super">
+                <%- FORM.select('company', scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    disabled: false,
+                    label: "Compañía",
+                    text: "item.nombre",
+                    table: "compania",
+                    columns: ["id", "nombre"],
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('name', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="hint_entity.super">
+                <%- FORM.textarea('description', scope, {}) %>
+            </div>
+            <div class='col-sm-8 col-md-8' ng-if="!hint_entity.super">
+                <%- FORM.textarea('description', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <%- FORM.relation("hint_fields", scope, {
+                text: "field_names",
+                table: "hint_fields",
+                field:"hint_entity_id",
+                master: null,
+                icon: {class:"archive"}
+            })%>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

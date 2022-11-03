@@ -1,0 +1,98 @@
+<style>
+    table {
+        margin-bottom: 10px !important;
+    }
+
+    .subcontent {
+        min-height: 185px !important;
+    }
+</style>
+
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="subcontent">
+        <div class="row" ng-if="mega_producto.id_status == 1 || mega_producto.id_status == 4">
+            <div class="col-sm-8 col-md-8 remove-input-space">
+                <%- FORM.textarea("comentario", scope, {maxlength: 4000, placeholder: "Comentario"}) %>
+            </div>
+            <div style="margin-top: 15px; padding-right: 0px;" class="modal-footer col-sm-4 col-md-4" dragonlanguage=""
+                 ng-if="mega_producto.id_status == 1 || mega_producto.id_status == 4">
+                <button
+                        dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                        type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                        ng-click="mega_producto_adtividades.closeComentario()">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>MESSAGE.ic('mono.cancel')</language>
+                </button>
+                <button
+                        dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                        type="button" role="button"
+                        class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="mega_producto_adtividades.addComentario()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>MESSAGE.ic('mono.save')</language>
+                </button>
+            </div>
+        </div>
+
+        <%- FORM.tabs(scope, [
+            {id: "actividades_producto", text: "Actividades"}
+        ]) %>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="actividades_producto">
+                <div class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <%- include('actividades'); %>
+                        </div>
+                        <div id="animationMegaPresupuesto"></div>
+                        <div class="col-sm-6 col-md-6">
+                            <div id="mega_productos_actividades_apoyo"
+                                 ng-controller="mega_productos_actividades_apoyo as mega_productos_actividades_apoyo">
+                                <%- include('../../7-plugins/templates/table/header',{scope:'mega_productos_actividades_apoyo'}); %>
+                                <div class="panel panel-flat">
+                                    <div class="subcontent">
+                                        <%- include('../../7-plugins/templates/table/base',{scope:'mega_productos_actividades_apoyo'}); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<- FORM.footer(scope) >-->
+    <!--<div class="modal-footer" dragonlanguage="" id="btnformfooter" ng-if="mega_producto.id_status == 1 || mega_producto.id_status == 4">-->
+    <!--<button-->
+    <!--dragonlanguage="" title="MESSAGE.ic('mono.cancel')"-->
+    <!--type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"-->
+    <!--ng-click="mega_producto_adtividades.closeComentario()">-->
+    <!--<b><i class="icon-cross2"></i></b>-->
+    <!--<language>MESSAGE.ic('mono.cancel')</language>-->
+    <!--</button>-->
+    <!--<button-->
+    <!--dragonlanguage="" title="MESSAGE.ic('mono.save')"-->
+    <!--type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"-->
+    <!--ng-click="mega_producto_adtividades.addComentario()">-->
+    <!--<b><i class="icon-floppy-disk"></i></b>-->
+    <!--<language>MESSAGE.ic('mono.save')</language>-->
+    <!--</button>-->
+    <!--</div>-->
+
+</div>
+
+<script type="text/javascript">
+    mega_producto_adtividades.cell.dblselect = function (row) {
+    };
+    mega_productos_actividades_apoyo.cell.dblselect = function (row) {
+    };
+    $('#mega_producto_adtividadesTableBody .dragon-rows:eq(0)').addClass('alpha-secundary');
+    // mega_productos_actividades_apoyo.fixFilters = [
+    //     {
+    //         "field": 'actividad_poa',
+    //         "value": mega_producto_adtividades.id_actividad
+    //     }
+    // ];
+</script>

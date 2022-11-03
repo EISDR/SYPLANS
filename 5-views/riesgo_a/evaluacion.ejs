@@ -1,0 +1,60 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="row">
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('detail_comentario', scope, {
+                            placeholder: "Observación del Monitoreo del Riesgo"
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <button
+
+                            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                            onclick="MODAL.close()">
+                        <b><i class="icon-cross2"></i></b>
+                        <language>MESSAGE.ic('mono.cancel')</language>
+                    </button>
+                    <button ng-show="<%= scope %>.form.mode!=='new'"
+                            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                            type="button" role="button"
+                            class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="<%= scope %>.save_coment()">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>MESSAGE.ic('mono.save')</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+                <div class="tab-content" id="vw_comentarios"
+                     ng-controller="vw_comentarios as vw_comentarios">
+                    <div class="panel panel-flat">
+                        <%-
+                        include('../../7-plugins/templates/table/header',{scope:'vw_comentarios'});
+                        %>
+                        <div class="subcontent">
+                            <%-
+                            include('../../7-plugins/templates/table/base',{scope:'vw_comentarios'});
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    // pacc_departamental_detail.refreshAngular();
+    // if (Row_id) {
+    //     pacc_departamental_detail.id = Row_id;
+    // }
+    // if (Trimestre) {
+    //     pacc_departamental_detail.Trimestre = Trimestre;
+    // } else {
+    //     pacc_departamental_detail.Trimestre = undefined;
+    // }
+</script>

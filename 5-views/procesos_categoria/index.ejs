@@ -1,0 +1,61 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                <!--Breadcrumb and Table Options-->
+                <div class="breadcrumb-line">
+
+                    <%- include('../../7-plugins/templates/header/rastro',{scope:scope}); %>
+                    <ul class="breadcrumb-elements visible-elements">
+                        <li dragonlanguage="">
+                        </li>
+                    </ul>
+                    <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+                </div>
+                <div class="subcontent" ng-show="procesos_categoria.mapa_created">
+                    <div class="row">
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('mapa_nombre', scope, {trueplaceholder: "Mapa de Proceso"}) %>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <%- FORM.daterange("mapa_range_date", scope, {
+                                    from: "fecha_inicio",
+                                    to: "fecha_fin",
+                                    disabled: true
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('mapa_estatus_nombre', scope, {
+                                    trueplaceholder: "Estatus"
+                                        //length:15
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.textarea('mapa_descripcion', scope, {
+                                    disabled: true,
+                                    trueplaceholder: "Descripción"
+                                            //maxlength: 200,
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="subcontent" ng-show="!procesos_categoria.mapa_created">
+                    <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                        <language>No existe un mapa de procesos creado</language>
+                    </div>
+                </div>
+    </div>
+
+</div><!--end-->

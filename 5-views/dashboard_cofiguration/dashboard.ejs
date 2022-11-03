@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading panel-dashboard">
+                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 1" class="panel-title">Plan Operativo Anual</h6>
+                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 2" class="panel-title">Gestión Presupuestaria</h6>
+            </div>
+            <div class="panel-body">
+
+                <div class="row mb-10">
+                    <div class="col-md-12 col-sm-12 pl-0 pr-0">
+                        <div ng-if="dashboard_cofiguration.session.tipo_institucion == 1" class="col-md-6 col-sm-6 select-heigt">
+                            <%- FORM.select("vw_dashboard_poas", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                label: "POA",
+                                text: "item.periodo_poa",
+                                table: "vw_dashboard_poas",
+                                icon: {class: "archive"},
+                                query: {
+                                    limit: 0,
+                                    page: 1,
+                                    orderby: "periodo_poa",
+                                    order: "asc"
+                                },
+                                condition: "item.compania == dashboard_cofiguration.compania && item.pei == dashboard_cofiguration.pei_id"
+                            }) %>
+                        </div>
+                        <div ng-if="dashboard_cofiguration.session.tipo_institucion == 2" class="col-md-6 col-sm-6 select-heigt">
+                            <%- FORM.select("vw_dashboard_poas", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                multiple: false,
+                                label: "Gestión Presupuestaria",
+                                text: "item.periodo_poa",
+                                table: "vw_dashboard_poas",
+                                icon: {class: "archive"},
+                                query: {
+                                    limit: 0,
+                                    page: 1,
+                                    orderby: "periodo_poa",
+                                    order: "asc"
+                                },
+                                condition: "item.compania == dashboard_cofiguration.compania && item.pei == dashboard_cofiguration.pei_id"
+                            }) %>
+                        </div>
+                        <div class="col-md-6 col-sm-6 select-heigt">
+                            <%- FORM.selectsimple("periodos", scope, {
+                                multiple: true,
+                                miplaceholder: "Seleccione los periodos que desee consultar",
+                                text: "item.name",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="dashboard_cofiguration.periodos!=='[NULL]'">
+                    <div class="panel panel-white">
+                        <div class="panel-heading panel-dashboard">
+                            <h6 class="panel-title">Estadísticas</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-5 col-sm-5 pl-0 pr-0">
+                                <label class="text-center fl w-100"><b></b></label>
+                                <div class="chart has-fixed-height" id="pie"></div>
+                                <script>
+                                    dashboard_cofiguration.changePie();
+                                </script>
+                                <%- CHART.doughnut("pie", scope, {label: "Presupuesto", radius: ["25%", "60%"], charPos: ["45%", "50%"]}) %>
+                            </div>
+                            <div class="col-md-7 col-sm-7 pl-0 pr-0"
+                                 style="padding-left: 21px!important;border-left: 1.2px solid #ddd;">
+                                <label class="text-center fl w-100"><b></b></label>
+                                <div class="chart-container has-scroll">
+                                    <div class="chart has-fixed-height" id="bar2"></div>
+                                </div>
+                                <script>
+                                    dashboard_cofiguration.changeBar();
+                                </script>
+                                <%- CHART.bar("bar2", scope, {label: "Desempeño"}) %>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 pl-0 pr-0" style="padding-left: 21px!important;">
+                                <label class="text-center fl w-100"><b></b></label>
+                                <div class="chart-container has-scroll">
+                                    <div class="chart has-fixed-height" id="line"></div>
+                                </div>
+                                <script>
+                                    dashboard_cofiguration.changeLine();
+                                </script>
+                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 1"><%- CHART.columns("line", scope, {label: "Indicadores de Proyecto/Producto"}) %></div>
+                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 2"><%- CHART.columns("line", scope, {label: "Indicadores de Proyecto/Plan de Acción"}) %></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="vw_dashboard_productos2" ng-show="dashboard_cofiguration.periodos!=='[NULL]'"
+                         ng-controller="vw_dashboard_productos2 as vw_dashboard_productos2">
+                        <div class="panel panel-flat">
+
+                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productos2'}); %>
+                            <div class="" style="padding: 0 20px 0 20px;">
+                                <br>
+                                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                    <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
+                                        <label class="labelRedondo"> Planificado </label></li>
+
+                                    <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                                        <label class="labelRedondo"> En ejecución </label></li>
+
+                                    <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                                        <label class="labelRedondo"> Vencido </label></li>
+
+                                    <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                                        <label class="labelRedondo"> Ninguna Condición </label></li>
+                                </ul>
+                                <br>
+                            </div>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_productos2'}); %>
+                            </div>
+                        </div>
+                    </div><!--end-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6" ng-if="false">
+        <div class="col-md-12 col-sm-12 pl-0 pr-0">
+            <div class="panel panel-white">
+                <div class="panel-heading panel-dashboard">
+                    <h6 class="panel-title">Notificaciones</h6>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 pl-0 pr-0">
+                            <div class="col-md-2 col-sm-12 remove-input-space select-heigt">
+                                <select class="pages" name="" id="">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>100</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 remove-input-space pull-right">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Buscar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered custom-table">
+                        <thead class="bg-<%= TAG.table %>">
+                        <th height="0" dragonlanguage class="header-table">
+                            <language>MESSAGE.ic('planificacion.date')</language>
+                        </th>
+                        <th height="0" dragonlanguage class="header-table">
+                            <language>MESSAGE.ic('planificacion.entity')</language>
+                        </th>
+                        <th height="0" width="120px" dragonlanguage class="header-table">
+                            <language>MESSAGE.ic('planificacion.description')</language>
+                        </th>
+                        <th height="0" width="120px" dragonlanguage class="header-table">
+                            <language>MESSAGE.ic('planificacion.alert')</language>
+                        </th>
+                        <th height="0" width="120px" dragonlanguage class="header-table">
+                            <language>MESSAGE.ic('planificacion.responsable')</language>
+                        </th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">03/07/16</td>
+                            <td>Proyecto/Producto"</td>
+                            <td><a>Producto de prueba</a></td>
+                            <td class="text-center">Completado</td>
+                            <td>José David Montilla</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">07/08/16</td>
+                            <td>Actividades POA</td>
+                            <td><a>Actividad de Prueba</a></td>
+                            <td class="text-center">Vence en 15 días</td>
+                            <td>Héctor Js. Reynoso</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">12/3/17</td>
+                            <td>Asignaciones Especiales</td>
+                            <td></td>
+                            <td class="text-center">Vencido</td>
+                            <td>Adalberto Polanco</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination pull-right mt-10">
+                        <a href="#">Anterior</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">Próximo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    resizeCharts();
+</script>

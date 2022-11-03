@@ -1,0 +1,57 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('no_orden', scope, {
+                    maxlength: 5,
+                    trueplaceholder: "No. Secuencia"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {
+                        maxlength: 200
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <%- FORM.select("eje_sectorial", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    multiple: false,
+                    label: "Eje Sectorial",
+                    placeholder: "Eje Sectorial",
+                    text: "item.sec_nombre",
+                    table: "vw_sec_eje_sectorial",
+                    columns: ["nombre"],
+                    icon: {class: "archive"},
+                    condition: "item.sector_id == sec_objetivo_sectorial.session.sector_id"
+                })%>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+<script>
+    $(function(){
+        setTimeout(function(){
+            sec_objetivo_sectorial.form.loadDropDown('objetivos_especificos')
+        },500);
+    })
+</script>
+
+
+
+
+

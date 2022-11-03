@@ -1,0 +1,32 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    if(objetivo.allow(['add']))
+        objetivo.setPermission("add",false);
+    if(objetivo.allow(['edit']))
+        objetivo.setPermission("edit",false);
+    if(objetivo.allow(['remove']))
+        objetivo.setPermission("remove",false);
+    if(objetivo.allow(['view']))
+        objetivo.setPermission("view",false);
+    if(objetivo.allow(['import']))
+        objetivo.setPermission("import",false);
+    if(objetivo.allow(['copy']))
+        objetivo.setPermission("copy",false);
+    if(objetivo.allow(['actions']))
+        objetivo.setPermission("actions",false);
+    objetivo.fixFilters = [{
+        "field": "end",
+        "value": end.dataForView.id
+    }];
+</script>
+<div> <br></div>
+<div class="table table-togglable table-framed">
+    <div id="objetivo " ng-controller="objetivo as objetivo">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'objetivo'}); %>
+            <div class="subcontent">
+                <%- include('../../7-plugins/templates/table/base',{scope:'objetivo'}); %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_historico",
+          "text": "Creación de Periodo Gestión de Riesgo"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_a?proceso?mamfe",
+          "text": "Creación de Modos de Fallo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?mamfe",
+          "text": "Creación de Matriz Riesgo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?plan?mamfe",
+          "text": "Plan de Acción"
+        },
+        {
+          "modal": "",
+          "icon": "cube3",
+          "href": "#vw_resultante?proceso?mamfe",
+          "text": "Matriz Resultante"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "file-stats2",
+              "href": "#riesgo_probabilidad?proceso?mamfe",
+              "text": "Ocurrencias"
+            },
+            {
+              "modal": "",
+              "icon": "stats-decline2",
+              "href": "#riesgo_impacto?proceso?mamfe",
+              "text": "Gravedad"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado?proceso?mamfe",
+              "text": "Detectabilidad"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado_amfe?pei_poa",
+              "text": "Niveles de Riesgo (GOD)"
+            },
+            {
+              "modal": "",
+              "icon": "stack-text",
+              "href": "#estrategia_tratamiento?proceso?mamfe",
+              "text": "Estrategias Tratamiento de Riesgo"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "condition": "baseController.usuarioNoDepartamental",
+      "href": "#",
+      "text": "Prevención y Control de Riesgo (AMFE)"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_historico",
+          "text": "Creación de Periodo Gestión de Riesgo"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard3",
+          "href": "#riesgo_a?proceso?mamfe",
+          "text": "Creación de Modos de Fallo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?mamfe",
+          "text": "Creación de Matriz Riesgo"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?plan?mamfe",
+          "text": "Plan de Acción"
+        },
+        {
+          "modal": "",
+          "icon": "cube3",
+          "href": "#vw_resultante?proceso?mamfe",
+          "text": "Matriz Resultante"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "file-stats2",
+              "href": "#riesgo_probabilidad?proceso?mamfe",
+              "text": "Ocurrencias"
+            },
+            {
+              "modal": "",
+              "icon": "stats-decline2",
+              "href": "#riesgo_impacto?proceso?mamfe",
+              "text": "Gravedad"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado?proceso?mamfe",
+              "text": "Detectabilidad"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#riesgo_resultado_amfe?pei_poa",
+              "text": "Niveles de Riesgo (GOD)"
+            },
+            {
+              "modal": "",
+              "icon": "stack-text",
+              "href": "#estrategia_tratamiento?proceso?mamfe",
+              "text": "Estrategias Tratamiento de Riesgo"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
+        }
+      ],
+      "modal": "",
+      "icon": "shield2",
+      "condition": "baseController.usuarioNoDepartamental",
+      "href": "#",
+      "text": "Prevención y Control de Riesgo (AMFE)"
+    }
+  ]
+}

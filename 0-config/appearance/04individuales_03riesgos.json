@@ -1,0 +1,18 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Gestión de Riesgos"
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "shield2",
+      "href": "#",
+      "text": "Gestión de Riesgos"
+    }
+  ]
+}

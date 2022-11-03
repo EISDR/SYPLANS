@@ -1,0 +1,20 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- PLANIFICACIÓN -",
+      "disable": true
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- PLANIFICACIÓN -",
+      "disable": true
+    }
+  ]
+}

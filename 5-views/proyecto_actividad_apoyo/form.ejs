@@ -1,0 +1,125 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-9 col-md-9'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-show="<%= scope %>.form.mode==='new'">
+                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
+                <script>
+                    <%= scope %>.initstatus = "Abierta";
+                    <%= scope %>.refreshAngular();
+                </script>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-show="<%= scope%>.form.mode!=='new'">
+                <%- FORM.select('estatus', scope, {
+                    column: 'name',
+                    text: "item.nombre",
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    disabled: true,
+                    condition: "item.entidad == 'proyecto_actividad_apoyo'"
+                            //self: true,
+                //allownull: true,
+                //allownew: true,
+                //allowedit: true,
+                //allowview: true,
+                //allowlist: true,
+                //refresh: true,
+                //condition: 'true',
+                //multiple: false,get: {table: "responsable_linked", fieldFrom: "id", fieldTo: "myid(responsable)", field: "theirid"},
+                //disabled: false,
+                //helptext: "",
+                //value: 'id',
+                //text: 'item.name',
+                //query: {
+                //limit: 0,
+                //page: 1,
+                //where: [],
+                //orderby: 'id',
+                //order: 'asc',
+                //distinct: false
+                // join: [
+                //     {
+                //         table: 'ms_category',
+                //         base: 'category',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     },
+                //     {
+                //         table: 'otratable',
+                //         base: 'ms_category_id',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     }
+                // ]
+                //},
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-4' ng-if="!proyecto_actividad_apoyo.session.institucion">
+                <%- FORM.select('departamento', scope, {
+                    allownull: true,
+                    allownew: true,
+                    allowedit: true,
+                    allowview: true,
+                    allowlist: true,
+                    refresh: true,
+                    truelabel: "Departamento",
+                    column: 'name',
+                    table: 'departamento',
+                    condition: "(item.compania == proyecto_actividad_apoyo.session.compania_id && item.institucion == $null) && (item.active)",
+                    text: 'item.nombre',
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="proyecto_actividad_apoyo.session.institucion">
+                <%- FORM.select('departamento', scope, {
+                    allownull: true,
+                    allownew: true,
+                    allowedit: true,
+                    allowview: true,
+                    allowlist: true,
+                    refresh: true,
+                    truelabel: "Departamento",
+                    column: 'name',
+                    table: 'departamento',
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
+                    text: 'item.nombre',
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('responsable', scope, {
+                    allownull: true,
+                    allownew: true,
+                    allowedit: true,
+                    allowview: true,
+                    allowlist: true,
+                    refresh: true,
+                    multiple: false,
+                    column: 'name',
+                    table: 'usuario',
+                    condition: "item.departamento == proyecto_actividad_apoyo.departamento && item.active",
+                    text: "item.nombre + ' ' + item.apellido",
+                    columns: ["id", "nombre"],
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.daterange('range_date', scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.input('descripcion', scope, {}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

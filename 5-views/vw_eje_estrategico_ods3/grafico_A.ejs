@@ -1,0 +1,102 @@
+<div class="row text-center">
+    <div>
+        <img style="width: 100.5px;    display: inline-block;    margin: -10px 0px 0 0;float: right;"
+             ng-src="{{vw_eje_estrategico_ods3.odsimages[vw_eje_estrategico_ods3.selectedods]}}">
+        <h4 style="display: inline-block;"> {{vw_eje_estrategico_ods3.titles["A"]}}</h4>
+    </div>
+    <div class="col-md-12" style="padding: 0;">
+        <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+            <li ng-repeat="(i,range) in vw_eje_estrategico_ods3.ranges"
+                title="Progreso desde {{range.from}} hasta {{range.to}}">
+                <label class="ponerRedondo" style="background-color: {{range.color}};"></label>
+                <label class="labelRedondo"> {{range.titulo}} </label>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-12" style="padding: 0;margin-top: 10px;">
+        <div class="col-md-3">
+            <button type="button" ng-click="vw_eje_estrategico_ods3.sortGrafico('AP','nombre')"
+                    class="btn  bg-success" title="Por Nombre Ascendente" style="width: 100%">
+                <b><i class=" icon-sort-alpha-asc"></i></b> Nombre
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" ng-click="vw_eje_estrategico_ods3.sortGrafico('A','nombre',true)"
+                    class="btn  bg-danger" title="Por Nombre Descendente" style="width: 100%">
+                <b><i class="  icon-sort-alpha-desc"></i></b> Nombre
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" ng-click="vw_eje_estrategico_ods3.sortGrafico('A','value')"
+                    class="btn  bg-success" title="Por Cumplimiento Ascendente" style="width: 100%">
+                <b><i class="    icon-arrow-down7"></i></b> Cumplimiento
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" ng-click="vw_eje_estrategico_ods3.sortGrafico('A','value',true)"
+                    class="btn  bg-danger" title="Por Cumplimiento Descendente" style="width: 100%">
+                <b><i class="    icon-arrow-up7"></i></b> Cumplimiento
+            </button>
+        </div>
+    </div>
+    <div class='col-sm-4 col-md-4' style="margin-top: 10px;    padding: 0px;"
+         ng-repeat="(i,grafico) in vw_eje_estrategico_ods3.graficos.A">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center"
+                 style="padding: 2px 0px 0px 8px;    border-top-left-radius: 20px;    border-top-right-radius: 20px;">
+                <h5 title="{{grafico.nombre}}"
+                    style=" height: 26px;    white-space: nowrap;    overflow: hidden;    text-overflow: ellipsis;"><b>{{grafico.nombre}}</b>
+                </h5>
+            </div>
+            <div class="panel-body text-center">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 grafe" id="actividades_{{i}}">
+
+                    </div>
+                    <h4>{{grafico.estatus}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    vw_eje_estrategico_ods3.loadAllThis('actividades', vw_eje_estrategico_ods3.graficos.A);
+
+    function demoKnob(div, value, color) {
+        const knob = pureknob.createKnob(300, 300);
+        knob.setProperty('angleStart', -0.50 * Math.PI);
+        knob.setProperty('angleEnd', 0.50 * Math.PI);
+        knob.setProperty('colorFG', color);
+        knob.setProperty('colorBG', "#ccc");
+        knob.setProperty('textScale', 0.8);
+        knob.setProperty('trackWidth', 0.4);
+        knob.setProperty('readonly', true);
+        knob.setProperty('valMin', 0);
+        knob.setProperty('valMax', 100);
+        knob.setProperty('fnValueToString', (value) => {
+            return `${value}%`;
+        });
+        knob.setValue(value);
+        const listener = function (knob, value) {
+            console.log(value);
+        };
+
+        knob.addListener(listener);
+
+        // Create element node.
+        const node = knob.node();
+
+        // Add it to the DOM.
+        const elem = document.getElementById(div);
+        elem.appendChild(node);
+    }
+
+    vw_eje_estrategico_ods3.refreshAngular();
+</script>
+
+<style>
+    .grafe div {
+        height: 170px !important;
+    }
+</style>

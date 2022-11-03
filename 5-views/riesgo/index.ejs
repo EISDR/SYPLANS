@@ -1,0 +1,239 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default">
+                <div class="breadcrumb-line">
+                    <ul class="breadcrumb visible-lg visible-md" dragonlanguage="" style="z-index: 1000">
+                        <li ng-repeat="(key, menu) in <%= scope %>.MENU.parents track by key">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{menu.icon}} position-left"></i>
+                                {{menu.text.trim('')}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left" ng-show="menu.childs.length>0">
+                                <li ng-repeat="(subkey, submenu) in menu.childs track by subkey"
+                                    ng-class="[<%= scope %>.MENU.menu.text!=submenu.text?'':'active']">
+                                    <a title="{{submenu.text}}" href="{{<%= scope %>.sameHref(submenu,'javascript:void(0)')||submenu.href}}"
+                                       class="">
+                                        <i class="{{submenu.icon}}"></i>{{submenu.text}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                    <ul class="breadcrumb visible-lg visible-md"
+                        ng-show="<%= scope %>.modal.isOpen()" dragonlanguage="" style="z-index: 1000">
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent" style="min-height: 0">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #ddd;">
+                                <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; font-weight: bold">Gestión de Riesgo</label>
+                            </div>
+                            <div class="panel-body" style="padding-bottom: 0;">
+                                <div class="row">
+                                    <div class='col-sm-4 col-md-4'>
+                                        <%- FORM.inputview('nombre_historico', scope, { placeholder: "Nombre de la gestión"}) %>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4">
+                                        <%- FORM.inputview('ano_historico', scope, { placeholder: "Año de la gestión"}) %>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4">
+                                        <%- FORM.inputview('estatus_historico', scope, { placeholder: "Estatus de la gestión"}) %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class='col-sm-12 col-md-12'>
+                                        <%- FORM.textarea('descripcion_historico', scope, {
+                                            placeholder: "Descripción de la gestión",
+                                            disabled: true
+                                                    //maxlength: 200,
+                                        }) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div class="row" ng-if="!riesgo.soyamfe">
+                <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad == 'vw_procesos'">
+                    <%- FORM.select("riesgo_entidad", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        label: "Seleccione Tipo de Riesgo",
+                        text: "item.name",
+                        value: "table_",
+                        disabled: true,
+                        table: "riesgo_entidad",
+                        icon: {class: "list"}
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad != 'vw_procesos'">
+                    <%- FORM.select("riesgo_entidad", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        label: "Seleccione Tipo de Riesgo",
+                        text: "item.name",
+                        value: "table_",
+                        table: "riesgo_entidad",
+                        condition: "item.table_ != 'vw_procesos' ",
+                        icon: {class: "list"}
+                    }) %>
+                </div>
+            </div>
+            <div class="row" ng-if="riesgo.soyamfe" ng-show="riesgo.soyamfe===true?false:true">
+                <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad == 'vw_procesos'">
+                    <%- FORM.select("riesgo_entidad", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        label: "Seleccione Tipo de Fallo",
+                        text: "item.name",
+                        value: "table_",
+                        disabled: true,
+                        table: "riesgo_entidad",
+                        icon: {class: "list"}
+                    }) %>
+                </div>
+                <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad != 'vw_procesos'">
+                    <%- FORM.select("riesgo_entidad", scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        label: "Seleccione Tipo de Fallo",
+                        text: "item.name",
+                        value: "table_",
+                        table: "riesgo_entidad",
+                        condition: "item.table_ != 'vw_procesos' ",
+                        icon: {class: "list"}
+                    }) %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6" ng-if="!riesgo.soyamfe && riesgo.esplan">
+                    <label style="">Estatus</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #F59042;"></label>
+                            <label class="labelRedondo"> En ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #4388ba;"></label>
+                            <label class="labelRedondo"> Trabajadas </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Completadas </label></li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="!riesgo.soyamfe && !riesgo.esplan">
+                    <label style="">Estatus</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> No Monitoreado </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Monitoreado </label></li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="riesgo.soyamfe && !riesgo.esplan">
+                    <label style="">Estatus</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> No Monitoreado </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
+                            <label class="labelRedondo"> Monitoreado </label></li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="riesgo.soyamfe && riesgo.esplan">
+                    <label style="">Condición de acciones de mejoras</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+
+                        <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
+                            <label class="labelRedondo"> Pendiente a Trabajar </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #F59042;"></label>
+                            <label class="labelRedondo"> En ejecución </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #4388ba;"></label>
+                            <label class="labelRedondo"> Trabajadas </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Completadas </label></li>
+
+
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-6" ng-if="!riesgo.esplan">
+                    <label style="">Ocurrencia</label>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+
+                        <li><label class="ponerRedondo" style="background-color: #e32619"></label>
+                            <label class="labelRedondo"> Con Ocurrencias </label></li>
+
+                        <li><label class="ponerRedondo" style="background-color: #548235;"></label>
+                            <label class="labelRedondo"> Sin Ocurrencias </label></li>
+
+                    </ul>
+                </div>
+            </div>
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+<script>
+    $(function () {
+        $('#<%= scope %>TablePanel').floatingScrollbar();
+        setTimeout(function () {
+            $("[name='riesgo_riesgo_entidad']").change(function (val) {
+                riesgo.changeIndicador($("[name='riesgo_riesgo_entidad']").val());
+            })
+        }, 1000)
+    });
+</script>

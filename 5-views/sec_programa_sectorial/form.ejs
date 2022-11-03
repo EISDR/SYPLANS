@@ -1,0 +1,149 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.integer('no_orden', scope, {
+                    maxlength: 5,
+                    trueplaceholder: "No. Secuencia"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('resultado_sectorial', scope, {
+                    column: "resultado_sectorial",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    text: "item.sec_nombre",
+                    table: "vw_sec_resultado_sectorial",
+                    icon: {class: "archive"},
+                    truelabel: "Resultado Sectorial",
+                    condition: "(item.sector_id == sec_programa_sectorial.session.sector_id) && (item.active == 1)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('eje_estrategico', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    multiple: true,
+                    text: "item.nombre_sin_hijos",
+                    table: "drp_eje_estrategico",
+                    icon: {class: "archive"},
+                    truelabel: "Alineación con Eje Estratégico Institucional",
+                    miplaceholder: "Seleccione la relación con el plan institucional",
+                    condition: "(item.pei == sec_programa_sectorial.session.pei_id)",
+                    get: {
+                        table: 'sec_programa_sectorial_eje_estrategico',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_sectorial',
+                        field: 'eje_estrategico'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.daterange("range_date", scope, {
+                    from: "fecha_desde",
+                    to: "fecha_hasta",
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <%- FORM.money("estimacion_presupuestaria", scope, {
+                    trueplaceholder: "Estimación Presupuestaria",
+                    maxlength: 18
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('involucrados', scope, {
+                    column: "involucrados",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_completo",
+                    table: "involucrados",
+                    icon: {class: "archive"},
+                    truelabel: "Instituciones Involucradas",
+                    condition: "(item.compania == sec_programa_sectorial.session.compania_id && item.active == 1) && (item.tipo == 3)",
+                    get: {
+                        table: 'sec_programa_sectorial_involucrados',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_sectorial',
+                        field: 'involucrado'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('responsables', scope, {
+                    column: "responsables",
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    allownew: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: "institucion",
+                    icon: {class: "archive"},
+                    truelabel: "Instituciones Responsables",
+                    condition: "(item.compania == sec_programa_sectorial.session.compania_id && item.sector == sec_programa_sectorial.session.sector_id )",
+                    get: {
+                        table: 'sec_programa_sectorial_responsable',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_sectorial',
+                        field: 'institucion'
+                    }
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('poblacion_objetivo', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Población Objetivo"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('sector_economico_social', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Sector Económico Social"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Descripción del Programa Sectorial"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('supuestos', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Supuestos"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation('sec_programa_sectorial_finazas', scope, {
+                    text: "item.ano",
+                    table: "sec_programa_sectorial_finazas",
+                    field: "programa",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>
+
+
+
+
+

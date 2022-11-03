@@ -1,0 +1,110 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pencil6",
+          "href": "#pacc",
+          "text": "Crear/Modificar PACC General"
+        },
+        {
+          "modal": "",
+          "icon": "tab",
+          "href": "#transfer_pacc",
+          "text": "Transferir POA a PACC"
+        },
+        {
+          "modal": "",
+          "icon": "coin-dollar",
+          "href": "#u_pacc_dept",
+          "text": "Preparación PACC Departamental"
+        },
+        {
+          "modal": "",
+          "icon": "clipboard2",
+          "href": "#vw_pacc",
+          "text": "Evaluación PACC Departamental"
+        },
+        {
+          "modal": "",
+          "icon": "link",
+          "href": "#consolidacion",
+          "text": "Consolidación"
+        },
+        {
+          "modal": "",
+          "icon": "shrink7",
+          "href": "#unificacion",
+          "text": "Unificación"
+        },
+        {
+          "modal": "",
+          "icon": "graph",
+          "href": "#pacc_status",
+          "text": "Estatus del PACC "
+        },
+        {
+          "modal": "",
+          "icon": "file-stats",
+          "href": "#pacc_departamento_status",
+          "text": "Estatus del PACC Departamental"
+        },
+        {
+          "modal": "",
+          "icon": "check",
+          "href": "#aprobacion_mae",
+          "text": "Aprobación MAE"
+        },
+        {
+          "modal": "",
+          "icon": "checkbox-checked2",
+          "href": "#aprobacion_digepres",
+          "text": "Aprobación DIGEPRES"
+        },
+        {
+          "modal": "",
+          "icon": "megaphone",
+          "href": "#aprobacion_dgcp",
+          "text": "Difusión del PACC"
+        },
+        {
+          "modal": "",
+          "icon": "eye2",
+          "href": "#unificacion_m",
+          "text": "Seguimiento y monitoreo"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pointer",
+              "href": "#procedimiento_seleccion",
+              "condition": "baseController.session.maneja_pacc===1 || baseController.session.pacc",
+              "text": "Procedimientos de Selección"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "price-tag",
+              "href": "#fuente_financiamiento",
+              "condition": "baseController.session.maneja_pacc===1 || baseController.session.pacc",
+              "text": "Fuente de Financiamientos"
+            }
+          ],
+          "icon": "hammer-wrench",
+          "href": "#",
+          "text": "Configuraciones"
+        }
+      ],
+      "modal": "",
+      "icon": "calendar22",
+      "href": "#",
+      "condition": "baseController.session.maneja_pacc===1 || baseController.session.pacc",
+      "text": "Plan Anual Compras Contrataciones (PACC)"
+    }
+  ],
+  "menus_privado": [
+  ]
+}

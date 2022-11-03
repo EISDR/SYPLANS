@@ -1,0 +1,215 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="poabasic">
+            <div class="row">
+                <div class="col-md-9 pl-0 filros-pei-poa">
+                    <div class="panel panel-<%= COLOR.secundary %>">
+                        <div class="panel-heading" style="border-bottom-color: #dedede">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <h6 class="panel-title" dragonlanguage>
+                                        Filtros POA
+                                    </h6>
+                                </div>
+                                <div class="col-sm-6 col-md-6" id="ddltransfer2">
+                                    <%- FORM.select("poa", scope, {
+                                        allownull: false,
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        text: "item.nombre",
+                                        table: "vw_poa",
+                                        icon: {class: "archive"},
+                                        label: "POA",
+                                    }) %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <%- FORM.select("departamento", scope, {
+                                        allownull: false,
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        text: "item.nombre",
+                                        permission: "departamento",
+                                        table: "vw_departamentos_dashboard",
+                                        icon: {class: "archive"},
+                                        label: "Departamento",
+                                        condition: "item.poa == filtros_poa.poa || item.poa == 0"
+                                        /*childs: [
+                                         {
+                                         model: 'productos_poa',
+                                         }
+                                         ]*/
+                                    }) %>
+                                </div>
+                                <div class="col-sm-12 col-md-4" ng-if="filtros_poa.session.tipo_institucion == 1">
+                                    <%- FORM.select("productos_poa", scope, {
+                                        text: "item.nombre",
+                                        table: "productos_poa",
+                                        icon: {class: "archive"},
+                                        label: "Proyecto/Producto",
+                                        permission: "drp_productos_poa",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        condition: "item.departamento == filtros_poa.departamento || filtros_poa.departamento == 0"
+                                        /*parent: {
+                                         model: 'departamento',
+                                         myfield: 'departamento',
+                                         sufield: 'id'
+                                         },
+                                         childs: [
+                                         {
+                                         model: 'actividades_poa',
+                                         }
+                                         ]*/
+                                    }) %>
+                                </div>
+                                <div class="col-sm-12 col-md-4" ng-if="filtros_poa.session.tipo_institucion == 2">
+                                    <%- FORM.select("productos_poa", scope, {
+                                        text: "item.nombre",
+                                        table: "productos_poa",
+                                        icon: {class: "archive"},
+                                        label: "Proyecto/Plan de Acción",
+                                        permission: "drp_productos_poa",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        condition: "item.departamento == filtros_poa.departamento || filtros_poa.departamento == 0"
+                                                /*parent: {
+                                        model: 'departamento',
+                                        myfield: 'departamento',
+                                        sufield: 'id'
+                                    },
+                                            childs: [
+                                        {
+                                            model: 'actividades_poa',
+                                        }
+                                    ]*/
+                                    }) %>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <%- FORM.select("actividades_poa", scope, {
+                                        // column: "nombre",
+                                        text: "item.nombre",
+                                        table: "actividades_poa",
+                                        icon: {class: "archive"},
+                                        label: "Actividad",
+                                        permission: "drp_productos_poa",
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        condition: "filtros_poa.LAN.pairCompare([filtros_poa.departamento,filtros_poa.productos_poa],[item.departamento,item.producto], ['0', '[NULL]'])"
+                                        /*parent: {
+                                         model: 'productos_poa',
+                                         myfield: 'producto',
+                                         sufield: 'id'
+                                         }*/
+                                    }) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4" style="display: none;">
+                                    <%- FORM.select("estado_poa", scope, {
+                                        //
+                                        allownull: false,
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        text: "item.nombre",
+                                        table: "poa_estatus",
+                                        icon: {class: "archive"},
+                                        label: "Estado",
+                                        disabled: true
+                                    }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 pr-0">
+                    <div style="height: 35px;">
+                        <div class="col-md-12 pr-0" ng-show="filtros_poa.estado_poa!=4">
+                            <!--<div class="col-md-12 pr-0" style="height: 35px;" >-->
+                            <center>
+                                <div class="col-sm-12 col-md-12 pr-0 " ng-if="filtros_poa.isItComplete == false"
+                                     style="display: none;">
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Autorizar Poa"
+                                            type="button" role="button"
+                                            class=" bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding "
+                                            ng-click="filtros_poa.Guardar_click()"
+                                            ng-disabled=true>
+                                        <b><i class="icon-shield-check"></i></b>
+                                        Autorizar POA
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 col-md-12 pr-0 " ng-if="filtros_poa.isItComplete == true"
+                                     style="display: none;">
+                                    <button
+                                            style="margin-right: 0"
+                                            dragonlanguage="" title="Autorizar Poa"
+                                            type="button" role="button"
+                                            class=" bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding "
+                                            ng-click="filtros_poa.Guardar_click()">
+                                        <b><i class="icon-shield-check"></i></b>
+                                        Autorizar POA
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pr-0 pl-0" style="position: absolute; bottom: -145px;">
+                        <div class="col-md-5 col-sm-12 pull-left">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Buscar POA"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                    ng-click="filtros_poa.search_click()">
+                                <b><i class=" icon-search4"></i></b>
+                                Buscar
+                            </button>
+                        </div>
+                        <div class="col-md-5 col-sm-12 pr-0 pull-left pl-0">
+                            <button
+                                    style="margin-right: 0"
+                                    dragonlanguage="" title="Limpiar filtros POA"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.warning %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                    ng-click="filtros_poa.cancel_click()">
+                                <b><i class="icon-eraser2"></i></b>
+                                Limpiar
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    conductas_asociadas_view.fixFilters = [{
+        "field": "marco_estrategico_valor",
+        "value": marco_estrategico_valores.dataForView.id
+    }];
+</script>
+<div> <br></div>
+<div class="table table-togglable table-framed">
+    <div id="conductas_asociadas_view" ng-controller="conductas_asociadas_view as conductas_asociadas_view">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'conductas_asociadas_view'}); %>
+            <div class="subcontent">
+                <%- include('../../7-plugins/templates/table/base',{scope:'conductas_asociadas_view'}); %>
+            </div>
+        </div>
+    </div>
+</div>

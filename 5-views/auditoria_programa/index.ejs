@@ -1,0 +1,102 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic" ng-show="auditoria_programa.loaded">
+                    <div ng-show="!auditoria_programa.created && auditoria_programa.loaded">
+                        <div class="alert alert-warning alpha-danger border-danger alert-styled-left"
+                             style="font-size: 17px;">
+                            <language> Se debe crear y autorizar un Programa de Auditoría para poder trabajar en esta
+                                opción
+                            </language>
+                        </div>
+                    </div>
+                    <div ng-show="auditoria_programa.created">
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom: 0">
+                                <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #ddd;">
+                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; font-weight: bold">Programa de Auditoría</label>
+                                </div>
+                                <div class="panel-body" style="padding: 0 0 0 20px;">
+                                    <div class="row">
+                                        <div class="col-md-4" style="float: right">
+                                            <div class="panel panel-flat">
+                                                <div class="panel-heading" style="background-color: #f7f7f7; padding: 5px 10px; text-align: center">
+                                                    <strong style="font-size: 18px">Desempeño Planes de Auditorías Abiertas Vs Finalizadas</strong>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class='col-sm-12 col-md-12'>
+                                                        <div class="" style="margin: 0">
+                                                            <div class="panel-body chart-container"
+                                                                 style="padding: 10px 10px 20px 10px;">
+                                                                <div class=chart-container" style="height: 150px;">
+                                                                    <div class="chart has-fixed-height" id="gauge_auditorias" style="height: 250px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-8 col-md-8' style="margin-top: 20px">
+                                            <%- FORM.inputview('nombre', scope, {}) %>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <%- FORM.daterange("range_date", scope, {
+                                                from: "fecha_inicio",
+                                                to: "fecha_fin",
+                                                disabled: true
+                                            }) %>
+                                        </div>
+                                        <div class='col-sm-4 col-md-4'>
+                                            <%- FORM.inputview('estatus_nombre', scope, {
+                                                    //length:15
+                                            }) %>
+                                        </div>
+                                        <div class='col-sm-8 col-md-8' style="margin-bottom: 5px !important">
+                                            <%- FORM.textarea('descripcion', scope, {
+                                                disabled: true
+                                                //maxlength: 200,
+                                            }) %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="auditoria_programa.loaded">
+                            <div class="tab-content" id="auditoria_programa_plan"
+                                 ng-controller="auditoria_programa_plan as auditoria_programa_plan">
+                                <div class="panel panel-flat">
+                                    <%-
+                                    include('../../7-plugins/templates/table/header',{scope:'auditoria_programa_plan'});
+                                    %>
+                                    <div class="subcontent">
+                                        <%-include('../../5-views/auditoria_programa_plan/base',{scope:'auditoria_programa_plan'});%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    auditoria_programa_plan.setPermission("add", true);
+    auditoria_programa_plan.setPermission("edit", true);
+    auditoria_programa_plan.setPermission("remove", true);
+    auditoria_programa_plan.setPermission("export", true);
+    if (auditoria_programa.session.groups[0].caracteristica == "AU") {
+        auditoria_programa_plan.setPermission("add", false);
+        auditoria_programa_plan.refreshAngular();
+    }
+</script>

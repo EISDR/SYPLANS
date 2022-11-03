@@ -1,0 +1,36 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('meta', scope, {
+                    column: 'nombre',
+                    table: 'mods',
+                    text: "(ods_compania.ods_object||{edt:0}).edt+'.'+ item.edt +'. '+item.nombre",
+                    condition: "item.ods==ods_compania.ods",
+                    truelabel: "Meta ODS"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('definicion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation("inidcador_compania", scope, {
+                    text: "item.definicion",
+                    table: "inidcador_compania",
+                    field: "meta",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

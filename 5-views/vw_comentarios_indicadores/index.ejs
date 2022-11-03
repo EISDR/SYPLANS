@@ -1,0 +1,38 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div ng-show="vw_comentarios_indicadores.allow_comment">
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('comentario', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <button
+                        style="margin-right: 0; float: right !important"
+                        dragonlanguage="" title="Cancelar"
+                        type="button" role="button"
+                        class="bg-<%= COLOR.warning %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-cross2"></i></b>
+                    Cancelar
+                </button>
+                <button
+                        style="background-color: {{value.color}}; color: white; float: right !important"
+                        dragonlanguage="" title="Guardar Comentario"
+                        type="button" role="button"
+                        class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs pull-right"
+                        ng-click="vw_comentarios_indicadores.save_comment()">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

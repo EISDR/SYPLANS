@@ -1,0 +1,871 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select('tipo_auditoria', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "tipo_auditorias",
+                    icon: {class: "archive"},
+                    truelabel: "Tipo de auditoría",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null)",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select('tipo_auditoria', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "tipo_auditorias",
+                    icon: {class: "archive"},
+                    truelabel: "Tipo de auditoría",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id)",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!auditoria_programa_plan.session.institucion && auditoria_programa_plan.show_drp_down">
+                <%- FORM.select('auditoria_relacionada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "vw_drp_auditoria_relacionada",
+                    icon: {class: "archive"},
+                    truelabel: "Auditoría Relacionada",
+                    condition: "( (item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ( item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No') ) || item.id == auditoria_programa_plan.auditoria_relacionada",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="auditoria_programa_plan.session.institucion && auditoria_programa_plan.show_drp_down">
+                <%- FORM.select('auditoria_relacionada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "vw_drp_auditoria_relacionada",
+                    icon: {class: "archive"},
+                    truelabel: "Auditoría Relacionada",
+                    condition:  "((item.institucion == auditoria_programa_plan.session.institucion_id && item.id  ) && (item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No')) || item.id == auditoria_programa_plan.auditoria_relacionada",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.select('estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.permitido",
+                    value: "id",
+                    table: "vw_auditoria_programa_plan_estatus",
+                    icon: {class: "archive"},
+                    truelabel: "Estatus",
+                    condition: "item.plan_status == auditoria_programa_plan.my_true_estatus && item.entidad == 'auditoria_programa_plan'"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-show="false">
+                <%- FORM.inputview('estatus_nombre', scope, {
+                        //length:15
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'>
+                <%- FORM.daterange('range_date', scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select('prioridad', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "auditoria_programa_plan_prioridad",
+                    icon: {class: "archive"},
+                    truelabel: "Prioridad",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null)",
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select('prioridad', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "auditoria_programa_plan_prioridad",
+                    icon: {class: "archive"},
+                    truelabel: "Prioridad",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id)",
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('objetivo', scope, {
+                    trueplaceholder: "Objetivos"
+                            //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('criterio', scope, {
+                    trueplaceholder: "Criterio de Auditoría"
+                            //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('alcance', scope, {
+                        //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('descripcion', scope, {
+                        //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_departamento", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamentos Auditados",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                    get: {
+                        table: 'auditoria_programa_plan_departamento',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'departamento'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_departamento", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamentos Auditados",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
+                    get: {
+                        table: 'auditoria_programa_plan_departamento',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'departamento'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-4" style="margin-top: 16px" ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_participantes", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Participantes Departamentales",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active && item.profile !== 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_participantes',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-4" style="margin-top: 16px" ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_participantes", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    columns: ["esresponsable"],
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Participantes Departamentales",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active && item.profile !== 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_participantes',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-5" style="margin-top: 16px" ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_responsable", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Auditores participantes",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active && item.profile == 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_equipotrabajo',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                        where_delete: {
+                            field: "esresponsable",
+                            operator: "is",
+                            value: "$null"
+                        }
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+                <table class=" table table-togglable table-framed sindu-table" ng-show="auditoria_programa_plan.participantes_list.data.length > 0" style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Nombre
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Cargo
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Tipo de Auditor
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">Rol del Auditor</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
+                        style="font-family: 'Arial Narrow'; font-size: 15px; text-align: center; vertical-align: middle">
+                        <td style="text-align: center; vertical-align: middle">
+                            {{row.nombre + ' ' + row.apellido}}
+                        </td>
+                        <td style="text-align: center; vertical-align: middle">
+                            {{row.cargo}}
+                        </td>
+                        <td style="text-align: center; vertical-align: middle">
+                            {{row.tipo_auditor}}
+                        </td>
+                        <td class="context-control" style="padding-top: 0 !important"
+                            oncontextmenu="return false;">
+                            <div class="remove-input-space form-group-material has-{{auditoria_programa_plan.ROLROWS[key].rol > 0 ? 'success' : 'error'}} form-group" style="margin-bottom: 10px !important">
+                                <select id="rol_{{key}}"
+                                        ng-change="auditoria_programa_plan.make_responsable(key, row)"
+                                        ng-model="auditoria_programa_plan.ROLROWS[key].rol"
+                                        class="form-control"
+                                        title="{{auditoria_programa_plan.getSelectedText('rol', key)}}">
+                                    <option value="">Seleccione</option>
+                                    <option ng-repeat="(k,v) in auditoria_programa_plan.roles_auditores"
+                                            value={{v.id}}>{{v.nombre}} {{v.lider == 1 ? "(Líder)" : ""}}
+                                    </option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-5" style="margin-top: 16px" ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_responsable", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    columns: ["esresponsable"],
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Auditores participantes",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active && item.profile == 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_equipotrabajo',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                        where_delete: {
+                            field: "esresponsable",
+                            operator: "is",
+                            value: '$null'
+                        }
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+                <table class=" table table-togglable table-framed sindu-table" ng-show="auditoria_programa_plan.participantes_list.data.length > 0" style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Nombre
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Cargo
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Tipo de Auditor
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                ¿Es Auditor Líder?
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">Elegir Auditor Líder</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
+                        style="font-family: 'Arial Narrow'; font-size: 15px; text-align: center; vertical-align: middle">
+                        <td>
+                            {{row.nombre + ' ' + row.apellido}}
+                        </td>
+                        <td>
+                            {{row.cargo}}
+                        </td>
+                        <td>
+                            {{row.tipo_auditor}}
+                        </td>
+                        <td>
+                            {{row.id == auditoria_programa_plan.part_responsable.usuario ? 'Sí' : 'No'}}
+                        </td>
+                        <td class="context-control"
+                            oncontextmenu="return false;">
+                            <ul class="icons-list dragon-action" ng-show="!auditoria_programa_plan.part_responsable"
+                                style="z-index: 99999; text-align: center;">
+                                <li class="ng-scope">
+                                    <a title="Hacer Responsable este usuario"
+                                       ng-click="<%= scope %>.make_responsable(row)">
+                                        <i class="icon-user-check"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px"  ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_proceso", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_drp",
+                    value: "id",
+                    table: "vw_procesos",
+                    icon: {class: "archive"},
+                    truelabel: "Procesos a Auditar",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active == 1)",
+                    get: {
+                        table: 'auditoria_programa_plan_proceso',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'proceso',
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 && auditoria_programa_plan.my_true_estatus > 3" style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Nombre
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Responsable
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                ¿Revisado?
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">Marcar como revisado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.procesos_list.data" class=""
+                        style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                        <td>
+                            {{row.nombre}}
+                        </td>
+                        <td>
+                            {{row.responsable_nombre}}
+                        </td>
+                        <td>
+                            {{ auditoria_programa_plan.check_proceso(row.id) ? 'Sí' : 'No' }}
+                        </td>
+                        <td class="context-control"
+                            oncontextmenu="return false;">
+                            <ul ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3"
+                                class="icons-list dragon-action"
+                                style="z-index: 99999; text-align: center;">
+                                <li class="ng-scope">
+                                    <a title="Marcar este Proceso como revisado"
+                                       ng-click="<%= scope %>.revisar_proceso(row)">
+                                        <i class=" icon-checkmark-circle2"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px"  ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_proceso", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_drp",
+                    value: "id",
+                    table: "vw_procesos",
+                    icon: {class: "archive"},
+                    truelabel: "Procesos a Auditar",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active == 1)",
+                    get: {
+                        table: 'auditoria_programa_plan_proceso',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'proceso',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 && auditoria_programa_plan.my_true_estatus > 3" style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Nombre
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Responsable
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                ¿Revisado?
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">Marcar Como Revisado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.procesos_list.data" class=""
+                        style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                        <td>
+                            {{row.nombre}}
+                        </td>
+                        <td>
+                            {{row.responsable_nombre}}
+                        </td>
+                        <td>
+                            {{row.id == auditoria_programa_plan.proc_revisado.proceso ? 'Sí' : 'No'}}
+                        </td>
+                        <td class="context-control"
+                            oncontextmenu="return false;">
+                            <ul ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3"
+                                class="icons-list dragon-action"
+                                style="z-index: 99999; text-align: center;">
+                                <li class="ng-scope">
+                                    <a title="Marcar este Proceso como revisado"
+                                       ng-click="<%= scope %>.revisar_proceso(row)">
+                                        <i class=" icon-checkmark-circle2"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px">
+                <%- FORM.select("auditoria_plan_documentos_asociados", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_drp",
+                    value: "id",
+                    table: "vw_documentos_asociados_drp",
+                    icon: {class: "archive"},
+                    truelabel: "Documentos a Auditar",
+                    condition: "(item.estatus_id == 2)",
+                    get: {
+                        table: 'auditoria_programa_plan_documentos_asociados',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'documento_asociado',
+                        where_delete: {
+                            field: "trabajado",
+                            operator: "is",
+                            value: "$null"
+                        }
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+                <table class=" table table-togglable table-framed sindu-table" ng-show="auditoria_programa_plan.documentos_asociados_list.data.length > 0" style="margin-top: -15px;">
+                    <thead class="">
+                    <tr class="bg-secundary">
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Proceso
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Código
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Nombre
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Estatus
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">
+                            <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
+                               class="ng-binding ng-scope">
+                                Condición
+                            </a>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle" height="0">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.documentos_asociados_list.data" class=""
+                        style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                        <td>
+                            {{row.nombre_proceso}}
+                        </td>
+                        <td>
+                            {{row.codigo}}
+                        </td>
+                        <td>
+                            {{row.nombre}}
+                        </td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus <= 3">
+                            {{'Abierto'}}
+                        </td>
+                        <td>
+                            <div style="align-items: center">
+                                <label ng-show="auditoria_programa_plan.validate_documentos(row)" class="ponerRedondo" title="Completo" style="background-color: #79c779; float: none; margin-top: 2px;"></label>
+                                <label ng-show="!auditoria_programa_plan.validate_documentos(row)" class="ponerRedondo" title="Incompleto" style="background-color: #ff8880; float: none; margin-top: 2px;"></label>
+                            </div>
+                        </td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
+                            {{ !auditoria_programa_plan.hide_work_documento(row.id) ? 'Abierto' : 'Trabajado' }}
+                        </td>
+                        <td class="context-control"
+                            oncontextmenu="return false;">
+                            <ul class="icons-list dragon-action"
+                                style="z-index: 99999; text-align: center;">
+                                <li class="ng-scope">
+                                    <a ng-show="auditoria_programa_plan.my_true_estatus <= 3 "
+                                       title="Agregar lista de verificación y Participantes"
+                                       ng-click="<%= scope %>.add_work_list(row)">
+                                        <i class="icon-file-plus2"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.closeModal()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('#inputauditoria_programa_plan_auditoria_plan_departamento').on('select2:unselecting', function (e) {
+            if(auditoria_programa_plan.auditoria_plan_departamento.length === 1){
+                auditoria_programa_plan.selectQueries["auditoria_plan_participantes"] = [
+                    {
+                        field: "id",
+                        value: -1
+                    }
+                ];
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes');
+                auditoria_programa_plan.refreshAngular();
+            }
+        });
+        $('#inputauditoria_programa_plan_auditoria_plan_responsable').on('select2:unselecting', function (e) {
+            var data = e.params.args.data;
+                BASEAPI.deleteall('auditoria_programa_plan_equipotrabajo', [
+                    {
+                        field: "usuario",
+                        value: data.id
+                    },
+                    {
+                        field: "programa_plan",
+                        value: auditoria_programa_plan.id
+                    }
+                ], async function (result) {
+                    console.log(result);
+                    await auditoria_programa_plan.getRol();
+                    auditoria_programa_plan.refreshAngular();
+                })
+        });
+        $('#inputauditoria_programa_plan_auditoria_plan_proceso').on('select2:unselecting', function (e) {
+            if(auditoria_programa_plan.auditoria_plan_proceso.length === 1){
+                auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
+                    {
+                        field: "id",
+                        value: -1
+                    }
+                ];
+                auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
+                auditoria_programa_plan.documentos_asociados_list = {data:[]};
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                auditoria_programa_plan.refreshAngular();
+            }
+        });
+        $('#inputauditoria_programa_plan_auditoria_plan_documentos_asociados').on('select2:unselecting', function (e) {
+            var data = e.params.args.data;
+            BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados',[
+                {
+                    field: "documento_asociado",
+                    value: data.id
+                },
+                {
+                    field: "programa_plan",
+                    value: auditoria_programa_plan.id
+                }
+            ],function(result){
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
+            })
+        });
+        document.getElementById("closeModal").onclick = auditoria_programa_plan.closeModal = function () {
+            if (auditoria_programa_plan.from_new && auditoria_programa_plan.id) {
+                BASEAPI.list('auditoria_programa_plan_documentos_asociados', {
+                    limit: 0,
+                    where: [
+                        {
+                            field: "programa_plan",
+                            value: auditoria_programa_plan.id
+                        }
+                    ]
+                }, function (result2) {
+                    if (result2) {
+                        let id_list_documentos_asoc = [];
+                        let list_documentos_asoc = result2.data;
+                        for (var i of list_documentos_asoc) {
+                            id_list_documentos_asoc.push(i.id)
+                        }
+                        BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_listaverificacion', [
+                            {
+                                field: "programa_plan_documentos_asociados",
+                                value: id_list_documentos_asoc
+                            }
+                        ], function (result) {
+                            BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados', [
+                                {
+                                    field: "id",
+                                    value: id_list_documentos_asoc
+                                }
+                            ], function (result) {
+                                BASEAPI.deleteall('auditoria_programa_plan_proceso', [
+                                    {
+                                        field: "programa_plan",
+                                        value: auditoria_programa_plan.id
+                                    }
+                                ], function (result) {
+                                    BASEAPI.deleteall('auditoria_programa_plan', [
+                                        {
+                                            field: "id",
+                                            value: auditoria_programa_plan.id
+                                        }
+                                    ], function (result) {
+                                        auditoria_programa_plan.pages.form.close()
+                                    })
+                                })
+                            })
+                        })
+                    }else{
+                        console.log(result2);
+                        BASEAPI.deleteall('auditoria_programa_plan', [
+                            {
+                                field: "id",
+                                value: auditoria_programa_plan.id
+                            }
+                        ], function (result) {
+
+                            auditoria_programa_plan.pages.form.close()
+                        })
+                        auditoria_programa_plan.pages.form.close()
+                    }
+                });
+                auditoria_programa_plan.from_new = false;
+            } else {
+                auditoria_programa_plan.pages.form.close()
+            }
+        }
+    })
+</script>
+
+
+
+
+

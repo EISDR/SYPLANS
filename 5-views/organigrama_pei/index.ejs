@@ -1,0 +1,509 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>" >
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent" ng-if="organigrama_pei.session.tipo_institucion == 1">
+            <div class="row">
+                <div class="col-sm-2 col-md-2">
+                </div>
+                <div class="col-sm-10 col-md-10">
+                    <h4 style="margin-top: -15px;"><strong>Planificación Estratégica Institucional y sus ALINEACIONES con los Instrumentos de Planificación Nacional</strong></h4>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <h6><strong>Planificación Estratégica Institucional</strong></h6>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <h6><strong>Instrumento de Planificación Institucional</strong></h6>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("eje_estrategico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Eje Estratégico",
+                        text: "item.no_orden + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "eje_estrategico",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_ejeBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+                <div class="col-sm-2 col-md-2"></div>
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("end", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Estrategia Nacional de Desarrollo",
+                        text: "item.edt + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_grid_end",
+                        condition: 'item.compania == organigrama_pei.session.compania_id',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_endBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("objetivo_estrategico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo Estratégico",
+                        text: "item.no_objetivo + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_objetivo_estrategico",
+                        condition: 'item.pei_id == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_objBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+                <div class="col-sm-2 col-md-2"></div>
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("ods", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo de Desarrollo Sostenible",
+                        text: "item.edt + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_grid_ods",
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_odsBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("objetivo_especifico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo Específico",
+                        text: "item.no_objetivo_especifico + ' ' + item.nombre",
+                        table: "vw_objetivo_estrategico_especifico",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_objesBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+                <div class="col-sm-2 col-md-2"></div>
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("pnpsp", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Plan Nacional Plurianual del Sector Público",
+                        text: "item.edt + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_grid_pnpsp",
+                        condition: 'item.compania == organigrama_pei.session.compania_id',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_pnpspBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("estrategia", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Estrategia",
+                        text: "item.no_estrategia + ' ' + item.estrategia",
+                        table: "vw_estrategia",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_estBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+                <div class="col-sm-2 col-md-2"></div>
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("politica", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Política de Gobierno",
+                        text: "item.nom_sec",
+                        table: "vw_chart_politica",
+                        condition: 'item.compania == organigrama_pei.session.compania_id',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_politicaBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("resultado", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Resultado Esperado",
+                        text: "item.no_resultado + ' ' + item.nombre",
+                        table: "vw_grid_resultado",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_resBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("indicador", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Indicador",
+                        text: "item.no_indicador + ' ' + item.nombre",
+                        table: "vw_indicador_pei",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_indBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent" ng-if="organigrama_pei.session.tipo_institucion == 2">
+            <div class="row" ng-show="false">
+                <div class="col-sm-2 col-md-2">
+                </div>
+                <div class="col-sm-10 col-md-10">
+                    <h4 style="margin-top: -15px;"><strong>Planificación Estratégica Institucional y sus ALINEACIONES con los Instrumentos de Planificación Nacional</strong></h4>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <h6><strong>Planificación Estratégica Institucional</strong></h6>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <h6><strong>Objetivos de Desarrollo Sostenible</strong></h6>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("eje_estrategico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Eje Estratégico",
+                        text: "item.no_orden + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "eje_estrategico",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_ejeBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+                <div class="col-sm-2 col-md-2"></div>
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("ods", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo de Desarrollo Sostenible",
+                        text: "item.edt + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_grid_ods",
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_odsBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("objetivo_estrategico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo Estratégico",
+                        text: "item.no_objetivo + ' ' + item.nombre",
+                        permission: "departamento",
+                        table: "vw_objetivo_estrategico",
+                        condition: 'item.pei_id == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_objBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("objetivo_especifico", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Objetivo Específico",
+                        text: "item.no_objetivo_especifico + ' ' + item.nombre",
+                        table: "vw_objetivo_estrategico_especifico",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_objesBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("estrategia", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Estrategia",
+                        text: "item.no_estrategia + ' ' + item.estrategia",
+                        table: "vw_estrategia",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_estBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("resultado", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Resultado Esperado",
+                        text: "item.no_resultado + ' ' + item.nombre",
+                        table: "vw_grid_resultado",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_resBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("indicador", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        truelabel: "Indicador",
+                        text: "item.no_indicador + ' ' + item.nombre",
+                        table: "vw_indicador_pei",
+                        condition: 'item.pei == organigrama_pei.session.pei_id ',
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button style="float: left !important; margin-top: 25px;"
+                            dragonlanguage="" title="Ver organigrama"
+                            type="button" class="btn bg-<%= COLOR.success %> btn-labeled btn-xs pull-right"
+                            ng-show="organigrama_pei.show_indBtn"
+                            ng-click="organigrama_pei.openMyModal()">
+                        <b><i class="icon-eye"></i></b>
+                        <language>Ver</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->

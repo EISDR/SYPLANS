@@ -1,0 +1,66 @@
+
+    <div class="panel panel-flat hide_grafico2" style="background-color: #f8f8f8">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
+            <div class="breadcrumb-line">
+                <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
+                    <li class="active select-2" style="width: 100%">
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                            <i class="icon-lifebuoy position-left"></i>
+                            Dashboard
+                        </a>
+
+                    </li>
+                </ul>
+                <ul class="breadcrumb-elements visible-elements">
+                    <li>
+                        <a>
+                            Última actualización: {{dashboard_presupuesto_barra.actualizacion}}
+                        </a>
+
+                    </li>
+                    <li class="visible-lg visible-md">
+                        <a ng-click="dashboard_presupuesto_barra.refresBars()"> <i title="Actualizar" class="icon-rotate-cw3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcontent">
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <%-FORM.select("departamento", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        refresh: false,
+                        multiple: false,
+                        disabled: true,
+                        text: "item.nombre",
+                        permission: "departamento",
+                        table: "vw_departamentos_dashboard",
+                        icon: {class: "archive"}
+                    }) %>
+                </div>
+                <div class="col-sm-8 col-md-8">
+                    <button id="btnDashboardPropuesta"
+                            style="float: right; padding-right: 74px;padding-left: 74px;"
+                            dragonlanguage="" title="Ver en modo matriz"
+                            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="">
+                        <b><i class="icon-chart"></i></b>
+                        Ver en modo matriz
+                    </button>
+                </div>
+            </div>
+            <%- include('dashboard',{scope:scope}); %>
+        </div>
+    </div>
+
+
+
+<script>
+    $('#btnDashboardPropuesta').on('click',function () {
+        $('#dashboard_presupuesto_barra').hide();
+        $('#dashboard').show();
+    });
+</script>

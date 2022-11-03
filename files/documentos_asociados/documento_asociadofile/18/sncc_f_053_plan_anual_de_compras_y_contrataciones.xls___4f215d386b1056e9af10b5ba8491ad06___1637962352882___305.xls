@@ -1,0 +1,577 @@
+<html xml:lang=en-US xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'><head><meta http-equiv="Content-type" content="text/html;charset=utf-8" /><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>PACC - SNCC.F053</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table class=' table-print table-togglable table-framed sindu-table' id='tb-custom23' style='width: 2400px !important; display: none'>
+        <thead class=''>
+        <tr class='bg-secundary' style='background-color: rgb(108,0,0);color:white;font-family: 'Arial Narrow';font-size: 14px'>
+            <th width='200px' style='height: 150px;background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Código de Catálogo de Bienes y Servicios (CBS)
+            </th>
+
+            <th width='300px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Descripción
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Unidad de Medida
+            </th>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style=' transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                Trimestre 1
+            </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style=' transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                Trimestre 2
+            </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style=' transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                Trimestre 3
+            </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><th width='100px' style=' transform: rotate(-90deg);background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0' ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                Trimestre 4
+            </th><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <th style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>Cantidad Total
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Precio Unitario
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Costo Total Unitario
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Costo Total Unitario Real
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Costo Total por Código de Catálogo de Bienes y Servicios (CBS)
+            </th>
+
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Procedimiento de Selección
+            </th>
+            <th width='200px' style='background-color: rgb(108,0,0);color:white;text-align: center; vertical-align: middle' height='0'>
+                Fuente de Financiamiento
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!-- ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                10101507 -
+                Ovejas
+            </td>
+            <td class='ng-binding'>
+                Escrotorios
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                10
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    15
+                </div>
+            </td>
+            <td class='ng-binding'>
+                52
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $780.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                780
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                40101502 -
+                Extractores de aire
+            </td>
+            <td class='ng-binding'>
+                Sillas 
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                15
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                10
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                1
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    31
+                </div>
+            </td>
+            <td class='ng-binding'>
+                588
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $18,228.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                35868
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                20101502 -
+                Cizallas de pared alta
+            </td>
+            <td class='ng-binding'>
+                Vasos
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                20
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    20
+                </div>
+            </td>
+            <td class='ng-binding'>
+                58
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $1,160.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                6960
+            </td>
+            <td class='ng-binding'>
+                SORTEO DE OBRAS
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                40101502 -
+                Extractores de aire
+            </td>
+            <td class='ng-binding'>
+                Silla
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                2
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                1
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                12
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    15
+                </div>
+            </td>
+            <td class='ng-binding'>
+                588
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $8,820.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                35868
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                10101601 -
+                Pollos vivos
+            </td>
+            <td class='ng-binding'>
+                Escritotio
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                2
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                3
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                2
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                3
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    10
+                </div>
+            </td>
+            <td class='ng-binding'>
+                500
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $5,000.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                5000
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN RESTRINGIDA
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                40101501 -
+                Colectores de aire
+            </td>
+            <td class='ng-binding'>
+                Pizarras Blancas
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                20
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    20
+                </div>
+            </td>
+            <td class='ng-binding'>
+                3621
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $72,420.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                108630
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                10101501 -
+                Gatos
+            </td>
+            <td class='ng-binding'>
+                Escritorio
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                3
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                2
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    15
+                </div>
+            </td>
+            <td class='ng-binding'>
+                500
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $7,500.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                12500
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN RESTRINGIDA
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                40101502 -
+                Extractores de aire
+            </td>
+            <td class='ng-binding'>
+                Sillas
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                2
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                1
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                12
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    15
+                </div>
+            </td>
+            <td class='ng-binding'>
+                588
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $8,820.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                35868
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                20101502 -
+                Cizallas de pared alta
+            </td>
+            <td class='ng-binding'>
+                Vasos
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                20
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                10
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                20
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                50
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    100
+                </div>
+            </td>
+            <td class='ng-binding'>
+                58
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $5,800.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                6960
+            </td>
+            <td class='ng-binding'>
+                SORTEO DE OBRAS
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                40101501 -
+                Colectores de aire
+            </td>
+            <td class='ng-binding'>
+                Pizarras Blancas
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                10
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    10
+                </div>
+            </td>
+            <td class='ng-binding'>
+                3621
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $36,210.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                108630
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN PÚBLICA INTERNACIONAL
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                10101501 -
+                Gatos
+            </td>
+            <td class='ng-binding'>
+                Escritorio
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                5
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    10
+                </div>
+            </td>
+            <td class='ng-binding'>
+                500
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $5,000.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                12500
+            </td>
+            <td class='ng-binding'>
+                LICITACIÓN RESTRINGIDA
+            </td>
+            <td class='ng-binding'>
+                Interna
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --><tr ng-repeat='(key,row) in u_pacc_dept.PACCROWS' class='paccrow ng-scope' style='font-family: 'Arial Narrow';font-size: 12px'>
+            <td class='ng-binding'>
+                50101539 -
+                Verduras congeladas
+            </td>
+            <td class='ng-binding'>
+                MEsa
+            </td>
+            <td class='ng-binding'>
+                
+            </td>
+            <!-- ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                50
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas --><td ng-repeat='(i,p) in u_pacc_dept.periodopoas' class='ng-binding ng-scope'>
+                
+            </td><!-- end ngRepeat: (i,p) in u_pacc_dept.periodopoas -->
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    50
+                </div>
+            </td>
+            <td class='ng-binding'>
+                512
+            </td>
+            <td style='text-align: left'>
+                <div style='margin-top: 20px' class='remove-input-space form-group-material form-group has-feedback has-error  has-feedback-left'>
+                    $25,600.00
+                </div>
+            </td>
+            <td class='ng-binding'>
+                25600
+            </td>
+            <td class='ng-binding'>
+                SORTEO DE OBRAS
+            </td>
+            <td class='ng-binding'>
+                Externa
+            </td>
+
+
+        </tr><!-- end ngRepeat: (key,row) in u_pacc_dept.PACCROWS --></tbody>
+    </table></body></html>

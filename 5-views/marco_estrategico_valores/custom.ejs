@@ -1,0 +1,152 @@
+<div ng-if="marco_estrategico_valores.session.tipo_institucion == 2">
+    <%-
+        FORM.tabs(scope, [
+            {id:"historia", text: "Historia"},
+            {id:"marco_legal", text: "Marco Legal"},
+            {id: "mision", text: "Misión"},
+            {id: "vision", text: "Visión"},
+            {id: "valores", text: "Valores"},
+            {id: "verAll", text: "Normativa Institucional"}
+        ])
+    %>
+</div>
+<div ng-if="marco_estrategico_valores.session.tipo_institucion == 1">
+    <%-
+            FORM.tabs(scope, [
+                {id:"marco_legal", text: "Marco Legal"},
+                {id: "mision", text: "Misión"},
+                {id: "vision", text: "Visión"},
+                {id: "valores", text: "Valores"},
+                {id: "verAll", text: "Normativa Institucional"}
+            ])
+    %>
+</div>
+<div class="panel">
+    <div class="tab-content">
+        <div class="tab-pane active" id="historia">
+            <div class="">
+                <div class="col-sm-12 col-md-12">
+                    <textarea id="textareaHistoria" class="form-control" placeholder="Historia" maxlength="9999"
+                              ng-model="marco_estrategico_valores.historia"></textarea>
+                    <br>
+                </div>
+                <div class=""></div>
+                <div class="col-sm-12 col-md-12">
+                    <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0"
+                            ng-click="marco_estrategico_valores.saveHistoria()"
+                            ng-show="marco_estrategico_valores.modo_view_fun('button_historia')">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>Guardar</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+       <div class="tab-pane" id="marco_legal">
+           <div class="panel panel-flat" ng-controller="marco_legal as marco_legal">
+               <%-
+                include('../../7-plugins/templates/table/header',{scope:'marco_legal'});
+                %>
+               <div class="subcontent">
+                    <%-
+                            include('../../7-plugins/templates/table/base',{scope:'marco_legal'});
+                   %>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane " id="mision">
+            <div class="">
+                <div class="col-sm-12 col-md-12">
+                    <textarea id="textareaMision" class="form-control" placeholder="Misión" maxlength="9999"
+                              ng-model="marco_estrategico_valores.mision"></textarea>
+                    <br>
+                </div>
+                <div class=""></div>
+                <div class="col-sm-12 col-md-12">
+                    <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0"
+                            ng-click="marco_estrategico_valores.saveMision()"
+                            ng-show="marco_estrategico_valores.modo_view_fun('button_mission')">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>Guardar</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="vision">
+            <div class="">
+                <div class="col-sm-12 col-md-12 ">
+                    <textarea id="textareaVision" class="form-control" placeholder="Visión" maxlength="9999"
+                              ng-model="marco_estrategico_valores.vision"></textarea>
+                    <br>
+                </div>
+                <div class=""></div>
+                <div class="col-sm-12 col-md-12">
+                    <button type="button" class="btn bg-<%= COLOR.success %> btn-xs btn-labeled pull-right mr-0"
+                            ng-click="marco_estrategico_valores.saveVision()"
+                            ng-show="marco_estrategico_valores.modo_view_fun('button_view')">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>Guardar</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="">-->
+        <!--<br>-->
+        <!--</div>-->
+
+        <div class="tab-pane " id="valores">
+            <div class="panel panel-flat">
+                <%-
+                include('../../7-plugins/templates/table/header',{scope:'marco_estrategico_valores'});
+                %>
+                <div class="subcontent">
+                    <%-
+                    include('../../7-plugins/templates/table/base',{scope:'marco_estrategico_valores'});
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="verAll">
+            <%- include('viewAll'); %>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        if (marco_estrategico_valores.session.tipo_institucion == 2){
+            var historia = document.getElementById("historia");
+            var marco_legal = document.getElementById("marco_legal");
+            historia.classList.add("active");
+            marco_legal.classList.remove("active");
+        }else{
+            var historia = document.getElementById("historia");
+            var marco_legal = document.getElementById("marco_legal");
+            marco_legal.classList.add("active");
+            historia.classList.remove("active");
+        }
+
+    });
+    $('#tabmision').on('click', function () {
+        // autosize.destroy($('#textareaMision'));
+        setTimeout(function () {
+            autosize($('#textareaMision'));
+        }, 100);
+    });
+    $('#tabvision').on('click', function () {
+        // autosize.destroy($('#textareaVision'));
+        setTimeout(function () {
+            autosize($('#textareaVision'));
+        }, 100);
+    });
+    $('#tabverAll').on('click', function () {
+        autosize.destroy($('#textareaMisionDisabled'));
+        autosize.destroy($('#textareaVisionDisabled'));
+        setTimeout(function () {
+            autosize($('#textareaMisionDisabled'));
+            autosize($('#textareaVisionDisabled'));
+        }, 100);
+    });
+</script>

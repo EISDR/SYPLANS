@@ -1,0 +1,311 @@
+<div id="ficha_indicador" ng-controller="ficha_indicador  as ficha_indicador">
+</div>
+<div id="vw_comentarios_indicadores" ng-controller="vw_comentarios_indicadores  as vw_comentarios_indicadores">
+</div>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a ng-click="monitoreo_actividad.monitoreo_actividad_get();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;">
+                    <a title="Exportar/Imprimir" ng-click="monitoreo_actividad.openmodalField('pdf');"><i
+                                class="icon-file-download2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <script>
+                <%= scope %>.quieroeje = true;
+                <%= scope %>.searchbutton = "<%= scope %>.monitoreo_actividad_get()";
+                <%= scope %>.indicadores = "actividad";
+
+            </script>
+            <%- include('../filter_IDSinimportarmultiple',{scope:scope}); %>
+            <div class="" style="display: flow-root">
+                <button class="btn btn-primary" ng-click="baseController.abrirPonderaciones()" style="float: left">
+                    Ver Detalles de las Ponderaciones
+                </button>
+                <br>
+            </div>
+            <script>
+                <%= scope %>.disabledins = true;
+            </script>
+            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
+                <table class="table table-bordered" id="monitoreo_actividadTable" style="margin-top: 15px;">
+                    <tr>
+                        <td ng-if="!<%= scope %>.anos.length" style="text-align: left"
+                            colspan="{{<%= scope %>.colspaninit}}">
+                            <h5>No se han encontrado datos en este reporte o no a solicitado ninguna búsqueda.</h5>
+                        </td>
+                    </tr>
+                    <tbody ng-repeat="(key,item) in monitoreo_actividad.anos"
+                           ng-show="monitoreo_actividad.cumplen(item.records)">
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}"
+                            style="text-align: center;border-bottom-color: white;padding: 0">
+                            <b>MONITOREO Y SEGUIMIENTO DE ACTIVIDADES</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}"
+                            style="text-align: center;border-bottom-color: white;padding: 0">
+                            <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: center;padding: 0">
+                            <b>{{item.compania_nombre}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left">
+                            <b>{{item.entidad}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b>Eje Estratégico:
+                                {{item.eje_estrategico}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b>Objetivo
+                                Estratégico: {{item.objetivo_estrategico}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left">
+                            <b>Estrategia: {{item.estrategia}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left">
+                            <b>Resultado Esperado: {{item.resultado}}</b>
+                        </td>
+                    </tr>
+                    <tr height="20" class="centralizarth"
+                        style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Departamento</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Proyecto/Producto</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Estatus de Proyecto/Producto</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Actividad</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Estatus de Actividad</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Indicador</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Fórmula Indicador</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Unidad de Medida</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Medio Verificación</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Dirección Meta</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Año Línea Base</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Valor Línea Base</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2">Cumplimiento</td>
+
+                        <td style="text-align: center" colspan="{{monitoreo_actividad.capi}}"
+                            ng-repeat="(ka,ra ) in monitoreo_actividad.poa_anos">
+                            {{item.records[0].indicador_data.monitoreo_nombre}} {{ra}}<br>
+                            (P-Proyectado | A-Alcanzado)
+                        </td>
+                    </tr>
+                    <tr height="20" class="centralizarth"
+                        style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                        <td style="text-align: center" ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_actividad.poa_valor">
+                            {{ra.value}}
+                        </td>
+                    </tr>
+                    <tr style="vertical-align: middle" class="centralizartd filas "
+
+                        ng-if="
+                            (monitoreo_actividad.institucion!='[NULL]'? monitoreo_actividad.institucion==(row.institucion||row.compania):true)
+                            "
+
+                        ng-repeat="(i,row) in monitoreo_actividad.soya(item.records)">
+                        <td rowspan="{{monitoreo_actividad.rowspanme('departamento',row.departamento,item.records)}}"
+                            ng-if="monitoreo_actividad.seeme('departamento',row.departamento,i,item.records)">
+                            {{row.departamento}}
+                        </td>
+                        <td rowspan="{{monitoreo_actividad.rowspanme('producto',row.producto,item.records)}}"
+                            ng-if="monitoreo_actividad.seeme('producto',row.producto,i,item.records)">
+
+
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
+
+                                        <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           ng-click="monitoreo_actividad.openProductoComment('productos poa',row.producto_id,row.cond,row.estatus)"
+                                           title="Ver o hacer comentarios">Comentarios</a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{row.producto}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td rowspan="{{monitoreo_actividad.rowspanme('producto',row.producto,item.records)}}"
+                            style="background-color: {{monitoreo_actividad.statusColor(row.cond,row.estatus)}};color: {{monitoreo_actividad.statusColorFont(row.cond,row.estatus)}}"
+                            ng-if="monitoreo_actividad.seeme('producto',row.producto,i,item.records)">
+                            {{monitoreo_actividad.statusText(row.cond,row.estatus)}}
+                        </td>
+                        <td rowspan="{{monitoreo_actividad.rowspanme('actividad',row.actividad,item.records)}}"
+                            ng-if="monitoreo_actividad.seeme('actividad',row.actividad,i,item.records)">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
+
+                                        <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           ng-click="monitoreo_actividad.openActividadComment('actividades poa',row.actividad_id,row.cond,row.actividad_estatus)"
+                                           title="Ver o hacer comentarios">Comentarios</a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{row.actividad}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td rowspan="{{monitoreo_actividad.rowspanme('actividad',row.actividad,item.records)}}"
+                            style="background-color: {{monitoreo_actividad.statusColor(row.act_cond,row.actividad_estatus)}};color: {{monitoreo_actividad.statusColorFont(row.act_cond,row.actividad_estatus)}}"
+                            ng-if="monitoreo_actividad.seeme('actividad',row.actividad,i,item.records)">
+                            {{monitoreo_actividad.statusText(row.cond,row.actividad_estatus)}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}"
+                            style="padding: 7px !important;vertical-align: top !important;">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
+
+
+
+                                        <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           ng-click="monitoreo_actividad.openIndicadorComment('indicador actividad',row.indicador_id,true)"
+                                           title="Ver o hacer observaciones">Observaciones</a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        {{row.indicador}}
+                                        <div sy title="En Revisión" class="shape_element"
+                                             style="border-radius: 0;margin-top: 10px;background: {{monitoreo_actividad.indicadorColor(row)}}"></div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a title="Ver ficha de indicador"
+                                           ng-click="monitoreo_actividad.openIndicador('indicador actividad',row.indicador_id)"
+                                           style="float: right;margin-bottom: 20px"><i class="icon-eye "></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{row.formula}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{monitoreo_actividad.tipometa(row.unidad_medida).nombre}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{row.medio_verificacion}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{monitoreo_actividad.direccionmeta(row.indicador_data.dir)}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{row.ano_linea_base}}
+                        </td>
+                        <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
+                            {{row.linea_base}}
+                        </td>
+                        <td>
+	<span title="{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}">
+		{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).cumplimiento||0}}%
+	</span>
+                        </td>
+                        <td ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}" ng-repeat="(ka,ra ) in monitoreo_actividad.poa_valor"
+
+                            class="{{(row.indicador||'').trim()?'':'noindicador'}}"
+                            style="{{ra.value==='Alerta'? (monitoreo_actividad.permissionNormal(row.indicador_id,ra.id).condition==1?'border: #ea7481 outset;':''  ):'' }}">
+                            <span ng-if="ra.value==='P'">
+                               {{monitoreo_actividad.ano_single(row.indicador_data.anos,ra.id,row.indicador_data.tipo_meta)}}
+                            </span>
+                            <span ng-if="ra.value==='A'">
+                                   {{monitoreo_actividad.ano_single(row.indicador_data.anos_a,ra.id,row.indicador_data.tipo_meta)}}
+                               </span>
+                            <span ng-if="ra.value==='Dedo'" style="display:none">
+                                   {{monitoreo_actividad.dif(row,ra)}}
+                            </span>
+                            <span ng-if="ra.value==='%'">
+                                   {{monitoreo_actividad.percent(row,ra)}}%
+                            </span>
+                            <span ng-if="ra.value==='Alerta'" ng-show="monitoreo_actividad.pasado(row,ra)"
+                                  ng-dblclick="<%= scope %>.alertme('warning',<%= scope %>.permissionNormal(row.indicador_id,ra.id).debug||'Es posible que se pueda modificar ya que no posee valor alcanzado.')">
+                                <table style="width: 100%"
+                                       ng-if="monitoreo_actividad.permissionNormal(row.indicador_id,ra.id).sinllegar!=1">
+                                <tr>
+                                    <td colspan="2" style="height: 50px;text-align: center">
+                                         <a style="float: left;margin-bottom: 20px; font-size: 15px;"
+                                            ng-click="monitoreo_actividad.verLosFile('actividad',row.indicador_id,ra.id)"
+                                            title="Ver posibles evidencias">Evidencias</a>
+
+                                        <a style="margin-bottom: 20px; font-size: 15px;{{monitoreo_actividad.permissionNormal(row.indicador_id, ra.id).allow==1?'text-decoration: underline; color: blue !important':''}}"
+                                           ng-click="monitoreo_actividad.openIndicadorComment('indicador actividad',row.indicador_id,true,ra.id)"
+                                           title="Ver o hacer observaciones al {{item.records[0].indicador_data.monitoreo_nombre}} {{ra.id}}">Observaciones</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                     <td colspan="2">
+                                        <div title="{{monitoreo_actividad.alert_tootip(row,ra)}}" class="shape_element"
+                                             style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};"> </div>
+                                    </td>
+                                </tr>
+                                     <tr>
+                                    <td style="text-align: center">
+                                        <button
+                                                ng-if="monitoreo_actividad.permissionNormal(row.indicador_id, ra.id).condition==1"
+                                                style="margin-top: 10px;" title="Validar" type="button"
+                                                class="btn bg-success btn-xs mr-0"
+                                                ng-click="monitoreo_actividad.validar(row,ra.id)">
+                                            <b><i class="icon-check"></i></b>
+                                        </button>
+                                    </td>
+                                         <td>
+                                        <button title="Devolver" type="button" class="btn bg-danger btn-xs mr-0"
+                                                style="margin-top: 10px;margin-left: 10px"
+                                                ng-if="monitoreo_actividad.permissionNormal(row.indicador_id, ra.id).condition!=1"
+                                                ng-click="monitoreo_actividad.devolver(row,ra.id)">
+                                            <b><i class="icon-rotate-ccw2"></i></b>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            </span>
+                        </td>
+                    </tr>
+                    <tr style="background-color: #cccccc">
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: center">
+                            ---
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div><!--end-->
+<script>
+
+</script>

@@ -1,0 +1,125 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
+                <%- FORM.input('nombre', scope, { trueplaceholder: "Nombre de la Acción de Mejora"}) %>
+            </div>
+            <div class='col-sm-6 col-md-6' ng-if="<%= scope %>.mamfe || <%= scope%>.RvaR">
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6' ng-show="<%= scope %>.form.mode==='new'">
+                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus", value: "Pendiente"}) %>
+                <script>
+                    <%= scope %>.initstatus = <%= scope %>.firststatus.nombre;
+                    <%= scope %>.refreshAngular();
+                    if (typeof riesgo !== "undefined") {
+                        if (riesgo.soyamfe) {
+                            <%= scope %>.
+                            mamfe = true;
+                            <%= scope %>.RvaR = false;
+                        } else {
+                            <%= scope %>.
+                            mamfe = false;
+                            <%= scope %>.RvaR = true;
+                        }
+                    } else {
+                        <%= scope %>.
+                        mamfe = false;
+                        <%= scope %>.RvaR = false;
+                    }
+                </script>
+            </div>
+            <div class='col-sm-6 col-md-6' ng-show="<%= scope %>.form.mode!=='new'">
+                <%- FORM.select('estatus', scope, {
+                    column: 'name',
+                    text: "item.nombre",
+                    disabled: true,
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    condition: "item.entidad == 'auditoria_lista_correctiva'"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+                <%- FORM.select('departamento', scope, {
+                    column: 'name',
+                    table: 'departamento',
+                    truelabel: "Departamento",
+                    condition: "item.compania==" + scope + ".session.compania_id && (" + scope + ".session.institucion_id?(" + scope + ".session.institucion_id==item.institucion):(item.institucion==$null))",
+                    text: 'item.nombre',
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    multiple: true,
+                    get: {
+                        table: 'auditoria_lista_correctiva_departamento',
+                        tableDelete: 'auditoria_lista_correctiva_departamento',
+                        fieldFrom: 'id',
+                        fieldTo: 'auditoria_lista_correctiva',
+                        field: 'departamento'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+                <%- FORM.select('responsable', scope, {
+                    column: 'name',
+                    text: "item.completo",
+                    table: 'vw_usuario',
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active && auditoria_lista_correctiva.departamento.indexOf(item.departamento+'')!==-1)",
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    multiple: true,
+                    get: {
+                        table: 'auditoria_lista_correctiva_responsable',
+                        tableDelete: 'auditoria_lista_correctiva_responsable',
+                        fieldFrom: 'id',
+                        fieldTo: 'auditoria_lista_correctiva',
+                        field: 'responsable'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="false">
+                <%- FORM.datetime('ejecucion', scope, {label: 'Fecha de Ejecución', label_custom: true}) %>
+            </div>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
+                <%- FORM.daterange('range_date', scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin",
+                    label_custom: true,
+                    label: "Fecha inicio / Fecha fin"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
+                <%- FORM.money('presupuesto', scope, {label: 'Presupuesto'}) %>
+            </div>
+        </div>
+        <div class="row" ng-if="<%= scope %>.mamfe || <%= scope%>.RvaR">
+            <div class='col-sm-8 col-md-8'>
+                <%- FORM.daterange('range_date', scope, {
+                    from: "fecha_inicio",
+                    to: "fecha_fin",
+                    label_custom: true,
+                    label: "Fecha inicio / Fecha fin"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="false">
+            <div class='col-sm-12 col-md-12' ng-if="(<%= scope %>.mamfe || <%= scope %>.RvaR) && <%= scope %>.estatus==4">
+                <%- FORM.textarea('accion_implantada', scope, {
+                    trueplaceholder: "Acción Implmentada"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

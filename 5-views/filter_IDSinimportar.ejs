@@ -1,0 +1,569 @@
+<style>
+    #input<%= scope %>_poadd {
+        margin-bottom: 6px !important;
+    }
+</style>
+<script>
+    <%= scope %>.filtersession = new SESSION().current();
+    <%= scope %>.disabledepa = false;
+    <%= scope %>.disabledins = false;
+    <%= scope %>.disablealls = false;
+    <%= scope %>.companiasel = new SESSION().current().compania_id;
+
+    if (new SESSION().current().interinstitucional) {
+        <%= scope %>.
+        soyII = true;
+
+        if (<%= scope %>.
+        filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general).length > 0 ||
+        <%= scope %>.
+        filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general).length > 0
+    )
+        {
+            <%= scope %>.
+            soyEN = true;
+        }
+    }
+    if (<%= scope %>.
+    filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_departamental).length > 0 ||
+    <%= scope %>.filtersession.groups.filter(d => d.caracteristica == ENUM_2.Grupos.analista_departamental).length > 0
+    )
+    {
+        <%= scope %>.
+        soydepa = true;
+    }
+
+    if (new SESSION().current().institucion_id && !new SESSION().current().interinstitucional) {
+        <%= scope %>.
+        soydeinsti = true;
+    }
+
+    <%= scope %>.instiloaded = false;
+    <%= scope %>.$scope.$watch('<%= scope %>.institucion', function (value) {
+        if (<%= scope %>.
+        institucion == "[NULL]"
+    )
+        <%= scope %>.
+        departamento = "[NULL]";
+
+        if (<%= scope %>.
+        institucion === "[NULL]"
+    )
+        if (<%= scope %>.
+        soydeinsti
+    )
+        {
+            <%= scope %>.
+            institucion = new SESSION().current().institucion_id + "";
+        }
+    else
+        {
+            if (!<%= scope %>.
+            instiloaded
+        )
+            {
+                <%= scope %>.
+                institucion = new SESSION().current().compania_id + "";
+                <%= scope %>.
+                instiloaded = true;
+            }
+        }
+
+        if (<%= scope %>.
+        afterInstitucion
+    )
+        {
+            <%= scope %>.
+            afterInstitucion();
+        }
+        ;
+
+        <%= scope %>.
+        refreshAngular();
+
+    });
+    <%= scope %>.$scope.$watch('<%= scope %>.departamento', function (value) {
+        if (<%= scope %>.
+        afterDepartamento
+    )
+        {
+            <%= scope %>.
+            afterDepartamento();
+        }
+        ;
+        <%= scope %>.
+        refreshAngular();
+    });
+    <%= scope %>.$scope.$watch('<%= scope %>.poadd', function (value) {
+        if (!<%= scope %>.
+        poadd
+    )
+        {
+            <%= scope %>.
+            poadd =<%= scope %>.
+            filtersession.poa_id + "";
+        }
+        if (<%= scope %>.
+        afterPoa
+    )
+        {
+            <%= scope %>.
+            afterPoa();
+        }
+        ;
+        <%= scope %>.
+        refreshAngular();
+    });
+
+    //Casos de uso
+
+    if (!<%= scope %>.
+    soyII && !<%= scope %>.soydeinsti
+    )
+    {
+        <%= scope %>.
+        institucion = <%= scope %>.
+        companiasel + "";
+    }
+    if (!<%= scope %>.
+    soyII && <%= scope %>.soydeinsti
+    )
+    {
+        <%= scope %>.
+        institucion = new SESSION().current().institucion_id + "";
+    }
+
+    <%= scope %>.
+    departamento = <%= scope %>.
+    filtersession.departamento + "";
+    <%= scope %>.poadd =<%= scope %>.filtersession.poa_id + "";
+
+
+</script>
+<div class="">
+    <div style="margin-bottom: 0px !important;" class="panel panel-white" ng-if="!<%= scope %>.disablealls "
+         ng-show="(<%= scope %>.soyII===true && !<%= scope %>.disabledins) || !<%= scope %>.disabledepa">
+        <div class="panel-heading panel-dashboard">
+            <h6 class="panel-title">Filtros de búsqueda</h6>
+        </div>
+        <div class="panel-body" style="padding: 4px !important;">
+            <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII"
+                 ng-show="!<%= scope %>.disabledins"
+                 style="display: none">
+                <%- FORM.select("institucion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: true,
+                    disabled: true,
+                    text: "item.nombre",
+                    table: "vw_instituciones",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    query: {
+                        orderby: "tipo",
+                        order: "asc"
+                    },
+                    condition: "item.compania==" + scope + ".companiasel"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyII"
+                 ng-show="!<%= scope %>.disabledins">
+                <%- FORM.select("institucion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: true,
+                    text: "item.nombre",
+                    table: "vw_instituciones",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    query: {
+                        orderby: "tipo",
+                        order: "asc"
+                    },
+                    condition: "item.compania==" + scope + ".companiasel"
+                }) %>
+            </div>
+            <div ng-if="!<%= scope %>.disabledepa">
+                <div ng-if="<%= scope %>.soyII">
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='c'">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='i'">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion=='[NULL]'">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' (' + item.entidad + ')'",
+                            table: "vw_departamento_filtro",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel+'')"
+                        }) %>
+                    </div>
+                </div>
+
+                <div ng-if="!<%= scope %>.soydepa">
+                    <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII && !<%= scope %>.soydeinsti">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII && <%= scope %>.soydeinsti">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.institucion==" + scope + ".institucion)"
+                        }) %>
+                    </div>
+
+                </div>
+                <div ng-if="<%= scope %>.soydepa">
+                    <div class="col-sm-6 col-md-6">
+                        <%- FORM.select("departamento", scope, {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            disabled: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento"
+                        }) %>
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="col-sm-6 col-md-6"
+                         ng-if="<%= scope %>.institucion_object.tipo=='c' && <%= scope %>.institucion_object.tipo_institucion == 1">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa + ' ('+ item.entidad +')'",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "POA",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6"
+                         ng-if="<%= scope %>.institucion_object.tipo=='i' && <%= scope %>.institucion_object.tipo_institucion == 1">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "POA",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6"
+                         ng-if="<%= scope %>.institucion_object.tipo=='c' && <%= scope %>.institucion_object.tipo_institucion == 2">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa + ' ('+ item.entidad +')'",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "Gestión Presupuestaria",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6"
+                         ng-if="<%= scope %>.institucion_object.tipo=='i' && <%= scope %>.institucion_object.tipo_institucion == 2">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "Gestión Presupuestaria",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
+                        }) %>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-white" ng-if="<%= scope %>.disablealls "
+         ng-show="(<%= scope %>.soyII===true && !<%= scope %>.disabledins) || !<%= scope %>.disabledepa">
+        <div class="panel-heading panel-dashboard">
+            <h6 class="panel-title">Filtros de búsqueda</h6>
+        </div>
+        <div class="panel-body" style="padding: 4px !important;">
+            <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII"
+                 ng-show="!<%= scope %>.disabledins"
+                 style="display: none">
+                <%- FORM.select("institucion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: false,
+                    disabled: true,
+                    text: "item.nombre",
+                    table: "vw_instituciones",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    query: {
+                        orderby: "tipo",
+                        order: "asc"
+                    },
+                    condition: "item.compania==" + scope + ".companiasel"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.soyII"
+                 ng-show="!<%= scope %>.disabledins">
+                <%- FORM.select("institucion", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    todos: false,
+                    text: "item.nombre",
+                    table: "vw_instituciones",
+                    icon: {class: "archive"},
+                    label: "Institución",
+                    query: {
+                        orderby: "tipo",
+                        order: "asc"
+                    },
+                    condition: "item.compania==" + scope + ".companiasel"
+                }) %>
+            </div>
+            <div ng-if="!<%= scope %>.disabledepa">
+                <div ng-if="<%= scope %>.soyII">
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='c'">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            todos: false,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='i'">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            todos: false,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion=='[NULL]'">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            todos: false,
+                            text: "item.nombre + ' (' + item.entidad + ')'",
+                            table: "vw_departamento_filtro",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel+'')"
+                        }) %>
+                    </div>
+                </div>
+
+                <div ng-if="!<%= scope %>.soydepa">
+                    <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII && !<%= scope %>.soydeinsti">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            todos: false,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII && <%= scope %>.soydeinsti">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            todos: false,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento",
+                            condition: "(item.institucion==" + scope + ".institucion)"
+                        }) %>
+                    </div>
+                </div>
+                <div ng-if="<%= scope %>.soydepa">
+                    <div class="col-sm-6 col-md-6">
+                        <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            disabled: true,
+                            text: "item.nombre",
+                            table: "vw_performance_departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Departamento"
+                        }) %>
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='c'">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa + ' ('+ item.entidad +')'",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "POA",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==null))"
+                        }) %>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.institucion_object.tipo=='i'">
+                        <%- FORM.select("poadd", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: true,
+                            text: "item.nombre + ' - ' + item.periodo_poa",
+                            table: "vw_poa",
+                            icon: {class: "archive"},
+                            label: "POA",
+                            query: {
+                                orderby: "poa_id",
+                                order: "asc"
+                            },
+                            condition: "(item.compania_id==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
+                        }) %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

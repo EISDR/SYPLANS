@@ -1,0 +1,80 @@
+
+
+<ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+    <li class="active">
+        <a href="#fortaleza" data-toggle="tab" ng-click="foda_items.showTab('planificacion.titleFodaFortalezas',1,'Fortalezas')">
+            <i class="position-left"></i>
+            <language>Fortalezas</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="">
+        <a href="#oportunidad" data-toggle="tab" ng-click="foda_items.showTab('planificacion.titleFodaOportunidades',3,'Oportunidades')">
+            <i class="position-left"></i>
+            <language>Oportunidades</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="">
+        <a href="#debilidad" data-toggle="tab" ng-click="foda_items.showTab('planificacion.titleFodaDebilidades',2,'Debilidades')">
+            <i class="position-left"></i>
+            <language>Debilidades</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="">
+        <a href="#amenaza" data-toggle="tab" ng-click="foda_items.showTab('planificacion.titleFodaAmenazas',4,'Amenazas')">
+            <i class="position-left"></i>
+            <language>Amenazas</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+    <li class="">
+        <a id="tab_foda" href="#foda_all" data-toggle="tab" ng-click="foda_items.fodas()">
+            <i class="position-left"></i>
+            <language>FODA</language>
+            <i class="border-white  position-right"></i>
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="fortaleza" >
+    </div>
+
+    <div class="tab-pane" id="oportunidad" >
+    </div>
+
+    <div class="tab-pane" id="debilidad" >
+    </div>
+
+    <div class="tab-pane" id="amenaza">
+    </div>
+
+    <div class="panel panel-flat" ng-show="foda_items.showTable">
+        <%-
+        include('../../7-plugins/templates/table/header',{scope:'foda_items'});
+        %>
+        <div class="subcontent klk" ng-show="foda_items.showTable">
+            <%-
+            include('../../7-plugins/templates/table/base',{scope:'foda_items'});
+            %>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="foda_all" style="margin-top: 10px">
+        <%-include('viewAll')%>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tab_foda').on('click', function () {
+            setTimeout( function (){
+                foda_items.calculateEqualize()
+            },200)
+        });
+    });
+</script>
+

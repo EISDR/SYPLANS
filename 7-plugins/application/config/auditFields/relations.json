@@ -1,0 +1,9 @@
+{
+  "vw_actividades_poa": {
+    "producto": {
+      "table": "productos_poa",
+      "key": "id",
+      "description": "nombre"
+    }
+  }
+}

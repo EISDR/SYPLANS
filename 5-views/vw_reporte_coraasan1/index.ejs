@@ -1,0 +1,166 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements" style="margin-top: 5px;">
+                <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
+                    <a ng-click="<%= scope %>.refreshAll();"><i class="icon-rotate-cw3"></i></a>
+                </li>
+                <li dragonlanguage="">
+                    <a ng-click="<%= scope %>.exportXLS();"><i class="icon-file-excel"></i></a>
+                </li>
+                <li dragonlanguage="" style="margin-right: -10px;" title="PDF">
+                    <a ng-click="<%= scope %>.exportPDF();"><i class="icon-printer2"></i></a>
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent">
+            <h4 style="text-align: center">
+                Reporte de Indicadores POA y Actividades
+            </h4>
+            <div class="col-sm-12 col-md-12" style="padding-left: 0">
+                <div class='col-sm-6 col-md-6' style="padding-left: 0"
+                     ng-if="!<%= scope %>.session.institucion_id">
+                    <%- FORM.select('filter_departamento', scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        todos: true,
+                        allowlist: false,
+                        text: "item.nombre",
+                        table: 'vw_departamento_filtro_conpoa',
+                        label: "Departamento",
+                        icon: {class: "archive"},
+                        condition: "(item.compania==" + scope + ".session.compania_id && item.poa==" + scope + ".session.poa_id && item.institucion==null) || item.poa==0 "
+                    }) %>
+                </div>
+                <div class='col-sm-6 col-md-6' style="padding-left: 0"
+                     ng-if="<%= scope %>.session.institucion_id">
+                    <%- FORM.select('filter_departamento', scope, {
+                        allownull: false,
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
+                        todos: true,
+                        text: "item.nombre",
+                        table: 'vw_departamento_filtro_conpoa',
+                        label: "Departamento",
+                        icon: {class: "archive"},
+                        condition: "(item.institucion==" + scope + ".session.institucion_id && item.poa==" + scope + ".session.poa_id)  || item.poa==0"
+                    }) %>
+                </div>
+                <div class='col-sm-3 col-md-3' style="padding-left: 0">
+                    <div style="margin-top: 5px; margin-left: 5px;">
+                        <button class="btn btn-primary" ng-click="<%= scope %>.refreshAll()">Buscar</button>
+                    </div>
+                </div>
+
+                <div class='col-sm-12 col-md-12' style="padding-right: 0"
+                     ng-if="<%= scope %>.list && !vw_reporte_coraasan1.loading">
+                    <div style="margin-top: 5px; margin-left: 5px;">
+                        <button class="btn btn-primary" ng-click="<%= scope %>.changeMode()">{{!<%= scope %>
+                            .mode?'Mostrar - Productos, Actividades e Indicadores de Actividad':'Mostrar Productos e
+                            Indicadores de Productos'}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="TablePDF" ng-if="!vw_reporte_coraasan1.loading">
+                <div class="col-md-12" ng-repeat="(i, item) in <%= scope %>.list" ng-if="item.registros.length > 0"
+                     style="border-bottom: solid 1px grey">
+                    <div class="col-md-12 row scrollit">
+                        <table class="table table-bordered" style="margin-top: 20px;">
+                            <tbody class="">
+                            <th colspan="100%" style="font-weight: bold">{{item.departamento}} del POA:
+                                {{vw_reporte_coraasan1.session.periodo_poa}}
+                            </th>
+                            </tbody>
+                        </table>
+                        <table id="<%= scope %>TableIndex" class="table table-bordered table-print"
+                               style="margin-bottom: 15px">
+                            <thead class="">
+                            <tr class="bg-secundary">
+                                <th style="width: {{!<%= scope %>.mode?50:33.33}}%">Producto</th>
+                                <th style="width: {{!<%= scope %>.mode?50:33.33}}%" ng-if="!<%= scope %>.mode">Indicador
+                                    Producto
+                                </th>
+                                <th style="width: {{!<%= scope %>.mode?50:33.33}}%" ng-if="<%= scope %>.mode">
+                                    Actividad
+                                </th>
+                                <th style="width: {{!<%= scope %>.mode?50:33.33}}%" ng-if="<%= scope %>.mode">Indicador
+                                    Actividad
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="">
+                            <tr ng-repeat="(j, row) in item.registros">
+                                <td rowspan="{{<%= scope %>.rowspanme('producto',row.producto,item.registros)}}"
+                                    ng-if="<%= scope %>.seeme('producto',row.producto,j,item.registros)">
+                                    {{row.producto}}
+                                </td>
+                                <td rowspan="{{<%= scope %>.rowspanmeplus('d.producto+d.indicador_producto',row.producto+row.indicador_producto,item.registros)}}"
+                                    ng-if="<%= scope %>.seemeplus('d.producto+d.indicador_producto',row.producto+row.indicador_producto,j,item.registros) && !<%= scope %>.mode">
+                                    {{row.indicador_producto}}
+                                </td>
+                                <td rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.registros)}}"
+                                    ng-if="<%= scope %>.seeme('actividad',row.actividad,j,item.registros) && <%= scope %>.mode">
+                                    {{row.actividad}}
+                                </td>
+
+                                <td ng-if="<%= scope %>.mode">
+                                    {{row.indicador_actividad_edt!=='N/A'?row.indicador_actividad_edt:''}}
+                                    {{row.indicador_actividad}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-show="item.list.length === 0">
+                    <div class="alert alert-primary alert-styled-left" style="font-size: 17px;">
+                        <language>No existen Datos para mostrar</language>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none">
+                <table class="table table-bordered" id="desempenoTable">
+                    <thead class="">
+                    <tr>
+                        <th>Departamento</th>
+                        <th>Producto</th>
+                        <th ng-if="!<%= scope %>.mode">Indicador Producto</th>
+                        <th ng-if="<%= scope %>.mode">Actividad</th>
+                        <th ng-if="<%= scope %>.mode">Indicador Actividad</th>
+                    </tr>
+                    </thead>
+                    <tbody class="" ng-repeat="(i, item) in <%= scope %>.list">
+                    <tr ng-repeat="(j, row) in item.registros">
+                        <td>
+                            {{row.departamento}}
+                        </td>
+                        <td>
+                            {{row.producto}}
+                        </td>
+                        <td ng-if="!<%= scope %>.mode">
+                            {{row.indicador_producto}}
+                        </td>
+                        <td ng-if="<%= scope %>.mode">
+                            {{row.actividad}}
+                        </td>
+                        <td ng-if="<%= scope %>.mode">
+                            {{row.indicador_actividad_edt!=='N/A'?row.indicador_actividad_edt:''}}
+                            {{row.indicador_actividad}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    <%= scope %>.refreshAngular();
+</script>

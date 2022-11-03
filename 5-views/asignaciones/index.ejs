@@ -1,0 +1,61 @@
+
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div style="display: none" class="panel panel-flat" id="tabsAsig">
+        <div class="subcontent" style="padding-top: 50px;">
+            <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                <li class="{{asignaciones.active_asignacion}}" id="active_asignacion" ng-show="asignaciones.evaluate_asignacion()">
+                    <a href="#asiCreadas" data-toggle="tab" ng-click="">
+                        <i class="position-left"></i>
+                        Asignaciones Creadas
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="{{asignaciones.active_mi_asignacion}}" id="active_mi_asignacion" ng-show="asignaciones.evaluate_mi_asignacion()">
+                    <a href="#asiMias" data-toggle="tab" ng-click="">
+                        <i class="position-left"></i>
+                        {{asignaciones.nameMisAsig}}
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane {{asignaciones.active_asignacion}}" id="asiCreadas" ng-show="asignaciones.evaluate_asignacion()">
+                    <div id="asignacion_especial_poa" ng-controller="asignacion_especial_poa as asignacion_especial_poa">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'asignacion_especial_poa'}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'asignacion_especial_poa'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane {{asignaciones.active_mi_asignacion}}" id="asiMias" ng-show="asignaciones.evaluate_mi_asignacion()">
+                    <div id="mi_asignacion_especial_poa" ng-controller="mi_asignacion_especial_poa as mi_asignacion_especial_poa">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'mi_asignacion_especial_poa'}); %>
+                            <div class="subcontent">
+                                <%- include('../../5-views/mi_asignacion_especial_poa/base',{scope:'mi_asignacion_especial_poa'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div><!--end-->
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function(){
+            asignaciones.mostrar_mi_asignacion();
+            asignaciones.mostrar_asignacion();
+            $('#tabsAsig').show();
+            asignacion_especial_poa.check_poa_close();
+        }, 1000);
+
+    });
+</script>

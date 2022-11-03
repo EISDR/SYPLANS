@@ -1,0 +1,100 @@
+<!--<p>Shegue {{poa.actividades_pendientes[0].nombre}}</p>-->
+<!--<p>{{poa.actividades_pendientes[0].nombre}}</p>-->
+<!--<input ng-model="poa.id">-->
+
+<!--<div class="container">-->
+    <!--<div class="col-md-12">-->
+        <!--<label>Actividades POA Pendientes</label>-->
+        <!--<table class="body-wrap" id="tb-actividades">-->
+            <!--<tr>-->
+                <!--<td class="container" style="margin: 0 0 !important;max-width: 5000px !important;">-->
+                    <!--<table class="table table-bordered">-->
+                        <!--<thead class="">-->
+                        <!--<tr class="">-->
+                            <!--<th height="0">id</th>-->
+                            <!--<th height="0">nombre</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody id="tb" class="tb1">-->
+                        <!--<tr ng-repeat="(key,value) in poa.actividades_pendientes">-->
+                            <!--<td>{{value.id}}</td>-->
+                            <!--<td>{{value.nombre}}</td>-->
+                        <!--</tr>-->
+
+                        <!--</tbody>-->
+                        <!--<tfoot>-->
+
+                        <!--</tfoot>-->
+                    <!--</table>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-12">-->
+        <!--<label>Asignaciones Especiales POA Pendientes</label>-->
+        <!--<table class="body-wrap" id="tb-asignaciones">-->
+            <!--<tr>-->
+                <!--<td class="container" style="margin: 0 0 !important;max-width: 5000px !important;">-->
+                    <!--<table class="table table-bordered">-->
+                        <!--<thead class="">-->
+                        <!--<tr class="">-->
+                            <!--<th height="0">id</th>-->
+                            <!--<th height="0">nombre</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody id="tb" class="tb1">-->
+                        <!--<tr ng-repeat="(key,value) in poa.asignaciones_pendientes">-->
+                            <!--<td>{{value.id}}</td>-->
+                            <!--<td>{{value.nombre}}</td>-->
+                        <!--</tr>-->
+
+                        <!--</tbody>-->
+                        <!--<tfoot>-->
+
+                        <!--</tfoot>-->
+                    <!--</table>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</div>-->
+<div>
+    <div class="col-md-12" style="text-align: center;">
+        <button class="btn bg-indigo" style="margin-bottom: 15px; padding: 15px;" ng-click="poa.enviar_poa()">Enviar POAS</button>
+    </div>
+    <div class="col-md-12">
+<%- FORM.tabs(scope, [
+    {id: "trabajar_actividades_poa_monitoreo1", text: "Actividades POA", icon: "icon-archive"},
+    {id: "trabajar_asignacion_especial_poa_monitoreo1", text: "Asignación Especial POA", icon: "icon-archive"},
+]) %>
+<div class="tab-content">
+    <div class="tab-pane active" id="trabajar_actividades_poa_monitoreo1">
+        <div id="trabajar_actividades_poa_monitoreo" ng-controller="trabajar_actividades_poa_monitoreo as trabajar_actividades_poa_monitoreo">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'trabajar_actividades_poa_monitoreo'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'trabajar_actividades_poa_monitoreo'}); %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tab-pane" id="trabajar_asignacion_especial_poa_monitoreo1">
+        <div id="trabajar_asignacion_especial_poa_monitoreo" ng-controller="trabajar_asignacion_especial_poa_monitoreo as trabajar_asignacion_especial_poa_monitoreo">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'trabajar_asignacion_especial_poa_monitoreo'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'trabajar_asignacion_especial_poa_monitoreo'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+</div>
+
+
+<!--<button ng-click="poa.enviar_poa()">Enviar POAS</button>-->

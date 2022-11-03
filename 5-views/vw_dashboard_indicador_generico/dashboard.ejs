@@ -1,0 +1,17 @@
+<style>
+    .dash-presupuesto-detalle {
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12" id="indicadores">
+        <div id="vw_dashboard_genericosgrid_indicadores" ng-controller="vw_dashboard_genericosgrid_indicadores as vw_dashboard_genericosgrid_indicadores">
+            <div class="panel panel-flat">
+                <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_genericosgrid_indicadores'}); %>
+                <div class="subcontent">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'vw_dashboard_genericosgrid_indicadores'}); %>
+                </div>
+            </div>
+        </div><!--end-->
+    </div>
+</div>

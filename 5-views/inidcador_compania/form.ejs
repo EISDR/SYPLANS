@@ -1,0 +1,35 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('indicador', scope, {
+                    column: 'nombre',
+                    table: 'indicador_generico',
+                    text: "(ods_compania.ods_object||{edt:0}).edt+'.'+ (meta_compania.meta_object||{edt:0}).edt+'.'+ item.edt +' '+item.nombre",
+                    condition: "item.registro==meta_compania.meta && item.table_==3"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('definicion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.relation("valor_inidcador", scope, {
+                    text: "item.nombre",
+                    table: "valor_inidcador",
+                    field: "indicador_compania",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

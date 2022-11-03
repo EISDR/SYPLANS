@@ -1,0 +1,158 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
+            <ul class="breadcrumb-elements visible-elements">
+                <li dragonlanguage="">
+                </li>
+            </ul>
+            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+        </div>
+        <div class="subcontent" ng-if="<%= scope %>.rawestatus == 8">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h5 style="margin-top: 5px; margin-bottom: 5px;">Información PACC General</h5>
+                </div>
+                <div class="panel-body" style="padding-bottom: 0px">
+                    <div>
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('codigo_plan', scope, {
+                                    placeholder: "Código",
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('nombre', scope, {
+                                    trueplaceholder: "PACC",
+                                    inputPlaceholder: "Nombre del PACC",
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.date('fecha_revision', scope, {
+                                    placeholder: "Fecha de revisión",
+                                    disabled: true
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('ano_planificacion_view', scope, {
+                                    trueplaceholder: "Año de Planificación",
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.date('fecha_presentacion', scope, {
+                                    disabled: true
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.date('fecha_aprobacion', scope, {
+                                    disabled: true
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('estatus', scope, {
+                                    trueplaceholder: "Estatus",
+                                }) %>
+                            </div>
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('cantidad', scope, {
+                                    placeholder: "Cantidad de Registros",
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.inputview('descripcion', scope, {}) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="<%= scope %>.rawestatus < 4 && !<%= scope %>.done_eval ">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h5 style="margin-top: 5px; margin-bottom: 5px;">Unificar PACC</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12'>
+                            <%- FORM.textarea('comentario', scope, {
+                                placeholder: "Comentario",
+                                inputPlaceholder: "Escriba su comentario",
+                                link: "Ver comentarios",
+                                link_title: "Dar clic para ver los comentarios..."
+                            }) %>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="unificacion_m.show_estatus">
+                        <div class="row" id="u_pacc_dept" ng-controller="u_pacc_dept as u_pacc_dept">
+                            <button ng-repeat="(key, value) in unificacion_m.next_status.data"
+                                    style="background-color: {{value.color}}; color: white; float: right !important"
+                                    dragonlanguage="" title="{{value.descripcion_larga}}"
+                                    ng-show="u_pacc_dept.todosvalidos()"
+                                    type="button" role="button"
+                                    class=" btn btn-labeled btn-xs pull-right"
+                                    ng-click="unificacion_m.save_comment(value.id)">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                {{value.descripcion}}
+                            </button>
+                            <button ng-repeat="(key, value) in unificacion_m.before_status.data"
+                                    style="background-color: {{value.color}}; color: white; float: right !important"
+                                    dragonlanguage="" title="{{value.descripcion_larga}}"
+                                    ng-show="u_pacc_dept.todosvalidos()"
+                                    type="button" role="button"
+                                    class=" btn btn-labeled btn-xs pull-right"
+                                    ng-click="unificacion_m.save_comment(value.id)">
+                                <b><i class="icon-floppy-disk"></i></b>
+                                {{value.descripcion}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+                    <li class="active" id="tab_todos">
+                        <a href="#todos" data-toggle="tab" ng-click="<%= scope %>.filterDept(false, <%= scope %>.id)"
+                           style=" height: 60px;">
+                            <i class="position-left"></i>
+                            <language>Todos</language>
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li class="" ng-repeat="(key, value) in <%= scope %>.pacc_departamento_list">
+                        <a href="#oportunidad" data-toggle="tab" ng-click="<%= scope %>.filterDept(value.departamento_nombre, false)"
+                           style=" height: 60px;">
+                            <i class="position-left"></i>
+                            <language>{{value.departamento_nombre}}</language>
+                            <br>
+                            <small>{{value.estatus_nombre}}</small>
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="u_pacc_dept" ng-controller="u_pacc_dept as u_pacc_dept">
+                <%- include('../customTable2',{scope:'u_pacc_dept'}); %>
+            </div>
+        </div>
+        <div class="subcontent" ng-if="<%= scope %>.rawestatus != 8">
+            <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+                <language>Plan Anual de Compras: {{<%= scope %>.nombre}} {{ <%= scope %>.session.periodo_poa }} aún no
+                    está habilitado para ser monitoreado.
+                </language>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    // $(async function (){
+    //     setTimeout(async function (){
+    //         // await unificacion.filterDept(false,unificacion.id);
+    //         unificacion.refreshAngular();
+    //     },100);
+    // });
+</script>

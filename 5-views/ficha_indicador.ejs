@@ -1,0 +1,16 @@
+<div>
+
+</div>
+<script>
+    $(async function(){
+        var indicador = await BASEAPI.firstp('indicador_pei', {
+            where: [
+                {
+                    field: "id",
+                    value: <%= scope %>.indicador
+                }
+            ]
+        })
+        console.log(indicador)
+    });
+</script>

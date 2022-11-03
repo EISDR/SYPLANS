@@ -1,0 +1,151 @@
+<div class="subcontent">
+    <div class="row">
+        <div dragonlanguage=""
+             class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+            <h5>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor "Personalizado" = a 60% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</h5>
+        </div>
+
+    </div>
+    <div style="overflow: scroll visible; position: static; zoom: 1;">
+        <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+            <li class="active" id="pdfa">
+                <div style="float: left;width: 100%">
+                    <a href="#pdf" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-printer2"></i>
+                        Formato de impresión
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+
+
+            </li>
+            <li id="xlsa">
+                <div style="float: left;width: 100%">
+                    <a href="#xls" data-toggle="tab"
+                       style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
+                        <i class="position-file-excel"></i>
+                        Formato Excel
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="pdf">
+                <div class="active" id="pdf">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato de impresión"
+                                    ng-click="vw_reporte_prod_riesgo.exportPDF();"
+                                    type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                                <i class="icon-printer2"></i> Descargar - Formato de impresión
+                            </button>
+                        </li>
+                    </ul>
+                    <table class="table table-bordered" id="prod_riesgoExport" style="margin-top: 15px;">
+                            <tr>
+                                <td ng-if="!<%= scope %>.resultados.length" style="text-align: left">
+                                    <h5>No se han encontrado datos en este reporte.</h5>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td ng-if="<%= scope %>.resultados.length" colspan="3" style="text-align: left">
+                                    <h6 style="margin: 0"><strong>"{{vw_reporte_prod_riesgo.session.institucion ? vw_reporte_prod_riesgo.session.institucion : vw_reporte_prod_riesgo.session.compania}}"</strong></h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-if="<%= scope %>.resultados.length" colspan="3" style="text-align: left">
+                                    <strong>Reporte de riesgos asociados a los Productos/Proyectos</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: left">
+                                    <span style="padding: 20px"> </span>
+                                </td>
+                            </tr>
+                            <tbody ng-repeat="(key,item) in vw_reporte_prod_riesgo.resultados">
+                            <tr>
+                                <td colspan="3" style="text-align: left"><b>Resultado Esperado:
+                                        {{item.resultado}}</b>
+                                </td>
+                            </tr>
+                            <tr height="20" class="centralizarth"
+                                style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                                <td style="text-align: center;vertical-align: middle">Productos/Proyectos</td>
+                                <td style="text-align: center;vertical-align: middle">Riesgo</td>
+                                <td style="text-align: center;vertical-align: middle">Controles de Riesgo</td>
+                            </tr>
+                            <tr ng-repeat="(i,row) in item.records">
+                                <td rowspan="{{vw_reporte_prod_riesgo.rowspanme('objetivo_estrategico',row.objetivo_estrategico,null, null, item.records)}}"
+                                    ng-if="vw_reporte_prod_riesgo.seeme('objetivo_estrategico',row.objetivo_estrategico,i, null, null, item.records)"
+                                    style="vertical-align: middle">
+                                    {{row.producto}}
+                                </td>
+                                <td rowspan="{{vw_reporte_prod_riesgo.rowspanme('nombre',row.nombre,'producto', row.producto, item.records)}}"
+                                    ng-if="vw_reporte_prod_riesgo.seeme('nombre',row.nombre,i,'producto',row.producto, item.records)"
+                                    style="vertical-align: middle">
+                                    {{row.nombre}}
+                                </td>
+                                <td>
+                                    {{row.riesgo_control}}
+                                </td>
+                            </tr>
+                            <tr style="background-color: #cccccc">
+                                <td colspan="3" style="text-align: center">
+                                    ---
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="xls">
+                <div class="active" id="xls">
+                    <ul class="visible-elements" style="list-style: none; text-align: left">
+                        <li dragonlanguage="">
+                            <button style="margin-top: 10px;width: 25em;"
+                                    dragonlanguage="" title="Descargar - Formato Excel"
+                                    ng-click="vw_reporte_prod_riesgo.exportXLS();"
+                                    type="button" class="btn bg-success btn-xs ">
+                                <i class="icon-file-excel"></i> Descargar - Formato Excel
+                            </button>
+                        </li>
+                    </ul>
+                    <table class="table table-print" id="prod_riesgoExportXLS" style="margin-top: 15px">
+                        <tbody ng-repeat="(key,item) in vw_reporte_prod_riesgo.resultados" style="border-top: inherit" ng-show="item.records.length>0">
+
+                        <tr ng-if="!key" height="20" class="centralizarth"
+                            style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+
+                            <td>Compañía</td>
+                            <td>Resultado Esperado</td>
+                            <td>Productos/Proyectos</td>
+                            <td>Riesgo</td>
+                            <td>Controles del Riesgo</td>
+                        </tr>
+                        <tr style="vertical-align: middle" class="centralizartd filas"
+                            ng-repeat="(i,row) in item.records">
+
+                            <td>{{row.compania_nombre}}</td>
+                            <td>{{row.resultado}}</td>
+                            <td>{{row.producto}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.riesgo_control}}</td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    vw_reporte_prod_riesgo.refreshAngular();
+</script>

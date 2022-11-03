@@ -1,0 +1,243 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#aacontroldemando_pei",
+              "text": "Indicadores Estratégicos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#aacontroldemando",
+              "text": "Indicadores Operativos"
+            }
+          ],
+          "icon": "pie-chart3",
+          "href": "#",
+          "text": "Cumplimiento Indicadores Institucionales"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "bubble-notification",
+          "href": "#dashboard/notificacion",
+          "text": "Dashboard de Inicio"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart8",
+          "href": "#control_mando_b",
+          "condition": "false",
+          "text": "Tablero de Control"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "list3",
+          "href": "#resumen",
+          "text": "Plan Estratégico Institucional"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#resumen_pei_poa",
+          "text": "Resumen General (PEI/POA)"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#dashboard_indicadores",
+          "text": "Indicadores Institucionales - Resumen"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "piggy-bank",
+          "href": "#dashboard_departamento",
+          "text": "Presupuesto por Dptos."
+        },
+        {
+          "modal": "modal-full",
+          "icon": "coin-dollar",
+          "href": "#dashboard",
+          "text": "POA Departamental"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart5",
+          "href": "#dashboard_cofiguration",
+          "text": "Mi POA"
+        },
+        {
+          "modal": "",
+          "icon": "paragraph-center2",
+          "href": "#organigrama_pei",
+          "condition": "false",
+          "text": "Alineación PEI - Instrumentos de Planificación Nacional (RESUMEN)"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods2",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods2/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods2/llamadabarra",
+              "text": "Cumplimiento ODS"
+            }
+          ],
+          "modal": "",
+          "icon": "portfolio",
+          "condition": "false",
+          "href": "#",
+          "text": "Cuadro de Mando ODS"
+        }
+      ],
+      "modal": "",
+      "icon": "steam",
+      "href": "#",
+      "text": "Control de Mando Integral"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#aacontroldemando_pei",
+              "text": "Indicadores Estratégicos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#aacontroldemando",
+              "text": "Indicadores Operativos"
+            }
+          ],
+          "icon": "pie-chart3",
+          "href": "#",
+          "text": "Cumplimiento Indicadores Institucionales"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "bubble-notification",
+          "href": "#dashboard/notificacion",
+          "text": "Dashboard de Inicio"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart8",
+          "condition": "false",
+          "href": "#control_mando",
+          "text": "Tablero de Control - BSC"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart8",
+          "condition": "false",
+          "href": "#control_mando_b",
+          "text": "Tablero de Control - Departamento/Usuario"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "list3",
+          "href": "#resumen",
+          "text": "Plan Estratégico Institucional"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#resumen_pei_poa",
+          "text": "Resumen General Planificación"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "pie-chart3",
+          "href": "#dashboard_indicadores",
+          "text": "Indicadores - Resumen"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "piggy-bank",
+          "href": "#dashboard_departamento",
+          "text": "Presupuesto Dptos."
+        },
+        {
+          "modal": "modal-full",
+          "icon": "coin-dollar",
+          "href": "#dashboard",
+          "text": "Gestión Presupuestaria"
+        },
+        {
+          "modal": "modal-full",
+          "icon": "coin-dollar",
+          "href": "#dashboard_cofiguration",
+          "text": "Mi Gestión Presupuestaria"
+        },
+        {
+          "modal": "",
+          "icon": "paragraph-center2",
+          "condition": "false",
+          "href": "#organigrama_pei",
+          "text": "Alineación PEI-ODS (Resumen)"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "certificate",
+              "href": "#vw_eje_estrategico_ods2",
+              "text": "Alineación con los proyectos - Detalle"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#vw_eje_estrategico_ods2/llamadagrafico",
+              "text": "Alineación con los proyectos - Gráfico"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#vw_eje_estrategico_ods2/llamadabarra",
+              "text": "Cumplimiento ODS"
+            }
+          ],
+          "modal": "",
+          "icon": "portfolio",
+          "href": "#",
+          "condition": "false",
+          "text": "Cuadro de Mando ODS"
+        }
+      ],
+      "modal": "",
+      "icon": "lifebuoy",
+      "href": "#",
+      "text": "Control de Mando Integral"
+    }
+  ]
+}

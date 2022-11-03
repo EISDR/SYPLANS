@@ -1,0 +1,29 @@
+<style>
+    @media print {
+        @page {
+            size: A3;
+        }
+    }
+</style>
+<div class="subcontent">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de Impresión"
+                        ng-click="<%= scope %>.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" class="body_pdf" >
+        <table id="PDF" class="table table-bordered table-print" style="margin-top: 15px;" class="table_pdf">
+            <%- include('table',{scope:scope}); %>
+        </table>
+    </div>
+</div>
+<script>
+    <%= scope %>.refreshAngular();
+</script>

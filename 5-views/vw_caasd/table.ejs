@@ -1,0 +1,71 @@
+<tr>
+    <td ng-if="<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h3>Planificación Institucional</h3>
+    </td>
+    <td ng-if="!<%= scope %>.report.length" style="text-align: left" colspan="{{<%= scope %>.fullcolspan()}}">
+        <h3>No se han encontrado datos en este reporte.</h3>
+    </td>
+</tr>
+<tbody ng-repeat="(key,item) in <%= scope %>.reportDistinct">
+<tr>
+    <td style="text-align: left;background-color: #002060;color: white" colspan="{{3+<%= scope %>.peianos.length}}">
+        <h4 style="display: inline">Eje {{item.eje_estrategico}}</h4>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left;background-color: #c3e0f2" colspan="{{3+<%= scope %>.peianos.length}}">
+        <h4 style="display: inline">{{item.objetivo_estrategico}}</h4>
+    </td>
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: #9c282d !important; color: white !important; ">
+    <th style="color: white !important;" rowspan="2">Resultados institucionales</th>
+    <th style="color: white !important;" rowspan="2">Indicador clave</th>
+    <th style="color: white !important;" colspan="{{<%= scope %>.peianos.length}}">Meta</th>
+    <th style="color: white !important;" rowspan="2">Productos terminales</th>
+
+</tr>
+<tr height="20" class="centralizarth"
+    style="background-color: #9c282d !important; color: white !important; ">
+    <th style="color: white !important;" ng-repeat="(i,ano) in <%= scope %>.peianos">{{ano}}</th>
+</tr>
+
+<tr ng-repeat="(i,row) in item.records">
+
+    <td style="vertical-align: middle;background-color: #f2f2f2"
+        rowspan="{{<%= scope %>.sp_('d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.resultado',i,item.records)">
+        {{row.resultado}}
+    </td>
+
+    <td style="vertical-align: middle;background-color: #ffffff"
+        rowspan="{{<%= scope %>.sp_('d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.resultado+d.indicador_pei',i,item.records)">
+        {{row.indicador_pei}}
+    </td>
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.resultado+d.indicador_pei',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.resultado+d.indicador_pei',i,item.records)"
+        ng-repeat="(x,ano) in <%= scope %>.peianos">
+        {{<%= scope %>.format(row.indicador_pei_x[ano],row.indicador_pei_tipo_meta+'')}}
+    </td>
+    <td style="vertical-align: middle;background-color: #ffffff;padding: 0"
+        rowspan="{{<%= scope %>.sp_('d.resultado',i,item.records)}}"
+        ng-if="<%= scope %>.sm_('d.resultado',i,item.records)">
+        <table class="table table-bordered">
+            <tr ng-repeat="(j,pro) in item.records" ng-if="pro.resultado===row.resultado">
+                <td
+                        ng-if="<%= scope %>.sm_distinct('d.producto_id',j,item.records)">
+                    {{pro.no_producto}} {{pro.producto}}
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: left;background-color: white;border:none;color: white"
+        colspan="{{3+<%= scope %>.peianos.length}}">
+
+    </td>
+</tr>
+</tbody>

@@ -1,0 +1,47 @@
+<div class="subcontent" ng-if="vw_departamento_presupuesto.tipeExport == 'pdf'">
+    <div class="row">
+        <ul class="visible-elements" style="list-style: none; text-align: center">
+            <li dragonlanguage="">
+                <button style="margin-top: 10px;width: 25em;"
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="vw_departamento_presupuesto.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    Descargar - Formato de impresión
+                </button>
+            </li>
+        </ul>
+    </div>
+    <h4 style="text-align: center">
+        ASIGNACIÓN PRESUPUESTARIA POR PROYECTO/PRODUCTO
+    </h4>
+    <table id="vw_departamento_presupuestoExport" class="vw_departamento_presupuestoTable table table-bordered table-print" style="margin-top: 15px;">
+
+            <thead class="">
+            <tr class="bg-<%= COLOR.secundary %>">
+                <th>Departamento</th>
+                <th>Proyecto/Producto</th>
+                <th>Presupuesto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="vertical-align: middle" class="centralizartd"
+                ng-repeat="(key,row) in vw_departamento_presupuesto.vw_departamento_presupuesto_list">
+                <td rowspan="{{vw_departamento_presupuesto.rowspanme('departamento',row.departamento,vw_departamento_presupuesto.vw_departamento_presupuesto_list)}}"
+                    ng-if="vw_departamento_presupuesto.seeme('departamento',row.departamento,key,vw_departamento_presupuesto.vw_departamento_presupuesto_list)"
+                >
+                    {{row.departamento}}
+                </td>
+                <td rowspan="">
+                    {{row.producto}}
+                </td>
+                <td rowspan="">
+                    {{vw_departamento_presupuesto.money(row.presupuesto)}}
+                </td>
+            </tr>
+            </tbody>
+
+    </table>
+</div>
+<script>
+    vw_departamento_presupuesto.refreshAngular();
+</script>

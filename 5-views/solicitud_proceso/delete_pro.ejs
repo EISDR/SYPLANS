@@ -1,0 +1,108 @@
+<div class="panel panel-white">
+    <div class="panel-heading panel-dashboard" style="background-color: #efefef">
+        <h6 class="panel-title">Solicitud de Eliminación de un Proceso</h6>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("delete_pro_mapa_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    disabled: true,
+                    table: "vw_mapa_proceso",
+                    truelabel: "Mapa de Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3" >
+                <%- FORM.select("delete_pro_proceso_categoria", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    disabled: true,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                }) %>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.select("delete_pro_responsable", scope, {
+                    allowlist: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    disabled: true,
+                    column: "responsable",
+                    table: "usuario",
+                    truelabel: "Responsable",
+                    text: "item.nombre + ' ' + item.apellido",
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-3'>
+                <%- FORM.select('delete_pro_estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    text: "item.permitido",
+                    value: "id",
+                    table: "vw_auditoria_programa_plan_estatus",
+                    icon: {class: "archive"},
+                    truelabel: "Estatus del Proceso",
+                    condition: "(item.entidad == 'procesos' && item.estatus_id != 4)",
+                    disabled:true
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.inputview('delete_pro_nombre', scope, {trueplaceholder: "Nombre del Proceso"}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.textarea('delete_pro_objetivo', scope, {
+                    trueplaceholder: "Objetivo",
+                    disabled: true
+                            //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.textarea('delete_pro_recursos', scope, {
+                    trueplaceholder: "Recursos (Humanos, Tecnológicos, etc) ",
+                    disabled:true
+                            //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('delete_pro_alcance', scope, {
+                        //maxlength: 200,
+                        trueplaceholder: "Alcance",
+                        disabled: true
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px">
+                 <span class="label label-white text-secundary-300 label-rounded label-icon">
+                    <i class="position-right"></i>
+                </span>
+                <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="solicitud_proceso.pages.form.close()">
+                    <b><i class="icon-cross2"></i></b>
+                    <language>Cancelar</language>
+                </button>
+                <span class="label label-white text-secundary-300 label-rounded label-icon">
+                    <i class="position-right"></i>
+                </span>
+                <button title="Eliminar" type="button" class="btn bg-success btn-labeled btn-xs" ng-click="solicitud_proceso.delete_pro(solicitud_proceso.delete_pro_id)">
+                    <b><i class="icon-floppy-disk"></i></b>
+                    <language>guardar</language>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

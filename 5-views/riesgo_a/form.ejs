@@ -1,0 +1,156 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('causa_debilidad', scope, {
+                    trueplaceholder: "Causa o Debilidad"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.textarea('consecuencia', scope, {
+                    trueplaceholder: "Efecto"
+                }) %>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4 " ng-if="riesgo_a.session.institucion">
+                <%- FORM.select("factor_riesgo", scope, {
+                    allownull: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "perspectiva",
+                    icon: {class: "archive"},
+                    truelabel: "Factor de Riesgo",
+                    condition: "item.institucion == riesgo_a.session.institucion_id"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4 " ng-if="!riesgo_a.session.institucion">
+                <%- FORM.select("factor_riesgo", scope, {
+                    allownull: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "perspectiva",
+                    icon: {class: "archive"},
+                    truelabel: "Factor de Riesgo",
+                    condition: "item.compania == riesgo_a.session.compania_id && item.institucion == 'null'"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="!riesgo_a.session.institucion_id">
+                <%- FORM.select('probabilidad', scope, {
+                    table: 'riesgo_probabilidad',
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor+'%'",
+                    condition: '(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == riesgo_a.entidad)',
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="riesgo_a.session.institucion_id">
+                <%- FORM.select('probabilidad', scope, {
+                    column: 'name',
+                    table: 'riesgo_probabilidad',
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor+'%'",
+                    condition: '(item.institucion == riesgo_a.session.institucion_id) && (item.entidad == riesgo_a.entidad)',
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="!riesgo_a.session.institucion_id">
+                <%- FORM.select('impacto', scope, {
+                    table: 'riesgo_impacto',
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor+''",
+                    condition: '(item.compania == riesgo_a.session.compania_id && item.instituciovw_resultanten == null) && (item.entidad == riesgo_a.entidad)',
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-if="riesgo_a.session.institucion_id">
+                <%- FORM.select('impacto', scope, {
+                    column: 'name',
+                    table: 'riesgo_impacto',
+                    value: 'id',
+                    text: "item.nombre+' - '+item.valor+''",
+                    condition: '(item.institucion == riesgo_a.session.institucion_id) && (item.entidad == riesgo_a.entidad)',
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "valor",
+                        order: "asc",
+                        distinct: false
+
+                    }
+                }) %>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('supuestos', scope, {
+                    //maxlength: 200,
+                    trueplaceholder: "Supuestos"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('descripcion', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.relation("riesgo_control", scope, {
+                    text: "item.nombre",
+                    table: "riesgo_control",
+                    field: "riesgo",
+                    master: null,
+                    icon: {class: "archive"}
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    riesgo_control.setPermission("actions", true);
+    riesgo_control.setPermission("add", true);
+    riesgo_control.setPermission("edit", true);
+    riesgo_control.setPermission("remove", true);
+    // riesgo_control.setPermission("active", true);
+    riesgo_control.setPermission("view", true);
+    // riesgo_control.setPermission("copy", true);
+    riesgo_control.setPermission("audit", true);
+    $('#riesgo_controlTable').css('display', 'inline-table')
+</script>
+<%- FORM.footer(scope) %>
+
+
+
+
+

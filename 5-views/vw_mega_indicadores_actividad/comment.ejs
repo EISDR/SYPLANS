@@ -1,0 +1,61 @@
+<style>
+    .tbodyDetails .legitRipple{
+        height: 40px !important;
+    }
+</style>
+
+<div class="subcontent">
+    <table id="PoaComment" class="table table-bordered" style="margin-top: 15px;">
+        <thead class="">
+        <tr class="centralizarth" style="background-color: <%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%> !important; color: white; ">
+            <th>Periodo</th>
+            <th>Proyectado</th>
+            <th>Valor Alcanzado</th>
+            <th>Fecha Última Actualización</th>
+            <th>Usuario Última Actualización</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody class="tbodyDetails">
+        <tr style="vertical-align: middle" class="centralizartd" ng-repeat="(key,row) in  vw_mega_indicadores_actividad.list_comment">
+            <td style="text-align: center" width="10%">
+                {{row.periodo}}
+            </td>
+
+            <td style="text-align: right">
+                {{row.projectado}}
+            </td>
+
+            <td style="text-align: right">
+                {{row.valor_alcanzado}}
+            </td>
+
+            <td width="16%">
+                {{row.creado_en ? mega_indicadores_poa.LAN.date(row.creado_en) : ''}}
+            </td>
+
+            <td width="16%">
+                {{row.creado_en ? row.usuario: ''}}
+            </td>
+            <td style="width: 0;" height="0">
+                <div class="container{{row.id}}">
+
+                </div>
+                <button ng-show="row.count_comment > 0" type="button" ng-click="vw_mega_indicadores_actividad.openCommentModal(row.indicador_actividad, row.periodo_valor);"
+                        title="Ver comentarios ({{row.count_comment}})" role="button" style=" height: 57px;"
+                        class="btn bg-secundary-600 btn-block legitRipple"><i class="icon-comments position-left"></i> Ver comentarios ({{row.count_comment}})
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    vw_mega_indicadores_actividad.refreshAngular();
+    setTimeout(function (){
+        var animation2 = new ANIMATION();
+        animation2.loading(`#PoaComment`, "Por favor espere", ``, '300');
+        vw_mega_indicadores_actividad.countUpload(vw_mega_indicadores_actividad.ids)
+    },100)
+</script>

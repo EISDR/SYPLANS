@@ -1,0 +1,104 @@
+<div id="pesta_items" ng-controller="pesta_items as pesta_items">
+    <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
+        <li class="active">
+            <a href="#politico" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaPolitico',1,'Político')">
+                <i class="position-left"></i>
+                <language>Político</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#economico" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaEconomicos',2,'Económico')">
+                <i class="position-left"></i>
+                <language>Económico</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#social" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaSociales',3,'Social')">
+                <i class="position-left"></i>
+                <language>Social</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#tecnologico" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaTecnologicos',4,'Tecnológico')">
+                <i class="position-left"></i>
+                <language>Tecnológico</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#ambiental" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaAmbientales',5,'Ambiental')">
+                <i class="position-left"></i>
+                <language>Ambiental</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a href="#ambiental" data-toggle="tab" ng-click="pesta_items.showTab('planificacion.titlePestaLegal',6,'Legal')">
+                <i class="position-left"></i>
+                <language>Legal</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+        <li class="">
+            <a id="tab_pesta" href="#pesta" data-toggle="tab" ng-click="pesta_items.pestas()">
+                <i class="position-left"></i>
+                <language>PESTAL</language>
+                <i class="border-white  position-right"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="politico" >
+        </div>
+
+        <div class="tab-pane" id="economico" >
+        </div>
+
+        <div class="tab-pane" id="social" >
+        </div>
+
+        <div class="tab-pane" id="tecnologico" >
+        </div>
+
+        <div class="tab-pane" id="ambiental" >
+        </div>
+
+        <div class="tab-pane" id="legal" >
+        </div>
+
+        <div class="panel panel-flat" ng-show="pesta_items.showTable">
+            <%-
+            include('../../7-plugins/templates/table/header',{scope:'pesta_items'});
+            %>
+            <div class="subcontent" ng-show="pesta_items.showTable">
+                <%-
+                include('../../7-plugins/templates/table/base',{scope:'pesta_items'});
+                %>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="pesta" style="margin-top: 10px">
+            <div class="row">
+                <%- include('viewAll')%>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tab_pesta').on('click', function () {
+            setTimeout( function (){
+                pesta_items.calculateEqualize()
+            },200)
+        });
+    });
+</script>
