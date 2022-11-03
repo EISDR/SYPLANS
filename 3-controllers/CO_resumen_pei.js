@@ -28,13 +28,14 @@ app.controller(
                 limit: 0
             });
             resumen_pei.resumen_pei_list = resumen_pei.resumen_pei_list.data;
-            for (var i of resumen_pei.resumen_pei_list) {
-                if (i.perspectiva != " ") {
-                    i.perspectiva = resumen_pei.perspectiva_list.data.filter(r1_data => {
-                        return (i.perspectiva == r1_data.id);
-                    })[0].nombre;
+            if (resumen_pei.resumen_pei_list)
+                for (var i of resumen_pei.resumen_pei_list) {
+                    if (i.perspectiva != " ") {
+                        i.perspectiva = (resumen_pei.perspectiva_list.data.filter(r1_data => {
+                            return (i.perspectiva == r1_data.id);
+                        })[0] || {}).nombre;
+                    }
                 }
-            }
             animation1.stoploading(`#tabs_resumen`);
             resumen_pei.refreshAngular();
         };

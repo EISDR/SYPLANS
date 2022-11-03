@@ -15,11 +15,19 @@
     "timezone": "UTC",
     "dateStrings": true
   },
-  "postgre": {
+  "postgre2": {
     "host": "186.150.200.131",
     "user": "postgres",
     "password": "%Luch@134679()^^()Mortero$",
     "database": "syplansqa2",
+    "port": "5432",
+    "multipleStatements": true
+  },
+  "postgre": {
+    "host": "localhost",
+    "user": "postgres",
+    "password": "Inoesan0#",
+    "database": "syplans2",
     "port": "5432",
     "multipleStatements": true
   }

@@ -93,12 +93,12 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
             if (user.tipo_institucion == 1) {
                 for (var i of resumen_indicador_pei.resumen_indicador_pei_list) {
                     if (i.perspectiva != " ") {
-                        i.perspectiva = resumen_indicador_pei.perspectiva_list.data.filter(r1_data => {
+                        i.perspectiva = (resumen_indicador_pei.perspectiva_list.data.filter(r1_data => {
                             return (i.perspectiva == r1_data.id);
-                        })[0].nombre;
+                        })[0] || {}).nombre;
                     }
                 }
-            }else{
+            } else {
                 for (var i of resumen_indicador_pei.resumen_indicador_pei_list) {
                     if (i.perspectiva != " ") {
                         i.perspectiva = resumen_indicador_pei.perspectiva_list.data.filter(r1_data => {

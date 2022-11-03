@@ -109,12 +109,12 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
             if (user.tipo_institucion == 1) {
                 for (var i of resumen_poa.resumen_pei_list) {
                     if (i.perspectiva != " ") {
-                        i.perspectiva = resumen_poa.perspectiva_list.data.filter(r1_data => {
+                        i.perspectiva = (resumen_poa.perspectiva_list.data.filter(r1_data => {
                             return (i.perspectiva == r1_data.id);
-                        })[0].nombre;
+                        })[0] || {}).nombre;
                     }
                 }
-            }else{
+            } else {
                 for (var i of resumen_poa.resumen_pei_list) {
                     if (i.perspectiva != " ") {
                         i.perspectiva = resumen_poa.perspectiva_list.data.filter(r1_data => {
@@ -130,7 +130,7 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
                     return resumen_poa.resumen_pei_list.find(a => a.id_resultado === id_resultado)
                 });
             var count = 0;
-            if (resumen_poa.group_caracteristica == ENUM_2.Grupos.director_departamental || resumen_poa.group_caracteristica == ENUM_2.Grupos.analista_departamental){
+            if (resumen_poa.group_caracteristica == ENUM_2.Grupos.director_departamental || resumen_poa.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
                 for (var i of resumen_poa.resumen_poa_finx) {
                     resumen_poa.resumen_poa_fin[count] = {
                         header: i,
@@ -138,7 +138,7 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
                     };
                     count++;
                 }
-            }else {
+            } else {
                 for (var i of resumen_poa.resumen_poa_finx) {
                     resumen_poa.resumen_poa_fin[count] = {
                         header: i,
@@ -223,7 +223,7 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
 
         $("#generalpdf").printThis({
             importCSS: false,                // import parent page css
-            loadCSS: "../styles/planificacion/stylePrint.css?node="+new Date().getTime(),      // path to additional css file - use an array [] for multiple
+            loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
             printDelay: 333,
         });
     };

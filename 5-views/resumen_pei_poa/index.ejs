@@ -51,30 +51,33 @@
                 <div class="tab-pane active" id="resumen_pei" >
                     <%- include('../resumen_pei/index.ejs'); %>
                 </div>
-                <div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" >
-                    <!--<div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" ng-show="resumen_pei_poa.see_indicador_poa()">-->
-                    <div id="poa_admin" ng-controller="resumen_poa as resumen_poa">
-                        <%- include('../resumen_poa/index.ejs'); %>
-                    </div>
-                </div>
                 <div class="tab-pane {{resumen_pei_poa.active_indi_pei}}" id="resumen_indicador_pei" >
                     <!--<div class="tab-pane {{resumen_pei_poa.active_mat_pei}}" id="resumen_indicador_pei" ng-show="resumen_pei_poa.see_matriz_pei()">-->
                     <div id="poa_admin" ng-controller="resumen_indicador_pei as resumen_indicador_pei">
                         <%- include('../resumen_indicador_pei/index.ejs'); %>
                     </div>
                 </div>
+                <div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" >
+                    <!--<div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" ng-show="resumen_pei_poa.see_indicador_poa()">-->
+                    <div id="poa_admin" ng-controller="resumen_poa as resumen_poa">
+                        <%- include('../resumen_poa/index.ejs'); %>
+                    </div>
+                </div>
+
                 <div class="tab-pane " id="resumen_indicador_poa" >
                     <!--<div class="tab-pane {{resumen_pei_poa.active_mat_poa}}" id="resumen_indicador_poa" ng-show="resumen_pei_poa.see_matriz_poa()">-->
                     <div id="poa_admin" ng-controller="resumen_indicador_poa as resumen_indicador_poa">
                         <%- include('../resumen_indicador_poa/index.ejs'); %>
                     </div>
                 </div>
+
                 <div class="tab-pane " id="resumen_indicador_actividad" >
                     <!--<div class="tab-pane {{resumen_pei_poa.active_mat_poa}}" id="resumen_indicador_poa" ng-show="resumen_pei_poa.see_matriz_poa()">-->
                     <div id="poa_admin" ng-controller="resumen_indicador_actividad as resumen_indicador_actividad">
                         <%- include('../resumen_indicador_actividad/index.ejs'); %>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
