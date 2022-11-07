@@ -6,7 +6,7 @@
     "engine": "postgre"
   },
   "mysql": {
-    "host": "186.150.200.131",
+    "host": "qa.syplans.com",
     "user": "arr",
     "password": "%Luch@134679()^^()Mortero$",
     "database": "syplansqa2",
@@ -15,15 +15,15 @@
     "timezone": "UTC",
     "dateStrings": true
   },
-  "postgre2": {
-    "host": "186.150.200.131",
+  "postgre": {
+    "host": "qa.syplans.com",
     "user": "postgres",
     "password": "%Luch@134679()^^()Mortero$",
     "database": "syplansqa2",
     "port": "5432",
     "multipleStatements": true
   },
-  "postgre": {
+  "postgre2": {
     "host": "localhost",
     "user": "postgres",
     "password": "Inoesan0#",
