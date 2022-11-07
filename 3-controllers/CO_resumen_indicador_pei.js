@@ -37,9 +37,12 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
 
     resumen_indicador_pei.cantidad = 0;
 
+    resumen_indicador_pei.firstime = true;
     resumen_indicador_pei.resumen_indicador_pei_get = async function () {
         resumen_indicador_pei.headerBody_list = [];
+
         animation3.loading(`#tabs_resumen`, "", ``, '120');
+
         BASEAPI.listp('resumen_indicador_pei', {
             limit: 0,
             orderby: "id",
@@ -108,6 +111,7 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
                 }
             }
             var selected = [];
+
             for (var a = user.periodo_desde; a <= user.periodo_hasta; a++) {
                 eval(` resumen_indicador_pei.headerBody_list.push({name: "${a}", ano: a });`);
                 count1++;
@@ -142,9 +146,45 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
                     }
                 }
             }
+
+            if (resumen_indicador_pei.firstime === true) {
+                resumen_indicador_pei.firstime = false;
+                CRUD_resumen_indicador_pei.table.columnsOrder[0].push(
+                    {
+                        label: "Metas",
+                        col: resumen_indicador_pei.headerBody_list.length
+                    });
+                CRUD_resumen_indicador_pei.table.columnsOrder[1].push(
+                    {
+                        label: "Projectadas / Alcanzadas / Varianzas",
+                        col: resumen_indicador_pei.headerBody_list.length
+                    });
+                resumen_indicador_pei.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_pei.table.columnsOrder[2].push({
+                        label: d.name
+                    });
+                });
+                resumen_indicador_pei.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_pei.table.columns["z" + d.name] = {
+                        label: d.name,
+                        format: (row) => {
+                            let realRow = resumen_indicador_pei.resumen_indicador_pei_list.filter(d => d.id == row.id)[0];
+                            if (realRow)
+                                return `
+                            <span>${realRow["ano" + d.name + "P"]}</span>|
+                            <span>${realRow["ano" + d.name + "A"]}</span>|
+                            <span style="color: ${realRow["ano" + d.name + "color"]}">${realRow["ano" + d.name + "V"]}</span>
+                            `;
+                            return "";
+                        }
+                    };
+                });
+            }
             animation3.stoploading(`#tabs_resumen`);
+
             resumen_indicador_pei.refreshAngular();
         });
+
     };
 
     resumen_indicador_pei.alert_color = function (P, A, dir, ano) {

@@ -32,7 +32,7 @@
         <thead class="bg-<%= COLOR.secundary %>" id="<%= scope %>head">
 
         <!--Columns-->
-        <tr class="bg-<%= COLOR.secundary %> dragon-columns">
+        <tr class="bg-<%= COLOR.secundary %> dragon-columns" ng-if="!<%= scope %>.CRUD().columnsOrder">
             <th ng-if="<%= scope %>.characterist('batch')">
                 <span style="margin-top: 1px;" title="Seleccionar Todo" class="cursor-pointer "
                       ng-bind-html="<%= scope %>.drawCheck(key)"
@@ -40,7 +40,7 @@
                 </span>
             </th>
             <th ng-repeat="(key, value) in <%= scope %>.columns() track by key"
-                ng-show="<%= scope %>.columnVisible(value)"
+                ng-show="<%= scope %>.columnVisible(value) && (!value.clrow||value.clrow==1)"
                 data-column="{{key}}"
                 ng-dblclick="<%= scope %>.cell.dblColumnSelect($event)"
                 class="handle {{value.responsive}}"
@@ -48,6 +48,12 @@
                 <%- include('columns',{scope:scope}); %>
             </th>
             <%- include('columnOption',{scope:scope}); %>
+        </tr>
+        <tr class="bg-<%= COLOR.secundary %> dragon-columns" ng-if="<%= scope %>.CRUD().columnsOrder"
+            ng-repeat="(r, larow) in <%= scope %>.CRUD().columnsOrder">
+            <th ng-repeat="(key, value) in larow" class="handle {{value.responsive}} text-center" colspan="{{value.col||1}}" rowspan="{{value.row||1}}">
+                {{value.label}}
+            </th>
         </tr>
         </thead>
         <tbody id="<%= scope %>TableBody">

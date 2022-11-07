@@ -3,8 +3,13 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
     resumen_indicador_actividad.destroyForm = false;
     var user = new SESSION().current();
     resumen_indicador_actividad.session = user;
-    RUNCONTROLLER("resumen_indicador_actividad", resumen_indicador_actividad, $scope, $http, $compile);
 
+
+    RUNCONTROLLER("resumen_indicador_actividad", resumen_indicador_actividad, $scope, $http, $compile);
+    resumen_indicador_actividad.fixFilters = [{
+        field: "poa",
+        value: resumen_indicador_actividad.session.poa_id
+    }];
     resumen_indicador_actividad.colors = COLOR.secundary;
     resumen_indicador_actividad.tipeExport = '';
     resumen_indicador_actividad.group_caracteristica = user.groups[0] ? user.groups[0].caracteristica : "";
@@ -70,6 +75,7 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
 
     };
 
+    resumen_indicador_actividad.firstime = true;
     resumen_indicador_actividad.resumen_indicador_actividad_get = async function () {
         resumen_indicador_actividad.headerBody_list = [];
         animation4.loading(`#tabs_resumen`, "", ``, '120');
@@ -164,6 +170,39 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
                     }
                 }
             }
+            if (resumen_indicador_actividad.firstime === true) {
+                resumen_indicador_actividad.firstime = false;
+                CRUD_resumen_indicador_actividad.table.columnsOrder[0].push(
+                    {
+                        label: "Metas",
+                        col: resumen_indicador_actividad.headerBody_list.length
+                    });
+                CRUD_resumen_indicador_actividad.table.columnsOrder[1].push(
+                    {
+                        label: "Projectadas / Alcanzadas / Varianzas",
+                        col: resumen_indicador_actividad.headerBody_list.length
+                    });
+                resumen_indicador_actividad.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_actividad.table.columnsOrder[2].push({
+                        label: d.name
+                    });
+                });
+                resumen_indicador_actividad.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_actividad.table.columns["z" + d.name.replaceAll(" ", "")] = {
+                        label: d.name,
+                        format: (row) => {
+                            let realRow = resumen_indicador_actividad.resumen_indicador_actividad_list.filter(d => d.id == row.id)[0];
+                            if (realRow)
+                                return `
+                            <span>${realRow["periodo" + d.periodo + "P"]}</span>|
+                            <span>${realRow["periodo" + d.periodo + "A"]}</span>|
+                            <span style="color: ${realRow["periodo" + d.periodo + "color"]}">${realRow["periodo" + d.periodo + "V"]}</span>
+                            `;
+                            return "";
+                        }
+                    };
+                });
+            }
             animation4.stoploading(`#tabs_resumen`);
             resumen_indicador_actividad.refreshAngular();
         });
@@ -196,8 +235,6 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
     };
 
 
-
-
     resumen_indicador_actividad.openmodalField = function (value) {
 
         resumen_indicador_actividad.tipeExport = value.toString();
@@ -207,7 +244,7 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
 
             width: 'modal-full',
             header: {
-                title: resumen_indicador_actividad.session.tipo_institucion === 1 ?`Vista Previa Resumen Indicadores de Proyecto/Producto` : `Vista Previa Resumen Indicadores de Proyecto/Plan de Acción`,
+                title: resumen_indicador_actividad.session.tipo_institucion === 1 ? `Vista Previa Resumen Indicadores de Proyecto/Producto` : `Vista Previa Resumen Indicadores de Proyecto/Plan de Acción`,
                 icon: "ICON.classes.file_excel"
             },
             footer: {

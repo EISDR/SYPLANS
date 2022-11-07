@@ -3,43 +3,58 @@
         <div class="subcontent" style="padding-top: 20px; display: none;" id="tabs_resumen">
 
             <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
-                <li id="resumen_pei_li" class="tab-pane active" >
-                <!--<li id="resumen_pei_li" class="tab-pane {{resumen_pei_poa.active_indi_pei}}" ng-show="resumen_pei_poa.see_indicador_pei()">-->
-                    <a href="#resumen_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_pei();" style="font-size: 15px; height: 60px;;">
+                <li id="resumen_pei_li" class="tab-pane active">
+                    <!--<li id="resumen_pei_li" class="tab-pane {{resumen_pei_poa.active_indi_pei}}" ng-show="resumen_pei_poa.see_indicador_pei()">-->
+                    <a href="#resumen_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_pei();"
+                       style="font-size: 15px; height: 60px;;">
                         <i class="icon-html5 position-left"></i>
                         <language>Planificación Estrategica (PEI)</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </li>
-                <li id="resumen_indicador_pei_li" class="tab-pane " >
-                <!--<li id="resumen_indicador_pei_li" class="tab-pane {{resumen_pei_poa.active_mat_pei}}" ng-show="resumen_pei_poa.see_matriz_pei()">-->
-                    <a href="#resumen_indicador_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_pei();" style="font-size: 15px; height: 60px;">
+                <li id="resumen_indicador_pei_li" class="tab-pane ">
+                    <!--<li id="resumen_indicador_pei_li" class="tab-pane {{resumen_pei_poa.active_mat_pei}}" ng-show="resumen_pei_poa.see_matriz_pei()">-->
+                    <a href="#resumen_indicador_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_pei();"
+                       style="font-size: 15px; height: 60px;">
                         <i class="icon-html5 position-left"></i>
                         <language>Indicadores PEI</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </li>
                 <li id="resumen_poa_li" class="tab-pane ">
-                <!--<li id="resumen_poa_li" class="tab-pane {{resumen_pei_poa.active_indi_poa}}" ng-show="resumen_pei_poa.see_indicador_poa()">-->
-                    <a href="#resumen_poa" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_poa();" style="font-size: 15px; height: 60px;">
+                    <!--<li id="resumen_poa_li" class="tab-pane {{resumen_pei_poa.active_indi_poa}}" ng-show="resumen_pei_poa.see_indicador_poa()">-->
+                    <a href="#resumen_poa" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_poa();"
+                       style="font-size: 15px; height: 60px;">
                         <i class="icon-html5 position-left"></i>
-                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 1">POA - actividades / Proyecto/Producto</language>
-                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 2">POA - actividades / Proyecto/Plan de Acción</language>
+                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 1">POA - actividades /
+                            Proyecto/Producto
+                        </language>
+                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 2">POA - actividades /
+                            Proyecto/Plan de Acción
+                        </language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </li>
-                <li id="resumen_indicador_poa_li" class="tab-pane " >
-                <!--<li id="resumen_indicador_poa_li" class="tab-pane {{resumen_pei_poa.active_mat_poa}}" ng-show="resumen_pei_poa.see_matriz_poa()">-->
-                    <a href="#resumen_indicador_poa " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_poa();" style="font-size: 15px; height: 60px;">
-                        <i class="icon-html5 position-left"></i>
-                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 1">Indicadores de Proyecto/Producto</language>
-                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 2">Indicadores de Proyecto/Plan de Acción</language>
-                        <i class="border-white  position-right"></i>
-                    </a>
-                </li>
-                <li id="resumen_indicador_poa_li" class="tab-pane " >
+                <li id="resumen_indicador_poa_li" class="tab-pane ">
                     <!--<li id="resumen_indicador_poa_li" class="tab-pane {{resumen_pei_poa.active_mat_poa}}" ng-show="resumen_pei_poa.see_matriz_poa()">-->
-                    <a href="#resumen_indicador_actividad " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_actividad();" onclick="resumen_indicador_actividad.resumen_indicador_actividad_get();" style="font-size: 15px; height: 60px;">
+                    <a href="#resumen_indicador_poa " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_poa();"
+                       style="font-size: 15px; height: 60px;">
+                        <i class="icon-html5 position-left"></i>
+                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 1">Indicadores de
+                            Proyecto/Producto
+                        </language>
+                        <language ng-show="resumen_pei_poa.session.tipo_institucion == 2">Indicadores de Proyecto/Plan
+                            de Acción
+                        </language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li id="resumen_indicador_poa_li" class="tab-pane ">
+                    <!--<li id="resumen_indicador_poa_li" class="tab-pane {{resumen_pei_poa.active_mat_poa}}" ng-show="resumen_pei_poa.see_matriz_poa()">-->
+                    <a href="#resumen_indicador_actividad " data-toggle="tab"
+                       ng-click="resumen_pei_poa.mostrar_matriz_actividad();"
+                       onclick="resumen_indicador_actividad.resumen_indicador_actividad_get();"
+                       style="font-size: 15px; height: 60px;">
                         <i class="icon-html5 position-left"></i>
                         <language>Indicadores Actividades</language>
                         <i class="border-white  position-right"></i>
@@ -48,34 +63,25 @@
             </ul>
 
             <div class="tab-content" id="panel_container">
-                <div class="tab-pane active" id="resumen_pei" >
+                <div class="tab-pane active" id="resumen_pei">
                     <%- include('../resumen_pei/index.ejs'); %>
                 </div>
-                <div class="tab-pane {{resumen_pei_poa.active_indi_pei}}" id="resumen_indicador_pei" >
-                    <!--<div class="tab-pane {{resumen_pei_poa.active_mat_pei}}" id="resumen_indicador_pei" ng-show="resumen_pei_poa.see_matriz_pei()">-->
-                    <div id="poa_admin" ng-controller="resumen_indicador_pei as resumen_indicador_pei">
-                        <%- include('../resumen_indicador_pei/index.ejs'); %>
-                    </div>
+                <div class="tab-pane {{resumen_pei_poa.active_indi_pei}}" id="resumen_indicador_pei">
+                    <%- include('../resumen_indicador_pei/index.ejs'); %>
                 </div>
-                <div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" >
-                    <!--<div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa" ng-show="resumen_pei_poa.see_indicador_poa()">-->
+                <div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa">
                     <div id="poa_admin" ng-controller="resumen_poa as resumen_poa">
                         <%- include('../resumen_poa/index.ejs'); %>
                     </div>
                 </div>
 
-                <div class="tab-pane " id="resumen_indicador_poa" >
-                    <!--<div class="tab-pane {{resumen_pei_poa.active_mat_poa}}" id="resumen_indicador_poa" ng-show="resumen_pei_poa.see_matriz_poa()">-->
-                    <div id="poa_admin" ng-controller="resumen_indicador_poa as resumen_indicador_poa">
-                        <%- include('../resumen_indicador_poa/index.ejs'); %>
-                    </div>
+                <div class="tab-pane " id="resumen_indicador_poa">
+                    <%- include('../resumen_indicador_poa/index.ejs'); %>
                 </div>
 
-                <div class="tab-pane " id="resumen_indicador_actividad" >
-                    <!--<div class="tab-pane {{resumen_pei_poa.active_mat_poa}}" id="resumen_indicador_poa" ng-show="resumen_pei_poa.see_matriz_poa()">-->
-                    <div id="poa_admin" ng-controller="resumen_indicador_actividad as resumen_indicador_actividad">
-                        <%- include('../resumen_indicador_actividad/index.ejs'); %>
-                    </div>
+                <div class="tab-pane " id="resumen_indicador_actividad">
+
+                    <%- include('../resumen_indicador_actividad/index.ejs'); %>
                 </div>
 
             </div>

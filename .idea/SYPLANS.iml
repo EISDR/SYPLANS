@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/10-bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/assets" />
       <excludeFolder url="file://$MODULE_DIR$/modules_bk" />
       <excludeFolder url="file://$MODULE_DIR$/scriptsforclean" />
       <excludeFolder url="file://$MODULE_DIR$/stylesforclean" />

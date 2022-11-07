@@ -416,6 +416,7 @@ EXPORT = {
                                 }
                                 if (type === ENUM.file.formats.XLS) {
                                     swal.close();
+                                    $scope.export.Content = $scope.export.jsonToCSV(dataToExport, columsAllow, firstrow);
                                     $scope.export.Preview = $scope.export.jsonToTable(dataToExport, columsAllow, firstrow, undefined, undefined, true);
                                     $scope.modal.simpleModal(`<div style="overflow: auto;height: auto;width: 100%">${$scope.export.Preview}</div>`,
                                         {
@@ -587,6 +588,23 @@ EXPORT = {
             }
             return labels;
         };
+        $scope.export.createColums = (labelsx, columns) => {
+            var labelsx = [];
+            if (!$scope.CRUD().columnsOrder)
+                for (var i in columns) {
+                    var key = columns[i];
+                    labelsx.push(HTML.strip($scope.columnLabel(eval(`CRUD_${$scope.modelName}`).table.columns[key], key)));
+                }
+            else {
+                $scope.CRUD().columnsOrder.forEach(colrow => {
+                    colrow.forEach(col => {
+                        labelsx.push(col);
+                    });
+                });
+
+            }
+            return labelsx;
+        }
         $scope.export.jsonToTableExample = function (width, classes) {
             var preview = `<table id="dataexport" class="tabla-pagina-5 ${classes || "table"} table-togglable table-framed table-bordered" style="${width || $scope.funcWidth}">`;
             var labels = [];
@@ -627,13 +645,26 @@ EXPORT = {
                 var preview = `<table id="dataexport" class="tabla-pagina-5 ${classes || "table"} table-togglable table-framed table-bordered" style="${width || $scope.funcWidth}">`;
                 if (first) {
                     var labels = [];
-                    var previewColums = "";
-                    for (var i in columns) {
-                        var key = columns[i];
-                        labels.push(HTML.strip($scope.columnLabel(eval(`CRUD_${$scope.modelName}`).table.columns[key], key)));
-                        previewColums += `<th style="background-color: #1aa3ff;color: white">${ARRAY.last(labels)}</th>`;
+                    var previewColums = "<tr>";
+                    if (!$scope.CRUD().columnsOrder) {
+                        for (var i in columns) {
+                            var key = columns[i];
+                            labels.push(HTML.strip($scope.columnLabel(eval(`CRUD_${$scope.modelName}`).table.columns[key], key)));
+                            previewColums += `<th style="background-color: #1aa3ff;color: white">${ARRAY.last(labels)}</th>`;
+                        }
+                        previewColums += "</tr>";
+                    } else {
+                        previewColums = "";
+                        $scope.CRUD().columnsOrder.forEach(colrow => {
+                            previewColums += "<tr>";
+                            colrow.forEach(col => {
+                                labels.push(col.label);
+                                previewColums += `<th class="text-center" style="background-color: #1aa3ff;color: white" rowspan="${col.row || 1}" colspan="${col.col || 1}">${col.label}</th>`;
+                            });
+                            previewColums += "</tr>";
+                        });
                     }
-                    preview += `<thead class="bg-${COLOR.secundary}"  ><tr>${previewColums}</tr></thead>`;
+                    preview += `<thead class="bg-${COLOR.secundary}">${previewColums}</thead>`;
                 }
                 preview += `<tbody>`;
                 let locolumns = eval(`CRUD_${$scope.modelName}`).table.columns;

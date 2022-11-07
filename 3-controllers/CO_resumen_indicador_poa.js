@@ -5,6 +5,10 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
     resumen_indicador_poa.session = user;
     RUNCONTROLLER("resumen_indicador_poa", resumen_indicador_poa, $scope, $http, $compile);
 
+    resumen_indicador_poa.fixFilters = [{
+        field: "poa",
+        value: resumen_indicador_poa.session.poa_id
+    }];
     resumen_indicador_poa.colors = COLOR.secundary;
     resumen_indicador_poa.tipeExport = '';
     resumen_indicador_poa.group_caracteristica = user.groups[0] ? user.groups[0].caracteristica : "";
@@ -69,8 +73,10 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
 
     };
 
+    resumen_indicador_poa.firstime = true;
     resumen_indicador_poa.resumen_indicador_poa_get = async function () {
         resumen_indicador_poa.headerBody_list = [];
+
         animation4.loading(`#tabs_resumen`, "", ``, '120');
         BASEAPI.listp('resumen_indicador_poa', {
             limit: 0,
@@ -130,6 +136,7 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
 
 
             var selected = [];
+
             for (var a = 1; a <= user.cantidad; a++) {
                 eval(` resumen_indicador_poa.headerBody_list.push({name: "${resumen_indicador_poa.periodoName + ' ' + count1}", periodo: a });`);
                 count1++;
@@ -163,6 +170,40 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
                     }
                 }
             }
+
+            if (resumen_indicador_poa.firstime === true) {
+                resumen_indicador_poa.firstime = false;
+                CRUD_resumen_indicador_poa.table.columnsOrder[0].push(
+                    {
+                        label: "Metas",
+                        col: resumen_indicador_poa.headerBody_list.length
+                    });
+                CRUD_resumen_indicador_poa.table.columnsOrder[1].push(
+                    {
+                        label: "Projectadas / Alcanzadas / Varianzas",
+                        col: resumen_indicador_poa.headerBody_list.length
+                    });
+                resumen_indicador_poa.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_poa.table.columnsOrder[2].push({
+                        label: d.name
+                    });
+                });
+                resumen_indicador_poa.headerBody_list.forEach(d => {
+                    CRUD_resumen_indicador_poa.table.columns["z" + d.name.replaceAll(" ", "")] = {
+                        label: d.name,
+                        format: (row) => {
+                            let realRow = resumen_indicador_poa.resumen_indicador_poa_list.filter(d => d.id == row.id)[0];
+                            if (realRow)
+                                return `
+                            <span>${realRow["periodo" + d.periodo + "P"]}</span>|
+                            <span>${realRow["periodo" + d.periodo + "A"]}</span>|
+                            <span style="color: ${realRow["periodo" + d.periodo + "color"]}">${realRow["periodo" + d.periodo + "V"]}</span>
+                            `;
+                            return "";
+                        }
+                    };
+                });
+            }
             animation4.stoploading(`#tabs_resumen`);
             resumen_indicador_poa.refreshAngular();
         });
@@ -171,7 +212,7 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
         var url = $("#resumen_indicador_poaTable").excelexportjs({
             containerid: "resumen_indicador_poaTable",
             datatype: 'table',
-            worksheetName: resumen_indicador_poa.session.tipo_institucion === 1 ?`Indicadores de Proyecto/Producto.xls` : `Indicadores de Proyecto/Plan de Acción.xls`,
+            worksheetName: resumen_indicador_poa.session.tipo_institucion === 1 ? `Indicadores de Proyecto/Producto.xls` : `Indicadores de Proyecto/Plan de Acción.xls`,
             returnUri: true
         });
         DOWNLOAD.excel("Indicadores de Proyecto/Producto", url);
@@ -182,7 +223,7 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
         var url = $("#resumen_indicador_poaTableexport").excelexportjs({
             containerid: "resumen_indicador_poaTableexport",
             datatype: 'table',
-            worksheetName: resumen_indicador_poa.session.tipo_institucion === 1 ?`Indicadores de Proyecto/Producto.xls` : `Indicadores de Proyecto/Plan de Acción.xls`,
+            worksheetName: resumen_indicador_poa.session.tipo_institucion === 1 ? `Indicadores de Proyecto/Producto.xls` : `Indicadores de Proyecto/Plan de Acción.xls`,
             returnUri: true
         });
         DOWNLOAD.excel(fileName, url);
@@ -195,8 +236,6 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
     };
 
 
-
-
     resumen_indicador_poa.openmodalField = function (value) {
 
         resumen_indicador_poa.tipeExport = value.toString();
@@ -206,7 +245,7 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
 
             width: 'modal-full',
             header: {
-                title: resumen_indicador_poa.session.tipo_institucion === 1 ?`Vista Previa Resumen Indicadores de Proyecto/Producto` : `Vista Previa Resumen Indicadores de Proyecto/Plan de Acción`,
+                title: resumen_indicador_poa.session.tipo_institucion === 1 ? `Vista Previa Resumen Indicadores de Proyecto/Producto` : `Vista Previa Resumen Indicadores de Proyecto/Plan de Acción`,
                 icon: "ICON.classes.file_excel"
             },
             footer: {
