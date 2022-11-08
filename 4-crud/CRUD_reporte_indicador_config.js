@@ -81,7 +81,51 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
             },
         },
         filters: {
-            columns: true
+            columns: [
+                {
+                    key: 'orden',
+                    label: 'Orden',
+                    type: FILTER.types.integer,
+                    placeholder: 'Orden',
+                    maxlength: 15
+                },
+                {
+                    key: 'titulo',
+                    label: function(){ return 'Título'},
+                    type: FILTER.types.string,
+                    placeholder: 'Título'
+                },
+                {
+                    key: 'tipo_meta',
+                    label: function(){ return 'Tipo de meta'},
+                    type: FILTER.types.relation,
+                    table: 'tipoMeta',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'from',
+                    label: function(){ return 'Valor desde'},
+                    type: FILTER.types.integer,
+                    placeholder: 'Valor desde',
+                    maxlength: 15
+                },
+                {
+                    key: 'to',
+                    label: function(){ return 'Valor hasta'},
+                    type: FILTER.types.integer,
+                    placeholder: 'Valor hasta',
+                    maxlength: 15
+                },
+            ]
         }
     }
 });
