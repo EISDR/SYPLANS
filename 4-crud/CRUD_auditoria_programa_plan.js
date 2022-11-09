@@ -1107,7 +1107,44 @@ Los auditores que estarán participando serán :
                         }
                     },
                 ]
-            }
+            },
+            {
+                text: (data) => {
+                    return "Imprimir Informe Preliminar";
+                },
+                title: (data) => {
+                    return "Imprimir Informe Preliminar";
+                },
+                icon: (data) => {
+                    return "printer2";
+                },
+                permission: (data) => {
+                    return 'view';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                show: (data) => {
+                    return data.row.estatus > 6 || data.row.estatus == 5;
+                },
+                click: function (data) {
+                    data.$scope.from_edit = false;
+                    data.$scope.my_true_estatus = data.row.estatus;
+                    data.$scope.my_true_estatus_name = data.row.estatus_nombre;
+                    data.$scope.estatus_view = data.row.estatus + "";
+                    data.$scope.formulary({
+                        where: [{
+                            field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                            value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                        }]
+                    }, FORM.modes.edit, {}, 'export');
+                    data.$scope.form.titles = {
+                        edit: "Vista previa informe preliminar",
+                    };
+                    data.$scope.form.modalIcon = 'printer2';
+                    return false;
+                }
+            },
         ]
     }
 });

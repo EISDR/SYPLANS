@@ -1,0 +1,310 @@
+<div class="row"></div>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic" ng-show="false">
+        <div class="row">
+            <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+                <div ng-show="false">
+                    <%- FORM.select("auditoria_plan_departamento", scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        allownew: false,
+                        allowview: false,
+                        multiple: true,
+                        text: "item.nombre",
+                        value: "id",
+                        table: "departamento",
+                        icon: {class: "archive"},
+                        truelabel: "Departamentos Auditados",
+                        condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                        get: {
+                            table: 'auditoria_programa_plan_departamento',
+                            fieldFrom: 'id',
+                            fieldTo: 'programa_plan',
+                            field: 'departamento'
+                        },
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // },
+                    }) %>
+                </div>
+                <label class="control-label is-visible animate ng-binding"
+                       style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color:#000000 !important;">
+                    Departamentos Auditados
+                </label>
+                <ol ng-show="auditoria_programa_plan.departamento_list.data.length > 0" style="">
+                    <li ng-repeat="(key,row) in auditoria_programa_plan.departamento_list.data" class=""
+                        style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                        {{row.nombre}}
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+                <div ng-show="false">
+                    <%- FORM.select("auditoria_plan_participantes", scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        allownew: false,
+                        allowview: false,
+                        multiple: true,
+                        text: "item.nombre + ' ' + item.apellido",
+                        value: "id",
+                        table: "usuario",
+                        icon: {class: "archive"},
+                        truelabel: "Participantes",
+                        get: {
+                            table: 'auditoria_programa_plan_participantes',
+                            fieldFrom: 'id',
+                            fieldTo: 'programa_plan',
+                            field: 'usuario',
+                        },
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // },
+                    }) %>
+                </div>
+                <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
+                    Participantes Departamentales del Plan de Auditoría</label>
+                <ol ng-show="auditoria_programa_plan.real_participantes_list.data.length > 0" style="">
+                    <li ng-repeat="(key,row) in auditoria_programa_plan.real_participantes_list.data" class=""
+                        style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                        {{row.nombre + ' ' + row.apellido}} ({{row.departamento}})
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-12 col-md-4" style="margin-top: 0px">
+                <div ng-show="false">
+                    <%- FORM.select("auditoria_plan_responsable", scope, {
+                        allowedit: false,
+                        allowlist: false,
+                        allownew: false,
+                        allowview: false,
+                        multiple: true,
+                        text: "item.nombre + ' ' + item.apellido",
+                        value: "id",
+                        table: "usuario",
+                        icon: {class: "archive"},
+                        truelabel: "Participantes",
+                        get: {
+                            table: 'auditoria_programa_plan_equipotrabajo',
+                            fieldFrom: 'id',
+                            fieldTo: 'programa_plan',
+                            field: 'usuario',
+                            where_delete: {
+                                field: "esresponsable",
+                                operator: "is",
+                                value: "$null"
+                            }
+                        },
+                        // parent: {
+                        //     model: 'eje_estrategico',
+                        //     myfield: 'id',
+                        //     sufield: 'id'
+                        // },
+                    }) %>
+                </div>
+                <label class="control-label is-visible animate ng-binding"
+                       style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color:#000000 !important;">
+                    Auditores Participantes
+                </label>
+                <ol ng-show="auditoria_programa_plan.participantes_list.data.length > 0" style="">
+                    <li ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
+                        style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
+                        {{row.nombre + ' ' + row.apellido}} {{auditoria_programa_plan.get_rol(row.id)}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12" style="padding-left: 0; margin-top: -15px">
+            <div ng-show="false"><%- FORM.select("auditoria_plan_documentos_asociados", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_drp",
+                    value: "id",
+                    table: "vw_documentos_asociados_pv",
+                    icon: {class: "archive"},
+                    truelabel: "Documentos Asociados",
+                    get: {
+                        table: 'auditoria_programa_plan_documentos_asociados',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'documento_asociado',
+                        where_delete: {
+                            field: "trabajado",
+                            operator: "!=",
+                            value: 1
+                        }
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                }) %></div>
+        </div>
+    </div>
+
+<div class="" id="informe_preliminar">
+        <table class="table table-bordered">
+            <thead class="">
+            <tr>
+                <th colspan="1" style="text-align: left">Institución:</th>
+                <td colspan="4">{{auditoria_programa_plan.session.compania}}</td>
+            </tr>
+            <tr>
+                <th colspan="1" style="text-align: left">Informe Preliminar:</th>
+                <td colspan="4" class="">Informe preliminar de la auditoría: {{auditoria_programa_plan.nombre}}</td>
+            </tr>
+            <tr>
+                <th colspan="1" style="text-align: left">Auditoría:</th>
+                <td colspan="4" class="">{{auditoria_programa_plan.nombre}}</td>
+            </tr>
+            <tr>
+                <th colspan="1" style="text-align: left">Fecha del informe:</th>
+                <td colspan="4" class="">{{auditoria_programa_plan.get_date()}}</td>
+            </tr>
+            </thead>
+            <tbody class="">
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5">Objetivo</th>
+            </tr>
+            <tr class="">
+                <td colspan="5" style="border-bottom: none">{{auditoria_programa_plan.objetivo}}</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border-top: none"></td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5">Alcance</th>
+            </tr>
+            <tr class="">
+                <td colspan="5" style="border-bottom: none">{{auditoria_programa_plan.alcance}}</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border-top: none"></td>
+            </tr>
+            <tr >
+                <th colspan="5" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la Auditoría</th>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: center; list-style-position: inside; border-bottom: none">
+                    <ul>
+                        <li ng-repeat="(key1, value1) in auditoria_programa_plan.departamento_list.data">
+                            {{value1.nombre}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border-top: none"></td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: #f5f5f5;">Participantes Departamentales</th>
+                <th colspan="2" style="background-color: #f5f5f5;">Auditores Participantes</th>
+            </tr>
+            <tr>
+                <td colspan="3" style="border-bottom: none">
+                    <ul>
+                        <li ng-repeat="(key2, value2) in auditoria_programa_plan.real_participantes_list.data">
+                            {{value2.nombre + " " + value2.apellido}} ({{value2.departamento}})
+                        </li>
+                    </ul>
+                </td>
+                <td colspan="2" style="border-bottom: none">
+                    <ul>
+                        <li ng-repeat="(key3, value3) in auditoria_programa_plan.participantes_list.data">
+                            {{value3.nombre + ' ' + value3.apellido}} {{auditoria_programa_plan.get_rol(value3.id)}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="border-top: none"></td>
+                <td colspan="2" style="border-top: none"></td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5;text-align: center;">Hallazgos Encontrados</th>
+            </tr>
+            <tr>
+                <th>Proceso</th>
+                <th>Documento</th>
+                <th>Punto de Verificación</th>
+                <th>Tipo</th>
+                <th>Observación</th>
+            </tr>
+            <tr ng-repeat="(key4,value4) in auditoria_programa_plan.documentos_asociados_list_view.data"style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                <td style="border-bottom: none"
+                        rowspan="{{auditoria_programa_plan.rowspanme('nombre_proceso', value4.nombre_proceso, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                        ng-if="auditoria_programa_plan.seeme('nombre_proceso', value4.nombre_proceso, key4, auditoria_programa_plan.documentos_asociados_list_view.data)">
+                    {{value4.nombre_proceso}}
+                </td>
+                <td style="border-bottom: none"
+                        rowspan="{{auditoria_programa_plan.rowspanme('codigo', value4.codigo, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                        ng-if="auditoria_programa_plan.seeme('codigo', value4.codigo, key4, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                >
+                    {{value4.codigo}} - {{value4.nombre}}
+                </td>
+                <td style="border-bottom: none">
+                    {{value4.punto_verificacion}}
+                </td>
+                <td style="border-bottom: none">
+                    {{value4.tipo_inconformidad}}
+                </td>
+                <td style="border-bottom: none">
+                    {{value4.observaciones}}
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: none"></td>
+                <td style="border-top: none"></td>
+                <td style="border-top: none"></td>
+                <td style="border-top: none"></td>
+                <td style="border-top: none"></td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: #f5f5f5;">Punto de Vista de los Auditados</th>
+                <th colspan="2" style="background-color: #f5f5f5;">Departamento</th>
+            </tr>
+            <tr ng-repeat="(key5, value5) in auditoria_programa_plan.informes_auditoria.data">
+                <td colspan="3" style="text-align: center; border-bottom: none"><p ng-bind-html="value5.recomendaciones"></p></td>
+                <td colspan="2" style="text-align: center; border-bottom: none">{{value5.departamento}}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="border-top: none"></td>
+                <td colspan="2" style="border-top: none"></td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5; border-bottom: none">Recomendaciones de Mejora</th>
+            </tr>
+            <tr>
+                <td colspan="5" style="border-top: none">
+                    <div><p ng-bind-html="auditoria_programa_plan.recomendaciones"></p></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="padding-right: 0">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+     </span>
+        <button ng-show="<%= scope %>.estatus > 6 || <%= scope %>.estatus == 5"
+
+                dragonlanguage="" title="Exportar informe Preliminar"
+                type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.export_informe(auditoria_programa_plan.nombre)">
+            <b><i class="icon-printer2"></i></b>
+            <language>Imprimir</language>
+        </button>
+    </div>
+
+
