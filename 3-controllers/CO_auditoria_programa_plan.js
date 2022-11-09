@@ -2598,7 +2598,7 @@ Los participantes departamentales son:`
         return LAN.datetime();
     }
     auditoria_programa_plan.export_informe = function (name) {
-        var fecha = LAN.date();
+        var fecha = LAN.datetime();
         var url = $("#informe_preliminar").excelexportjs({
             containerid: "informe_preliminar",
             datatype: 'table',
