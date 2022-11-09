@@ -411,6 +411,131 @@
         <b><i class="icon-cross2"></i></b>
         <language>MESSAGE.ic('mono.cancel')</language>
     </button>
+    <button ng-show="<%= scope %>.estatus > 6"
+
+            dragonlanguage="" title="Exportar informe Preliminar"
+            type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.export_informe(auditoria_programa_plan.nombre)">
+        <b><i class="icon-file-xml2"></i></b>
+        <language>Exportar informe Preliminar</language>
+    </button>
+</div>
+
+<div class="" id="informe_preliminar" style="display: none">
+    <table class="table table-bordered">
+        <thead class="">
+        <tr>
+            <th colspan="1" style="text-align: left">Institución:</th>
+            <td colspan="4">{{auditoria_programa_plan.session.compania}}</td>
+        </tr>
+        <tr>
+            <th colspan="1" style="text-align: left">Informe Preliminar:</th>
+            <td colspan="4" class="">Informe preliminar de la auditoría: {{auditoria_programa_plan.nombre}}</td>
+        </tr>
+        <tr>
+            <th colspan="1" style="text-align: left">Auditoría:</th>
+            <td colspan="4" class="">{{auditoria_programa_plan.nombre}}</td>
+        </tr>
+        <tr>
+            <th colspan="1" style="text-align: left">Fecha del informe:</th>
+            <td colspan="4" class="">{{auditoria_programa_plan.get_date()}}</td>
+        </tr>
+        </thead>
+        <tbody class="">
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5">Objetivo</th>
+            </tr>
+            <tr class="">
+                <td colspan="5">{{auditoria_programa_plan.objetivo}}</td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5">Alcance</th>
+            </tr>
+            <tr class="">
+                <td colspan="5">{{auditoria_programa_plan.alcance}}</td>
+            </tr>
+            <tr >
+                <th colspan="5" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la Auditoría</th>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: center; list-style-position: inside">
+                    <ul>
+                        <li ng-repeat="(key1, value1) in auditoria_programa_plan.departamento_list.data">
+                            {{value1.nombre}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: #f5f5f5;">Participantes Departamentales</th>
+                <th colspan="2" style="background-color: #f5f5f5;">Auditores Participantes</th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <ul>
+                        <li ng-repeat="(key2, value2) in auditoria_programa_plan.participantes_list.data">
+                            {{value2.nombre + " " + value2.apellido + (value2.departamento)}}
+                        </li>
+                    </ul>
+                </td>
+                <td colspan="2">
+                    <ul>
+                        <li ng-repeat="(key3, value3) in auditoria_programa_plan.participantes_list.data">
+                            {{value3.nombre + ' ' + value3.apellido}} {{auditoria_programa_plan.get_rol(value3.id)}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5;text-align: center;">Hallazgos Encontrados</th>
+            </tr>
+            <tr>
+                <th>Proceso</th>
+                <th>Documento</th>
+                <th>Punto de Verificación</th>
+                <th>Tipo</th>
+                <th>Observación</th>
+            </tr>
+            <tr ng-repeat="(key4,value4) in auditoria_programa_plan.documentos_asociados_list_view.data"style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+                <td
+                        rowspan="{{auditoria_programa_plan.rowspanme('nombre_proceso', value4.nombre_proceso, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                        ng-if="auditoria_programa_plan.seeme('nombre_proceso', value4.nombre_proceso, key4, auditoria_programa_plan.documentos_asociados_list_view.data)">
+                    {{value4.nombre_proceso}}
+                </td>
+                <td
+                        rowspan="{{auditoria_programa_plan.rowspanme('codigo', value4.codigo, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                        ng-if="auditoria_programa_plan.seeme('codigo', value4.codigo, key4, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                >
+                    {{value4.codigo}} - {{value4.nombre}}
+                </td>
+                <td>
+                    {{value4.punto_verificacion}}
+                </td>
+                <td>
+                    {{value4.tipo_inconformidad}}
+                </td>
+                <td>
+                    {{value4.observaciones}}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3" style="background-color: #f5f5f5;">Punto de Vista de los Auditados</th>
+                <th colspan="2" style="background-color: #f5f5f5;">Departamento</th>
+            </tr>
+            <tr ng-repeat="(key5, value5) in auditoria_programa_plan.informes_auditoria.data">
+                <td colspan="3" style="text-align: center;"><p ng-bind-html="value5.recomendaciones"></p></td>
+                <td colspan="2" style="text-align: center;">{{value5.departamento}}</td>
+            </tr>
+            <tr>
+                <th colspan="5" style="background-color: #f5f5f5;">Recomendaciones de Mejora</th>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div><p ng-bind-html="auditoria_programa_plan.recomendaciones"></p></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
