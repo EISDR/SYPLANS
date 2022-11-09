@@ -2598,15 +2598,38 @@ Los participantes departamentales son:`
         return LAN.datetime();
     }
     auditoria_programa_plan.export_informe = function (name) {
-        var fecha = LAN.datetime();
-        var url = $("#informe_preliminar").excelexportjs({
-            containerid: "informe_preliminar",
-            datatype: 'table',
-            worksheetName: `Informe preliminar ${fecha}.xls`,
-            returnUri: true
+        // var fecha = LAN.datetime();
+        // var url = $("#informe_preliminar").excelexportjs({
+        //     containerid: "informe_preliminar",
+        //     datatype: 'table',
+        //     worksheetName: `Informe preliminar ${fecha}.xls`,
+        //     returnUri: true
+        // });
+        // DOWNLOAD.excel(`Informe preliminar ${fecha}`, url);
+        $("#informe_preliminar").printThis({
+            importCSS: false,                // import parent page css
+            loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+            printDelay: 333,
         });
-        DOWNLOAD.excel(`Informe preliminar ${fecha}`, url);
     };
+    auditoria_programa_plan.openmodalField = function (value) {
+
+        auditoria_programa_plan.modal.modalView("auditoria_programa/export", {
+
+            width: 'modal-full',
+            header: {
+                title: `Vista Previa Informe Preliminar`,
+                icon: "ICON.classes.file_excel"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'auditoria_programa'
+            },
+        });
+    }
     // auditoria_programa_plan.exportPDF = function () {
     //     html2canvas(document.body).then(function(canvas) {
     //         document.body.appendChild(canvas);
