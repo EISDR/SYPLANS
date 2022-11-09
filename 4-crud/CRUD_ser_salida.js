@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_ser_salida, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_ser_salida, {
     table: {
         //width: "width:3000px;",
-        //view: 'vw_ser_salida',
+        view: 'vw_ser_salida',
         //method: 'ser_salida',
         //limits: [10, 50, 100, 0],
         //report: true,
@@ -74,7 +74,7 @@ DSON.keepmerge(CRUD_ser_salida, {
             ser_salida_estatus_nombre: {
                 label: () => {
                     return "Estatus";
-                }, link: {table: 'ser_salida_estatus', from: 'ser_salida_estatus'}
+                },
             },
             fecha_queja: {
                 label: () => {
@@ -89,12 +89,6 @@ DSON.keepmerge(CRUD_ser_salida, {
             {
                 'table': 'ser_salida_tipo',
                 'base': 'ser_salida_tipo',
-                'field': 'id',
-                'columns': ['id', 'nombre']
-            },
-            {
-                'table': 'ser_salida_estatus',
-                'base': 'ser_salida_estatus',
                 'field': 'id',
                 'columns': ['id', 'nombre']
             }]
@@ -122,7 +116,7 @@ CRUD_ser_salida.table.options[0].menus[0] = {
         return data.row.ser_salida_estatus == "1";
     },
     click: function (data) {
-
+        data.$scope.my_true_estatus = data.row.ser_salida_estatus;
         data.$scope.formulary({
             where: [{
                 field: eval(`CRUD_${data.$scope.modelName}`).table.key,
@@ -178,7 +172,7 @@ CRUD_ser_salida.table.options[0].menus.push({
         return data.row.ser_salida_estatus_id != "3";
     },
     click: function (data) {
-
+        data.$scope.my_true_estatus = data.row.ser_salida_estatus;
         data.$scope.formulary({
             where: [{
                 field: eval(`CRUD_${data.$scope.modelName}`).table.key,

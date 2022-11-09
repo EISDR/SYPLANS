@@ -15,14 +15,14 @@
             </div>
             <div class='col-sm-4 col-md-4' ng-if="!ser_salida.trabajando">
                 <%- FORM.select('ser_salida_estatus', scope, {
-                    column: 'name',
-                    table: 'ser_salida_estatus',
-                    text: 'item.nombre',
                     label: "Estatus",
                     allownew: false,
                     allowedit: false,
                     allowview: false,
-                    allowlist: false
+                    allowlist: false,
+                    text: "item.permitido",
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    condition: "(item.plan_status == ser_salida.my_true_estatus && item.entidad == 'ser_salida')"
                 }) %>
             </div>
         </div>
@@ -208,13 +208,14 @@
                     <div class='col-sm-4 col-md-4'>
                         <%- FORM.select('ser_salida_estatus', scope, {
                             column: 'name',
-                            table: 'ser_salida_estatus',
-                            text: 'item.nombre',
                             label: "Estatus",
                             allownew: false,
                             allowedit: false,
                             allowview: false,
-                            allowlist: false
+                            allowlist: false,
+                            text: "item.permitido",
+                            table: 'vw_auditoria_programa_plan_estatus',
+                            condition: "(item.plan_status == ser_salida.my_true_estatus && item.entidad == 'ser_salida')"
                         }) %>
                     </div>
                     <div class='col-sm-3 col-md-3 '

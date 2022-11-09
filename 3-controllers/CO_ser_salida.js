@@ -11,7 +11,7 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
     ser_salida.singular = "Salida no Conforme";
     ser_salida.plural = "Salidas no Conforme";
     ser_salida.headertitle = "Salidas no Conforme";
-
+    ser_salida.my_true_estatus = 1;
     //ser_salida.destroyForm = false;
     //ser_salida.permissionTable = "tabletopermission";
     RUNCONTROLLER("ser_salida", ser_salida, $scope, $http, $compile);
@@ -36,6 +36,13 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
             //    value: -1
             //    }
             //];
+            ser_salida.selectQueries['ser_salida_estatus'] = [
+                {
+                    field: 'rol',
+                    operator: '=',
+                    value: ser_salida.session.groups[0].id
+                }
+            ];
             $scope.$watch("ser_salida.nombre", function (value) {
                 var rules = [];
                 //rules here
