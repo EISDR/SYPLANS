@@ -2594,6 +2594,19 @@ Los participantes departamentales son:`
         auditoria_programa_plan.from_new = false;
         auditoria_programa_plan.from_edit = false;
     };
+    auditoria_programa_plan.get_date = function(){
+        return LAN.datetime();
+    }
+    auditoria_programa_plan.export_informe = function (name) {
+        var fecha = LAN.date();
+        var url = $("#informe_preliminar").excelexportjs({
+            containerid: "informe_preliminar",
+            datatype: 'table',
+            worksheetName: `Informe preliminar ${fecha}.xls`,
+            returnUri: true
+        });
+        DOWNLOAD.excel(`Informe preliminar ${fecha}`, url);
+    };
     // auditoria_programa_plan.exportPDF = function () {
     //     html2canvas(document.body).then(function(canvas) {
     //         document.body.appendChild(canvas);
