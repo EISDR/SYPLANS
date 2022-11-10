@@ -134,7 +134,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     //     continue;
                     let nombre = (baseController.session.tipoMenta.filter(d => d.id === tipo_meta_index)[0] || {nombre: "General"}).nombre;
                     let liston = ponderaciones.filter(d => d.tipo_meta === tipo_meta_index).map(d => {
-                        return {color: d.color, nombre: d.titulo, titulo: `Progreso de ${d.from} a ${d.to}`}
+                        return {id: d.id, color: d.color, nombre: d.titulo, titulo: `Progreso de ${d.from} a ${d.to}`}
                     });
                     finalPonderaciones.push({
                         nombre: nombre,
@@ -142,6 +142,29 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     });
                 }
                 baseController.ponderaciones = finalPonderaciones;
+                let css = ``;
+
+                baseController.ponderaciones.forEach(pon => {
+                    pon.list.forEach(l => {
+                        css += `
+                         .text_${l.id}:{
+                             color: ${l.color} !important;
+                             font-weight: bold;
+                         }
+                    `;
+                    })
+
+                });
+
+                let head = document.head || document.getElementsByTagName('head')[0];
+                let style = document.createElement('style');
+                head.appendChild(style);
+                style.type = 'text/css';
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
             });
         baseController.abrirPonderaciones = () => {
             baseController.modal.modalView("a_interinstitucion/ponderacion", {

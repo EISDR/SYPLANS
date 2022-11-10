@@ -50,60 +50,15 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                     return "Dirección Meta"
                 },
                 anonymous: true,
-                value: function (data) {
-                    var icon = "";
-                    var color = "text-";
-                    var vari = data.row.alcanzado - data.row.acumulado;
-
-                    if (data.row.direccion_meta == 1) {
-                        icon = "icon-arrow-up7";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        } else if (vari > 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    } else if (data.row.direccion_meta == 2) {
-                        icon = "icon-arrow-down7";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        }
-                        if (vari < 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    } else if (data.row.direccion_meta == 3) {
-                        icon = "icon-minus3";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    }
-                    let varimoney = vari;
-                    if (vari < 0)
-                        vari = `(${vari})`;
-
-                    switch (data.row.tipo_meta) {
-                        case 2:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 1:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 4:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 5:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        default: {
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                        }
-                    }
-
+                format: function (row) {
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].direccionMeta)
+                                    if (row.cumplidor.general[0].direccionMeta[0])
+                                        if (row.cumplidor.general[0].direccionMeta[0].nombre)
+                                            if (row.cumplidor.general[0].direccionMeta[0].nombre)
+                                                return row.cumplidor.general[0].direccionMeta[0].nombre;
                 }
             },
             acumulado: {
@@ -111,26 +66,12 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                     return "Proyectado"
                 },
                 format: function (row) {
-                    if (row.acumulado) {
-                        switch (row.tipo_meta) {
-                            case 2:
-                                return "Índice: " + (row.acumulado > 1 ? 1 : 0);
-                                break;
-                            case 1:
-                                return (row.acumulado || 0) + '%';
-                                break;
-                            case 4:
-                                return LAN.money(row.acumulado).format(false);
-                                break;
-                            case 5:
-                                return LAN.money(row.acumulado).format(true);
-                                break;
-
-                            default : {
-                                return LAN.money(row.acumulado).format(false);
-                            }
-                        }
-                    }
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].sumas)
+                                    if (row.cumplidor.general[0].sumas.formatedSumAlcanzada)
+                                        return row.cumplidor.general[0].sumas.formatedSumMeta;
                 },
                 sorttype: "numeric",
                 // formattype: ENUM.FORMAT.numeric
@@ -139,102 +80,29 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                 label: "Alcanzada",
                 sorttype: "numeric",
                 format: function (row) {
-                    if (row.alcanzado !== undefined && row.alcanzado !== 'null' && row.alcanzado !== null) {
-                        switch (row.tipo_meta) {
-                            case 2:
-                                return (row.alcanzado > 1 ? 1 : 0);
-                                break;
-                            case 1:
-                                return (row.alcanzado || 0) + '%';
-                                break;
-                            case 4:
-                                return LAN.money(row.alcanzado || 0).format(false);
-                                break;
-                            case 5:
-                                return LAN.money(row.alcanzado || 0).format(true);
-                                break;
-                            default : {
-                                return LAN.money(row.alcanzado || 0).format(false) || 0;
-                            }
-                        }
-                    } else {
-                        return "";
-                    }
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].sumas)
+                                    if (row.cumplidor.general[0].sumas.formatedSumAlcanzada)
+                                        return row.cumplidor.general[0].sumas.formatedSumMeta;
                 },
                 // formattype: ENUM.FORMAT.numeric
             },
             cumplimiento: {
                 format: function (row) {
-                    return row.cumplidor.cumplimiento+ "%";
+                    let ponderacion = "";
+                    let clase = "";
+                    if (row.cumplidor)
+                        if (row.cumplidor.ponderacion)
+                            if (row.cumplidor.ponderacion.titulo) {
+                                ponderacion = row.cumplidor.ponderacion.titulo;
+                                clase = `text_${row.cumplidor.ponderacion.id}`;
+                            }
+                    return `<span class="${clase}" title="${ponderacion}">${row.cumplidor.cumplimiento}%</span>`;
                 },
                 sortable: false
             },
-            // varianza: {
-            //     label: function () {
-            //         return "Diferencia"
-            //     },
-            //     anonymous: true,
-            //     value: function (data) {
-            //         if (!data.row.alcanzado || !data.row.acumulado) {
-            //             return "";
-            //         }
-            //         var icon = "";
-            //         var color = "text-";
-            //         var vari = data.row.alcanzado - data.row.acumulado;
-            //
-            //         if (data.row.direccion_meta == 1) {
-            //             icon = "icon-arrow-up7";
-            //             if ((vari || 0) == 0) {
-            //                 color += "gray";
-            //             } else if (vari > 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         } else if (data.row.direccion_meta == 2) {
-            //             icon = "icon-arrow-down7";
-            //             if ((vari || 0) == 0) {
-            //                 color += "gray";
-            //             }
-            //             if (vari < 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         } else if (data.row.direccion_meta == 3) {
-            //             icon = "icon-minus3";
-            //             if ((vari || 0) == 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         }
-            //         let varimoney = vari;
-            //         if (vari < 0)
-            //             vari = `(${vari})`;
-            //
-            //         if (vari === "null")
-            //             vari = 0;
-            //         switch (data.row.tipo_meta) {
-            //             case 2:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney || vari).format(false)}</span> `;
-            //                 break;
-            //             case 1:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney || vari).format(false) || 0}%</span> `;
-            //                 break;
-            //             case 4:
-            //                 return ` <span class="${color}" > ${LAN.money(vari).format(false)}</span>`;
-            //                 break;
-            //             case 5:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney).format(true)}</span> `;
-            //                 break;
-            //             default: {
-            //                 return ` <span class="${color}" > ${LAN.money(varimoney || vari).format(false)}</span>`;
-            //             }
-            //         }
-            //
-            //     }
-            // },
             detalle: {
                 label: function () {
                     return "Acciones"
@@ -245,20 +113,21 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                     </a>`
                 },
                 click: function (data) {
-                    console.log(data);
-                    vw_dashboard_productosgrid_pei.selectedPEI = data.row.id;
-                    baseController.modal.modalView("indicador_resultado_pei", {
-                        header: {
-                            title: data.row.indicador,
-                        },
-                        footer: {
-                            cancelButton: true
-                        },
-                        content: {
-                            loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                            sameController: 'indicador_resultado_pei'
-                        },
-                    });
+                    if (data.row.cumplidor)
+                        if (data.row.cumplidor.ficha) {
+                            vw_dashboard_productosgrid_pei.FICHA = data.row.cumplidor.ficha.FICHA;
+                            vw_dashboard_productosgrid_pei.modal.modalView("aacontroldemando/fichaindicador", {
+                                header: {
+                                    title: data.row.indicador,
+                                },
+                                footer: {
+                                    cancelButton: true
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+                                },
+                            });
+                        }
                 }
             }
         },

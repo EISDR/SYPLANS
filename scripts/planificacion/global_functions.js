@@ -2428,6 +2428,35 @@ directRunMagicOneToMany = (data, column, table, key, description, mykey) => new 
     resolve(data);
 });
 
+sinEsLower = (str) => {
+    return (str || "").replaceAll(' ', '').toLowerCase();
+}
+dibujaGracfico = (div, value, color, width, height, arcstart, arcend) => {
+    let knob = pureknob.createKnob(width || 300, height || 300);
+    knob.setProperty('angleStart', arcstart || (-0.50 * Math.PI));
+    knob.setProperty('angleEnd', arcend || (0.50 * Math.PI));
+    knob.setProperty('colorFG', color);
+    knob.setProperty('colorBG', "#ccc");
+    knob.setProperty('textScale', 0.8);
+    knob.setProperty('trackWidth', 0.4);
+    knob.setProperty('readonly', true);
+    knob.setProperty('valMin', 0);
+    knob.setProperty('valMax', 100);
+    knob.setProperty('fnValueToString', (value) => {
+        if (value === "")
+            return "-";
+        return `${value}%`;
+    });
+    knob.setValue(value);
+    const listener = function (knob, value) {
+        console.log(value);
+    };
+    knob.addListener(listener);
+    const node = knob.node();
+    const elem = document.getElementById(div);
+    if (elem)
+        elem.appendChild(node);
+}
 createfalse = async () => {
     aacontroldemandofalso = {
         abierto: true,
@@ -2483,7 +2512,71 @@ createfalse = async () => {
             return {
                 cumplimiento: (Number(obj[0].sumas.cumplimiento) || 0.00).toFixed(2),
                 ponderacion: obj[0].sumas.ponderacion,
-                general: obj
+                general: obj,
+                ficha: aacontroldemandofalso.ficha(obj)
+            }
+        },
+        existx: (arrayx, label, value) => {
+            if (value)
+                arrayx.push({label: label, value: value})
+        },
+        ficha: (indicador) => {
+            let main = indicador[0];
+            let fichaFinal = {};
+            fichaFinal.datos_relacionados = [];
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Eje Estrategico", main.eje);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Objetivo Estrategico", main.objetivo);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Estrategia", main.estrategia);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Resultado Esperado", main.resultado);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Departamento", main.departamento);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Producto", main.producto);
+            aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Actividad", main.actividad);
+            if (!main.indicador_pei)
+                aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Año del POA", main.ano);
+            fichaFinal.periodicidad = main.periodicidad.nombre_mostrar;
+            fichaFinal.grafico = {
+                porcentaje: Number(main.sumas.cumplimiento).toFixed(2),
+                color: main.sumas.ponderacion.color,
+                titulo_ponderacion: main.sumas.ponderacion.titulo
+            };
+            fichaFinal.datos_indicador = [];
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Indicador PEI", main.indicador_pei);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Indicador POA", main.indicador_producto);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Indicador Actividad", main.indicador_actividad);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Descripción del indicador", main.descripcion);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Fuente", main.fuente);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Método de Cálculo", main.metodo_calculo);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Año Línea Base", main.ano_linea_base);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Línea base", main.linea_base);
+            aacontroldemandofalso.existx(fichaFinal.datos_indicador, "Medio de Verificación", main.medio_verificacion);
+            fichaFinal.leyenda = `Este indicador trabaja con <b>${main.tipoMeta[0].nombre}</b> y debe tender a ser <b>${main.direccionMeta[0].nombre}</b>`;
+            fichaFinal.periodos = [];
+            indicador.forEach(d => {
+                fichaFinal.periodos.push(
+                    {
+                        indice: d.periodo,
+                        periodoValid: d.props.periodoValid,
+                        current: d.props.current,
+                        sinMeta: d.props.sinMeta,
+                        meta: d.props.formatedMeta,
+                        meta_alcanzada: d.props.formatedAlcanzada,
+                        diferencia: d.props.formatedVarianza,
+                        enable: d.props.valid
+                    }
+                );
+            });
+            fichaFinal.periodos.push({
+                indice: "Total",
+                meta: main.sumas.formatedSumMeta,
+                meta_alcanzada: main.sumas.formatedSumAlcanzada,
+                diferencia: main.sumas.formatedSumVarianza,
+                enable: true,
+                periodoValid: true,
+                sinMeta: false
+            });
+            return {
+                title: main.indicador_pei || main.indicador_producto || main.indicador_actividad,
+                FICHA: fichaFinal
             }
         },
         indicador: (periodos, pei) => {

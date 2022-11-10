@@ -1,8 +1,10 @@
 <!-- Volver a Inicio-->
 <div style="margin-top: -10px; margin-left: 5px;">
-    <button class="btn btn-primary" ng-click=" <%= scope %>.ui.goHome();" style="float: right">
+    <button class="btn btn-primary" ng-show="<%= scope %>.ui" ng-click=" <%= scope %>.ui.goHome();"
+            style="float: right">
         Volver al inicio
     </button>
+    <button style="float: right" type="button" ng-show="!<%= scope %>.ui" class="btn btn-labeled bg-secundary" onclick="MODAL.close(<%= scope %>)"> <b><i class="icon-cross2"></i></b>Atrás</button>
 </div>
 <br>
 
@@ -94,8 +96,12 @@
 
 <!-- Datos Relacionados -->
 <script>
-    <%= scope %>.totalRows = Math.round(<%= scope %>.FICHA.datos_relacionados.length / 2);
-    <%= scope %>.totalIndicadorRows = Math.round(<%= scope %>.FICHA.datos_indicador.length / 2);
+    <%= scope %>.totalRows = Math.round(<%= scope %>.FICHA.datos_relacionados.length / 2
+    )
+    ;
+    <%= scope %>.totalIndicadorRows = Math.round(<%= scope %>.FICHA.datos_indicador.length / 2
+    )
+    ;
 </script>
 <div class="container">
     <div class="row">
@@ -124,7 +130,11 @@
 <script>
     {
         {
+            if (<%= scope %>.loadThis)
             <%= scope %>.loadThis('graficoIndicador', <%= scope %>.FICHA.grafico)
+            else{
+                dibujaGracfico(`graficoIndicador`, <%= scope %>.FICHA.grafico.porcentaje, <%= scope %>.FICHA.grafico.color, 300, 250);
+            }
         }
     }
     <%= scope %>.refreshAngular();
