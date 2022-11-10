@@ -1,1 +1,27 @@
 <%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    evento_indicador_relacion.fixFilters = [{
+        "field": "evento_indicador",
+        "value": evento_indicador.dataForView.id
+    }];
+</script>
+<br>
+<div class="table table-togglable table-framed">
+    <div id="evento_indicador_relacion " ng-controller="evento_indicador_relacion as evento_indicador_relacion">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'evento_indicador_relacion'}); %>
+            <div class="subcontent">
+                <div class="col-md-12" style="padding: 0">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'evento_indicador_relacion'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    evento_indicador_relacion.setPermission("actions", false);
+    evento_indicador_relacion.setPermission("filter", false);
+    evento_indicador_relacion.setPermission("export", false);
+    evento_indicador_relacion.setPermission("audit", false);
+    evento_indicador_relacion.setPermission("add", false);
+</script>

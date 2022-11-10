@@ -36,7 +36,13 @@
 </div>
 
 <%- FORM.footer(scope) %>
-
+<script>
+    evento_indicador_relacion.setPermission("actions", true);
+    evento_indicador_relacion.setPermission("filter", true);
+    evento_indicador_relacion.setPermission("export", true);
+    evento_indicador_relacion.setPermission("audit", true);
+    evento_indicador_relacion.setPermission("add", true);
+</script>
 
 
 
