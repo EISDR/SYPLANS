@@ -147,7 +147,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 baseController.ponderaciones.forEach(pon => {
                     pon.list.forEach(l => {
                         css += `
-                         .text_${l.id}:{
+                         .text_${l.id}{
                              color: ${l.color} !important;
                              font-weight: bold;
                          }

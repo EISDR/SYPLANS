@@ -70,7 +70,7 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                         if (row.cumplidor.general)
                             if (row.cumplidor.general[0])
                                 if (row.cumplidor.general[0].sumas)
-                                    if (row.cumplidor.general[0].sumas.formatedSumAlcanzada)
+                                    if (row.cumplidor.general[0].sumas.formatedSumMeta)
                                         return row.cumplidor.general[0].sumas.formatedSumMeta;
                 },
                 sorttype: "numeric",
@@ -85,7 +85,7 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                             if (row.cumplidor.general[0])
                                 if (row.cumplidor.general[0].sumas)
                                     if (row.cumplidor.general[0].sumas.formatedSumAlcanzada)
-                                        return row.cumplidor.general[0].sumas.formatedSumMeta;
+                                        return row.cumplidor.general[0].sumas.formatedSumAlcanzada;
                 },
                 // formattype: ENUM.FORMAT.numeric
             },
@@ -115,8 +115,8 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_pei, {
                 click: function (data) {
                     if (data.row.cumplidor)
                         if (data.row.cumplidor.ficha) {
-                            vw_dashboard_productosgrid_pei.FICHA = data.row.cumplidor.ficha.FICHA;
-                            vw_dashboard_productosgrid_pei.modal.modalView("aacontroldemando/fichaindicador", {
+                            data.$scope.FICHA = data.row.cumplidor.ficha.FICHA;
+                            data.$scope.modal.modalView("aacontroldemando/fichaindicador", {
                                 header: {
                                     title: data.row.indicador,
                                 },

@@ -53,207 +53,86 @@ DSON.keepmerge(CRUD_vw_indicadores_notificacion, {
                     return "Dirección Meta"
                 },
                 anonymous: true,
-                value: function (data) {
-                    var icon = "";
-                    var color = "text-";
-                    var vari = data.row.alcanzado - data.row.acumulado;
-
-                    if (data.row.direccion_meta == 1) {
-                        icon = "icon-arrow-up7";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        } else if (vari > 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    } else if (data.row.direccion_meta == 2) {
-                        icon = "icon-arrow-down7";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        }
-                        if (vari < 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    } else if (data.row.direccion_meta == 3) {
-                        icon = "icon-minus3";
-                        if ((vari || 0) == 0) {
-                            color += "gray";
-                        } else {
-                            color += "gray";
-                        }
-                    }
-                    let varimoney = vari;
-                    if (vari < 0)
-                        vari = `(${vari})`;
-
-                    switch (data.row.tipo_meta) {
-                        case 2:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 1:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 4:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        case 5:
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                            break;
-                        default: {
-                            return ` <i class=\"${icon} ${color}\"></i>`;
-                        }
-                    }
-
+                format: function (row) {
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].direccionMeta)
+                                    if (row.cumplidor.general[0].direccionMeta[0])
+                                        if (row.cumplidor.general[0].direccionMeta[0].nombre)
+                                            if (row.cumplidor.general[0].direccionMeta[0].nombre)
+                                                return row.cumplidor.general[0].direccionMeta[0].nombre;
                 }
             },
-            proyectado: {
+            acumulado: {
                 label: function () {
                     return "Proyectado"
                 },
                 format: function (row) {
-                    if (row.proyectado) {
-                        switch (row.tipo_meta) {
-                            case 2:
-                                return "Índice";
-                                break;
-                            case 1:
-                                return row.proyectado + '%';
-                                break;
-                            case 4:
-                                return LAN.money(row.proyectado).format(false);
-                                break;
-                            case 5:
-                                return LAN.money(row.proyectado).format(true);
-                                break;
-
-                            default : {
-                                return LAN.money(row.proyectado).format(false);
-                            }
-                        }
-                    } else {
-                        switch (row.tipo_meta) {
-                            case 2:
-                                return 0;
-                                break;
-                            case 1:
-                                return (0) + '%';
-                                break;
-                            case 4:
-                                return LAN.money(0).format(false);
-                                break;
-                            case 5:
-                                return LAN.money(0).format(true);
-                                break;
-                            default : {
-                                return 0;
-                            }
-                        }
-                    }
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].sumas)
+                                    if (row.cumplidor.general[0].sumas.formatedSumMeta)
+                                        return row.cumplidor.general[0].sumas.formatedSumMeta;
                 },
                 sorttype: "numeric",
+                // formattype: ENUM.FORMAT.numeric
             },
             alcanzado: {
                 label: "Alcanzada",
                 sorttype: "numeric",
                 format: function (row) {
-                    if (row.alcanzado) {
-                        switch (row.tipo_meta) {
-                            case 2:
-                                return "";
-                                break;
-                            case 1:
-                                return row.alcanzado + '%';
-                                break;
-                            case 4:
-                                return LAN.money(row.alcanzado).format(false);
-                                break;
-                            case 5:
-                                return LAN.money(row.alcanzado).format(true);
-                                break;
-                            default : {
-                                return LAN.money(row.alcanzado).format(false);
-                            }
-                        }
-                    }
+                    if (row.cumplidor)
+                        if (row.cumplidor.general)
+                            if (row.cumplidor.general[0])
+                                if (row.cumplidor.general[0].sumas)
+                                    if (row.cumplidor.general[0].sumas.formatedSumAlcanzada)
+                                        return row.cumplidor.general[0].sumas.formatedSumAlcanzada;
                 },
                 // formattype: ENUM.FORMAT.numeric
             },
             cumplimiento: {
                 format: function (row) {
-                    return row.cumplidor.cumplimiento + "%";
+                    let ponderacion = "";
+                    let clase = "";
+                    if (row.cumplidor)
+                        if (row.cumplidor.ponderacion)
+                            if (row.cumplidor.ponderacion.titulo) {
+                                ponderacion = row.cumplidor.ponderacion.titulo;
+                                clase = `text_${row.cumplidor.ponderacion.id}`;
+                            }
+                    return `<span class="${clase}" title="${ponderacion}">${row.cumplidor.cumplimiento}%</span>`;
                 },
                 sortable: false
+            },
+            detalle: {
+                label: function () {
+                    return "Acciones"
+                },
+                format: function (row) {
+                    return `<a class="ng-binding" title="Ver Detalle" data-action="Ver">
+			<i class="icon-eye "></i>
+		</a>`
+                },
+                click: function (data) {
+                    if (data.row.cumplidor)
+                        if (data.row.cumplidor.ficha) {
+                            data.$scope.FICHA = data.row.cumplidor.ficha.FICHA;
+                            data.$scope.modal.modalView("aacontroldemando/fichaindicador", {
+                                header: {
+                                    title: data.row.indicador,
+                                },
+                                footer: {
+                                    cancelButton: true
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+                                },
+                            });
+                        }
+                }
             }
-            // ,
-            // varianza: {
-            //     label: function () {
-            //         return "Diferencia"
-            //     },
-            //     anonymous: true,
-            //     value: function (data) {
-            //         if (!data.row.alcanzado || !data.row.proyectado) {
-            //             return "";
-            //         }
-            //         var icon = "";
-            //         var color = "text-";
-            //         var vari = data.row.alcanzado - data.row.proyectado;
-            //
-            //         if (data.row.direccion_meta == 1) {
-            //             icon = "icon-arrow-up7";
-            //             if ((vari || 0) == 0) {
-            //                 color += "gray";
-            //             } else if (vari > 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         } else if (data.row.direccion_meta == 2) {
-            //             icon = "icon-arrow-down7";
-            //             if ((vari || 0) == 0) {
-            //                 color += "gray";
-            //             }
-            //             if (vari < 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         } else if (data.row.direccion_meta == 3) {
-            //             icon = "icon-minus3";
-            //             if ((vari || 0) == 0) {
-            //                 color += "green";
-            //             } else {
-            //                 color += "red";
-            //             }
-            //         }
-            //         let varimoney = vari;
-            //         if (vari < 0)
-            //             vari = `(${vari})`;
-            //
-            //         if (vari === "null")
-            //             vari = 0;
-            //         switch (data.row.tipo_meta) {
-            //             case 2:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney || vari).format(false)}</span> `;
-            //                 break;
-            //             case 1:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney || vari).format(false) || 0}%</span> `;
-            //                 break;
-            //             case 4:
-            //                 return ` <span class="${color}" > ${LAN.money(vari).format(false)}</span>`;
-            //                 break;
-            //             case 5:
-            //                 return ` <span class="${color}" >${LAN.money(varimoney).format(true)}</span> `;
-            //                 break;
-            //             default: {
-            //                 return ` <span class="${color}" > ${LAN.money(varimoney || vari).format(false)}</span>`;
-            //             }
-            //         }
-            //
-            //     }
-            // },
         },
         filters: {
             columns: true
