@@ -541,6 +541,25 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 "value": indicador_generico.session.compania_id
                             }
                         ];
+                    } else if (indicador_generico2.evento_indicador.includes('g')) {
+                        indicador_generico.fixFilters = [
+                            {
+                                "field": "table_",
+                                "value": indicador_generico.entidadobj.id
+                            },
+                            {
+                                "field": "registro",
+                                "value": indicador_generico2.evento_indicador.replaceAll('g', '')
+                            },
+                            {
+                                "field": "related",
+                                "value": 3
+                            },
+                            {
+                                "field": "compania",
+                                "value": indicador_generico.session.compania_id
+                            }
+                        ];
                     } else{
                         indicador_generico.fixFilters = [
                             {
@@ -811,6 +830,11 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.runMagicColum('registro', "ser_salida", "id", indicador_generico.entidadobj.label);
                     CRUD_indicador_generico.table.columns.registro.label = function () {
                         return "Salida No Conforme";
+                    };
+                }else if (indicador_generico2.evento_indicador.includes('g') ) {
+                    indicador_generico.runMagicColum('registro', "riesgo_a", "id", indicador_generico.entidadobj.label);
+                    CRUD_indicador_generico.table.columns.registro.label = function () {
+                        return "Riesgo";
                     };
                 }else{
                     indicador_generico.runMagicColum('registro', indicador_generico.entidadobj.table_, "id", indicador_generico.entidadobj.label);
@@ -1146,6 +1170,15 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         poa: indicador_generico.session.poa_id,
                         registro: indicador_generico2.evento_indicador.replaceAll('s', ''),
                         related: 2
+                    };
+                }else if (indicador_generico2.evento_indicador.includes('g') ){
+                    indicador_generico.form.readonly = {
+                        table_: indicador_generico.entidadobj.id,
+                        compania: indicador_generico.session.compania_id,
+                        institucion: indicador_generico.session.institucion_id,
+                        poa: indicador_generico.session.poa_id,
+                        registro: indicador_generico2.evento_indicador.replaceAll('g', ''),
+                        related: 3
                     };
                 }else{
                     indicador_generico.form.readonly = {
