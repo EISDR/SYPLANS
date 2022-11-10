@@ -115,7 +115,10 @@ DSON = {
         }
     },
     ULALIA: function (arays, custom_class) {
-        return `<ul style=''><li class="${custom_class || ""}" style=''>${arays.join(`</li><li class="${custom_class || ""}">`)}</li></ul>`;
+        if (arays)
+            if (arays.filter(d => d).length)
+                return `<ul style=''><li class="${custom_class || ""}" style=''>${arays.join(`</li><li class="${custom_class || ""}">`)}</li></ul>`;
+        return "";
     },
     OLALIA: function (arays) {
         return `<ol style=""><li>${arays.join("</li><li>")}</li></ol>`;

@@ -34,7 +34,7 @@ app.controller("resumen_pei_poa", function ($scope, $http, $compile) {
             resumen_pei_poa.active_mat_pei = "";
             resumen_pei_poa.active_indi_poa = "";
             resumen_pei_poa.active_mat_poa = "";
-            await resumen_pei.resumen_pei_get();
+            // await resumen_pei.resumen_pei_get();
             resumen_pei_poa.refreshAngular();
         }
         return resumen_pei_poa.allow(['see_indicador_pei']);
@@ -56,7 +56,6 @@ app.controller("resumen_pei_poa", function ($scope, $http, $compile) {
             resumen_pei_poa.active_mat_pei = "";
             resumen_pei_poa.active_indi_poa = "active";
             resumen_pei_poa.active_mat_poa = "";
-            await resumen_poa.resumen_poa_get();
             resumen_pei_poa.refreshAngular();
         }
         return resumen_pei_poa.allow(['see_indicador_poa']);
@@ -83,4 +82,5 @@ app.controller("resumen_pei_poa", function ($scope, $http, $compile) {
         }
         return resumen_pei_poa.allow(['see_indicador_actividad']);
     }
+
 });

@@ -43,18 +43,6 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
 
 
     var animation2 = new ANIMATION();
-    resumen_poa.rowspanme = function (field, value, arr) {
-        return arr.filter(d => {
-            if (value != 'Sin Data')
-                return eval(`d.${field}==value`)
-        }).length;
-    };
-    resumen_poa.seeme = function (field, value, key, arr) {
-        if (arr[key - 1])
-            if (value != 'Sin Data')
-                return arr[key - 1][field] != value;
-        return true;
-    };
     resumen_poa.resumen_poa_get = async function () {
         resumen_poa.headerBody_list = [];
         console.log("me ejecute")

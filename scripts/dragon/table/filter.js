@@ -237,6 +237,9 @@ FILTER = {
                 if (MESSAGE.exist('columns.' + column.key)) {
                     return MESSAGE.ic('columns.' + column.key);
                 } else {
+                    if (typeof column.label === "string") {
+                        return capitalizeOne((column.label || ""));
+                    }
                     return capitalizeOne((column.key || "").replaceAll("_", " "));
                 }
             };
