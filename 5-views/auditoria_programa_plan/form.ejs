@@ -60,7 +60,7 @@
                     condition:  "((item.institucion == auditoria_programa_plan.session.institucion_id && item.id  ) && (item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No')) || item.id == auditoria_programa_plan.auditoria_relacionada",
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-3 focus-field-group'>
                 <%- FORM.select('estatus', scope, {
                     allowedit: false,
                     allowlist: false,
