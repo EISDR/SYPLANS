@@ -81,7 +81,7 @@
                             condition: "(item.institucion == documentos_asociados.session.institucion_id)"
                         }) %>
                     </div>
-                    <div class='col-sm-2 col-md-2' ng-show="documentos_asociados.form.mode!=='new'">
+                    <div class='col-sm-2 col-md-2 focus-field-group' ng-show="documentos_asociados.form.mode!=='new'">
                         <%- FORM.select('estatus', scope, {
                             allowedit: false,
                             allowlist: false,
