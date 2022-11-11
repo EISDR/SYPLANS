@@ -271,7 +271,7 @@
                 <td style="border-bottom: none">
                     {{value4.tipo_inconformidad}}
                 </td>
-                <td style="border-bottom: none">
+                <td style="border-bottom: none; width: 35%">
                     {{value4.observaciones}}
                 </td>
             </tr>
@@ -287,12 +287,13 @@
                 <th colspan="2" style="background-color: #f5f5f5;">Departamento</th>
             </tr>
             <tr ng-repeat="(key5, value5) in auditoria_programa_plan.informes_auditoria.data">
-                <td colspan="3" style="text-align: center; border-bottom: none"><p ng-bind-html="value5.recomendaciones"></p></td>
-                <td colspan="2" style="text-align: center; border-bottom: none">{{value5.departamento}}</td>
+                <td colspan="4" style="border-bottom: none;"><p ng-bind-html="value5.recomendaciones"></p></td>
+                <td colspan="1" style="text-align: center; border-bottom: none"><p ng-bind-html="value5.departamento"></p>
+                    <br><strong style="float: right; margin-top: -20px"> - {{value5.creadopor_nombre}}</strong></td>
             </tr>
             <tr>
-                <td colspan="3" style="border-top: none"></td>
-                <td colspan="2" style="border-top: none"></td>
+                <td colspan="4" style="border-top: none"></td>
+                <td colspan="1" style="border-top: none"></td>
             </tr>
             <tr>
                 <th colspan="5" style="background-color: #f5f5f5; border-bottom: none">Recomendaciones de Mejora</th>
