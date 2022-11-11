@@ -83,6 +83,26 @@
                     condition: "(item.mapa_proceso == procesos.mapa_proceso)"
                 }) %>
             </div>
+            <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode==='new'">
+                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
+                <script>
+                    procesos.initstatus = procesos.firststatus.nombre;
+                    procesos.refreshAngular();
+                </script>
+            </div>
+            <div class='col-sm-2 col-md-2 focus-field-group' ng-show="procesos.form.mode!=='new'">
+                <%- FORM.select('estatus', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    allownull: false,
+                    column: 'name',
+                    text: "item.permitido",
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    condition: "(item.plan_status == procesos.my_true_estatus && item.entidad == 'procesos') && procesos.allow_auth(item.id)"
+                }) %>
+            </div>
         </div>
         <div class="row">
             <div class='col-sm-4 col-md-4'>
@@ -118,26 +138,6 @@
                     text: "item.nombre + ' ' + item.apellido",
                     condition: "(item.institucion == procesos.session.institucion_id) && (item.active)",
                     icon: {class: "archive"}
-                }) %>
-            </div>
-            <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode==='new'">
-                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
-                <script>
-                    procesos.initstatus = procesos.firststatus.nombre;
-                    procesos.refreshAngular();
-                </script>
-            </div>
-            <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode!=='new'">
-                <%- FORM.select('estatus', scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    allownull: false,
-                    column: 'name',
-                    text: "item.permitido",
-                    table: 'vw_auditoria_programa_plan_estatus',
-                    condition: "(item.plan_status == procesos.my_true_estatus && item.entidad == 'procesos') && procesos.allow_auth(item.id)"
                 }) %>
             </div>
             <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
