@@ -172,5 +172,9 @@
   "reporte_indicador_config_plural":"Configuración de Ponderaciones",
   "reporte_indicador_config":"Configuración de Ponderaciones",
   "ser_servicio_plural":"Servicios",
-  "ser_servicio":"Servicio"
+  "ser_servicio":"Servicio",
+  "iso_normativos_plural":"Normativas",
+  "iso_normativos":"Normativa",
+  "iso_estructura_plural":"Estructura",
+  "iso_estructura":"Estructura"
 }

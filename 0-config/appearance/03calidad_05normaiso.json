@@ -1,0 +1,34 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#iso_normativos",
+          "text": "Normativas ISO"
+        }
+      ],
+      "modal": "",
+      "icon": "bookmark4",
+      "href": "#",
+      "text": "Norma ISO 9001"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#iso_normativos",
+          "text": "Normativas ISO"
+        }
+      ],
+      "modal": "",
+      "icon": "bookmark4",
+      "href": "#",
+      "text": "Norma ISO 9001"
+    }
+  ]
+}
