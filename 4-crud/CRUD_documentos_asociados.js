@@ -188,10 +188,74 @@ DSON.keepmerge(CRUD_documentos_asociados, {
         filters: {
             columns: [
                 {
-                    key: 'codigo',
-                    label: 'Código',
+                    key: 'version_documento',
+                    label: 'Versión del Documento',
                     type: FILTER.types.string,
-                    placeholder: 'Código'
+                    placeholder: 'Versión del Documento'
+                },
+                {
+                    key: 'id',
+                    label: function() { return 'Código Automático'},
+                    type: FILTER.types.string,
+                    placeholder: 'Código Automático'
+                },
+                {
+                    key: 'procesos_categoria',
+                    label: function() { return 'Macroproceso'},
+                    type: FILTER.types.relation,
+                    table: 'procesos_categoria',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'proceso',
+                    label: 'Proceso',
+                    type: FILTER.types.relation,
+                    table: 'vw_procesos',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'codigo',
+                    label: 'Código Manual',
+                    type: FILTER.types.string,
+                    placeholder: 'Código Manual'
                 },
                 {
                     key: 'nombre',
@@ -206,10 +270,86 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     placeholder: 'Descripción'
                 },
                 {
+                    key: 'estatus_id',
+                    label:  function() { return 'Estado' },
+                    type: FILTER.types.relation,
+                    table: 'auditoria_programa_plan_estatus',
+                    value: "code",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "entidad",
+                                "value": 2
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+                {
                     key: 'observacion',
                     label: 'Observación',
                     type: FILTER.types.string,
                     placeholder: 'Observación'
+                },
+                {
+                    key: 'tipo_documento_id',
+                    label: function () { return 'Tipo de Documento' },
+                    type: FILTER.types.relation,
+                    table: 'tipo_documento',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'objetivo',
+                    label: function() { return 'Objetivo' },
+                    type: FILTER.types.string,
+                    placeholder: 'Objetivo'
+                },
+                {
+                    key: 'alcance',
+                    label: 'Alcance',
+                    type: FILTER.types.string,
+                    placeholder: 'Alcance'
+                },
+                {
+                    key: 'trabaja_marco_legal',
+                    label: function() { return '¿Trabaja Marco Legal?'},
+                    type: FILTER.types.bool,
+                    placeholder: '¿Trabaja Marco Legal?'
+                },
+                {
+                    key: 'marco_legal',
+                    label: 'Marco Legal',
+                    type: FILTER.types.string,
+                    placeholder: 'Marco Legal'
+                },
+                {
+                    key: 'resultado_esperado',
+                    label: 'Resultado Esperado',
+                    type: FILTER.types.string,
+                    placeholder: 'Resultado Esperado'
                 },
                 {
                     key: 'creado_por',
