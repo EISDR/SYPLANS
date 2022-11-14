@@ -23,7 +23,7 @@ app.controller("iso_normativos", function ($scope, $http, $compile) {
         if (iso_normativos !== undefined) {
             RUN_B("iso_normativos", iso_normativos, $scope, $http, $compile);
             iso_normativos.form.modalWidth = ENUM.modal.width.full;
-            iso_normativos.form.readonly = {compania: iso_normativos.session.compania_id};
+            iso_normativos.form.readonly = {};
             iso_normativos.form.titles = {
                 new: "Agregar Nueva Normativa",
                 edit: "Editar Normativa",

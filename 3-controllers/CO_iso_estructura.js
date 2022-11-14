@@ -23,7 +23,7 @@ app.controller("iso_estructura", function ($scope, $http, $compile) {
         if (iso_estructura !== undefined) {
             RUN_B("iso_estructura", iso_estructura, $scope, $http, $compile);
             iso_estructura.form.modalWidth = ENUM.modal.width.full;
-            iso_estructura.form.readonly = {compania: iso_estructura.session.compania_id, institucion: iso_estructura.session.institucion_id};
+            iso_estructura.form.readonly = {};
             iso_estructura.form.titles = {
                 new: "Agregar Nueva Estructura",
                 edit: "Editar Estructura",
