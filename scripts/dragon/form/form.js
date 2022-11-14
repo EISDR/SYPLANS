@@ -1612,6 +1612,14 @@ FORM = {
                                             }
                                             console.log($(this).html(title));
                                         });
+
+                                        let select = $('.add-class select')[0];
+                                        let div = document.getElementsByClassName('add-class')[0];
+                                        if(!select.disabled){
+                                            debugger
+                                            div.classList.add('focus-field-group')
+                                            div.classList.remove('add-class')
+                                        }
                                     }, 1000);
                                 }
                             },

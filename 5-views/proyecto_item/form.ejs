@@ -11,7 +11,7 @@
                     <%= scope %>.refreshAngular();
                 </script>
             </div>
-            <div class='col-sm-3 col-md-3' ng-show="proyecto_item.form.mode!=='new'">
+            <div class='col-sm-3 col-md-3 add-class' ng-show="proyecto_item.form.mode!=='new'">
                 <%- FORM.select('estatus', scope, {
                     column: 'name',
                     text: "item.nombre",

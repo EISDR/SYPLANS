@@ -2079,6 +2079,14 @@
         "allow": {
           "menu": true
         }
+      },
+      "iso_normativos": {
+        "type": "full",
+        "allow": {}
+      },
+      "iso_estructura": {
+        "type": "full",
+        "allow": {}
       }
     }
   }

@@ -48,7 +48,7 @@
                                             <div class="col-sm-12 col-md-4" ng-if="<%= scope%>.current_estatus == 3">
                                                 <%- FORM.inputview('ano_view', scope, { placeholder: "Año"}) %>
                                             </div>
-                                            <div class='col-sm-4 col-md-4'>
+                                            <div class='col-sm-4 col-md-4 add-class'>
                                                 <%- FORM.select('estatus', scope, {
                                                     allownew: false,
                                                     allowedit: false,
@@ -127,4 +127,11 @@
     setTimeout(function(){
         $('[name="ano"]').select2();
     }, 100)
+    let select = $('.add-class select')[0];
+    let div = document.getElementsByClassName('add-class')[0];
+    if(!select.disabled){
+        debugger
+        div.classList.add('focus-field-group')
+        div.classList.remove('add-class')
+    }
 </script>
