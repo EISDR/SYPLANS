@@ -1,0 +1,27 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    iso_estructura.fixFilters = [{
+        "field": "normativo",
+        "value": iso_normativos.dataForView.id
+    }];
+</script>
+<br>
+<div class="table table-togglable table-framed">
+    <div id="iso_estructura " ng-controller="iso_estructura as iso_estructura">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'iso_estructura'}); %>
+            <div class="subcontent">
+                <div class="col-md-12" style="padding: 0">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'iso_estructura'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    iso_estructura.setPermission("actions", false);
+    iso_estructura.setPermission("filter", false);
+    iso_estructura.setPermission("export", false);
+    iso_estructura.setPermission("audit", false);
+    iso_estructura.setPermission("add", false);
+</script>

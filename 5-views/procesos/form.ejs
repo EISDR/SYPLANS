@@ -167,10 +167,35 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-12 col-md-12'>
+            <div class='col-sm-12 col-md-6'>
                 <%- FORM.textarea('alcance', scope, {
                     trueplaceholder: "Alcance"
                     //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.select("proceso_estructura", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre_edt",
+                    value: "id",
+                    table: "vw_iso_estructura",
+                    icon: {class: "archive"},
+                    truelabel: "Estructuras ISO",
+                    get: {
+                        table: 'proceso_estructura_iso',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'estructura',
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
                 }) %>
             </div>
             <div class='col-sm-12 col-md-12'>
