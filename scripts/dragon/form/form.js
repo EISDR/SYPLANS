@@ -1701,11 +1701,10 @@ FORM = {
                     $scope.open.query.orderby = data.where[0].field;
                     BASEAPI.first($scope.tableOrMethod, $scope.open.query, function (data) {
                         for (var i in data) {
-
-                            var item = eval(` \`${eval(`data.${i}`)}\``);
-                            eval(`$scope.open.default.${i} = \`${item}\`;`);
+                            var item = data[i];
+                            $scope.open.default[i] = item;
                             if (item !== 'null' && item !== undefined)
-                                eval(`$scope.${i} = \`${item}\`;`);
+                                $scope[i] = item;
                         }
                         $scope.openForm(mode, view);
                     });

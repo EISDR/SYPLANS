@@ -1,0 +1,41 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <h4>Tipo de la Meta: {{reporte_tipometa_formula.descMenta.nombre}}</h4>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <h4>Dirección de la Meta: {{reporte_tipometa_formula.descDireccion.nombre}}</h4>
+            </div>
+
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('formula', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('formato', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('sumformula', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('sumformato', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('varianzaformula', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('varianzaformato', scope, {}) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.textarea('porcentaje', scope, {}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

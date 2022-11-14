@@ -2063,6 +2063,17 @@
           "menu": true
         }
       },
+      "reporte_tipometa_formula": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "actions": true,
+          "audit": true,
+          "view": true,
+          "edit": true,
+          "remove": false
+        }
+      },
       "dashboard_proceso": {
         "type": "empty",
         "allow": {

@@ -378,6 +378,11 @@
               "text": "Configurar Cumplimiento Indicadores"
             },
             {
+              "icon": "meter2",
+              "href": "#reporte_tipometa_formula",
+              "text": "Formulas Indicadores"
+            },
+            {
               "menus": "",
               "modal": "",
               "icon": "airplane2",
@@ -860,6 +865,11 @@
               "icon": "meter2",
               "href": "#reporte_indicador_config",
               "text": "Configurar Cumplimiento Indicadores"
+            },
+            {
+              "icon": "meter2",
+              "href": "#reporte_tipometa_formula",
+              "text": "Formulas Indicadores"
             },
             {
               "menus": "",
