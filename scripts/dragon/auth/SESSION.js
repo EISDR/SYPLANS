@@ -91,7 +91,7 @@ $(document).on("mouseenter", "[data-history]", async function () {
 });
 SESSION = function () {
     this.myprofile = function () {
-        baseController.currentModel.modalAction(
+        baseController.modalAction(
             this.current().path ? this.current().path() : CONFIG.users.path,
             MESSAGE.ic('mono.myprofile'),
             'user',
