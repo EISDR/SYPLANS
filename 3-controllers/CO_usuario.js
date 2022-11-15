@@ -393,24 +393,26 @@ app.controller("usuario", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.general.required(value));
                 // rules.push(VALIDATION.dropdown.atLeast(value, 1));
                 VALIDATION.validate(usuario, "profile", rules)
-                if (usuario.form.selected('profile').caracteristica === "AU"){
-                    VALIDATION.validate(usuario, "tipo_auditor", [{
-                        valid: !DSON.oseaX0(usuario.tipo_auditor),
-                        message: MESSAGE.i('validations.Fieldisrequired'),
-                        type: VALIDATION.types.error,
-                        visible: false
-                    }]);
-                    usuario.refreshAngular()
-                }else{
-                    VALIDATION.validate(usuario, "tipo_auditor", [{
-                        valid: true,
-                        message: MESSAGE.i('validations.Fieldisrequired'),
-                        type: VALIDATION.types.error,
-                        visible: false
-                    }]);
-                    usuario.tipo_auditor = "[NULL]";
-                    usuario.form.loadDropDown('tipo_auditor');
-                    usuario.refreshAngular()
+                if (usuario.form.selected('profile')) {
+                    if (usuario.form.selected('profile').caracteristica === "AU") {
+                        VALIDATION.validate(usuario, "tipo_auditor", [{
+                            valid: !DSON.oseaX0(usuario.tipo_auditor),
+                            message: MESSAGE.i('validations.Fieldisrequired'),
+                            type: VALIDATION.types.error,
+                            visible: false
+                        }]);
+                        usuario.refreshAngular()
+                    } else {
+                        VALIDATION.validate(usuario, "tipo_auditor", [{
+                            valid: true,
+                            message: MESSAGE.i('validations.Fieldisrequired'),
+                            type: VALIDATION.types.error,
+                            visible: false
+                        }]);
+                        usuario.tipo_auditor = "[NULL]";
+                        usuario.form.loadDropDown('tipo_auditor');
+                        usuario.refreshAngular()
+                    }
                 }
             });
             usuario.$scope.$watch('usuario.tipo_auditor', function (value) {
