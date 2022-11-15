@@ -1615,7 +1615,7 @@ FORM = {
 
                                         let select = $('.add-class select')[0];
                                         let div = document.getElementsByClassName('add-class')[0];
-                                        if(!select.disabled){
+                                        if (!select.disabled) {
                                             debugger
                                             div.classList.add('focus-field-group')
                                             div.classList.remove('add-class')
@@ -1709,10 +1709,15 @@ FORM = {
                     $scope.open.query.orderby = data.where[0].field;
                     BASEAPI.first($scope.tableOrMethod, $scope.open.query, function (data) {
                         for (var i in data) {
-                            var item = data[i];
-                            $scope.open.default[i] = item;
+                            // var item = data[i];
+                            // $scope.open.default[i] = item;
+                            // if (item !== 'null' && item !== undefined)
+                            //     $scope[i] = item;
+
+                            var item = eval(` \`${eval(`data.${i}`)}\``);
+                            eval(`$scope.open.default.${i} = \`${item}\`;`);
                             if (item !== 'null' && item !== undefined)
-                                $scope[i] = item;
+                                eval(`$scope.${i} = \`${item}\`;`);
                         }
                         $scope.openForm(mode, view);
                     });
