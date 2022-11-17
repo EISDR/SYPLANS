@@ -548,16 +548,20 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(vw_proyecto_item_actividad, 'comentario', rules);
             });
-            $scope.$watch("vw_proyecto_item_actividad.presupuesto", function (value) {
+            $scope.$watch("vw_proyecto_item_actividad.presupuesto", async function (value) {
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
-                var RES = parseFloat(DSON.cleanNumber(vw_proyecto_item_actividad.presupuesto_ver));
-                if (vw_proyecto_item_actividad.view_presupuesto) {
-                    rules.push(VALIDATION.yariel.greaterThanAct(
-                        parseFloat(DSON.cleanNumber(vw_proyecto_item_actividad.presupuesto_consumido)) + parseFloat(DSON.cleanNumber(value)),
-                        RES, "El monto del presupuesto consumido", "Presupuesto asignado"));
+                debugger
+                if (vw_proyecto_item_actividad.proyecto_item_presupuesto_restante) {
+                    var RES = parseFloat(DSON.cleanNumber(vw_proyecto_item_actividad.presupuesto_ver)) + vw_proyecto_item_actividad.proyecto_item_presupuesto_restante;
+                }else{
+                    await vw_proyecto_item_actividad.get_presupuesto_restante();
+                    var RES = parseFloat(DSON.cleanNumber(vw_proyecto_item_actividad.presupuesto_ver)) + vw_proyecto_item_actividad.proyecto_item_presupuesto_restante;
                 }
+                rules.push(VALIDATION.yariel.greaterThanAct(
+                    parseFloat(DSON.cleanNumber(value)),
+                    RES, "El monto del presupuesto consumido", "Presupuesto asignado"));
                 vw_proyecto_item_actividad.presupuesto_restante = LAN.money(vw_proyecto_item_actividad.presupuesto_restante_calculate()).format(true);
                 VALIDATION.validate(vw_proyecto_item_actividad, 'presupuesto', rules);
             });
@@ -620,13 +624,17 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
         vw_proyecto_item_actividad.proyecto_item_lista_actividades = vw_proyecto_item_actividad.proyecto_item_lista_actividades.data;
         vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
         vw_proyecto_item_actividad.proyecto_item_presupuesto_restante = 0;
-        for(var i of vw_proyecto_item_actividad.proyecto_item_lista_actividades){
-            vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido += i.presupuesto;
+        if (vw_proyecto_item_actividad.proyecto_item_lista_actividades.length > 0) {
+            for (var i of vw_proyecto_item_actividad.proyecto_item_lista_actividades) {
+                vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido += LAN.money(i.presupuesto).value;
+            }
+        }else{
+            vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
         }
         vw_proyecto_item_actividad.proyecto_item_presupuesto_restante = LAN.money(vw_proyecto_item_actividad.presupuesto_producto).value - vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido;
     }
     vw_proyecto_item_actividad.presupuesto_restante_calculate = function () {
-        var DB_PRR = LAN.money(vw_proyecto_item_actividad.proyecto_item_presupuesto_restante).value;
+        var DB_PRR = LAN.money(vw_proyecto_item_actividad.presupuesto_restante).value;
         var PT_PA = LAN.money(vw_proyecto_item_actividad.presupuesto_ver).value;
         var PT_PR = LAN.money(vw_proyecto_item_actividad.presupuesto).value;
 

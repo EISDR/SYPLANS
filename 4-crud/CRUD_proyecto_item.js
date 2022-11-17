@@ -197,10 +197,10 @@ DSON.keepmerge(CRUD_proyecto_item, {
                 menus: [
                     {
                         text: (data) => {
-                            return MESSAGE.i('actions.Edit');
+                            return  data.row.estatus_id == 1 ? MESSAGE.i('actions.Edit') : "Trabajar";
                         },
                         icon: (data) => {
-                            return "pencil5";
+                            return data.row.estatus_id == 1 ? "pencil5" : 'hammer-wrench';
                         },
                         permission: (data) => {
                             return 'edit';

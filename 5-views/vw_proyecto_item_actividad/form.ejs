@@ -141,7 +141,7 @@
                         <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3}) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '6'">
-                        <%-FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto total consumido", maxlength: 16})%>
+                        <%-FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto Final Consumido", maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '6'">
                         <%-FORM.inputview("presupuesto_restante", scope, {placeholder: "Presupuesto disponible del Proyecto", maxlength: 16})%>
