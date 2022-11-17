@@ -2087,6 +2087,10 @@
       "iso_estructura": {
         "type": "full",
         "allow": {}
+      },
+      "aconfig_configuracion": {
+        "type": "full",
+        "allow": {}
       }
     }
   }

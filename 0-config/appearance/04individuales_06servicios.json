@@ -9,6 +9,11 @@
       "icon": "file-text2",
       "href": "#documento_externo",
       "text": "Documentos Externos"
+    },
+    {
+      "icon": "file-text2",
+      "href": "#aconfig_configuracion",
+      "text": "Reporte Configurable"
     }
   ],
   "menus_privado": [
@@ -21,6 +26,11 @@
       "icon": "file-text2",
       "href": "#documento_externo",
       "text": "Documentos Externos"
+    },
+    {
+      "icon": "file-text2",
+      "href": "#aconfig_configuracion",
+      "text": "Reporte Configurable"
     }
   ]
 }
