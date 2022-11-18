@@ -393,7 +393,7 @@
               "menus": "",
               "modal": "",
               "icon": "users4",
-              "href": "#involucrados",
+              "href": "#involucrados?pei_poa",
               "text": "Involucrados"
             },
             {
@@ -875,7 +875,7 @@
               "menus": "",
               "modal": "",
               "icon": "lifebuoy",
-              "href": "#involucrados",
+              "href": "#involucrados?pei_poa",
               "text": "Involucrados"
             },
             {
