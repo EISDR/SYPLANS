@@ -116,8 +116,23 @@
           "icon": "pie-chart7",
           "href": "#aacontroldemandog?modolista-proyecto",
           "text": "Reporte Cumplimiento de Proyectos Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "user-tie",
+              "href": "#involucrados?proyectos",
+              "text": "Involucrados"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
         }
-      ],
+  ],
       "modal": "",
       "icon": "list3",
       "href": "#",
@@ -219,6 +234,21 @@
           "icon": "pencil7",
           "href": "#proyecto_estatus",
           "text": "Estatus de Proyectos Especiales"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "user-tie",
+              "href": "#involucrados",
+              "text": "Involucrados"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
         }
       ],
       "modal": "",

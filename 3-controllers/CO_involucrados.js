@@ -1,12 +1,23 @@
 app.controller("involucrados", function ($scope, $http, $compile) {
     involucrados = this;
     involucrados.session = new SESSION().current();
-    // involucrados.fixFilters = [
-    //     {
-    //         field: "compania",
-    //         value: involucrados.session.compania_id
-    //     }
-    // ];
+    involucrados.entidad = window.location.href.split('?')[1].replaceAll('RF', '');
+    if (involucrados.entidad == "proyectos"){
+        involucrados.fixFilters = [
+            {
+                field: "tipo",
+                value: 6
+            }
+        ];
+    }else{
+        involucrados.fixFilters = [
+            {
+                field: "tipo",
+                operator: "!=",
+                value: 6
+            }
+        ];
+    }
     involucrados.singular = "Involucrado";
     involucrados.plural = "Involucrados";
     involucrados.headertitle = "Involucrados";
@@ -17,11 +28,20 @@ app.controller("involucrados", function ($scope, $http, $compile) {
         if (involucrados !== undefined) {
             RUN_B("involucrados", involucrados, $scope, $http, $compile);
             involucrados.form.modalWidth = ENUM.modal.width.full;
-            involucrados.form.readonly = {
-                compania: involucrados.session.compania_id,
-                active: 1,
-                institucion: involucrados.session.institucion_id
-            };
+            if (involucrados.entidad == "proyectos") {
+                involucrados.form.readonly = {
+                    compania: involucrados.session.compania_id,
+                    active: 1,
+                    institucion: involucrados.session.institucion_id,
+                    tipo: 6
+                };
+            }else{
+                involucrados.form.readonly = {
+                    compania: involucrados.session.compania_id,
+                    active: 1,
+                    institucion: involucrados.session.institucion_id
+                };
+            }
             involucrados.createForm(data, mode, defaultData);
             $scope.$watch("involucrados.nombre_completo", function (value) {
                 var rules = [];
