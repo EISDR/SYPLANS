@@ -9,12 +9,12 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
         },
         {
             field: "compania",
-            value:  riesgo_historico.session.compania_id
+            value: riesgo_historico.session.compania_id
         },
         {
             "field": "institucion",
-            "operator":  riesgo_historico.session.institucion_id ? "=" : "is",
-            "value":  riesgo_historico.session.institucion_id ?  riesgo_historico.session.institucion_id : "$null"
+            "operator": riesgo_historico.session.institucion_id ? "=" : "is",
+            "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
         }
     ];
     //riesgo_historico.fixFilters = [{
@@ -67,12 +67,12 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "compania",
-                    value:  riesgo_historico.session.compania_id
+                    value: riesgo_historico.session.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator":  riesgo_historico.session.institucion_id ? "=" : "is",
-                    "value":  riesgo_historico.session.institucion_id ?  riesgo_historico.session.institucion_id : "$null"
+                    "operator": riesgo_historico.session.institucion_id ? "=" : "is",
+                    "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
                 },
                 {
                     field: "condicion",
@@ -93,7 +93,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.compania = riesgoData.compania;
             riesgo_historico.institucion = riesgoData.institucion;
             riesgo_historico.form.loadDropDown('estatus')
-        }else{
+        } else {
             riesgo_historico.created = false;
             riesgo_historico.ano = '[NULL]';
             riesgo_historico.estatus_nombre = "Abierto";
@@ -114,53 +114,28 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.form.modalWidth = ENUM.modal.width.full;
             riesgo_historico.form.readonly = {compania: riesgo_historico.session.compania_id};
             riesgo_historico.form.titles = {
-                new: "Agregar XXX",
+                new: `Transferir ${riesgo_historico.nombre} ${riesgo_historico.ano_view} a una nueva gestión de riesgo`,
                 edit: "Editar XXX",
                 view: "Ver XXXX"
             };
+            riesgo_historico.ano = (parseInt(riesgo_historico.current_year) + 1) + "";
             riesgo_historico.createForm(data, mode, defaultData);
 
 
-            $scope.$watch("riesgo_historico.fecha_inicio", function (value) {
+            $scope.$watch("riesgo_historico.nombre", function (value) {
                 var rules = [];
                 //rules here
-                //rules.push(VALIDATION.general.required(value));
-                VALIDATION.validate(riesgo_historico, 'fecha_inicio', rules);
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(riesgo_historico, 'nombre', rules);
             });
 
 
-            //ms_product.selectQueries['compania'] = [
-            //    {
-                //    field: 'id',
-                //    operator: '!=',
-                //    value: -1
-            //    }
-            //];
-            $scope.$watch("riesgo_historico.compania", function (value) {
-                var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
-                VALIDATION.validate(riesgo_historico, 'compania', rules);
-            });
-            //ms_product.selectQueries['institucion'] = [
-            //    {
-                //    field: 'id',
-                //    operator: '!=',
-                //    value: -1
-            //    }
-            //];
-            $scope.$watch("riesgo_historico.institucion", function (value) {
-                var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
-                VALIDATION.validate(riesgo_historico, 'institucion', rules);
-            });
         }
     };
     riesgo_historico.triggers.table.after.control = function (data) {
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-        if (data == 'estatus'){
-            if (!riesgo_historico.created){
+        if (data == 'estatus') {
+            if (!riesgo_historico.created) {
                 if (!do_me_once) {
                     riesgo_historico.estatus = "1";
                     riesgo_historico.form.loadDropDown('estatus')
@@ -168,18 +143,18 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                 }
             }
         }
-        if (data == 'ano'){
+        if (data == 'ano') {
             console.log("coño pude entrar")
         }
     };
     riesgo_historico.saveData = function () {
-        if (riesgo_historico.created){
+        if (riesgo_historico.created) {
             VALIDATION.save(riesgo_historico, async function () {
                 SWEETALERT.loading({message: MESSAGE.i('actions.Loading')});
                 BASEAPI.updateall('riesgo_historico', {
                     nombre: riesgo_historico.nombre ? riesgo_historico.nombre : "$null",
                     descripcion: riesgo_historico.descripcion ? riesgo_historico.descripcion : "$null",
-                    ano: riesgo_historico.ano ? riesgo_historico.ano: "$null",
+                    ano: riesgo_historico.ano ? riesgo_historico.ano : "$null",
                     estatus: riesgo_historico.estatus ? riesgo_historico.estatus : 1,
                     compania: riesgo_historico.session.compania_id ? riesgo_historico.session.compania_id : "$null",
                     institucion: riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null",
@@ -191,10 +166,10 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                     ]
                 }, function (result) {
                     riesgo_historico.current_estatus = riesgo_historico.estatus;
-                    if (riesgo_historico.firsttime ){
+                    if (riesgo_historico.firsttime) {
                         SWEETALERT.show({message: "La gestión de riesgo ha sido Creada"});
                         riesgo_historico.firsttime = false;
-                    }else {
+                    } else {
                         SWEETALERT.show({message: "La gestión de riesgo ha sido Modificada"});
                     }
 //                     if (mapa_proceso.estatus == 2){
@@ -210,17 +185,17 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
 //                     }
                     riesgo_historico.getRiesgo()
                 });
-            },["nombre", "ano", 'estatus']);
-        }else {
+            }, ["nombre", "ano", 'estatus']);
+        } else {
             VALIDATION.save(riesgo_historico, async function () {
                 BASEAPI.insertID('riesgo_historico', {
                     nombre: riesgo_historico.nombre,
                     descripcion: riesgo_historico.descripcion ? riesgo_historico.descripcion : "$null",
-                    ano: riesgo_historico.ano ? riesgo_historico.ano  : "$null",
+                    ano: riesgo_historico.ano ? riesgo_historico.ano : "$null",
                     estatus: 1,
                     compania: riesgo_historico.session.compania_id ? riesgo_historico.session.compania_id : "$null",
                     institucion: riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null",
-                }, '','',async function (result) {
+                }, '', '', async function (result) {
                     if (result.data.data.length > 0) {
                         SWEETALERT.stop();
                         riesgo_historico.firsttime = true;
@@ -236,8 +211,8 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "institucion",
-                                    "operator":  riesgo_historico.session.institucion_id ? "=" : "is",
-                                    "value":  riesgo_historico.session.institucion_id ?  riesgo_historico.session.institucion_id : "$null"
+                                    "operator": riesgo_historico.session.institucion_id ? "=" : "is",
+                                    "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
                                 },
                                 {
                                     field: "condicion",
@@ -258,7 +233,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                             riesgo_historico.institucion = riesgoData.institucion;
                             SWEETALERT.show({message: "La gestión de riesgo ha sido Creada"});
                             riesgo_historico.form.loadDropDown('estatus')
-                        }else{
+                        } else {
                             riesgo_historico.created = false;
                             riesgo_historico.estatus_nombre = "En elaboración";
                             riesgo_historico.current_estatus = 1;
@@ -267,10 +242,10 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                         riesgo_historico.refreshAngular();
                     }
                 });
-            },["nombre", "ano", 'estatus']);
+            }, ["nombre", "ano", 'estatus']);
         }
     }
-    riesgo_historico.cancelar = function (){
+    riesgo_historico.cancelar = function () {
         location.reload();
     };
     // $scope.triggers.table.after.load = function (records) {
@@ -289,9 +264,9 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.close = function (data) {
-    //     //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
-    // };
+    riesgo_historico.triggers.table.after.close = function (data) {
+        location.reload();
+    };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.close ${$scope.modelName}`);
     //     resolve(true);
@@ -301,10 +276,26 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
     //     return true;
     // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    riesgo_historico.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        data.inserting.ano = riesgo_historico.ano;
+        data.inserting.estatus = 1;
+        let engine = CONFIG.mysqlactive ? CONFIG.mysql : CONFIG.postgre;
+        let queryTopas = `insert into riesgo(table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,estado,proceso,procesotext,estrategia,estado_plan_accion,observacion,ocurrencia,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,riesgo_historico,probabilidad_current,impacto_current,herencia)
+
+select table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,1,proceso,procesotext,estrategia,1,observacion,NULL,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,(SELECT AUTO_INCREMENT
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = "${engine.database}"
+AND TABLE_NAME = "riesgo_historico"),probabilidad_current,impacto_current,id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1;
+
+insert into  riesgo_matriz_control(riesgo,nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,mamfe_estatus,mamfe)
+
+select (select id from riesgo  where herencia=riesgo_matriz_control.riesgo limit 1),nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,1,mamfe from riesgo_matriz_control where riesgo in (select id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1);`;
+
+        SERVICE.base_db.directQuery({query: queryTopas}, (data) => {
+            resolve(true);
+        });
+
+    });
     //
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);

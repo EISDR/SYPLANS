@@ -4,109 +4,53 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
+            <div class="col-sm-12 col-md-4 form-group-material form-group has-feedback  has-{{<%= scope %>.validate['ano'].type || <%= scope %>.defaultColor }}  has-feedback-left">
+                <label class="control-label is-visible" style="color: black">Año</label>
+                <select ng-model="<%= scope %>.ano" name="ano" id="ano"
+                        class="form-control">
+                    <option value="[NULL]">Seleccione</option>
+                    <option ng-repeat="value in <%= scope %>.lista_ano"
+                            ng-show="value >= <%= scope %>.current_year "
+                            value="{{value}}">{{value}}
+                    </option>
+                </select>
+            </div>
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('descripcion', scope, {
-                //maxlength: 200,
+                    //maxlength: 200,
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.date('fecha_inicio', scope, {}) %>
-            </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.date('fecha_fin', scope, {}) %>
-            </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.integer('estatus', scope, {
-                        //length:15
-                }) %>
-            </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.select('compania', scope, {
-                    column: 'name',
-                    table: 'compania',
-                    //self: true,
-                    //allownull: true,
-                    //allownew: true,
-                    //allowedit: true,
-                    //allowview: true,
-                    //allowlist: true,
-                    //refresh: true,
-                    //condition: 'true',
-                    //multiple: false,get: {table: "compania_linked", fieldFrom: "id", fieldTo: "myid(compania)", field: "theirid"},
-                    //disabled: false,
-                    //helptext: "",
-                    //value: 'id',
-                    //text: 'item.name',
-                    //query: {
-                        //limit: 0,
-                        //page: 1,
-                        //where: [],
-                        //orderby: 'id',
-                        //order: 'asc',
-                        //distinct: false
-                        // join: [
-                        //     {
-                        //         table: 'ms_category',
-                        //         base: 'category',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     },
-                        //     {
-                        //         table: 'otratable',
-                        //         base: 'ms_category_id',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     }
-                        // ]
-                    //},
-                }) %>
-            </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.select('institucion', scope, {
-                    column: 'name',
-                    table: 'institucion',
-                    //self: true,
-                    //allownull: true,
-                    //allownew: true,
-                    //allowedit: true,
-                    //allowview: true,
-                    //allowlist: true,
-                    //refresh: true,
-                    //condition: 'true',
-                    //multiple: false,get: {table: "institucion_linked", fieldFrom: "id", fieldTo: "myid(institucion)", field: "theirid"},
-                    //disabled: false,
-                    //helptext: "",
-                    //value: 'id',
-                    //text: 'item.name',
-                    //query: {
-                        //limit: 0,
-                        //page: 1,
-                        //where: [],
-                        //orderby: 'id',
-                        //order: 'asc',
-                        //distinct: false
-                        // join: [
-                        //     {
-                        //         table: 'ms_category',
-                        //         base: 'category',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     },
-                        //     {
-                        //         table: 'otratable',
-                        //         base: 'ms_category_id',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     }
-                        // ]
-                    //},
-                }) %>
-            </div>
+
+
         </div>
     </div>
 </div>
 
-<%- FORM.footer(scope) %>
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            Transferir
+        </button>
+
+    </div>
+</div>
 
 
 

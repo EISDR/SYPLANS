@@ -18,7 +18,7 @@ exports.api = {
                 });
         },
         directQuery: async function (request) {
-            var module = params.modules.mysql;
+            var module = params.CONFIG.mysqlactive ? params.modules.mysql : params.modules.postgre;
             return await module.executeNonQuery(`${request.query}`, params)
                 .then(function (data) {
                     return data
