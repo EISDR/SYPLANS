@@ -9,7 +9,7 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('correo', scope, {}) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-show="involucrados.session.tipo_institucion===1">
+            <div class='col-sm-4 col-md-4' ng-show="involucrados.entidad != 'proyectos'">
                 <%- FORM.select('tipo', scope, {
                     allownull: false,
                     allownew: false,
@@ -17,7 +17,8 @@
                     allowlist: false,
                     column: 'name',
                     table: 'involucrados_tipo',
-                    text: 'item.nombre'
+                    text: 'item.nombre',
+                    condition: "item.id != 6"
                 }) %>
             </div>
         </div>

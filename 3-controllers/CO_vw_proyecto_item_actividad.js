@@ -552,7 +552,6 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
-                debugger
                 if (vw_proyecto_item_actividad.proyecto_item_presupuesto_restante) {
                     var RES = parseFloat(DSON.cleanNumber(vw_proyecto_item_actividad.presupuesto_ver)) + vw_proyecto_item_actividad.proyecto_item_presupuesto_restante;
                 }else{
