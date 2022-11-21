@@ -476,36 +476,6 @@ DSON.keepmerge(CRUD_solicitud_proceso, {
                     },
                     {
                         text: (data) => {
-                            return MESSAGE.i('actions.Remove');
-                        },
-                        icon: (data) => {
-                            return "trash";
-                        },
-                        permission: (data) => {
-                            return 'remove';
-                        },
-                        characterist: (data) => {
-                            return "";
-                        },
-                        show: (data) => {
-                            if (typeof solicitud_proceso !== "undefined")
-                                return solicitud_proceso.allowAction("Eliminar", "solicitud_documento", data.row.estatus);
-                        },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
-                                }
-                            });
-                            return false;
-                        }
-                    },
-                    {
-                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -667,6 +637,36 @@ DSON.keepmerge(CRUD_solicitud_proceso, {
                             }
                         }
                     },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Remove');
+                        },
+                        icon: (data) => {
+                            return "trash";
+                        },
+                        permission: (data) => {
+                            return 'remove';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: (data) => {
+                            if (typeof solicitud_proceso !== "undefined")
+                                return solicitud_proceso.allowAction("Eliminar", "solicitud_documento", data.row.estatus);
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDelete'),
+                                confirm: async function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                    data.$scope.deleteRow(data.row).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        }
+                    }
                 ]
             }
         ]

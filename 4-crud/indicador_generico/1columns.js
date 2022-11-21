@@ -361,37 +361,6 @@ DSON.keepmerge(CRUD_indicador_generico, {
                     },
                     {
                         text: (data) => {
-                            return MESSAGE.i('actions.Remove');
-                        },
-                        icon: (data) => {
-                            return "trash";
-                        },
-                        permission: (data) => {
-                            return 'remove';
-                        },
-                        characterist: (data) => {
-                            return "";
-                        },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    indicador_generico.delete_relation(data.row.id).then(function (res) {
-                                        console.log(res);
-
-                                        AUDIT.LOG(AUDIT.ACTIONS.delete, indicador_generico.tableOrView ? indicador_generico.tableOrView : indicador_generico.modelName, data.row);
-                                        data.$scope.deleteRow(data.row).then(function () {
-                                            SWEETALERT.stop();
-                                        });
-                                    });
-                                }
-                            });
-                            return false;
-                        }
-                    },
-                    {
-                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -481,6 +450,37 @@ DSON.keepmerge(CRUD_indicador_generico, {
                                     },
                                 });
                             }
+                        }
+                    },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Remove');
+                        },
+                        icon: (data) => {
+                            return "trash";
+                        },
+                        permission: (data) => {
+                            return 'remove';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDelete'),
+                                confirm: function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                    indicador_generico.delete_relation(data.row.id).then(function (res) {
+                                        console.log(res);
+
+                                        AUDIT.LOG(AUDIT.ACTIONS.delete, indicador_generico.tableOrView ? indicador_generico.tableOrView : indicador_generico.modelName, data.row);
+                                        data.$scope.deleteRow(data.row).then(function () {
+                                            SWEETALERT.stop();
+                                        });
+                                    });
+                                }
+                            });
+                            return false;
                         }
                     }
                 ]

@@ -597,7 +597,6 @@ Los auditores que estarán participando serán :
                             return false;
                         }
                     },
-
                     {
                         text: (data) => {
                             return "Editar"
@@ -909,36 +908,6 @@ Los auditores que estarán participando serán :
                     },
                     {
                         text: (data) => {
-                            return "Eliminar";
-                        },
-                        icon: (data) => {
-                            return "trash";
-                        },
-                        permission: (data) => {
-                            return 'remove';
-                        },
-                        characterist: (data) => {
-                            return "";
-                        },
-                        show: (data) => {
-                            if (typeof auditoria_programa_plan !== "undefined")
-                                return auditoria_programa_plan.allowAction("Eliminar", "auditoria_programa_plan", data.row.estatus);
-                        },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
-                                }
-                            });
-                            return false;
-                        }
-                    },
-                    {
-                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -1106,6 +1075,36 @@ Los auditores que estarán participando serán :
                             }
                         }
                     },
+                    {
+                        text: (data) => {
+                            return "Eliminar";
+                        },
+                        icon: (data) => {
+                            return "trash";
+                        },
+                        permission: (data) => {
+                            return 'remove';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: (data) => {
+                            if (typeof auditoria_programa_plan !== "undefined")
+                                return auditoria_programa_plan.allowAction("Eliminar", "auditoria_programa_plan", data.row.estatus);
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDelete'),
+                                confirm: async function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                    data.$scope.deleteRow(data.row).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        }
+                    }
                 ]
             },
             {
