@@ -257,32 +257,6 @@ DSON.keepmerge(CRUD_proyecto_item, {
                     },
                     {
                         text: (data) => {
-                            return MESSAGE.i('actions.Remove');
-                        },
-                        icon: (data) => {
-                            return "trash";
-                        },
-                        permission: (data) => {
-                            return 'remove';
-                        },
-                        characterist: (data) => {
-                            return "";
-                        },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
-                                }
-                            });
-                            return false;
-                        }
-                    },
-                    {
-                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -444,6 +418,32 @@ DSON.keepmerge(CRUD_proyecto_item, {
                             }
                         }
                     },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Remove');
+                        },
+                        icon: (data) => {
+                            return "trash";
+                        },
+                        permission: (data) => {
+                            return 'remove';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDelete'),
+                                confirm: async function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                    data.$scope.deleteRow(data.row).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        }
+                    }
                 ]
             }
         ]

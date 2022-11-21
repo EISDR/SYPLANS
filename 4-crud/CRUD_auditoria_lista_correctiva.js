@@ -308,39 +308,6 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                     },
                     {
                         text: (data) => {
-                            return MESSAGE.i('actions.Remove');
-                        },
-                        icon: (data) => {
-                            return "trash";
-                        },
-                        permission: (data) => {
-                            return 'remove';
-                        },
-                        characterist: (data) => {
-                            return "";
-                        },
-                        show: function (data) {
-                            if ( baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
-                                return data.row.estatus_id == 1;
-
-                            if (typeof auditoria_lista_correctiva !== "undefined")
-                                return auditoria_lista_correctiva.allowAction("Editar", "auditoria_lista_correctiva", data.row.estatus_id);
-                        },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
-                                }
-                            });
-                            return false;
-                        }
-                    },
-                    {
-                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -507,6 +474,39 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             }
                         }
                     },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Remove');
+                        },
+                        icon: (data) => {
+                            return "trash";
+                        },
+                        permission: (data) => {
+                            return 'remove';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            if ( baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
+                                return data.row.estatus_id == 1;
+
+                            if (typeof auditoria_lista_correctiva !== "undefined")
+                                return auditoria_lista_correctiva.allowAction("Editar", "auditoria_lista_correctiva", data.row.estatus_id);
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDelete'),
+                                confirm: async function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                    data.$scope.deleteRow(data.row).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        }
+                    }
                 ]
             },
             {
