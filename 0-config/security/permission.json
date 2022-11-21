@@ -2091,6 +2091,10 @@
       "aconfig_configuracion": {
         "type": "full",
         "allow": {}
+      },
+      "documento_externo": {
+        "type": "full",
+        "allow": {}
       }
     }
   }
