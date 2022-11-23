@@ -1144,6 +1144,79 @@ Los auditores que estarán participando serán :
                     return false;
                 }
             },
+            {
+                text: (data) => {
+                    return "Crear Puntos de Verificación";
+                },
+                title: (data) => {
+                    return "Crear Puntos de Verificación";
+                },
+                icon: (data) => {
+                    return "magazine";
+                },
+                permission: (data) => {
+                    return 'view';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                show: (data) => {
+                    if (typeof auditoria_programa_plan !== "undefined") {
+                        let condiciones = false;
+                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esalgo(data.row))
+                            condiciones = true;
+
+                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && !CRUD_auditoria_programa_plan.esalgo(data.row))
+                            condiciones = false;
+
+                        return condiciones && auditoria_programa_plan.allowAction("Agregar Listas de Verificación", "auditoria_programa_plan", data.row.estatus);
+                    }
+                },
+                click: async function (data) {
+                    data.$scope.mi_id = data.row.id;
+                    var auditoria_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_equipotrabajo', {
+                        limit: 0,
+                        where: [
+                            {
+                                field: "programa_plan",
+                                value: auditoria_programa_plan.mi_id
+                            }
+                        ]
+                    });
+                    auditoria_programa_plan.auditoria_auditores = auditoria_auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
+                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                        limit: 0,
+                        where: [
+                            {
+                                field: "programa_plan",
+                                value: auditoria_programa_plan.mi_id
+                            },
+                            {
+                                field: "documento_asociado",
+                                operator: "is not",
+                                value: "$null"
+                            }
+                        ]
+                    })
+                    auditoria_programa_plan.documentos_list_view = documentos_list.data;
+                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list_auditor", {
+
+                        width: 'modal-full',
+                        header: {
+                            title: `Agregar Listas de Verificación`,
+                            icon: "icon-magazine"
+                        },
+                        footer: {
+                            cancelButton: false
+                        },
+                        content: {
+                            loadingContentText: MESSAGE.i('actions.Loading'),
+                            sameController: 'auditoria_programa_plan'
+                        },
+                    });
+                    return false;
+                }
+            },
         ]
     }
 });

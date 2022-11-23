@@ -10,6 +10,7 @@
                     <language>MESSAGE.ic('mono.cancel')</language>
                 </button>
                 <button
+                        ng-show="!auditoria_programa_plan.hide_me"
                         dragonlanguage="" title="Agregar Comentario"
                         type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
                         ng-click="auditoria_programa_plan.save_document()">
@@ -28,8 +29,15 @@
                                 <h6 style="margin-left: 10px">Auditores Participantes</h6>
                             </div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-8" ng-if="!auditoria_programa_plan.session.institucion">
+                                <div class="row" ng-show="auditoria_programa_plan.hide_me">
+                                    <div class="col-sm-12 col-md-4" style="margin-top: 16px">
+                                        <ol ng-show="auditoria_programa_plan.auditoria_auditores_documentos.length > 0" style="">
+                                            <li ng-repeat="(key,row) in auditoria_programa_plan.auditoria_auditores_documentos" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
+                                                {{row.usuario_nombre}}
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="col-sm-12 col-md-8" ng-if="!auditoria_programa_plan.session.institucion && !auditoria_programa_plan.hide_me">
                                         <%- FORM.select("documento_responsable", scope, {
                                             allowedit: false,
                                             allowlist: false,
@@ -55,7 +63,7 @@
                                         // },
                                         })%>
                                     </div>
-                                    <div class="col-sm-12 col-md-8" ng-if="auditoria_programa_plan.session.institucion">
+                                    <div class="col-sm-12 col-md-8" ng-if="auditoria_programa_plan.session.institucion && !auditoria_programa_plan.hide_me">
                                         <%- FORM.select("documento_responsable", scope, {
                                             allowedit: false,
                                             allowlist: false,
@@ -110,6 +118,7 @@
                     <language>MESSAGE.ic('mono.cancel')</language>
                 </button>
                 <button
+                        ng-show="!auditoria_programa_plan.hide_me"
                         dragonlanguage="" title="Agregar Comentario"
                         type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
                         ng-click="auditoria_programa_plan.save_document()">

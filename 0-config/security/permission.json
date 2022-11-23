@@ -2095,6 +2095,10 @@
       "documento_externo": {
         "type": "full",
         "allow": {}
+      },
+      "vw_documentos_asociados_view": {
+        "type": "report",
+        "allow": {}
       }
     }
   }
