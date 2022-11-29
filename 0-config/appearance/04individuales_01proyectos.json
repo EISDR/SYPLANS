@@ -150,6 +150,20 @@
           "text": "Dashboard"
         },
         {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?-proyecto",
+          "text": "Cumplimiento de Proyectos Especiales"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#monitoreo_generico?vw_proyecto_item",
+          "text": "Monitoreo y Seguimiento"
+        },
+        {
           "menus": [
             {
               "menus": "",
