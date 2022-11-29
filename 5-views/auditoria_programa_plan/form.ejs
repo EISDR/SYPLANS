@@ -445,6 +445,11 @@
                         fieldFrom: 'id',
                         fieldTo: 'programa_plan',
                         field: 'proceso',
+                        where_delete: {
+                            field: "usuario",
+                            operator: "is",
+                            value: "$null"
+                        }
                     },
                 // parent: {
                 //     model: 'eje_estrategico',
@@ -452,7 +457,7 @@
                 //     sufield: 'id'
                 // },
                 })%>
-                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 && auditoria_programa_plan.my_true_estatus > 3" style="margin-top: -15px;">
+                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 " style="margin-top: -15px;">
                     <thead class="">
                     <tr class="bg-secundary">
                         <th style="text-align: center; vertical-align: middle" height="0">
@@ -461,19 +466,20 @@
                                 Nombre
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                class="ng-binding ng-scope">
                                 Responsable
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                class="ng-binding ng-scope">
                                 ¿Revisado?
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">Marcar como revisado</th>
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">Marcar como revisado</th>
+                        <th style="text-align: center; vertical-align: middle; width: 40%;" height="0" ng-show="auditoria_programa_plan.my_true_estatus < 4">Agregar Auditor Como Responsable</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -482,13 +488,14 @@
                         <td>
                             {{row.nombre}}
                         </td>
-                        <td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             {{row.responsable_nombre}}
                         </td>
-                        <td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             {{ auditoria_programa_plan.check_proceso(row.id) ? 'Sí' : 'No' }}
                         </td>
                         <td class="context-control"
+                            ng-show="auditoria_programa_plan.my_true_estatus > 3"
                             oncontextmenu="return false;">
                             <ul ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3"
                                 class="icons-list dragon-action"
@@ -500,6 +507,22 @@
                                     </a>
                                 </li>
                             </ul>
+                        </td>
+                        <td class="context-control" style="padding-top: 0 !important"
+                            ng-show="auditoria_programa_plan.my_true_estatus < 4"
+                            oncontextmenu="return false;">
+                            <div class="remove-input-space form-group-material has-{{auditoria_programa_plan.RESROWS[key].usuario > 0 ? 'success' : 'error'}} form-group" style="margin-bottom: 10px !important">
+                                <select id="usuario_{{key}}"
+                                        ng-change="auditoria_programa_plan.make_proceso_usuario(key, row)"
+                                        ng-model="auditoria_programa_plan.RESROWS[key].usuario"
+                                        class="form-control"
+                                        title="{{auditoria_programa_plan.getSelectedText('usuario', key)}}">
+                                    <option value="">Seleccione</option>
+                                    <option ng-repeat="(k,v) in auditoria_programa_plan.proceso_auditores"
+                                            value={{v.id}}>{{v.nombre}} {{v.apellido}}
+                                    </option>
+                                </select>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -523,6 +546,11 @@
                         fieldFrom: 'id',
                         fieldTo: 'programa_plan',
                         field: 'proceso',
+                        where_delete: {
+                            field: "usuario",
+                            operator: "is",
+                            value: "$null"
+                        }
                     },
                     // parent: {
                     //     model: 'eje_estrategico',
@@ -530,7 +558,7 @@
                     //     sufield: 'id'
                     // },
                 })%>
-                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 && auditoria_programa_plan.my_true_estatus > 3" style="margin-top: -15px;">
+                <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0" style="margin-top: -15px;">
                     <thead class="">
                     <tr class="bg-secundary">
                         <th style="text-align: center; vertical-align: middle" height="0">
@@ -539,19 +567,20 @@
                                 Nombre
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                class="ng-binding ng-scope">
                                 Responsable
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                class="ng-binding ng-scope">
                                 ¿Revisado?
                             </a>
                         </th>
-                        <th style="text-align: center; vertical-align: middle" height="0">Marcar Como Revisado</th>
+                        <th style="text-align: center; vertical-align: middle" height="0" ng-show="auditoria_programa_plan.my_true_estatus > 3">Marcar Como Revisado</th>
+                        <th style="text-align: center; vertical-align: middle; width: 40%;" height="0" ng-show="auditoria_programa_plan.my_true_estatus < 4">Agregar Auditor Como Responsable</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -560,13 +589,14 @@
                         <td>
                             {{row.nombre}}
                         </td>
-                        <td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             {{row.responsable_nombre}}
                         </td>
-                        <td>
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             {{row.id == auditoria_programa_plan.proc_revisado.proceso ? 'Sí' : 'No'}}
                         </td>
                         <td class="context-control"
+                            ng-show="auditoria_programa_plan.my_true_estatus > 3"
                             oncontextmenu="return false;">
                             <ul ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3"
                                 class="icons-list dragon-action"
@@ -578,6 +608,22 @@
                                     </a>
                                 </li>
                             </ul>
+                        </td>
+                        <td class="context-control" style="padding-top: 0 !important;"
+                            ng-show="auditoria_programa_plan.my_true_estatus < 4"
+                            oncontextmenu="return false;">
+                            <div class="remove-input-space form-group-material has-{{auditoria_programa_plan.RESROWS[key].usuario > 0 ? 'success' : 'error'}} form-group" style="margin-bottom: 10px !important">
+                                <select id="usuario_{{key}}"
+                                        ng-change="auditoria_programa_plan.make_proceso_usuario(key, row)"
+                                        ng-model="auditoria_programa_plan.RESROWS[key].usuario"
+                                        class="form-control"
+                                        title="{{auditoria_programa_plan.getSelectedText('usuario', key)}}">
+                                    <option value="">Seleccione</option>
+                                    <option ng-repeat="(k,v) in auditoria_programa_plan.proceso_auditores"
+                                            value={{v.id}}>{{v.nombre}} {{v.apellido}}
+                                    </option>
+                                </select>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -769,18 +815,32 @@
                 })
         });
         $('#inputauditoria_programa_plan_auditoria_plan_proceso').on('select2:unselecting', function (e) {
-            if(auditoria_programa_plan.auditoria_plan_proceso.length === 1){
-                auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
-                    {
-                        field: "id",
-                        value: -1
-                    }
-                ];
-                auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
-                auditoria_programa_plan.documentos_asociados_list = {data:[]};
-                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
-                auditoria_programa_plan.refreshAngular();
-            }
+            var data = e.params.args.data;
+            BASEAPI.deleteall('auditoria_programa_plan_proceso',[
+                {
+                    field: "proceso",
+                    value: data.id
+                },
+                {
+                    field: "programa_plan",
+                    value: auditoria_programa_plan.id
+                }
+            ],async function(result) {
+                await auditoria_programa_plan.getProcesoUsuario();
+                if(auditoria_programa_plan.auditoria_plan_proceso.length === 0){
+                    auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
+                        {
+                            field: "id",
+                            value: -1
+                        }
+                    ];
+
+                    auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
+                    auditoria_programa_plan.documentos_asociados_list = {data: []};
+                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                    auditoria_programa_plan.refreshAngular();
+                }
+            });
         });
         $('#inputauditoria_programa_plan_auditoria_plan_documentos_asociados').on('select2:unselecting', function (e) {
             var data = e.params.args.data;

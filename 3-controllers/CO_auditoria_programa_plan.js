@@ -558,6 +558,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
+                await auditoria_programa_plan.getProcesoUsuario();
                 if (auditoria_programa_plan.auditoria_plan_proceso) {
                     if (auditoria_programa_plan.auditoria_plan_proceso.length > 0) {
                         auditoria_programa_plan.procesos_list = await BASEAPI.listp('vw_procesos', {
@@ -810,6 +811,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                     }
                                 ]
                             });
+                            await auditoria_programa_plan.getProcesoUsuario();
                             if (auditoria_programa_plan.id) {
                                 auditoria_programa_plan.proc_revisado = await BASEAPI.firstp('auditoria_programa_plan_proceso', {
                                     limit: 0,
@@ -991,6 +993,25 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 ],
             });
             auditoria_programa_plan.roles_auditores = auditoria_programa_plan.roles_auditores.data;
+            auditoria_programa_plan.usuarios_auditores = await BASEAPI.listp('vw_usuario', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "profile",
+                        "value": 19
+                    },
+                    {
+                        "field": "compania",
+                        "value": auditoria_programa_plan.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": auditoria_programa_plan.session.institucion_id ? "=" : "is",
+                        "value": auditoria_programa_plan.session.institucion_id ? auditoria_programa_plan.session.institucion_id : "$null"
+                    },
+                ],
+            });
+            auditoria_programa_plan.usuarios_auditores = auditoria_programa_plan.usuarios_auditores.data;
             auditoria_programa_plan.roles_lideres = auditoria_programa_plan.roles_auditores.filter(d => {
                 return d.lider === 1;
             });
@@ -1176,6 +1197,11 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         this.usuario = "";
         this.rol = "";
     }
+    function RESROW() {
+        this.id = new Date().getTime();
+        this.proceso = "";
+        this.usuario = "";
+    }
 
     auditoria_programa_plan.getRol = async function () {
         auditoria_programa_plan.auditores = await BASEAPI.listp('auditoria_programa_plan_equipotrabajo', {
@@ -1195,6 +1221,17 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             auditoria_programa_plan.ROLROWS = [];
             auditoria_programa_plan.auditores_lideres = 0;
             auditoria_programa_plan.auditores_reales = auditoria_programa_plan.auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
+            var auditores_unicos = auditoria_programa_plan.auditoria_plan_responsable.filter((value, index, self) => self.map(x => x).indexOf(value) == index)
+            auditoria_programa_plan.proceso_auditores = [];
+            if (auditoria_programa_plan.usuarios_auditores.length > 0){
+                for (let i of auditoria_programa_plan.usuarios_auditores) {
+                    for (let j of auditores_unicos) {
+                        if (i.id == j) {
+                            auditoria_programa_plan.proceso_auditores.push(i)
+                        }
+                    }
+                };
+            }
             try {
                 let auditores_responsable = ARRAY.unique(auditoria_programa_plan.auditoria_plan_responsable);
                 for (var item of auditores_responsable) {
@@ -1204,7 +1241,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                     });
                     if (auditor.length > 0) {
                         somwerow.usuario = item;
-                        somwerow.rol = auditor[0].esresponsable + "";
+                        somwerow.rol = auditor[0].esresponsable ? auditor[0].esresponsable + "" : null;
                         auditoria_programa_plan.ROLROWS.push(somwerow)
                         if (auditoria_programa_plan.roles_lideres.filter(d => d.id == auditor[0].esresponsable && d.lider === 1).length > 0)
                             auditoria_programa_plan.auditores_lideres++
@@ -1212,6 +1249,48 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                         somwerow.usuario = item;
                         somwerow.rol = null;
                         auditoria_programa_plan.ROLROWS.push(somwerow);
+                    }
+                }
+            } catch (e) {
+
+            }
+        }
+        auditoria_programa_plan.refreshAngular();
+    }
+    auditoria_programa_plan.getProcesoUsuario = async function () {
+        auditoria_programa_plan.procesoAuditores = await BASEAPI.listp('auditoria_programa_plan_proceso', {
+            limit: 0,
+            where: [
+                {
+                    field: "programa_plan",
+                    value: auditoria_programa_plan.id ? auditoria_programa_plan.id : -1
+                },
+                {
+                    field: "proceso",
+                    value: auditoria_programa_plan.auditoria_plan_proceso
+                }
+            ]
+        });
+        if (auditoria_programa_plan.procesoAuditores) {
+            auditoria_programa_plan.RESROWS = [];
+            auditoria_programa_plan.procesoAuditores_reales = auditoria_programa_plan.procesoAuditores.data.filter( x=> {
+                return x.usuario
+            })
+            try {
+                let losProcesos = ARRAY.unique(auditoria_programa_plan.auditoria_plan_proceso);
+                for (var item of losProcesos) {
+                    var somwerow = new RESROW();
+                    var leproceso = auditoria_programa_plan.procesoAuditores.data.filter(d => {
+                        return d.proceso == item;
+                    });
+                    if (leproceso.length > 0) {
+                        somwerow.proceso = item;
+                        somwerow.usuario = leproceso[0].usuario ? leproceso[0].usuario  + "" : null;
+                        auditoria_programa_plan.RESROWS.push(somwerow)
+                    } else {
+                        somwerow.proceso = item;
+                        somwerow.usuario = null;
+                        auditoria_programa_plan.RESROWS.push(somwerow);
                     }
                 }
             } catch (e) {
@@ -1470,6 +1549,116 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                     }
                 })
 
+            }
+        }
+    }
+    auditoria_programa_plan.make_proceso_usuario = function (key, row) {
+        if (!auditoria_programa_plan.id) {
+            auditoria_programa_plan.from_new = true;
+            BASEAPI.insertID('auditoria_programa_plan', {
+                nombre: auditoria_programa_plan.nombre ? auditoria_programa_plan.nombre : "$null",
+                auditoria_programa: auditoria_programa_plan.auditoria_programa ? auditoria_programa_plan.auditoria_programa : "$null",
+                descripcion: auditoria_programa_plan.descripcion ? auditoria_programa_plan.descripcion : "$null",
+                fecha_inicio: auditoria_programa_plan.fecha_inicio ? moment(auditoria_programa_plan.fecha_inicio).format("YYYY-MM-DD") : "$null",
+                fecha_fin: auditoria_programa_plan.fecha_fin ? moment(auditoria_programa_plan.fecha_fin).format("YYYY-MM-DD") : "$null",
+                objetivo: auditoria_programa_plan.objetivo ? auditoria_programa_plan.objetivo : "$null",
+                tipo_auditoria: auditoria_programa_plan.tipo_auditoria != "[NULL]" ? auditoria_programa_plan.tipo_auditoria : "$null",
+                prioridad: auditoria_programa_plan.prioridad != "[NULL]" ? auditoria_programa_plan.prioridad : "$null",
+                criterio: auditoria_programa_plan.criterio ? auditoria_programa_plan.criterio : "$null",
+                estatus: 1,
+                estatus_plan_accion: 1,
+                alcance: auditoria_programa_plan.alcance ? auditoria_programa_plan.alcance : "$null",
+                elaborado_por: auditoria_programa_plan.session.usuario_id,
+                elaborado_en: moment().format("YYYY-MM-DD HH:mm"),
+                active: 1
+            }, '', '', function (result) {
+                if (result) {
+                    auditoria_programa_plan.id = result.data.data[0].id
+                    auditoria_programa_plan.form.mode = 'edit';
+                    auditoria_programa_plan.refreshAngular();
+                    if (auditoria_programa_plan.id) {
+                        BASEAPI.insert('auditoria_programa_plan_proceso', {
+                            programa_plan: auditoria_programa_plan.id,
+                            proceso: row.id,
+                            usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null"
+                        }, function (result) {
+                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                        });
+                    }
+                }
+            })
+        } else {
+            if (auditoria_programa_plan.id) {
+                auditoria_programa_plan.from_new = false;
+                BASEAPI.first('auditoria_programa_plan_proceso', {
+                    where: [
+                        {
+                            field: "programa_plan",
+                            value: auditoria_programa_plan.id
+                        },
+                        {
+                            field: "proceso",
+                            value: row.id
+                        }
+                    ]
+                }, function (result) {
+                    if (result) {
+                        BASEAPI.updateall('auditoria_programa_plan_proceso', {
+                            usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null",
+                            where: [
+                                {
+                                    field: "id",
+                                    value: result.id
+                                }
+                            ]
+                        }, async function (result) {
+                            let documentos_asociados  = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                where: [
+                                    {
+                                        field: "programa_plan",
+                                        value: auditoria_programa_plan.id
+                                    },
+                                    {
+                                        field: "proceso",
+                                        value: row.id
+                                    }
+                                ]
+                            })
+                            let documentos_id = [];
+                            if (documentos_asociados.data.length > 0){
+                                for (var i of documentos_asociados.data){
+                                    documentos_id.push(i.id)
+                                }
+                                if (documentos_id.length> 0){
+                                    BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
+                                        {
+                                            field: "programa_plan_documentos_asociados",
+                                            value: documentos_id
+                                        }
+                                    ], function (result) {
+                                        for (var i of documentos_id) {
+                                            BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null",
+                                                programa_plan_documentos_asociados: i
+                                            }, function (result) {
+
+                                            });
+                                        }
+                                    })
+                                }
+                            }
+                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                        });
+                    } else {
+                        BASEAPI.insert('auditoria_programa_plan_proceso', {
+                            programa_plan: auditoria_programa_plan.id,
+                            proceso: row.id,
+                            usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null"
+                        }, async function (result) {
+                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                        });
+                    }
+                })
             }
         }
     }
@@ -1778,11 +1967,22 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                             sameController: true
                                         },
                                         event: {
-                                            // show: {
-                                            //     end: function (data) {
-                                            //
-                                            //     }
-                                            // },
+                                            show: {
+                                                end: function (data) {
+                                                    setTimeout(function (){
+                                                        let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                                            return x.proceso = row.proceso
+                                                        })
+                                                        auditoria_programa_plan.selectQueries['documento_responsable'] = [
+                                                            {
+                                                                "field": "id",
+                                                                "value": usuario_responsable[0].usuario
+                                                            }
+                                                        ];
+                                                        auditoria_programa_plan.form.loadDropDown('documento_responsable');
+                                                    }, 1000)
+                                                }
+                                            },
                                             hide: {
                                                 // begin: function (data) {
                                                 //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
@@ -1840,11 +2040,22 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                 sameController: true
                                             },
                                             event: {
-                                                // show: {
-                                                //     end: function (data) {
-                                                //
-                                                //     }
-                                                // },
+                                                show: {
+                                                    end: function (data) {
+                                                        setTimeout(function (){
+                                                            let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                                                return x.proceso = row.proceso
+                                                            })
+                                                            auditoria_programa_plan.selectQueries['documento_responsable'] = [
+                                                                {
+                                                                    "field": "id",
+                                                                    "value": usuario_responsable[0].usuario
+                                                                }
+                                                            ];
+                                                            auditoria_programa_plan.form.loadDropDown('documento_responsable');
+                                                        }, 1000)
+                                                    }
+                                                },
                                                 hide: {
                                                     // begin: function (data) {
                                                     //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
@@ -1914,11 +2125,22 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 sameController: true
                             },
                             event: {
-                                // show: {
-                                //     end: function (data) {
-                                //
-                                //     }
-                                // },
+                                show: {
+                                    end: function (data) {
+                                        setTimeout(function (){
+                                            let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                                return x.proceso = row.proceso
+                                            })
+                                            auditoria_programa_plan.selectQueries['documento_responsable'] = [
+                                                {
+                                                    "field": "id",
+                                                    "value": usuario_responsable[0].usuario
+                                                }
+                                            ];
+                                            auditoria_programa_plan.form.loadDropDown('documento_responsable');
+                                        }, 1000)
+                                    }
+                                },
                                 hide: {
                                     // begin: function (data) {
                                     //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
@@ -1968,11 +2190,22 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                     sameController: true
                                 },
                                 event: {
-                                    // show: {
-                                    //     end: function (data) {
-                                    //
-                                    //     }
-                                    // },
+                                    show: {
+                                        end: function (data) {
+                                            setTimeout(function (){
+                                                let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                                    return x.proceso = row.proceso
+                                                })
+                                                auditoria_programa_plan.selectQueries['documento_responsable'] = [
+                                                    {
+                                                        "field": "id",
+                                                        "value": usuario_responsable[0].usuario
+                                                    }
+                                                ];
+                                                auditoria_programa_plan.form.loadDropDown('documento_responsable');
+                                            }, 1000)
+                                        }
+                                    },
                                     hide: {
                                         // begin: function (data) {
                                         //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
