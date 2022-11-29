@@ -658,14 +658,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
         documentos_asociados.runMagicManyToMany('documentos_relacionados', 'documentos_asociados',
             'documento_asociado', 'id', 'nombre', 'documentos_asociados_relacionado',
             'documento_asociado_relacionado', 'id');
-        setTimeout(function () {
-            documentos_asociados.setPermission("add", false);
-        }, 1);
-        if (documentos_asociados.caracteristica === "SC" || documentos_asociados.caracteristica === "DG" || documentos_asociados.caracteristica === "AC") {
-            documentos_asociados.setPermission("add", true);
-        } else {
-            documentos_asociados.setPermission("add", false);
-        }
         documentos_asociados.fileSI = [];
         for (var items of records.data) {
             documentos_asociados.files = () => new Promise(async (resolve, reject) => {
@@ -685,6 +677,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             await documentos_asociados.files();
             documentos_asociados.refreshAngular();
         }
+        documentos_asociados.setPermission("add", false);
     };
     // $scope.triggers.table.after.load = function (records) {
     //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
