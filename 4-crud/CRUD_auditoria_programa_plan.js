@@ -10,6 +10,16 @@ CRUD_auditoria_programa_plan.esalgo = (row) => {
     }
     return row.lider == usuario;
 };
+CRUD_auditoria_programa_plan.esDocumentoResponsables = (row) => {
+    let session = new SESSION().current();
+    let usuario = session.id;
+    if (row.lista_documentos_responsables) {
+        let documentos_responsables = JSON.parse(row.lista_documentos_responsables);
+        if (documentos_responsables.indexOf(usuario + "") !== -1)
+            return true;
+    }
+    return row.lider == usuario;
+};
 DSON.keepmerge(CRUD_auditoria_programa_plan, {
     table: {
         width: "width:1800px;",
@@ -1163,10 +1173,10 @@ Los auditores que estarán participando serán :
                 show: (data) => {
                     if (typeof auditoria_programa_plan !== "undefined") {
                         let condiciones = false;
-                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esalgo(data.row))
+                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esDocumentoResponsables(data.row))
                             condiciones = true;
 
-                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && !CRUD_auditoria_programa_plan.esalgo(data.row))
+                        if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && !CRUD_auditoria_programa_plan.esDocumentoResponsables(data.row))
                             condiciones = false;
 
                         return condiciones && auditoria_programa_plan.allowAction("Agregar Listas de Verificación", "auditoria_programa_plan", data.row.estatus);

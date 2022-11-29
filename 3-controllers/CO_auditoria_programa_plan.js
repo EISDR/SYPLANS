@@ -2586,9 +2586,32 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;
         });
-        var documentos_correctos = auditoria_programa_plan.documentos_list.filter(d => {
-            return d.total_listas > 0 && d.trabajado != null
+        var documentos_correctos =[];
+        if (documentos_seleccionados.length > 0){
+            for (let i of auditoria_programa_plan.documentos_list) {
+                for (let j of documentos_seleccionados) {
+                    if ((i.documento_asociado == j) && (i.cantidad_responsables > 0 && i.trabajado != null)) {
+                        documentos_correctos.push(i)
+                    }
+                }
+            };
+        }
+        return documentos_correctos.length === documentos_seleccionados.length;
+    }
+    auditoria_programa_plan.allow_autorize_audit = function () {
+        var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
+            return inputArray.indexOf(item) == index;
         });
+        var documentos_correctos =[];
+        if (documentos_seleccionados.length > 0){
+            for (let i of auditoria_programa_plan.documentos_list) {
+                for (let j of documentos_seleccionados) {
+                    if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                        documentos_correctos.push(i)
+                    }
+                }
+            };
+        }
         return documentos_correctos.length === documentos_seleccionados.length;
     }
     auditoria_programa_plan.change_message = function () {
@@ -2625,7 +2648,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         } else if (auditoria_programa_plan.estatus > 1 && !auditoria_programa_plan.allow_save_documents()) {
             SWEETALERT.show({
                 type: 'error',
-                message: `Existen Documentos sin listas de Verificación`,
+                message: `Existen Documentos sin Auditores Responsables Asignados`,
             });
             let buttons = document.getElementsByClassName("btn btn-labeled");
             for (var item of buttons) {
@@ -2763,13 +2786,19 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             if ((!auditoria_programa_plan.allow_save_documents() || auditoria_programa_plan.auditoria_plan_documentos_asociados.length == 0) && auditores_sin_rol) {
                 SWEETALERT.show({
                     type: 'error',
-                    message: `Cada Auditor participante debe tener un Rol definido y todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener la Lista de Verificación que será auditada`,
+                    message: `Cada Auditor participante debe tener un Rol definido y todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
                 });
                 resolve(false);
             } else if (!auditoria_programa_plan.allow_save_documents() || auditoria_programa_plan.auditoria_plan_documentos_asociados.length == 0) {
                 SWEETALERT.show({
                     type: 'error',
-                    message: `Todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener la Lista de Verificación que será auditada`,
+                    message: `Todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
+                });
+                resolve(false);
+            } else if (!auditoria_programa_plan.allow_autorize_audit() && auditoria_programa_plan.estatus == 3) {
+                SWEETALERT.show({
+                    type: 'error',
+                    message: `Todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener definida la Lista de Verificación que será auditada`,
                 });
                 resolve(false);
             } else if (auditores_sin_rol && auditoria_programa_plan.estatus < 4) {
