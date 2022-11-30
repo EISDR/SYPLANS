@@ -810,8 +810,24 @@
                     }
                 ], async function (result) {
                     console.log(result);
-                    await auditoria_programa_plan.getRol();
-                    auditoria_programa_plan.refreshAngular();
+                    BASEAPI.updateall('auditoria_programa_plan_proceso', {
+                        usuario: "$null",
+                        where: [
+                            {
+                                field: "programa_plan",
+                                value: auditoria_programa_plan.id
+                            },
+                            {
+                                field: "usuario",
+                                value: data.id
+                            }
+                        ]
+                    }, async function (result) {
+                        await auditoria_programa_plan.getRol();
+                        await auditoria_programa_plan.getProcesoUsuario();
+                        auditoria_programa_plan.refreshAngular();
+                    });
+
                 })
         });
         $('#inputauditoria_programa_plan_auditoria_plan_proceso').on('select2:unselecting', function (e) {

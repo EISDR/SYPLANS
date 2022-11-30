@@ -1220,17 +1220,28 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         if (auditoria_programa_plan.auditores) {
             auditoria_programa_plan.ROLROWS = [];
             auditoria_programa_plan.auditores_lideres = 0;
-            auditoria_programa_plan.auditores_reales = auditoria_programa_plan.auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
-            var auditores_unicos = auditoria_programa_plan.auditoria_plan_responsable.filter((value, index, self) => self.map(x => x).indexOf(value) == index)
+            if (auditoria_programa_plan.auditores.data) {
+                if (auditoria_programa_plan.auditores.data.length > 0) {
+                    auditoria_programa_plan.auditores_reales = auditoria_programa_plan.auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
+                }
+            }
+            if (auditoria_programa_plan.auditoria_plan_responsable) {
+                if (auditoria_programa_plan.auditoria_plan_responsable.length > 0) {
+                    var auditores_unicos = auditoria_programa_plan.auditoria_plan_responsable.filter((value, index, self) => self.map(x => x).indexOf(value) == index)
+                }
+            }
             auditoria_programa_plan.proceso_auditores = [];
-            if (auditoria_programa_plan.usuarios_auditores.length > 0){
-                for (let i of auditoria_programa_plan.usuarios_auditores) {
-                    for (let j of auditores_unicos) {
-                        if (i.id == j) {
-                            auditoria_programa_plan.proceso_auditores.push(i)
+            if (auditoria_programa_plan.usuarios_auditores) {
+                if (auditoria_programa_plan.usuarios_auditores.length > 0) {
+                    for (let i of auditoria_programa_plan.usuarios_auditores) {
+                        for (let j of auditores_unicos) {
+                            if (i.id == j) {
+                                auditoria_programa_plan.proceso_auditores.push(i)
+                            }
                         }
                     }
-                };
+                    ;
+                }
             }
             try {
                 let auditores_responsable = ARRAY.unique(auditoria_programa_plan.auditoria_plan_responsable);
@@ -1273,11 +1284,16 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         });
         if (auditoria_programa_plan.procesoAuditores) {
             auditoria_programa_plan.RESROWS = [];
-            auditoria_programa_plan.procesoAuditores_reales = auditoria_programa_plan.procesoAuditores.data.filter( x=> {
-                return x.usuario
-            })
+            if (auditoria_programa_plan.procesoAuditores.data) {
+                if (auditoria_programa_plan.procesoAuditores.data.length > 0) {
+                    auditoria_programa_plan.procesoAuditores_reales = auditoria_programa_plan.procesoAuditores.data.filter(x => {
+                        return x.usuario
+                    })
+                }
+            }
             try {
                 let losProcesos = ARRAY.unique(auditoria_programa_plan.auditoria_plan_proceso);
+                losProcesos.sort(function(a,b){return a-b});
                 for (var item of losProcesos) {
                     var somwerow = new RESROW();
                     var leproceso = auditoria_programa_plan.procesoAuditores.data.filter(d => {
@@ -1553,6 +1569,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         }
     }
     auditoria_programa_plan.make_proceso_usuario = function (key, row) {
+        console.log(key, row, "ajá que es")
         if (!auditoria_programa_plan.id) {
             auditoria_programa_plan.from_new = true;
             BASEAPI.insertID('auditoria_programa_plan', {
@@ -1953,62 +1970,136 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                         }]
                                     }, '', '');
                                     auditoria_programa_plan.documento = result;
-                                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
-                                        width: 'modal-full',
-                                        header: {
-                                            title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
-                                            icon: "file-plus2"
-                                        },
-                                        footer: {
-                                            cancelButton: false
-                                        },
-                                        content: {
-                                            loadingContentText: MESSAGE.i('actions.Loading'),
-                                            sameController: true
-                                        },
-                                        event: {
-                                            show: {
-                                                end: function (data) {
-                                                    setTimeout(function (){
-                                                        let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                            return x.proceso == row.proceso
-                                                        })
-                                                        auditoria_programa_plan.selectQueries['documento_responsable'] = [
-                                                            {
-                                                                "field": "id",
-                                                                "value": usuario_responsable[0].usuario
-                                                            }
-                                                        ];
-                                                        auditoria_programa_plan.form.loadDropDown('documento_responsable');
-                                                    }, 1000)
-                                                }
+                                    let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                        return x.proceso == row.proceso
+                                    })
+                                    BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables', {
+                                        limit: 0,
+                                        where: [
+                                            {
+                                                field: "programa_plan",
+                                                value: auditoria_programa_plan.id
                                             },
-                                            hide: {
-                                                // begin: function (data) {
-                                                //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
-                                                //         $(`.${indicador_producto_poa.commentName}`).show();
-                                                //     }else{
-                                                //         $(`.${indicador_producto_poa.commentName}`).hide();
-                                                //     }
-                                                // },
-                                                end: async function (data) {
-                                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                        where: [
-                                                            {
-                                                                field: "programa_plan",
-                                                                value: auditoria_programa_plan.id
-                                                            },
-                                                            {
-                                                                field: "estatus",
-                                                                operator: "is",
-                                                                value: "$null"
-                                                            }
-                                                        ]
-                                                    })
-                                                    auditoria_programa_plan.documentos_list = documentos_list.data;
-                                                }
+                                            {
+                                                field: "documento_asociado",
+                                                value: row.id
                                             }
-                                        },
+                                        ]
+                                    }, async function (result) {
+                                        if (result.data.length > 0) {
+                                            let pdResponsables_id = [];
+                                            for (var i of result.data ){
+                                                pdResponsables_id.push(i.documento_asociado_responsable_id)
+                                            }
+                                            BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                usuario: usuario_responsable[0].usuario,
+                                                where: [
+                                                    {
+                                                        field: "id",
+                                                        value: pdResponsables_id
+                                                    }
+                                                ]
+                                            },function(){
+                                                auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                                    width: 'modal-full',
+                                                    header: {
+                                                        title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                        icon: "file-plus2"
+                                                    },
+                                                    footer: {
+                                                        cancelButton: false
+                                                    },
+                                                    content: {
+                                                        loadingContentText: MESSAGE.i('actions.Loading'),
+                                                        sameController: true
+                                                    },
+                                                    event: {
+                                                        // show: {
+                                                        //     end: function (data) {
+                                                        //
+                                                        //     }
+                                                        // },
+                                                        hide: {
+                                                            // begin: function (data) {
+                                                            //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                            //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                            //     }else{
+                                                            //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                            //     }
+                                                            // },
+                                                            end: async function (data) {
+                                                                var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                                    where: [
+                                                                        {
+                                                                            field: "programa_plan",
+                                                                            value: auditoria_programa_plan.id
+                                                                        },
+                                                                        {
+                                                                            field: "estatus",
+                                                                            operator: "is",
+                                                                            value: "$null"
+                                                                        }
+                                                                    ]
+                                                                })
+                                                                auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                            }
+                                                        }
+                                                    },
+                                                });
+                                            })
+                                        }else{
+                                            BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                programa_plan_documentos_asociados: auditoria_programa_plan.documento.id,
+                                                usuario: usuario_responsable[0].usuario,
+                                            }, function(){
+                                                auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                                    width: 'modal-full',
+                                                    header: {
+                                                        title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                        icon: "file-plus2"
+                                                    },
+                                                    footer: {
+                                                        cancelButton: false
+                                                    },
+                                                    content: {
+                                                        loadingContentText: MESSAGE.i('actions.Loading'),
+                                                        sameController: true
+                                                    },
+                                                    event: {
+                                                        // show: {
+                                                        //     end: function (data) {
+                                                        //
+                                                        //     }
+                                                        // },
+                                                        hide: {
+                                                            // begin: function (data) {
+                                                            //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                            //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                            //     }else{
+                                                            //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                            //     }
+                                                            // },
+                                                            end: async function (data) {
+                                                                var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                                    where: [
+                                                                        {
+                                                                            field: "programa_plan",
+                                                                            value: auditoria_programa_plan.id
+                                                                        },
+                                                                        {
+                                                                            field: "estatus",
+                                                                            operator: "is",
+                                                                            value: "$null"
+                                                                        }
+                                                                    ]
+                                                                })
+                                                                auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                            }
+                                                        }
+                                                    },
+                                                });
+                                            });
+                                        }
                                     });
                                 } else {
                                     var inserted = await BASEAPI.insertIDp('auditoria_programa_plan_documentos_asociados', {
@@ -2026,62 +2117,138 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                 }
                                             ]
                                         })
-                                        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
-                                            width: 'modal-full',
-                                            header: {
-                                                title: 'Agregar - lista de verificación  del Documento: ' + row.nombre,
-                                                icon: "file-plus2"
-                                            },
-                                            footer: {
-                                                cancelButton: false
-                                            },
-                                            content: {
-                                                loadingContentText: MESSAGE.i('actions.Loading'),
-                                                sameController: true
-                                            },
-                                            event: {
-                                                show: {
-                                                    end: function (data) {
-                                                        setTimeout(function (){
-                                                            let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                                return x.proceso == row.proceso
-                                                            })
-                                                            auditoria_programa_plan.selectQueries['documento_responsable'] = [
-                                                                {
-                                                                    "field": "id",
-                                                                    "value": usuario_responsable[0].usuario
-                                                                }
-                                                            ];
-                                                            auditoria_programa_plan.form.loadDropDown('documento_responsable');
-                                                        }, 1000)
-                                                    }
+                                        let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                            return x.proceso == row.proceso
+                                        })
+                                        BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables', {
+                                            limit: 0,
+                                            where: [
+                                                {
+                                                    field: "programa_plan",
+                                                    value: auditoria_programa_plan.id
                                                 },
-                                                hide: {
-                                                    // begin: function (data) {
-                                                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
-                                                    //         $(`.${indicador_producto_poa.commentName}`).show();
-                                                    //     }else{
-                                                    //         $(`.${indicador_producto_poa.commentName}`).hide();
-                                                    //     }
-                                                    // },
-                                                    end: async function (data) {
-                                                        var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                            where: [
-                                                                {
-                                                                    field: "programa_plan",
-                                                                    value: auditoria_programa_plan.id
-                                                                },
-                                                                {
-                                                                    field: "estatus",
-                                                                    operator: "is",
-                                                                    value: "$null"
-                                                                }
-                                                            ]
-                                                        })
-                                                        auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                {
+                                                    field: "documento_asociado",
+                                                    value: row.id
+                                                }
+                                            ]
+                                        }, async function (result) {
+                                            if (result.data) {
+                                                let pdResponsables_id = [];
+                                                if (result.data.length > 0) {
+                                                    for (var i of result.data ){
+                                                        pdResponsables_id.push(i.documento_asociado_responsable_id)
                                                     }
                                                 }
-                                            },
+                                                BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                    usuario: usuario_responsable[0].usuario,
+                                                    where: [
+                                                        {
+                                                            field: "id",
+                                                            value: pdResponsables_id
+                                                        }
+                                                    ]
+                                                },function(){
+                                                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                                        width: 'modal-full',
+                                                        header: {
+                                                            title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                            icon: "file-plus2"
+                                                        },
+                                                        footer: {
+                                                            cancelButton: false
+                                                        },
+                                                        content: {
+                                                            loadingContentText: MESSAGE.i('actions.Loading'),
+                                                            sameController: true
+                                                        },
+                                                        event: {
+                                                            // show: {
+                                                            //     end: function (data) {
+                                                            //
+                                                            //     }
+                                                            // },
+                                                            hide: {
+                                                                // begin: function (data) {
+                                                                //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                                //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                                //     }else{
+                                                                //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                                //     }
+                                                                // },
+                                                                end: async function (data) {
+                                                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                                        where: [
+                                                                            {
+                                                                                field: "programa_plan",
+                                                                                value: auditoria_programa_plan.id
+                                                                            },
+                                                                            {
+                                                                                field: "estatus",
+                                                                                operator: "is",
+                                                                                value: "$null"
+                                                                            }
+                                                                        ]
+                                                                    })
+                                                                    auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                                }
+                                                            }
+                                                        },
+                                                    });
+                                                })
+                                            }else{
+                                                BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                    programa_plan_documentos_asociados: auditoria_programa_plan.documento.id,
+                                                    usuario: usuario_responsable[0].usuario,
+                                                }, function(){
+                                                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                                        width: 'modal-full',
+                                                        header: {
+                                                            title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                            icon: "file-plus2"
+                                                        },
+                                                        footer: {
+                                                            cancelButton: false
+                                                        },
+                                                        content: {
+                                                            loadingContentText: MESSAGE.i('actions.Loading'),
+                                                            sameController: true
+                                                        },
+                                                        event: {
+                                                            // show: {
+                                                            //     end: function (data) {
+                                                            //
+                                                            //     }
+                                                            // },
+                                                            hide: {
+                                                                // begin: function (data) {
+                                                                //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                                //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                                //     }else{
+                                                                //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                                //     }
+                                                                // },
+                                                                end: async function (data) {
+                                                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                                        where: [
+                                                                            {
+                                                                                field: "programa_plan",
+                                                                                value: auditoria_programa_plan.id
+                                                                            },
+                                                                            {
+                                                                                field: "estatus",
+                                                                                operator: "is",
+                                                                                value: "$null"
+                                                                            }
+                                                                        ]
+                                                                    })
+                                                                    auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                                }
+                                                            }
+                                                        },
+                                                    });
+                                                });
+                                            }
                                         });
                                     }
                                 }
@@ -2111,62 +2278,136 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                             }]
                         }, '', '');
                         auditoria_programa_plan.documento = result;
-                        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
-                            width: 'modal-full',
-                            header: {
-                                title: 'Agregar - lista de verificación  del Documento: ' + row.nombre,
-                                icon: "file-plus2"
-                            },
-                            footer: {
-                                cancelButton: false
-                            },
-                            content: {
-                                loadingContentText: MESSAGE.i('actions.Loading'),
-                                sameController: true
-                            },
-                            event: {
-                                show: {
-                                    end: function (data) {
-                                        setTimeout(function (){
-                                            let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                return x.proceso == row.proceso
-                                            })
-                                            auditoria_programa_plan.selectQueries['documento_responsable'] = [
-                                                {
-                                                    "field": "id",
-                                                    "value": usuario_responsable[0].usuario
-                                                }
-                                            ];
-                                            auditoria_programa_plan.form.loadDropDown('documento_responsable');
-                                        }, 1000)
-                                    }
+                        let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                            return x.proceso == row.proceso
+                        })
+                        BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables', {
+                            limit: 0,
+                            where: [
+                                {
+                                    field: "programa_plan",
+                                    value: auditoria_programa_plan.id
                                 },
-                                hide: {
-                                    // begin: function (data) {
-                                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
-                                    //         $(`.${indicador_producto_poa.commentName}`).show();
-                                    //     }else{
-                                    //         $(`.${indicador_producto_poa.commentName}`).hide();
-                                    //     }
-                                    // },
-                                    end: async function (data) {
-                                        var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                            where: [
-                                                {
-                                                    field: "programa_plan",
-                                                    value: auditoria_programa_plan.id
-                                                },
-                                                {
-                                                    field: "estatus",
-                                                    operator: "is",
-                                                    value: "$null"
-                                                }
-                                            ]
-                                        })
-                                        auditoria_programa_plan.documentos_list = documentos_list.data;
-                                    }
+                                {
+                                    field: "documento_asociado",
+                                    value: row.id
                                 }
-                            },
+                            ]
+                        }, async function (result) {
+                            if (result.data.length > 0) {
+                                let pdResponsables_id = [];
+                                for (var i of result.data ){
+                                    pdResponsables_id.push(i.documento_asociado_responsable_id)
+                                }
+                                BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_responsables', {
+                                    usuario: usuario_responsable[0].usuario,
+                                    where: [
+                                        {
+                                            field: "id",
+                                            value: pdResponsables_id
+                                        }
+                                    ]
+                                },function(){
+                                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                        width: 'modal-full',
+                                        header: {
+                                            title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                            icon: "file-plus2"
+                                        },
+                                        footer: {
+                                            cancelButton: false
+                                        },
+                                        content: {
+                                            loadingContentText: MESSAGE.i('actions.Loading'),
+                                            sameController: true
+                                        },
+                                        event: {
+                                            // show: {
+                                            //     end: function (data) {
+                                            //
+                                            //     }
+                                            // },
+                                            hide: {
+                                                // begin: function (data) {
+                                                //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                //     }else{
+                                                //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                //     }
+                                                // },
+                                                end: async function (data) {
+                                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                        where: [
+                                                            {
+                                                                field: "programa_plan",
+                                                                value: auditoria_programa_plan.id
+                                                            },
+                                                            {
+                                                                field: "estatus",
+                                                                operator: "is",
+                                                                value: "$null"
+                                                            }
+                                                        ]
+                                                    })
+                                                    auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                }
+                                            }
+                                        },
+                                    });
+                                })
+                            }else{
+                                BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                    programa_plan_documentos_asociados: auditoria_programa_plan.documento.id,
+                                    usuario: usuario_responsable[0].usuario,
+                                }, function(){
+                                    auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                        width: 'modal-full',
+                                        header: {
+                                            title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                            icon: "file-plus2"
+                                        },
+                                        footer: {
+                                            cancelButton: false
+                                        },
+                                        content: {
+                                            loadingContentText: MESSAGE.i('actions.Loading'),
+                                            sameController: true
+                                        },
+                                        event: {
+                                            // show: {
+                                            //     end: function (data) {
+                                            //
+                                            //     }
+                                            // },
+                                            hide: {
+                                                // begin: function (data) {
+                                                //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                //     }else{
+                                                //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                //     }
+                                                // },
+                                                end: async function (data) {
+                                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                        where: [
+                                                            {
+                                                                field: "programa_plan",
+                                                                value: auditoria_programa_plan.id
+                                                            },
+                                                            {
+                                                                field: "estatus",
+                                                                operator: "is",
+                                                                value: "$null"
+                                                            }
+                                                        ]
+                                                    })
+                                                    auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                }
+                                            }
+                                        },
+                                    });
+                                });
+                            }
                         });
                     } else {
                         var inserted = await BASEAPI.insertIDp('auditoria_programa_plan_documentos_asociados', {
@@ -2176,62 +2417,136 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                         }, '', '');
                         if (inserted) {
                             auditoria_programa_plan.documento = inserted.data.data[0];
-                            auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
-                                width: 'modal-full',
-                                header: {
-                                    title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
-                                    icon: "file-plus2"
-                                },
-                                footer: {
-                                    cancelButton: false
-                                },
-                                content: {
-                                    loadingContentText: MESSAGE.i('actions.Loading'),
-                                    sameController: true
-                                },
-                                event: {
-                                    show: {
-                                        end: function (data) {
-                                            setTimeout(function (){
-                                                let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                    return x.proceso == row.proceso
-                                                })
-                                                auditoria_programa_plan.selectQueries['documento_responsable'] = [
-                                                    {
-                                                        "field": "id",
-                                                        "value": usuario_responsable[0].usuario
-                                                    }
-                                                ];
-                                                auditoria_programa_plan.form.loadDropDown('documento_responsable');
-                                            }, 1000)
-                                        }
+                            let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
+                                return x.proceso == row.proceso
+                            })
+                            BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "programa_plan",
+                                        value: auditoria_programa_plan.id
                                     },
-                                    hide: {
-                                        // begin: function (data) {
-                                        //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
-                                        //         $(`.${indicador_producto_poa.commentName}`).show();
-                                        //     }else{
-                                        //         $(`.${indicador_producto_poa.commentName}`).hide();
-                                        //     }
-                                        // },
-                                        end: async function (data) {
-                                            var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                where: [
-                                                    {
-                                                        field: "programa_plan",
-                                                        value: auditoria_programa_plan.id
-                                                    },
-                                                    {
-                                                        field: "estatus",
-                                                        operator: "is",
-                                                        value: "$null"
-                                                    }
-                                                ]
-                                            })
-                                            auditoria_programa_plan.documentos_list = documentos_list.data;
-                                        }
+                                    {
+                                        field: "documento_asociado",
+                                        value: row.id
                                     }
-                                },
+                                ]
+                            }, async function (result) {
+                                if (result.data.length > 0) {
+                                    let pdResponsables_id = [];
+                                    for (var i of result.data ){
+                                        pdResponsables_id.push(i.documento_asociado_responsable_id)
+                                    }
+                                    BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_responsables', {
+                                        usuario: usuario_responsable[0].usuario,
+                                        where: [
+                                            {
+                                                field: "id",
+                                                value: pdResponsables_id
+                                            }
+                                        ]
+                                    },function(){
+                                        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                            width: 'modal-full',
+                                            header: {
+                                                title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                icon: "file-plus2"
+                                            },
+                                            footer: {
+                                                cancelButton: false
+                                            },
+                                            content: {
+                                                loadingContentText: MESSAGE.i('actions.Loading'),
+                                                sameController: true
+                                            },
+                                            event: {
+                                                // show: {
+                                                //     end: function (data) {
+                                                //
+                                                //     }
+                                                // },
+                                                hide: {
+                                                    // begin: function (data) {
+                                                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                    //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                    //     }else{
+                                                    //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                    //     }
+                                                    // },
+                                                    end: async function (data) {
+                                                        var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                            where: [
+                                                                {
+                                                                    field: "programa_plan",
+                                                                    value: auditoria_programa_plan.id
+                                                                },
+                                                                {
+                                                                    field: "estatus",
+                                                                    operator: "is",
+                                                                    value: "$null"
+                                                                }
+                                                            ]
+                                                        })
+                                                        auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                    }
+                                                }
+                                            },
+                                        });
+                                    })
+                                }else{
+                                    BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                        programa_plan_documentos_asociados: auditoria_programa_plan.documento.id,
+                                        usuario: usuario_responsable[0].usuario,
+                                    }, function(){
+                                        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
+                                            width: 'modal-full',
+                                            header: {
+                                                title: 'Agregar - lista de verificación del Documento: ' + row.nombre,
+                                                icon: "file-plus2"
+                                            },
+                                            footer: {
+                                                cancelButton: false
+                                            },
+                                            content: {
+                                                loadingContentText: MESSAGE.i('actions.Loading'),
+                                                sameController: true
+                                            },
+                                            event: {
+                                                // show: {
+                                                //     end: function (data) {
+                                                //
+                                                //     }
+                                                // },
+                                                hide: {
+                                                    // begin: function (data) {
+                                                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                                                    //         $(`.${indicador_producto_poa.commentName}`).show();
+                                                    //     }else{
+                                                    //         $(`.${indicador_producto_poa.commentName}`).hide();
+                                                    //     }
+                                                    // },
+                                                    end: async function (data) {
+                                                        var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                            where: [
+                                                                {
+                                                                    field: "programa_plan",
+                                                                    value: auditoria_programa_plan.id
+                                                                },
+                                                                {
+                                                                    field: "estatus",
+                                                                    operator: "is",
+                                                                    value: "$null"
+                                                                }
+                                                            ]
+                                                        })
+                                                        auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                    }
+                                                }
+                                            },
+                                        });
+                                    });
+                                }
                             });
                         }
                     }
@@ -2320,7 +2635,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 var documento_trabajado = auditoria_programa_plan.documentos_list.filter(d => {
                     return d.documento_asociado == value;
                 });
-                if (documento_trabajado) {
+                if (documento_trabajado.length > 0) {
                     return documento_trabajado[0].estatus === 1;
                 } else {
                     return false;
