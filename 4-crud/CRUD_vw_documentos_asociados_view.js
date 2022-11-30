@@ -436,6 +436,10 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                         limit: 0,
                         where: [
                             {
+                                field: "programa_plan",
+                                value: auditoria_programa_plan.mi_id
+                            },
+                            {
                                 field: "documento_asociado",
                                 value: data.row.id
                             }
