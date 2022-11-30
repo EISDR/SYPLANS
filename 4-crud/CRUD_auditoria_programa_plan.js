@@ -13,6 +13,7 @@ CRUD_auditoria_programa_plan.esalgo = (row) => {
 CRUD_auditoria_programa_plan.esDocumentoResponsables = (row) => {
     let session = new SESSION().current();
     let usuario = session.id;
+    auditoria_programa_plan.viewSoyLider = row.lider == usuario;
     if (row.lista_documentos_responsables) {
         let documentos_responsables = JSON.parse(row.lista_documentos_responsables);
         if (documentos_responsables.indexOf(usuario + "") !== -1)

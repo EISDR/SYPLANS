@@ -50,10 +50,44 @@
 </div>
 <script>
     <%= scope %>.refreshAngular();
-    vw_documentos_asociados_view.fixFilters = [{
-        "field": "auditoria",
-        "value": auditoria_programa_plan.mi_id
-    }];
+    if (auditoria_programa_plan.viewSoyLider){
+        vw_documentos_asociados_view.fixFilters = [{
+            "field": "auditoria",
+            "value": auditoria_programa_plan.mi_id
+        }];
+    }else{
+        BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables',{
+            limit:0,
+            where:[
+                {
+                    field: "programa_plan",
+                    value: auditoria_programa_plan.mi_id
+                },
+                {
+                    field: "usuario",
+                    value: auditoria_programa_plan.session.id
+                }
+            ]
+        },function(result){
+            if (result.data.length > 0){
+                let documentos_asoc_id = [];
+                for (var i of result.data){
+                    documentos_asoc_id.push(i.documento_asociado)
+                };
+                vw_documentos_asociados_view.fixFilters = [
+                    {
+                        "field": "auditoria",
+                        "value": auditoria_programa_plan.mi_id
+                    },
+                    {
+                        "field": "id",
+                        "value":  documentos_asoc_id
+                    }
+                ];
+                vw_documentos_asociados_view.refresh();
+            }
+        })
+    }
 </script>
 <!--<div class="row">-->
     <!--<div class="col-md-12">-->
