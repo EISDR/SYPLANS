@@ -17,13 +17,6 @@
           "text": "Cumplimiento de Proyectos Especiales"
         },
         {
-          "menus": "",
-          "modal": "",
-          "icon": "pie-chart7",
-          "href": "#monitoreo_generico?vw_proyecto_item",
-          "text": "Monitoreo y Seguimiento"
-        },
-        {
           "menus": [
             {
               "menus": "",
@@ -101,6 +94,13 @@
           "icon": "list3",
           "href": "#",
           "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#monitoreo_generico?vw_proyecto_item",
+          "text": "Monitoreo y Seguimiento"
         },
         {
           "menus": "",
@@ -157,13 +157,6 @@
           "text": "Cumplimiento de Proyectos Especiales"
         },
         {
-          "menus": "",
-          "modal": "",
-          "icon": "pie-chart7",
-          "href": "#monitoreo_generico?vw_proyecto_item",
-          "text": "Monitoreo y Seguimiento"
-        },
-        {
           "menus": [
             {
               "menus": "",
@@ -241,6 +234,13 @@
           "icon": "list3",
           "href": "#",
           "text": "Evaluación y Carga de Evidencias"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#monitoreo_generico?vw_proyecto_item",
+          "text": "Monitoreo y Seguimiento"
         },
         {
           "menus": "",
