@@ -1971,7 +1971,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                 end: function (data) {
                                                     setTimeout(function (){
                                                         let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                            return x.proceso == row.proceso
+                                                            return x.proceso = row.proceso
                                                         })
                                                         auditoria_programa_plan.selectQueries['documento_responsable'] = [
                                                             {
@@ -2044,7 +2044,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                     end: function (data) {
                                                         setTimeout(function (){
                                                             let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                                return x.proceso == row.proceso
+                                                                return x.proceso = row.proceso
                                                             })
                                                             auditoria_programa_plan.selectQueries['documento_responsable'] = [
                                                                 {
@@ -2128,9 +2128,8 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 show: {
                                     end: function (data) {
                                         setTimeout(function (){
-                                            debugger
                                             let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                return x.proceso == row.proceso
+                                                return x.proceso = row.proceso
                                             })
                                             auditoria_programa_plan.selectQueries['documento_responsable'] = [
                                                 {
@@ -2195,7 +2194,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                         end: function (data) {
                                             setTimeout(function (){
                                                 let usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter( x=> {
-                                                    return x.proceso == row.proceso
+                                                    return x.proceso = row.proceso
                                                 })
                                                 auditoria_programa_plan.selectQueries['documento_responsable'] = [
                                                     {
