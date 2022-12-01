@@ -17,6 +17,119 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
                         value: auditoria_programa_plan.documento.id
                     }
                 ];
+                if (auditoria_programa_plan.my_true_estatus > 3) {
+                    CRUD_auditoria_programa_plan_documentos_asociados_listaverificacion.table.columns = {
+                        id: {
+                            visible: false,
+                            visibleDetail: false,
+                            export: false,
+                            exportExample: false,
+                            dead: true
+                        },
+                        descripcion: {
+                            label: function() {
+                                return "Puntos de Verificación"
+                            },
+                            shorttext: 360
+                        },
+                        cumple: {
+                            label: function() {
+                                return "¿Cumple?"
+                            },
+                            visible: true,
+                            sorttype: ENUM.FORMAT.bool,
+                            formattype: ENUM.FORMAT.bool
+                        },
+                        observaciones: {},
+                        tipo_inconformidad_nombre: {
+                            label: function (){
+                                return "Tipo de no Conformidad"
+                            }
+                        },
+                        archivo: {
+                            label: function () {
+                                return "Documento Adjunto"
+                            },
+                            export: false,
+                            exportExample: false,
+                            // click: function (d,d2,d3) {
+                            //     console.log(d,d2,d3,"xc");
+                            //     if(data.row.estatus == "Completado"){
+                            //         actividades_poa_monitoreo.setPermission("file.upload",false);
+                            //         actividades_poa_monitoreo.setPermission("file.remove",false);
+                            //     } else {
+                            //         actividades_poa_monitoreo.setPermission("file.upload",true);
+                            //         actividades_poa_monitoreo.setPermission("file.remove",true);
+                            //     }
+                            //     // if (typeof actividades_poa_monitoreo !== 'null'){
+                            //     //     if (actividades_poa_monitoreo){
+                            //             var info = actividades_poa_monitoreo.fileSI.filter(data2 => {
+                            //                 return data2.id == data.row.id;
+                            //             });
+                            //             console.log("klk",info);
+                            //             if(info.length){
+                            //                 var root = DSON.template( "/actividades_poa_monitoreo/actividadfile/"+data.row.id, data.row);
+                            //                 baseController.viewData = {
+                            //                     root: root,
+                            //                     scope: 'actividades_poa_monitoreo',
+                            //                     maxsize: 20,
+                            //                     maxfiles: 1,
+                            //                     acceptedFiles: null,
+                            //                     columns: 1,
+                            //                 };
+                            //
+                            //                 data.$scope.modal.modalView("templates/components/gallery", {
+                            //                     width: 'modal-full',
+                            //                     header: {
+                            //                         title: MESSAGE.ic("mono.files"),
+                            //                         icon: "file-eye"
+                            //                     },
+                            //                     footer: {
+                            //                         cancelButton: false
+                            //                     },
+                            //                     content: {
+                            //                         loadingContentText: MESSAGE.i('actions.Loading')
+                            //                     },
+                            //                 });
+                            //             }
+                            //     //     }
+                            //     // }
+                            // },
+                            format: function (row) {
+                                if (typeof auditoria_programa_plan_documentos_asociados_listaverificacion !== 'null') {
+                                    if (auditoria_programa_plan_documentos_asociados_listaverificacion) {
+                                        var info = auditoria_programa_plan_documentos_asociados_listaverificacion.fileSI.filter(data => {
+                                            return data.id == row.id;
+                                        });
+                                        if (info.length) {
+                                            return "<a title='Ver imagen'><i class='icon-files-empty'></i></a>";
+
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+
+                                }
+                            }
+                        },
+                    };
+                }else{
+                    CRUD_auditoria_programa_plan_documentos_asociados_listaverificacion.table.columns = {
+                        id: {
+                            visible: false,
+                            visibleDetail: false,
+                            export: false,
+                            exportExample: false,
+                            dead: true
+                        },
+                        descripcion: {
+                            label: function() {
+                                return "Puntos de Verificación"
+                            },
+                            shorttext: 360
+                        }
+                    };
+                }
             }
         }
     }
