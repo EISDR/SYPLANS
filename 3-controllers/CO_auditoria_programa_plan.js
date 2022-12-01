@@ -1246,6 +1246,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             }
             try {
                 let auditores_responsable = ARRAY.unique(auditoria_programa_plan.auditoria_plan_responsable);
+                auditores_responsable.sort(function(a,b){return a-b});
                 for (var item of auditores_responsable) {
                     var somwerow = new ROLROW();
                     var auditor = auditoria_programa_plan.auditores.data.filter(d => {
@@ -2498,13 +2499,19 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         }
     }
     auditoria_programa_plan.validate_documentos = function (row) {
-
         if (auditoria_programa_plan.documentos_list) {
             if (auditoria_programa_plan.documentos_list.length > 0) {
-                var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
-                    return d.total_listas > 0 && d.documento_asociado === row.id;
-                });
-                return current_documento.length > 0;
+                if (auditoria_programa_plan.my_true_estatus == 1){
+                    var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
+                        return d.cantidad_responsables > 0 && d.documento_asociado === row.id;
+                    });
+                    return current_documento.length > 0;
+                }else if (auditoria_programa_plan.my_true_estatus == 2){
+                    var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
+                        return (d.total_listas > 0 && d.cantidad_responsables > 0) && d.documento_asociado === row.id;
+                    });
+                    return current_documento.length > 0;
+                }
             } else {
                 return false;
             }
@@ -3056,7 +3063,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             } else if (!auditoria_programa_plan.allow_autorize_audit() && auditoria_programa_plan.estatus == 3) {
                 SWEETALERT.show({
                     type: 'error',
-                    message: `Todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener definida la Lista de Verificación que será auditada`,
+                    message: `Todos los DOCUMENTOS a los procesos seleccionados deben tener definida la Lista de Verificación que será auditada`,
                 });
                 resolve(false);
             } else if (auditores_sin_rol && auditoria_programa_plan.estatus < 4) {
