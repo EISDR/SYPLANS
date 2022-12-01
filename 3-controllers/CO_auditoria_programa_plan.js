@@ -3051,13 +3051,13 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             if ((!auditoria_programa_plan.allow_save_documents() || auditoria_programa_plan.auditoria_plan_documentos_asociados.length == 0) && auditores_sin_rol) {
                 SWEETALERT.show({
                     type: 'error',
-                    message: `Cada Auditor participante debe tener un Rol definido y todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
+                    message: `Cada Auditor participante debe tener un Rol definido y todos los DOCUMENTOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
                 });
                 resolve(false);
             } else if (!auditoria_programa_plan.allow_save_documents() || auditoria_programa_plan.auditoria_plan_documentos_asociados.length == 0) {
                 SWEETALERT.show({
                     type: 'error',
-                    message: `Todos los DOCUMENTOS ASOCIADOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
+                    message: `Todos los DOCUMENTOS a los procesos seleccionados deben tener Auditores Responsables Asignados`,
                 });
                 resolve(false);
             } else if (!auditoria_programa_plan.allow_autorize_audit() && auditoria_programa_plan.estatus == 3) {
