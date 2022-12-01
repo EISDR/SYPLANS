@@ -226,6 +226,7 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
             }
             if (mode === 'new'){
                 proyecto_item_actividad.presupuesto_anterior = 0;
+                proyecto_item_actividad.id = undefined;
             }
             proyecto_item_actividad.form.titles = {
                 new: "Nueva Actividad",
@@ -448,7 +449,7 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
         }
     };
     proyecto_item_actividad.triggers.table.after.load = async function (records) {
-        await proyecto_item_actividad.runMagicManyToMany('mods', "mods", "proyecto_item", "id", 'nombre', "proyecto_actividad_mods", "mods", "id");
+        await proyecto_item_actividad.runMagicManyToMany('mods', "mods", "proyecto_actividad", "id", 'nombre', "proyecto_actividad_mods", "mods", "id");
         await proyecto_item_actividad.runMagicOneToMany('actividades_apoyo_table', 'proyecto_actividad_apoyo', 'proyecto_actividad', 'nombre', 'id');
         if (typeof proyecto_item != "undefined"){
             if (proyecto_item){
