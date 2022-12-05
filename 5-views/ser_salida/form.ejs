@@ -260,6 +260,8 @@
         ser_salida.ser_salida_estatus = "1";
         ser_salida.fecha_queja = moment(new Date()).format("YYYY/MM/DD");
         ser_salida.form.loadDropDown("ser_salida_estatus");
+    }
+    if(!ser_salida.trabajando){
         ser_salida.form.options.ser_salida_estatus.disabled = true;
     } else {
         ser_salida.form.options.ser_salida_estatus.disabled = false;
