@@ -1649,22 +1649,47 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                     documentos_id.push(i.id)
                                 }
                                 if (documentos_id.length> 0){
-                                    BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
-                                        {
-                                            field: "programa_plan_documentos_asociados",
-                                            value: documentos_id
-                                        },
-                                        {
-                                            field: "usuario",
-                                            value: [usuario_viejo?usuario_viejo:0, auditoria_programa_plan.RESROWS[key].usuario?auditoria_programa_plan.RESROWS[key].usuario: 0]
-                                        }
-                                    ], async function (result) {
-                                        for (var i of documentos_id) {
-                                            if (auditoria_programa_plan.RESROWS[key].usuario){
-                                                BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
-                                                    usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null",
-                                                    programa_plan_documentos_asociados: i
-                                                }, async function (result) {
+                                    BASEAPI.updateall('auditoria_programa_plan_documentos_asociados', {
+                                        trabajado: 1,
+                                        where: [
+                                            {
+                                                field: "id",
+                                                value: documentos_id
+                                            }
+                                        ]
+                                    }, async function (result) {
+                                        BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
+                                            {
+                                                field: "programa_plan_documentos_asociados",
+                                                value: documentos_id
+                                            },
+                                            {
+                                                field: "usuario",
+                                                value: [usuario_viejo ? usuario_viejo : 0, auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : 0]
+                                            }
+                                        ], async function (result) {
+                                            for (var i of documentos_id) {
+                                                if (auditoria_programa_plan.RESROWS[key].usuario) {
+                                                    BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                        usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null",
+                                                        programa_plan_documentos_asociados: i
+                                                    }, async function (result) {
+                                                        var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                                            where: [
+                                                                {
+                                                                    field: "programa_plan",
+                                                                    value: auditoria_programa_plan.id
+                                                                },
+                                                                {
+                                                                    field: "estatus",
+                                                                    operator: "is",
+                                                                    value: "$null"
+                                                                }
+                                                            ]
+                                                        })
+                                                        auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                    });
+                                                } else {
                                                     var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
                                                         where: [
                                                             {
@@ -1679,25 +1704,10 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                         ]
                                                     })
                                                     auditoria_programa_plan.documentos_list = documentos_list.data;
-                                                });
-                                            }else{
-                                                var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                    where: [
-                                                        {
-                                                            field: "programa_plan",
-                                                            value: auditoria_programa_plan.id
-                                                        },
-                                                        {
-                                                            field: "estatus",
-                                                            operator: "is",
-                                                            value: "$null"
-                                                        }
-                                                    ]
-                                                })
-                                                auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                }
                                             }
-                                        }
-                                    })
+                                        })
+                                    });
                                 }
                             }
                             auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
