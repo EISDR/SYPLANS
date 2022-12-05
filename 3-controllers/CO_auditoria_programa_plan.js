@@ -2708,8 +2708,10 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         if (documentos_seleccionados.length > 0){
             for (let i of auditoria_programa_plan.documentos_list) {
                 for (let j of documentos_seleccionados) {
-                    if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
-                        documentos_correctos.push(i)
+                    if (!documentos_correctos.some(e=> e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
+                        if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                            documentos_correctos.push(i)
+                        }
                     }
                 }
             };
