@@ -98,6 +98,9 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                         return `<div title="Incompleto" class='Incompleto shape_element'> </div>`;
                     }
 
+                },
+                rowspan: function (index, list, category) {
+                    return (category === "span") ? vw_documentos_asociados_view.sp_('d.nombre', index, list) : vw_documentos_asociados_view.sm_('d.nombre', index, list);
                 }
             },
             acciones: {
