@@ -2097,7 +2097,7 @@
         "allow": {}
       },
       "vw_documentos_asociados_view": {
-        "type": "report",
+        "type": "empty",
         "allow": {}
       }
     }
