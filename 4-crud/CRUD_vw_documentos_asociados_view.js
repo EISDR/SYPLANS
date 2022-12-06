@@ -81,6 +81,9 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                 label: function () {
                     return "Responsable";
                 },
+                dblclick: function (){
+                    return false;
+                }
             },
             condicion: {
                 label: function () {
@@ -96,6 +99,18 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                     }
 
                 }
+            },
+            acciones: {
+                label: function (){
+                    return "Acciones"
+                },
+                format: function(row){
+                    $(`.negrita`).css('color', '#000000');
+                    return "<a class='negrita' title='Añadir puntos de Verificación'><i class='icon-magazine'></i></a>";
+                },
+                rowspan: function (index, list, category) {
+                    return (category === "span") ? vw_documentos_asociados_view.sp_('d.nombre', index, list) : vw_documentos_asociados_view.sm_('d.nombre', index, list);
+                },
             }
         },
         filters: {
@@ -422,44 +437,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                         }
                     },
                 ]
-            },
-            {
-                text: (data) => {
-                    return "Añadir Puntos de Verificación";
-                },
-                title: (data) => {
-                    return "Añadir Puntos de Verificación";
-                },
-                icon: (data) => {
-                    return "magazine";
-                },
-                permission: (data) => {
-                    return 'view';
-                },
-                characterist: (data) => {
-                    return "";
-                },
-                show: (data) => {
-                    return true;
-                },
-                click: async function (data) {
-                    var auditoria_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados_responsables', {
-                        limit: 0,
-                        where: [
-                            {
-                                field: "programa_plan",
-                                value: auditoria_programa_plan.mi_id
-                            },
-                            {
-                                field: "documento_asociado",
-                                value: data.row.id
-                            }
-                        ]
-                    });
-                    auditoria_programa_plan.auditoria_auditores_documentos = auditoria_auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
-                    auditoria_programa_plan.add_work_list(data.row, true);
-                    return false;
-                }
             },
         ]
     }

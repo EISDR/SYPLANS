@@ -357,4 +357,24 @@ app.controller("vw_documentos_asociados_view", function ($scope, $http, $compile
     //};
     //$scope.afterDelete = function (data) {
     //};
+    vw_documentos_asociados_view.add_list = async function (key, value, row) {
+        if (key != "acciones")
+            return;
+        var auditoria_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados_responsables', {
+            limit: 0,
+            where: [
+                {
+                    field: "programa_plan",
+                    value: auditoria_programa_plan.mi_id
+                },
+                {
+                    field: "documento_asociado",
+                    value: row.id
+                }
+            ]
+        });
+        auditoria_programa_plan.auditoria_auditores_documentos = auditoria_auditores.data.filter((xvalue, index, self) => self.map(x => x.usuario).indexOf(xvalue.usuario) == index)
+        auditoria_programa_plan.add_work_list(row, true);
+        return false;
+    };
 });
