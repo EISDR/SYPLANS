@@ -621,7 +621,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                         });
                         if (auditoria_programa_plan.id) {
                             var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                where: [
+                                limit: 0, where: [
                                     {
                                         field: "programa_plan",
                                         value: auditoria_programa_plan.id
@@ -643,7 +643,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                         auditoria_programa_plan.documentos_asociados_list_view = {data: []};
                         if (auditoria_programa_plan.id) {
                             var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                where: [
+                                limit: 0, where: [
                                     {
                                         field: "programa_plan",
                                         value: auditoria_programa_plan.id
@@ -1055,7 +1055,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
 
 
                 var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                    where: [
+                    limit: 0, where: [
                         {
                             field: "programa_plan",
                             value: auditoria_programa_plan.id
@@ -1195,6 +1195,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         this.usuario = "";
         this.rol = "";
     }
+
     function RESROW() {
         this.id = new Date().getTime();
         this.proceso = "";
@@ -1241,12 +1242,15 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 }
                             }
                         }
-                    };
+                    }
+                    ;
                 }
             }
             try {
                 let auditores_responsable = ARRAY.unique(auditoria_programa_plan.auditoria_plan_responsable);
-                auditores_responsable.sort(function(a,b){return a-b});
+                auditores_responsable.sort(function (a, b) {
+                    return a - b
+                });
                 for (var item of auditores_responsable) {
                     var somwerow = new ROLROW();
                     var auditor = auditoria_programa_plan.auditores.data.filter(d => {
@@ -1295,7 +1299,9 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             }
             try {
                 let losProcesos = ARRAY.unique(auditoria_programa_plan.auditoria_plan_proceso);
-                losProcesos.sort(function(a,b){return a-b});
+                losProcesos.sort(function (a, b) {
+                    return a - b
+                });
                 for (var item of losProcesos) {
                     var somwerow = new RESROW();
                     var leproceso = auditoria_programa_plan.procesoAuditores.data.filter(d => {
@@ -1303,7 +1309,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                     });
                     if (leproceso.length > 0) {
                         somwerow.proceso = item;
-                        somwerow.usuario = leproceso[0].usuario ? leproceso[0].usuario  + "" : null;
+                        somwerow.usuario = leproceso[0].usuario ? leproceso[0].usuario + "" : null;
                         auditoria_programa_plan.RESROWS.push(somwerow)
                     } else {
                         somwerow.proceso = item;
@@ -1631,8 +1637,8 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 }
                             ]
                         }, async function (result) {
-                            let documentos_asociados  = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                where: [
+                            let documentos_asociados = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                limit: 0, where: [
                                     {
                                         field: "programa_plan",
                                         value: auditoria_programa_plan.id
@@ -1644,11 +1650,11 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 ]
                             })
                             let documentos_id = [];
-                            if (documentos_asociados.data.length > 0){
-                                for (var i of documentos_asociados.data){
+                            if (documentos_asociados.data.length > 0) {
+                                for (var i of documentos_asociados.data) {
                                     documentos_id.push(i.id)
                                 }
-                                if (documentos_id.length> 0){
+                                if (documentos_id.length > 0) {
                                     BASEAPI.updateall('auditoria_programa_plan_documentos_asociados', {
                                         trabajado: 1,
                                         where: [
@@ -1675,7 +1681,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                         programa_plan_documentos_asociados: i
                                                     }, async function (result) {
                                                         var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                            where: [
+                                                            limit: 0, where: [
                                                                 {
                                                                     field: "programa_plan",
                                                                     value: auditoria_programa_plan.id
@@ -1691,7 +1697,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                     });
                                                 } else {
                                                     var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                        where: [
+                                                        limit: 0, where: [
                                                             {
                                                                 field: "programa_plan",
                                                                 value: auditoria_programa_plan.id
@@ -1898,7 +1904,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     }
     auditoria_programa_plan.add_work_list = async function (row, from_view) {
         auditoria_programa_plan.selected_row = row;
-        if (from_view){
+        if (from_view) {
             auditoria_programa_plan.hide_me = true;
             BASEAPI.first('auditoria_programa_plan_documentos_asociados', {
                 where: [
@@ -1950,7 +1956,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                 // },
                                 end: async function (data) {
                                     var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                        where: [
+                                        limit: 0, where: [
                                             {
                                                 field: "programa_plan",
                                                 value: auditoria_programa_plan.id
@@ -1969,7 +1975,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                     });
                 }
             });
-        }else {
+        } else {
             auditoria_programa_plan.hide_me = false;
             if (!auditoria_programa_plan.id) {
                 auditoria_programa_plan.from_new = true;
@@ -2016,11 +2022,11 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                         }]
                                     }, '', '');
                                     auditoria_programa_plan.documento = result;
-                                    if (auditoria_programa_plan.procesoAuditores_reales.length > 0 ) {
+                                    if (auditoria_programa_plan.procesoAuditores_reales.length > 0) {
                                         var usuario_responsable = auditoria_programa_plan.procesoAuditores_reales.filter(x => {
                                             return x.proceso == row.proceso
                                         })
-                                    }else{
+                                    } else {
                                         var usuario_responsable = [];
                                     }
                                     BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados_responsables', {
@@ -2066,7 +2072,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                         // },
                                                         end: async function (data) {
                                                             var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                                where: [
+                                                                limit: 0, where: [
                                                                     {
                                                                         field: "programa_plan",
                                                                         value: auditoria_programa_plan.id
@@ -2083,11 +2089,11 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                     }
                                                 },
                                             });
-                                        }else{
+                                        } else {
                                             BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
                                                 programa_plan_documentos_asociados: auditoria_programa_plan.documento.id,
                                                 usuario: usuario_responsable[0].usuario,
-                                            }, function(){
+                                            }, function () {
                                                 auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list", {
                                                     width: 'modal-full',
                                                     header: {
@@ -2117,7 +2123,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                             // },
                                                             end: async function (data) {
                                                                 var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                                    where: [
+                                                                    limit: 0, where: [
                                                                         {
                                                                             field: "programa_plan",
                                                                             value: auditoria_programa_plan.id
@@ -2182,7 +2188,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                                     // },
                                                     end: async function (data) {
                                                         var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                            where: [
+                                                            limit: 0, where: [
                                                                 {
                                                                     field: "programa_plan",
                                                                     value: auditoria_programa_plan.id
@@ -2256,7 +2262,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                     // },
                                     end: async function (data) {
                                         var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                            where: [
+                                            limit: 0, where: [
                                                 {
                                                     field: "programa_plan",
                                                     value: auditoria_programa_plan.id
@@ -2310,7 +2316,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                                         // },
                                         end: async function (data) {
                                             var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                                                where: [
+                                                limit: 0, where: [
                                                     {
                                                         field: "programa_plan",
                                                         value: auditoria_programa_plan.id
@@ -2336,12 +2342,12 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     auditoria_programa_plan.validate_documentos = function (row) {
         if (auditoria_programa_plan.documentos_list) {
             if (auditoria_programa_plan.documentos_list.length > 0) {
-                if (auditoria_programa_plan.my_true_estatus == 1){
+                if (auditoria_programa_plan.my_true_estatus == 1) {
                     var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
                         return d.cantidad_responsables > 0 && d.documento_asociado === row.id;
                     });
                     return current_documento.length > 0;
-                }else if (auditoria_programa_plan.my_true_estatus == 2){
+                } else if (auditoria_programa_plan.my_true_estatus == 2) {
                     var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
                         return (d.total_listas > 0 && d.cantidad_responsables > 0) && d.documento_asociado === row.id;
                     });
@@ -2469,7 +2475,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         }, async function (result) {
             if (result) {
                 var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                    where: [
+                    limit: 0, where: [
                         {
                             field: "programa_plan",
                             value: auditoria_programa_plan.id
@@ -2663,7 +2669,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                             })
                         })
                     })
-                }else{
+                } else {
                     console.log(result2);
                     BASEAPI.deleteall('auditoria_programa_plan', [
                         {
@@ -2672,7 +2678,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                         }
                     ], function (result) {
 
-                            auditoria_programa_plan.pages.form.close()
+                        auditoria_programa_plan.pages.form.close()
                     })
                     auditoria_programa_plan.pages.form.close()
                 }
@@ -2686,17 +2692,18 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;
         });
-        var documentos_correctos =[];
-        if (documentos_seleccionados.length > 0){
+        var documentos_correctos = [];
+        if (documentos_seleccionados.length > 0) {
             for (let i of auditoria_programa_plan.documentos_list) {
                 for (let j of documentos_seleccionados) {
-                    if (!documentos_correctos.some(e=> e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
+                    if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
                         if ((i.documento_asociado == j) && (i.cantidad_responsables > 0 && i.trabajado != null)) {
                             documentos_correctos.push(i)
                         }
                     }
                 }
-            };
+            }
+            ;
         }
         return documentos_correctos.length === documentos_seleccionados.length;
     }
@@ -2704,17 +2711,18 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;
         });
-        var documentos_correctos =[];
-        if (documentos_seleccionados.length > 0){
+        var documentos_correctos = [];
+        if (documentos_seleccionados.length > 0) {
             for (let i of auditoria_programa_plan.documentos_list) {
                 for (let j of documentos_seleccionados) {
-                    if (!documentos_correctos.some(e=> e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
+                    if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
                         if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
                             documentos_correctos.push(i)
                         }
                     }
                 }
-            };
+            }
+            ;
         }
         return documentos_correctos.length === documentos_seleccionados.length;
     }
@@ -2739,7 +2747,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     }
     auditoria_programa_plan.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-        
+
         if (auditoria_programa_plan.estatus > 1 && auditoria_programa_plan.auditores_lideres > 1) {
             SWEETALERT.show({
                 type: 'error',
@@ -2770,7 +2778,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     });
     auditoria_programa_plan.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
-        if (auditoria_programa_plan.from_new ){
+        if (auditoria_programa_plan.from_new) {
             await AUDIT.LOG(AUDIT.ACTIONS.insert, auditoria_programa_plan.tableOrView ? auditoria_programa_plan.tableOrView : auditoria_programa_plan.modelName, data.updating);
             data.updating.elaborado_por = auditoria_programa_plan.session.usuario_id;
             data.updating.elaborado_en = moment().format("YYYY-MM-DD HH:mm");
@@ -3049,7 +3057,7 @@ Los participantes departamentales son:`
         auditoria_programa_plan.from_new = false;
         auditoria_programa_plan.from_edit = false;
     };
-    auditoria_programa_plan.get_date = function(){
+    auditoria_programa_plan.get_date = function () {
         return LAN.datetime();
     }
     auditoria_programa_plan.export_informe = function (name) {
