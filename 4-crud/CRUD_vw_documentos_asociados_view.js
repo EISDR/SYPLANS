@@ -65,10 +65,21 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_view, {
                 label: function () {
                     return "Código";
                 },
+                rowspan: function (index, list, category) {
+                    return (category === "span") ? vw_documentos_asociados_view.sp_('d.codigo', index, list) : vw_documentos_asociados_view.sm_('d.codigo', index, list);
+                }
             },
             nombre: {
                 label: function () {
                     return "Documento";
+                },
+                rowspan: function (index, list, category) {
+                    return (category === "span") ? vw_documentos_asociados_view.sp_('d.nombre', index, list) : vw_documentos_asociados_view.sm_('d.nombre', index, list);
+                }
+            },
+            responsable: {
+                label: function () {
+                    return "Responsable";
                 },
             },
             condicion: {

@@ -6,12 +6,24 @@
                     <div class="tab-pane active" id="basic">
                         <div class="panel panel-default">
                             <div class="panel-heading" style="padding: 5px">
-                                <h6 style="margin-left: 10px">Auditores Participantes</h6>
+                                <h6 style="margin-left: 10px">Datos de la auditoría</h6>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <label class="control-label is-visible animate ng-binding" style="margin-bottom: 0px">Nombre</label>
+                                        <input id="nombre" disabled="true" class="form-control" ng-model="auditoria_programa_plan.dataForWork.nombre">
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <label class="control-label is-visible animate ng-binding" style="margin-bottom: 0px">Tipo de Auditoría</label>
+                                        <input id="nombre" disabled="true" class="form-control" ng-model="auditoria_programa_plan.dataForWork.tipo_auditoria_nombre">
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <label class="control-label is-visible animate ng-binding" style="margin-bottom: 0px">Estatus</label>
+                                        <input id="nombre" disabled="true" class="form-control" ng-model="auditoria_programa_plan.dataForWork.estatus_nombre">
+                                    </div>
                                     <div class="col-sm-12 col-md-4" style="margin-top: 16px">
-                                        <ol ng-show="auditoria_programa_plan.auditoria_auditores.length > 0" style="">
+                                        <ol ng-show="auditoria_programa_plan.auditoria_auditores.length > 0" style="display: none">
                                             <li ng-repeat="(key,row) in auditoria_programa_plan.auditoria_auditores" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
                                                 {{row.usuario_nombre}} {{row.lider ? '(Líder)' : '' }}
                                             </li>
@@ -82,7 +94,11 @@
                     {
                         "field": "id",
                         "value":  documentos_asoc_id
-                    }
+                    },
+                    {
+                        "field": "usuario",
+                        "value":  auditoria_programa_plan.session.id
+                    },
                 ];
                 setTimeout(function(){
                     vw_documentos_asociados_view.refresh();

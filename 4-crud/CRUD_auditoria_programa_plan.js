@@ -1186,6 +1186,7 @@ Los auditores que estarán participando serán :
                 click: async function (data) {
                     data.$scope.mi_id = data.row.id;
                     data.$scope.my_true_estatus = data.row.estatus;
+                    data.$scope.dataForWork = data.row;
                     var auditoria_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_equipotrabajo', {
                         limit: 0,
                         where: [

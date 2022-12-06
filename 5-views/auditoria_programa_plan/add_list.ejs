@@ -3,6 +3,15 @@
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <button
+                        ng-show="auditoria_programa_plan.hide_me"
+                        dragonlanguage="" title="Continuar"
+                        type="button" class="btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-right"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-forward"></i></b>
+                    <language>Continuar</language>
+                </button>
+                <button
+                        ng-show="!auditoria_programa_plan.hide_me"
                         dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
                         type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
                         onclick="MODAL.close()">
@@ -111,6 +120,15 @@
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <button
+                        ng-show="auditoria_programa_plan.hide_me"
+                        dragonlanguage="" title="Continuar"
+                        type="button" class="btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-right"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-forward"></i></b>
+                    <language>Continuar</language>
+                </button>
+                <button
+                        ng-show="!auditoria_programa_plan.hide_me"
                         dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
                         type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
                         onclick="MODAL.close()">
