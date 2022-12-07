@@ -1197,21 +1197,6 @@ Los auditores que estarán participando serán :
                         ]
                     });
                     auditoria_programa_plan.auditoria_auditores = auditoria_auditores.data.filter((value, index, self) => self.map(x => x.usuario).indexOf(value.usuario) == index)
-                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
-                        limit: 0,
-                        where: [
-                            {
-                                field: "programa_plan",
-                                value: auditoria_programa_plan.mi_id
-                            },
-                            {
-                                field: "documento_asociado",
-                                operator: "is not",
-                                value: "$null"
-                            }
-                        ]
-                    })
-                    auditoria_programa_plan.documentos_list_view = documentos_list.data;
                     auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_list_auditor", {
 
                         width: 'modal-full',
@@ -1225,6 +1210,39 @@ Los auditores que estarán participando serán :
                         content: {
                             loadingContentText: MESSAGE.i('actions.Loading'),
                             sameController: 'auditoria_programa_plan'
+                        },
+                        event: {
+                            show: {
+                                begin: function (data) {
+
+                                },
+                                end: async function (eData) {
+                                    var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                                        limit: 0, where: [
+                                            {
+                                                field: "programa_plan",
+                                                value: data.row.id
+                                            },
+                                            {
+                                                field: "documento_asociado",
+                                                operator: "is not",
+                                                value: "$null"
+                                            }
+                                        ]
+                                    });
+                                    auditoria_programa_plan.documentos_list_view = documentos_list.data;
+                                    auditoria_programa_plan.auditoria_plan_documentos_asociados_view = eval(data.row.lista_documentos);
+                                    auditoria_programa_plan.refreshAngular();
+                                    vw_documentos_asociados_view.refresh();
+                                }
+                            },
+                            hide: {
+                                begin: function (data) {
+
+                                },
+                                end: function (data) {
+                                }
+                            }
                         },
                     });
                     return false;

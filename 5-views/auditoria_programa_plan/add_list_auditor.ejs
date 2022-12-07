@@ -56,6 +56,14 @@
                     <b><i class="icon-cross2"></i></b>
                     <language>MESSAGE.ic('mono.cancel')</language>
                 </button>
+                <button
+                        ng-show="auditoria_programa_plan.allow_autorize_audit_view()"
+                        dragonlanguage="" title="Notificar a calidad"
+                        type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
+                        onclick="MODAL.close()">
+                    <b><i class="icon-envelop3"></i></b>
+                    <language>Notificar a calidad</language>
+                </button>
             </div>
         </div>
     </div>

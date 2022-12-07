@@ -2726,6 +2726,25 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         }
         return documentos_correctos.length === documentos_seleccionados.length;
     }
+    auditoria_programa_plan.allow_autorize_audit_view = function () {
+        var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados_view.filter(function (item, index, inputArray) {
+            return inputArray.indexOf(item) == index;
+        });
+        var documentos_correctos = [];
+        if (documentos_seleccionados.length > 0) {
+            for (let i of auditoria_programa_plan.documentos_list_view) {
+                for (let j of documentos_seleccionados) {
+                    if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
+                        if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                            documentos_correctos.push(i)
+                        }
+                    }
+                }
+            }
+            ;
+        }
+        return documentos_correctos.length === documentos_seleccionados.length;
+    }
     auditoria_programa_plan.change_message = function () {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) === index;
