@@ -56,6 +56,24 @@ send_notification = {
                     NOTIFY.success("Correos enviados");
             });
         },
+        //Esta es la otra funcion para los correos de los auditores de auditorias.
+        email_auditoria: function (data) {
+            BASEAPI.mail({
+                "to": data.to,
+                "cc": data.cc,
+                "bcc": data.bcc,
+                "subject": data.subject,
+                "name": data.name_show,
+                "template": data.template,
+                "fields": {
+                    message: data.message,
+                    tabla_data: data.tabla_data ? data.tabla_data : undefined,
+                }
+            }, function (result) {
+                if (data.notification === 'yes')
+                    NOTIFY.success("Correos enviados");
+            });
+        },
         //Esta es la otra funcion para los correos de los indicadores.
         email_indicadores: function (data) {
             if (data)

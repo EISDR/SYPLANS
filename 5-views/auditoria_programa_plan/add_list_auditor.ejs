@@ -60,7 +60,7 @@
                         ng-show="auditoria_programa_plan.allow_autorize_audit_view()"
                         dragonlanguage="" title="Notificar a calidad"
                         type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
-                        onclick="MODAL.close()">
+                        onclick="auditoria_programa_plan.send_email_calidad(auditoria_programa_plan.dataForWork)">
                     <b><i class="icon-envelop3"></i></b>
                     <language>Notificar a calidad</language>
                 </button>

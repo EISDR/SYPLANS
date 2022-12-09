@@ -1609,8 +1609,6 @@ function_send_email_custom_group = function (titulo_push, cuerpo_push, titulo, c
             notification: 'yes'
         };
         send_notification.send.email(data_json_email_primer_segundo_grupo);
-
-
     });
 };
 
@@ -2849,4 +2847,97 @@ tableUtilities.verFile = function (scope, row, field, folder, indentity) {
             }
         }
     }
+};
+
+function_send_email_auditores_resposables = function (titulo_push, cuerpo_push, titulo, cuerpo, compania, institucion, primer_grupo, segundo_grupo, auditores, tabla_data) {
+    var usuario_data = [];
+    var usuario_primer_grupo = [];
+    var usuario_segundo_grupo = [];
+    var id_usuarios_primer_grupo = [];
+    var correo_usuarios_primer_grupo = [];
+    var id_usuarios_segundo_grupo = [];
+    var correo_usuarios_segundo_grupo = [];
+    BASEAPI.listp('usuario', {
+        limit: 0,
+        where: [
+            {
+                "field": "correo",
+                "operator": "!=",
+                "value": "admin@eisdr.com"
+            },
+            {
+                "field": "compania",
+                "value": compania
+            },
+            {
+                "field": "institucion",
+                "operator": institucion ? "=" : "is",
+                "value": institucion ? institucion : "$null"
+            }
+        ]
+    }).then(function (result) {
+        usuario_data = result.data;
+        if (Array.isArray(primer_grupo)) {
+            usuario_primer_grupo.push(usuario_data.filter(search => {
+                return primer_grupo.includes(search.profile);
+            }));
+        } else {
+            usuario_primer_grupo.push(usuario_data.filter(search => {
+                return search.profile == primer_grupo;
+            }));
+        }
+        if (Array.isArray(segundo_grupo)) {
+            usuario_segundo_grupo.push(usuario_data.filter(search => {
+                return segundo_grupo.includes(search.profile);
+            }));
+        } else {
+            usuario_segundo_grupo.push(usuario_data.filter(search => {
+                return search.profile == segundo_grupo;
+            }));
+        }
+        for (item of usuario_primer_grupo) {
+            for (var resul of item) {
+                id_usuarios_primer_grupo.push(resul.id);
+                correo_usuarios_primer_grupo.push(resul.correo);
+            }
+        }
+        for (item2 of usuario_segundo_grupo) {
+            for (var resul2 of item2) {
+                id_usuarios_segundo_grupo.push(resul2.id);
+                correo_usuarios_segundo_grupo.push(resul2.correo);
+            }
+        }
+        if (Array.isArray(auditores)) {
+            for (var itemA of auditores) {
+                id_usuarios_primer_grupo.push(itemA.usuario);
+                correo_usuarios_primer_grupo.push(itemA.usuario_correo);
+            }
+        }
+        var data_json_primer_grupo = {
+            title: titulo_push,
+            content: cuerpo_push,
+            user: id_usuarios_primer_grupo,
+            url: '#'
+        };
+        var data_json_segundo_grupo = {
+            title: titulo_push,
+            content: cuerpo_push,
+            user: id_usuarios_segundo_grupo,
+            url: '#'
+        };
+        send_notification.send.send(data_json_primer_grupo);
+        send_notification.send.send(data_json_segundo_grupo);
+        console.log(tabla_data, "a ver")
+        var data_json_email_primer_segundo_grupo = {
+            to: correo_usuarios_primer_grupo,
+            cc: correo_usuarios_segundo_grupo,
+            subject: titulo,
+            name_show: "NoReply",
+            template: 'email/auditoria_auditores',
+            message: cuerpo,
+            notification: 'yes',
+            tabla_data: tabla_data
+        };
+        send_notification.send.email_auditoria(data_json_email_primer_segundo_grupo);
+    });
 };
