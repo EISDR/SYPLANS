@@ -159,6 +159,10 @@ var toclient = JSON.stringify(options);
 
 
         });
-
+        $('[name="<%= model %>_<%= nameclean %>"]').on('select2:open', function (e) {
+            const evt = "scroll.select2";
+            $(e.target).parents().off(evt);
+            $(window).off(evt);
+        });
     });
 </script>
