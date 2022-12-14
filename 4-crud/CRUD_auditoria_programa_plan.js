@@ -129,59 +129,7 @@ DSON.keepmerge(CRUD_auditoria_programa_plan, {
                     return "";
                 },
                 title: (data) => {
-                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined") {
-                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.Remove') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.Remove') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.Remove') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
-                            return MESSAGE.i('actions.Remove') + ", " +
-                                MESSAGE.i('actions.audit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.Remove');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.Remove');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
-                            return MESSAGE.i('actions.Edit') + ", " +
-                                MESSAGE.i('actions.View');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
-                            return MESSAGE.i('actions.View') + ", " +
-                                MESSAGE.i('actions.Remove');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit) {
-                            return MESSAGE.i('actions.Edit');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
-                            return MESSAGE.i('actions.View');
-                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
-                            return MESSAGE.i('actions.Remove');
-                        }
-                    } else {
-                        return MESSAGE.i('actions.Edit') + ", " +
-                            MESSAGE.i('actions.View') + ", " +
-                            MESSAGE.i('actions.Remove') + ", " +
-                            MESSAGE.i('actions.audit');
-                    }
+                   return "Dar click para ver acciones permitidas"
                 },
                 icon: (data) => {
                     return "cog2";
@@ -207,8 +155,9 @@ DSON.keepmerge(CRUD_auditoria_programa_plan, {
                             return "";
                         },
                         show: function (data) {
-                            if (typeof auditoria_programa_plan !== "undefined")
+                            if (typeof auditoria_programa_plan !== "undefined"){
                                 return auditoria_programa_plan.allowAction("Autorizar", "auditoria_programa_plan", data.row.estatus);
+                            }
                         },
                         click: function (data) {
                             data.$scope.estatus_nombre = data.row.estatus_nombre;
