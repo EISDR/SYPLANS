@@ -39,10 +39,12 @@ app.controller("monitoreo_actividadv", function ($scope, $http, $compile) {
     };
 
     monitoreo_actividadv.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_actividadv.show_me_btn = false;
             return false;
-
+        }
         if (rows.filter(row => ((monitoreo_actividadv.institucion != '[NULL]' ? monitoreo_actividadv.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_actividadv.show_me_btn = true;
             return true
         }
         return false;

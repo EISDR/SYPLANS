@@ -37,10 +37,12 @@ app.controller("monitoreo_pei", function ($scope, $http, $compile) {
         })[0] || {nombre: "N/A"};
     };
     monitoreo_pei.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_pei.show_me_btn = false;
             return false;
-
+        }
         if (rows.filter(row => ((monitoreo_pei.institucion != '[NULL]' ? monitoreo_pei.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_pei.show_me_btn = true;
             return true
         }
         return false;

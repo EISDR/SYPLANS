@@ -40,10 +40,12 @@ app.controller("monitoreo_peiv", function ($scope, $http, $compile) {
     };
 
     monitoreo_peiv.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_peiv.show_me_btn = false;
             return false;
-
+        }
         if (rows.filter(row => ((monitoreo_peiv.institucion != '[NULL]' ? monitoreo_peiv.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_peiv.show_me_btn = true;
             return true
         }
         return false;

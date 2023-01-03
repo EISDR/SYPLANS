@@ -39,10 +39,12 @@ app.controller("monitoreo_productov", function ($scope, $http, $compile) {
     };
 
     monitoreo_productov.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_productov.show_me_btn = false;
             return false;
-
+        }
         if (rows.filter(row => ((monitoreo_productov.institucion != '[NULL]' ? monitoreo_productov.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_productov.show_me_btn = true;
             return true
         }
         return false;

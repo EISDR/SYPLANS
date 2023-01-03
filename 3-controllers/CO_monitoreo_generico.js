@@ -39,10 +39,12 @@ app.controller("monitoreo_generico", function ($scope, $http, $compile) {
     };
 
     monitoreo_generico.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_generico.show_me_btn = false;
             return false;
-
+        }
         if (rows.filter(row => ((monitoreo_generico.institucion != '[NULL]' ? monitoreo_generico.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_generico.show_me_btn = true;
             return true
         }
         return false;
