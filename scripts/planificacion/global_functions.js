@@ -2520,6 +2520,7 @@ createfalse = async () => {
         },
         ficha: (indicador) => {
             let main = indicador[0];
+            console.log(main);
             let fichaFinal = {};
             fichaFinal.datos_relacionados = [];
             aacontroldemandofalso.existx(fichaFinal.datos_relacionados, "Eje Estrategico", main.eje);
@@ -2592,8 +2593,16 @@ createfalse = async () => {
         ponderacion: (valor, tipo_meta) => {
             let finalFilter = tipo_meta || 0;
             return aacontroldemandofalso.api.ponderaciones.filter(d => {
-                return d.tipo_meta === finalFilter && (valor >= d.from && valor <= d.to);
-            })[0];
+                return d.tipo_meta === finalFilter && (Math.floor(valor) >= d.from && Math.floor(valor) <= d.to);
+            })[0] || {
+                tipo_meta: "1",
+                titulo: "Ponderación Sin Configurar",
+                color: "#ccc",
+                from: 0,
+                to: 0,
+                orden: 1,
+                compania: baseController.session.compania_id
+            };
         },/**/
         percentage: (meta, alcanzada, varianza, formula, tomar) => {
             if (tomar === 0)
