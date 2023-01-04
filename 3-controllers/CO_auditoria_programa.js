@@ -26,7 +26,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                 {
                     field: "estatus",
                     operator: "!=",
-                    value: 8
+                    value: 5
                 },
                 {
                     field: "compania",
