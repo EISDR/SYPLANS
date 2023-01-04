@@ -899,15 +899,9 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 }
                 if (data == 'range_date') {
                     var elano = auditoria_programa.poa ? auditoria_programa.poa : auditoria_programa_plan.current_year;
-                    var rango_minimo = moment(("01-02-" + moment().format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_maximo = moment(("01-01-" + moment().add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-
-                    if (moment().format('YYYY') != elano) {
-                        rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
-                        auditoria_programa_plan.range_date_start(moment(("01-01-" + elano)));
-                        auditoria_programa_plan.range_date_end(moment(("01-01-" + elano)));
-                        rango_maximo = moment(("01-01-" + (elano + 1))).add(-1, 'day').format("YYYY-MM-DD");
-                    }
+                    console.log(elano, "coñazo")
+                    var rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + (parseInt(elano) + 1))).add(-1, 'day').format("YYYY-MM-DD");
 
                     auditoria_programa_plan.range_date_min(rango_minimo);
                     auditoria_programa_plan.range_date_max(rango_maximo);

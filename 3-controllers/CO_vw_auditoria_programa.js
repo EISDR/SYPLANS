@@ -216,15 +216,8 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
         if (data == 'range_date') {
             vw_auditoria_programa.range_date = "";
             var elano = vw_auditoria_programa.poa ? vw_auditoria_programa.poa : vw_auditoria_programa.current_year;
-            var rango_minimo =  moment(("01-02-" + moment().format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-            var rango_maximo = moment(("01-01-" + moment().add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-
-            if (moment().format('YYYY') != elano) {
-                rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
-                vw_auditoria_programa.range_date_start(moment(("01-01-" + elano)));
-                vw_auditoria_programa.range_date_end(moment(("01-01-" + elano)));
-                rango_maximo = moment(("01-01-" + (elano + 1))).add(-1, 'day').format("YYYY-MM-DD");
-            }
+            var rango_minimo =  moment(("01-02-" + moment(elano).format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+            var rango_maximo = moment(("01-01-" + moment(elano).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
 
             vw_auditoria_programa.range_date_min(rango_minimo);
             vw_auditoria_programa.range_date_max(rango_maximo);
