@@ -1648,7 +1648,9 @@
       },
       "vw_auditoria_programa": {
         "type": "empty",
-        "allow": {}
+        "allow": {
+          "menu": true
+        }
       },
       "auditoria_programa": {
         "type": "full",
