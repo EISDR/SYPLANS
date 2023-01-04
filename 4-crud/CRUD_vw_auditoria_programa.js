@@ -49,30 +49,13 @@ DSON.keepmerge(CRUD_vw_auditoria_programa, {
             },
             nombre: {},
             descripcion: {shorttext: 360},
-            compania_name: {link: {table: 'compania',from: 'compania'}},
-            institucion_name: {link: {table: 'institucion',from: 'institucion'}},
-            estatus: {formattype: ENUM.FORMAT.numeric},
             estatus_nombre: {},
             fecha_inicio: {formattype: ENUM.FORMAT.datetime},
             fecha_fin: {formattype: ENUM.FORMAT.datetime}
         },
         filters: {
             columns: true
-        },
-        single: [
-            {
-                'table': 'compania',
-                'base': 'compania',
-                'field': 'id',
-                'columns': ['id', 'name']
-            },
-
-            {
-                'table': 'institucion',
-                'base': 'institucion',
-                'field': 'id',
-                'columns': ['id', 'name']
-            }]
+        }
     }
 });
 //modify methods that existing option

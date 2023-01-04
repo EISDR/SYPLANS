@@ -1,10 +1,24 @@
 app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
     vw_auditoria_programa = this;
     vw_auditoria_programa.session = new SESSION().current();
-    //vw_auditoria_programa.fixFilters = [];
+    vw_auditoria_programa.fixFilters = [
+        {
+            field: "estatus",
+            value: 5
+        },
+        {
+            field: "compania",
+            value: vw_auditoria_programa.session.compania_id
+        },
+        {
+            "field": "institucion",
+            "operator": vw_auditoria_programa.session.institucion_id ? "=" : "is",
+            "value": vw_auditoria_programa.session.institucion_id ? vw_auditoria_programa.session.institucion_id : "$null"
+        }
+    ];
     vw_auditoria_programa.singular = "Programa de Auditoria";
     vw_auditoria_programa.plural = "Programa de Auditoria";
-    vw_auditoria_programa.headertitle = "Programa de Auditoria";
+    vw_auditoria_programa.headertitle = "Programas de Auditoría Pasados";
     vw_auditoria_programa.destroyForm = false;
     vw_auditoria_programa.created = false;
     vw_auditoria_programa.firsttime = false;
