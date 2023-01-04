@@ -176,6 +176,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
             vw_auditoria_programa.poa = '[NULL]';
             vw_auditoria_programa.form.loadDropDown('poa');
         }
+        vw_auditoria_programa.refresh();
         vw_auditoria_programa.refreshAngular();
     };
     vw_auditoria_programa.getPrograma();
