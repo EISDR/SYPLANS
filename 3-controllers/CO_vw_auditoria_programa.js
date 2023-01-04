@@ -419,7 +419,7 @@ Gracias.`;
             if (vw_auditoria_programa.planes_auditoria) {
                 if (vw_auditoria_programa.planes_auditoria.length > 0) {
                     var planes_finalizados = vw_auditoria_programa.planes_auditoria.filter(d => {
-                        return d.estatus == 5;
+                        return d.estatus == 5 || d.estatus == 8;
                     });
                     return planes_finalizados.length === vw_auditoria_programa.planes_auditoria.length;
                 } else {
