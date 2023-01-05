@@ -25,67 +25,62 @@ app.controller("procesos", function ($scope, $http, $compile) {
         });
     }
     procesos.get_estatus_nombre();
-    if (MODAL.history.length > 0) {
-        if (typeof dashboard_proceso != "undefined") {
-            if (dashboard_proceso) {
-                if (typeof dashboard_proceso !== 'not defined') {
-                    if (!procesos.paso) {
-                        procesos.fixFilters = [];
-                        if (dashboard_proceso.Mprocesos == "pendiente") {
-                            procesos.fixFilters = [
-                                {
-                                    "field": "estatus",
-                                    "operator": "is",
-                                    "value": "$null"
-                                }
-                            ];
-                        }else {
+    if (!procesos.directo){
+        procesos.fixFilters = [
+            {
+                "field": "estatus_id",
+                "operator": "!=",
+                "value": 4
+            },
+        ];
+
+        if (MODAL.history.length > 0) {
+            if (typeof dashboard_proceso != "undefined") {
+                if (dashboard_proceso) {
+                    if (typeof dashboard_proceso !== 'not defined') {
+                        if (!procesos.paso) {
+                            procesos.fixFilters = [];
                             procesos.fixFilters = [
                                 {
                                     "field": "estatus",
                                     "value": dashboard_proceso.Mprocesos
                                 },
                                 {
-                                    "field": "estatus",
+                                    "field": "estatus_id",
                                     "operator": "!=",
                                     "value": 4
                                 },
+                                {
+                                    field: "mapa_proceso",
+                                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                                }
                             ];
+                            if (dashboard_proceso.session.institucion) {
+                                procesos.fixFilters.push({
+                                    "field": "institucion",
+                                    "value": dashboard_proceso.session.institucion_id
+                                });
+                                procesos.fixFilters.push({
+                                    "field": "compania",
+                                    "value": dashboard_proceso.session.compania_id
+                                });
+                            } else {
+                                procesos.fixFilters.push({
+                                    "field": "compania",
+                                    "value": dashboard_proceso.session.compania_id
+                                });
+                                procesos.fixFilters.push({
+                                    "field": "institucion",
+                                    "operator": "is",
+                                    "value": "$null"
+                                });
+                            }
+                            procesos.paso = true;
                         }
-                        if (dashboard_proceso.session.institucion) {
-                            procesos.fixFilters.push({
-                                "field": "institucion",
-                                "value": dashboard_proceso.session.institucion_id
-                            });
-                            procesos.fixFilters.push({
-                                "field": "compania",
-                                "value": dashboard_proceso.session.compania_id
-                            });
-                        } else {
-                            procesos.fixFilters.push({
-                                "field": "compania",
-                                "value": dashboard_proceso.session.compania_id
-                            });
-                            procesos.fixFilters.push({
-                                "field": "institucion",
-                                "operator": "",
-                                "value": "$ is NULL"
-                            });
-                        }
-                        procesos.paso = true;
                     }
                 }
             }
         }
-    }
-    if (!procesos.directo){
-        procesos.fixFilters = [
-            {
-                "field": "estatus",
-                "operator": "!=",
-                "value": 4
-            },
-        ];
         CRUD_procesos.table.columns = columns = {
             // dbcolumnname: {
             //     visible: false,
@@ -253,7 +248,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 "value":  procesos.session.institucion_id ?  procesos.session.institucion_id : "$null"
             },
             {
-                "field": "estatus",
+                "field": "estatus_id",
                 "operator": "!=",
                 "value": 4
             },
