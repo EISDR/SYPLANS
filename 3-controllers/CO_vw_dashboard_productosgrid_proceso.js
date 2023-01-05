@@ -7,21 +7,38 @@ app.controller("vw_dashboard_productosgrid_proceso", function ($scope, $http, $c
     var paso = true;
     // typeof compania != "undefined" && compania != null ? compania.refrescar_responsable() : 0;
     if (typeof dashboard_proceso != "undefined" && dashboard_proceso != null) {
-        vw_dashboard_productosgrid_proceso.fixFilters = [{
-            field: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? "compania" : "entidad",
-            value: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? user.compania_id : dashboard_proceso.institucion,
-        }];
+        vw_dashboard_productosgrid_proceso.fixFilters = [
+            {
+                field: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? "compania" : "entidad",
+                value: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? user.compania_id : dashboard_proceso.institucion,
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+        ];
     } else if (typeof dashboard_departamento_especifico != "undefined" && dashboard_departamento_especifico != null) {
         vw_dashboard_productosgrid_proceso.fixFilters = [
             {
                 field: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? "compania" : "entidad",
                 value: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? user.compania_id : dashboard_proceso.institucion,
-            }];
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+            ];
     } else {
-        vw_dashboard_productosgrid_proceso.fixFilters = [{
-            field: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? "compania" : "entidad",
-            value: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? user.compania_id : dashboard_proceso.institucion,
-        }];
+        vw_dashboard_productosgrid_proceso.fixFilters = [
+            {
+                field: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? "compania" : "entidad",
+                value: dashboard_proceso.institucion === '[NULL]' || user.institucion_id === null ? user.compania_id : dashboard_proceso.institucion,
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+        ];
     }
     RUNCONTROLLER("vw_dashboard_productosgrid_proceso", vw_dashboard_productosgrid_proceso, $scope, $http, $compile);
     RUN_B("vw_dashboard_productosgrid_proceso", vw_dashboard_productosgrid_proceso, $scope, $http, $compile);

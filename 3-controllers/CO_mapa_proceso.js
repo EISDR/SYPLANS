@@ -110,6 +110,15 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
             mapa_proceso.createForm(data, mode, defaultData);
         }
     };
+    mapa_proceso.cleanFields = function (){
+        mapa_proceso.nombre = "";
+        mapa_proceso.descripcion = "";
+        mapa_proceso.fecha_inicio = "";
+        mapa_proceso.fecha_fin = "";
+        mapa_proceso.range_date = "";
+        mapa_proceso.refresh();
+        mapa_proceso.refreshAngular();
+    }
     mapa_proceso.saveData = function () {
         if (mapa_proceso.created){
             VALIDATION.save(mapa_proceso, async function () {
@@ -130,11 +139,26 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
                     ]
                 }, function (result) {
                     mapa_proceso.current_estatus = mapa_proceso.estatus;
+                    mapa_proceso.last_estatus = mapa_proceso.estatus;
                     if (mapa_proceso.firsttime ){
-                        SWEETALERT.show({message: "Mapa de Proceso ha sido Creado"});
+                        SWEETALERT.show({
+                            message: "Mapa de Proceso ha sido Creado",
+                            confirm: function(){
+                                if (mapa_proceso.last_estatus == 4){
+                                    location.reload();
+                                }
+                            }
+                        });
                         mapa_proceso.firsttime = false;
                     }else {
-                        SWEETALERT.show({message: "Mapa de Proceso ha sido modificado"});
+                        SWEETALERT.show({
+                            message: "Mapa de Proceso ha sido modificado",
+                            confirm: function(){
+                                if (mapa_proceso.last_estatus == 4){
+                                    location.reload();
+                                }
+                            }
+                        });
                     }
                     if (mapa_proceso.estatus == 2){
                         titulo_push = `El Mapa de Proceso "${mapa_proceso.nombre}" ha sido Elaborado.`;
@@ -147,6 +171,7 @@ Los Supervisores y Anlistas de Calidad deben proceder a definir los planes de au
 Gracias.`;
                         function_send_email_custom_group(titulo_push, cuerpo_push, titulo, cuerpo, mapa_proceso.session.compania_id, mapa_proceso.session.institucion_id, [18,17], 4);
                     }
+                    mapa_proceso.cleanFields();
                     mapa_proceso.getMapa()
                 });
             },["nombre", "fecha_inicio", 'estatus', "range_date"]);
@@ -180,8 +205,9 @@ Gracias.`;
                                     "value":  mapa_proceso.session.institucion_id ?  mapa_proceso.session.institucion_id : "$null"
                                 },
                                 {
-                                    field: "condicion",
-                                    value: "Vigente"
+                                    field: "estatus",
+                                    operator: "!=",
+                                    value: 4
                                 }
                             ]
                         });
