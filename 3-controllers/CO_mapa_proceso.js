@@ -3,8 +3,8 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
     mapa_proceso.session = new SESSION().current();
     mapa_proceso.fixFilters = [
         {
-            field: "condicion",
-            value: "Concluida"
+            field: "estatus",
+            value: "4"
         },
         {
             field: "compania",
@@ -38,8 +38,9 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
                     "value":  mapa_proceso.session.institucion_id ?  mapa_proceso.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });

@@ -4,8 +4,8 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     riesgo_historico.session = new SESSION().current();
     riesgo_historico.fixFilters = [
         {
-            field: "condicion",
-            value: "Concluida"
+            field: "estatus",
+            value: 4
         },
         {
             field: "compania",
@@ -75,8 +75,9 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                     "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
