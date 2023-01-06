@@ -10,44 +10,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
     documentos_asociados.cantStatus = [];
     documentos_asociados.my_true_estatus = 1;
     documentos_asociados.paso = false;
-    if (MODAL.history.length > 0) {
-        if (typeof dashboard_proceso != "undefined") {
-            if (dashboard_proceso) {
-                if (typeof dashboard_proceso !== 'not defined') {
-                    if (!documentos_asociados.paso) {
-                        documentos_asociados.fixFilters = [];
-                        documentos_asociados.fixFilters = [
-                            {
-                                "field": "documento_estatus",
-                                "value": dashboard_proceso.Mdocumentos
-                            },
-                        ];
-                        if (dashboard_proceso.session.institucion) {
-                            documentos_asociados.fixFilters.push({
-                                "field": "institucion",
-                                "value": documentos_asociados.session.institucion_id
-                            });
-                            documentos_asociados.fixFilters.push({
-                                "field": "compania",
-                                "value": documentos_asociados.session.compania_id
-                            });
-                        } else {
-                            documentos_asociados.fixFilters.push({
-                                "field": "compania",
-                                "value": documentos_asociados.session.compania_id
-                            });
-                            documentos_asociados.fixFilters.push({
-                                "field": "institucion",
-                                "operator": "",
-                                "value": "$ is NULL"
-                            });
-                        }
-                        documentos_asociados.paso = true;
-                    }
-                }
-            }
-        }
-    }
     if (!documentos_asociados.directo) {
         CRUD_documentos_asociados.table.columns = columns = {
             // dbcolumnname: {
@@ -256,22 +218,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             }
         };
     } else {
-        documentos_asociados.fixFilters = [
-            {
-                field: "compania",
-                value: documentos_asociados.session.compania_id
-            },
-            {
-                "field": "institucion",
-                "operator": documentos_asociados.session.institucion_id ? "=" : "is",
-                "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
-            },
-            {
-                field: "estatus_id",
-                operator: "!=",
-                value: ENUM_2.documentos_estatus.Eliminado
-            }
-        ];
         CRUD_documentos_asociados.table.columns = columns = {
             // dbcolumnname: {
             //     visible: false,
@@ -480,6 +426,123 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
     //documentos_asociados.permissionTable = "tabletopermission";
     RUNCONTROLLER("documentos_asociados", documentos_asociados, $scope, $http, $compile);
     RUN_B("documentos_asociados", documentos_asociados, $scope, $http, $compile);
+    documentos_asociados.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  documentos_asociados.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  documentos_asociados.session.institucion_id ? "=" : "is",
+                    "value":  documentos_asociados.session.institucion_id ?  documentos_asociados.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            documentos_asociados.mapa_id = mapaData.id;
+            if (MODAL.history.length > 0) {
+                if (typeof dashboard_proceso != "undefined") {
+                    if (dashboard_proceso) {
+                        if (typeof dashboard_proceso !== 'not defined') {
+                            if (!documentos_asociados.paso) {
+                                documentos_asociados.fixFilters = [];
+                                documentos_asociados.fixFilters = [
+                                    {
+                                        "field": "documento_estatus",
+                                        "value": dashboard_proceso.Mdocumentos
+                                    },
+                                    {
+                                        field: "estatus_id",
+                                        operator: "!=",
+                                        value: ENUM_2.documentos_estatus.Eliminado
+                                    },
+                                    {
+                                        field: "mapa_proceso",
+                                        value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                                    }
+                                ];
+                                if (dashboard_proceso.session.institucion) {
+                                    documentos_asociados.fixFilters.push({
+                                        "field": "institucion",
+                                        "value": documentos_asociados.session.institucion_id
+                                    });
+                                    documentos_asociados.fixFilters.push({
+                                        "field": "compania",
+                                        "value": documentos_asociados.session.compania_id
+                                    });
+                                } else {
+                                    documentos_asociados.fixFilters.push({
+                                        "field": "compania",
+                                        "value": documentos_asociados.session.compania_id
+                                    });
+                                    documentos_asociados.fixFilters.push({
+                                        "field": "institucion",
+                                        "operator": "",
+                                        "value": "$ is NULL"
+                                    });
+                                }
+                                documentos_asociados.paso = true;
+                            }
+                        }
+                    }
+                }
+            }else{
+                documentos_asociados.fixFilters = [
+                    {
+                        field: "compania",
+                        value: documentos_asociados.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": documentos_asociados.session.institucion_id ? "=" : "is",
+                        "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
+                    },
+                    {
+                        field: "estatus_id",
+                        operator: "!=",
+                        value: ENUM_2.documentos_estatus.Eliminado
+                    },
+                    {
+                        field: "mapa_proceso",
+                        value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                    }
+                ];
+            }
+        }else{
+            documentos_asociados.fixFilters = [
+                {
+                    field: "compania",
+                    value:  documentos_asociados.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  documentos_asociados.session.institucion_id ? "=" : "is",
+                    "value":  documentos_asociados.session.institucion_id ?  documentos_asociados.session.institucion_id : "$null"
+                },
+                {
+                    "field": "estatus_id",
+                    "operator": "!=",
+                    "value": ENUM_2.documentos_estatus.Eliminado
+                },
+                {
+                    field: "mapa_proceso",
+                    value:  -1
+                }
+            ];
+        }
+        documentos_asociados.refresh();
+        if (callback)
+            callback();
+    }
+    documentos_asociados.getMapaProceso();
     documentos_asociados.formulary = async function (data, mode, defaultData) {
         if (documentos_asociados !== undefined) {
             RUN_B("documentos_asociados", documentos_asociados, $scope, $http, $compile);
