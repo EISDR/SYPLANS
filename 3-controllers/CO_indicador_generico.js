@@ -127,31 +127,31 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     edt_ods: {
-                        label: function(){
+                        label: function () {
                             return "No."
                         },
                         sorttype: ENUM.FORMATFILTER.numeric
                     },
                     ods_nombre: {
-                        label: function(){
+                        label: function () {
                             return "Objetivo de Desarrollo Sostenible"
                         },
                         sortable: false,
                     },
                     edt_mod: {
-                        label: function(){
+                        label: function () {
                             return "No."
                         },
                         sorttype: ENUM.FORMATFILTER.numeric,
                     },
                     mod_nombre: {
-                        label: function(){
+                        label: function () {
                             return "Meta Objetivo de Desarrollo Sostenible"
                         },
                         sortable: false,
                     },
                     edt_indicador: {
-                        label: function(){
+                        label: function () {
                             return "No."
                         },
                         sorttype: ENUM.FORMATFILTER.numeric,
@@ -254,7 +254,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         shorttext: 370
                     }
                 };
-                if (indicador_generico.session.tipo_institucion == 2){
+                if (indicador_generico.session.tipo_institucion == 2) {
                     indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
                 }
             } else if (indicador_generico.entidad == "vw_proyecto_item") {
@@ -378,7 +378,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     }
                 };
                 indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
-            }  else if (indicador_generico.entidad == "vw_procesos") {
+            } else if (indicador_generico.entidad == "vw_procesos") {
                 indicador_generico.fixFilters = [
                     {
                         "field": "table_",
@@ -560,7 +560,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 "value": indicador_generico.session.compania_id
                             }
                         ];
-                    } else{
+                    } else {
                         indicador_generico.fixFilters = [
                             {
                                 "field": "table_",
@@ -815,31 +815,31 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             indicador_generico.tipos = await BASEAPI.listp('indicador_generico_entidad', {limit: 0});
             indicador_generico.tipos = indicador_generico.tipos.data;
             indicador_generico.plural = indicador_generico.entidadobj.name + ` (Indicadores)`;
-            if (indicador_generico.entidad == "vw_evento_indicador" ) {
-                indicador_generico.singular =  indicador_generico.entidadobj.name + ' del evento: ' + indicador_generico2.form.selected('evento_indicador').nombre;
-            }else{
+            if (indicador_generico.entidad == "vw_evento_indicador") {
+                indicador_generico.singular = indicador_generico.entidadobj.name + ' del evento: ' + indicador_generico2.form.selected('evento_indicador').nombre;
+            } else {
                 indicador_generico.singular = indicador_generico.entidadobj.name + ` (Indicadores)`;
             }
             indicador_generico.headertitle = indicador_generico.entidadobj.name + ` (Indicadores)`;
             indicador_generico.runMagicColum('tipo_meta', 'tipoMeta', "id", "nombre");
             indicador_generico.runMagicColum('direccion_meta', 'direccionMeta', "id", "nombre");
             if (indicador_generico.entidad == "vw_evento_indicador") {
-                if (indicador_generico2.evento_indicador.includes('r') ){
+                if (indicador_generico2.evento_indicador.includes('r')) {
                     indicador_generico.runMagicColum('registro', "evento_indicador_relacion", "id", indicador_generico.entidadobj.label);
-                }else if (indicador_generico2.evento_indicador.includes('s') ) {
+                } else if (indicador_generico2.evento_indicador.includes('s')) {
                     indicador_generico.runMagicColum('registro', "ser_salida", "id", indicador_generico.entidadobj.label);
                     CRUD_indicador_generico.table.columns.registro.label = function () {
                         return "Salida No Conforme";
                     };
-                }else if (indicador_generico2.evento_indicador.includes('g') ) {
+                } else if (indicador_generico2.evento_indicador.includes('g')) {
                     indicador_generico.runMagicColum('registro', "riesgo_a", "id", indicador_generico.entidadobj.label);
                     CRUD_indicador_generico.table.columns.registro.label = function () {
                         return "Riesgo";
                     };
-                }else{
+                } else {
                     indicador_generico.runMagicColum('registro', indicador_generico.entidadobj.table_, "id", indicador_generico.entidadobj.label);
                 }
-            }else{
+            } else {
                 indicador_generico.runMagicColum('registro', indicador_generico.entidadobj.table_, "id", indicador_generico.entidadobj.label);
                 CRUD_indicador_generico.table.columns.registro.label = function () {
                     return indicador_generico.entidadobj.name;
@@ -925,8 +925,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
         //     }
         //     resolve(false);
         // } else {
-        for(var i in indicador_generico.validate){
-            if(LAN.money(i.split("periodos").pop()).value > 12 )  {
+        for (var i in indicador_generico.validate) {
+            if (LAN.money(i.split("periodos").pop()).value > 12) {
                 delete indicador_generico.validate[i];
             }
         }
@@ -1046,7 +1046,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
 
     indicador_generico.triggers.table.after.update = async function (data) {
-        if(indicador_generico.list_indicador_generico_periodo.some(d => { return typeof d == "object"})){
+        if (indicador_generico.list_indicador_generico_periodo.some(d => {
+            return typeof d == "object"
+        })) {
             for (var key in indicador_generico.list_indicador_generico_periodo) {
                 indicador_generico.valores[indicador_generico.list_indicador_generico_periodo[key].id] = indicador_generico.list_indicador_generico_periodo[key].valor;
             }
@@ -1061,7 +1063,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     }]
                 });
             }
-        }else{
+        } else {
             let groupInsert = [];
             for (let i = 0; i < indicador_generico.list_mes.length; i++) {
                 groupInsert.push({
@@ -1077,9 +1079,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     field: "indicador_generico",
                     value: indicador_generico.id
                 }
-            ],  (result) => {
+            ], (result) => {
                 console.log(indicador_generico.list_mes, groupInsert, "entré?")
-                if(result) {
+                if (result) {
                     BASEAPI.insert('indicador_generico_periodo', groupInsert, function (result) {
 
                     });
@@ -1153,7 +1155,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             };
             RUN_B("indicador_generico", indicador_generico, $scope, $http, $compile);
             if (indicador_generico.entidad == "vw_evento_indicador") {
-                if (indicador_generico2.evento_indicador.includes('r') ){
+                if (indicador_generico2.evento_indicador.includes('r')) {
                     indicador_generico.form.readonly = {
                         table_: indicador_generico.entidadobj.id,
                         compania: indicador_generico.session.compania_id,
@@ -1162,7 +1164,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         registro: indicador_generico2.evento_indicador.replaceAll('r', ''),
                         related: 1
                     };
-                }else if (indicador_generico2.evento_indicador.includes('s') ){
+                } else if (indicador_generico2.evento_indicador.includes('s')) {
                     indicador_generico.form.readonly = {
                         table_: indicador_generico.entidadobj.id,
                         compania: indicador_generico.session.compania_id,
@@ -1171,7 +1173,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         registro: indicador_generico2.evento_indicador.replaceAll('s', ''),
                         related: 2
                     };
-                }else if (indicador_generico2.evento_indicador.includes('g') ){
+                } else if (indicador_generico2.evento_indicador.includes('g')) {
                     indicador_generico.form.readonly = {
                         table_: indicador_generico.entidadobj.id,
                         compania: indicador_generico.session.compania_id,
@@ -1180,7 +1182,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         registro: indicador_generico2.evento_indicador.replaceAll('g', ''),
                         related: 3
                     };
-                }else{
+                } else {
                     indicador_generico.form.readonly = {
                         table_: indicador_generico.entidadobj.id,
                         compania: indicador_generico.session.compania_id,
@@ -1190,7 +1192,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         related: 0
                     };
                 }
-            }else{
+            } else {
                 indicador_generico.form.readonly = {
                     table_: indicador_generico.entidadobj.id,
                     compania: indicador_generico.session.compania_id,
@@ -1199,14 +1201,15 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 };
             }
             if (indicador_generico.entidadobj) {
-                indicador_generico.selectQueries["registro"] = eval(indicador_generico.entidadobj.where);
+                if (indicador_generico.entidad !== "vw_mods")
+                    indicador_generico.selectQueries["registro"] = eval(indicador_generico.entidadobj.where);
             }
             indicador_generico.form.mode = mode;
             indicador_generico.createForm(data, mode, defaultData);
 
             indicador_generico.applyMasks = async function () {
-              if (indicador_generico.working)
-                  return;
+                if (indicador_generico.working)
+                    return;
                 indicador_generico.working = true;
                 indicador_generico.applyMasksfalse = true;
                 switch (indicador_generico.tipo_meta) {
@@ -1249,12 +1252,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
-                            }else {
+                            } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1317,12 +1320,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
-                            }else {
+                            } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1390,7 +1393,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1452,12 +1455,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
-                            }else{
+                            } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1519,12 +1522,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
-                            }else{
+                            } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1593,7 +1596,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     delete indicador_generico.validate[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
                                     delete indicador_generico[`periodos${indicador_generico.list_indicador_generico_periodo[key].id}`];
-                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter( x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
+                                    indicador_generico.form.fileds = indicador_generico.form.fileds.filter(x => x !== `periodos${indicador_generico.list_indicador_generico_periodo[key].id}`);
                                 }
                                 indicador_generico.list_indicador_generico_periodo = indicador_generico.list_mes;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
