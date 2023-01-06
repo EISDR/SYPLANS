@@ -2,17 +2,6 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
     solicitud_proceso = this;
     //solicitud_proceso.fixFilters = [];
     solicitud_proceso.session = new SESSION().current();
-    solicitud_proceso.fixFilters = [
-        {
-           field: "compania",
-           value: solicitud_proceso.session.compania_id
-        },
-        {
-            field: "institucion",
-            operator: solicitud_proceso.session.institucion_id ? "=" : "is",
-            value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
-        }
-    ];
     //solicitud_proceso.singular = "singular";
     //solicitud_proceso.plural = "plural";
     solicitud_proceso.headertitle = "Solicitud de Procesos";
@@ -21,7 +10,69 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
     solicitud_proceso.canStatus = "";
     //solicitud_proceso.destroyForm = false;
     //solicitud_proceso.permissionTable = "tabletopermission";
+    solicitud_proceso.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  solicitud_proceso.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  solicitud_proceso.session.institucion_id ? "=" : "is",
+                    "value":  solicitud_proceso.session.institucion_id ?  solicitud_proceso.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            solicitud_proceso.mapa_id = mapaData.id;
+            solicitud_proceso.fixFilters = [
+                {
+                    field: "compania",
+                    value: solicitud_proceso.session.compania_id
+                },
+                {
+                    field: "institucion",
+                    operator: solicitud_proceso.session.institucion_id ? "=" : "is",
+                    value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
+                },
+                {
+                    field: "mapa_proceso",
+                    value: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : -1
+                }
+            ];
+
+        }else{
+            solicitud_proceso.fixFilters = [
+                {
+                    field: "compania",
+                    value: solicitud_proceso.session.compania_id
+                },
+                {
+                    field: "institucion",
+                    operator: solicitud_proceso.session.institucion_id ? "=" : "is",
+                    value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
+                },
+                {
+                    field: "mapa_proceso",
+                    value: -1
+                }
+            ];
+        }
+        solicitud_proceso.refresh();
+        if (callback)
+            callback();
+    }
+    solicitud_proceso.getMapaProceso();
+
     RUNCONTROLLER("solicitud_proceso", solicitud_proceso, $scope, $http, $compile);
+
     solicitud_proceso.formulary = function (data, mode, defaultData) {
         if (solicitud_proceso !== undefined) {
             RUN_B("solicitud_proceso", solicitud_proceso, $scope, $http, $compile);
