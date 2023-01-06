@@ -227,12 +227,21 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
         VALIDATION.validate(vw_auditoria_programa, "fecha_inicio", rules);
         VALIDATION.validate(vw_auditoria_programa, "range_date", rules);
     });
+    vw_auditoria_programa.cleanFields = function (){
+        vw_auditoria_programa.nombre = "";
+        vw_auditoria_programa.descripcion = "";
+        vw_auditoria_programa.fecha_inicio = "";
+        vw_auditoria_programa.fecha_fin = "";
+        vw_auditoria_programa.range_date = "";
+        vw_auditoria_programa.refresh();
+        vw_auditoria_programa.refreshAngular();
+    }
     vw_auditoria_programa.triggers.table.after.control = function (data) {
         if (data == 'range_date') {
             vw_auditoria_programa.range_date = "";
             var elano = vw_auditoria_programa.poa ? vw_auditoria_programa.poa : vw_auditoria_programa.current_year;
-            var rango_minimo =  moment(("01-02-" + moment(elano).format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-            var rango_maximo = moment(("01-01-" + moment(elano).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+            var rango_minimo =  moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
+            var rango_maximo = moment("01-01-" + (parseInt(elano)+ 1)).add(-1, 'day').format("YYYY-MM-DD");
 
             vw_auditoria_programa.range_date_min(rango_minimo);
             vw_auditoria_programa.range_date_max(rango_maximo);
@@ -317,11 +326,26 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
                         ]
                     }, function (result) {
                         vw_auditoria_programa.current_estatus = vw_auditoria_programa.estatus;
+                        vw_auditoria_programa.last_estatus = vw_auditoria_programa.estatus;
                         if (vw_auditoria_programa.firsttime ){
-                            SWEETALERT.show({message: "Programa de Auditoria ha sido Creado"});
+                            SWEETALERT.show({
+                                message: "Programa de Auditoria ha sido Creado",
+                                confirm: function(){
+                                    if (vw_auditoria_programa.last_estatus == 5){
+                                        location.reload();
+                                    }
+                                }
+                            });
                             vw_auditoria_programa.firsttime = false;
                         }else {
-                            SWEETALERT.show({message: "Programa de Auditoria ha sido modificado"});
+                            SWEETALERT.show({
+                                message: "Programa de Auditoria ha sido modificado",
+                                confirm: function(){
+                                    if (vw_auditoria_programa.last_estatus == 5){
+                                        location.reload();
+                                    }
+                                }
+                            });
                         }
                         if (vw_auditoria_programa.estatus == 3){
                             titulo_push = `El programa de auditoría "${vw_auditoria_programa.nombre}" ha sido creado.`;
@@ -334,6 +358,7 @@ Los Supervisores y Anlistas de Calidad deben proceder a definir los planes de au
 Gracias.`;
                             function_send_email_custom_group(titulo_push, cuerpo_push, titulo, cuerpo, vw_auditoria_programa.session.compania_id, vw_auditoria_programa.session.institucion_id, [18,17], 4);
                         }
+                        vw_auditoria_programa.cleanFields();
                         vw_auditoria_programa.getPrograma()
                     });
             },["nombre", "fecha_inicio", "range_date"]);
