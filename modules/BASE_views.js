@@ -1321,7 +1321,7 @@ exports.init = function (params) {
             }
             var fs = params.fs || require("fs");
             let clean = req.query.filename;
-            console.log("gasby", params.xlsxFile);
+            console.log("gasby", clean);
             let workbook = params.XLSX.readFile(clean);
             var sheet_name_list = workbook.SheetNames;
             var superdata = {};
