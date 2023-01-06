@@ -262,7 +262,10 @@
                 <td style="border-bottom: none">
                     {{value4.observaciones}}
                 </td>
-                <td style="border-bottom: none">
+                <td style="border-bottom: none"
+                    rowspan="{{auditoria_programa_plan.rowspanme('codigo', value4.codigo, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                    ng-if="auditoria_programa_plan.seeme('codigo', value4.codigo, key4, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                >
                     {{value4.comentfinal}}
                 </td>
             </tr>
