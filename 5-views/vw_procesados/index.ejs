@@ -18,6 +18,12 @@
                 Mapa de Procesos - {{vw_procesados.user.compania }}
                 {{vw_procesados.user.sigla?('('+vw_procesados.user.sigla+')'):''}} Y SUS DOCUMENTOS
             </h4>
+            <div dragonlanguage=""
+                 style="margin-top: 15px !important;"
+                 ng-show="!vw_procesados.ordered.length"
+                 class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                <language>MESSAGE.ic('table.nodata')</language>
+            </div>
             <table id="vw_procesadosTable" class="table table-bordered" style="margin-top: 15px;border: 3px solid;">
                 <tr ng-repeat="(c, categoria) in vw_procesados.ordered">
                     <td style="width: 250px;border: 3px solid black;vertical-align: middle;padding-top: 15px;padding-bottom: 15px;"
