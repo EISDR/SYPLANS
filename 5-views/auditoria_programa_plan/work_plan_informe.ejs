@@ -621,6 +621,12 @@
                                         class='icon-files-empty' ng-show="auditoria_programa_plan.check_file(row)"></i>
                             </a>
                         </td>
+                        <td
+                                rowspan="{{auditoria_programa_plan.rowspanme('codigo', row.codigo, auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="auditoria_programa_plan.seeme('codigo', row.codigo, key, auditoria_programa_plan.documentos_asociados_list_view.data)"
+                        >
+                            {{row.comentfinal}}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
