@@ -204,7 +204,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 callback();
         });
     }
-    dashboard_proceso.getProcesos = function (callback) {
+    dashboard_proceso.getProcesos = async function (callback) {
         animation.loading(`#procesos`, "", ``, '30');
         if (dashboard_proceso.session.institucion) {
             dashboard_proceso.condition = [
@@ -300,7 +300,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 callback();
         });
     }
-    dashboard_proceso.getDocumentos = function (callback) {
+    dashboard_proceso.getDocumentos = async function (callback) {
         animation.loading(`#documentos`, "", ``, '30');
         if (dashboard_proceso.session.institucion) {
             dashboard_proceso.condition = [
@@ -575,14 +575,14 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
             },
         });
     };
-    dashboard_proceso.getAll = function () {
+    dashboard_proceso.getAll = async function () {
         animation.loading(`#graficos`, "", ``, '60');
         if (dashboard_proceso.departamento !== "[NULL]" && dashboard_proceso.departamento !== undefined) {
-            dashboard_proceso.getIndicadores();
-            dashboard_proceso.getPlanesAuditoria();
-            dashboard_proceso.getProcesos();
-            dashboard_proceso.getDocumentos();
-            dashboard_proceso.callDataLinea();
+            await dashboard_proceso.getIndicadores();
+            await dashboard_proceso.getPlanesAuditoria();
+            await dashboard_proceso.getProcesos();
+            await dashboard_proceso.getDocumentos();
+            await dashboard_proceso.callDataLinea();
         }
     };
 
