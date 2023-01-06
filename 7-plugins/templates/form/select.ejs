@@ -73,6 +73,10 @@ options.model = options.model ? options.model : false;
 
 options.controller = options.controller || options.table;
 options.permission = options.permission || options.controller;
+if (options.join) {
+    console.log(options.join);
+    options.query.join = options.join;
+}
 
 popopme = function (entity, field) {
     var prueba = HINTS.filter(d => {
@@ -111,65 +115,57 @@ var toclient = JSON.stringify(options);
 
     <%= model + "." + options.forme %>.registerField("<%= name %>", "<%= toclient %>", "'[NULL]'");
     <%= model + "." + options.forme %>.options
-    .<%= name %>.default
-    = `${MESSAGE.ic('mono.youselect')}`;
+        .<%= name %>.default
+        = `${MESSAGE.ic('mono.youselect')}`;
     if (MESSAGE.exist('columns.<%= nameclean %>') && <%= model + "." + options.forme %>.
     options
-    .<%= name %>.
-    traduce !== false
+        .<%= name %>.traduce !== false
     )
     {
         <%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        label = MESSAGE.ic('columns.<%= nameclean %>');
+            .<%= name %>.label = MESSAGE.ic('columns.<%= nameclean %>');
         <%= model + "." + options.forme %>.
         options
-    .<%= name %>.default
-        = `${MESSAGE.ic('mono.youselect')}`;
+            .<%= name %>.default
+            = `${MESSAGE.ic('mono.youselect')}`;
     }
     if (new SESSION().isLogged()) {
         <%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        mess = <%= model + "." + options.forme %>.
+            .<%= name %>.mess = <%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        mess.filter(d => {
+            .<%= name %>.mess.filter(d => {
             return d.company == new SESSION().current().compania_id;
         })
         if (<%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        mess.length == 0
+            .<%= name %>.mess.length == 0
     )
         {
             delete <%= model + "." + options.forme %>.
             options
-        .<%= name %>.
-            mess
+                .<%= name %>.mess
         }
         if (<%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        mess
+            .<%= name %>.mess
     )
         {
             <%= model + "." + options.forme %>.
             options
-        .<%= name %>.
-            popover = {
+                .<%= name %>.popover = {
                 title:
                 <%= model + "." + options.forme %>.options
-                .<%= name %>.mess[0].field_names,
+                    .<%= name %>.mess[0].field_names,
                 content:
                 <%= model + "." + options.forme %>.options
-                .<%= name %>.mess[0].text,
+                    .<%= name %>.mess[0].text,
                 label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
                 <%= model + "." + options.forme %>.options
-                .<%= name %>.trueplaceholder ||
+                    .<%= name %>.trueplaceholder ||
                 <%= model + "." + options.forme %>.options
-                .<%= name %>.placeholder
+                    .<%= name %>.placeholder
             }
         }
     }
@@ -180,8 +176,7 @@ var toclient = JSON.stringify(options);
     if (isReadProgram !== false) {
         <%= model + "." + options.forme %>.
         options
-    .<%= name %>.
-        disabled = true;
+            .<%= name %>.disabled = true;
         if (isReadProgram !== undefined) {
             <%= model %>.<%= name %> = isReadProgram;
         }
@@ -195,23 +190,19 @@ var toclient = JSON.stringify(options);
     if (permissions.edit === false)
             <%= model + "." + options.forme %>.
     options
-    .<%= name %>.
-    allowedit = false;
+        .<%= name %>.allowedit = false;
     if (permissions.view === false)
             <%= model + "." + options.forme %>.
     options
-    .<%= name %>.
-    allowview = false;
+        .<%= name %>.allowview = false;
     if (permissions.add === false)
             <%= model + "." + options.forme %>.
     options
-    .<%= name %>.
-    allownew = false;
+        .<%= name %>.allownew = false;
     if (permissions.menu === false)
             <%= model + "." + options.forme %>.
     options
-    .<%= name %>.
-    allowlist = false;
+        .<%= name %>.allowlist = false;
     <% } %>
 </script>
 
@@ -288,8 +279,7 @@ var toclient = JSON.stringify(options);
     <% if(options.search){ %>
         <script>
             <%= model + "." + options.forme %>.options
-            .<%= name %>.
-            onsearch = async () => {
+                .<%= name %>.onsearch = async () => {
 
                 if (<%= model %>["<%= name %>_beforesearch"])
                         <%= model %>["<%= name %>_beforesearch"]();
@@ -431,8 +421,7 @@ var toclient = JSON.stringify(options);
         if (new SESSION().isLogged()) {
             if (<%= model + "." + options.forme %>.
             options
-        .<%= name %>.
-            mess
+                .<%= name %>.mess
         )
             {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
@@ -441,8 +430,7 @@ var toclient = JSON.stringify(options);
                     content
             :
                 eval("`" +<%= model + "." + options.forme %>.options
-            .<%= name %>.
-                popover.content + "`"
+                    .<%= name %>.popover.content + "`"
             ),
                 trigger: 'click'
             })

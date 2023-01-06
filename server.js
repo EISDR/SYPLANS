@@ -670,12 +670,16 @@ console.log(localModules + "," + modulesList);
 console.log("");
 console.log("");
 //console.clear();
-
+process.on('uncaughtException', function (err) {
+    console.error(err);
+    console.log("Node NOT Exiting...");
+});
 if (process)
     if (process.stdout) {
         var width = process.stdout.columns;
         var drow = 0;
         var rows = process.stdout.rows;
+
         var print = function (quit, align, str, prt, rpt, color, begin, end, c1, c2) {
             quit = quit || 0;
             color = color || "pxz";

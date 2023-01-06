@@ -69,14 +69,45 @@
         truelabel: "Tipo de Indicador"
     }) %>
 </div>
-<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='generico'" >
+
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='generico' && <%= scope %>.entidad==='vw_procesos'">
+    <script>
+        delete CRUD_indicador_generico.table.single;
+    </script>
     <%- FORM.select("indicador", scope, {
         allownew: false,
         allowedit: false,
         allowview: false,
         allowlist: false,
         refresh: false,
-
+        text: "item.nombre_indicador",
+        table: "vw_indicador_generico",
+        icon: {class: "archive"},
+        condition: "item.mapa_proceso_estatus!=4 && item.entidad==" + scope + ".entidad && item.compania==" + scope + ".session.compania_id",
+        truelabel: "Indicador de Proceso",
+        join: [
+            {
+                table: "procesos",
+                base: "registro",
+                field: "id",
+                columns: ["id", "nombre", "mapa_proceso"]
+            },
+            {
+                table: "mapa_proceso",
+                base: "`procesos`.mapa_proceso",
+                field: "id",
+                columns: ["id", "nombre", "estatus"]
+            }
+        ]
+    }) %>
+</div>
+<div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='generico' && <%= scope %>.entidad!=='vw_procesos'">
+    <%- FORM.select("indicador", scope, {
+        allownew: false,
+        allowedit: false,
+        allowview: false,
+        allowlist: false,
+        refresh: false,
         text: "item.nombre_indicador",
         table: "vw_indicador_generico",
         icon: {class: "archive"},
