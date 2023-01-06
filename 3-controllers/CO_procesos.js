@@ -11,6 +11,74 @@ app.controller("procesos", function ($scope, $http, $compile) {
     procesos.my_true_estatus = 1;
     //procesos.destroyForm = false;
     //procesos.permissionTable = "tabletopermission";
+    procesos.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  procesos.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  procesos.session.institucion_id ? "=" : "is",
+                    "value":  procesos.session.institucion_id ?  procesos.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            procesos.mapa_id = mapaData.id;
+            procesos.fixFilters = [
+                {
+                    field: "compania",
+                    value:  procesos.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  procesos.session.institucion_id ? "=" : "is",
+                    "value":  procesos.session.institucion_id ?  procesos.session.institucion_id : "$null"
+                },
+                {
+                    "field": "estatus_id",
+                    "operator": "!=",
+                    "value": 4
+                },
+                {
+                    field: "mapa_proceso",
+                    value: procesos.mapa_id ? procesos.mapa_id : -1
+                }
+            ];
+        }else{
+            procesos.fixFilters = [
+                {
+                    field: "compania",
+                    value:  procesos.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  procesos.session.institucion_id ? "=" : "is",
+                    "value":  procesos.session.institucion_id ?  procesos.session.institucion_id : "$null"
+                },
+                {
+                    "field": "estatus_id",
+                    "operator": "!=",
+                    "value": 4
+                },
+                {
+                    field: "mapa_proceso",
+                    value:  -1
+                }
+            ];
+        }
+        procesos.refresh();
+        if (callback)
+            callback();
+    }
     procesos.get_estatus_nombre = async function(){
         procesos.nombre_estatus_plan = await BASEAPI.listp('auditoria_programa_plan_estatus', {
             limit: 0,
@@ -24,6 +92,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
             ]
         });
     }
+    procesos.getMapaProceso();
     procesos.get_estatus_nombre();
     if (!procesos.directo){
         procesos.fixFilters = [
@@ -31,7 +100,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 "field": "estatus_id",
                 "operator": "!=",
                 "value": 4
-            },
+            }
         ];
 
         if (MODAL.history.length > 0) {
@@ -252,6 +321,10 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 "operator": "!=",
                 "value": 4
             },
+            {
+                field: "mapa_proceso",
+                value: procesos.mapa_id ? procesos.mapa_id : -1
+            }
         ];
         CRUD_procesos.table.columns = columns = {
             // dbcolumnname: {
