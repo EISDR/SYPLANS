@@ -712,8 +712,10 @@
                         </td>
                         <td>
                             <div style="align-items: center">
-                                <label ng-show="auditoria_programa_plan.validate_documentos(row)" class="ponerRedondo" title="Completo" style="background-color: #79c779; float: none; margin-top: 2px;"></label>
-                                <label ng-show="!auditoria_programa_plan.validate_documentos(row)" class="ponerRedondo" title="Incompleto" style="background-color: #ff8880; float: none; margin-top: 2px;"></label>
+                                <label ng-show="auditoria_programa_plan.validate_documentos(row) && auditoria_programa_plan.my_true_estatus == 1" class="ponerRedondo" title="Completo: Este documento tiene auditores asignados" style="background-color: #79c779; float: none; margin-top: 2px;"></label>
+                                <label ng-show="!auditoria_programa_plan.validate_documentos(row) && auditoria_programa_plan.my_true_estatus == 1" class="ponerRedondo" title="Incompleto: Este documento le falta asignarle sus auditores" style="background-color: #ff8880; float: none; margin-top: 2px;"></label>
+                                <label ng-show="auditoria_programa_plan.validate_documentos(row) && auditoria_programa_plan.my_true_estatus > 1" class="ponerRedondo" title="Completo: Este documento tiene auditores asignados y puntos de verificación creados" style="background-color: #79c779; float: none; margin-top: 2px;"></label>
+                                <label ng-show="!auditoria_programa_plan.validate_documentos(row) && auditoria_programa_plan.my_true_estatus > 1" class="ponerRedondo" title="Incompleto: Este documento necesita tener auditores asignados y puntos de verificación creados" style="background-color: #ff8880; float: none; margin-top: 2px;"></label>
                             </div>
                         </td>
                         <td ng-show="auditoria_programa_plan.my_true_estatus > 3">

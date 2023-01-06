@@ -97,7 +97,7 @@
                             truelabel: "Mapa de Proceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && item.condicion == 'Vigente'"
+                            condition: "(item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && item.estatus != 4"
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-if="solicitud_proceso.session.institucion">

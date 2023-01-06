@@ -66,6 +66,32 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
         data: []
     };
     dashboard_proceso.array_procesos = [];
+    dashboard_proceso.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  dashboard_proceso.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  dashboard_proceso.session.institucion_id ? "=" : "is",
+                    "value":  dashboard_proceso.session.institucion_id ?  dashboard_proceso.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            dashboard_proceso.mapa_id = mapaData.id;
+        }
+        if (callback)
+            callback();
+    }
     dashboard_proceso.getPlanesAuditoria = function (callback) {
         animation.loading(`#PlanAuditoria`, "", ``, '30');
         dashboard_proceso.condition_plan = [];
@@ -74,6 +100,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "institucion",
                     value: dashboard_proceso.session.institucion_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         } else {
@@ -86,6 +116,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     value: dashboard_proceso.session.compania_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         }
@@ -100,7 +134,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
             finalizadas: 0,
             cerradas: 0,
         };
-        BASEAPI.listp('vw_dashboard_plan_auditoria', {
+        BASEAPI.listp('vw_dashboard_plan_auditoria_proceso', {
             limit: 0,
             orderby: "id",
             order: "asc",
@@ -177,6 +211,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "institucion",
                     value: dashboard_proceso.session.institucion_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         } else {
@@ -189,6 +227,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     value: dashboard_proceso.session.compania_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         }
@@ -265,6 +307,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "institucion",
                     value: dashboard_proceso.session.institucion_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         } else {
@@ -277,6 +323,10 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     value: dashboard_proceso.session.compania_id
+                },
+                {
+                    field: "id",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
                 }
             ];
         }
@@ -346,6 +396,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 callback();
         });
     }
+    dashboard_proceso.getMapaProceso();
     dashboard_proceso.getPlanesAuditoria();
     dashboard_proceso.getProcesos();
     dashboard_proceso.getDocumentos();
@@ -353,10 +404,16 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
     var paso = false;
     dashboard_proceso.searchFirstData = true;
     dashboard_proceso.searchData = function () {
-        vw_dashboard_productosgrid_proceso.fixFilters = [{
-            field: dashboard_proceso.institucion === '[NULL]' ? "compania" : "entidad",
-            value: dashboard_proceso.institucion === '[NULL]' ? user.compania_id : dashboard_proceso.institucion,
-        }];
+        vw_dashboard_productosgrid_proceso.fixFilters = [
+            {
+                field: dashboard_proceso.institucion === '[NULL]' ? "compania" : "entidad",
+                value: dashboard_proceso.institucion === '[NULL]' ? user.compania_id : dashboard_proceso.institucion,
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+        ];
 
         if (dashboard_proceso.institucion === "[NULL]") {
             dashboard_proceso.poabushin = [];
@@ -1714,7 +1771,12 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 {
                     field: "entidad",
                     value: dashboard_proceso.institucion === '[NULL]' ? dashboard_proceso.compania_id : dashboard_proceso.institucion
-                }]
+                },
+                {
+                    field: "mapa_proceso",
+                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                }
+            ]
         });
 
         if (dashboard_proceso_listInd4.data) {

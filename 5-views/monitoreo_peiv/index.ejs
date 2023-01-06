@@ -24,7 +24,7 @@
                 <%= scope %>.indicadores = "pei";
             </script>
             <%- include('../filter_IDSinimportarmultiple',{scope:scope}); %>
-            <div class="" style="display: flow-root">
+            <div class="" style="display: flow-root; margin-top: 10px" ng-show="monitoreo_peiv.show_me_btn">
                 <button class="btn btn-primary" ng-click="baseController.abrirPonderaciones()" style="float: left">
                     Ver Detalles de las Ponderaciones
                 </button>

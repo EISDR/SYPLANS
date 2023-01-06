@@ -61,7 +61,7 @@
           "modal": "",
           "icon": "map",
           "href": "#mapa_proceso",
-          "text": "Histórico de Macroprocesos"
+          "text": "Histórico de Mapa de Proceso"
         },
         {
           "menus": "",
@@ -132,7 +132,7 @@
           "modal": "",
           "icon": "map",
           "href": "#mapa_proceso",
-          "text": "Histórico de Macroprocesos"
+          "text": "Histórico de Mapa de Proceso"
         }
       ],
       "modal": "",

@@ -15,14 +15,46 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
     vw_procesados.list = [];
     var animation1 = new ANIMATION();
 
-
+    vw_procesados.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  vw_procesados.user.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  vw_procesados.user.institucion_id ? "=" : "is",
+                    "value":  vw_procesados.user.institucion_id ?  vw_procesados.user.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            vw_procesados.mapa_id = mapaData.id;
+        }
+        if (callback)
+            callback();
+    }
+    vw_procesados.getMapaProceso();
     vw_procesados.vw_refresh = async function () {
         animation1.loading(`.subcontent`, "", ``, '30');
 
-        var aymywhere = [{
-            field: "compania",
-            value: user.compania_id
-        }];
+        var aymywhere = [
+            {
+                field: "compania",
+                value: user.compania_id
+            },
+            {
+                field: "mapa_proceso",
+                value: vw_procesados.mapa_id ? vw_procesados.mapa_id : -1
+            }
+        ];
         if (user.institucion_id) {
             aymywhere.push({
                 field: "institucion",

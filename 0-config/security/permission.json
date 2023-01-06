@@ -1647,8 +1647,10 @@
         "allow": {}
       },
       "vw_auditoria_programa": {
-        "type": "full",
-        "allow": {}
+        "type": "empty",
+        "allow": {
+          "menu": true
+        }
       },
       "auditoria_programa": {
         "type": "full",
@@ -2097,7 +2099,7 @@
         "allow": {}
       },
       "vw_documentos_asociados_view": {
-        "type": "report",
+        "type": "empty",
         "allow": {}
       }
     }

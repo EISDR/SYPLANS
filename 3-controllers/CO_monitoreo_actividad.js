@@ -42,11 +42,12 @@ app.controller("monitoreo_actividad", function ($scope, $http, $compile) {
     };
 
     monitoreo_actividad.cumplen = function (rows, conditions) {
-        if (!rows)
+        if (!rows) {
+            monitoreo_actividad.show_me_btn = false;
             return false;
-
-        if (rows.filter(row => ((monitoreo_actividad.institucion != '[NULL]' ? monitoreo_actividad.institucion == (row.institucion || row.compania) : true)
-        )).length > 0) {
+        }
+        if (rows.filter(row => ((monitoreo_actividad.institucion != '[NULL]' ? monitoreo_actividad.institucion == (row.institucion || row.compania) : true))).length > 0) {
+            monitoreo_actividad.show_me_btn = true;
             return true
         }
         return false;

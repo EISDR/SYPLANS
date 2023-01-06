@@ -1,12 +1,47 @@
 <div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
     <div class="panel panel-flat">
         <div class="page-header-lg page-header-sm page-header">
-            <%- include('../../7-plugins/templates/header/begin',{scope:scope}); %>
-            <ul class="breadcrumb-elements visible-elements">
-                <li dragonlanguage="">
-                </li>
-            </ul>
-            <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
+            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                <!--Breadcrumb and Table Options-->
+                <div class="breadcrumb-line">
+                    <ul class="breadcrumb visible-lg visible-md"
+                        ng-show="!<%= scope %>.modal.isOpen()" dragonlanguage="" style="z-index: 1000">
+                        <li ng-repeat="(key, menu) in <%= scope %>.MENU.parents track by key">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{menu.icon}} position-left"></i>
+                                {{menu.text.trim('')}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left" ng-show="menu.childs.length>0">
+                                <li ng-repeat="(subkey, submenu) in menu.childs track by subkey"
+                                    ng-class="[<%= scope %>.MENU.menu.text!=submenu.text?'':'active']">
+                                    <a title="{{submenu.text}}" href="{{<%= scope %>.sameHref(submenu,'javascript:void(0)')||submenu.href}}"
+                                       class="">
+                                        <i class="{{submenu.icon}}"></i>{{submenu.text}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                Programa de Auditoría
+                            </a>
+
+                        </li>
+                    </ul>
+                    <ul class="breadcrumb visible-lg visible-md"
+                        ng-show="<%= scope %>.modal.isOpen()" dragonlanguage="" style="z-index: 1000">
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                Programa de Auditoría
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+                <!--Breadcrumb and Table Options-->
+            </div>
         </div>
         <div class="subcontent">
             <div class="tab-content">
@@ -109,7 +144,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
+                    <div class="row" ng-show="<%= scope%>.created">
                         <div class="col-md-12" style="padding: 0">
                         <div class="panel panel-white" id="PlanAuditoria" style="margin-bottom: 0px;" ng-show="<%= scope %>.planes_auditoria.length > 0">
                             <div class="panel-heading" style="padding: 10px 20px">
@@ -144,6 +179,15 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'vw_auditoria_programa'}); %>
+                            <div class="subcontent">
+                                <%- include('../../7-plugins/templates/table/base',{scope:'vw_auditoria_programa'}); %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

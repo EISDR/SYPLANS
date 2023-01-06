@@ -322,6 +322,17 @@
     $('#btnDashboard').on('click', function () {
         $('.hide_grafico1').hide();
         $('.hide_grafico2').show();
+        vw_dashboard_productosgrid_proceso.fixFilters = [
+            {
+                field: dashboard_proceso.institucion === '[NULL]' ? "compania" : "entidad",
+                value: dashboard_proceso.institucion === '[NULL]' ? user.compania_id : dashboard_proceso.institucion,
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+        ];
+        vw_dashboard_productosgrid_proceso.refresh();
         if (dashboard_proceso.loadCharts) {
             // dashboard_indicadores.loadCharts = false;
             resizeCharts();
@@ -330,6 +341,17 @@
     $('#btnDashboard2').on('click', function () {
         $('.hide_grafico1').show();
         $('.hide_grafico2').hide();
+        vw_dashboard_productosgrid_proceso.fixFilters = [
+            {
+                field: dashboard_proceso.institucion === '[NULL]' ? "compania" : "entidad",
+                value: dashboard_proceso.institucion === '[NULL]' ? user.compania_id : dashboard_proceso.institucion,
+            },
+            {
+                field: "mapa_proceso",
+                value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+            }
+        ];
+        vw_dashboard_productosgrid_proceso.refresh();
         if (dashboard_proceso.loadCharts) {
             // dashboard_indicadores.loadCharts = false;
             resizeCharts();

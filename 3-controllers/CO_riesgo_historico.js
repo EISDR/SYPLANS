@@ -4,8 +4,8 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     riesgo_historico.session = new SESSION().current();
     riesgo_historico.fixFilters = [
         {
-            field: "condicion",
-            value: "Concluida"
+            field: "estatus",
+            value: 4
         },
         {
             field: "compania",
@@ -75,8 +75,9 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                     "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
@@ -166,11 +167,26 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                     ]
                 }, function (result) {
                     riesgo_historico.current_estatus = riesgo_historico.estatus;
+                    riesgo_historico.last_estatus = riesgo_historico.estatus;
                     if (riesgo_historico.firsttime) {
-                        SWEETALERT.show({message: "La gestión de riesgo ha sido Creada"});
+                        SWEETALERT.show({
+                            message: "La gestión de riesgo ha sido Creada",
+                            confirm: function(){
+                                if (riesgo_historico.last_estatus == 4){
+                                    location.reload();
+                                }
+                            }
+                        });
                         riesgo_historico.firsttime = false;
                     } else {
-                        SWEETALERT.show({message: "La gestión de riesgo ha sido Modificada"});
+                        SWEETALERT.show({
+                            message: "La gestión de riesgo ha sido Modificada",
+                            confirm: function(){
+                                if (riesgo_historico.last_estatus == 4){
+                                    location.reload();
+                                }
+                            }
+                        });
                     }
 //                     if (mapa_proceso.estatus == 2){
 //                         titulo_push = `El Mapa de Proceso "${mapa_proceso.nombre}" ha sido Elaborado.`;
@@ -183,6 +199,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
 // Gracias.`;
 //                         function_send_email_custom_group(titulo_push, cuerpo_push, titulo, cuerpo, mapa_proceso.session.compania_id, mapa_proceso.session.institucion_id, [18,17], 4);
 //                     }
+                    riesgo_historico.cleanFields();
                     riesgo_historico.getRiesgo()
                 });
             }, ["nombre", "ano", 'estatus']);
@@ -215,8 +232,9 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                                     "value": riesgo_historico.session.institucion_id ? riesgo_historico.session.institucion_id : "$null"
                                 },
                                 {
-                                    field: "condicion",
-                                    value: "Vigente"
+                                    field: "estatus",
+                                    operator: "!=",
+                                    value: 4
                                 }
                             ]
                         });

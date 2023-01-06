@@ -899,15 +899,9 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 }
                 if (data == 'range_date') {
                     var elano = auditoria_programa.poa ? auditoria_programa.poa : auditoria_programa_plan.current_year;
-                    var rango_minimo = moment(("01-02-" + moment().format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_maximo = moment(("01-01-" + moment().add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-
-                    if (moment().format('YYYY') != elano) {
-                        rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
-                        auditoria_programa_plan.range_date_start(moment(("01-01-" + elano)));
-                        auditoria_programa_plan.range_date_end(moment(("01-01-" + elano)));
-                        rango_maximo = moment(("01-01-" + (elano + 1))).add(-1, 'day').format("YYYY-MM-DD");
-                    }
+                    console.log(elano, "coñazo")
+                    var rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + (parseInt(elano) + 1))).add(-1, 'day').format("YYYY-MM-DD");
 
                     auditoria_programa_plan.range_date_min(rango_minimo);
                     auditoria_programa_plan.range_date_max(rango_maximo);
@@ -2726,6 +2720,25 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         }
         return documentos_correctos.length === documentos_seleccionados.length;
     }
+    auditoria_programa_plan.allow_autorize_audit_view = function () {
+        var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados_view.filter(function (item, index, inputArray) {
+            return inputArray.indexOf(item) == index;
+        });
+        var documentos_correctos = [];
+        if (documentos_seleccionados.length > 0) {
+            for (let i of auditoria_programa_plan.documentos_list_view) {
+                for (let j of documentos_seleccionados) {
+                    if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
+                        if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                            documentos_correctos.push(i)
+                        }
+                    }
+                }
+            }
+            ;
+        }
+        return documentos_correctos.length === documentos_seleccionados.length;
+    }
     auditoria_programa_plan.change_message = function () {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) === index;
@@ -2960,7 +2973,38 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             delete auditoria_programa_plan.form.frominforme;
             return true;
         }
-        if (data.updating.estatus == 3) {
+        if (data.updating.estatus == 2){
+            var titulo_push = `La auditoría "${auditoria_programa_plan.nombre}" ha sido planificada.`
+            var cuerpo_push = `Se ha planificado "${auditoria_programa_plan.nombre}" .`;
+            var titulo_correo = `La auditoría "${auditoria_programa_plan.nombre}" ha sido planificada.`
+            var cuerpo_correo = `Se ha planificado la auditoría "${auditoria_programa_plan.nombre}"`
+            var list_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_equipotrabajo', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "programa_plan",
+                        "value": auditoria_programa_plan.id
+                    },
+                    {
+                        "field": "esresponsable",
+                        "operator": "is not",
+                        "value": "$null"
+                    },
+                ]
+            });
+            list_auditores = list_auditores.data;
+            var auditores_tabla_data = await BASEAPI.listp('vw_documentos_asociados_view', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "auditoria",
+                        "value": auditoria_programa_plan.id
+                    }
+                ]
+            });
+            auditores_tabla_data = auditores_tabla_data.data;
+            function_send_email_auditores_resposables(titulo_push, cuerpo_push, titulo_correo, cuerpo_correo, auditoria_programa_plan.session.compania_id, auditoria_programa_plan.session.institucion_id, 0, [17, 18], list_auditores, auditores_tabla_data)
+        } else if (data.updating.estatus == 3) {
             var titulo_push = `La auditoría "${auditoria_programa_plan.nombre}" ha sido revisada y autorizada.`
             var cuerpo_push = `Se ha revisado y autorizado la auditoría "${auditoria_programa_plan.nombre}" .`;
             var titulo_correo = `La auditoría "${auditoria_programa_plan.nombre}" ha sido revisada y autorizada.`
@@ -3091,6 +3135,28 @@ Los participantes departamentales son:`
                 loadingContentText: MESSAGE.i('actions.Loading'),
                 sameController: 'auditoria_programa'
             },
+        });
+    }
+    auditoria_programa_plan.send_email_calidad = function(data_auditoria){
+
+        var titulo_push = `Se han definido todos los puntos de verificación de la auditoría: "${data_auditoria.nombre}"`
+        var cuerpo_push = `Todos los documentos asociados a la auditoría: "${data_auditoria.nombre}" tienen sus puntos de verficación definidos. `;
+        var titulo_correo = `Se han definido todos los puntos de verificación de la auditoría: "${data_auditoria.nombre}"`
+        var cuerpo_correo = `Todos los documentos asociados a la auditoría: "${data_auditoria.nombre}" tienen sus puntos de verficación definidos.
+
+Los Supervisores y Anlistas de Calidad deben proceder a autorizar la auditoría.
+
+Gracias`;
+        SWEETALERT.confirm({
+            message: "¿Desea enviar una notificación por correo a los supervisores y analistas de calidad?",
+            confirm: async function () {
+                SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
+                function_send_email_custom_group(titulo_push,cuerpo_push,titulo_correo,cuerpo_correo,auditoria_programa_plan.session.compania_id,auditoria_programa_plan.session.institucion_id,[17, 18], 4)
+                SWEETALERT.show({message:"La notificación ha sido enviada con exito", confirm: function(){
+                        MODAL.close()
+                    }
+                })
+            }
         });
     }
     // auditoria_programa_plan.exportPDF = function () {

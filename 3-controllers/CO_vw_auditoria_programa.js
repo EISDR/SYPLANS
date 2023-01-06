@@ -1,10 +1,24 @@
 app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
     vw_auditoria_programa = this;
     vw_auditoria_programa.session = new SESSION().current();
-    //vw_auditoria_programa.fixFilters = [];
+    vw_auditoria_programa.fixFilters = [
+        {
+            field: "estatus",
+            value: 5
+        },
+        {
+            field: "compania",
+            value: vw_auditoria_programa.session.compania_id
+        },
+        {
+            "field": "institucion",
+            "operator": vw_auditoria_programa.session.institucion_id ? "=" : "is",
+            "value": vw_auditoria_programa.session.institucion_id ? vw_auditoria_programa.session.institucion_id : "$null"
+        }
+    ];
     vw_auditoria_programa.singular = "Programa de Auditoria";
     vw_auditoria_programa.plural = "Programa de Auditoria";
-    vw_auditoria_programa.headertitle = "Programa de Auditoria";
+    vw_auditoria_programa.headertitle = "Programas de Auditoría Pasados";
     vw_auditoria_programa.destroyForm = false;
     vw_auditoria_programa.created = false;
     vw_auditoria_programa.firsttime = false;
@@ -110,7 +124,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
                 {
                     field: "estatus",
                     operator: "!=",
-                    value: 8
+                    value: 5
                 },
                 {
                     field: "compania",
@@ -162,6 +176,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
             vw_auditoria_programa.poa = '[NULL]';
             vw_auditoria_programa.form.loadDropDown('poa');
         }
+        vw_auditoria_programa.refresh();
         vw_auditoria_programa.refreshAngular();
     };
     vw_auditoria_programa.getPrograma();
@@ -212,19 +227,21 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
         VALIDATION.validate(vw_auditoria_programa, "fecha_inicio", rules);
         VALIDATION.validate(vw_auditoria_programa, "range_date", rules);
     });
+    vw_auditoria_programa.cleanFields = function (){
+        vw_auditoria_programa.nombre = "";
+        vw_auditoria_programa.descripcion = "";
+        vw_auditoria_programa.fecha_inicio = "";
+        vw_auditoria_programa.fecha_fin = "";
+        vw_auditoria_programa.range_date = "";
+        vw_auditoria_programa.refresh();
+        vw_auditoria_programa.refreshAngular();
+    }
     vw_auditoria_programa.triggers.table.after.control = function (data) {
         if (data == 'range_date') {
             vw_auditoria_programa.range_date = "";
             var elano = vw_auditoria_programa.poa ? vw_auditoria_programa.poa : vw_auditoria_programa.current_year;
-            var rango_minimo =  moment(("01-02-" + moment().format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-            var rango_maximo = moment(("01-01-" + moment().add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-
-            if (moment().format('YYYY') != elano) {
-                rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
-                vw_auditoria_programa.range_date_start(moment(("01-01-" + elano)));
-                vw_auditoria_programa.range_date_end(moment(("01-01-" + elano)));
-                rango_maximo = moment(("01-01-" + (elano + 1))).add(-1, 'day').format("YYYY-MM-DD");
-            }
+            var rango_minimo =  moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
+            var rango_maximo = moment("01-01-" + (parseInt(elano)+ 1)).add(-1, 'day').format("YYYY-MM-DD");
 
             vw_auditoria_programa.range_date_min(rango_minimo);
             vw_auditoria_programa.range_date_max(rango_maximo);
@@ -309,11 +326,26 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
                         ]
                     }, function (result) {
                         vw_auditoria_programa.current_estatus = vw_auditoria_programa.estatus;
+                        vw_auditoria_programa.last_estatus = vw_auditoria_programa.estatus;
                         if (vw_auditoria_programa.firsttime ){
-                            SWEETALERT.show({message: "Programa de Auditoria ha sido Creado"});
+                            SWEETALERT.show({
+                                message: "Programa de Auditoria ha sido Creado",
+                                confirm: function(){
+                                    if (vw_auditoria_programa.last_estatus == 5){
+                                        location.reload();
+                                    }
+                                }
+                            });
                             vw_auditoria_programa.firsttime = false;
                         }else {
-                            SWEETALERT.show({message: "Programa de Auditoria ha sido modificado"});
+                            SWEETALERT.show({
+                                message: "Programa de Auditoria ha sido modificado",
+                                confirm: function(){
+                                    if (vw_auditoria_programa.last_estatus == 5){
+                                        location.reload();
+                                    }
+                                }
+                            });
                         }
                         if (vw_auditoria_programa.estatus == 3){
                             titulo_push = `El programa de auditoría "${vw_auditoria_programa.nombre}" ha sido creado.`;
@@ -326,6 +358,7 @@ Los Supervisores y Anlistas de Calidad deben proceder a definir los planes de au
 Gracias.`;
                             function_send_email_custom_group(titulo_push, cuerpo_push, titulo, cuerpo, vw_auditoria_programa.session.compania_id, vw_auditoria_programa.session.institucion_id, [18,17], 4);
                         }
+                        vw_auditoria_programa.cleanFields();
                         vw_auditoria_programa.getPrograma()
                     });
             },["nombre", "fecha_inicio", "range_date"]);
@@ -419,7 +452,7 @@ Gracias.`;
             if (vw_auditoria_programa.planes_auditoria) {
                 if (vw_auditoria_programa.planes_auditoria.length > 0) {
                     var planes_finalizados = vw_auditoria_programa.planes_auditoria.filter(d => {
-                        return d.estatus == 5;
+                        return d.estatus == 5 || d.estatus == 8;
                     });
                     return planes_finalizados.length === vw_auditoria_programa.planes_auditoria.length;
                 } else {
