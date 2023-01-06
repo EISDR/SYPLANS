@@ -239,6 +239,7 @@
                 <th>Punto de Verificación</th>
                 <th>Tipo</th>
                 <th>Observación</th>
+                <th>Comentario final de la auditoría</th>
             </tr>
             <tr ng-repeat="(key4,value4) in auditoria_programa_plan.documentos_asociados_list_view.data"style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
                 <td style="border-bottom: none"
@@ -260,6 +261,9 @@
                 </td>
                 <td style="border-bottom: none">
                     {{value4.observaciones}}
+                </td>
+                <td style="border-bottom: none">
+                    {{value4.comentfinal}}
                 </td>
             </tr>
             <tr>
