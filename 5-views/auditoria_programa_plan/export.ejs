@@ -157,45 +157,45 @@
             <thead class="">
             <tr>
                 <th colspan="1" style="text-align: left">Institución:</th>
-                <td colspan="4">{{auditoria_programa_plan.session.compania}}</td>
+                <td colspan="5">{{auditoria_programa_plan.session.compania}}</td>
             </tr>
             <tr>
                 <th colspan="1" style="text-align: left">Informe Preliminar:</th>
-                <td colspan="4" class="">Informe preliminar de la auditoría: {{auditoria_programa_plan.nombre}}</td>
+                <td colspan="5" class="">Informe preliminar de la auditoría: {{auditoria_programa_plan.nombre}}</td>
             </tr>
             <tr>
                 <th colspan="1" style="text-align: left">Auditoría:</th>
-                <td colspan="4" class="">{{auditoria_programa_plan.nombre}}</td>
+                <td colspan="5" class="">{{auditoria_programa_plan.nombre}}</td>
             </tr>
             <tr>
                 <th colspan="1" style="text-align: left">Fecha del informe:</th>
-                <td colspan="4" class="">{{auditoria_programa_plan.get_date()}}</td>
+                <td colspan="5" class="">{{auditoria_programa_plan.get_date()}}</td>
             </tr>
             </thead>
             <tbody class="">
             <tr>
-                <th colspan="5" style="background-color: #f5f5f5">Objetivo</th>
+                <th colspan="6" style="background-color: #f5f5f5">Objetivo</th>
             </tr>
             <tr class="">
-                <td colspan="5" style="border-bottom: none">{{auditoria_programa_plan.objetivo}}</td>
+                <td colspan="6" style="border-bottom: none">{{auditoria_programa_plan.objetivo}}</td>
             </tr>
             <tr>
-                <td colspan="5" style="border-top: none"></td>
+                <td colspan="6" style="border-top: none"></td>
             </tr>
             <tr>
-                <th colspan="5" style="background-color: #f5f5f5">Alcance</th>
+                <th colspan="6" style="background-color: #f5f5f5">Alcance</th>
             </tr>
             <tr class="">
-                <td colspan="5" style="border-bottom: none">{{auditoria_programa_plan.alcance}}</td>
+                <td colspan="6" style="border-bottom: none">{{auditoria_programa_plan.alcance}}</td>
             </tr>
             <tr>
-                <td colspan="5" style="border-top: none"></td>
+                <td colspan="6" style="border-top: none"></td>
             </tr>
             <tr >
-                <th colspan="5" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la Auditoría</th>
+                <th colspan="6" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la Auditoría</th>
             </tr>
             <tr>
-                <td colspan="5" style="text-align: center; list-style-position: inside; border-bottom: none">
+                <td colspan="6" style="text-align: center; list-style-position: inside; border-bottom: none">
                     <ul>
                         <li ng-repeat="(key1, value1) in auditoria_programa_plan.departamento_list.data">
                             {{value1.nombre}}
@@ -204,11 +204,11 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="5" style="border-top: none"></td>
+                <td colspan="6" style="border-top: none"></td>
             </tr>
             <tr>
                 <th colspan="3" style="background-color: #f5f5f5;">Participantes Departamentales</th>
-                <th colspan="2" style="background-color: #f5f5f5;">Auditores Participantes</th>
+                <th colspan="3" style="background-color: #f5f5f5;">Auditores Participantes</th>
             </tr>
             <tr>
                 <td colspan="3" style="border-bottom: none">
@@ -218,7 +218,7 @@
                         </li>
                     </ul>
                 </td>
-                <td colspan="2" style="border-bottom: none">
+                <td colspan="3" style="border-bottom: none">
                     <ul>
                         <li ng-repeat="(key3, value3) in auditoria_programa_plan.participantes_list.data">
                             {{value3.nombre + ' ' + value3.apellido}} {{auditoria_programa_plan.get_rol(value3.id)}}
@@ -228,10 +228,10 @@
             </tr>
             <tr>
                 <td colspan="3" style="border-top: none"></td>
-                <td colspan="2" style="border-top: none"></td>
+                <td colspan="3" style="border-top: none"></td>
             </tr>
             <tr>
-                <th colspan="5" style="background-color: #f5f5f5;text-align: center;">Hallazgos Encontrados</th>
+                <th colspan="6" style="background-color: #f5f5f5;text-align: center;">Hallazgos Encontrados</th>
             </tr>
             <tr>
                 <th>Proceso</th>
@@ -271,26 +271,27 @@
                 <td style="border-top: none"></td>
                 <td style="border-top: none"></td>
                 <td style="border-top: none"></td>
+                <td style="border-top: none"></td>
                 <td style="border-top: none; width: 35%"></td>
             </tr>
             <tr>
-                <th colspan="4" style="background-color: #f5f5f5;">Punto de Vista de los Auditados</th>
+                <th colspan="5" style="background-color: #f5f5f5;">Punto de Vista de los Auditados</th>
                 <th colspan="1" style="background-color: #f5f5f5;">Departamento</th>
             </tr>
             <tr ng-repeat="(key5, value5) in auditoria_programa_plan.informes_auditoria.data">
-                <td colspan="4" style="border-bottom: none"><p ng-bind-html="value5.recomendaciones"></p></td>
+                <td colspan="5" style="border-bottom: none"><p ng-bind-html="value5.recomendaciones"></p></td>
                 <td colspan="1" style="text-align: center; border-bottom: none"><p ng-bind-html="value5.departamento"></p>
                     <br><strong style="float: right; margin-top: -20px"> - {{value5.creadopor_nombre}}</strong></td>
             </tr>
             <tr>
-                <td colspan="4" style="border-top: none"></td>
+                <td colspan="5" style="border-top: none"></td>
                 <td colspan="1" style="border-top: none"></td>
             </tr>
             <tr>
-                <th colspan="5" style="background-color: #f5f5f5; border-bottom: none">Recomendaciones de Mejora</th>
+                <th colspan="6" style="background-color: #f5f5f5; border-bottom: none">Recomendaciones de Mejora</th>
             </tr>
             <tr>
-                <td colspan="5" style="border-top: none">
+                <td colspan="6" style="border-top: none">
                     <div><p ng-bind-html="auditoria_programa_plan.recomendaciones"></p></div>
                 </td>
             </tr>
