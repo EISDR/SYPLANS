@@ -92,7 +92,7 @@
                         <td style="text-align: left">{{value.responsable_proceso_departamento}}</td>
                         <td style="text-align: left">{{value.estatus}}</td>
                         <td style="text-align: left">{{value.responsable_proceso}}</td>
-                        <td style="text-align: left">{{vw_documentos_asociados_pv.get_date(value.aprobado_en)}}</td>
+                        <td style="text-align: left">{{value.estatus_id == 2 ? vw_documentos_asociados_pv.get_date(value.aprobado_en): ""}}</td>
                         <td style="text-align: left">{{value.folder}}<br><a title="Ver Documento" class="legitRipple"  style="float: right" ng-show="value.folder" ng-click="vw_documentos_asociados_pv.verFile('archivo', value)"><i class="icon-eye"></i></a></td>
                     </tr>
                     </tbody>
