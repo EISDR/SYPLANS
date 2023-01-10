@@ -69,7 +69,9 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
         if (callback)
             callback();
     }
-    solicitud_proceso.getMapaProceso();
+    solicitud_proceso.getMapaProceso(function () {
+        solicitud_proceso.refresh();
+    });
 
     RUNCONTROLLER("solicitud_proceso", solicitud_proceso, $scope, $http, $compile);
 
