@@ -79,7 +79,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             },
             {
                 field: "riesgo_historico",
-                value: riesgo.historico_id
+                value: riesgo.historico_id ? riesgo.historico_id : -1
             }
         );
         CRUD_riesgo = {};
@@ -1041,7 +1041,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             },
             {
                 field: "riesgo_historico",
-                value: riesgo.historico_id
+                value: riesgo.historico_id ? riesgo.historico_id : -1
             }
         );
         CRUD_riesgo = {};
@@ -2379,7 +2379,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: riesgo.historico_id
+                        value: riesgo.historico_id ? riesgo.historico_id : -1
                     }
                 );
             } else {
@@ -2391,7 +2391,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: riesgo.historico_id
+                        value: riesgo.historico_id ? riesgo.historico_id : -1
                     }
                 );
             }
