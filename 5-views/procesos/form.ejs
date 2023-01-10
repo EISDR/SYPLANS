@@ -54,7 +54,7 @@
                     truelabel: "Mapa de Proceso",
                     text: "item.nombre",
                     icon: {class: "archive"},
-                    condition: "(item.compania == procesos.session.compania_id && item.institucion == $null) && item.condicion == 'Vigente'"
+                    condition: "(item.compania == procesos.session.compania_id && item.institucion == $null) && item.estatus != 4"
                 }) %>
             </div>
             <div class="col-sm-3 col-md-3" ng-if="procesos.session.institucion">
@@ -67,7 +67,7 @@
                     truelabel: "Mapa de Proceso",
                     text: "item.nombre",
                     icon: {class: "archive"},
-                    condition: "(item.institucion == procesos.session.institucion_id)"
+                    condition: "(item.institucion == procesos.session.institucion_id) && item.estatus != 4"
                 }) %>
             </div>
             <div class="col-sm-3 col-md-3" ng-if="!procesos.session.institucion">
