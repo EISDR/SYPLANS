@@ -8,6 +8,7 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
     solicitud_proceso.my_true_estatus = 1;
     solicitud_proceso.caracteristica = solicitud_proceso.session.groups[0].caracteristica;
     solicitud_proceso.canStatus = "";
+    solicitud_proceso.loaded = false;
     //solicitud_proceso.destroyForm = false;
     //solicitud_proceso.permissionTable = "tabletopermission";
     solicitud_proceso.getMapaProceso = async function (callback) {
@@ -894,9 +895,13 @@ Gracias.`;
             }
         }, ['nombre']);
     }
-    // $scope.triggers.table.after.load = function (records) {
-    //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-    // };
+    solicitud_proceso.triggers.table.after.load = function (records) {
+        //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
+        if (!solicitud_proceso.loaded){
+            solicitud_proceso.refresh();
+            solicitud_proceso.loaded = true;
+        }
+    };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
     //     resolve(true);
