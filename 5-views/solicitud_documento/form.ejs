@@ -273,7 +273,7 @@
                             truelabel: "Macroproceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null)"
+                            condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && (item.mapa_proceso == solicitud_documento.mapa_id)"
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-if="solicitud_documento.session.institucion">
@@ -286,7 +286,7 @@
                             truelabel: "Macroproceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "( item.institucion == solicitud_documento.session.institucion_id)"
+                            condition: "( item.institucion == solicitud_documento.session.institucion_id) && (item.mapa_proceso == solicitud_documento.mapa_id)"
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" >

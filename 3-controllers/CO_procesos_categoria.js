@@ -25,8 +25,9 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
                     "value":  procesos_categoria.session.institucion_id ?  procesos_categoria.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });

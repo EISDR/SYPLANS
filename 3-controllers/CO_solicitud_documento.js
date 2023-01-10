@@ -23,6 +23,66 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     solicitud_documento.caracteristica = solicitud_documento.session.groups[0].caracteristica;
     solicitud_documento.canStatus = "";
     solicitud_documento.showmerelations = false;
+    solicitud_documento.loaded = false;
+    solicitud_documento.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value:  solicitud_documento.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  solicitud_documento.session.institucion_id ? "=" : "is",
+                    "value":  solicitud_documento.session.institucion_id ?  solicitud_documento.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            solicitud_documento.mapa_id = mapaData.id;
+            solicitud_documento.fixFilters = [
+                {
+                    field: "compania",
+                    value: solicitud_documento.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": solicitud_documento.session.institucion_id ? "=" : "is",
+                    "value": solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null"
+                },
+                {
+                    field: "mapa_proceso",
+                    value: solicitud_documento.mapa_id ? solicitud_documento.mapa_id : -1
+                }
+            ];
+        }else{
+            solicitud_documento.fixFilters = [
+                {
+                    field: "compania",
+                    value: solicitud_documento.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": solicitud_documento.session.institucion_id ? "=" : "is",
+                    "value": solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null"
+                },
+                {
+                    field: "mapa_proceso",
+                    value:  -1
+                }
+            ];
+        }
+        solicitud_documento.refresh();
+        if (callback)
+            callback();
+    }
+    solicitud_documento.getMapaProceso();
     RUNCONTROLLER("solicitud_documento", solicitud_documento, $scope, $http, $compile);
     solicitud_documento.formulary = function (data, mode, defaultData) {
         if (solicitud_documento !== undefined) {
@@ -325,9 +385,13 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     // solicitud_documento.triggers.table.after.open = function (data) {
     //     //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
     // };
-    // $scope.triggers.table.after.load = function (records) {
-    //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-    // };
+    solicitud_documento.triggers.table.after.load = function (records) {
+        //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
+        if (!solicitud_documento.loaded){
+            solicitud_documento.refresh();
+            solicitud_documento.loaded = true;
+        }
+    };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
     //     resolve(true);
