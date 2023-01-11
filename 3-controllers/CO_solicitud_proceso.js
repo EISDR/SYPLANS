@@ -428,6 +428,21 @@ Gracias.`;
                                     console.log(result)
                                     SWEETALERT.stop()
                                     solicitud_proceso.refresh();
+                                    BASEAPI.updateall('documentos_asociados', {
+                                        estatus: 4,
+                                        where: [
+                                            {
+                                                field: "proceso",
+                                                value: proceso
+                                            },
+                                            {
+                                                field: "documento_general",
+                                                value: 1
+                                            }
+                                        ]
+                                    }, async function (result) {
+
+                                    })
                                     titulo_push = `La solicitud de eliminación de proceso "${solicitud_proceso.nombre}" ha sido Autorizada.`;
                                     cuerpo_push = `La solicitud de eliminación del proceso "${solicitud_proceso.delete_pro_nombre}" ha sido Autorizada.`;
                                     titulo = `La solicitud de eliminación de proceso  "${solicitud_proceso.nombre}" ha sido Autorizada.`
