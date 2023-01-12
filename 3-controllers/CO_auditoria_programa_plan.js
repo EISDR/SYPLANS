@@ -2973,6 +2973,63 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             delete auditoria_programa_plan.form.frominforme;
             return true;
         }
+        if (data.updating.estatus < 4){
+            var procesos = await BASEAPI.listp('auditoria_programa_plan_proceso', {
+                limit: 0,
+                where: [
+                    {
+                        field: "programa_plan",
+                        value: auditoria_programa_plan.id
+                    }
+                ]
+            });
+            var procesos = procesos.data;
+            var procesos = procesos.filter(x => { return x.usuario })
+            for (let i of procesos) {
+                BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
+                    limit: 0,
+                    where: [
+                        {
+                            field: "programa_plan",
+                            value: auditoria_programa_plan.id
+                        },
+                        {
+                            field: "proceso",
+                            value: i.proceso
+                        }
+                    ]
+                }, function(result) {
+                    if(result.data.length > 0){
+                        var documentos = result.data;
+                        var documentos_ids = [];
+                        for (let j of documentos) {
+                            documentos_ids.push(j.id)
+                        }
+                        BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
+                            {
+                                field: "programa_plan_documentos_asociados",
+                                value: documentos_ids
+                            },
+                            {
+                                field: "usuario",
+                                value: i.usuario
+                            }
+                        ], function (result) {
+                            if(result){
+                                for (var k of documentos_ids) {
+                                    BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                        usuario: i.usuario,
+                                        programa_plan_documentos_asociados: k
+                                    }, function (result) {
+                                        console.log(result)
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
         if (data.updating.estatus == 2){
             var titulo_push = `La auditoría "${auditoria_programa_plan.nombre}" ha sido planificada.`
             var cuerpo_push = `Se ha planificado "${auditoria_programa_plan.nombre}" .`;
