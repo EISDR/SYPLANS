@@ -119,7 +119,7 @@ app.controller("proyecto_item", function ($scope, $http, $compile) {
                                 {
                                     "field": "estatus_id",
                                     "operator": "",
-                                    "value": `$ IN (1)`
+                                    "value": `$ IN (1,2)`
                                 },
                             ];
                             if (vw_dashboard_proyecto.departamento > 0)
