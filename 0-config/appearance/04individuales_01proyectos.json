@@ -57,14 +57,14 @@
           "modal": "",
           "icon": "list3",
           "href": "#proyecto_item",
-          "text": "Proyectos Especiales"
+          "text": "Creación de Proyectos Especiales"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "pencil7",
           "href": "#indicador_generico?vw_proyecto_item",
-          "text": "Indicadores de Proyectos Especiales"
+          "text": "Creación de Indicadores PE"
         },
         {
           "menus": [
@@ -101,6 +101,13 @@
           "icon": "pie-chart7",
           "href": "#monitoreo_generico?vw_proyecto_item",
           "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "flag3",
+          "href": "#ods?proyecto_item",
+          "text": "Objetivos de Desarrollo Sostenible"
         },
         {
           "menus": "",
@@ -197,14 +204,14 @@
           "modal": "",
           "icon": "list3",
           "href": "#proyecto_item",
-          "text": "Proyectos Especiales"
+          "text": "Creación de Proyectos Especiales"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "pencil7",
           "href": "#indicador_generico?vw_proyecto_item",
-          "text": "Indicadores de Proyectos Especiales"
+          "text": "Creación de Indicadores PE"
         },
         {
           "menus": [
@@ -241,6 +248,13 @@
           "icon": "pie-chart7",
           "href": "#monitoreo_generico?vw_proyecto_item",
           "text": "Monitoreo y Seguimiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "flag3",
+          "href": "#ods?proyecto_item",
+          "text": "Objetivos de Desarrollo Sostenible"
         },
         {
           "menus": "",
