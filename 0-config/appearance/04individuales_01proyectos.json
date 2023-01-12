@@ -138,6 +138,11 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "icon": "meter2",
+          "href": "#reporte_indicador_config?proyecto_item",
+          "text": "Configurar Cumplimiento Indicadores"
         }
   ],
       "modal": "",
@@ -277,6 +282,11 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "icon": "meter2",
+          "href": "#reporte_indicador_config?proyecto_item",
+          "text": "Configurar Cumplimiento Indicadores"
         }
       ],
       "modal": "",
