@@ -9,7 +9,21 @@
     <div class="tab-pane active" id="basic">
 
         <div class="row">
-            <div class="col-sm-6 col-md-6 " id="registrodiv" ng-show="indicador_generico.entidad !=='vw_evento_indicador'">
+            <div class="col-sm-6 col-md-6 " id="registrodiv" ng-show="indicador_generico.entidad =='vw_procesos'">
+                <%- FORM.select("registro", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: url.split('query=')[1].replaceAll('RF',''),
+                    icon: {class: "archive"},
+                    label: "Registro",
+                    condition: "(item.mapa_proceso == indicador_generico.mapa_id)"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6 " id="registrodiv" ng-show="indicador_generico.entidad !=='vw_evento_indicador' && indicador_generico.entidad !=='vw_procesos'">
                 <%- FORM.select("registro", scope, {
                     allownull: false,
                     allownew: false,

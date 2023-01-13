@@ -96,6 +96,9 @@ FORM = {
         $scope[forme].after.update = function (data) {
             return false;
         };
+        $scope[forme].after.update_relation = function (data, callback) {
+            return false;
+        };
         $scope[forme].isReadOnly = function (name) {
             if ($scope[forme] !== null)
                 if ($scope[forme].readonly !== undefined) {
@@ -542,7 +545,7 @@ FORM = {
                                     multipleRelations: $scope[forme].multipleRelations,
                                     relations: $scope[forme].relations,
                                 });
-
+                                console.log($scope[forme])
                                 $scope.triggers.table.after.update({
                                     updating: $scope[forme].inserting,
                                     uploading: $scope[forme].uploading,
@@ -585,8 +588,7 @@ FORM = {
                                 }
                             // if (allrelations.length)
                             //     allrelations = allrelations[0];
-
-                            if ($scope[forme] !== null)
+                            if ($scope[forme] !== null) {
                                 if ($scope[forme].relations !== undefined) {
                                     if (allrelations.length > 0) {
                                         for (var relation of allrelations) {
@@ -618,13 +620,29 @@ FORM = {
                                             //     }
                                             // }
                                             if (nadaenblancus) {
-                                                if (!relation.config.dont_insert)
+                                                if (!relation.config.dont_insert) {
                                                     console.log(await BASEAPI.insertp(relation.config.toDeleteTable, relation.data));
+                                                }
                                             }
+                                            $scope.triggers.table.after.update_relation({
+                                                updating: $scope[forme].inserting,
+                                                uploading: $scope[forme].uploading,
+                                                multipleRelations: $scope[forme].multipleRelations,
+                                                relations: $scope[forme].relations,
+                                            })
+                                            var update_relation_ejecutado = true;
                                             $scope.pages.form.subRequestComplete(close);
                                         }
                                     }
                                 }
+                                if (!update_relation_ejecutado)
+                                $scope.triggers.table.after.update_relation({
+                                    updating: $scope[forme].inserting,
+                                    uploading: $scope[forme].uploading,
+                                    multipleRelations: $scope[forme].multipleRelations,
+                                    relations: $scope[forme].relations,
+                                });
+                            }
                         } else {
                             SWEETALERT.stop();
                             ERROR.alert(result.data, ERROR.category.database);

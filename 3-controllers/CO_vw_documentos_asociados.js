@@ -1,6 +1,12 @@
 app.controller("vw_documentos_asociados", function ($scope, $http, $compile) {
     vw_documentos_asociados = this;
-    vw_documentos_asociados.fixFilters = [];
+    vw_documentos_asociados.fixFilters = [
+        {
+            field: "documento_general",
+            operator: "is",
+            value: "$null"
+        }
+    ];
     vw_documentos_asociados.singular = "singular";
     vw_documentos_asociados.plural = "plural";
     vw_documentos_asociados.headertitle = "Documentos Asociados";

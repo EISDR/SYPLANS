@@ -512,7 +512,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     },
                     {
                         field: "mapa_proceso",
-                        value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                        value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id : -1
                     }
                 ];
             }

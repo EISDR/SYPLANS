@@ -8,6 +8,7 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
     procesos_categoria.plural = "Macroprocesos";
     procesos_categoria.headertitle = "Creación de Macroproceso";
     procesos_categoria.destroyForm = false;
+    procesos_categoria.loaded = false;
     //procesos_categoria.permissionTable = "tabletopermission";
     RUNCONTROLLER("procesos_categoria", procesos_categoria, $scope, $http, $compile);
     RUN_B("procesos_categoria", procesos_categoria, $scope, $http, $compile);
@@ -25,8 +26,9 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
                     "value":  procesos_categoria.session.institucion_id ?  procesos_categoria.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
@@ -112,6 +114,10 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
     procesos_categoria.triggers.table.after.load = function (records) {
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
         procesos_categoria.runMagicOneToMany('procesos', 'vw_procesos_grid', 'procesos_categoria', 'nombre', 'id');
+        if (!procesos_categoria.loaded){
+            procesos_categoria.refresh();
+            procesos_categoria.loaded = true;
+        }
     };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);

@@ -371,11 +371,11 @@ app.controller("vw_dashboard_proyecto", function ($scope, $http, $compile) {
             vw_dashboard_proyecto.presupuestos.noejecutado = 0;
             if (vw_dashboard_proyecto.listpresupuestos.data) {
                 for (var p = 0; p < vw_dashboard_proyecto.listpresupuestos.data.length; p++) {
-                    vw_dashboard_proyecto.presupuestos.aprobado += vw_dashboard_proyecto.listpresupuestos.data[p].aprobado;
-                    vw_dashboard_proyecto.presupuestos.ejecutado += vw_dashboard_proyecto.listpresupuestos.data[p].ejecutado;
-                    vw_dashboard_proyecto.presupuestos.cuentasporpagar += vw_dashboard_proyecto.listpresupuestos.data[p].cuentasporpagar;
-                    vw_dashboard_proyecto.presupuestos.reprogramar += vw_dashboard_proyecto.listpresupuestos.data[p].reprogramar;
-                    vw_dashboard_proyecto.presupuestos.noejecutado += vw_dashboard_proyecto.listpresupuestos.data[p].noejecutado;
+                    vw_dashboard_proyecto.presupuestos.aprobado += parseFloat(vw_dashboard_proyecto.listpresupuestos.data[p].aprobado);
+                    vw_dashboard_proyecto.presupuestos.ejecutado += parseFloat(vw_dashboard_proyecto.listpresupuestos.data[p].ejecutado);
+                    vw_dashboard_proyecto.presupuestos.cuentasporpagar += parseFloat(vw_dashboard_proyecto.listpresupuestos.data[p].cuentasporpagar);
+                    vw_dashboard_proyecto.presupuestos.reprogramar += parseFloat(vw_dashboard_proyecto.listpresupuestos.data[p].reprogramar);
+                    vw_dashboard_proyecto.presupuestos.noejecutado += parseFloat(vw_dashboard_proyecto.listpresupuestos.data[p].noejecutado);
                 }
                 for (var i in vw_dashboard_proyecto.presupuestos) {
                     vw_dashboard_proyecto.presupuestos[i] = LAN.money(vw_dashboard_proyecto.presupuestos[i]).format(true);
@@ -460,18 +460,18 @@ app.controller("vw_dashboard_proyecto", function ($scope, $http, $compile) {
                         finalizados: {value: 0, name: 'Finalizados'}
                     };
                     for (var pr = 0; pr < vw_dashboard_proyecto.listproductos.data.length; pr++) {
-                        vw_dashboard_proyecto.productos.cantidad += vw_dashboard_proyecto.listproductos.data[pr].cantidad;
-                        vw_dashboard_proyecto.productos.finalizados += vw_dashboard_proyecto.listproductos.data[pr].finalizados;
-                        vw_dashboard_proyecto.productos.iniciados += vw_dashboard_proyecto.listproductos.data[pr].iniciados;
-                        vw_dashboard_proyecto.productos.vencidos += vw_dashboard_proyecto.listproductos.data[pr].vencidos;
-                        vw_dashboard_proyecto.productos.planificados += vw_dashboard_proyecto.listproductos.data[pr].planificados;
-                        vw_dashboard_proyecto.productos.proceso += vw_dashboard_proyecto.listproductos.data[pr].proceso;
+                        vw_dashboard_proyecto.productos.cantidad += parseInt(vw_dashboard_proyecto.listproductos.data[pr].cantidad);
+                        vw_dashboard_proyecto.productos.finalizados += parseInt(vw_dashboard_proyecto.listproductos.data[pr].finalizados);
+                        vw_dashboard_proyecto.productos.iniciados += parseInt(vw_dashboard_proyecto.listproductos.data[pr].iniciados);
+                        vw_dashboard_proyecto.productos.vencidos += parseInt(vw_dashboard_proyecto.listproductos.data[pr].vencidos);
+                        vw_dashboard_proyecto.productos.planificados += parseInt(vw_dashboard_proyecto.listproductos.data[pr].planificados);
+                        vw_dashboard_proyecto.productos.proceso += parseInt(vw_dashboard_proyecto.listproductos.data[pr].proceso);
 
-                        legendsAct.planificados.value += vw_dashboard_proyecto.listproductos.data[pr].planificados;
-                        legendsAct.iniciados.value += vw_dashboard_proyecto.listproductos.data[pr].iniciados;
-                        legendsAct.vencidos.value += vw_dashboard_proyecto.listproductos.data[pr].vencidos;
-                        legendsAct.finalizados.value += vw_dashboard_proyecto.listproductos.data[pr].finalizados;
-                        legendsAct.proceso.value += vw_dashboard_proyecto.listproductos.data[pr].proceso;
+                        legendsAct.planificados.value += parseInt(vw_dashboard_proyecto.listproductos.data[pr].planificados);
+                        legendsAct.iniciados.value += parseInt(vw_dashboard_proyecto.listproductos.data[pr].iniciados);
+                        legendsAct.vencidos.value += parseInt(vw_dashboard_proyecto.listproductos.data[pr].vencidos);
+                        legendsAct.finalizados.value += parseInt(vw_dashboard_proyecto.listproductos.data[pr].finalizados);
+                        legendsAct.proceso.value += parseInt(vw_dashboard_proyecto.listproductos.data[pr].proceso);
                     }
 
                     for (var i in vw_dashboard_proyecto.productos) {
@@ -635,18 +635,18 @@ app.controller("vw_dashboard_proyecto", function ($scope, $http, $compile) {
 
 
                     for (var a = 0; a < vw_dashboard_proyecto.listasignaciones.data.length; a++) {
-                        vw_dashboard_proyecto.asignaciones.cantidad += vw_dashboard_proyecto.listasignaciones.data[a].cantidad;
-                        vw_dashboard_proyecto.asignaciones.completados += vw_dashboard_proyecto.listasignaciones.data[a].completados;
-                        vw_dashboard_proyecto.asignaciones.ejecucion += vw_dashboard_proyecto.listasignaciones.data[a].ejecucion;
-                        vw_dashboard_proyecto.asignaciones.vencidos += vw_dashboard_proyecto.listasignaciones.data[a].vencidos;
-                        vw_dashboard_proyecto.asignaciones.planificados += vw_dashboard_proyecto.listasignaciones.data[a].planificados;
-                        vw_dashboard_proyecto.asignaciones.cancelados += vw_dashboard_proyecto.listasignaciones.data[a].cancelados;
+                        vw_dashboard_proyecto.asignaciones.cantidad += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].cantidad);
+                        vw_dashboard_proyecto.asignaciones.completados += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].completados);
+                        vw_dashboard_proyecto.asignaciones.ejecucion += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].ejecucion);
+                        vw_dashboard_proyecto.asignaciones.vencidos += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].vencidos);
+                        vw_dashboard_proyecto.asignaciones.planificados += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].planificados);
+                        vw_dashboard_proyecto.asignaciones.cancelados += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].cancelados);
 
-                        legendsAct.planificados.value += vw_dashboard_proyecto.listasignaciones.data[a].planificados;
-                        legendsAct.ejecucion.value += vw_dashboard_proyecto.listasignaciones.data[a].ejecucion;
-                        legendsAct.vencidos.value += vw_dashboard_proyecto.listasignaciones.data[a].vencidos;
-                        legendsAct.completados.value += vw_dashboard_proyecto.listasignaciones.data[a].completados;
-                        legendsAct.cancelados.value += vw_dashboard_proyecto.listasignaciones.data[a].cancelados;
+                        legendsAct.planificados.value += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].planificados);
+                        legendsAct.ejecucion.value += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].ejecucion);
+                        legendsAct.vencidos.value += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].vencidos);
+                        legendsAct.completados.value += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].completados);
+                        legendsAct.cancelados.value += parseInt(vw_dashboard_proyecto.listasignaciones.data[a].cancelados);
                     }
 
                     for (var i in vw_dashboard_proyecto.asignaciones) {
@@ -809,20 +809,20 @@ app.controller("vw_dashboard_proyecto", function ($scope, $http, $compile) {
                         finalizados: {value: 0, name: 'Finalizadas'}
                     };
                     for (var ac = 0; ac < vw_dashboard_proyecto.listactividades.data.length; ac++) {
-                        vw_dashboard_proyecto.actividades.cantidad += vw_dashboard_proyecto.listactividades.data[ac].cantidad;
-                        vw_dashboard_proyecto.actividades.finalizados += vw_dashboard_proyecto.listactividades.data[ac].finalizados;
-                        vw_dashboard_proyecto.actividades.pendientes += vw_dashboard_proyecto.listactividades.data[ac].pendientes;
-                        vw_dashboard_proyecto.actividades.vencidos += vw_dashboard_proyecto.listactividades.data[ac].vencidos;
-                        vw_dashboard_proyecto.actividades.planificados += vw_dashboard_proyecto.listactividades.data[ac].planificados;
-                        vw_dashboard_proyecto.actividades.cancelados += vw_dashboard_proyecto.listactividades.data[ac].cancelados;
-                        vw_dashboard_proyecto.actividades.ejecucion += vw_dashboard_proyecto.listactividades.data[ac].ejecucion;
+                        vw_dashboard_proyecto.actividades.cantidad += parseInt(vw_dashboard_proyecto.listactividades.data[ac].cantidad);
+                        vw_dashboard_proyecto.actividades.finalizados += parseInt(vw_dashboard_proyecto.listactividades.data[ac].finalizados);
+                        vw_dashboard_proyecto.actividades.pendientes += parseInt(vw_dashboard_proyecto.listactividades.data[ac].pendientes);
+                        vw_dashboard_proyecto.actividades.vencidos += parseInt(vw_dashboard_proyecto.listactividades.data[ac].vencidos);
+                        vw_dashboard_proyecto.actividades.planificados += parseInt(vw_dashboard_proyecto.listactividades.data[ac].planificados);
+                        vw_dashboard_proyecto.actividades.cancelados += parseInt(vw_dashboard_proyecto.listactividades.data[ac].cancelados);
+                        vw_dashboard_proyecto.actividades.ejecucion += parseInt(vw_dashboard_proyecto.listactividades.data[ac].ejecucion);
 
-                        legendsAct.planificados.value += vw_dashboard_proyecto.listactividades.data[ac].planificados;
-                        legendsAct.cancelados.value += vw_dashboard_proyecto.listactividades.data[ac].cancelados;
-                        legendsAct.pendientes.value += vw_dashboard_proyecto.listactividades.data[ac].pendientes;
-                        legendsAct.vencidos.value += vw_dashboard_proyecto.listactividades.data[ac].vencidos;
-                        legendsAct.finalizados.value += vw_dashboard_proyecto.listactividades.data[ac].finalizados;
-                        legendsAct.ejecucion.value += vw_dashboard_proyecto.listactividades.data[ac].ejecucion;
+                        legendsAct.planificados.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].planificados);
+                        legendsAct.cancelados.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].cancelados);
+                        legendsAct.pendientes.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].pendientes);
+                        legendsAct.vencidos.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].vencidos);
+                        legendsAct.finalizados.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].finalizados);
+                        legendsAct.ejecucion.value += parseInt(vw_dashboard_proyecto.listactividades.data[ac].ejecucion);
                     }
 
                     for (var i in vw_dashboard_proyecto.actividades) {

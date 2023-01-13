@@ -379,16 +379,64 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 };
                 indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_procesos") {
-                indicador_generico.fixFilters = [
-                    {
-                        "field": "table_",
-                        "value": indicador_generico.entidadobj.id
-                    },
-                    {
-                        "field": "compania",
-                        "value": indicador_generico.session.compania_id
+                indicador_generico.getMapaProceso = async function (callback) {
+                    var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+                        order: "desc",
+                        where: [
+                            {
+                                field: "compania",
+                                value:  indicador_generico.session.compania_id
+                            },
+                            {
+                                "field": "institucion",
+                                "operator":  indicador_generico.session.institucion_id ? "=" : "is",
+                                "value":  indicador_generico.session.institucion_id ?  indicador_generico.session.institucion_id : "$null"
+                            },
+                            {
+                                field: "estatus",
+                                operator: "!=",
+                                value: 4
+                            }
+                        ]
+                    });
+                    if (mapaData) {
+                        indicador_generico.mapa_id = mapaData.id;
+                        indicador_generico.fixFilters = [
+                            {
+                                "field": "table_",
+                                "value": indicador_generico.entidadobj.id
+                            },
+                            {
+                                "field": "compania",
+                                "value": indicador_generico.session.compania_id
+                            },
+                            {
+                                field: "mapa_proceso",
+                                value: indicador_generico.mapa_id ? indicador_generico.mapa_id : -1
+                            }
+                        ];
+                    }else{
+                        indicador_generico.fixFilters = [
+                            {
+                                "field": "table_",
+                                "value": indicador_generico.entidadobj.id
+                            },
+                            {
+                                "field": "compania",
+                                "value": indicador_generico.session.compania_id
+                            },
+                            {
+                                field: "mapa_proceso",
+                                value: indicador_generico.mapa_id ? indicador_generico.mapa_id : -1
+                            }
+                        ];
                     }
-                ];
+                    if (callback)
+                        callback();
+                }
+                indicador_generico.getMapaProceso(function(){
+                    indicador_generico.refresh();
+                });
                 CRUD_indicador_generico.table.columns = columns = {
                     id: {
                         visible: false,
@@ -396,6 +444,13 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         export: false,
                         exportExample: false,
                         dead: true
+                    },
+                    mapa_proceso_nombre: {
+                        // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        label: function () {
+                            return "Mapa de Proceso"
+                        },
+                        shorttext: 370
                     },
                     registro: {
                         label: "Registro",
@@ -498,6 +553,135 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         shorttext: 370
                     }
                 };
+                CRUD_indicador_generico.table.filters = {
+                    columns: [
+                        {
+                            key: 'registro',
+                            label: 'Registro',
+                            type: FILTER.types.relation,
+                            table: 'pnpsp',
+                            value: "id",
+                            text: "item.nombre",
+                            query: {
+                                limit: 0,
+                                page: 1,
+                                where: [],
+                                orderby: "id",
+                                order: "asc",
+                                distinct: false
+                            },
+                        },
+                        {
+                            key: 'nombre_indicador',
+                            label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                            type: FILTER.types.string,
+                            placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                            maxlength: 255
+                        },
+                        {
+                            key: 'descripcion_indicador',
+                            label: 'Descripción',
+                            type: FILTER.types.string,
+                            placeholder: 'Descripción',
+                            maxlength: 4000
+                        },
+                        {
+                            key: 'fuente',
+                            label: 'Fuente',
+                            type: FILTER.types.string,
+                            placeholder: 'Fuente',
+                            maxlength: 255
+                        },
+                        {
+                            key: 'metodo',
+                            label: 'Método Cálculo',
+                            type: FILTER.types.string,
+                            placeholder: 'Método Cálculo',
+                            maxlength: 255
+                        },
+                        {
+                            key: 'tipo_meta',
+                            label: 'Tipo de meta',
+                            type: FILTER.types.relation,
+                            table: 'tipoMeta',
+                            value: "id",
+                            text: "item.nombre",
+                            query: {
+                                limit: 0,
+                                page: 1,
+                                where: [],
+                                orderby: "id",
+                                order: "asc",
+                                distinct: false
+                            },
+                        },
+                        {
+                            key: 'direccion_meta',
+                            label: 'Dirección de la meta',
+                            type: FILTER.types.relation,
+                            table: 'direccionMeta',
+                            value: "id",
+                            text: "item.nombre",
+                            query: {
+                                limit: 0,
+                                page: 1,
+                                where: [],
+                                orderby: "id",
+                                order: "asc",
+                                distinct: false
+                            },
+                        },
+                        {
+                            key: 'linea',
+                            label: 'Línea Base',
+                            type: FILTER.types.integer,
+                            placeholder: 'Línea Base',
+                            maxlength: 30
+                        },
+                        {
+                            key: 'medio_verificacion',
+                            label: 'Medio de Verificación',
+                            type: FILTER.types.string,
+                            placeholder: 'Medio Verificación',
+                            maxlength: 255
+                        },
+                        {
+                            key: 'mapa_proceso',
+                            label: 'Mapa de proceso',
+                            type: FILTER.types.relation,
+                            table: 'mapa_proceso',
+                            value: "id",
+                            text: "item.nombre",
+                            query: {
+                                limit: 0,
+                                page: 1,
+                                where: [
+                                    {
+                                        "field": "compania",
+                                        "value": indicador_generico.session.compania_id
+                                    },
+                                    {
+                                        "field": "estatus",
+                                        "operator": "!=",
+                                        "value": 4
+                                    }
+                                ],
+                                orderby: "id",
+                                order: "asc",
+                                distinct: false
+                            },
+                        },
+                    ]
+                }
+                FILTER.run(indicador_generico);
+                CRUD_indicador_generico.table.single = [
+                    {
+                        'table': 'departamento',
+                        'base': 'departamento',
+                        'field': 'id',
+                        'columns': ['id', 'nombre']
+                    }
+                ]
                 indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_evento_indicador") {
                 if (STORAGE.exist('evento')) {
@@ -845,7 +1029,6 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     return indicador_generico.entidadobj.name;
                 };
             }
-
             CRUD_indicador_generico.table.filters.columns[0].label = indicador_generico.entidadobj.name;
             CRUD_indicador_generico.table.filters.columns[0].table = indicador_generico.entidadobj.table_;
             CRUD_indicador_generico.table.filters.columns[0].text = `item.${indicador_generico.entidadobj.label}`;

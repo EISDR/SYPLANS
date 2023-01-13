@@ -1201,6 +1201,10 @@
         "type": "full",
         "allow": {}
       },
+      "riesgo_a": {
+        "type": "full",
+        "allow": {}
+      },
       "riesgo_aSIGNALprocesosSIGNALmamfe": {
         "type": "full",
         "allow": {}

@@ -172,9 +172,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                         SWEETALERT.show({
                             message: "La gestión de riesgo ha sido Creada",
                             confirm: function(){
-                                if (riesgo_historico.last_estatus == 4){
-                                    location.reload();
-                                }
+                                location.reload();
                             }
                         });
                         riesgo_historico.firsttime = false;
@@ -182,9 +180,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                         SWEETALERT.show({
                             message: "La gestión de riesgo ha sido Modificada",
                             confirm: function(){
-                                if (riesgo_historico.last_estatus == 4){
-                                    location.reload();
-                                }
+                                location.reload();
                             }
                         });
                     }

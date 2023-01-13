@@ -923,6 +923,33 @@ app.controller("riesgo_matriz_control", function ($scope, $http, $compile) {
         riesgo_matriz_control.headertitle = "Medidas Control Reales";
     }
 
+    riesgo_matriz_control.getRiesgo = async function () {
+        var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value: riesgo_matriz_control.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": riesgo_matriz_control.session.institucion_id ? "=" : "is",
+                    "value": riesgo_matriz_control.session.institucion_id ? riesgo_matriz_control.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (riesgoData) {
+            riesgo_matriz_control.mapa_id = riesgoData.id;
+            riesgo_matriz_control.mapa_ano = riesgoData.ano;
+        }
+        riesgo_matriz_control.refreshAngular();
+    };
+    riesgo_matriz_control.getRiesgo();
     RUNCONTROLLER("riesgo_matriz_control", riesgo_matriz_control, $scope, $http, $compile);
     riesgo_matriz_control.formulary = function (data, mode, defaultData) {
         if (riesgo_matriz_control !== undefined) {
@@ -1021,8 +1048,8 @@ app.controller("riesgo_matriz_control", function ($scope, $http, $compile) {
                 //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
                 if (mode === 'new' && data == 'range_date') {
                     riesgo_matriz_control.range_date = "";
-                    var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo_matriz_control.session.periodo_poa).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_minimo = moment(("01-02-" + riesgo_matriz_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + moment("01-01-" + parseInt(riesgo_matriz_control.mapa_ano)).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_minimo = moment(("01-02-" + parseInt(riesgo_matriz_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
                     // if (CONFIG.seguridad === "abierta" || moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
                     //
                     //     riesgo_matriz_control.range_date_min(rango_minimo);
@@ -1038,8 +1065,8 @@ app.controller("riesgo_matriz_control", function ($scope, $http, $compile) {
                     // }
                 }
                 if (mode === 'edit' && data == 'range_date') {
-                    var rango_minimo = moment(("01-02-" + riesgo_matriz_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo_matriz_control.session.periodo_poa).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_minimo = moment(("01-02-" + parseInt(riesgo_matriz_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + moment("01-01-" + parseInt(riesgo_matriz_control.mapa_ano)).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
                     // if (CONFIG.seguridad === "abierta" || moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
                     //
                     //     riesgo_matriz_control.range_date_min(rango_minimo);
@@ -1047,7 +1074,7 @@ app.controller("riesgo_matriz_control", function ($scope, $http, $compile) {
                     //     riesgo_matriz_control.refreshAngular();
                     // }else{
                     if (moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
-                        rango_minimo = moment(("01-02-" + riesgo_matriz_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
+                        rango_minimo = moment(("01-02-" + parseInt(riesgo_matriz_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
                         riesgo_matriz_control.range_date_start(rango_minimo);
                     }
                     riesgo_matriz_control.range_date_min(rango_minimo);

@@ -571,7 +571,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
         procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados', 'proceso', 'nombre', 'id');
         setTimeout(function () {
             procesos.setPermission("add", false);
-        }, 1);
+        }, 100);
         for (var items of records.data) {
             procesos.files = () => new Promise(async (resolve, reject) => {
                 BASEAPI.ajax.get(new HTTP().path(["files", "api"]), {folder: '/procesos/procesofile/' + items.id}, function (result) {
@@ -634,14 +634,33 @@ app.controller("procesos", function ($scope, $http, $compile) {
         let titulo= "";
         let cuerpo="";
         let cuerpo2 = "";
-        if (data.updating.estatus == 2){
+        if (data.updating.estatus == 3){
             titulo_push = `El documento "${data.updating.nombre}" ha sido Autorizado.`;
             cuerpo_push = `El documento "${data.updating.nombre}" ha sido Autorizado.`;
             titulo = `El documento "${data.updating.nombre}" ha sido Autorizado`
             cuerpo = `Ha sido Autorizado por ${ documentos_asociados.session.fullName() }.`;
             cuerpo2 = "Gracias.";
+            BASEAPI.insertID('documentos_asociados', {
+                proceso: procesos.id || "$null",
+                procesos_categoria: procesos.procesos_categoria || "$null",
+                codigo: ("DOC_ISO_PRO-" + procesos.id ) || "$null",
+                nombre: `Norma ISO (${procesos.nombre})` || "$null",
+                objetivo: "$null",
+                alcance: "$null",
+                trabaja_marco_legal:  "$null",
+                marco_legal:  "$null",
+                resultado_esperado: "$null",
+                tipo_documento: "$null",
+                estatus: 2,
+                active: 1,
+                creado_en: moment().format('YYYY-MM-DD hh:mm:ss'),
+                creado_por: procesos.session.id,
+                documento_general: 1
+            }, '', '', function (result) {
+
+            });
             function_send_email_custom_group_res_list(titulo_push, cuerpo_push, titulo, cuerpo, documentos_asociados.session.compania_id, documentos_asociados.session.institucion_id, documentos_asociados.solicitante, 18, 4, null, cuerpo2);
-        }else if (data.updating.estatus == 3){
+        }else if (data.updating.estatus == 2){
             titulo_push = `El documento "${data.updating.nombre}" ha sido Elaborado.`;
             cuerpo_push = `Uno de los supervisores de calidad deben proceder a Revisar y Autorizar el mismo.`;
             titulo = `El documento "${data.updating.nombre}" ha sido Elaborado.`

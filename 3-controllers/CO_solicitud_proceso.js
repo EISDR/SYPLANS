@@ -8,6 +8,7 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
     solicitud_proceso.my_true_estatus = 1;
     solicitud_proceso.caracteristica = solicitud_proceso.session.groups[0].caracteristica;
     solicitud_proceso.canStatus = "";
+    solicitud_proceso.loaded = false;
     //solicitud_proceso.destroyForm = false;
     //solicitud_proceso.permissionTable = "tabletopermission";
     solicitud_proceso.getMapaProceso = async function (callback) {
@@ -69,7 +70,9 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
         if (callback)
             callback();
     }
-    solicitud_proceso.getMapaProceso();
+    solicitud_proceso.getMapaProceso(function () {
+        solicitud_proceso.refresh();
+    });
 
     RUNCONTROLLER("solicitud_proceso", solicitud_proceso, $scope, $http, $compile);
 
@@ -425,6 +428,21 @@ Gracias.`;
                                     console.log(result)
                                     SWEETALERT.stop()
                                     solicitud_proceso.refresh();
+                                    BASEAPI.updateall('documentos_asociados', {
+                                        estatus: 4,
+                                        where: [
+                                            {
+                                                field: "proceso",
+                                                value: proceso
+                                            },
+                                            {
+                                                field: "documento_general",
+                                                value: 1
+                                            }
+                                        ]
+                                    }, async function (result) {
+
+                                    })
                                     titulo_push = `La solicitud de eliminación de proceso "${solicitud_proceso.nombre}" ha sido Autorizada.`;
                                     cuerpo_push = `La solicitud de eliminación del proceso "${solicitud_proceso.delete_pro_nombre}" ha sido Autorizada.`;
                                     titulo = `La solicitud de eliminación de proceso  "${solicitud_proceso.nombre}" ha sido Autorizada.`
@@ -892,9 +910,13 @@ Gracias.`;
             }
         }, ['nombre']);
     }
-    // $scope.triggers.table.after.load = function (records) {
-    //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-    // };
+    solicitud_proceso.triggers.table.after.load = function (records) {
+        //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
+        if (!solicitud_proceso.loaded){
+            solicitud_proceso.refresh();
+            solicitud_proceso.loaded = true;
+        }
+    };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
     //     resolve(true);

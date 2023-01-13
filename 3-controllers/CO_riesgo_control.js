@@ -918,6 +918,33 @@ app.controller("riesgo_control", function ($scope, $http, $compile) {
     }
     //riesgo_control.destroyForm = false;
     //riesgo_control.permissionTable = "tabletopermission";
+    riesgo_control.getRiesgo = async function () {
+        var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value: riesgo_control.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": riesgo_control.session.institucion_id ? "=" : "is",
+                    "value": riesgo_control.session.institucion_id ? riesgo_control.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (riesgoData) {
+            riesgo_control.mapa_id = riesgoData.id;
+            riesgo_control.mapa_ano = riesgoData.ano;
+        }
+        riesgo_control.refreshAngular();
+    };
+    riesgo_control.getRiesgo();
     RUNCONTROLLER("riesgo_control", riesgo_control, $scope, $http, $compile);
     if (typeof riesgo !== 'undefined') {
         if (typeof riesgo !== 'not defined') {
@@ -1029,8 +1056,8 @@ app.controller("riesgo_control", function ($scope, $http, $compile) {
                 //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
                 if (mode === 'new' && data == 'range_date') {
                     riesgo_control.range_date = "";
-                    var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo_control.session.periodo_poa).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_minimo = moment(("01-02-" + riesgo_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + moment("01-01-" + parseInt(riesgo_control.mapa_ano)).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_minimo = moment(("01-02-" + parseInt(riesgo_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
                     // if (CONFIG.seguridad === "abierta" || moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
                     //
                     //     riesgo_matriz_control.range_date_min(rango_minimo);
@@ -1046,8 +1073,8 @@ app.controller("riesgo_control", function ($scope, $http, $compile) {
                     // }
                 }
                 if (mode === 'edit' && data == 'range_date') {
-                    var rango_minimo = moment(("01-02-" + riesgo_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
-                    var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo_control.session.periodo_poa).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_minimo = moment(("01-02-" + parseInt(riesgo_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
+                    var rango_maximo = moment(("01-01-" + moment("01-01-" + parseInt(riesgo_control.mapa_ano)).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
                     // if (CONFIG.seguridad === "abierta" || moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
                     //
                     //     riesgo_matriz_control.range_date_min(rango_minimo);
@@ -1055,7 +1082,7 @@ app.controller("riesgo_control", function ($scope, $http, $compile) {
                     //     riesgo_matriz_control.refreshAngular();
                     // }else{
                     if (moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
-                        rango_minimo = moment(("01-02-" + riesgo_control.session.periodo_poa)).add(-1, 'day').format("YYYY-MM-DD");
+                        rango_minimo = moment(("01-02-" + parseInt(riesgo_control.mapa_ano))).add(-1, 'day').format("YYYY-MM-DD");
                         riesgo_control.range_date_start(rango_minimo);
                     }
                     riesgo_control.range_date_min(rango_minimo);

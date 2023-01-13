@@ -57,14 +57,14 @@
           "modal": "",
           "icon": "list3",
           "href": "#proyecto_item",
-          "text": "Proyectos Especiales"
+          "text": "Creación de Proyectos Especiales"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "pencil7",
           "href": "#indicador_generico?vw_proyecto_item",
-          "text": "Indicadores de Proyectos Especiales"
+          "text": "Creación de Indicadores PE"
         },
         {
           "menus": [
@@ -105,6 +105,13 @@
         {
           "menus": "",
           "modal": "",
+          "icon": "flag3",
+          "href": "#ods?proyecto_item",
+          "text": "Objetivos de Desarrollo Sostenible"
+        },
+        {
+          "menus": "",
+          "modal": "",
           "icon": "pencil7",
           "href": "#proyecto_estatus",
           "text": "Estatus de Proyectos Especiales"
@@ -131,6 +138,11 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "icon": "meter2",
+          "href": "#reporte_indicador_config?proyecto_item",
+          "text": "Configurar Cumplimiento Indicadores"
         }
   ],
       "modal": "",
@@ -197,14 +209,14 @@
           "modal": "",
           "icon": "list3",
           "href": "#proyecto_item",
-          "text": "Proyectos Especiales"
+          "text": "Creación de Proyectos Especiales"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "pencil7",
           "href": "#indicador_generico?vw_proyecto_item",
-          "text": "Indicadores de Proyectos Especiales"
+          "text": "Creación de Indicadores PE"
         },
         {
           "menus": [
@@ -245,6 +257,13 @@
         {
           "menus": "",
           "modal": "",
+          "icon": "flag3",
+          "href": "#ods?proyecto_item",
+          "text": "Objetivos de Desarrollo Sostenible"
+        },
+        {
+          "menus": "",
+          "modal": "",
           "icon": "pencil7",
           "href": "#proyecto_estatus",
           "text": "Estatus de Proyectos Especiales"
@@ -263,6 +282,11 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "icon": "meter2",
+          "href": "#reporte_indicador_config?proyecto_item",
+          "text": "Configurar Cumplimiento Indicadores"
         }
       ],
       "modal": "",
