@@ -17,6 +17,11 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             {
                 field: "compania",
                 value: riesgo.session.compania_id
+            },
+            {
+                field: "historico_estatus",
+                operator: "!=",
+                value: "4"
             }
         ];
     } else {
@@ -24,6 +29,11 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             {
                 field: "institucion",
                 value: riesgo.session.institucion_id
+            },
+            {
+                field: "historico_estatus",
+                operator: "!=",
+                value: "4"
             }
         ];
     }
@@ -2348,6 +2358,11 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     {
                         field: "compania",
                         value: riesgo.session.compania_id
+                    },
+                    {
+                        field: "historico_estatus",
+                        operator: "!=",
+                        value: "4"
                     }
                 ];
             } else {
@@ -2355,6 +2370,11 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     {
                         field: "institucion",
                         value: riesgo.session.institucion_id
+                    },
+                    {
+                        field: "historico_estatus",
+                        operator: "!=",
+                        value: "4"
                     }
                 ];
             }
@@ -2470,7 +2490,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
     //     return true;
     // };
-    riesgo.triggers.table.before.insert = (data) => new Promise(async(resolve, reject) => {
+    riesgo.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [
@@ -2503,7 +2523,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     title: "",
                     message: `No se puede crear un registro de riesgo para la misma relación de: "Elemento del Proceso + Fallo + Departamento"`
                 });
-            }else{
+            } else {
                 SWEETALERT.show({
                     type: "error",
                     title: "",
@@ -2522,7 +2542,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.tabfle.after.update ${$scope.modelName}`);
     // };
-    riesgo.triggers.table.before.update = (data) => new Promise(async(resolve, reject) => {
+    riesgo.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [
