@@ -60,10 +60,14 @@ DSON.keepmerge(CRUD_proyecto_item, {
                     return "Institución"
                 }
             },
-            departamento: {
+            departamento_id: {
                 label: function () {
                     return "Departamento"
-                }
+                },
+                format: function (row) {
+                    return row.departamento;
+                },
+                link: {table: 'departamento', from: 'departamento'}
             },
             responsable: {},
             estatus: {},
@@ -83,11 +87,11 @@ DSON.keepmerge(CRUD_proyecto_item, {
                 },
                 formattype: ENUM.FORMAT.money
             },
-            heredado:{
-                label: function() {
+            heredado: {
+                label: function () {
                     return "¿Usado como Producto Operativo?"
                 },
-                format: function (row){
+                format: function (row) {
                     $(`.centralizar`).css('text-align', 'center');
                     return row.heredado === 1 ? '<div class="centralizar">Sí</div>' : '<div class="centralizar">No</div>';
                 },
@@ -131,57 +135,57 @@ DSON.keepmerge(CRUD_proyecto_item, {
                     return "";
                 },
                 title: (data) => {
-                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined"){
-                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined") {
+                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        }  else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit) {
                             return MESSAGE.i('actions.Edit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Remove');
                         }
                     } else {
                         return MESSAGE.i('actions.Edit') + ", " +
                             MESSAGE.i('actions.View') + ", " +
-                            MESSAGE.i('actions.Remove')+ ", " +
+                            MESSAGE.i('actions.Remove') + ", " +
                             MESSAGE.i('actions.audit');
                     }
                 },
@@ -197,7 +201,7 @@ DSON.keepmerge(CRUD_proyecto_item, {
                 menus: [
                     {
                         text: (data) => {
-                            return  data.row.estatus_id == 1 ? MESSAGE.i('actions.Edit') : "Trabajar";
+                            return data.row.estatus_id == 1 ? MESSAGE.i('actions.Edit') : "Trabajar";
                         },
                         icon: (data) => {
                             return data.row.estatus_id == 1 ? "pencil5" : 'hammer-wrench';
@@ -446,7 +450,14 @@ DSON.keepmerge(CRUD_proyecto_item, {
                     }
                 ]
             }
-        ]
+        ],
+        single: [
+            {
+                'table': 'departamento',
+                'base': 'departamento_id',
+                'field': 'id',
+                'columns': ['id', 'nombre']
+            }]
     }
 });
 //modify methods that existing option

@@ -67,7 +67,7 @@ FILTER = {
                             label: column.label,
                             table: column.link.from,
                             value: column.link.value || "id",
-                            text: column.link.text || "item.name",
+                            text: column.link.text || "item.nombre",
                             query: {
                                 limit: 0,
                                 page: 1,

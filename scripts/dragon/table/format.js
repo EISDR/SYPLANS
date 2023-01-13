@@ -103,12 +103,12 @@ TABLEFORMAT = {
                         if (shorttext.length > column.shorttext) {
                             shorttext = String.format("{0}", shorttext.substring(0, column.shorttext) + "...");
                         }
-                        return "<a class='dragonlink'>" + shorttext + "</a>";
+                        return "<span >" + shorttext + "</span>";
                     } else {
                         return `<span class='text-grey'>${key}</span>`;
                     }
                 } else {
-                    return "<a class='dragonlink'>" + value + "</a>";
+                    return "<span >" + value + "</span>";
                 }
             }
             value = $scope.formatByType(column, row, key);

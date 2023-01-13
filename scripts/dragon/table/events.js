@@ -96,15 +96,15 @@ TABLEEVENT = {
                 $scope.modal.modalView(String.format("{0}", mylink.table), mylink.modal);
                 return;
             }
-            if (data.column.link && data.column.reference !== false) {
-                if (!DSON.oseaX(data.value)) {
-                    var mylink = data.column.link;
-                    if (!DSON.oseaX(data.value)) {
-                        $scope.modalAction(mylink.table, MESSAGE.ic(`columns.${mylink.table}`), 'archive', 'edit', eval("data.row." + mylink.from));
-                    }
-                    return;
-                }
-            }
+            // if (data.column.link && data.column.reference !== false) {
+            //     if (!DSON.oseaX(data.value)) {
+            //         var mylink = data.column.link;
+            //         if (!DSON.oseaX(data.value)) {
+            //             $scope.modalAction(mylink.table, MESSAGE.ic(`columns.${mylink.table}`), 'archive', 'edit', eval("data.row." + mylink.from));
+            //         }
+            //         return;
+            //     }
+            // }
             if (data.column.shorttext) {
                 var shorttext = data.value;
                 if (!DSON.oseaX(shorttext))
