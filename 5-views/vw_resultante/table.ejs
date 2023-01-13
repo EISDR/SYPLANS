@@ -42,79 +42,84 @@
         {{row.factor}}
     </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.factor+d.table_+d.departamento',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.table_+d.departamento',i,vw_resultante.report)">
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.factor+d.tablex',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor+d.tablex',i,vw_resultante.report)">
         {{row.tablex}}
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.table_+d.departamento',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.table_+d.departamento',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)',i,vw_resultante.report)">
         {{row.departamento||"No Asignado"}}
     </td>
 
+
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.riesgo}}
         <br>
         ({{row.registrox}})
     </td>
 
+
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.probabilidad}} ({{row.pid}}%)
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.impacto}} ({{row.iid}})
     </td>
 
     <td style="font-size: 12px !important;vertical-align: middle;background-color: {{row.color}};font-weight: bold;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.nivel_riesgo}}
         <br>
         ({{row.nivel_riesgo_v}})
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.responsable}}
     </td>
 
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)">
         {{row.control}}
         <br>
         ({{row.efectividad_sum}}%)
     </td>
+
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)">
         {{row.efectividad}}%
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)">
         {{row.residual}}
     </td>
+
     <!--    DIVISION-->
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)">
         {{row.correctiva_nombre}}
         <br>
     </td>
+
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)">
         <ul>
             <li ng-repeat="(r,responsable) in (row.correctiva_responsable||'').split(';')">
                 {{responsable}}
@@ -123,38 +128,40 @@
         <br>
     </td>
 
+
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)">
         {{vw_resultante.formaty(row.correctiva_fecha_inicio)}}
         <br>
     </td>
 
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)">
         {{vw_resultante.formaty(row.correctiva_fecha_fin)}}
         <br>
     </td>
 
-
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control',i,vw_resultante.report)">
         {{vw_resultante.formaty(row.correctiva_cuplimiento)}}
         <br>
     </td>
 
+
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid+d.control+d.correctiva_nombre',i,vw_resultante.report)">
         {{row.correctiva_estatus}}
         <br>
     </td>
 
+
     <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         <ul>
             <li ng-repeat="(r,correctiva_accion_implantada) in (row.correctiva_accion_implantada||'').split(';')">
                 {{correctiva_accion_implantada}}
@@ -163,42 +170,43 @@
         <br>
     </td>
 
-
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.probabilidad2}} ({{row.pid2}}%)
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.impacto2}} ({{row.iid2}})
     </td>
 
-    <td style="font-size: 12px !important;vertical-align: middle;background-color: {{row.nivel_riesgo_v2?row.color:'white'}};font-weight: bold;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+    <td style="font-size: 12px !important;vertical-align: middle;background-color: {{row.nivel_riesgo_v2?row.color2:'white'}};font-weight: bold;text-align: center"
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.nivel_riesgo2}}
         <br>
         ({{row.nivel_riesgo_v2}})
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.efectividad2}}%
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.residual2}}
     </td>
+
     <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
         ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
         {{row.observacion}}
     </td>
+
 </tr>
 </tbody>
 
@@ -246,198 +254,147 @@
         {{row.proceso}}
     </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento',i,vw_resultante.report)">
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.proceso+d.elemento',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.proceso+d.elemento',i,vw_resultante.report)">
         {{row.elemento}}
     </td>
 
     <td style="vertical-align: middle"
-        rowspan="{{<%= scope %>.sp_('d.proceso+d.elemento+d.departamento',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.proceso+d.elemento+d.departamento',i,vw_resultante.report)">
+        rowspan="{{<%= scope %>.sp_('d.proceso+d.elemento+(d.departamento||`No Asignado`)',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.proceso+d.elemento+(d.departamento||`No Asignado`)',i,vw_resultante.report)">
         {{row.departamento||"No Asignado"}}
     </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+    <td style="vertical-align: middle"
+        rowspan="{{<%= scope %>.sp_('d.proceso+d.elemento+(d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.proceso+d.elemento+(d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.riesgo}}
     </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_efecto}}
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_causa}}
-    </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_efecto}}
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_causa}}
+        </td>
 
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
-        {{row.control}}
-        <br>
-    </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
+            {{row.control}}
+            <br>
+        </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_gravedad}}
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_ocurrencia}}
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_deteccion}}
-    </td>
-    <td style="vertical-align: middle;font-weight: bold" ng-style="{'background-color':row.zz_color}"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{(row.mamfe_gravedad||0)*(row.mamfe_ocurrencia||0)*(row.mamfe_deteccion||0)}} ({{row.zz_nivel}})
-    </td>
-    <!--    DIVISION-->
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
-        {{row.correctiva_nombre}}
-        <br>
-    </td>
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
-        <ul>
-            <li ng-repeat="(r,responsable) in (row.correctiva_responsable||'').split(';')">
-                {{responsable}}
-            </li>
-        </ul>
-        <br>
-    </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_gravedad}}
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_ocurrencia}}
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_deteccion}}
+        </td>
+        <td style="vertical-align: middle;font-weight: bold" ng-style="{'background-color':row.zz_color}"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{(row.mamfe_gravedad||0)*(row.mamfe_ocurrencia||0)*(row.mamfe_deteccion||0)}} ({{row.zz_nivel}})
+        </td>
+    <!--    &lt;!&ndash;    DIVISION&ndash;&gt;-->
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+            {{row.correctiva_nombre}}
+            <br>
+        </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+            <ul>
+                <li ng-repeat="(r,responsable) in (row.correctiva_responsable||'').split(';')">
+                    {{responsable}}
+                </li>
+            </ul>
+            <br>
+        </td>
 
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
-        {{vw_resultante.formaty(row.correctiva_fecha_inicio)}}
-        <br>
-    </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+            {{vw_resultante.formaty(row.correctiva_fecha_inicio)}}
+            <br>
+        </td>
 
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
-        {{vw_resultante.formaty(row.correctiva_fecha_fin)}}
-        <br>
-    </td>
-
-
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
-        {{vw_resultante.formaty(row.correctiva_cuplimiento)}}
-        <br>
-    </td>
-
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
-        {{row.correctiva_estatus}}
-        <br>
-    </td>
-
-    <td style="vertical-align: middle;text-align: center"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
-        <ul>
-            <li ng-repeat="(r,correctiva_accion_implantada) in (row.correctiva_accion_implantada||'').split(';')">
-                {{correctiva_accion_implantada}}
-            </li>
-        </ul>
-        <br>
-    </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+            {{vw_resultante.formaty(row.correctiva_fecha_fin)}}
+            <br>
+        </td>
 
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_gravedad_current}}
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_ocurrencia_current}}
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.mamfe_deteccion_current}}
-    </td>
-    <td style="vertical-align: middle;font-weight: bold" ng-style="{'background-color':row.zz_color2}"
-        rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        <span ng-if="row.mamfe_gravedad_current!==null && row.mamfe_ocurrencia_current!==null && row.mamfe_deteccion_current!==null">
-        {{(row.mamfe_gravedad_current||0)*(row.mamfe_ocurrencia_current||0)*(row.mamfe_deteccion_current||0)}} ({{row.zz_nivel2}})
-        </span>
-    </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
+            {{vw_resultante.formaty(row.correctiva_cuplimiento)}}
+            <br>
+        </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        <span ng-if="row.mamfe_gravedad_current!==null && row.mamfe_ocurrencia_current!==null && row.mamfe_deteccion_current!==null">
-        {{(
-        (row.mamfe_gravedad_current||0)*(row.mamfe_ocurrencia_current||0)*(row.mamfe_deteccion_current||0))>=((row.mamfe_gravedad||0)*(row.mamfe_ocurrencia||0)*(row.mamfe_deteccion||0))?'No':'Si'
-        }}
-        </span>
-    </td>
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
-        {{row.observacion}}
-    </td>
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control+d.correctiva_nombre',i,vw_resultante.report)">
+            {{row.correctiva_estatus}}
+            <br>
+        </td>
 
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.riesgo}}-->
-    <!--        <br>-->
-    <!--        ({{row.registrox}})-->
-    <!--    </td>-->
+        <td style="vertical-align: middle;text-align: center"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.rid+d.table_+d.control',i,vw_resultante.report)">
+            <ul>
+                <li ng-repeat="(r,correctiva_accion_implantada) in (row.correctiva_accion_implantada||'').split(';')">
+                    {{correctiva_accion_implantada}}
+                </li>
+            </ul>
+            <br>
+        </td>
 
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.probabilidad}} ({{row.pid}}%)-->
-    <!--    </td>-->
 
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.impacto}} ({{row.iid}})-->
-    <!--    </td>-->
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_gravedad_current}}
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_ocurrencia_current}}
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.mamfe_deteccion_current}}
+        </td>
+        <td style="vertical-align: middle;font-weight: bold" ng-style="{'background-color':row.zz_color2}"
+            rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            <span ng-if="row.mamfe_gravedad_current!==null && row.mamfe_ocurrencia_current!==null && row.mamfe_deteccion_current!==null">
+            {{(row.mamfe_gravedad_current||0)*(row.mamfe_ocurrencia_current||0)*(row.mamfe_deteccion_current||0)}} ({{row.zz_nivel2}})
+            </span>
+        </td>
 
-    <!--    <td style="font-size: 12px !important;vertical-align: middle;background-color: {{row.color}};font-weight: bold;text-align: center"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.nivel_riesgo}}-->
-    <!--        <br>-->
-    <!--        ({{row.nivel_riesgo_v}})-->
-    <!--    </td>-->
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            <span ng-if="row.mamfe_gravedad_current!==null && row.mamfe_ocurrencia_current!==null && row.mamfe_deteccion_current!==null">
+            {{(
+            (row.mamfe_gravedad_current||0)*(row.mamfe_ocurrencia_current||0)*(row.mamfe_deteccion_current||0))>=((row.mamfe_gravedad||0)*(row.mamfe_ocurrencia||0)*(row.mamfe_deteccion||0))?'No':'Si'
+            }}
+            </span>
+        </td>
+        <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
+            ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+            {{row.observacion}}
+        </td>
 
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control+d.responsable',i,vw_resultante.report)">-->
-    <!--        {{row.responsable}}-->
-    <!--    </td>-->
-
-    <!--    <td style="vertical-align: middle;text-align: center"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_+d.control',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_+d.control',i,vw_resultante.report)">-->
-    <!--        {{row.control}}-->
-    <!--        <br>-->
-    <!--        ({{row.efectividad_sum}}%)-->
-    <!--    </td>-->
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.efectividad}}%-->
-    <!--    </td>-->
-
-    <!--    <td style="vertical-align: middle"-->
-    <!--        rowspan="{{<%= scope %>.sp_('d.factor+d.rid+d.table_',i,vw_resultante.report)}}"-->
-    <!--        ng-if="<%= scope %>.sm_('d.factor+d.rid+d.table_',i,vw_resultante.report)">-->
-    <!--        {{row.residual}}-->
-    <!--    </td>-->
 
 </tr>
 </tbody>

@@ -141,15 +141,14 @@ app.controller("vw_resultante", function ($scope, $http, $compile) {
         if (vw_resultante.real) {
             vw_resultante.report = await BASEAPI.listp(vw_resultante.soyamfe ? 'vw_resultante_mamfe' : 'vw_resultante', {
                 limit: 0,
-                orderby: "$ compania_base,compania,factor,table_,departamento,rid,control,responsable ",
+                orderby: vw_resultante.soyamfe ? "$ compania_base,compania,proceso,elemento " : "$ compania_base,compania,factor,table_,departamento,rid,responsable,control ",
                 order: "asc",
                 where: aymywhere
             });
         } else {
-
             vw_resultante.report = await BASEAPI.listp(vw_resultante.soyamfe ? 'vw_resultante_mamfe' : 'vw_resultante', {
                 limit: 0,
-                orderby: "$ compania_base,compania,factor,table_,departamento,rid,control,responsable ",
+                orderby: vw_resultante.soyamfe ? "$ compania_base,compania,proceso,elemento " : "$ compania_base,compania,factor,table_,departamento,rid,responsable,control ",
                 order: "asc",
                 where: aymywhere
             });

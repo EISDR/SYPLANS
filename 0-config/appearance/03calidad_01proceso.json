@@ -125,7 +125,7 @@
         {
           "modal": "",
           "icon": "spinner10",
-          "href": "#monitoreo_proceso",
+          "href": "#monitoreo_generico?vw_procesos",
           "text": "Monitoreo y Seguimiento"
         },
         {
