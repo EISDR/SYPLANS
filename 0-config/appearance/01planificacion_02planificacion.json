@@ -380,6 +380,7 @@
             {
               "icon": "meter2",
               "href": "#reporte_tipometa_formula",
+              "condition": "baseController.session.super",
               "text": "Formulas Indicadores"
             },
             {
@@ -869,6 +870,7 @@
             {
               "icon": "meter2",
               "href": "#reporte_tipometa_formula",
+              "condition": "baseController.session.super",
               "text": "Formulas Indicadores"
             },
             {
