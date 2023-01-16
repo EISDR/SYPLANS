@@ -167,6 +167,13 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
             })
             vw_auditoria_programa.planes_auditoria = vw_auditoria_programa.planes_auditoria.data;
             vw_auditoria_programa.form.loadDropDown('estatus')
+            var elano = vw_auditoria_programa.poa ? vw_auditoria_programa.poa : vw_auditoria_programa.current_year;
+            var rango_minimo =  moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
+            var rango_maximo = moment("01-01-" + (parseInt(elano)+ 1)).add(-1, 'day').format("YYYY-MM-DD");
+
+            vw_auditoria_programa.range_date_min(rango_minimo);
+            vw_auditoria_programa.range_date_max(rango_maximo);
+            vw_auditoria_programa.refreshAngular();
             vw_auditoria_programa.getPlanesAuditoria();
         }else{
             vw_auditoria_programa.created = false;
