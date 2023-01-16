@@ -25,8 +25,9 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     "value":  solicitud_proceso.session.institucion_id ?  solicitud_proceso.session.institucion_id : "$null"
                 },
                 {
-                    field: "mapa_proceso",
-                    value: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : -1
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
@@ -43,9 +44,8 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
                 },
                 {
-                    field: "estatus",
-                    operator: "!=",
-                    value: 4
+                    field: "mapa_proceso",
+                    value: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : -1
                 }
             ];
 
