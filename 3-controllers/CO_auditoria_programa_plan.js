@@ -899,7 +899,6 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 }
                 if (data == 'range_date') {
                     var elano = auditoria_programa.poa ? auditoria_programa.poa : auditoria_programa_plan.current_year;
-                    console.log(elano, "coñazo")
                     var rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
                     var rango_maximo = moment(("01-01-" + (parseInt(elano) + 1))).add(-1, 'day').format("YYYY-MM-DD");
 

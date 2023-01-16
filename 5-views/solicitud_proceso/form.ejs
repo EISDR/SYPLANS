@@ -23,7 +23,7 @@
                     truelabel: 'Proceso',
                     icon: {class: "archive"},
                     text: 'item.nombre',
-                    condition: "((item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && item.estatus_id == 3)"
+                    condition: "((item.compania == solicitud_proceso.session.compania_id && item.institucion == $null) && (item.mapa_proceso == solicitud_proceso.mapa_id && item.estatus_id == 3))"
                 }) %>
             </div>
             <div class='col-sm-12 col-md-3' ng-show="solicitud_proceso.tipo_accion != '1' && solicitud_proceso.tipo_accion != '[NULL]'" ng-if="solicitud_proceso.session.institucion">
@@ -36,7 +36,7 @@
                     truelabel: 'Proceso',
                     icon: {class: "archive"},
                     text: 'item.nombre',
-                    condition: "(item.institucion == solicitud_proceso.session.institucion_id && item.estatus_id == 3)"
+                    condition: "(item.institucion == solicitud_proceso.session.institucion_id && (item.mapa_proceso == solicitud_proceso.mapa_id && item.estatus_id == 3))"
                 }) %>
             </div>
             <div class='col-sm-3 col-md-3 focus-field-group' ng-show="solicitud_proceso.tipo_accion == '3' || solicitud_proceso.tipo_accion == '2'">
