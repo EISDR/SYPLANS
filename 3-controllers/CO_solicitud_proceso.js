@@ -42,6 +42,11 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     field: "institucion",
                     operator: solicitud_proceso.session.institucion_id ? "=" : "is",
                     value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ];
 
