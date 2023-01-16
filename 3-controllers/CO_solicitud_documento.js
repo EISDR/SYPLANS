@@ -532,101 +532,159 @@ Gracias.`;
         let cuerpo2 = "";
         VALIDATION.save(solicitud_documento, async function () {
             var auditVar = solicitud_documento.form.getAudit();
-            if (solicitud_documento.form.mode == 'new') {
-                SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                BASEAPI.insertID('solicitud_documento', {
-                    nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                    descripcion: solicitud_documento.descripcion ? solicitud_documento.descripcion : "$null",
-                    proceso_categoria: solicitud_documento.delete_doc_proceso_categoria ? solicitud_documento.delete_doc_proceso_categoria : "$null",
-                    alcance: solicitud_documento.delete_doc_alcance ? solicitud_documento.delete_doc_alcance : "$null",
-                    objetivo: solicitud_documento.delete_doc_objetivo ? solicitud_documento.delete_doc_objetivo : "$null",
-                    resultado_esperado: solicitud_documento.delete_doc_resultado_esperado ? solicitud_documento.delete_doc_resultado_esperado : "$null",
-                    trabaja_marco_legal: solicitud_documento.delete_doc_trabaja_marco_legal ? solicitud_documento.delete_doc_trabaja_marco_legal : "$null",
-                    marco_legal: solicitud_documento.delete_doc_marco_legal ? solicitud_documento.delete_doc_marco_legal : "$null",
-                    proceso: solicitud_documento.delete_doc_proceso ? solicitud_documento.delete_doc_proceso : "$null",
-                    codigo_documento: solicitud_documento.delete_doc_codigo ? solicitud_documento.delete_doc_codigo : "$null",
-                    nombre_documento: solicitud_documento.delete_doc_nombre ? solicitud_documento.delete_doc_nombre : "$null",
-                    tipo_documento: solicitud_documento.delete_doc_tipo_documento ? solicitud_documento.delete_doc_tipo_documento : "$null",
-                    tipo_accion: solicitud_documento.tipo_accion ? solicitud_documento.tipo_accion : "$null",
-                    compania: solicitud_documento.session.compania_id,
-                    institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
-                    solicitante: solicitud_documento.session.usuario_id,
-                    documentos_asociados: solicitud_documento.documentos_asociados ? solicitud_documento.documentos_asociados : "$null",
-                    estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
-                }, "", "", async function (result) {
-                    SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
-                    if (solicitud_documento.estatus == 2){
-                        titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`;
-                        cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
-                        titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`
-                        cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
+            BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
+                join: [
+                    {
+                        "table": "auditoria_programa_plan",
+                        "base": "programa_plan",
+                        "field": "id",
+                        "columns": ["id", "nombre", "estatus"]
+                    },
+                ],
+                where: [
+                    {
+                        field: "documento_asociado",
+                        value: solicitud_documento.documentos_asociados
+                    },
+                    {
+                        field: "$auditoria_programa_plan.estatus",
+                        operator: "not in",
+                        value: [5,8]
+                    }
+                ],
+
+            },function(result) {
+                if (result.data.length > 0) {
+                    SWEETALERT.show({
+                        message: `Documento no puede ser ELIMINADO, el mismo está siendo AUDITADO en estos momentos en el plan de Auditoría: "${result.data[0].auditoria_programa_plan_nombre}"`,
+                    });
+                } else {
+                    if (solicitud_documento.form.mode == 'new') {
+                        SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                        BASEAPI.insertID('solicitud_documento', {
+                            nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
+                            descripcion: solicitud_documento.descripcion ? solicitud_documento.descripcion : "$null",
+                            proceso_categoria: solicitud_documento.delete_doc_proceso_categoria ? solicitud_documento.delete_doc_proceso_categoria : "$null",
+                            alcance: solicitud_documento.delete_doc_alcance ? solicitud_documento.delete_doc_alcance : "$null",
+                            objetivo: solicitud_documento.delete_doc_objetivo ? solicitud_documento.delete_doc_objetivo : "$null",
+                            resultado_esperado: solicitud_documento.delete_doc_resultado_esperado ? solicitud_documento.delete_doc_resultado_esperado : "$null",
+                            trabaja_marco_legal: solicitud_documento.delete_doc_trabaja_marco_legal ? solicitud_documento.delete_doc_trabaja_marco_legal : "$null",
+                            marco_legal: solicitud_documento.delete_doc_marco_legal ? solicitud_documento.delete_doc_marco_legal : "$null",
+                            proceso: solicitud_documento.delete_doc_proceso ? solicitud_documento.delete_doc_proceso : "$null",
+                            codigo_documento: solicitud_documento.delete_doc_codigo ? solicitud_documento.delete_doc_codigo : "$null",
+                            nombre_documento: solicitud_documento.delete_doc_nombre ? solicitud_documento.delete_doc_nombre : "$null",
+                            tipo_documento: solicitud_documento.delete_doc_tipo_documento ? solicitud_documento.delete_doc_tipo_documento : "$null",
+                            tipo_accion: solicitud_documento.tipo_accion ? solicitud_documento.tipo_accion : "$null",
+                            compania: solicitud_documento.session.compania_id,
+                            institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
+                            solicitante: solicitud_documento.session.usuario_id,
+                            documentos_asociados: solicitud_documento.documentos_asociados ? solicitud_documento.documentos_asociados : "$null",
+                            estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
+                        }, "", "", async function (result) {
+                            SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
+                            if (solicitud_documento.estatus == 2) {
+                                titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`;
+                                cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
+                                titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`
+                                cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
         
 Gracias.`;
-                        function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
-                    }
-                    await AUDIT.LOG(AUDIT.ACTIONS.insert, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar);
-                    solicitud_documento.refresh();
-                    MODAL.close()
-                });
-            } else {
-                if (solicitud_documento.estatus == 3) {
-                    SWEETALERT.confirm({
-                        message: "¿Autorizar la eliminación de este documento?",
-                        confirm: function () {
-                            BASEAPI.updateall('solicitud_documento', {
-                                nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                                estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
-                                fecha_solicitud: moment().format("YYYY-MM-DD HH:mm:ss"),
-                                where: [
-                                    {
-                                        field: "id",
-                                        value: solicitud_documento.id
-                                    }
-                                ]
-                            }, function (result) {
-                                BASEAPI.updateall('documentos_asociados', {
-                                    estatus: 4,
-                                    where: [
-                                        {
-                                            field: "id",
-                                            value: documento
-                                        }
-                                    ]
-                                }, async function (result) {
-                                    console.log(result)
-                                    SWEETALERT.stop()
-                                    solicitud_documento.refresh();
-                                    titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`;
-                                    cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Autorizada.`;
-                                    titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`
-                                    cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Autorizada.  El documento tomará un estatus de borrado y será enviado al repositorio de documentos borrados.
+                                function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
+                            }
+                            await AUDIT.LOG(AUDIT.ACTIONS.insert, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar);
+                            solicitud_documento.refresh();
+                            MODAL.close()
+                        });
+                    } else {
+                        if (solicitud_documento.estatus == 3) {
+                            SWEETALERT.confirm({
+                                message: "¿Autorizar la eliminación de este documento?",
+                                confirm: function () {
+                                    BASEAPI.updateall('solicitud_documento', {
+                                        nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
+                                        estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
+                                        fecha_solicitud: moment().format("YYYY-MM-DD HH:mm:ss"),
+                                        where: [
+                                            {
+                                                field: "id",
+                                                value: solicitud_documento.id
+                                            }
+                                        ]
+                                    }, function (result) {
+                                        BASEAPI.updateall('documentos_asociados', {
+                                            estatus: 4,
+                                            where: [
+                                                {
+                                                    field: "id",
+                                                    value: documento
+                                                }
+                                            ]
+                                        }, async function (result) {
+                                            console.log(result)
+                                            SWEETALERT.stop()
+                                            solicitud_documento.refresh();
+                                            titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`;
+                                            cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Autorizada.`;
+                                            titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`
+                                            cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Autorizada.  El documento tomará un estatus de borrado y será enviado al repositorio de documentos borrados.
             
     Gracias.`;
-                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
-                                    await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
-                                    MODAL.close();
-                                });
+                                            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
+                                            await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
+                                            MODAL.close();
+                                        });
+                                    });
+                                }
                             });
-                        }
-                    });
-                } else if (solicitud_documento.estatus == 2) {
-                    if (solicitud_documento.my_true_estatus == 1) {
-                        SWEETALERT.confirm({
-                            message: "¿Solicitar la eliminación de este documento?",
-                            confirm: function () {
+                        } else if (solicitud_documento.estatus == 2) {
+                            if (solicitud_documento.my_true_estatus == 1) {
+                                SWEETALERT.confirm({
+                                    message: "¿Solicitar la eliminación de este documento?",
+                                    confirm: function () {
+                                        SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                                        BASEAPI.updateall('solicitud_documento', {
+                                            nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
+                                            descripcion: solicitud_documento.delete_doc_descripcion ? solicitud_documento.delete_doc_descripcion : "$null",
+                                            proceso_categoria: solicitud_documento.delete_doc_proceso_categoria ? solicitud_documento.delete_doc_proceso_categoria : "$null",
+                                            alcance: solicitud_documento.delete_doc_alcance ? solicitud_documento.delete_doc_alcance : "$null",
+                                            objetivo: solicitud_documento.delete_doc_objetivo ? solicitud_documento.delete_doc_objetivo : "$null",
+                                            resultado_esperado: solicitud_documento.delete_doc_resultado_esperado ? solicitud_documento.delete_doc_resultado_esperado : "$null",
+                                            trabaja_marco_legal: solicitud_documento.delete_doc_trabaja_marco_legal ? solicitud_documento.delete_doc_trabaja_marco_legal : "$null",
+                                            marco_legal: solicitud_documento.delete_doc_marco_legal ? solicitud_documento.delete_doc_marco_legal : "$null",
+                                            proceso: solicitud_documento.delete_doc_proceso ? solicitud_documento.delete_doc_proceso : "$null",
+                                            codigo_documento: solicitud_documento.delete_doc_codigo ? solicitud_documento.delete_doc_codigo : "$null",
+                                            nombre_documento: solicitud_documento.delete_doc_nombre ? solicitud_documento.delete_doc_nombre : "$null",
+                                            tipo_accion: solicitud_documento.tipo_accion ? solicitud_documento.tipo_accion : "$null",
+                                            compania: solicitud_documento.session.compania_id,
+                                            institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
+                                            solicitante: solicitud_documento.session.usuario_id,
+                                            documentos_asociados: solicitud_documento.documentos_asociados ? solicitud_documento.documentos_asociados : "$null",
+                                            estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
+                                            where: [
+                                                {
+                                                    field: "id",
+                                                    value: solicitud_documento.id
+                                                }
+                                            ]
+                                        }, async function (result) {
+                                            SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
+                                            titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`;
+                                            cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
+                                            titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`
+                                            cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
+            
+    Gracias.`;
+                                            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
+                                            await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
+                                            solicitud_documento.refresh();
+                                            MODAL.close()
+                                        });
+                                    }
+                                });
+                            } else {
                                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                 BASEAPI.updateall('solicitud_documento', {
                                     nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                                    descripcion: solicitud_documento.delete_doc_descripcion ? solicitud_documento.delete_doc_descripcion : "$null",
-                                    proceso_categoria: solicitud_documento.delete_doc_proceso_categoria ? solicitud_documento.delete_doc_proceso_categoria : "$null",
-                                    alcance: solicitud_documento.delete_doc_alcance ? solicitud_documento.delete_doc_alcance : "$null",
-                                    objetivo: solicitud_documento.delete_doc_objetivo ? solicitud_documento.delete_doc_objetivo : "$null",
-                                    resultado_esperado: solicitud_documento.delete_doc_resultado_esperado ? solicitud_documento.delete_doc_resultado_esperado : "$null",
-                                    trabaja_marco_legal: solicitud_documento.delete_doc_trabaja_marco_legal ? solicitud_documento.delete_doc_trabaja_marco_legal : "$null",
-                                    marco_legal: solicitud_documento.delete_doc_marco_legal ? solicitud_documento.delete_doc_marco_legal : "$null",
-                                    proceso: solicitud_documento.delete_doc_proceso ? solicitud_documento.delete_doc_proceso : "$null",
-                                    codigo_documento: solicitud_documento.delete_doc_codigo ? solicitud_documento.delete_doc_codigo : "$null",
-                                    nombre_documento: solicitud_documento.delete_doc_nombre ? solicitud_documento.delete_doc_nombre : "$null",
                                     tipo_accion: solicitud_documento.tipo_accion ? solicitud_documento.tipo_accion : "$null",
                                     compania: solicitud_documento.session.compania_id,
                                     institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
@@ -641,61 +699,32 @@ Gracias.`;
                                     ]
                                 }, async function (result) {
                                     SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
-                                    titulo_push = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`;
-                                    cuerpo_push = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
-                                    titulo = `La solicitud de eliminación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`
-                                    cuerpo = `La solicitud de eliminación del documento "${solicitud_documento.delete_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
-            
-    Gracias.`;
-                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
                                     await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
                                     solicitud_documento.refresh();
                                     MODAL.close()
                                 });
                             }
-                        });
-                    } else {
-                        SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                        BASEAPI.updateall('solicitud_documento', {
-                            nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                            tipo_accion: solicitud_documento.tipo_accion ? solicitud_documento.tipo_accion : "$null",
-                            compania: solicitud_documento.session.compania_id,
-                            institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
-                            solicitante: solicitud_documento.session.usuario_id,
-                            documentos_asociados: solicitud_documento.documentos_asociados ? solicitud_documento.documentos_asociados : "$null",
-                            estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
-                            where: [
-                                {
-                                    field: "id",
-                                    value: solicitud_documento.id
-                                }
-                            ]
-                        }, async function (result) {
-                            SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
-                            await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
-                            solicitud_documento.refresh();
-                            MODAL.close()
-                        });
+                        } else {
+                            SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                            BASEAPI.updateall('solicitud_documento', {
+                                nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
+                                estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
+                                where: [
+                                    {
+                                        field: "id",
+                                        value: solicitud_documento.id
+                                    }
+                                ]
+                            }, async function (result) {
+                                SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
+                                await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
+                                solicitud_documento.refresh();
+                                MODAL.close()
+                            });
+                        }
                     }
-                } else {
-                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                    BASEAPI.updateall('solicitud_documento', {
-                        nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                        estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
-                        where: [
-                            {
-                                field: "id",
-                                value: solicitud_documento.id
-                            }
-                        ]
-                    }, async function (result) {
-                        SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
-                        await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, auditVar, solicitud_documento.form.oldData);
-                        solicitud_documento.refresh();
-                        MODAL.close()
-                    });
                 }
-            }
+            });
         }, ['nombre']);
     }
     solicitud_documento.mod_doc = function (documento) {
