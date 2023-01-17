@@ -460,6 +460,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                                         "value": dashboard_proceso.Mdocumentos
                                     },
                                     {
+                                        field: "documento_general",
+                                        operator: "is",
+                                        value: "$null"
+                                    },
+                                    {
                                         field: "estatus_id",
                                         operator: "!=",
                                         value: ENUM_2.documentos_estatus.Eliminado
@@ -501,6 +506,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                         value: documentos_asociados.session.compania_id
                     },
                     {
+                        field: "documento_general",
+                        operator: "is",
+                        value: "$null"
+                    },
+                    {
                         "field": "institucion",
                         "operator": documentos_asociados.session.institucion_id ? "=" : "is",
                         "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
@@ -521,6 +531,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     value:  documentos_asociados.session.compania_id
+                },
+                {
+                    field: "documento_general",
+                    operator: "is",
+                    value: "$null"
                 },
                 {
                     "field": "institucion",
