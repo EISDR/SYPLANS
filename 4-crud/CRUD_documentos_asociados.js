@@ -800,7 +800,54 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                         }
                     }
                 ]
-            }
+            },
+            {
+                text: (data) => {
+                    return "Cambiar versión del documento";
+                },
+                title: (data) => {
+                    return "Cambiar versión del documento";
+                },
+                icon: (data) => {
+                    return "switch22";
+                },
+                permission: (data) => {
+                    return 'edit';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                show: function (data) {
+                    return documentos_asociados.allowAction("Cambiar Versión", "documentos_asociados", data.row.estatus_id);
+                },
+                click: function (data) {
+                    data.$scope.my_true_estatus = data.row.estatus_id;
+                    data.$scope.solicitante = data.row.solicitante;
+                    data.$scope.nombre_solicitante = data.row.solicitante_nombre;
+                    data.$scope.departamento_solicitante = data.row.solicitante_departamento;
+                    data.$scope.fecha_solicitante = LAN.date(data.row.fecha_solicitud);
+                    data.$scope.marco_required = data.row.trabaja_marco_legal === 1;
+                    data.$scope.formulary({
+                        where: [{
+                            field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                            value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                        }]
+                    }, FORM.modes.edit, {}, "ver_edit" );
+                    data.$scope.form.titles = {
+                        edit: "Cambiar Versión del Documento",
+                    };
+                    if (typeof procesos !== 'undefined') {
+                        if (typeof procesos !== 'not defined') {
+                            if (procesos) {
+                                data.$scope.form.titles = {
+                                    edit: 'Trabajar Documento: "' + data.row.nombre + '" del Proceso: "' + procesos.nombre + '"',
+                                };
+                            }
+                        }
+                    }
+                    return false;
+                }
+            },
         ]
     }
 });
