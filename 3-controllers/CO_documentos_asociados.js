@@ -543,7 +543,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             callback();
     }
     documentos_asociados.getMapaProceso();
-    documentos_asociados.formulary = async function (data, mode, defaultData) {
+    documentos_asociados.formulary = async function (data, mode, defaultData, view) {
         if (documentos_asociados !== undefined) {
             RUN_B("documentos_asociados", documentos_asociados, $scope, $http, $compile);
             documentos_asociados.form.modalWidth = ENUM.modal.width.full;
@@ -570,7 +570,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     }
                 ]
             });
-            documentos_asociados.createForm(data, mode, defaultData);
+            documentos_asociados.createForm(data, mode, defaultData, view);
             documentos_asociados.selectQueries['estatus'] = [
                 {
                     field: 'rol',
