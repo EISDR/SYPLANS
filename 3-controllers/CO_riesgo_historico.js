@@ -94,21 +94,30 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.compania = riesgoData.compania;
             riesgo_historico.institucion = riesgoData.institucion;
             riesgo_historico.form.loadDropDown('estatus')
+            riesgo_historico.lista_ano = [];
+            for (var a = 2018; a <= 3000; a++) {
+                if (a == riesgo_historico.ano){
+                    riesgo_historico.lista_ano.push(a);
+                }
+                if (a >= riesgo_historico.current_year) {
+                    riesgo_historico.lista_ano.push(a);
+                }
+            }
         } else {
             riesgo_historico.created = false;
             riesgo_historico.ano = '[NULL]';
             riesgo_historico.estatus_nombre = "Abierto";
             riesgo_historico.current_estatus = 1;
+            riesgo_historico.lista_ano = [];
+            for (var a = 2018; a <= 3000; a++) {
+                if (a >= riesgo_historico.current_year) {
+                    riesgo_historico.lista_ano.push(a);
+                }
+            }
         }
         riesgo_historico.refreshAngular();
     };
     riesgo_historico.getRiesgo();
-    riesgo_historico.lista_ano = [];
-    for (var a = 2018; a <= 3000; a++) {
-        if (a >= riesgo_historico.current_year) {
-            riesgo_historico.lista_ano.push(a);
-        }
-    }
     riesgo_historico.formulary = function (data, mode, defaultData) {
         if (riesgo_historico !== undefined) {
             RUN_B("riesgo_historico", riesgo_historico, $scope, $http, $compile);
@@ -143,9 +152,6 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                     do_me_once = true;
                 }
             }
-        }
-        if (data == 'ano') {
-            console.log("coño pude entrar")
         }
     };
     riesgo_historico.saveData = function () {

@@ -51,6 +51,14 @@ TRIGGER = {
                 resolve(true);
             });
 
+            $scope.triggers.table.after.update_relation = function (data) {
+                //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
+            };
+
+            $scope.triggers.table.before.update_relation = (data) => new Promise((resolve, reject) => {
+                //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+                resolve(true);
+            });
 
             $scope.triggers.table.after.control = function (data) {
                 //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
