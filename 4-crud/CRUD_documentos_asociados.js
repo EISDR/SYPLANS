@@ -836,15 +836,6 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     data.$scope.form.titles = {
                         edit: "Cambiar Versión del Documento",
                     };
-                    if (typeof procesos !== 'undefined') {
-                        if (typeof procesos !== 'not defined') {
-                            if (procesos) {
-                                data.$scope.form.titles = {
-                                    edit: 'Trabajar Documento: "' + data.row.nombre + '" del Proceso: "' + procesos.nombre + '"',
-                                };
-                            }
-                        }
-                    }
                     return false;
                 }
             },
