@@ -439,7 +439,7 @@
                     table: "vw_procesos",
                     icon: {class: "archive"},
                     truelabel: "Procesos a Auditar",
-                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active == 1&& item.estatus_id != 4)",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ((item.active == 1 && item.estatus_id == 3) && item.solicitado_eliminar == null)",
                     get: {
                         table: 'auditoria_programa_plan_proceso',
                         fieldFrom: 'id',
@@ -540,7 +540,7 @@
                     table: "vw_procesos",
                     icon: {class: "archive"},
                     truelabel: "Procesos a Auditar",
-                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && ((item.active == 1 && item.estatus_id == 3) && item.solicitado_eliminar == null)",
                     get: {
                         table: 'auditoria_programa_plan_proceso',
                         fieldFrom: 'id',
@@ -641,7 +641,7 @@
                     table: "vw_documentos_asociados_drp",
                     icon: {class: "archive"},
                     truelabel: "Documentos a Auditar",
-                    condition: "(item.estatus_id == 2)",
+                    condition: "((item.estatus_id == 2) && item.solicitado_eliminar == null)",
                     get: {
                         table: 'auditoria_programa_plan_documentos_asociados',
                         fieldFrom: 'id',
