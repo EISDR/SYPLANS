@@ -483,7 +483,7 @@ DSON.keepmerge(CRUD_procesos, {
                             return "";
                         },
                         show: (data) => {
-                            return procesos.allowAction("Eliminar", "procesos", data.row.estatus_id);
+                            return false;
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
