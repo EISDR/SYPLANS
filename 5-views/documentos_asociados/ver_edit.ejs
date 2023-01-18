@@ -110,7 +110,7 @@
                         <%- FORM.inputview('nombre', scope, {}) %>
                     </div>
                     <div class='col-sm-1 col-md-1'>
-                        <%- FORM.input('version', scope, {trueplaceholder: "Verisión del documento" } ) %>
+                        <%- FORM.integer('version', scope, {trueplaceholder: "Verisión del documento", icon: {class: "none"}, regex: true } ) %>
                     </div>
                     <div class="col-sm-4 col-md-4"  ng-if="!documentos_asociados.session.institucion">
                         <%- FORM.select("documentos_relacionados", scope, {

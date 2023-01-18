@@ -11,7 +11,7 @@ var options = {
     placeholder: params.capitalize(name),
     type: "text",
     icon: {
-        class: "none",
+        class: "calculator4",
         position: "left",
         color: COLOR.secundary + "-800"
     },
@@ -23,13 +23,13 @@ var options = {
     posttype: "text",
     isNumber: true,
     hint: null,
+    regex: false,
     //maxlength: 10,
 
 };
 
 
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
-options.icon = {class: "calculator4", position: "left"};
 options.format = options.format ? options.format : false;
 options.model = options.model ? options.model : false;
 popopme = function (entity, field) {
@@ -103,15 +103,14 @@ var toclient = JSON.stringify(options);
             maxlength="{{<%= model %>.form.options.<%= name %>.maxlength}}"
             <%= !options.autocomplete ? "autocomplete=off" : "" %>
             type="text"
-            onkeypress="return DSON.isNumberKeyNegative(event,this)"
+            onkeypress="return <%= model %>.form.options.<%= name %>.regex ? DSON.isNumberKey(event,this) : DSON.isNumberKeyNegative(event,this)"
             onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false"
             ng-model-onblur
             class="form-control"
             style="padding-left: 31px !important;"
             placeholder="{{::<%= model %>.form.options.<%= name %>.inputPlaceholder}}">
 
-    <div class="form-control-feedback" style="top: 35px"
-         ng-if="<%= model %>.form.options.<%= name %>.icon.class!=='none'">
+    <div class="form-control-feedback" style="top: 35px">
         <i class="icon-{{ <%= model %>.form.options.<%= name %>.disabled ? 'lock2' : <%= model %>.form.options.<%= name %>.icon ? <%= model %>.form.options.<%= name %>.icon.class :  'calculator4' }} text-secundary">
 
         </i>

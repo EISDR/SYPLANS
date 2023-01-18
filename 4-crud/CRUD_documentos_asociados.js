@@ -784,7 +784,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                             return "";
                         },
                         show: (data) => {
-                            return documentos_asociados.allowAction("Eliminar", "documentos_asociados", data.row.estatus_id);
+                            return false;
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
