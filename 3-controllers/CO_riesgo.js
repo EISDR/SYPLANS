@@ -48,8 +48,9 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     "value": riesgo.session.institucion_id ? riesgo.session.institucion_id : "$null"
                 },
                 {
-                    field: "condicion",
-                    value: "Vigente"
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
