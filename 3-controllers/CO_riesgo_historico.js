@@ -96,10 +96,9 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.form.loadDropDown('estatus')
             riesgo_historico.lista_ano = [];
             for (var a = 2018; a <= 3000; a++) {
-                if (a == riesgo_historico.ano){
+                if (a == riesgo_historico.ano && a != riesgo_historico.current_year){
                     riesgo_historico.lista_ano.push(a);
-                }
-                if (a >= riesgo_historico.current_year) {
+                }else if (a >= riesgo_historico.current_year) {
                     riesgo_historico.lista_ano.push(a);
                 }
             }
@@ -306,7 +305,7 @@ select table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia
 FROM information_schema.TABLES
 WHERE TABLE_SCHEMA = "${engine.database}"
 AND TABLE_NAME = "riesgo_historico"),probabilidad_current,impacto_current,id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1;
-
+update riesgo_historico set estatus = 4 where id = ${riesgo_historico.id};
 insert into  riesgo_matriz_control(riesgo,nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,mamfe_estatus,mamfe)
 
 select (select id from riesgo  where herencia=riesgo_matriz_control.riesgo limit 1),nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,1,mamfe from riesgo_matriz_control where riesgo in (select id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1);`;
