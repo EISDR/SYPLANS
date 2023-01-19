@@ -90,14 +90,40 @@ app.controller("vw_resultante", function ($scope, $http, $compile) {
         }
         return subelements;
     };
-
     vw_resultante.changeTab = async function (reales) {
         vw_resultante.real = reales;
         vw_resultante.getrefresh();
     };
     vw_resultante.getrefresh = async function () {
         var user = new SESSION().current();
+        var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value: user.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": user.institucion_id ? "=" : "is",
+                    "value": user.institucion_id ? user.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (riesgoData) {
+            vw_resultante.historico_id = riesgoData.id;
+            vw_resultante.nombre_historico = riesgoData.nombre;
+            vw_resultante.descripcion_historico = riesgoData.descripcion;
+            vw_resultante.ano_historico = riesgoData.ano + '';
+            vw_resultante.estatus_historico = riesgoData.estatus_nombre;
 
+        }
+        vw_resultante.refreshAngular();
         vw_resultante.cols[1].span = 10 + vw_resultante.periodopoa;
 
 
@@ -110,6 +136,10 @@ app.controller("vw_resultante", function ($scope, $http, $compile) {
             {
                 field: "opcion_entidad",
                 value: vw_resultante.entidad
+            },
+            {
+                field: "riesgo_historico",
+                value: vw_resultante.historico_id ? vw_resultante.historico_id : -1
             }
         ];
         if (vw_resultante.soyamfe) {
@@ -153,6 +183,7 @@ app.controller("vw_resultante", function ($scope, $http, $compile) {
                 where: aymywhere
             });
         }
+        console.log(vw_resultante.report, "coño!")
         vw_resultante.report = vw_resultante.report.data;
         if (!vw_resultante.report)
             return;

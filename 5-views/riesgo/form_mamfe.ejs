@@ -11,7 +11,7 @@
                     table: "vw_riesgo_historico",
                     icon: {class: "archive"},
                     label: "Riesgo",
-                    condition: "(item.institucion  == riesgo.session.institucion_id)  && (item.condicion == 'Vigente')"
+                    condition: "(item.institucion  == riesgo.session.institucion_id)  && (item.id == riesgo.historico_id)"
                 }) %>
             </div>
             <div class="col-sm-4 col-md-4 " ng-if="!riesgo.session.institucion">
@@ -24,7 +24,7 @@
                     table: "vw_riesgo_historico",
                     icon: {class: "archive"},
                     label: "Periodo de la gestion del riesgo",
-                    condition: "(item.compania == riesgo.session.compania_id && item.institucion == null)  && (item.condicion == 'Vigente')"
+                    condition: "(item.compania == riesgo.session.compania_id && item.institucion == null)  && (item.id == riesgo.historico_id)"
                 }) %>
             </div>
         </div>
