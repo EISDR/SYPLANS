@@ -377,25 +377,98 @@ DSON.keepmerge(CRUD_resultado, {
                                 relations.push(' "Supuestos"');
                                 delete_relations.push(' "Supuestos"');
                             }
-                            var result_indicador = await BASEAPI.firstp('indicador_pei', {
+                            var result_indicador = await BASEAPI.listp('indicador_pei', {
                                 where: [{
                                     field: "resultado",
                                     value: data.row.id
                                 }]
                             })
-                            if (result_indicador) {
+                            if (result_indicador.data.length > 0) {
                                 relations.push(' "Indicadores"');
                                 delete_relations.push(' "Indicadores"');
                             }
+                            var result_producto = await BASEAPI.listp('vw_productos_poa_detalles', {
+                                where: [{
+                                    field: "id_resultado",
+                                    value: data.row.id
+                                }]
+                            })
+                            if (result_producto.data.length > 0) {
+                                relations.push(' "Proyecto/Plan de Acción"');
+                                delete_relations.push(' "Proyecto/Plan de Acción"');
+                            }
+                            var result_actividades = await BASEAPI.listp('vw_actividades_poa_grid', {
+                                where: [{
+                                    field: "id_resultado",
+                                    value: data.row.id
+                                }]
+                            })
+                            var result_actividades_apoyo = await BASEAPI.listp('drp_actividades_apoyo', {
+                                where: [{
+                                    field: "id_resultado",
+                                    value: data.row.id
+                                }]
+                            })
                             if (relations.length > 0) {
                                 if (delete_relations.length > 0) {
                                     SWEETALERT.confirm({
                                         type: "warning",
-                                        message: `<p>Registro está relacionado a la/s entidad/es ${relations}.</p> Desea Eliminar este registro y los relacionados con la/s entidad/es${delete_relations}?`,
-                                        confirm: function () {
+                                        message: `<p>Registro está relacionado a la/s entidad/es <br> ${relations}.</p> Al ELIMINAR este RESULTADO ESPERADO se estarán borrando relaciones existentes con la/s entidad/es <br> ${delete_relations}.<br> Está seguro que desea ELIMINAR. ?`,
+                                        confirm:  async function () {
                                             SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                            data.$scope.deleteRow(data.row).then(function () {
-                                                SWEETALERT.stop();
+                                            let id_actividades = [];
+                                            let id_actividades_apoyo = [];
+                                            for (var i of result_indicador.data){
+                                                await AUDIT.LOG(AUDIT.ACTIONS.delete,  "vw_indicador_pei_2", i);
+                                            }
+                                            for (var i of result_producto.data){
+                                                await AUDIT.LOG(AUDIT.ACTIONS.delete,  "vw_productos_poa_detalles", i);
+                                            }
+                                            for (var i of result_actividades.data){
+                                                await AUDIT.LOG(AUDIT.ACTIONS.delete,  "vw_actividades_poa_grid", i);
+                                                id_actividades.push(i.id)
+                                            }
+                                            for (var i of result_actividades_apoyo.data){
+                                                await AUDIT.LOG(AUDIT.ACTIONS.delete,  "drp_actividades_apoyo", i);
+                                                id_actividades_apoyo.push(i.id)
+                                            }
+                                            console.log(id_actividades,id_actividades_apoyo, "los ids")
+                                            BASEAPI.deleteall('productos_poa',[
+                                                {
+                                                    field: "resultado",
+                                                    value: data.row.id
+                                                }
+                                            ], function (result) {
+                                                if (result) {
+                                                    BASEAPI.deleteall('productos_poa', [
+                                                        {
+                                                            field: "resultado",
+                                                            value: data.row.id
+                                                        }
+                                                    ], function (result) {
+                                                        if (result) {
+                                                            BASEAPI.deleteall('actividades_poa', [
+                                                                {
+                                                                    field: "id",
+                                                                    value: id_actividades
+                                                                }
+                                                            ], function (result) {
+                                                                BASEAPI.deleteall('actividades_apoyo', [
+                                                                    {
+                                                                        field: "id",
+                                                                        value: id_actividades_apoyo
+                                                                    }
+                                                                ], function (result) {
+                                                                    if (result) {
+                                                                        data.$scope.deleteRow(data.row).then(function () {
+                                                                            SWEETALERT.stop();
+                                                                        });
+                                                                    }
+                                                                });
+                                                            })
+                                                        }
+                                                    })
+                                                }
                                             });
                                         }
                                     });
@@ -404,9 +477,9 @@ DSON.keepmerge(CRUD_resultado, {
                                         message: `<p>Registro está relacionado a la entidad/es ${relations}.</p> Desea Eliminar este registro?`,
                                         confirm: function () {
                                             SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                            data.$scope.deleteRow(data.row).then(function () {
-                                                SWEETALERT.stop();
-                                            });
+                                            // data.$scope.deleteRow(data.row).then(function () {
+                                            //     SWEETALERT.stop();
+                                            // });
                                         }
                                     });
                                 }
@@ -415,9 +488,9 @@ DSON.keepmerge(CRUD_resultado, {
                                     message: MESSAGE.i('alerts.AYSDelete'),
                                     confirm: function () {
                                         SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                        data.$scope.deleteRow(data.row).then(function () {
-                                            SWEETALERT.stop();
-                                        });
+                                        // data.$scope.deleteRow(data.row).then(function () {
+                                        //     SWEETALERT.stop();
+                                        // });
                                     }
                                 });
                             }
