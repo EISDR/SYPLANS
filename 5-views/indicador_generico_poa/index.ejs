@@ -109,7 +109,7 @@
                                         allowlist: false,
                                         refresh: false,
                                         text: "item.nombre",
-                                        table: "indicador_generico",
+                                        table: "vw_indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador",
                                         condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
@@ -125,7 +125,7 @@
                                         allowlist: false,
                                         refresh: false,
                                         text: "item.nombre",
-                                        table: "indicador_generico",
+                                        table: "vw_indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador",
                                         condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
@@ -152,20 +152,28 @@
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador de Proceso",
-                                        join: [
-                                            {
-                                                table: "procesos",
-                                                base: "registro",
-                                                field: "id",
-                                                columns: ["id", "nombre", "mapa_proceso"]
-                                            },
-                                            {
-                                                table: "mapa_proceso",
-                                                base: "`procesos`.mapa_proceso",
-                                                field: "id",
-                                                columns: ["id", "nombre", "estatus"]
-                                            }
-                                        ],
+                                        query: {
+                                            limit: 0,
+                                            // page: 1,
+                                            // where: [],
+                                            // orderby: 'id',
+                                            // order: 'asc',
+                                            // distinct: false,
+                                            join: [
+                                                {
+                                                    table: "procesos",
+                                                    base: "registro",
+                                                    field: "id",
+                                                    columns: ["id", "nombre", "mapa_proceso"]
+                                                },
+                                                {
+                                                    table: "mapa_proceso",
+                                                    base: "procesos.mapa_proceso",
+                                                    field: "id",
+                                                    columns: ["id", "nombre", "estatus"]
+                                                }
+                                            ],
+                                        },
                                         condition: "item.mapa_proceso_estatus!=4 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
                                     }) %>
                                 </div>
