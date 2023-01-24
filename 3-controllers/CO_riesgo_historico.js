@@ -127,7 +127,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                 edit: "Editar XXX",
                 view: "Ver XXXX"
             };
-            riesgo_historico.ano = (parseInt(riesgo_historico.current_year) + 1) + "";
+            riesgo_historico.ano = (parseInt(riesgo_historico.current_year)) + "";
             riesgo_historico.createForm(data, mode, defaultData);
 
 
