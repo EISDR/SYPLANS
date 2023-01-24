@@ -293,8 +293,6 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //
     riesgo_historico.triggers.table.after.insert = function (data) {
         //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-        data.inserting.ano = riesgo_historico.ano;
-        data.inserting.estatus = 1;
         let queryTopas = `insert into riesgo(table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,proceso,procesotext,estrategia,observacion,ocurrencia,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,riesgo_historico,probabilidad_current,impacto_current,herencia)
 
 select table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,proceso,procesotext,estrategia,observacion,NULL,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,(select max(r.id) from riesgo_historico r),probabilidad_current,impacto_current,id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1;
