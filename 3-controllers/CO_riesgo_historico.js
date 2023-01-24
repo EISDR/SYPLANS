@@ -291,29 +291,27 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.insert = function (data) {
-    //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-    //     return true;
-    // };
-    riesgo_historico.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+    riesgo_historico.triggers.table.after.insert = function (data) {
+        //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
         data.inserting.ano = riesgo_historico.ano;
         data.inserting.estatus = 1;
-        let engine = CONFIG.mysqlactive ? CONFIG.mysql : CONFIG.postgre;
         let queryTopas = `insert into riesgo(table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,proceso,procesotext,estrategia,observacion,ocurrencia,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,riesgo_historico,probabilidad_current,impacto_current,herencia)
 
-select table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,proceso,procesotext,estrategia,observacion,NULL,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,(SELECT AUTO_INCREMENT
-FROM information_schema.TABLES
-WHERE TABLE_SCHEMA = "${engine.database}"
-AND TABLE_NAME = "riesgo_historico"),probabilidad_current,impacto_current,id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1;
+select table_,nombre,descripcion,probabilidad,impacto,factor_riesgo,consecuencia,compania,institucion,registro,riesgo_entidad,riesgo_a,factor_riesgotext,causa_debilidad,proceso,procesotext,estrategia,observacion,NULL,supuestos,mamfe_efecto,mamfe_causa,mamfe_deteccion,mamfe_gravedad,mamfe_ocurrencia,mamfe_deteccion_current,mamfe_gravedad_current,mamfe_ocurrencia_current,mamfe_elemento,mamfe,condicion,departamento,(select max(r.id) from riesgo_historico r),probabilidad_current,impacto_current,id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1;
 update riesgo_historico set estatus = 4 where id = ${riesgo_historico.id};
 insert into  riesgo_matriz_control(riesgo,nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,mamfe_estatus,mamfe)
 
 select (select id from riesgo  where herencia=riesgo_matriz_control.riesgo limit 1),nombre,descripcion,efectividad,responsable,fecha_desde,fecha_hasta,recursos_financieros,riesgo_control,mamfe_correctiva,mamfe_fechacumplimiento,mamfe_accion_implantada,1,mamfe from riesgo_matriz_control where riesgo in (select id from riesgo where compania=${riesgo_historico.session.compania_id} and riesgo_historico=${riesgo_historico.id} and mamfe=1);`;
 
-        SERVICE.base_db.directQuery({query: queryTopas}, (data) => {
-            resolve(true);
-        });
 
+        SERVICE.base_db.directQuery({query: queryTopas}, (data) => {
+            return true;
+        });
+    };
+    riesgo_historico.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        data.inserting.ano = riesgo_historico.ano;
+        data.inserting.estatus = 1;
+        resolve(true)
     });
     //
     // $scope.triggers.table.after.update = function (data) {
