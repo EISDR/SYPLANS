@@ -44,7 +44,7 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
                 },
                 {
-                    field: "mapa_proceso",
+                    field: "mapa_proceso_solicitud",
                     value: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : -1
                 }
             ];
@@ -61,7 +61,7 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     value: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null"
                 },
                 {
-                    field: "mapa_proceso",
+                    field: "mapa_proceso_solicitud",
                     value: -1
                 }
             ];
@@ -83,7 +83,8 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
             solicitud_proceso.form.readonly = {
                 solicitante: solicitud_proceso.session.id,
                 compania: solicitud_proceso.session.compania_id,
-                institucion: solicitud_proceso.session.institucion_id
+                institucion: solicitud_proceso.session.institucion_id,
+                mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : -1
             };
             solicitud_proceso.form.titles = {
                 new: "Crear Solicitud de Proceso",
