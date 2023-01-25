@@ -43,27 +43,40 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             value: 1
         });
     }
+    riesgo.selected = true;
+    riesgo.getRiesgo = async function (elhistorico) {
 
-    riesgo.getRiesgo = async function () {
-        var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
-            order: "desc",
-            where: [
-                {
-                    field: "compania",
-                    value: riesgo.session.compania_id
-                },
-                {
-                    "field": "institucion",
-                    "operator": riesgo.session.institucion_id ? "=" : "is",
-                    "value": riesgo.session.institucion_id ? riesgo.session.institucion_id : "$null"
-                },
-                {
-                    field: "estatus",
-                    operator: "!=",
-                    value: 4
-                }
-            ]
-        });
+        if (elhistorico){
+            var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+                order: "desc",
+                where: [
+                    {
+                        field: "id",
+                        value: elhistorico
+                    }
+                ]
+            });
+        }else{
+            var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+                order: "desc",
+                where: [
+                    {
+                        field: "compania",
+                        value: riesgo.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": riesgo.session.institucion_id ? "=" : "is",
+                        "value": riesgo.session.institucion_id ? riesgo.session.institucion_id : "$null"
+                    },
+                    {
+                        field: "estatus",
+                        operator: "!=",
+                        value: 4
+                    }
+                ]
+            });
+        }
         if (riesgoData) {
             riesgo.historico_id = riesgoData.id;
             riesgo.nombre_historico = riesgoData.nombre;
@@ -2095,7 +2108,13 @@ app.controller("riesgo", function ($scope, $http, $compile) {
         riesgo.singular = "Modo de Riesgo " + riesgo.entidad;
         riesgo.headertitle = "Modo de Riesgo " + riesgo.entidad;
     }
-
+    riesgo.$scope.$watch("riesgo.riesgo_historico", function (value) {
+        var rules = [];
+        //rules here
+        //rules.push(VALIDATION.general.required(value));
+        rules.push(VALIDATION.general.required(value));
+        VALIDATION.validate(riesgo, 'riesgo_historico', rules);
+    });
     riesgo.setPermission("export", false);
     riesgo.formulary = async function (data, mode, defaultData) {
         riesgo.perspectivas = await BASEAPI.listp('perspectiva', {
@@ -2386,6 +2405,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                 }
             );
             if (riesgo.esplan) {
+                riesgo.selected = false;
                 $('.icon-plus-circle2 ').parent().hide();
                 riesgo.fixFilters.push({
                     field: "ocurrencia",
@@ -2631,5 +2651,68 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             }
         }
         return false;
+    }
+    riesgo.show_plan = async function(elhistorico) {
+        VALIDATION.save(riesgo, async function () {
+            riesgo.selected = true;
+            riesgo.getRiesgo(elhistorico);
+            if (!riesgo.session.institucion_id) {
+                riesgo.fixFilters = [
+                    {
+                        field: "compania",
+                        value: riesgo.session.compania_id
+                    }
+                ];
+            } else {
+                riesgo.fixFilters = [
+                    {
+                        field: "institucion",
+                        value: riesgo.session.institucion_id
+                    }
+                ];
+            }
+            riesgo.fixFilters.push(
+                {
+                    "field": "table_",
+                    "value": riesgo.entidadobj.id
+                }
+            );
+            if (riesgo.esplan) {
+                riesgo.fixFilters.push({
+                    field: "ocurrencia",
+                    value: 1
+                });
+            }
+            if (riesgo.soyamfe) {
+                riesgo.fixFilters.push(
+                    {
+                        field: "mamfe",
+                        value: 1
+                    },
+                    {
+                        field: "riesgo_historico",
+                        value: elhistorico
+                    }
+                );
+            } else {
+                riesgo.fixFilters.push(
+                    {
+                        field: "mamfe",
+                        operator: "IS",
+                        value: "$NULL"
+                    },
+                    {
+                        field: "riesgo_historico",
+                        value: elhistorico
+                    }
+                );
+            }
+            riesgo.refresh();
+        },["riesgo_historico"]);
+    }
+    riesgo.go_back = async function() {
+        riesgo.riesgo_historico = "[NULL]"
+        riesgo.form.loadDropDown('riesgo_historico');
+        riesgo.selected = false;
     }
 });
