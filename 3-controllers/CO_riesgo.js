@@ -2632,7 +2632,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
         }
         return false;
     }
-    riesgo.show_plan = async function(elhistorico) {
+    riesgo.show_plan = function(elhistorico) {
         VALIDATION.save(riesgo, async function () {
             riesgo.selected = true;
             riesgo.getRiesgo(elhistorico);
