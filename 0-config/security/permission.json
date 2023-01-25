@@ -1653,7 +1653,8 @@
       "vw_auditoria_programa": {
         "type": "empty",
         "allow": {
-          "menu": true
+          "menu": true,
+          "actions": true
         }
       },
       "auditoria_programa": {

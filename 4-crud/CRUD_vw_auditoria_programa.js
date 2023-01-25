@@ -63,24 +63,54 @@ DSON.keepmerge(CRUD_vw_auditoria_programa, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_vw_auditoria_programa.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_vw_auditoria_programa.table.options.push({
+    title: (data) => {
+        return "Ver lista de Auditorías";
+    },
+    icon: (data) => {
+        return "list";
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        //extra function
+        vw_auditoria_programa.dataForView = data.row;
+        vw_auditoria_programa.modal.modalView("vw_auditoria_programa/view_planes", {
+
+            width: 'modal-full',
+            header: {
+                title: `Ver auditorías del programa de auditoría: "${data.row.nombre}" `,
+                icon: "list"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'vw_auditoria_programa_plan'
+            },
+            event: {
+                // show: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: async function (eData) {
+                //
+                //     }
+                // },
+                // hide: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: function (data) {
+                //     }
+                // }
+            },
+        });
+        return false;
+    }
+});
