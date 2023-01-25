@@ -155,6 +155,8 @@ DSON.keepmerge(CRUD_auditoria_programa_plan, {
                             return "";
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined"){
                                 return auditoria_programa_plan.allowAction("Autorizar", "auditoria_programa_plan", data.row.estatus);
                             }
@@ -256,6 +258,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Trabajar", "auditoria_programa_plan", data.row.estatus) && auditoria_programa.estatus >= 3;
                         },
@@ -366,6 +370,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Iniciar Recolección de Datos", "auditoria_programa_plan", data.row.estatus) && auditoria_programa.estatus >= 3;
                         },
@@ -478,6 +484,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Trabajar Recolección de Datos", "auditoria_programa_plan", data.row.estatus) && auditoria_programa.estatus >= 3;
                         },
@@ -577,6 +585,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Editar", "auditoria_programa_plan", data.row.estatus);
                         },
@@ -670,6 +680,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: (data) => {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined") {
                                 let condiciones = false;
                                 if (auditoria_programa_plan.allowFeature("Comentar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esalgo(data.row))
@@ -714,6 +726,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: (data) => {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined") {
                                 let condiciones = false;
                                 if (auditoria_programa_plan.allowFeature("Trabajar A", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esalgo(data.row))
@@ -758,6 +772,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: (data) => {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined") {
                                 let condiciones = false;
                                 if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esalgo(data.row))
@@ -892,6 +908,8 @@ Los auditores que estarán participando serán :
                             return false;
                         },
                         show: (data) => {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Habilitar", "auditoria_programa_plan", data.row.estatus);
                         },
@@ -922,6 +940,8 @@ Los auditores que estarán participando serán :
                             return false;
                         },
                         show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Deshabilitar", "auditoria_programa_plan", data.row.estatus);
                         }
@@ -1049,6 +1069,8 @@ Los auditores que estarán participando serán :
                             return "";
                         },
                         show: (data) => {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
                             if (typeof auditoria_programa_plan !== "undefined")
                                 return auditoria_programa_plan.allowAction("Eliminar", "auditoria_programa_plan", data.row.estatus);
                         },
@@ -1121,6 +1143,8 @@ Los auditores que estarán participando serán :
                     return "";
                 },
                 show: (data) => {
+                    if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                        return false
                     if (typeof auditoria_programa_plan !== "undefined") {
                         let condiciones = false;
                         if (auditoria_programa_plan.allowFeature("Trabajar", "auditoria_programa_plan", data.row.estatus) && CRUD_auditoria_programa_plan.esDocumentoResponsables(data.row))
