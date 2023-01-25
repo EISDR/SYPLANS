@@ -44,17 +44,30 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="basic">
                     <div class="row">
-                        <div class='col-sm-4 col-md-4'>
+                        <div class="col-sm-4 col-md-4 " ng-if="riesgo.session.institucion">
                             <%- FORM.select("riesgo_historico", scope, {
                                 allownew: false,
-                                allowedit: false,
                                 allowview: false,
+                                allowedit: false,
                                 allowlist: false,
-                                refresh: false,
-                                table: "riesgo_historico",
-                                truelabel: "Gestión de riesgo",
                                 text: "item.nombre",
+                                table: "vw_riesgo_historico",
                                 icon: {class: "archive"},
+                                label: "Riesgo",
+                                condition: "(item.institucion  == riesgo.session.institucion_id)"
+                            }) %>
+                        </div>
+                        <div class="col-sm-4 col-md-4 " ng-if="!riesgo.session.institucion">
+                            <%- FORM.select("riesgo_historico", scope, {
+                                allownew: false,
+                                allowview: false,
+                                allowedit: false,
+                                allowlist: false,
+                                text: "item.nombre",
+                                table: "vw_riesgo_historico",
+                                icon: {class: "archive"},
+                                label: "Periodo de la gestion del riesgo",
+                                condition: "(item.compania == riesgo.session.compania_id && item.institucion == null)"
                             }) %>
                         </div>
                         <button
