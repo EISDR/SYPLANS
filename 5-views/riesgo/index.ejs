@@ -1,5 +1,77 @@
 <div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
-    <div class="panel panel-flat">
+    <div class="panel panel-flat" ng-show="!<%= scope%>.selected && <%= scope%>.esplan">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default">
+                <div class="breadcrumb-line">
+                    <ul class="breadcrumb visible-lg visible-md" dragonlanguage="" style="z-index: 1000">
+                        <li ng-repeat="(key, menu) in <%= scope %>.MENU.parents track by key">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{menu.icon}} position-left"></i>
+                                {{menu.text.trim('')}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left" ng-show="menu.childs.length>0">
+                                <li ng-repeat="(subkey, submenu) in menu.childs track by subkey"
+                                    ng-class="[<%= scope %>.MENU.menu.text!=submenu.text?'':'active']">
+                                    <a title="{{submenu.text}}" href="{{<%= scope %>.sameHref(submenu,'javascript:void(0)')||submenu.href}}"
+                                       class="">
+                                        <i class="{{submenu.icon}}"></i>{{submenu.text}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                    <ul class="breadcrumb visible-lg visible-md"
+                        ng-show="<%= scope %>.modal.isOpen()" dragonlanguage="" style="z-index: 1000">
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.select("riesgo_historico", scope, {
+                                allownew: false,
+                                allowedit: false,
+                                allowview: false,
+                                allowlist: false,
+                                refresh: false,
+                                table: "riesgo_historico",
+                                truelabel: "Gestión de riesgo",
+                                text: "item.nombre",
+                                icon: {class: "archive"},
+                            }) %>
+                        </div>
+                        <button
+                                style="margin-right: 0; margin-top: 25px"
+                                dragonlanguage="" title="Continuar"
+                                type="button" role="button"
+                                class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                ng-click="<%= scope%>.show_plan(<%= scope%>.riesgo_historico);">
+                            <b><i class="icon-arrow-right7"></i></b>
+                            Continuar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-flat" ng-show="<%= scope%>.selected">
         <div class="page-header-lg page-header-sm page-header">
             <div class="page-header-lg page-header-sm page-header page-header-default">
                 <div class="breadcrumb-line">
@@ -61,13 +133,30 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class='col-sm-12 col-md-12'>
+                                    <div class='col-sm-12 col-md-12' ng-show="!<%= scope %>.esplan">
+                                        <%- FORM.textarea('descripcion_historico', scope, {
+                                            placeholder: "Descripción de la gestión",
+                                            disabled: true
+                                            //maxlength: 200,
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-8 col-md-8' ng-show="<%= scope %>.esplan">
                                         <%- FORM.textarea('descripcion_historico', scope, {
                                             placeholder: "Descripción de la gestión",
                                             disabled: true
                                                     //maxlength: 200,
                                         }) %>
                                     </div>
+                                    <button
+                                            ng-show="<%= scope %>.esplan"
+                                            style="margin-right: 0; margin-top: 25px"
+                                            dragonlanguage="" title="Continuar"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                            ng-click="<%= scope%>.go_back();">
+                                        <b><i class="icon-arrow-left7"></i></b>
+                                        Volver Atrás
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -76,9 +165,10 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-flat">
+    <div class="panel panel-flat" ng-show="<%= scope%>.selected">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
+            <!--            los dropdown de las entidades -->
             <div class="row" ng-if="!riesgo.soyamfe">
                 <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad == 'vw_procesos'">
                     <%- FORM.select("riesgo_entidad", scope, {
@@ -111,6 +201,7 @@
                     }) %>
                 </div>
             </div>
+            <!--            los dropdown de las entidades -->
             <div class="row" ng-if="riesgo.soyamfe" ng-show="riesgo.soyamfe===true?false:true">
                 <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad == 'vw_procesos'">
                     <%- FORM.select("riesgo_entidad", scope, {
@@ -143,6 +234,7 @@
                     }) %>
                 </div>
             </div>
+            <!--            los codigos de colores -->
             <div class="row">
                 <div class="col-sm-6 col-md-6" ng-if="!riesgo.soyamfe && riesgo.esplan">
                     <label style="">Estatus</label>
