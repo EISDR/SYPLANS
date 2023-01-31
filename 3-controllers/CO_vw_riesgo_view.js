@@ -11,7 +11,7 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
     vw_riesgo_view.headertitle = "Matriz de Riesgo";
     //vw_riesgo_view.destroyForm = false;
     //vw_riesgo_view.permissionTable = "tabletopermission";
-    vw_riesgo_view.entidad = window.location.href.split('?')[1] || "vw_procesos";
+    vw_riesgo_view.entidad = window.location.href.split('?')[1] || "amfe";
     if (vw_riesgo_view.entidad == "amfe") {
         CRUD_vw_riesgo_view = {};
         DSON.keepmerge(CRUD_vw_riesgo_view, CRUDDEFAULTS);
