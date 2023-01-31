@@ -1,0 +1,25 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="row" ng-show="false">
+        <div class="col-sm-6 col-md-6 " id="">
+            <%- FORM.select("riesgo_entidad", scope, {
+                allownull: false,
+                allownew: false,
+                allowedit: false,
+                allowview: false,
+                allowlist: false,
+                label: "Seleccione Tipo de Fallo",
+                text: "item.name",
+                value: "table_",
+                disabled: true,
+                table: "riesgo_entidad",
+                icon: {class: "list"}
+            }) %>
+        </div>
+    </div>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->

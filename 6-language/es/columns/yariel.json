@@ -176,5 +176,7 @@
   "iso_normativos_plural":"Normativas",
   "iso_normativos":"Normativa",
   "iso_estructura_plural":"Estructura",
-  "iso_estructura":"Estructura"
+  "iso_estructura":"Estructura",
+  "vw_riesgo_view_plural":"Matrices de Riesgo",
+  "vw_riesgo_view":"Matriz de Riesgo"
 }

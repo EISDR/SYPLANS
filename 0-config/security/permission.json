@@ -1989,7 +1989,13 @@
       "riesgo_historico": {
         "type": "empty",
         "allow": {
-          "menu": true
+          "menu": true,
+          "actions": true
+        }
+      },
+      "vw_riesgo_view": {
+        "type": "empty",
+        "allow": {
         }
       },
       "vw_procesos_elemento": {

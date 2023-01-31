@@ -71,24 +71,54 @@ DSON.keepmerge(CRUD_riesgo_historico, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_riesgo_historico.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_riesgo_historico.table.options.push({
+    title: (data) => {
+        return "Ver lista de Auditorías";
+    },
+    icon: (data) => {
+        return "list";
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        //extra function
+        riesgo_historico.dataForView = data.row;
+        riesgo_historico.modal.modalView("riesgo_historico/view_matrices", {
+
+            width: 'modal-full',
+            header: {
+                title: `Ver matrices de riesgo de la gestión: "${data.row.nombre}" `,
+                icon: "list"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'riesgo_historico'
+            },
+            event: {
+                // show: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: async function (eData) {
+                //
+                //     }
+                // },
+                // hide: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: function (data) {
+                //     }
+                // }
+            },
+        });
+        return false;
+    }
+});
