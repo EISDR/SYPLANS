@@ -27,6 +27,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //riesgo_historico.destroyForm = false;
     //riesgo_historico.permissionTable = "tabletopermission";
     riesgo_historico.current_year = moment().format('YYYY');
+    riesgo_historico.entidad = window.location.href.split('?')[1] || "amfe";
     var do_me_once = false;
     RUNCONTROLLER("riesgo_historico", riesgo_historico, $scope, $http, $compile);
     RUN_B("riesgo_historico", riesgo_historico, $scope, $http, $compile);
