@@ -2006,6 +2006,25 @@
         "type": "report",
         "allow": {}
       },
+      "vw_documentos_asociados_pv2": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          }
+        }
+      },
       "indicador_generico_poaSIGNALvw_procesos": {
         "type": "report",
         "allow": {}

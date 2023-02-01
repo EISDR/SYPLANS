@@ -1,0 +1,34 @@
+{
+  "menus": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#vw_documentos_asociados_pv2",
+          "text": "Informe Preliminar Auditoría"
+        }
+      ],
+      "modal": "",
+      "icon": "drawer3",
+      "href": "#",
+      "text": "Reportes"
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#vw_documentos_asociados_pv2",
+          "text": "Informe Preliminar Auditoría"
+        }
+      ],
+      "modal": "",
+      "icon": "drawer3",
+      "href": "#",
+      "text": "Reportes"
+    }
+  ]
+}

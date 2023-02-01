@@ -1,0 +1,77 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header">
+            <div class="page-header-lg page-header-sm page-header page-header-default">
+                <div class="breadcrumb-line">
+                    <ul class="breadcrumb visible-lg visible-md" dragonlanguage="" style="z-index: 1000">
+                        <li ng-repeat="(key, menu) in <%= scope %>.MENU.parents track by key">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{menu.icon}} position-left"></i>
+                                {{menu.text.trim('')}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left" ng-show="menu.childs.length>0">
+                                <li ng-repeat="(subkey, submenu) in menu.childs track by subkey"
+                                    ng-class="[<%= scope %>.MENU.menu.text!=submenu.text?'':'active']">
+                                    <a title="{{submenu.text}}" href="{{<%= scope %>.sameHref(submenu,'javascript:void(0)')||submenu.href}}"
+                                       class="">
+                                        <i class="{{submenu.icon}}"></i>{{submenu.text}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                    <ul class="breadcrumb visible-lg visible-md"
+                        ng-show="<%= scope %>.modal.isOpen()" dragonlanguage="" style="z-index: 1000">
+                        <li class="active">
+                            <a data-function="menu" href="javascript:void(0)">
+                                <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                {{<%= scope %>.headertitle || <%= scope %>.MENU.menu.text}}
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="subcontent" style="min-height: 0">
+            <div class="tab-content">
+                <div class="tab-pane active" id="basic">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6" style="margin-top: 11px !important">
+                                <%- FORM.select("plan", scope, {
+                                    allownull: false,
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowlist: false,
+                                    allowview: false,
+                                    refresh: false,
+                                    multiple: false,
+                                    label: "Auditoría",
+                                    text: "item.plan_nombre",
+                                    table: "vw_correctiva_filter",
+                                    field: "id",
+                                    icon: {class: "archive"},
+                                    condition: "item.compania == vw_documentos_asociados_pv2.session.compania_id && vw_documentos_asociados_pv2.allow_estatus(item.estatus_plan)"
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->
