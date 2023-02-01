@@ -788,43 +788,35 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
                         }
                     },
                     {
-                        title: (data) => {
-                            return "Ver.";
+                        text: (data) => {
+                            return MESSAGE.i('actions.View');
                         },
                         icon: (data) => {
                             return "eye";
                         },
+                        permission: (data) => {
+                            return 'view';
+                        },
                         characterist: (data) => {
                             return "";
                         },
-                        show: function (data) {
-                            return (data.row.estado_plan_accion_nombre == "Completado")
-                        },
                         click: function (data) {
-                            Row_id = data.row.riesgo_a_id;
-                            Matriz_id = data.row.id;
-                            Ocurrencia = data.row.ocurrencia;
-                            baseController.modal.modalView("riesgo_a/view_plan_accion_mamfe", {
-                                width: ENUM.modal.width.full,
-                                header: {
-                                    title: 'Ver Riesgo: "' + data.row.nombre + '"',
-                                    icon: "eye"
-                                },
-                                footer: {
-                                    cancelButton: false
-                                },
-                                content: {
-                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                                    sameController: 'riesgo_a'
-                                },
-                            });
-                            BASEAPI.list('riesgo', {
-                                limit: 1
-                            }, function (result) {
-                                data.$scope.refresh();
-                                riesgo_a.getFromView(data.row);
-                            });
-                            return false;
+                            if (!DSON.oseaX(data.row)) {
+                                data.$scope.dataForView = data.row;
+                                data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
+                                    header: {
+                                        title: 'Ver Proceso: "' + data.row.nombre + '"',
+                                        icon: "user"
+                                    },
+                                    footer: {
+                                        cancelButton: true
+                                    },
+                                    content: {
+                                        loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                        sameController: true
+                                    },
+                                });
+                            }
                         }
                     },
                 ],
@@ -1654,8 +1646,8 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
                         }
                     },
                     {
-                        title: (data) => {
-                            return "Ver";
+                        text: (data) => {
+                            return MESSAGE.i('actions.View');
                         },
                         icon: (data) => {
                             return "eye";
@@ -1666,59 +1658,25 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
                         characterist: (data) => {
                             return "";
                         },
-                        show: function (data) {
-                            return data.row.condicion == 1;
-                        },
                         click: function (data) {
-                            Row_id = data.row.riesgo_a_id;
-                            Matriz_id = data.row.id;
-                            From_where = 'plan_accion';
-
-                            baseController.modal.modalView("riesgo_a/view_neo_plan_accion", {
-                                width: ENUM.modal.width.full,
-                                header: {
-                                    title: 'Plan de Acción del Riesgo: "' + data.row.nombre + '"',
-                                    icon: "eye"
-                                },
-                                footer: {
-                                    cancelButton: false
-                                },
-                                content: {
-                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                                    sameController: 'riesgo_a'
-                                },
-                                event: {
-                                    show: {
-                                        end: function () {
-                                            setTimeout(async function () {
-                                                if (typeof riesgo_a !== 'undefined') {
-                                                    if (typeof riesgo_a !== 'not defined') {
-                                                        if (riesgo_a) {
-                                                            riesgo_a.getFromView(data.row);
-                                                            riesgo_a.refreshAngular();
-                                                        }
-                                                    }
-                                                }
-                                            }, 1000)
-                                        }
-                                    }
-                                }
-                            });
-                            BASEAPI.list('riesgo', {
-                                limit: 1
-                            }, async function (result) {
-                                data.$scope.refresh();
-                                if (typeof riesgo_a !== 'undefined') {
-                                    if (typeof riesgo_a !== 'not defined') {
-                                        if (riesgo_a) {
-                                            riesgo_a.getFromView(data.row);
-                                        }
-                                    }
-                                }
-                            });
-                            return false;
+                            if (!DSON.oseaX(data.row)) {
+                                data.$scope.dataForView = data.row;
+                                data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
+                                    header: {
+                                        title: 'Ver Proceso: "' + data.row.nombre + '"',
+                                        icon: "user"
+                                    },
+                                    footer: {
+                                        cancelButton: true
+                                    },
+                                    content: {
+                                        loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                        sameController: true
+                                    },
+                                });
+                            }
                         }
-                    }
+                    },
                 ],
                 single: [
                     {
@@ -2117,7 +2075,7 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
         }
     };
     vw_riesgo_view.triggers.table.after.load = async function (records) {
-        vw_riesgo_view.runMagicOneToMany('riesgo_control', 'riesgo_control', 'riesgo', 'nombre', 'id');
+        vw_riesgo_view.runMagicOneToMany('riesgo_control', 'riesgo_control', 'riesgo', 'nombre', 'riesgo_a_id');
         vw_riesgo_view.runMagicColum('factor_riesgo', 'perspectiva', "id", "nombre");
         vw_riesgo_view.runMagicColum('proceso', 'proceso', "id", "nombre");
         vw_riesgo_view.refreshAngular();
