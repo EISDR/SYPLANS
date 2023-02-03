@@ -52,6 +52,10 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 label: function () {
                     return "Proceso"
                 },
+                // rowspan: function (index, list, category, fromreport) {
+                //     return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso', index, list)
+                //         : vw_documentos_asociados_pv2.sm_('d.nombre_proceso', index, list);
+                // }
             },
             responsable_proceso: {
                 label: function () {
@@ -209,7 +213,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     placeholder: '¿Cumple?'
                 },
                 {
-                    key: 'id_tipo_inconformidad,',
+                    key: 'id_tipo_inconformidad',
                     label: 'Tipo de Inconformidad',
                     type: FILTER.types.relation,
                     table: 'tipo_inconformidad',
