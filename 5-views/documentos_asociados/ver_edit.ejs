@@ -39,7 +39,6 @@
                             text: "item.nombre",
                             disabled:true,
                             icon: {class: "archive"},
-                            condition: "(item.compania == documentos_asociados.session.compania_id && item.institucion == $null)"
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-if="!documentos_asociados.session.institucion">
@@ -53,7 +52,6 @@
                             truelabel: "Proceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.procesos_categoria == documentos_asociados.procesos_categoria && item.estatus != '3')"
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-if="!documentos_asociados.session.institucion">
@@ -67,7 +65,6 @@
                             truelabel: "Tipo de Documento",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.compania == documentos_asociados.session.compania_id && item.institucion == $null)"
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-if="documentos_asociados.session.institucion">
@@ -82,7 +79,6 @@
                             table: "tipo_documento",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.institucion == documentos_asociados.session.institucion_id)"
                         }) %>
                     </div>
                     <div class='col-sm-2 col-md-2' ng-show="documentos_asociados.form.mode!=='new'">
@@ -96,7 +92,6 @@
                             column: 'name',
                             text: "item.permitido",
                             table: 'vw_auditoria_programa_plan_estatus',
-                            condition: "item.entidad == 'documentos_asociados'"
                         }) %>
                     </div>
                 </div>
@@ -125,7 +120,6 @@
                             table: "vw_documentos_asociados_drp",
                             icon: {class: "archive"},
                             truelabel: "Documentos Asociados",
-                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && item.estatus_id != 4)) && (item.id != documentos_asociados.id && item.documento_general == 0)",
                             get: {
                                 table: 'documentos_asociados_relacionado',
                                 fieldFrom: 'id',
