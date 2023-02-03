@@ -19,6 +19,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     auditoria_programa_plan.documentos_list = {};
     auditoria_programa_plan.estoyenelview = "";
     auditoria_programa_plan.current_year = moment().format('YYYY');
+    auditoria_programa_plan.from_informe = false;
     if (MODAL.history.length > 0) {
         if (typeof dashboard_proceso != "undefined") {
             if (dashboard_proceso) {
@@ -318,81 +319,83 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 if (auditoria_programa_plan.estoyenelview.indexOf('work') !== -1)
                     return;
                 rules.push(VALIDATION.general.required(value));
-                if (auditoria_programa_plan.form.mode === 'edit') {
-                    if (auditoria_programa_plan.id) {
-                        if (value) {
-                            var last_audit = await BASEAPI.firstp('auditoria_programa_plan', {
-                                where: [
-                                    {
-                                        field: "id",
-                                        value: auditoria_programa_plan.id
-                                    },
-                                    {
-                                        field: "auditoria_relacionada",
-                                        value: value
-                                    }
-                                ]
-                            })
-                            if (!last_audit) {
-                                BASEAPI.deleteall('auditoria_programa_plan', [
-                                    {
-                                        field: "id",
-                                        value: auditoria_programa_plan.id
-                                    }
-                                ], function (result) {
-                                    SERVICE.planificacion_associate_audit.heredar_audit({
-                                        id: value
-                                    }, async function (result) {
-                                        console.log(result, "oh oh", last_audit)
-                                        if (result.data.recordset) {
-                                            auditoria_programa_plan.from_new = true;
-                                            auditoria_programa_plan.id = result.data.recordset[0][0].id;
-                                            auditoria_programa_plan.auditoria_plan_departamento = eval(result.data.recordset[0][0].lista_departamentos);
-                                            auditoria_programa_plan.auditoria_plan_participantes = eval(result.data.recordset[0][0].lista_participantes);
-                                            await auditoria_programa_plan.todosparticiparon();
-                                            auditoria_programa_plan.auditoria_plan_responsable = eval(result.data.recordset[0][0].lista_auditores);
-                                            auditoria_programa_plan.auditoria_plan_proceso = eval(result.data.recordset[0][0].lista_procesos);
-                                            auditoria_programa_plan.auditoria_plan_documentos_asociados = eval(result.data.recordset[0][0].lista_documentos);
-                                            auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
-                                            auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
-                                            auditoria_programa_plan.form.loadDropDown('tipo_auditoria')
-                                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_departamento')
-                                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes')
-                                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable')
-                                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso')
-                                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
-                                            auditoria_programa_plan.form.mode = 'edit';
+                if (!auditoria_programa_plan.from_informe){
+                    if (auditoria_programa_plan.form.mode === 'edit') {
+                        if (auditoria_programa_plan.id) {
+                            if (value) {
+                                var last_audit = await BASEAPI.firstp('auditoria_programa_plan', {
+                                    where: [
+                                        {
+                                            field: "id",
+                                            value: auditoria_programa_plan.id
+                                        },
+                                        {
+                                            field: "auditoria_relacionada",
+                                            value: value
                                         }
+                                    ]
+                                })
+                                if (!last_audit) {
+                                    BASEAPI.deleteall('auditoria_programa_plan', [
+                                        {
+                                            field: "id",
+                                            value: auditoria_programa_plan.id
+                                        }
+                                    ], function (result) {
+                                        SERVICE.planificacion_associate_audit.heredar_audit({
+                                            id: value
+                                        }, async function (result) {
+                                            console.log(result, "oh oh", last_audit)
+                                            if (result.data.recordset) {
+                                                auditoria_programa_plan.from_new = true;
+                                                auditoria_programa_plan.id = result.data.recordset[0][0].id;
+                                                auditoria_programa_plan.auditoria_plan_departamento = eval(result.data.recordset[0][0].lista_departamentos);
+                                                auditoria_programa_plan.auditoria_plan_participantes = eval(result.data.recordset[0][0].lista_participantes);
+                                                await auditoria_programa_plan.todosparticiparon();
+                                                auditoria_programa_plan.auditoria_plan_responsable = eval(result.data.recordset[0][0].lista_auditores);
+                                                auditoria_programa_plan.auditoria_plan_proceso = eval(result.data.recordset[0][0].lista_procesos);
+                                                auditoria_programa_plan.auditoria_plan_documentos_asociados = eval(result.data.recordset[0][0].lista_documentos);
+                                                auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
+                                                auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
+                                                auditoria_programa_plan.form.loadDropDown('tipo_auditoria')
+                                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_departamento')
+                                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes')
+                                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable')
+                                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso')
+                                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
+                                                auditoria_programa_plan.form.mode = 'edit';
+                                            }
+                                        });
                                     });
-                                });
-                            } else {
-                                auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
-                                auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
-                                auditoria_programa_plan.form.loadDropDown('tipo_auditoria');
+                                } else {
+                                    auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
+                                    auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
+                                    auditoria_programa_plan.form.loadDropDown('tipo_auditoria');
+                                }
                             }
                         }
-                    }
-                } else {
-                    if (value) {
-                        SERVICE.planificacion_associate_audit.heredar_audit({
-                            id: value
-                        }, async function (result) {
-                            if (result.data.recordset) {
-                                auditoria_programa_plan.from_new = true;
-                                auditoria_programa_plan.id = result.data.recordset[0][0].id;
-                                auditoria_programa_plan.auditoria_plan_proceso = eval(result.data.recordset[0][0].lista_procesos);
-                                auditoria_programa_plan.auditoria_plan_documentos_asociados = eval(result.data.recordset[0][0].lista_documentos);
-                                auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
-                                auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
-                                auditoria_programa_plan.form.loadDropDown('tipo_auditoria')
-                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_departamento')
-                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes')
-                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable')
-                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso')
-                                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
-                                auditoria_programa_plan.form.mode = 'edit';
-                            }
-                        });
+                    } else {
+                        if (value) {
+                            SERVICE.planificacion_associate_audit.heredar_audit({
+                                id: value
+                            }, async function (result) {
+                                if (result.data.recordset) {
+                                    auditoria_programa_plan.from_new = true;
+                                    auditoria_programa_plan.id = result.data.recordset[0][0].id;
+                                    auditoria_programa_plan.auditoria_plan_proceso = eval(result.data.recordset[0][0].lista_procesos);
+                                    auditoria_programa_plan.auditoria_plan_documentos_asociados = eval(result.data.recordset[0][0].lista_documentos);
+                                    auditoria_programa_plan.form.options.auditoria_relacionada.disabled = true;
+                                    auditoria_programa_plan.form.options.tipo_auditoria.disabled = true;
+                                    auditoria_programa_plan.form.loadDropDown('tipo_auditoria')
+                                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_departamento')
+                                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes')
+                                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable')
+                                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso')
+                                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
+                                    auditoria_programa_plan.form.mode = 'edit';
+                                }
+                            });
+                        }
                     }
                 }
                 VALIDATION.validate(auditoria_programa_plan, 'auditoria_relacionada', rules);

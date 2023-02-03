@@ -91,6 +91,19 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                     }
                 }
             }
+            if (typeof vw_auditoria_programa != "undefined") {
+                if (vw_auditoria_programa) {
+                    if (typeof vw_auditoria_programa !== 'not defined') {
+                        if (vw_auditoria_programa.dataForView){
+                            $('.icon-plus-circle2 ').parent().hide();
+                            auditoria_programa_plan.fixFilters = [{
+                                "field": "auditoria_programa",
+                                "value": vw_auditoria_programa.dataForView.id
+                            }];
+                        }
+                    }
+                }
+            }
         } else {
             auditoria_programa.created = false;
             auditoria_programa.estatus_nombre = "Abierto";
