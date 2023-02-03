@@ -1113,6 +1113,7 @@ Los auditores que estarán participando serán :
                     data.$scope.my_true_estatus = data.row.estatus;
                     data.$scope.my_true_estatus_name = data.row.estatus_nombre;
                     data.$scope.estatus_view = data.row.estatus + "";
+                    data.$scope.from_informe = true;
                     data.$scope.formulary({
                         where: [{
                             field: eval(`CRUD_${data.$scope.modelName}`).table.key,

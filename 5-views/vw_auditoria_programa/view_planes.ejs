@@ -3,7 +3,9 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div id="vw_documentos_asociados_view" ng-controller="auditoria_programa_plan as auditoria_programa_plan">
+                    <div id="auditoria_programa" ng-controller="auditoria_programa as auditoria_programa">
+                    </div>
+                    <div id="auditoria_programa_plan" ng-controller="auditoria_programa_plan as auditoria_programa_plan">
                         <div class="panel panel-flat">
                             <%- include('../../7-plugins/templates/table/header',{scope:'auditoria_programa_plan'}); %>
                             <div class="subcontent">
@@ -18,10 +20,12 @@
 </div>
 <script>
     $('.icon-plus-circle2 ').parent().hide();
-    auditoria_programa_plan.fixFilters = [{
-        "field": "auditoria_programa",
-        "value": vw_auditoria_programa.dataForView.id
-    }];
+    setTimeout(function(){
+        auditoria_programa_plan.fixFilters = [{
+            "field": "auditoria_programa",
+            "value": vw_auditoria_programa.dataForView.id
+        }];
+    }, 1000);
 </script>
 <!--<div class="row">-->
     <!--<div class="col-md-12">-->
