@@ -565,6 +565,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
             };
 
         };
+        RUNTABLE("procesos");
         procesos.triggers.table.after.load = async function (records) {
             //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
             procesos.fileSI = [];
