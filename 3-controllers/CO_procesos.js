@@ -76,7 +76,6 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                         });
                                     }
                                     procesos.paso = true;
-                                    procesos.refresh();
                                 }
                             }
                         }
@@ -102,7 +101,6 @@ app.controller("procesos", function ($scope, $http, $compile) {
                             value: procesos.mapa_id ? procesos.mapa_id : -1
                         }
                     ];
-                    procesos.refresh();
                 }
             } else {
                 procesos.fixFilters = [
@@ -125,7 +123,6 @@ app.controller("procesos", function ($scope, $http, $compile) {
                         value: -1
                     }
                 ];
-                procesos.refresh();
             }
             if (callback)
                 callback();
