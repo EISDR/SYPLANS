@@ -14,9 +14,10 @@ DSON.keepmerge(CRUD_vw_documentos_asociados, {
         //rowStyle: function (row, $scope) {
         //    return "color:red;";
         //},
-        //rowClass: function (row, $scope) {
-        //    return row.name === 'whatever' ? "bg-" + COLOR.danger + "-300" : "";
-        //},
+        rowClass: function (row, $scope) {
+           return row.estatus_id === 4 ? "bg-" + COLOR.danger + "-300" : "";
+
+        },
         //activeColumn: "active",
         //key: 'id',
         //deletekeys: ['id'],
