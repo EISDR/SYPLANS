@@ -81,9 +81,8 @@ VALIDATION = DSON.merge(VALIDATION, {
         mayorCero: function (value, field) {
 
             value = LAN.money(value).value || "";
-
             return {
-                valid: (value > 0 || value != ""),
+                valid: (value > 0 && value != ""),
                 message: MESSAGE.ieval('planificacion.mayorCero', {field: field}),
                 type: VALIDATION.types.error,
             };
