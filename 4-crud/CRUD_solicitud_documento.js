@@ -143,6 +143,23 @@ DSON.keepmerge(CRUD_solicitud_documento, {
         filters: {
             columns: [
                 {
+                    key: 'tipo_accion',
+                    label: function(){
+                        return 'Tipo de Acción'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'solicitud_documento_tipo_accion',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+                {
                     key: 'nombre',
                     label: 'Nombre de la Solicitud',
                     type: FILTER.types.string,
