@@ -285,11 +285,11 @@ select nombre,descripcion,compania,institucion,(select max(r.id) from mapa_proce
 update mapa_proceso set estatus = 4 where id = ${mapa_proceso.id};
 insert into procesos(nombre, descripcion,procesos_categoria,objetivo,alcance,responsable,recursos,active,estatus,mapa_proceso,herencia)
 
-select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,${mapa_proceso.id},id from procesos where mapa_proceso=${mapa_proceso.id};
+select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,${mapa_proceso.id},id from procesos where mapa_proceso=${mapa_proceso.id} and estatus not int (4,5);
 
 insert into documentos_asociados(codigo,nombre, descripcion,proceso, procesos_categoria, observacion, tipo_documento, estatus, active, objetivo, alcance, marco_legal, resultado_esperado, trabaja_marco_legal)
 
-select codigo, nombre, descripcion,  (select id from procesos where herencia=documentos_asociados.proceso limit 1), (select id from procesos_categoria where herencia=documentos_asociados.procesos_categoria limit 1), observacion,tipo_documento,1,1,objetivo,alcance,marco_legal,resultado_esperado,trabaja_marco_legal from documentos_asociados where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id});
+select codigo, nombre, descripcion,  (select id from procesos where herencia=documentos_asociados.proceso limit 1), (select id from procesos_categoria where herencia=documentos_asociados.procesos_categoria limit 1), observacion,tipo_documento,1,1,objetivo,alcance,marco_legal,resultado_esperado,trabaja_marco_legal from documentos_asociados where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and estatus not in (4,5);
 
 insert into procesos_elemento(nombre, descripcion,proceso, funcion)
 
