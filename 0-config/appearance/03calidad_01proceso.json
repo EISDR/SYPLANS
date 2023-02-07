@@ -23,6 +23,12 @@
         },
         {
           "modal": "",
+          "icon": "map",
+          "href": "#mapa_proceso",
+          "text": "Creación de Mapa de Proceso"
+        },
+        {
+          "modal": "",
           "icon": "spinner10",
           "href": "#procesos_categoria",
           "text": "Creación de Macroproceso"
@@ -56,12 +62,6 @@
           "icon": "spinner10",
           "href": "#monitoreo_generico?vw_procesos",
           "text": "Monitoreo y Seguimiento"
-        },
-        {
-          "modal": "",
-          "icon": "map",
-          "href": "#mapa_proceso",
-          "text": "Histórico de Mapa de Proceso"
         },
         {
           "menus": "",
@@ -94,6 +94,12 @@
         },
         {
           "modal": "",
+          "icon": "map",
+          "href": "#mapa_proceso",
+          "text": "Creación de Mapa de Proceso"
+        },
+        {
+          "modal": "",
           "icon": "spinner10",
           "href": "#procesos_categoria",
           "text": "Creación de Macroproceso"
@@ -127,12 +133,6 @@
           "icon": "spinner10",
           "href": "#monitoreo_generico?vw_procesos",
           "text": "Monitoreo y Seguimiento"
-        },
-        {
-          "modal": "",
-          "icon": "map",
-          "href": "#mapa_proceso",
-          "text": "Histórico de Mapa de Proceso"
         }
       ],
       "modal": "",
