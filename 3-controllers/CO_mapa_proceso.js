@@ -106,8 +106,14 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
         if (mapa_proceso !== undefined) {
             RUN_B("mapa_proceso", mapa_proceso, $scope, $http, $compile);
             mapa_proceso.form.modalWidth = ENUM.modal.width.full;
-            mapa_proceso.form.readonly = {};
+            mapa_proceso.form.readonly = {compania: mapa_proceso.session.compania_id};
+            mapa_proceso.form.titles = {
+                new: `Transferir ${mapa_proceso.nombre} a un nuevo mapa de proceso`,
+                edit: "Editar XXX",
+                view: "Ver XXXX"
+            };
             mapa_proceso.createForm(data, mode, defaultData);
+
         }
     };
     mapa_proceso.cleanFields = function (){
@@ -271,14 +277,37 @@ Gracias.`;
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.insert = function (data) {
-    //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-    //     return true;
-    // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    mapa_proceso.triggers.table.after.insert = function (data) {
+        //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
+        let queryTopas = `insert into procesos_categoria(nombre, descripcion,compania,institucion,mapa_proceso,herencia)
+
+select nombre,descripcion,compania,institucion,(select max(r.id) from mapa_proceso r),id from procesos_categoria where compania=${mapa_proceso.session.compania_id} and mapa_proceso=${mapa_proceso.id};
+update mapa_proceso set estatus = 4 where id = ${mapa_proceso.id};
+insert into procesos(nombre, descripcion,procesos_categoria,objetivo,alcance,responsable,recursos,active,estatus,mapa_proceso,herencia)
+
+select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,${mapa_proceso.id},id from procesos where mapa_proceso=${mapa_proceso.id};
+
+insert into documentos_asociados(codigo,nombre, descripcion,proceso, procesos_categoria, observacion, tipo_documento, estatus, active, objetivo, alcance, marco_legal, resultado_esperado, trabaja_marco_legal)
+
+select codigo, nombre, descripcion,  (select id from procesos where herencia=documentos_asociados.proceso limit 1), (select id from procesos_categoria where herencia=documentos_asociados.procesos_categoria limit 1), observacion,tipo_documento,1,1,objetivo,alcance,marco_legal,resultado_esperado,trabaja_marco_legal from documentos_asociados where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id});
+
+insert into procesos_elemento(nombre, descripcion,proceso, funcion)
+
+select nombre, descripcion, (select id from procesos where herencia=procesos_elemento.proceso limit 1), funcion from procesos_elemento where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id});
+
+`;
+
+
+        SERVICE.base_db.directQuery({query: queryTopas}, (data) => {
+            return true;
+        });
+        return true;
+    };
+    mapa_proceso.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        data.inserting.estatus = 1;
+        resolve(true);
+    });
     //
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
@@ -288,13 +317,15 @@ Gracias.`;
     //     resolve(true);
     // });
     //
+    mapa_proceso.triggers.table.after.close = function (data) {
+        location.reload();
+    };
     mapa_proceso.triggers.table.after.control = function (data) {
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
         if (data == 'range_date') {
             mapa_proceso.range_date = "";
             var rango_minimo = moment().format("YYYY-MM-DD");
             mapa_proceso.range_date_min(rango_minimo);
-            //cambio placebo
             mapa_proceso.refreshAngular();
         }
         if (data == 'estatus'){

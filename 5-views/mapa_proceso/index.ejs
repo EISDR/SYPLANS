@@ -64,8 +64,19 @@
                                 </div>
                             </div>
                             <div class="row" ng-show="<%= scope%>.current_estatus != 4">
-                                <div class="col-md-9 col-sm-9"></div>
-                                <div class="col-md-3 col-sm-3">
+                                <div class="col-md-4 col-sm-4" style="float: left">
+                                    <button
+                                            ng-show="<%= scope %>.current_estatus == 3"
+                                            style="margin-right: 0px; margin-left: 10px"
+                                            dragonlanguage="" title="Transferir"
+                                            type="button" role="button"
+                                            class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-left"
+                                            ng-click="<%= scope %>.formulary(null, 'new');">
+                                        <b><i class="icon-cross2"></i></b>
+                                        Transferir
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3" style="float: right">
                                     <button
                                             style="margin-right: 0px; margin-left: 10px"
                                             dragonlanguage="" title="Cancelar"
