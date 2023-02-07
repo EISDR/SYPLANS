@@ -57,16 +57,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 //         : vw_documentos_asociados_pv2.sm_('d.nombre_proceso', index, list);
                 // }
             },
-            responsable_proceso: {
-                label: function () {
-                    return "Responsable del Proceso"
-                },
-            },
-            codigo: {
-                label: function () {
-                    return "Código del Documento"
-                },
-            },
             nombre: {
                 label: function () {
                     return "Nombre del Documento"
@@ -74,7 +64,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
             },
             responsable_ducumento: {
                 label: function () {
-                    return "Responsable del Documento"
+                    return "Auditor Responsable del Documento"
                 },
             },
             punto_verificacion: {
@@ -82,14 +72,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     return "Punto de Verificación"
                 },
                 shorttext: 360,
-            },
-            cumple: {
-                label: function () {
-                    return "¿Cumple?"
-                },
-                visible: true,
-                sorttype: ENUM.FORMAT.bool,
-                formattype: ENUM.FORMAT.bool,
             },
             tipo_inconformidad: {
                 label: function () {
@@ -137,38 +119,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     },
                 },
                 {
-                    key: 'id_responsable_proceso',
-                    label: 'Responsable del Proceso',
-                    type: FILTER.types.relation,
-                    table: 'usuario',
-                    value: "id",
-                    text: "item.nombre + ' ' + item.apellido",
-                    query: {
-                        limit: 0,
-                        page: 1,
-                        where: [
-                            {
-                                "field": "compania",
-                                "value": lachechon ? lachechon.compania_id : -1
-                            },
-                            {
-                                "field": "institucion",
-                                "operator": lachechon.institucion_id ? "=" : "is",
-                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
-                            }
-                        ],
-                        orderby: "id",
-                        order: "asc",
-                        distinct: false
-                    },
-                },
-                {
-                    key: 'codigo',
-                    label: 'Código del Documento',
-                    type: FILTER.types.string,
-                    placeholder: 'Código del Documento'
-                },
-                {
                     key: 'nombre',
                     label: 'Nombre del Documento',
                     type: FILTER.types.string,
@@ -176,7 +126,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 {
                     key: 'responsable',
-                    label: 'Responsable del Documento',
+                    label: 'Auditor Responsable del Documento',
                     type: FILTER.types.relation,
                     table: 'usuario',
                     value: "id",
@@ -205,12 +155,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     label: 'Punto de Verificación',
                     type: FILTER.types.string,
                     placeholder: 'Punto de Verificación'
-                },
-                {
-                    key: 'cumple',
-                    label: '¿Cumple?',
-                    type: FILTER.types.bool,
-                    placeholder: '¿Cumple?'
                 },
                 {
                     key: 'id_tipo_inconformidad',
