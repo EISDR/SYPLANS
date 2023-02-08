@@ -19,7 +19,31 @@
     </div>
 </div>
 
-<%- FORM.footer(scope) %>
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            Transferir
+        </button>
+
+    </div>
+</div>
 
 
 
