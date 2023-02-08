@@ -50,8 +50,11 @@ DSON.keepmerge(CRUD_mapa_proceso, {
             },
             nombre: {},
             descripcion: {shorttext: 360},
-            fecha_inicio: {formattype: ENUM.FORMAT.date},
-            fecha_fin: {formattype: ENUM.FORMAT.date},
+            ano: {
+                label: function() {
+                    return "Año"
+                }
+            },
             estatus_nombre: {
                 label: function() {
                     return "Estatus"

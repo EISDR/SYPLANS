@@ -4,11 +4,16 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
-            <div class="col-sm-3 col-md-3">
-                <%- FORM.daterange("range_date", scope, {
-                    from: "fecha_inicio",
-                    to: "fecha_fin"
-                }) %>
+            <div class="col-sm-12 col-md-4 form-group-material form-group has-feedback  has-{{<%= scope %>.validate['ano'].type || <%= scope %>.defaultColor }}  has-feedback-left">
+                <label class="control-label is-visible" style="color: black">Año</label>
+                <select ng-model="<%= scope %>.ano" name="ano" id="ano"
+                        class="form-control">
+                    <option value="[NULL]">Seleccione</option>
+                    <option ng-repeat="value in <%= scope %>.lista_ano"
+                            ng-show="value >= <%= scope %>.current_year "
+                            value="{{value}}">{{value}}
+                    </option>
+                </select>
             </div>
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('descripcion', scope, {

@@ -21,6 +21,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
     mapa_proceso.headertitle = "Mapas de procesos Anteriores";
     //mapa_proceso.destroyForm = false;
     //mapa_proceso.permissionTable = "tabletopermission";
+    mapa_proceso.current_year = moment().format('YYYY');
     var do_me_once = false;
     RUNCONTROLLER("mapa_proceso", mapa_proceso, $scope, $http, $compile);
     RUN_B("mapa_proceso", mapa_proceso, $scope, $http, $compile);
@@ -49,24 +50,32 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
             mapa_proceso.id = mapaData.id;
             mapa_proceso.nombre = mapaData.nombre;
             mapa_proceso.descripcion = mapaData.descripcion;
-            mapa_proceso.fecha_inicio = mapaData.fecha_inicio;
-            mapa_proceso.fecha_fin = mapaData.fecha_fin;
-            mapa_proceso.range_date = mapaData.fecha_inicio ? LAN.date(mapaData.fecha_inicio) + " - " + LAN.date(mapaData.fecha_fin) : "";
+            mapa_proceso.ano = mapaData.ano + "";
+            mapa_proceso.ano_view = mapaData.ano + '';
             mapa_proceso.estatus = mapaData.estatus + '';
             mapa_proceso.current_estatus = mapaData.estatus;
             mapa_proceso.estatus_nombre = mapaData.estatus_nombre;
             mapa_proceso.compania = mapaData.compania;
             mapa_proceso.institucion = mapaData.institucion;
-            if (mapa_proceso.estatus == 3){
-                mapa_proceso.form.options.fecha_fin.disabled =true;
-                mapa_proceso.form.options.fecha_inicio.disabled =true;
-                mapa_proceso.refreshAngular();
+            mapa_proceso.lista_ano = [];
+            for (var a = 2018; a <= 3000; a++) {
+                if (a == mapa_proceso.ano && a != mapa_proceso.current_year){
+                    mapa_proceso.lista_ano.push(a);
+                }else if (a >= mapa_proceso.current_year) {
+                    mapa_proceso.lista_ano.push(a);
+                }
             }
             mapa_proceso.form.loadDropDown('estatus')
         }else{
             mapa_proceso.created = false;
             mapa_proceso.estatus_nombre = "Abierto";
             mapa_proceso.current_estatus = 1;
+            mapa_proceso.lista_ano = [];
+            for (var a = 2018; a <= 3000; a++) {
+                if (a >= mapa_proceso.current_year) {
+                    mapa_proceso.lista_ano.push(a);
+                }
+            }
         }
         mapa_proceso.refreshAngular();
     };
@@ -84,11 +93,11 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
         rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(mapa_proceso, 'nombre', rules);
     });
-    $scope.$watch("mapa_proceso.range_date", function (value) {
+    $scope.$watch("mapa_proceso.ano", function (value) {
         var rules = [];
         //rules here
         rules.push(VALIDATION.general.required(value));
-        VALIDATION.validate(mapa_proceso, 'range_date', rules);
+        VALIDATION.validate(mapa_proceso, 'ano', rules);
     });
     $scope.$watch("mapa_proceso.estatus", function (value) {
         var rules = [];
@@ -108,10 +117,11 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
             mapa_proceso.form.modalWidth = ENUM.modal.width.full;
             mapa_proceso.form.readonly = {compania: mapa_proceso.session.compania_id};
             mapa_proceso.form.titles = {
-                new: `Transferir ${mapa_proceso.nombre} a un nuevo mapa de proceso`,
+                new: `Transferir ${mapa_proceso.nombre} ${mapa_proceso.ano_view} a un nuevo mapa de proceso`,
                 edit: "Editar XXX",
                 view: "Ver XXXX"
             };
+            mapa_proceso.ano = (parseInt(mapa_proceso.current_year)) + "";
             mapa_proceso.createForm(data, mode, defaultData);
 
         }
@@ -119,9 +129,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
     mapa_proceso.cleanFields = function (){
         mapa_proceso.nombre = "";
         mapa_proceso.descripcion = "";
-        mapa_proceso.fecha_inicio = "";
-        mapa_proceso.fecha_fin = "";
-        mapa_proceso.range_date = "";
+        mapa_proceso.ano = "[NULL]";
         mapa_proceso.refresh();
         mapa_proceso.refreshAngular();
     }
@@ -132,8 +140,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
                 BASEAPI.updateall('mapa_proceso', {
                     nombre: mapa_proceso.nombre ? mapa_proceso.nombre : "$null",
                     descripcion: mapa_proceso.descripcion ? mapa_proceso.descripcion : "$null",
-                    fecha_inicio: mapa_proceso.fecha_inicio ? moment(mapa_proceso.fecha_inicio).format("YYYY-MM-DD") : "$null",
-                    fecha_fin: mapa_proceso.fecha_fin ? moment(mapa_proceso.fecha_fin).format("YYYY-MM-DD") : "$null",
+                    ano: mapa_proceso.ano ?  mapa_proceso.ano  : "$null",
                     estatus: mapa_proceso.estatus ? mapa_proceso.estatus : 1,
                     compania: mapa_proceso.session.compania_id ? mapa_proceso.session.compania_id : "$null",
                     institucion: mapa_proceso.session.institucion_id ? mapa_proceso.session.institucion_id : "$null",
@@ -180,14 +187,13 @@ Gracias.`;
                     mapa_proceso.cleanFields();
                     mapa_proceso.getMapa()
                 });
-            },["nombre", "fecha_inicio", 'estatus', "range_date"]);
+            },["nombre", "ano", 'estatus']);
         }else {
             VALIDATION.save(mapa_proceso, async function () {
                 BASEAPI.insertID('mapa_proceso', {
                     nombre: mapa_proceso.nombre,
                     descripcion: mapa_proceso.descripcion ? mapa_proceso.descripcion : "$null",
-                    fecha_inicio: mapa_proceso.fecha_inicio ? moment(mapa_proceso.fecha_inicio).format("YYYY-MM-DD") : "$null",
-                    fecha_fin: mapa_proceso.fecha_fin ? moment(mapa_proceso.fecha_fin).format("YYYY-MM-DD") : "$null",
+                    ano: mapa_proceso.ano ?  mapa_proceso.ano  : "$null",
                     estatus: 1,
                     compania: mapa_proceso.session.compania_id ? mapa_proceso.session.compania_id : "$null",
                     institucion: mapa_proceso.session.institucion_id ? mapa_proceso.session.institucion_id : "$null",
@@ -222,19 +228,13 @@ Gracias.`;
                             mapa_proceso.id = auditoriaData.id;
                             mapa_proceso.nombre = auditoriaData.nombre;
                             mapa_proceso.descripcion = auditoriaData.descripcion;
-                            mapa_proceso.fecha_inicio = auditoriaData.fecha_inicio;
-                            mapa_proceso.fecha_fin = auditoriaData.fecha_fin;
-                            mapa_proceso.range_date = auditoriaData.fecha_inicio ? LAN.date(auditoriaData.fecha_inicio) + " - " + LAN.date(auditoriaData.fecha_fin) : "";
+                            mapa_proceso.ano = auditoriaData.ano + "";
+                            mapa_proceso.ano_view = auditoriaData.ano + "";
                             mapa_proceso.estatus = auditoriaData.estatus + '';
                             mapa_proceso.current_estatus = auditoriaData.estatus;
                             mapa_proceso.estatus_nombre = auditoriaData.estatus_nombre;
                             mapa_proceso.compania = auditoriaData.compania;
                             mapa_proceso.institucion = auditoriaData.institucion;
-                            if (auditoriaData.estatus ==3){
-                                mapa_proceso.form.options.fecha_fin.disabled =true;
-                                mapa_proceso.form.options.fecha_inicio.disabled =true;
-                                mapa_proceso.refreshAngular();
-                            }
                             SWEETALERT.show({message: "Mapa de Proceso ha sido Creado"});
                             mapa_proceso.getMapa()
                             mapa_proceso.form.loadDropDown('estatus')
@@ -247,7 +247,7 @@ Gracias.`;
                         mapa_proceso.refreshAngular();
                     }
                 });
-            },["nombre", "fecha_inicio", 'estatus', "range_date"]);
+            },["nombre", "ano", 'estatus']);
         }
     }
     mapa_proceso.cancelar = function (){
@@ -305,6 +305,7 @@ select nombre, descripcion, (select id from procesos where herencia=procesos_ele
     };
     mapa_proceso.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        data.inserting.ano = mapa_proceso.ano;
         data.inserting.estatus = 1;
         resolve(true);
     });

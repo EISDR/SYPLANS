@@ -28,11 +28,31 @@
                                 <div class='col-sm-4 col-md-4'  ng-if="<%= scope%>.current_estatus != 3">
                                     <%- FORM.input('nombre', scope, {}) %>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
-                                    <%- FORM.daterange("range_date", scope, {
-                                        from: "fecha_inicio",
-                                        to: "fecha_fin",
-                                    }) %>
+                                <div class="col-sm-12 col-md-4 form-group-material form-group has-feedback  has-{{<%= scope %>.validate['ano'].type || <%= scope %>.defaultColor }}  has-feedback-left"
+                                     ng-if="<%= scope %>.current_estatus != 3">
+                                    <label class="control-label is-visible" style="color: black">Año</label>
+                                    <select ng-model="<%= scope %>.ano" name="ano" id="ano"
+                                            class="form-control">
+                                        <option value="[NULL]">Seleccione</option>
+                                        <option ng-repeat="value in <%= scope %>.lista_ano"
+                                                ng-show="value >= <%= scope %>.current_year "
+                                                value="{{value}}">{{value}}
+                                        </option>
+                                    </select>
+                                    <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                                        <i class="icon-archive text-secundary">
+                                        </i>
+                                    </div>
+                                    <span ng-if="<%= scope %>.validate['ano'].messages.length > 0"
+                                          class="help-block">
+                                                    <p class="text-{{validation.type}}"
+                                                       ng-repeat="(key,validation) in <%= scope %>.validate['ano'].messages track by key">
+                                                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                                                    </p>
+                                                </span>
+                                </div>
+                                <div class="col-sm-12 col-md-4" ng-if="<%= scope %>.current_estatus == 3">
+                                    <%- FORM.inputview('ano_view', scope, {placeholder: "Año"}) %>
                                 </div>
                                 <div class='col-sm-4 col-md-4 focus-field-group'>
                                     <%- FORM.select('estatus', scope, {
