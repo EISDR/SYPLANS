@@ -43,7 +43,7 @@
                     table: "vw_drp_auditoria_relacionada",
                     icon: {class: "archive"},
                     truelabel: "Auditoría Relacionada",
-                    condition: "( (item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ( item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No') ) || item.id == auditoria_programa_plan.auditoria_relacionada",
+                    condition: "( (item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ( item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No') && item.auditoria_programa == auditoria_programa.id ) || item.id == auditoria_programa_plan.auditoria_relacionada",
                 }) %>
             </div>
             <div class='col-sm-3 col-md-3' ng-if="auditoria_programa_plan.session.institucion && auditoria_programa_plan.show_drp_down">
@@ -57,7 +57,7 @@
                     table: "vw_drp_auditoria_relacionada",
                     icon: {class: "archive"},
                     truelabel: "Auditoría Relacionada",
-                    condition:  "((item.institucion == auditoria_programa_plan.session.institucion_id && item.id  ) && (item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No')) || item.id == auditoria_programa_plan.auditoria_relacionada",
+                    condition:  "((item.institucion == auditoria_programa_plan.session.institucion_id && item.id  ) && (item.inconformidades == 'Si' && item.asoc_audit_terminada == 'No') && item.auditoria_programa == auditoria_programa.id ) || item.id == auditoria_programa_plan.auditoria_relacionada",
                 }) %>
             </div>
             <div class='col-sm-3 col-md-3 focus-field-group'>
