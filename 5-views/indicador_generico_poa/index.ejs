@@ -193,7 +193,18 @@
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
-                                    <%- FORM.inputview("departamento_nombre", scope, {placeholder: "Departamento"}) %>
+                                    <%- FORM.select("departamento_nombre", scope, {
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        disabled: true,
+                                        text: "item.nombre",
+                                        table: "departamento",
+                                        icon: {class: "archive"},
+                                        label: "Departamento",
+                                    }) %>
                                 </div>
                             </div>
 

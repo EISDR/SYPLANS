@@ -553,7 +553,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
 
         if (indicador_generico_poa.form.selected('producto') !== null) {
             indicador_generico_poa.form.producto_id = indicador_generico_poa.form.selected('producto').id;
-            indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('producto').departamento_nombre;
+            indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('producto').departamento + "";
             indicador_generico_poa.range_date = LAN.date(indicador_generico_poa.form.selected('producto').fecha_inicio) + " - " + LAN.date(indicador_generico_poa.form.selected('producto').fecha_fin);
             indicador_generico_poa.ver_estado = indicador_generico_poa.form.selected('producto').estatus;
             indicador_generico_poa.ano = indicador_generico_poa.form.selected('producto').ano;
@@ -587,7 +587,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
 
         if (indicador_generico_poa.form.selected('producto') !== null) {
             indicador_generico_poa.form.producto_id = indicador_generico_poa.form.selected('producto').id;
-            indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('producto').departamento_nombre;
+            indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('producto').departamento + "";
             indicador_generico_poa.range_date = LAN.date(indicador_generico_poa.form.selected('producto').fecha_inicio) + " - " + LAN.date(indicador_generico_poa.form.selected('producto').fecha_fin);
             indicador_generico_poa.ver_estado = indicador_generico_poa.form.selected('producto').estatus;
         } else {
@@ -667,7 +667,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                     if (indicador_generico_poa.form.selected('indicador_generico') !== null) {
                         indicador_generico_poa.ver_estado = indicador_generico_poa.form.selected('indicador_generico').estatus;
                         indicador_generico_poa.descripcion = indicador_generico_poa.form.selected('indicador_generico').descripcion;
-                        indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('indicador_generico').departamento_nombre;
+                        indicador_generico_poa.departamento_nombre = indicador_generico_poa.form.selected('indicador_generico').departamento + "";
                         indicador_generico_poa.fuente = indicador_generico_poa.form.selected('indicador_generico').fuente;
                         indicador_generico_poa.medio_verificacion = indicador_generico_poa.form.selected('indicador_generico').medio_verificacion;
                         indicador_generico_poa.linea_base = indicador_generico_poa.form.selected('indicador_generico').linea_base;
