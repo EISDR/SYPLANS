@@ -91,7 +91,8 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
             solicitud_documento.form.readonly = {
                 solicitante: solicitud_documento.session.id,
                 compania: solicitud_documento.session.compania_id,
-                institucion: solicitud_documento.session.institucion_id
+                institucion: solicitud_documento.session.institucion_id,
+                mapa_proceso: solicitud_documento.mapa_id
             };
             solicitud_documento.createForm(data, mode, defaultData);
             solicitud_documento.form.titles = {
@@ -579,6 +580,7 @@ Gracias.`;
                             institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
                             solicitante: solicitud_documento.session.usuario_id,
                             documentos_asociados: solicitud_documento.documentos_asociados ? solicitud_documento.documentos_asociados : "$null",
+                            mapa_proceso: solicitud_documento.mapa_id ? solicitud_documento.mapa_id : "$null",
                             estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
                         }, "", "", async function (result) {
                             SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
@@ -757,6 +759,7 @@ Gracias.`;
                     institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
                     solicitante: solicitud_documento.session.usuario_id,
                     documentos_asociados: solicitud_documento.documentos_asociados != "[NULL]" && solicitud_documento.documentos_asociados != 'null' ? solicitud_documento.documentos_asociados : "$null",
+                    mapa_proceso: solicitud_documento.mapa_id ? solicitud_documento.mapa_id : "$null",
                     estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
                 }, "", "", async function (result) {
                     SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});

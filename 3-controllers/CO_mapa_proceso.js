@@ -285,7 +285,7 @@ select nombre,descripcion,compania,institucion,(select max(r.id) from mapa_proce
 update mapa_proceso set estatus = 4 where id = ${mapa_proceso.id};
 insert into procesos(nombre, descripcion,procesos_categoria,objetivo,alcance,responsable,recursos,active,estatus,mapa_proceso,herencia)
 
-select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,${mapa_proceso.id},id from procesos where mapa_proceso=${mapa_proceso.id} and estatus not in (4,5);
+select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,(select max(id) from mapa_proceso),id from procesos where mapa_proceso=${mapa_proceso.id} and estatus not in (4,5);
 
 insert into documentos_asociados(codigo,nombre, descripcion,proceso, procesos_categoria, observacion, tipo_documento, estatus, active, objetivo, alcance, marco_legal, resultado_esperado, trabaja_marco_legal)
 
@@ -294,6 +294,14 @@ select codigo, nombre, descripcion,  (select id from procesos where herencia=doc
 insert into procesos_elemento(nombre, descripcion,proceso, funcion)
 
 select nombre, descripcion, (select id from procesos where herencia=procesos_elemento.proceso limit 1), funcion from procesos_elemento where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id});
+
+insert into indicador_generico(table_, registro, nombre, descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion,periodo,indicador_pei,ano_linea_base,caracteristica,desagregacion_demografica_geografia,observacion,compania,institucion,poa,indicador_generico_entidad,poa_monitoreo,edt,ano,departamento,herencia)
+
+select table_, (select id from procesos where herencia=indicador_generico.registro limit 1),nombre,descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion,periodo,indicador_pei,ano_linea_base,caracteristica,desagregacion_demografica_geografia,observacion,compania,institucion,poa,indicador_generico_entidad,poa_monitoreo,edt,ano,departamento,id from indicador_generico where registro in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and table_=10;
+
+insert into indicador_generico_periodo(periodo, valor,indicador_generico)
+
+select periodo, valor, (select id from indicador_generico where herencia=indicador_generico_periodo.indicador_generico limit 1) from indicador_generico_periodo where indicador_generico in (select id from indicador_generico where registro in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and table_=10);
 
 `;
 

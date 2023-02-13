@@ -20,7 +20,7 @@
                     table: url.split('query=')[1].replaceAll('RF',''),
                     icon: {class: "archive"},
                     label: "Registro",
-                    condition: "(item.mapa_proceso == indicador_generico.mapa_id)"
+                    condition: "(item.mapa_proceso == indicador_generico.mapa_id && item.estatus_id != 4)"
                 }) %>
             </div>
             <div class="col-sm-6 col-md-6 " id="registrodiv" ng-show="indicador_generico.entidad !=='vw_evento_indicador' && indicador_generico.entidad !=='vw_procesos'">
