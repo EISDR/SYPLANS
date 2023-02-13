@@ -222,7 +222,7 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(solicitud_documento, 'codigo_documento', rules);
             });
-            if (solicitud_documento.caracteristica == ENUM_2.Grupos.analista_de_calidad || solicitud_documento.caracteristica == ENUM_2.Grupos.supervisor_de_calidad) {
+            if (solicitud_documento.caracteristica == ENUM_2.Grupos.analista_de_calidad || solicitud_documento.caracteristica == ENUM_2.Grupos.supervisor_de_calidad || (solicitud_documento.caracteristica == ENUM_2.Grupos.director_general && solicitud_documento.my_true_estatus == 2)) {
                 $scope.$watch("solicitud_documento.proceso_categoria", function (value) {
                     var rules = [];
                     //rules here
