@@ -133,6 +133,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
             informepreliminar: 0,
             finalizadas: 0,
             cerradas: 0,
+            canceladas: 0
         };
         BASEAPI.listp('vw_dashboard_plan_auditoria_proceso', {
             limit: 0,
@@ -164,6 +165,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
             dashboard_proceso.planes.informepreliminar = 0;
             dashboard_proceso.planes.finalizadas = 0;
             dashboard_proceso.planes.cerradas = 0;
+            dashboard_proceso.planes.canceladas = 0;
             if (dashboard_proceso.listplanes.data) {
                 if (dashboard_proceso.listplanes.data.length > 0) {
                     for (var pr = 0; pr < dashboard_proceso.listplanes.data.length; pr++) {
@@ -175,6 +177,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                         dashboard_proceso.planes.informepreliminar += parseInt(dashboard_proceso.listplanes.data[pr].informepreliminar) || 0;
                         dashboard_proceso.planes.finalizadas += parseInt(dashboard_proceso.listplanes.data[pr].finalizadas) || 0;
                         dashboard_proceso.planes.cerradas += parseInt(dashboard_proceso.listplanes.data[pr].cerradas) || 0;
+                        dashboard_proceso.planes.canceladas += parseInt(dashboard_proceso.listplanes.data[pr].canceladas) || 0;
                         dashboard_proceso.planes.cantidad += parseInt(dashboard_proceso.listplanes.data[pr].cantidad) || 0;
                     }
 
@@ -183,14 +186,14 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                         if (i !== 'cantidad')
                             dashboard_proceso.array_planes.push(
                                 {
-                                    name: i == 'preplanificacion' ? dashboard_proceso.nombre_estatus_plan[0].nombre : i == 'autorizadas' ? dashboard_proceso.nombre_estatus_plan[2].nombre : i == 'recoleccionfinalizadas' ? dashboard_proceso.nombre_estatus_plan[5].nombre : i == 'informepreliminar' ? dashboard_proceso.nombre_estatus_plan[6].nombre : i == 'enproceso' ? dashboard_proceso.nombre_estatus_plan[3].nombre : i == "planificadas" ? dashboard_proceso.nombre_estatus_plan[1].nombre : i == "finalizadas" ? dashboard_proceso.nombre_estatus_plan[4].nombre : i == "cerradas" ? dashboard_proceso.nombre_estatus_plan[7].nombre : "????",
+                                    name: i == 'preplanificacion' ? dashboard_proceso.nombre_estatus_plan[0].nombre : i == 'autorizadas' ? dashboard_proceso.nombre_estatus_plan[2].nombre : i == 'recoleccionfinalizadas' ? dashboard_proceso.nombre_estatus_plan[5].nombre : i == 'informepreliminar' ? dashboard_proceso.nombre_estatus_plan[6].nombre : i == 'enproceso' ? dashboard_proceso.nombre_estatus_plan[3].nombre : i == "planificadas" ? dashboard_proceso.nombre_estatus_plan[1].nombre : i == "finalizadas" ? dashboard_proceso.nombre_estatus_plan[4].nombre : i == "cerradas" ? dashboard_proceso.nombre_estatus_plan[7].nombre : i == "canceladas" ? dashboard_proceso.nombre_estatus_plan[8].nombre : "????",
                                     value: LAN.money(dashboard_proceso.planes[i]).value,
                                     percent: dashboard_proceso.planes.cantidad > 0 ? Math.round((LAN.money(dashboard_proceso.planes[i]).value / LAN.money(dashboard_proceso.planes.cantidad).value) * 100) + '%' : '0%',
                                     total: LAN.money(dashboard_proceso.planes.cantidad).value,
-                                    icon: i == 'informepreliminar' ? 'icon-certificate' : i == 'recoleccionfinalizadas' ? 'icon-stack-check' : i == 'finalizadas' ? 'icon-checkmark4' : i == 'preplanificacion' ? 'icon-strategy' : i == 'planificadas' ? 'icon-arrow-right16' : i == 'autorizadas' ? 'icon-clipboard2' : i == 'enproceso' ? ' icon-cogs' : i == 'cerradas' ? ' icon-switch' : 'icon-question3',
-                                    color: i == 'informepreliminar' ? '#6a46e0' : i == 'recoleccionfinalizadas' ? '#543070' : i == 'finalizadas' ? '#4451DB' : i == 'preplanificacion' ? '#5F5FAF' : i == 'planificadas' ? '#84a379' : i == 'autorizadas' ? '#548235' : i == 'enproceso' ? '#6b4d82' : i == 'cerradas' ? '#4613ed' : '#CCCCCC',
-                                    order: i == 'informepreliminar' ? '6' : i == 'recoleccionfinalizadas' ? '5' : i == 'finalizadas' ? '7' : i == 'preplanificacion' ? '1' : i == 'planificadas' ? '2' : i == 'autorizadas' ? '3' : i == 'enproceso' ? '4' : i == 'cerradas' ? '8' : '9',
-                                    light_color: i == 'informepreliminar' ? '#7c65c9' : i == 'recoleccionfinalizadas' ? '#995ccc' : i == 'finalizadas' ? '#7784FF' : i == 'preplanificacion' ? '#9292E2' : i == 'planificadas' ? '#a4de90' : i == 'autorizadas' ? '#87B568' : i == 'enproceso' ? '#a87dc9' : i == 'cerradas' ? '#7373ff' : '#CCCCCC',
+                                    icon: i == 'informepreliminar' ? 'icon-certificate' : i == 'recoleccionfinalizadas' ? 'icon-stack-check' : i == 'finalizadas' ? 'icon-checkmark4' : i == 'preplanificacion' ? 'icon-strategy' : i == 'planificadas' ? 'icon-arrow-right16' : i == 'autorizadas' ? 'icon-clipboard2' : i == 'enproceso' ? ' icon-cogs' : i == 'cerradas' ? ' icon-switch' : i == 'canceladas' ? ' icon-blocked' : 'icon-question3',
+                                    color: i == 'informepreliminar' ? '#6a46e0' : i == 'recoleccionfinalizadas' ? '#543070' : i == 'finalizadas' ? '#4451DB' : i == 'preplanificacion' ? '#5F5FAF' : i == 'planificadas' ? '#84a379' : i == 'autorizadas' ? '#548235' : i == 'enproceso' ? '#6b4d82' : i == 'cerradas' ? '#4613ed' : i == 'canceladas' ? '#f73434' : '#CCCCCC',
+                                    order: i == 'informepreliminar' ? '6' : i == 'recoleccionfinalizadas' ? '5' : i == 'finalizadas' ? '7' : i == 'preplanificacion' ? '1' : i == 'planificadas' ? '2' : i == 'autorizadas' ? '3' : i == 'enproceso' ? '4' : i == 'cerradas' ? '8' : i== 'canceladas' ? '9' : '10',
+                                    light_color: i == 'informepreliminar' ? '#7c65c9' : i == 'recoleccionfinalizadas' ? '#995ccc' : i == 'finalizadas' ? '#7784FF' : i == 'preplanificacion' ? '#9292E2' : i == 'planificadas' ? '#a4de90' : i == 'autorizadas' ? '#87B568' : i == 'enproceso' ? '#a87dc9' : i == 'cerradas' ? '#7373ff' : i == 'canceladas' ? '#fc7979' : '#CCCCCC',
                                     font_color: 'white',
                                     title: "Hacer clic para ver detalle"
                                 }
