@@ -8,7 +8,7 @@ app.controller("vw_indicador_generico_v2", function ($scope, $http, $compile) {
     //}];
     //vw_indicador_generico_v2.singular = "singular";
     //vw_indicador_generico_v2.plural = "plural";
-    //vw_indicador_generico_v2.headertitle = "Hola Title";
+    vw_indicador_generico_v2.headertitle = "Indicadores de Proceso";
     //vw_indicador_generico_v2.destroyForm = false;
     //vw_indicador_generico_v2.permissionTable = "tabletopermission";
     RUNCONTROLLER("vw_indicador_generico_v2", vw_indicador_generico_v2, $scope, $http, $compile);
