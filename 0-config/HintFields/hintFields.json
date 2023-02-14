@@ -2164,6 +2164,241 @@
       "displayName": "Comentario"
     },
     {
+      "entity": "solicitud_proceso",
+      "fieldName": "tipo_accion",
+      "displayName": "Tipo de Acción"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "nombre",
+      "displayName": "Nombre de la Solicitud"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "nombre_solicitante",
+      "displayName": "Nombre del Solicitante"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "departamento_solicitante",
+      "displayName": "Departamento del Solicitante"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "fecha_solicitante",
+      "displayName": "Fecha de la Solicitud"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mapa_proceso",
+      "displayName": "(Creación) Mapa de Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "proceso_categoria",
+      "displayName": "(Creación) Macroproceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "responsable",
+      "displayName": "(Creación) Responsable"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "nombre_proceso",
+      "displayName": "(Creación) Nombre del Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "objetivo",
+      "displayName": "(Creación) Objetivo"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "recursos",
+      "displayName": "(Creación) Recursos(Humanos, Tecnológicos, etc)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "alcance",
+      "displayName": "(Creación) Alcance"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "proceso",
+      "displayName": "(Modificación y Eliminación) Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_mapa_proceso",
+      "displayName": "(Modificación) Mapa de Proceso (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_proceso_categoria",
+      "displayName": "(Modificación) MacroProceso (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_responsable",
+      "displayName": "(Modificación) Responsable (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_estatus",
+      "displayName": "(Modificación) Estatus del Proceso (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_nombre",
+      "displayName": "(Modificación) Nombre del Proceso (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_alcance",
+      "displayName": "(Modificación) Alcance (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_objetivo",
+      "displayName": "(Modificación) Objetivo (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "mod_pro_recursos",
+      "displayName": "(Modificación) Recursos (Humanos, Tecnológicos, etc) (Vista)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_mapa_proceso",
+      "displayName": "(Modificación) Mapa de Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_proceso_categoria",
+      "displayName": "(Modificación) MacroProceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_responsable",
+      "displayName": "(Modificación) Responsable"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_nombre",
+      "displayName": "(Modificación) Nombre del Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_alcance",
+      "displayName": "(Modificación) Alcance"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_objetivo",
+      "displayName": "(Modificación) Objetivo"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "edit_pro_recursos",
+      "displayName": "(Modificación) Recursos (Humanos, Tecnológicos, etc)"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_mapa_proceso",
+      "displayName": "(Eliminación) Mapa de Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_proceso_categoria",
+      "displayName": "(Eliminación) MacroProceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_responsable",
+      "displayName": "(Eliminación) Responsable"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_estatus",
+      "displayName": "(Eliminación) Estatus del Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_nombre",
+      "displayName": "(Eliminación) Nombre del Proceso"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_alcance",
+      "displayName": "(Eliminación) Alcance"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_objetivo",
+      "displayName": "(Eliminación) Objetivo"
+    },
+    {
+      "entity": "solicitud_proceso",
+      "fieldName": "delete_pro_recursos",
+      "displayName": "(Eliminación) Recursos (Humanos, Tecnológicos, etc)"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "mapa_proceso",
+      "displayName": "Mapa de Proceso"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "proceso_categoria",
+      "displayName": "MacroProceso"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "objetivo",
+      "displayName": "Objetivo"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "recursos",
+      "displayName": "Recursos (Humanos, Tecnológicos, etc)"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "alcance",
+      "displayName": "Alcance"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "proceso_estructura",
+      "displayName": "Normativas ISO 9001"
+    },
+    {
       "entity": "vw_auditoria_programa",
       "fieldName": "ano_planificacion",
       "displayName": "Año de Planificación"
@@ -2205,6 +2440,11 @@
     },
     {
       "entity": "auditoria_programa_plan",
+      "fieldName": "auditoria_relacionada",
+      "displayName": "Auditoría Relacionada"
+    },
+    {
+      "entity": "auditoria_programa_plan",
       "fieldName": "estatus",
       "displayName": "Estatus"
     },
@@ -2215,23 +2455,33 @@
     },
     {
       "entity": "auditoria_programa_plan",
+      "fieldName": "criterio",
+      "displayName": "Criterio de Auditoría"
+    },
+    {
+      "entity": "auditoria_programa_plan",
       "fieldName": "alcance",
       "displayName": "Alcance"
     },
     {
       "entity": "auditoria_programa_plan",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "auditoria_programa_plan",
       "fieldName": "auditoria_plan_departamento",
-      "displayName": "Departamentos Involucrados"
+      "displayName": "Departamentos Auditados"
     },
     {
       "entity": "auditoria_programa_plan",
       "fieldName": "auditoria_plan_participantes",
-      "displayName": "Participantes"
+      "displayName": "Participantes Departamentales"
     },
     {
       "entity": "auditoria_programa_plan",
       "fieldName": "auditoria_plan_responsable",
-      "displayName": "Auditores"
+      "displayName": "Auditores Participantes"
     },
     {
       "entity": "auditoria_programa_plan",
@@ -2241,7 +2491,7 @@
     {
       "entity": "auditoria_programa_plan",
       "fieldName": "auditoria_plan_documentos_asociados",
-      "displayName": "Documentos Asociados"
+      "displayName": "Documentos a Auditar"
     },
     {
       "entity": "auditoria_programa_plan",

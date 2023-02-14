@@ -490,49 +490,59 @@
       "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Estrategias de Tratamientos"
     },
     {
+      "id": "88",
+      "controllerName": "solicitud_proceso",
+      "displayName": "(Gestión de Procesos) Solicitud de Procesos"
+    },
+    {
+      "id": "89",
+      "controllerName": "procesos",
+      "displayName": "(Gestión de Procesos) Creación de Procesos"
+    },
+    {
       "id": "79",
       "controllerName": "vw_auditoria_programa",
-      "displayName": "(Gestión de Calidad) Programa de Auditoría"
+      "displayName": "(Gestión de Auditoría) Programa de Auditoría"
     },
     {
       "id": "80",
       "controllerName": "auditoria_programa_plan",
-      "displayName": "(Gestión de Calidad) Plan de Auditoría"
+      "displayName": "(Gestión de Auditoría) Plan de Auditoría"
     },
     {
       "id": "81",
       "controllerName": "vw_correctiva",
-      "displayName": "(Gestión de Calidad) Plan de Acción - Acciones Preventivas y Correctivas"
+      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Preventivas y Correctivas"
     },
     {
       "id": "86",
       "controllerName": "auditoria_lista_preventiva",
-      "displayName": "(Gestión de Calidad) Plan de Acción - Acciones Preventivas"
+      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Preventivas"
     },
     {
       "id": "87",
       "controllerName": "auditoria_lista_correctiva",
-      "displayName": "(Gestión de Calidad) Plan de Acción - Acciones Correctivas"
+      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Correctivas"
     },
     {
       "id": "82",
       "controllerName": "tipo_auditorias",
-      "displayName": "(Gestión de Calidad) Tipos de Auditorías"
+      "displayName": "(Gestión de Auditoría) Tipos de Auditorías"
     },
     {
       "id": "83",
       "controllerName": "tipo_auditores",
-      "displayName": "(Gestión de Calidad) Tipos de Auditores"
+      "displayName": "(Gestión de Auditoría) Tipos de Auditores"
     },
     {
       "id": "84",
       "controllerName": "tipo_rol_auditores",
-      "displayName": "(Gestión de Calidad) Rol de Auditores"
+      "displayName": "(Gestión de Auditoría) Rol de Auditores"
     },
     {
       "id": "85",
       "controllerName": "tipo_inconformidad",
-      "displayName": "(Gestión de Calidad) Tipos de inconformidad"
+      "displayName": "(Gestión de Auditoría) Tipos de inconformidad"
     }
   ],
   "fileType_general": {
