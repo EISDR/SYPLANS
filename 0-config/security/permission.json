@@ -719,9 +719,48 @@
         }
       },
       "resumen_pei": {
-        "type": "report",
+        "type": "empty",
         "allow": {
-          "audit": false
+          "audit": false,
+          "export": false,
+          "import": false,
+          "see_matriz_pei": true
+        }
+      },
+      "resumen_indicador_pei": {
+        "type": "empty",
+        "allow": {
+          "audit": false,
+          "export": false,
+          "import": false,
+          "see_indicador_pei": true
+        }
+      },
+      "resumen_poa": {
+        "type": "empty",
+        "allow": {
+          "audit": false,
+          "export": false,
+          "import": false,
+          "see_matriz_poa": true
+        }
+      },
+      "resumen_indicador_poa": {
+        "type": "empty",
+        "allow": {
+          "audit": false,
+          "export": false,
+          "import": false,
+          "see_indicador_poa": true
+        }
+      },
+      "resumen_indicador_actividad": {
+        "type": "empty",
+        "allow": {
+          "audit": false,
+          "export": false,
+          "import": false,
+          "see_indicador_actividad": true
         }
       },
       "resumen_pei_poa": {
@@ -1750,7 +1789,8 @@
       "mapa_proceso": {
         "type": "empty",
         "allow": {
-          "menu": true
+          "menu": true,
+          "actions": true
         }
       },
       "vw_documentos_asociados_pv": {
@@ -2131,6 +2171,22 @@
       "vw_documentos_asociados_view": {
         "type": "empty",
         "allow": {}
+      },
+      "vw_procesos_v2": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "view": true,
+          "audit": true
+        }
+      },
+      "vw_indicador_generico_v2": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "view": true,
+          "audit": true
+        }
       }
     }
   }

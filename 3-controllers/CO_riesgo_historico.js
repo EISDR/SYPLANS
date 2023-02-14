@@ -24,7 +24,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
     //riesgo_historico.singular = "singular";
     //riesgo_historico.plural = "plural";
     riesgo_historico.headertitle = "Gestiones de Riesgo Pasadas";
-    //riesgo_historico.destroyForm = false;
+    riesgo_historico.destroyForm = false;
     //riesgo_historico.permissionTable = "tabletopermission";
     riesgo_historico.current_year = moment().format('YYYY');
     riesgo_historico.entidad = window.location.href.split('?')[1] || "amfe";

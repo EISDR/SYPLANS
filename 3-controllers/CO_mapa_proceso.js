@@ -19,7 +19,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
     //mapa_proceso.singular = "singular";
     //mapa_proceso.plural = "plural";
     mapa_proceso.headertitle = "Mapas de procesos Anteriores";
-    //mapa_proceso.destroyForm = false;
+    mapa_proceso.destroyForm = false;
     //mapa_proceso.permissionTable = "tabletopermission";
     mapa_proceso.current_year = moment().format('YYYY');
     var do_me_once = false;

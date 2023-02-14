@@ -1,0 +1,90 @@
+<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<script>
+    vw_documentos_asociados.fixFilters = [{
+        "field": "proceso",
+        "value": vw_procesos_v2.dataForView.id
+    }];
+    vw_procesos_elemento.fixFilters = [{
+        "field": "proceso",
+        "value": vw_procesos_v2.dataForView.id
+    }];
+    vw_indicador_generico_v2.fixFilters = [{
+        "field": "registro",
+        "value": vw_procesos_v2.dataForView.id
+    }];
+</script>
+<div><br></div>
+<div class="panel panel-flat" id="tabsViews">
+    <div class="subcontent" style="padding: 0;">
+        <div id="elementos_proceso">
+            <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified"
+                dragonlanguage="">
+                <li class="active" id="elementos_procesos_tab">
+                    <a href="#elementos_procesos" data-toggle="tab">
+                        <i class="position-left"></i>
+                        Elementos del Proceso
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="" id="documentos_asociados_tab">
+                    <a href="#documentos_asociados" data-toggle="tab">
+                        <i class="position-left"></i>
+                        Documentos Asociados
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+                <li class="" id="indicadores_proceso_tab">
+                    <a href="#indicadores_proceso" data-toggle="tab">
+                        <i class="position-left"></i>
+                        Indicadores de Proceso
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="elementos_procesos">
+                    <div class="active">
+                        <div class="table table-togglable table-framed">
+                            <div id="vw_documentos_asociados " ng-controller="vw_procesos_elemento as vw_procesos_elemento">
+                                <div class="panel panel-flat">
+                                    <%- include('../../7-plugins/templates/table/header',{scope:'vw_procesos_elemento'}); %>
+                                    <div class="subcontent">
+                                        <%- include('../../7-plugins/templates/table/base',{scope:'vw_procesos_elemento'}); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="documentos_asociados">
+                    <div class="">
+                        <div class="table table-togglable table-framed">
+                            <div id="vw_documentos_asociados " ng-controller="vw_documentos_asociados as vw_documentos_asociados">
+                                <div class="panel panel-flat">
+                                    <%- include('../../7-plugins/templates/table/header',{scope:'vw_documentos_asociados'}); %>
+                                    <div class="subcontent">
+                                        <%- include('../../5-views/documentos_asociados/base',{scope:'vw_documentos_asociados'}); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="indicadores_proceso">
+                    <div class="">
+                        <div class="table table-togglable table-framed">
+                            <div id="vw_indicador_generico_v2 " ng-controller="vw_indicador_generico_v2 as vw_indicador_generico_v2">
+                                <div class="panel panel-flat">
+                                    <%- include('../../7-plugins/templates/table/header',{scope:'vw_indicador_generico_v2'}); %>
+                                    <div class="subcontent">
+                                        <%- include('../../5-views/documentos_asociados/base',{scope:'vw_indicador_generico_v2'}); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

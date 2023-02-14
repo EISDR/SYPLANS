@@ -188,5 +188,9 @@
   "punto_verificacion":"Puntos de Verificación",
   "cumple":"¿Cumple?",
   "observaciones":"Observaciones",
-  "comentfinal":"Comentario final de la auditoría"
+  "comentfinal":"Comentario final de la auditoría",
+  "vw_procesos_v2_plural":"Procesos",
+  "vw_procesos_v2":"Procesos",
+  "vw_indicador_generico_v2_plural":"Indicadores de Procesos",
+  "vw_indicador_generico_v2":"Indicador de Proceso"
 }
