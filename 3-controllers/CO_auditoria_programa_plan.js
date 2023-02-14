@@ -31,6 +31,10 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                             {
                                 "field": "estatus_nombre",
                                 "value": dashboard_proceso.Mplanes
+                            },
+                            {
+                                field: "mapa_proceso",
+                                value: dashboard_proceso.mapa_id
                             }
                         ];
                         if (dashboard_proceso.session.institucion) {
