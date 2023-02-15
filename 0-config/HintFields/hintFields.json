@@ -2399,6 +2399,281 @@
       "displayName": "Normativas ISO 9001"
     },
     {
+      "entity": "solicitud_documento",
+      "fieldName": "tipo_accion",
+      "displayName": "Tipo de Acción"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "nombre",
+      "displayName": "Nombre de la Solicitud"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "descripcion",
+      "displayName": "Descripción de la Solicitud"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "nombre_solicitante",
+      "displayName": "Nombre del Solicitante"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "departamento_solicitante",
+      "displayName": "Departamento del Solicitante"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "fecha_solicitante",
+      "displayName": "Fecha de la Solicitud"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "proceso_categoria",
+      "displayName": "(Creación) Macroproceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "proceso",
+      "displayName": "(Creación) Proceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "tipo_documento",
+      "displayName": "(Creación) Tipo de Documento a solicitar"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "solicitud_documento_area",
+      "displayName": "(Creación) Áreas Involucradas"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "codigo_documento",
+      "displayName": "(Creación) Código del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "nombre_documento",
+      "displayName": "(Creación) Nombre del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "trabaja_marco_legal",
+      "displayName": "(Creación) ¿Maneja Marco Legal?"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "marco_legal",
+      "displayName": "(Creación) Marco Legal"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "alcance",
+      "displayName": "(Creación) Alcance"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "objetivo",
+      "displayName": "(Creación) Objetivo"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "resultado_esperado",
+      "displayName": "(Creación) Resultado Esperado"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "documentos_asociados",
+      "displayName": "(Modificación y Eliminación) Documento Asociado"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_proceso_categoria",
+      "displayName": "(Modificación) MacroProceso (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_proceso",
+      "displayName": "(Modificación) Proceso (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_tipo_documento",
+      "displayName": "(Modificación) Tipo de Documento a solicitar (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_estatus",
+      "displayName": "(Modificación) Estatus del Documento (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_codigo",
+      "displayName": "(Modificación) Código del Documento (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_nombre",
+      "displayName": "(Modificación) Nombre del Documento (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_trabaja_marco_legal",
+      "displayName": "(Modificación) ¿Maneja Marco Legal? (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_marco_legal",
+      "displayName": "(Modificación) Marco Legal (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_alcance",
+      "displayName": "(Modificación) Alcance (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_objetivo",
+      "displayName": "(Modificación) Objetivo (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_resultado_esperado",
+      "displayName": "(Modificación) Resultado Esperado (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "mod_doc_descripcion",
+      "displayName": "(Modificación) Descripción (Vista)"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_proceso_categoria",
+      "displayName": "(Modificación) MacroProceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_proceso",
+      "displayName": "(Modificación) Proceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_tipo_documento",
+      "displayName": "(Modificación) Tipo de Documento a solicitar"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_estatus",
+      "displayName": "(Modificación) Estatus del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_codigo",
+      "displayName": "(Modificación) Código del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_nombre",
+      "displayName": "(Modificación) Nombre del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_trabaja_marco_legal",
+      "displayName": "(Modificación) ¿Maneja Marco Legal?"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_marco_legal",
+      "displayName": "(Modificación) Marco Legal"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_alcance",
+      "displayName": "(Modificación) Alcance"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_objetivo",
+      "displayName": "(Modificación) Objetivo"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_resultado_esperado",
+      "displayName": "(Modificación) Resultado Esperado"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "edit_doc_descripcion",
+      "displayName": "(Modificación) Descripción"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_proceso_categoria",
+      "displayName": "(Eliminación) MacroProceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_proceso",
+      "displayName": "(Eliminación) Proceso"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_tipo_documento",
+      "displayName": "(Eliminación) Tipo de Documento a solicitar"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_estatus",
+      "displayName": "(Eliminación) Estatus del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_codigo",
+      "displayName": "(Eliminación) Código del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_nombre",
+      "displayName": "(Eliminación) Nombre del Documento"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_trabaja_marco_legal",
+      "displayName": "(Eliminación) ¿Maneja Marco Legal?"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_marco_legal",
+      "displayName": "(Eliminación) Marco Legal"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_alcance",
+      "displayName": "(Eliminación) Alcance"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_objetivo",
+      "displayName": "(Eliminación) Objetivo"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_resultado_esperado",
+      "displayName": "(Eliminación) Resultado Esperado"
+    },
+    {
+      "entity": "solicitud_documento",
+      "fieldName": "delete_doc_descripcion",
+      "displayName": "(Eliminación) Descripción"
+    },
+    {
       "entity": "vw_auditoria_programa",
       "fieldName": "ano_planificacion",
       "displayName": "Año de Planificación"

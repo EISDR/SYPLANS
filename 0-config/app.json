@@ -500,6 +500,16 @@
       "displayName": "(Gestión de Procesos) Creación de Procesos"
     },
     {
+      "id": "90",
+      "controllerName": "solicitud_documento",
+      "displayName": "(Gestión de Documentos) Solicitud de Documentos"
+    },
+    {
+      "id": "91",
+      "controllerName": "documentos_asociados",
+      "displayName": "(Gestión de Documentos) Documentos"
+    },
+    {
       "id": "79",
       "controllerName": "vw_auditoria_programa",
       "displayName": "(Gestión de Auditoría) Programa de Auditoría"
