@@ -1557,4 +1557,8 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     //};
     //$scope.afterDelete = function (data) {
     //};
+    vw_auditoria_lista_correctiva.allow_estatus = function (estatus){
+        let permitidos = [5,8];
+        return permitidos.includes(estatus);
+    }
 });

@@ -32,6 +32,7 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
             informepreliminar: 0,
             finalizadas: 0,
             cerradas: 0,
+            canceladas: 0
         };
         BASEAPI.listp('vw_dashboard_plan_auditoria', {
             limit: 0,
@@ -63,6 +64,7 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
             vw_auditoria_dashboard.planes.informepreliminar = 0;
             vw_auditoria_dashboard.planes.finalizadas = 0;
             vw_auditoria_dashboard.planes.cerradas = 0;
+            vw_auditoria_dashboard.planes.canceladas = 0;
             if (vw_auditoria_dashboard.listplanes.data) {
                 if (vw_auditoria_dashboard.listplanes.data.length > 0) {
                     for (var pr = 0; pr < vw_auditoria_dashboard.listplanes.data.length; pr++) {
@@ -74,6 +76,7 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
                         vw_auditoria_dashboard.planes.informepreliminar += vw_auditoria_dashboard.listplanes.data[pr].informepreliminar;
                         vw_auditoria_dashboard.planes.finalizadas += vw_auditoria_dashboard.listplanes.data[pr].finalizadas;
                         vw_auditoria_dashboard.planes.cerradas += vw_auditoria_dashboard.listplanes.data[pr].cerradas;
+                        vw_auditoria_dashboard.planes.canceladas += vw_auditoria_dashboard.listplanes.data[pr].canceladas;
                         vw_auditoria_dashboard.planes.cantidad += vw_auditoria_dashboard.listplanes.data[pr].cantidad;
                     }
 
@@ -82,14 +85,14 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
                         if (i !== 'cantidad')
                             vw_auditoria_dashboard.array_planes.push(
                                 {
-                                    name: i == 'preplanificacion' ? vw_auditoria_dashboard.nombre_estatus_plan[0].nombre : i == 'autorizadas' ? vw_auditoria_dashboard.nombre_estatus_plan[2].nombre : i == 'recoleccionfinalizadas' ? vw_auditoria_dashboard.nombre_estatus_plan[5].nombre : i == 'informepreliminar' ? vw_auditoria_dashboard.nombre_estatus_plan[6].nombre : i == 'enproceso' ? vw_auditoria_dashboard.nombre_estatus_plan[3].nombre : i == "planificadas" ? vw_auditoria_dashboard.nombre_estatus_plan[1].nombre : i == "finalizadas" ? vw_auditoria_dashboard.nombre_estatus_plan[4].nombre : i == "cerradas" ? vw_auditoria_dashboard.nombre_estatus_plan[7].nombre :"????",
+                                    name: i == 'preplanificacion' ? vw_auditoria_dashboard.nombre_estatus_plan[0].nombre : i == 'autorizadas' ? vw_auditoria_dashboard.nombre_estatus_plan[2].nombre : i == 'recoleccionfinalizadas' ? vw_auditoria_dashboard.nombre_estatus_plan[5].nombre : i == 'informepreliminar' ? vw_auditoria_dashboard.nombre_estatus_plan[6].nombre : i == 'enproceso' ? vw_auditoria_dashboard.nombre_estatus_plan[3].nombre : i == "planificadas" ? vw_auditoria_dashboard.nombre_estatus_plan[1].nombre : i == "finalizadas" ? vw_auditoria_dashboard.nombre_estatus_plan[4].nombre : i == "cerradas" ? vw_auditoria_dashboard.nombre_estatus_plan[7].nombre : i == "canceladas" ? vw_auditoria_dashboard.nombre_estatus_plan[8].nombre : "????",
                                     value: LAN.money(vw_auditoria_dashboard.planes[i]).value,
                                     percent: vw_auditoria_dashboard.planes.cantidad > 0 ? Math.round((LAN.money(vw_auditoria_dashboard.planes[i]).value / LAN.money(vw_auditoria_dashboard.planes.cantidad).value) * 100) + '%' : '0%',
                                     total: LAN.money(vw_auditoria_dashboard.planes.cantidad).value,
-                                    icon:  i == 'informepreliminar' ? 'icon-certificate' : i == 'recoleccionfinalizadas' ? 'icon-stack-check' : i == 'finalizadas' ? 'icon-checkmark4' : i == 'preplanificacion' ? 'icon-strategy' : i == 'planificadas' ? 'icon-arrow-right16' : i == 'autorizadas' ? 'icon-clipboard2' : i == 'enproceso' ? ' icon-cogs' : i == 'cerradas' ? ' icon-switch' : 'icon-question3',
-                                    color: i == 'informepreliminar' ? '#6a46e0' : i == 'recoleccionfinalizadas' ? '#543070' : i == 'finalizadas' ? '#4451DB' : i == 'preplanificacion' ? '#5F5FAF' : i == 'planificadas' ? '#84a379' : i == 'autorizadas' ? '#548235' : i == 'enproceso' ? '#6b4d82' : i == 'cerradas' ? '#4613ed' :'#CCCCCC',
-                                    order: i == 'informepreliminar' ? '6' : i == 'recoleccionfinalizadas' ? '5' : i == 'finalizadas' ? '7' : i == 'preplanificacion' ? '1' : i == 'planificadas' ? '2' : i == 'autorizadas' ? '3' : i == 'enproceso' ? '4' : i == 'cerradas' ? '8' : '9',
-                                    light_color: i == 'informepreliminar' ? '#7c65c9' : i == 'recoleccionfinalizadas' ? '#995ccc' : i == 'finalizadas' ? '#7784FF' : i == 'preplanificacion' ? '#9292E2' : i == 'planificadas' ? '#a4de90' : i == 'autorizadas' ? '#87B568' : i == 'enproceso' ? '#a87dc9' : i == 'cerradas' ? '#7373ff' :  '#CCCCCC',
+                                    icon: i == 'informepreliminar' ? 'icon-certificate' : i == 'recoleccionfinalizadas' ? 'icon-stack-check' : i == 'finalizadas' ? 'icon-checkmark4' : i == 'preplanificacion' ? 'icon-strategy' : i == 'planificadas' ? 'icon-arrow-right16' : i == 'autorizadas' ? 'icon-clipboard2' : i == 'enproceso' ? ' icon-cogs' : i == 'cerradas' ? ' icon-switch' : i == 'canceladas' ? ' icon-blocked' : 'icon-question3',
+                                    color: i == 'informepreliminar' ? '#6a46e0' : i == 'recoleccionfinalizadas' ? '#543070' : i == 'finalizadas' ? '#4451DB' : i == 'preplanificacion' ? '#5F5FAF' : i == 'planificadas' ? '#84a379' : i == 'autorizadas' ? '#548235' : i == 'enproceso' ? '#6b4d82' : i == 'cerradas' ? '#4613ed' : i == 'canceladas' ? '#f73434' : '#CCCCCC',
+                                    order: i == 'informepreliminar' ? '6' : i == 'recoleccionfinalizadas' ? '5' : i == 'finalizadas' ? '7' : i == 'preplanificacion' ? '1' : i == 'planificadas' ? '2' : i == 'autorizadas' ? '3' : i == 'enproceso' ? '4' : i == 'cerradas' ? '8' : i== 'canceladas' ? '9' : '10',
+                                    light_color: i == 'informepreliminar' ? '#7c65c9' : i == 'recoleccionfinalizadas' ? '#995ccc' : i == 'finalizadas' ? '#7784FF' : i == 'preplanificacion' ? '#9292E2' : i == 'planificadas' ? '#a4de90' : i == 'autorizadas' ? '#87B568' : i == 'enproceso' ? '#a87dc9' : i == 'cerradas' ? '#7373ff' : i == 'canceladas' ? '#fc7979' : '#CCCCCC',
                                     font_color: 'white',
                                     title: "Hacer clic para ver detalle"
                                 }
@@ -154,6 +157,7 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
             vw_auditoria_dashboard.planes_auditoria = vw_auditoria_dashboard.planes_auditoria.data;
             vw_auditoria_dashboard.form.loadDropDown('estatus')
             vw_auditoria_dashboard.getPlanesAuditoria();
+            vw_auditoria_dashboard.callDataLinea();
         } else {
             vw_auditoria_dashboard.created = false;
             vw_auditoria_dashboard.estatus_nombre = "Abierto";
@@ -441,7 +445,12 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
                 {
                     field: vw_auditoria_dashboard.session.institucion_id ? "institucion" : "compania",
                     value: vw_auditoria_dashboard.session.institucion_id || vw_auditoria_dashboard.session.compania_id
-                }]
+                },
+                {
+                    field: "auditoria_programa",
+                    value: vw_auditoria_dashboard.id
+                }
+            ]
         });
 
 
@@ -457,8 +466,9 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
                 4: "#a87dc9",
                 5: "#7784FF",
                 6: "#995ccc",
-                7: "#7c65c",
-                28: "#E57373",
+                7: "#7c65c9",
+                8: "#7373ff",
+                9: "#fc7979",
             };
             vw_auditoria_dashboard.ejeY = dashboard_proceso_listInd4.data.map(d => {
                 return {
@@ -536,7 +546,7 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
             vw_auditoria_dashboard.charts.area4.refresh();
         }
     };
-    vw_auditoria_dashboard.callDataLinea();
+
     // ELINTERVALAUDITORIA = setInterval(d => {
     //     if (location.href.indexOf('vw_auditoria_dashboard') === -1)
     //         if (ELINTERVALAUDITORIA)
