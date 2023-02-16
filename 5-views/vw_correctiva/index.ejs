@@ -18,7 +18,7 @@
                         table: "vw_correctiva_filter",
                         field: "id",
                         icon: {class: "archive"},
-                        condition: "item.compania == vw_correctiva.session.compania_id && item.estatus_plan == 5"
+                        condition: "item.compania == vw_correctiva.session.compania_id && vw_correctiva.allow_estatus(item.estatus_plan)"
                     }) %>
                 </div>
             </div>

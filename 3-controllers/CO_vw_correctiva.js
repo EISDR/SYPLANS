@@ -343,4 +343,8 @@ app.controller("vw_correctiva", function ($scope, $http, $compile) {
     //};
     //$scope.afterDelete = function (data) {
     //};
+    vw_correctiva.allow_estatus = function (estatus){
+        let permitidos = [5,8];
+        return permitidos.includes(estatus);
+    }
 });
