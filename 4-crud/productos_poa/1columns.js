@@ -67,13 +67,15 @@ DSON.keepmerge(CRUD_productos_poa, {
                 label: function () {
                     return "Fecha Inicio";
                 },
-                sorttype: "numeric"
+                sorttype: "date",
+                formattype: "date",
             },
             fecha_fin: {
                 label: function () {
                     return "Fecha Fin";
                 },
-                sorttype: "numeric"
+                sorttype: "date",
+                formattype: "date",
             },
             actividades: {
                 sortable: false,
