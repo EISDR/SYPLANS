@@ -57,7 +57,7 @@ send_notification = {
             });
         },
         //Esta es la otra funcion para los correos de los auditores de auditorias.
-        email_auditoria: function (data) {
+        email_auditoria_auditores: function (data) {
             BASEAPI.mail({
                 "to": data.to,
                 "cc": data.cc,

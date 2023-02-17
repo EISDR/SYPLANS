@@ -14,6 +14,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     auditoria_programa_plan.from_edit = false;
     auditoria_programa_plan.my_true_estatus = 1;
     auditoria_programa_plan.paso = false;
+    auditoria_programa_plan.send_noti = false;
     auditoria_programa_plan.fileSI = [];
     auditoria_programa_plan.canStatus = "";
     auditoria_programa_plan.documentos_list = {};
@@ -3051,7 +3052,11 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                   }
               });
         }
-        if (data.updating.estatus == 2){
+        auditoria_programa_plan.from_new = false;
+        auditoria_programa_plan.from_edit = false;
+    };
+    auditoria_programa_plan.triggers.table.after.update = async function (data) {
+        if (data.updating.estatus == 2) {
             var titulo_push = `La auditoría "${auditoria_programa_plan.nombre}" ha sido planificada.`
             var cuerpo_push = `Se ha planificado "${auditoria_programa_plan.nombre}" .`;
             var titulo_correo = `La auditoría "${auditoria_programa_plan.nombre}" ha sido planificada.`
@@ -3178,7 +3183,7 @@ Los participantes departamentales son:`
         }
         auditoria_programa_plan.from_new = false;
         auditoria_programa_plan.from_edit = false;
-    };
+    }
     auditoria_programa_plan.get_date = function () {
         return LAN.datetime();
     }

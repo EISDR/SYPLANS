@@ -2936,7 +2936,6 @@ function_send_email_auditores_resposables = function (titulo_push, cuerpo_push, 
         };
         send_notification.send.send(data_json_primer_grupo);
         send_notification.send.send(data_json_segundo_grupo);
-        console.log(tabla_data, "a ver")
         var data_json_email_primer_segundo_grupo = {
             to: correo_usuarios_primer_grupo,
             cc: correo_usuarios_segundo_grupo,
@@ -2947,6 +2946,6 @@ function_send_email_auditores_resposables = function (titulo_push, cuerpo_push, 
             notification: 'yes',
             tabla_data: tabla_data
         };
-        send_notification.send.email_auditoria(data_json_email_primer_segundo_grupo);
+        send_notification.send.email_auditoria_auditores(data_json_email_primer_segundo_grupo);
     });
 };
