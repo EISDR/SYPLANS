@@ -55,11 +55,11 @@
                                     refresh: false,
                                     multiple: false,
                                     label: "Auditoría",
-                                    text: "item.plan_nombre",
-                                    table: "vw_correctiva_filter",
+                                    text: "item.auditoria_programa_nombre + ' - ' + item.nombre",
+                                    table: "vw_auditoria_programa_plan",
                                     field: "id",
                                     icon: {class: "archive"},
-                                    condition: "item.compania == vw_documentos_asociados_pv2.session.compania_id && vw_documentos_asociados_pv2.allow_estatus(item.estatus_plan)"
+                                    condition: "item.compania == vw_documentos_asociados_pv2.session.compania_id && vw_documentos_asociados_pv2.allow_estatus(item.estatus)"
                                 }) %>
                             </div>
                         </div>

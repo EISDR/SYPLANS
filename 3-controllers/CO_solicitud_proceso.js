@@ -412,6 +412,7 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                             compania: solicitud_proceso.session.compania_id,
                             institucion: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null",
                             solicitante: solicitud_proceso.session.usuario_id,
+                            mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : "$null",
                             estatus: solicitud_proceso.estatus != "[NULL]" && solicitud_proceso.estatus != 'null' ? solicitud_proceso.estatus : "$null",
                         }, "", "", async function (result) {
                             SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
@@ -508,6 +509,7 @@ Gracias.`;
                                             compania: solicitud_proceso.session.compania_id,
                                             institucion: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null",
                                             solicitante: solicitud_proceso.session.usuario_id,
+                                            mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : "$null",
                                             estatus: solicitud_proceso.estatus != "[NULL]" && solicitud_proceso.estatus != 'null' ? solicitud_proceso.estatus : "$null",
                                             where: [
                                                 {
@@ -546,6 +548,7 @@ Gracias.`;
                                     solicitante: solicitud_proceso.session.usuario_id,
                                     proceso: solicitud_proceso.proceso ? solicitud_proceso.proceso : "$null",
                                     nombre_proceso: solicitud_proceso.delete_pro_nombre ? solicitud_proceso.delete_pro_nombre : "$null",
+                                    mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : "$null",
                                     estatus: solicitud_proceso.estatus != "[NULL]" && solicitud_proceso.estatus != 'null' ? solicitud_proceso.estatus : "$null",
                                     where: [
                                         {
@@ -576,6 +579,7 @@ Gracias.`;
                                 compania: solicitud_proceso.session.compania_id,
                                 institucion: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null",
                                 solicitante: solicitud_proceso.session.usuario_id,
+                                mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : "$null",
                                 estatus: solicitud_proceso.estatus != "[NULL]" && solicitud_proceso.estatus != 'null' ? solicitud_proceso.estatus : "$null",
                                 where: [
                                     {
@@ -623,6 +627,7 @@ Gracias.`;
                     compania: solicitud_proceso.session.compania_id,
                     institucion: solicitud_proceso.session.institucion_id ? solicitud_proceso.session.institucion_id : "$null",
                     solicitante: solicitud_proceso.session.usuario_id,
+                    mapa_proceso_solicitud: solicitud_proceso.mapa_id ? solicitud_proceso.mapa_id : "$null",
                     estatus: solicitud_proceso.estatus != "[NULL]" && solicitud_proceso.estatus != 'null' ? solicitud_proceso.estatus : "$null",
                 }, "", "", async function (result) {
                     SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
