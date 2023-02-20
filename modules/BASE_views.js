@@ -1458,6 +1458,89 @@ exports.init = function (params) {
         });
     });
 
+    params.app.post('/email/sendfree', function (req, res) {
+        try {
+            var transporter = params.mail.createTransport(params.CONFIG.smtp);
+            var options = params.CONFIG.smptOptions;
+            var from = req.body.from || options.sender;
+            var name = req.body.name || options.name;
+            if (!req.body.to)
+                res.json({error: "mailneedreceivers", success: false});
+            if (!req.body.subject)
+                res.json({error: "mailneedsubject", success: false});
+            if (!req.body.html && !req.body.text && !req.body.template)
+                res.json({error: "mailneedbody", success: false});
+            var mailOptions = {
+                from: `"${name}" ${from}`,
+                to: req.body.to,
+                subject: req.body.subject
+            };
+            if (req.body.cc) {
+                mailOptions.cc = req.body.cc;
+            }
+            if (req.body.bcc) {
+                mailOptions.bcc = req.body.bcc;
+            }
+            if (req.body.text) {
+                mailOptions.text = req.body.text;
+                try {
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            res.json({error: error, success: false});
+                        }
+                        res.json({success: true});
+                    });
+                } catch (e) {
+                    res.json({error: true, success: false, message: e});
+                }
+            }
+            if (req.body.html) {
+                mailOptions.html = req.body.html;
+                try {
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            res.json({error: error, success: false});
+                        }
+                        res.json({success: true});
+                    });
+                } catch (e) {
+                    res.json({error: true, success: false, message: e});
+                }
+            }
+            if (req.body.template) {
+                params.app.render("../" + params.folders.viewsDragon + "/templates/" + req.body.template,
+                    {
+                        session: params.session,
+                        CONFIG: params.CONFIG,
+                        LANGUAGE: params.LANGUAGE,
+                        SHOWLANGS: params.SHOWLANGS,
+                        COLOR: params.CONFIG.ui.colors,
+                        models: models,
+                        FOLDERS: params.folders,
+                        DATA: req.body.fields,
+                    }, function (err, html) {
+                        if (err) {
+                            res.json({error: err, html: html});
+                            return;
+                        }
+                        mailOptions.html = html;
+                        try {
+                            transporter.sendMail(mailOptions, (error, info) => {
+                                if (error) {
+                                    res.json({error: error, success: false});
+                                } else
+                                    res.json({success: true});
+                            });
+                        } catch (e) {
+                            res.json({error: true, success: false, message: e});
+                        }
+                    }
+                );
+            }
+        } catch (e) {
+            res.json({success: false, message: e});
+        }
+    });
     ofuscar = function (file) {
         var result = "";
         for (var chart of file) {
