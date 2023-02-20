@@ -282,6 +282,10 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({extended: false, limit: '100mb'}));
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
+console.log(modules);
+app.use(cors({
+    origin: '*'
+}));
 app.use(methodOverride());
 app.set("view engine", "ejs");
 app.set("layouts", "./" + folders.master);

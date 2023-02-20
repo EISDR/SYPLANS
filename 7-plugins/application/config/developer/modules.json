@@ -4,7 +4,10 @@
       "var": "express",
       "module": "express"
     },
-
+    {
+      "var": "cors",
+      "module": "cors"
+    },
     {
       "var": "os",
       "module": "os"
@@ -185,13 +188,13 @@
       "var": "moment",
       "module": "moment"
     }
-//    {
-//      "var": "edge",
-//      "module": "edge-js"
-//    },
-//    {
-//      "var": "msopdf",
-//      "module": "node-msoffice-pdf"
-//    }
+    //    {
+    //      "var": "edge",
+    //      "module": "edge-js"
+    //    },
+    //    {
+    //      "var": "msopdf",
+    //      "module": "node-msoffice-pdf"
+    //    }
   ]
 }
