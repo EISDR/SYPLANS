@@ -2731,7 +2731,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             for (let i of auditoria_programa_plan.documentos_list) {
                 for (let j of documentos_seleccionados) {
                     if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
-                        if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                        if ((i.documento_asociado == j) && (i.total_listas > 0)) {
                             documentos_correctos.push(i)
                         }
                     }
@@ -2750,7 +2750,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             for (let i of auditoria_programa_plan.documentos_list_view) {
                 for (let j of documentos_seleccionados) {
                     if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
-                        if ((i.documento_asociado == j) && (i.total_listas > 0 && i.trabajado != null)) {
+                        if ((i.documento_asociado == j) && (i.total_listas > 0)) {
                             documentos_correctos.push(i)
                         }
                     }
