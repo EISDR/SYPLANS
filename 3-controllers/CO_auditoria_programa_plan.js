@@ -2700,18 +2700,19 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         }
     }
     auditoria_programa_plan.allow_save_documents = function () {
+        debugger
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;
         });
-        var documentos_list_filtrados = auditoria_programa_plan.documentos_list.filter(function (item, index, inputArray) {
-            return inputArray.indexOf(item) == index && item.cantidad_responsables > 0;
-        });
+        // var documentos_list_filtrados = auditoria_programa_plan.documentos_list.filter(function (item, index, inputArray) {
+        //     return inputArray.indexOf(item) == index && item.cantidad_responsables > 0;
+        // });
         var documentos_correctos = [];
         if (documentos_seleccionados.length > 0) {
-            for (let i of documentos_list_filtrados) {
+            for (let i of auditoria_programa_plan.documentos_list) {
                 for (let j of documentos_seleccionados) {
                     if (!documentos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso && e.documento_asociado == i.documento_asociado)) {
-                        if ((i.documento_asociado == j) && (i.cantidad_responsables > 0 && i.trabajado != null)) {
+                        if ((i.documento_asociado == j) && i.cantidad_responsables > 0) {
                             documentos_correctos.push(i)
                         }
                     }
