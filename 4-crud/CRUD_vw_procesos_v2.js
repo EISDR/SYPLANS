@@ -48,6 +48,12 @@ DSON.keepmerge(CRUD_vw_procesos_v2, {
                 exportExample: false,
                 dead: true
             },
+            procesos_categoria_nombre: {
+                label: function () {
+                    return "Macroproceso"
+                },
+                sortable: false
+            },
             codigor: {
                 label: function () {
                     return "Código"
