@@ -522,17 +522,17 @@
     {
       "id": "81",
       "controllerName": "vw_correctiva",
-      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Preventivas y Correctivas"
-    },
-    {
-      "id": "86",
-      "controllerName": "auditoria_lista_preventiva",
-      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Preventivas"
+      "displayName": "(Gestión de Auditoría) Creación de Acciones de Mejora"
     },
     {
       "id": "87",
       "controllerName": "auditoria_lista_correctiva",
-      "displayName": "(Gestión de Auditoría) Plan de Acción - Acciones Correctivas"
+      "displayName": "(Gestión de Auditoría) Creación de Acciones de Mejora -  Asignar acciones de Mejora"
+    },
+    {
+      "id": "92",
+      "controllerName": "vw_auditoria_lista_correctiva",
+      "displayName": "(Gestión de Auditoría) Seguimiento de Acciones de Mejora"
     },
     {
       "id": "82",

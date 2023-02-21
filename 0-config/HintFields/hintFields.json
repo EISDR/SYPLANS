@@ -2864,6 +2864,46 @@
       "displayName": "Observación de Acción Correctiva"
     },
     {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "plan",
+      "displayName": "Auditoría"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "estatus_plan_accion",
+      "displayName": "Estado del Plan de Acción"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "nombre",
+      "displayName": "Acción de Mejora"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "range_date",
+      "displayName": "Fecha inicio / Fecha fin"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "estatus",
+      "displayName": "Estado"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "presupuesto",
+      "displayName": "Presupuesto"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "estatus_id",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "vw_auditoria_lista_correctiva",
+      "fieldName": "comment",
+      "displayName": "Comentar trabajo realizado durante la ejecución de la Acción de Mejora"
+    },
+    {
       "entity": "tipo_auditorias",
       "fieldName": "nombre",
       "displayName": "Nombre"
