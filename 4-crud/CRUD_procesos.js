@@ -213,6 +213,26 @@ DSON.keepmerge(CRUD_procesos, {
                     },
                 },
                 {
+                    key: 'estatus_id',
+                    label: 'Estatus',
+                    type: FILTER.types.relation,
+                    table: 'auditoria_programa_plan_estatus',
+                    value: "code",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "entidad",
+                                "value": 3
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+                {
                     key: 'objetivo',
                     label: 'Objetivo',
                     type: FILTER.types.string,
