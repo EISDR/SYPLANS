@@ -224,6 +224,13 @@ DSON.keepmerge(CRUD_solicitud_documento, {
                     },
                 },
                 {
+                    key: 'nombre_documento',
+                    label: 'Nombre del Documento',
+                    type: FILTER.types.string,
+                    placeholder: 'Nombre del Documento',
+                    maxlength: 64
+                },
+                {
                     key: 'tipo_documento',
                     label: function(){
                         return 'Tipo de Documento'
