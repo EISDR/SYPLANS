@@ -401,6 +401,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     });
                     if (mapaData) {
                         indicador_generico.mapa_id = mapaData.id;
+                        indicador_generico.mapa_ano = mapaData.ano;
                         indicador_generico.fixFilters = [
                             {
                                 "field": "table_",
@@ -684,6 +685,36 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 ]
                 indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_evento_indicador") {
+                indicador_generico.getRiesgo = async function (callback) {
+                    var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+                        order: "desc",
+                        where: [
+                            {
+                                field: "compania",
+                                value: indicador_generico.session.compania_id
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": indicador_generico.session.institucion_id ? "=" : "is",
+                                "value": indicador_generico.session.institucion_id ? indicador_generico.session.institucion_id : "$null"
+                            },
+                            {
+                                field: "estatus",
+                                operator: "!=",
+                                value: 4
+                            }
+                        ]
+                    });
+                    if (riesgoData) {
+                        indicador_generico.riesgo_id = riesgoData.id;
+                        indicador_generico.riesgo_ano = riesgoData.ano;
+                    }
+                    if (callback)
+                        callback();
+                };
+                indicador_generico.getRiesgo(function(){
+                    indicador_generico.refresh();
+                });
                 if (STORAGE.exist('evento')) {
                     indicador_generico2.evento_indicador = STORAGE.get('evento');
                     indicador_generico2.form.loadDropDown('evento_indicador');
@@ -1363,7 +1394,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         institucion: indicador_generico.session.institucion_id,
                         poa: indicador_generico.session.poa_id,
                         registro: indicador_generico2.evento_indicador.replaceAll('g', ''),
-                        related: 3
+                        related: 3,
+                        ano: indicador_generico.riesgo_ano
                     };
                 } else {
                     indicador_generico.form.readonly = {
@@ -1375,6 +1407,14 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         related: 0
                     };
                 }
+            } else if (indicador_generico.entidad == "vw_procesos") {
+                indicador_generico.form.readonly = {
+                    table_: indicador_generico.entidadobj.id,
+                    compania: indicador_generico.session.compania_id,
+                    institucion: indicador_generico.session.institucion_id,
+                    poa: indicador_generico.session.poa_id,
+                    ano: indicador_generico.mapa_ano
+                };
             } else {
                 indicador_generico.form.readonly = {
                     table_: indicador_generico.entidadobj.id,
@@ -1914,6 +1954,11 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 var rules = [];
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(indicador_generico, "descripcion", rules)
+            });
+            indicador_generico.$scope.$watch('indicador_generico.ano', function (value) {
+                var rules = [];
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(indicador_generico, "ano", rules)
             });
 
         }
