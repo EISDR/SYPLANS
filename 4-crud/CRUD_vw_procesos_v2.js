@@ -163,6 +163,7 @@ DSON.keepmerge(CRUD_vw_procesos_v2, {
                 },
                 export: false,
                 exportExample: false,
+                shorttext: 300
             },
             doc_asoc: {
                 label: function () {
@@ -170,6 +171,7 @@ DSON.keepmerge(CRUD_vw_procesos_v2, {
                 },
                 export: false,
                 exportExample: false,
+                shorttext: 300
             },
             proc_ind: {
                 label: function () {
@@ -177,6 +179,7 @@ DSON.keepmerge(CRUD_vw_procesos_v2, {
                 },
                 export: false,
                 exportExample: false,
+                shorttext: 300
             },
             doc_asoc_exp: {
                 label: function () {

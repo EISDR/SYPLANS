@@ -37,9 +37,7 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
             procesos_categoria.mapa_id = mapaData.id;
             procesos_categoria.mapa_nombre = mapaData.nombre;
             procesos_categoria.mapa_descripcion = mapaData.descripcion;
-            procesos_categoria.mapa_fecha_inicio = mapaData.fecha_inicio;
-            procesos_categoria.mapa_fecha_fin = mapaData.fecha_fin;
-            procesos_categoria.mapa_range_date = mapaData.fecha_inicio ? LAN.date(mapaData.fecha_inicio) + " - " + LAN.date(mapaData.fecha_fin) : "";
+            procesos_categoria.mapa_ano = mapaData.ano;
             procesos_categoria.mapa_estatus = mapaData.estatus + '';
             procesos_categoria.mapa_current_estatus = mapaData.estatus;
             procesos_categoria.mapa_estatus_nombre = mapaData.estatus_nombre;

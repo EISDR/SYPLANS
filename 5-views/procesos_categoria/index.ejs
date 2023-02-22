@@ -18,11 +18,10 @@
                             <div class='col-sm-4 col-md-4'>
                                 <%- FORM.inputview('mapa_nombre', scope, {trueplaceholder: "Mapa de Proceso"}) %>
                             </div>
-                            <div class="col-sm-4 col-md-4">
-                                <%- FORM.daterange("mapa_range_date", scope, {
-                                    from: "fecha_inicio",
-                                    to: "fecha_fin",
-                                    disabled: true
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.inputview('mapa_ano', scope, {
+                                    trueplaceholder: "Año"
+                                    //length:15
                                 }) %>
                             </div>
                             <div class='col-sm-4 col-md-4'>
