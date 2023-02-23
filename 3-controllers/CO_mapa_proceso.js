@@ -59,11 +59,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
             mapa_proceso.institucion = mapaData.institucion;
             mapa_proceso.lista_ano = [];
             for (var a = 2018; a <= 3000; a++) {
-                if (a == mapa_proceso.ano && a != mapa_proceso.current_year){
-                    mapa_proceso.lista_ano.push(a);
-                }else if (a >= mapa_proceso.current_year) {
-                    mapa_proceso.lista_ano.push(a);
-                }
+                mapa_proceso.lista_ano.push(a);
             }
             mapa_proceso.form.loadDropDown('estatus')
         }else{
@@ -121,7 +117,8 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
                 edit: "Editar XXX",
                 view: "Ver XXXX"
             };
-            mapa_proceso.ano = (parseInt(mapa_proceso.current_year)) + "";
+            mapa_proceso.ano = '[NULL]';
+            mapa_proceso.form.fileds.push('ano')
             mapa_proceso.createForm(data, mode, defaultData);
 
         }
@@ -311,10 +308,36 @@ select periodo, valor, (select id from indicador_generico where herencia=indicad
         });
         return true;
     };
-    mapa_proceso.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+    mapa_proceso.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
         data.inserting.ano = mapa_proceso.ano;
         data.inserting.estatus = 1;
+        var ano = await BASEAPI.firstp("mapa_proceso", {
+            where: [
+                {
+                    field: "ano",
+                    operator: "=",
+                    value: data.inserting.ano
+                },
+                {
+                    field: "compania",
+                    operator: "=",
+                    value: mapa_proceso.session.compania_id
+                },
+            ]
+        });
+        if (ano) {
+            SWEETALERT.show({
+                type: "error",
+                title: "",
+                message: "Ya existe un Mapa de proceso con el año: " + data.inserting.ano
+            });
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
         resolve(true);
     });
     //

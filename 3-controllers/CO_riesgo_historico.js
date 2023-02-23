@@ -97,11 +97,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.form.loadDropDown('estatus')
             riesgo_historico.lista_ano = [];
             for (var a = 2018; a <= 3000; a++) {
-                if (a == riesgo_historico.ano && a != riesgo_historico.current_year){
-                    riesgo_historico.lista_ano.push(a);
-                }else if (a >= riesgo_historico.current_year) {
-                    riesgo_historico.lista_ano.push(a);
-                }
+                riesgo_historico.lista_ano.push(a);
             }
         } else {
             riesgo_historico.created = false;
@@ -110,9 +106,7 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
             riesgo_historico.current_estatus = 1;
             riesgo_historico.lista_ano = [];
             for (var a = 2018; a <= 3000; a++) {
-                if (a >= riesgo_historico.current_year) {
-                    riesgo_historico.lista_ano.push(a);
-                }
+                riesgo_historico.lista_ano.push(a);
             }
         }
         riesgo_historico.refreshAngular();
@@ -128,7 +122,8 @@ app.controller("riesgo_historico", function ($scope, $http, $compile) {
                 edit: "Editar XXX",
                 view: "Ver XXXX"
             };
-            riesgo_historico.ano = (parseInt(riesgo_historico.current_year)) + "";
+            riesgo_historico.ano = "[NULL]";
+            riesgo_historico.form.fileds.push('ano');
             riesgo_historico.createForm(data, mode, defaultData);
 
 
@@ -307,10 +302,36 @@ select (select id from riesgo  where herencia=riesgo_matriz_control.riesgo limit
             return true;
         });
     };
-    riesgo_historico.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+    riesgo_historico.triggers.table.before.insert = (data) => new Promise(async(resolve, reject) => {
         data.inserting.ano = riesgo_historico.ano;
         data.inserting.estatus = 1;
-        resolve(true)
+        var ano = await BASEAPI.firstp("riesgo_historico", {
+            where: [
+                {
+                    field: "ano",
+                    operator: "=",
+                    value: data.inserting.ano
+                },
+                {
+                    field: "compania",
+                    operator: "=",
+                    value: riesgo_historico.session.compania_id
+                },
+            ]
+        });
+        if (ano) {
+            SWEETALERT.show({
+                type: "error",
+                title: "",
+                message: "Ya existe un un periodo de gestión de riesgo con el año: " + data.inserting.ano
+            });
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
+        resolve(true);
     });
     //
     // $scope.triggers.table.after.update = function (data) {

@@ -10,10 +10,16 @@
                         class="form-control">
                     <option value="[NULL]">Seleccione</option>
                     <option ng-repeat="value in <%= scope %>.lista_ano"
-                            ng-show="value >= <%= scope %>.current_year "
                             value="{{value}}">{{value}}
                     </option>
                 </select>
+                <span ng-show="<%= scope %>.validate['ano'].messages.length>0" class="help-block">
+                    <p class="text-{{validation.type}}"
+                       ng-show="validation.visible!==false || <%= scope %>.form.intent===true"
+                       ng-repeat="(key,validation) in <%= scope %>.validate['ano'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                </span>
             </div>
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('descripcion', scope, {
