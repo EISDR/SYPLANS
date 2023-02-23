@@ -283,13 +283,13 @@ Gracias.`;
 
 select nombre,descripcion,compania,institucion,(select max(r.id) from mapa_proceso r),id from procesos_categoria where compania=${mapa_proceso.session.compania_id} and mapa_proceso=${mapa_proceso.id};
 update mapa_proceso set estatus = 4 where id = ${mapa_proceso.id};
-insert into procesos(nombre, descripcion,procesos_categoria,objetivo,alcance,responsable,recursos,active,estatus,mapa_proceso,herencia)
+insert into procesos(nombre, descripcion,procesos_categoria,objetivo,alcance,responsable,recursos,active,estatus,mapa_proceso,proceso_general,herencia)
 
-select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,(select max(id) from mapa_proceso),id from procesos where mapa_proceso=${mapa_proceso.id} and estatus not in (4,5);
+select nombre, descripcion, (select id from procesos_categoria where herencia=procesos.procesos_categoria limit 1), objetivo,alcance,responsable,recursos,1,1,(select max(id) from mapa_proceso),proceso_general,id from procesos where mapa_proceso=${mapa_proceso.id} and estatus not in (4,5);
 
-insert into documentos_asociados(codigo,nombre, descripcion,proceso, procesos_categoria, observacion, tipo_documento, estatus, active, objetivo, alcance, marco_legal, resultado_esperado, trabaja_marco_legal)
+insert into documentos_asociados(codigo,nombre, descripcion,proceso, procesos_categoria, observacion, tipo_documento, estatus, active, objetivo, alcance, marco_legal, resultado_esperado, documento_general,trabaja_marco_legal)
 
-select codigo, nombre, descripcion,  (select id from procesos where herencia=documentos_asociados.proceso limit 1), (select id from procesos_categoria where herencia=documentos_asociados.procesos_categoria limit 1), observacion,tipo_documento,1,1,objetivo,alcance,marco_legal,resultado_esperado,trabaja_marco_legal from documentos_asociados where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and estatus not in (4,5);
+select codigo, nombre, descripcion,  (select id from procesos where herencia=documentos_asociados.proceso limit 1), (select id from procesos_categoria where herencia=documentos_asociados.procesos_categoria limit 1), observacion,tipo_documento,1,1,objetivo,alcance,marco_legal,resultado_esperado,documento_general,trabaja_marco_legal from documentos_asociados where proceso in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and estatus not in (4,5);
 
 insert into procesos_elemento(nombre, descripcion,proceso, funcion)
 
