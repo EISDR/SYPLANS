@@ -241,7 +241,7 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_proceso, {
                 click: function (data) {
                     console.log(data);
                     vw_dashboard_productosgrid_proceso.selectedPEI = data.row.id;
-                    baseController.modal.modalView("indicador_producto_poa_proceso", {
+                    baseController.modal.modalView("indicador_generico_poa", {
                         header: {
                             title: data.row.indicador,
                         },
@@ -250,7 +250,7 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_proceso, {
                         },
                         content: {
                             loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                            sameController: 'indicador_producto_poa_proceso'
+                            sameController: 'indicador_generico_poa'
                         },
                     });
                 }

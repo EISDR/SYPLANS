@@ -10,6 +10,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     indicador_generico_poa.conditionPoa = {estado: user.estado, poa_id: user.poa_id};
     indicador_generico_poa.estatus = ENUM_2.presupuesto_estatus.Completo;
     indicador_generico_poa.estado = ENUM_2.poa_estatus.Inactivo;
+    indicador_generico_poa.from_dash_procesos= false;
     indicador_generico_poa.group_permitir = user.groups[0] ? user.groups[0].caracteristica : "";
     indicador_generico_poa.asbierto = CONFIG.seguridadindicadores === "abierta";
 
@@ -30,6 +31,14 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                 indicador_generico_poa.indicador_generico = vw_dashboard_productosgrid.selectedPEI;
             }
         }
+    if (typeof vw_dashboard_productosgrid_proceso !== "undefined")
+        if (location.href.indexOf('indicador_producto_poa_proceso') === -1)
+            if (vw_dashboard_productosgrid_proceso.selectedPEI) {
+                indicador_generico_poa.entidad = 'vw_procesos';
+                indicador_generico_poa.queries.id = vw_dashboard_productosgrid_proceso.selectedPEI;
+                indicador_generico_poa.from_dash_procesos = true;
+                indicador_generico_poa.indicador_generico = vw_dashboard_productosgrid_proceso.selectedPEI + '';
+            }
 
     var r = 0;
     indicador_generico_poa.get_month = moment(new Date).month() + 1;
@@ -257,11 +266,11 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     };
     indicador_generico_poa.notificar = function (peri) {
         SWEETALERT.confirm({
-            message: `Está seguro que desea notificar el indicador ${indicador_generico_poa.indicador_generico_object.nombre}?`,
+            message: `Está seguro que desea notificar el indicador ${indicador_generico_poa.indicador_generico_object.nombre_indicador}?`,
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('actions.loading') + "..."});
                 indicador_generico_poa.send_email_indicador(false, 'indicador poa', 'indicador_generico', indicador_generico_poa.indicador_generico
-                    , indicador_generico_poa.indicador_generico_object.nombre, indicador_generico_poa.indicador_generico_object.departamento
+                    , indicador_generico_poa.indicador_generico_object.nombre_indicador, indicador_generico_poa.indicador_generico_object.departamento
                     , "#indicador_generico_poa", peri, async function () {
 
                     });
@@ -747,9 +756,9 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
             message: 'Desea guardar los cambios realizados ?',
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre});
+                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre_indicador});
                 var cuerpo_push = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
-                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre});
+                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre_indicador});
                 var cuerpo_email = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
                 switch (indicador_generico_poa.direccion_meta) {
                     case 1: {
