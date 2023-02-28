@@ -349,8 +349,21 @@ select periodo, valor, (select id from indicador_generico where herencia=indicad
     //     resolve(true);
     // });
     //
-    mapa_proceso.triggers.table.after.close = function (data) {
-        location.reload();
+    mapa_proceso.triggers.table.after.close = async function (data) {
+        SWEETALERT.loading({message: MESSAGE.i('actions.Loading')});
+        if (CONFIG.mysqlactive)
+            SERVICE.base_db.directQuery({query: `call createCache('vw_procesados')`}, (data) => {
+                console.log("me ejecute mysql")
+                SWEETALERT.stop()
+                location.reload();
+            });
+        else
+            SERVICE.base_db.directQuery({query:`select createcache('vw_procesados')`}, (data) => {
+                console.log("me ejecute postgre")
+                SWEETALERT.stop()
+                location.reload();
+            });
+
     };
     mapa_proceso.triggers.table.after.control = function (data) {
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
