@@ -175,6 +175,38 @@ DSON.keepmerge(CRUD_procesos, {
         filters: {
             columns: [
                 {
+                    key: 'procesos_categoria',
+                    label: function() {
+                        return 'Macroproceso'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'vw_procesos_categoria',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+                {
                     key: 'nombre',
                     label: 'Nombre',
                     type: FILTER.types.string,

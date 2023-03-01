@@ -173,9 +173,9 @@ DSON.keepmerge(CRUD_solicitud_proceso, {
                 },
                 {
                     key: 'proceso_categoria',
-                    label: 'Macroroceso',
+                    label: 'Macroproceso',
                     type: FILTER.types.relation,
-                    table: 'procesos_categoria',
+                    table: 'vw_procesos_categoria',
                     value: "id",
                     text: "item.nombre",
                     query: {
@@ -190,6 +190,11 @@ DSON.keepmerge(CRUD_solicitud_proceso, {
                                 "field": "institucion",
                                 "operator": lachechon.institucion_id ? "=" : "is",
                                 "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
                             }
                         ],
                         orderby: "id",
