@@ -177,7 +177,7 @@ DSON.keepmerge(CRUD_solicitud_documento, {
                     key: 'proceso_categoria',
                     label: 'Categoría de Proceso',
                     type: FILTER.types.relation,
-                    table: 'procesos_categoria',
+                    table: 'vw_procesos_categoria',
                     value: "id",
                     text: "item.nombre",
                     query: {
@@ -192,7 +192,12 @@ DSON.keepmerge(CRUD_solicitud_documento, {
                                 "field": "institucion",
                                 "operator": lachechon.institucion_id ? "=" : "is",
                                 "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
-                            }
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
+                            },
                         ],
                         orderby: "id",
                         order: "asc"
@@ -217,7 +222,17 @@ DSON.keepmerge(CRUD_solicitud_documento, {
                                 "field": "institucion",
                                 "operator": lachechon.institucion_id ? "=" : "is",
                                 "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
-                            }
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
+                            },
+                            {
+                                field: "estatus_id",
+                                operator: "!=",
+                                value: 4
+                            },
                         ],
                         orderby: "id",
                         order: "asc"
