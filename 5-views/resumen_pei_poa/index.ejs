@@ -5,7 +5,7 @@
             <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
                 <li id="resumen_pei_li" class="tab-pane active">
                     <!--<li id="resumen_pei_li" class="tab-pane {{resumen_pei_poa.active_indi_pei}}" ng-show="resumen_pei_poa.see_indicador_pei()">-->
-                    <a href="#resumen_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_pei();"
+                    <a href="#resumen_pei " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_pei();"
                        style="font-size: 15px; height: 60px;;">
                         <i class="icon-html5 position-left"></i>
                         <language>Planificación Estrategica (PEI)</language>
@@ -14,7 +14,7 @@
                 </li>
                 <li id="resumen_indicador_pei_li" class="tab-pane ">
                     <!--<li id="resumen_indicador_pei_li" class="tab-pane {{resumen_pei_poa.active_mat_pei}}" ng-show="resumen_pei_poa.see_matriz_pei()">-->
-                    <a href="#resumen_indicador_pei" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_pei();"
+                    <a href="#resumen_indicador_pei " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_matriz_pei();"
                        style="font-size: 15px; height: 60px;">
                         <i class="icon-html5 position-left"></i>
                         <language>Indicadores PEI</language>
@@ -23,7 +23,7 @@
                 </li>
                 <li id="resumen_poa_li" class="tab-pane ">
                     <!--<li id="resumen_poa_li" class="tab-pane {{resumen_pei_poa.active_indi_poa}}" ng-show="resumen_pei_poa.see_indicador_poa()">-->
-                    <a href="#resumen_poa" data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_poa();"
+                    <a href="#resumen_poa " data-toggle="tab" ng-click="resumen_pei_poa.mostrar_indicador_poa();"
                        style="font-size: 15px; height: 60px;">
                         <i class="icon-html5 position-left"></i>
                         <language ng-show="resumen_pei_poa.session.tipo_institucion == 1">POA - actividades /
@@ -70,7 +70,7 @@
                     <%- include('../resumen_indicador_pei/index.ejs'); %>
                 </div>
                 <div class="tab-pane {{resumen_pei_poa.active_indi_poa}}" id="resumen_poa">
-                        <%- include('../resumen_poa/index.ejs'); %>
+                    <%- include('../resumen_poa/index.ejs'); %>
                 </div>
 
                 <div class="tab-pane " id="resumen_indicador_poa">
