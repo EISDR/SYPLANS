@@ -8,6 +8,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     vw_auditoria_lista_correctiva.plural = "plural";
     vw_auditoria_lista_correctiva.headertitle = "Seguimiento de Acciones de Mejora";
     vw_auditoria_lista_correctiva.destroyForm = false;
+    vw_auditoria_lista_correctiva.group_caracteristica = vw_auditoria_lista_correctiva.session.groups[0] ? vw_auditoria_lista_correctiva.session.groups[0].caracteristica : "";
     if (vw_auditoria_lista_correctiva.accion) {
         CRUD_vw_auditoria_lista_correctiva = {};
         DSON.keepmerge(CRUD_vw_auditoria_lista_correctiva, CRUDDEFAULTS);
@@ -1095,12 +1096,56 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
         var rules = [];
         //rules here
         SWEETALERT.loading({message: "Listando Acciones Correctivas"});
-        vw_auditoria_lista_correctiva.fixFilters = [
-            {
-                field: 'programa_plan',
-                value: vw_auditoria_lista_correctiva.plan,
-            }
-        ];
+        if (vw_auditoria_lista_correctiva.group_caracteristica == ENUM_2.Grupos.director_general || vw_auditoria_lista_correctiva.group_caracteristica == ENUM_2.Grupos.analista_de_calidad || vw_auditoria_lista_correctiva.group_caracteristica == ENUM_2.Grupos.supervisor_de_calidad){
+            vw_auditoria_lista_correctiva.fixFilters = [
+                {
+                    field: 'programa_plan',
+                    value: vw_auditoria_lista_correctiva.plan,
+                }
+            ];
+        }else {
+            BASEAPI.list('vw_auditoria_lista_correctiva',{
+                limit:0,
+                join: [
+                    {
+                        "table": "auditoria_lista_correctiva_responsable",
+                        "base": "id",
+                        "field": "auditoria_lista_correctiva",
+                        "columns": ["id","responsable"]
+                    },
+                ],
+                where:[
+                    {
+                        field: "programa_plan",
+                        value: value
+                    },
+                    {
+                        field: "auditoria_lista_correctiva_responsable.responsable",
+                        value: vw_auditoria_lista_correctiva.session.id
+                    }
+                ]
+            }, function (result){
+                if (result.data.length > 0){
+                    let lista_correctiva_id = [];
+                    for (var i of result.data){
+                        lista_correctiva_id.push(i.id)
+                    };
+                    vw_auditoria_lista_correctiva.fixFilters = [
+                        {
+                            field: 'programa_plan',
+                            value: vw_auditoria_lista_correctiva.plan,
+                        },
+                        {
+                            "field": "id",
+                            "value":  lista_correctiva_id
+                        }
+                    ];
+                    setTimeout(function(){
+                        vw_auditoria_lista_correctiva.refresh();
+                    },100)
+                }
+            });
+        }
         vw_auditoria_lista_correctiva.refresh(async () => {
             if (vw_auditoria_lista_correctiva.plan_object) {
                 vw_auditoria_lista_correctiva.estatus_plan_accion = vw_auditoria_lista_correctiva.plan_object.estatus_plan_accion + "";
