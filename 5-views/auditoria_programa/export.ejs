@@ -279,13 +279,13 @@
                     ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
                     {{value4.responsable_ducumento}}
                 </td>
-                <td style="border-bottom: none">
+                <td ng-if="value4.punto_verificacion" style="border-bottom: none">
                     {{value4.punto_verificacion}}
                 </td>
-                <td style="border-bottom: none">
+                <td ng-if="value4.punto_verificacion" style="border-bottom: none">
                     {{value4.tipo_inconformidad}}
                 </td>
-                <td style="border-bottom: none; width: 35%">
+                <td ng-if="value4.punto_verificacion" style="border-bottom: none; width: 35%">
                     {{value4.observaciones}}
                 </td>
                 <td style="border-bottom: none"

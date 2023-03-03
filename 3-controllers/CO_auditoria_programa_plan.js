@@ -625,7 +625,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         });
                         auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                             limit: 0,
-                            orderby: "$ nombre_proceso,responsable_proceso,codigo",
+                            orderby: "$ nombre_proceso,responsable_proceso,codigo, comentfinal",
                             order: "asc",
                             where: [
                                 {
@@ -635,7 +635,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                 {
                                     field: "programa_plan",
                                     value: auditoria_programa_plan.id
-                                }
+                                },
+                                row.codigo && row.punto_verificacion
                             ]
                         });
                         if (auditoria_programa_plan.id) {
@@ -881,7 +882,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                             });
                             auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                                 limit: 0,
-                                orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento",
+                                orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento, comentfinal",
                                 order: "asc",
                                 where: [
                                     {
