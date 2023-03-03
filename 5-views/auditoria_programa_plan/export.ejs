@@ -268,7 +268,7 @@
                 </td>
                 <td style="border-bottom: none"
                     rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data) && (value4.responsable_ducumento||'').trim()">
                     {{value4.responsable_ducumento}}
                 </td>
                 <td ng-if="value4.punto_verificacion" style="border-bottom: none">

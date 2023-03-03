@@ -625,7 +625,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         });
                         auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                             limit: 0,
-                            orderby: "$ nombre_proceso,responsable_proceso,codigo, comentfinal",
+                            orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento",
                             order: "asc",
                             where: [
                                 {
@@ -882,7 +882,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                             });
                             auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                                 limit: 0,
-                                orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento, comentfinal",
+                                orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento",
                                 order: "asc",
                                 where: [
                                     {
@@ -2995,67 +2995,67 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             delete auditoria_programa_plan.form.frominforme;
             return true;
         }
-        if (data.updating.estatus < 4){
-              BASEAPI.list('auditoria_programa_plan_proceso', {
-                  limit: 0,
-                  where: [
-                      {
-                          field: "programa_plan",
-                          value: auditoria_programa_plan.id
-                      }
-                  ]
-              },function(result){
-                  if (result.data.length> 0) {
-                      let procesos = result.data;
-                      procesos = procesos.filter(x => {
-                          return x.usuario
-                      })
-                      for (let i of procesos) {
-                          BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
-                              limit: 0,
-                              where: [
-                                  {
-                                      field: "programa_plan",
-                                      value: auditoria_programa_plan.id
-                                  },
-                                  {
-                                      field: "proceso",
-                                      value: i.proceso
-                                  }
-                              ]
-                          }, function (result) {
-                              if (result.data.length > 0) {
-                                  var documentos = result.data;
-                                  var documentos_ids = [];
-                                  for (let j of documentos) {
-                                      documentos_ids.push(j.id)
-                                  }
-                                  BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
-                                      {
-                                          field: "programa_plan_documentos_asociados",
-                                          value: documentos_ids
-                                      },
-                                      {
-                                          field: "usuario",
-                                          value: i.usuario
-                                      }
-                                  ], function (result) {
-                                      if (result) {
-                                          for (var k of documentos_ids) {
-                                              BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
-                                                  usuario: i.usuario,
-                                                  programa_plan_documentos_asociados: k
-                                              }, function (result) {
-                                                  console.log(result)
-                                              });
-                                          }
-                                      }
-                                  });
-                              }
-                          });
-                      }
-                  }
-              });
+        if (data.updating.estatus < 4) {
+            BASEAPI.list('auditoria_programa_plan_proceso', {
+                limit: 0,
+                where: [
+                    {
+                        field: "programa_plan",
+                        value: auditoria_programa_plan.id
+                    }
+                ]
+            }, function (result) {
+                if (result.data.length > 0) {
+                    let procesos = result.data;
+                    procesos = procesos.filter(x => {
+                        return x.usuario
+                    })
+                    for (let i of procesos) {
+                        BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
+                            limit: 0,
+                            where: [
+                                {
+                                    field: "programa_plan",
+                                    value: auditoria_programa_plan.id
+                                },
+                                {
+                                    field: "proceso",
+                                    value: i.proceso
+                                }
+                            ]
+                        }, function (result) {
+                            if (result.data.length > 0) {
+                                var documentos = result.data;
+                                var documentos_ids = [];
+                                for (let j of documentos) {
+                                    documentos_ids.push(j.id)
+                                }
+                                BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
+                                    {
+                                        field: "programa_plan_documentos_asociados",
+                                        value: documentos_ids
+                                    },
+                                    {
+                                        field: "usuario",
+                                        value: i.usuario
+                                    }
+                                ], function (result) {
+                                    if (result) {
+                                        for (var k of documentos_ids) {
+                                            BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                                                usuario: i.usuario,
+                                                programa_plan_documentos_asociados: k
+                                            }, function (result) {
+                                                console.log(result)
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
         }
         auditoria_programa_plan.from_new = false;
         auditoria_programa_plan.from_edit = false;
@@ -3225,7 +3225,7 @@ Los participantes departamentales son:`
             },
         });
     }
-    auditoria_programa_plan.send_email_calidad = function(data_auditoria){
+    auditoria_programa_plan.send_email_calidad = function (data_auditoria) {
 
         var titulo_push = `Se han definido todos los puntos de verificación de la auditoría: "${data_auditoria.nombre}"`
         var cuerpo_push = `Todos los documentos asociados a la auditoría: "${data_auditoria.nombre}" tienen sus puntos de verficación definidos. `;
@@ -3239,8 +3239,9 @@ Gracias`;
             message: "¿Desea enviar una notificación por correo a los supervisores y analistas de calidad?",
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
-                function_send_email_custom_group(titulo_push,cuerpo_push,titulo_correo,cuerpo_correo,auditoria_programa_plan.session.compania_id,auditoria_programa_plan.session.institucion_id,[17, 18], 4)
-                SWEETALERT.show({message:"La notificación ha sido enviada con exito", confirm: function(){
+                function_send_email_custom_group(titulo_push, cuerpo_push, titulo_correo, cuerpo_correo, auditoria_programa_plan.session.compania_id, auditoria_programa_plan.session.institucion_id, [17, 18], 4)
+                SWEETALERT.show({
+                    message: "La notificación ha sido enviada con exito", confirm: function () {
                         MODAL.close()
                     }
                 })

@@ -335,8 +335,8 @@
                                 {{row.codigo}} - {{row.nombre}}
                             </td>
                             <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
-                                {{row.responsable_ducumento}}
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data) && (row.responsable_ducumento||'').trim()">
+                                "{{row.responsable_ducumento}}"
                             </td>
                             <td ng-if="row.punto_verificacion">
                                 {{row.punto_verificacion}}
