@@ -73,25 +73,12 @@ DSON.keepmerge(CRUD_resumen_indicador_pei, {
                 label: function () {
                     return "Unidad / Escala de Medición"
                 },
-                sortable: false,
-                visible: false,
-                visibleDetail: false,
-                export: true,
-                exportExample: true,
-                checkExport: true,
-                dead: true
             },
             direccion_meta_nombre: {
                 label: function () {
                     return "Dirección Meta"
                 },
-                sortable: false,
-                visible: false,
-                visibleDetail: false,
-                export: true,
-                exportExample: true,
-                checkExport: true,
-                dead: true
+                
             },
             linea_base: {
                 label: () => {
