@@ -288,6 +288,12 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
                         title: "Información",
                         message: "Aun no existen indicadores evaluados que pertenezcan a: " + entidad
                     });
+                } else if (aacontroldemandog.unicomenu === 'proceso') {
+                    if (aacontroldemandog.api.currentMapa) {
+                        aacontroldemandog.aunnoexiste = `Aun no existen indicadores evaluados que pertenezcan al Mapa de Procesos: ${aacontroldemandog.api.currentMapa.nombre}`;
+                    } else {
+                        aacontroldemandog.aunnoexiste = `Aun no existen un Mapa de Procesos por lo tanto no existen indicadores para mostrar.`;
+                    }
                 }
                 aacontroldemandog.refreshAngular();
                 return;
@@ -558,6 +564,18 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
     aacontroldemandog.refresh = async () => {
         SWEETALERT.loading({message: "Estructurando Reporte Completo"});
 
+        aacontroldemandog.api.currentMapa = await aacontroldemandog.listp("mapa_proceso", [
+            {
+                field: "compania",
+                value: aacontroldemandog.session.compania_id
+            },
+            {
+                field: "estatus",
+                operator: "!=",
+                value: 4
+            }
+        ]);
+        aacontroldemandog.api.currentMapa = aacontroldemandog.api.currentMapa[0];
         if (!aacontroldemandog.api.ponderaciones)
             aacontroldemandog.api.ponderaciones = await aacontroldemandog.listp("reporte_indicador_config", aacontroldemandog.filtrosSoloCompania);
         if (!aacontroldemandog.api.formulas)

@@ -30,12 +30,12 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "compania",
-                    value:  solicitud_documento.session.compania_id
+                    value: solicitud_documento.session.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator":  solicitud_documento.session.institucion_id ? "=" : "is",
-                    "value":  solicitud_documento.session.institucion_id ?  solicitud_documento.session.institucion_id : "$null"
+                    "operator": solicitud_documento.session.institucion_id ? "=" : "is",
+                    "value": solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null"
                 },
                 {
                     field: "estatus",
@@ -61,7 +61,7 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                     value: solicitud_documento.mapa_id ? solicitud_documento.mapa_id : -1
                 }
             ];
-        }else{
+        } else {
             solicitud_documento.fixFilters = [
                 {
                     field: "compania",
@@ -74,7 +74,7 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 },
                 {
                     field: "mapa_proceso",
-                    value:  -1
+                    value: -1
                 }
             ];
         }
@@ -388,7 +388,7 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     // };
     solicitud_documento.triggers.table.after.load = function (records) {
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-        if (!solicitud_documento.loaded){
+        if (!solicitud_documento.loaded) {
             solicitud_documento.refresh();
             solicitud_documento.loaded = true;
         }
@@ -413,24 +413,24 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     //
     solicitud_documento.triggers.table.after.insert = async function (data) {
         //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`;
-        let titulo_push="";
-        let cuerpo_push="";
-        let titulo= "";
-        let cuerpo="";
+        let titulo_push = "";
+        let cuerpo_push = "";
+        let titulo = "";
+        let cuerpo = "";
         if (data.inserting.estatus == 3) {
             setTimeout(function () {
                 SWEETALERT.show({
                     message: "Se ha enviado al departamento correspondiente la solicitud de creación del documento"
                 });
             }, 500)
-        }else if (data.inserting.estatus == 2){
+        } else if (data.inserting.estatus == 2) {
             titulo_push = `La solicitud de creación del documento "${data.inserting.nombre}" ha sido Elaborada.`;
             cuerpo_push = `La solicitud del documento "${data.inserting.nombre_documento}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
             titulo = `La solicitud de creación del documento "${data.inserting.nombre}" ha sido Elaborada.`
             cuerpo = `La solicitud del documento "${data.inserting.nombre_documento}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma
         
 Gracias.`;
-            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, data.inserting.solicitante, [4,18]);
+            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, data.inserting.solicitante, [4, 18]);
         }
         return true;
     };
@@ -456,10 +456,10 @@ Gracias.`;
     });
     //
     solicitud_documento.triggers.table.after.update = async function (data) {
-        let titulo_push="";
-        let cuerpo_push="";
-        let titulo= "";
-        let cuerpo="";
+        let titulo_push = "";
+        let cuerpo_push = "";
+        let titulo = "";
+        let cuerpo = "";
         let cuerpo2 = "";
         if (data.updating.estatus == 3 && data.updating.tipo_accion == 1) {
             titulo_push = `La solicitud de creación de documento "${data.updating.nombre}" ha sido Autorizada.`;
@@ -514,22 +514,22 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
                     message: "Se ha enviado al departamento correspondiente la solicitud de creación del documento"
                 });
             }, 500)
-        }else if(data.updating.estatus == 2 && data.updating.tipo_accion == 1){
+        } else if (data.updating.estatus == 2 && data.updating.tipo_accion == 1) {
             titulo_push = `La solicitud de creación del documento "${data.updating.nombre}" ha sido Elaborada.`;
             cuerpo_push = `La solicitud del documento "${data.updating.nombre_documento}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
             titulo = `La solicitud de creación del documento "${data.updating.nombre}" ha sido Elaborada.`
             cuerpo = `La solicitud del documento "${data.updating.nombre_documento}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
         
 Gracias.`;
-            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, data.updating.solicitante, [4,18]);
+            function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, data.updating.solicitante, [4, 18]);
         }
         //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     };
     solicitud_documento.delete_doc = function (documento) {
-        let titulo_push="";
-        let cuerpo_push="";
-        let titulo= "";
-        let cuerpo="";
+        let titulo_push = "";
+        let cuerpo_push = "";
+        let titulo = "";
+        let cuerpo = "";
         let cuerpo2 = "";
         VALIDATION.save(solicitud_documento, async function () {
             var auditVar = solicitud_documento.form.getAudit();
@@ -550,11 +550,11 @@ Gracias.`;
                     {
                         field: "$auditoria_programa_plan.estatus",
                         operator: "not in",
-                        value: [5,8]
+                        value: [5, 8]
                     }
                 ],
 
-            },function(result) {
+            }, function (result) {
                 if (result.data.length > 0) {
                     SWEETALERT.show({
                         message: `Documento no puede ser ELIMINADO, el mismo está siendo AUDITADO en estos momentos en el plan de Auditoría: "${result.data[0].auditoria_programa_plan_nombre}"`,
@@ -730,10 +730,10 @@ Gracias.`;
         }, ['nombre']);
     }
     solicitud_documento.mod_doc = function (documento) {
-        let titulo_push="";
-        let cuerpo_push="";
-        let titulo= "";
-        let cuerpo="";
+        let titulo_push = "";
+        let cuerpo_push = "";
+        let titulo = "";
+        let cuerpo = "";
         let cuerpo2 = "";
         VALIDATION.save(solicitud_documento, async function () {
             var auditVar = solicitud_documento.form.getAudit();
@@ -763,23 +763,23 @@ Gracias.`;
                     estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
                 }, "", "", async function (result) {
                     SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
-                    if (solicitud_documento.estatus == 2){
+                    if (solicitud_documento.estatus == 2) {
                         titulo_push = `La solicitud  de modificación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`;
                         cuerpo_push = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.`;
                         titulo = `La solicitud de modificación de documento "${solicitud_documento.nombre}" ha sido Elaborada.`
                         cuerpo = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
         
 Gracias.`;
-                        function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
+                        function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
                     }
                     Object.keys(solicitud_documento.form.oldData).forEach(d => {
                         ["Mod_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                            if (v.startsWith(d, e)){
-                                if (d == "Nombre"){
+                            if (v.startsWith(d, e)) {
+                                if (d == "Nombre") {
                                     old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                }else if (d == "Descripción") {
+                                } else if (d == "Descripción") {
                                     old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                }else {
+                                } else {
                                     old_Data[d == "Estado" ? d : d.split("Mod_doc_")[1]] = solicitud_documento.form.oldData[d];
                                 }
                             }
@@ -787,12 +787,12 @@ Gracias.`;
                     });
                     Object.keys(auditVar).forEach(d => {
                         ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                            if (v.startsWith(d, e)){
-                                if (d == "Nombre"){
+                            if (v.startsWith(d, e)) {
+                                if (d == "Nombre") {
                                     updated_data["Nombre de la solicitud"] = auditVar[d];
-                                }else if (d == "Descripción") {
+                                } else if (d == "Descripción") {
                                     updated_data["Descripción de la solicitud"] = auditVar[d];
-                                }else {
+                                } else {
                                     updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
                                 }
                             }
@@ -866,15 +866,15 @@ Gracias.`;
                                     cuerpo = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Autorizada.
         
 Gracias.`;
-                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
+                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
                                     Object.keys(solicitud_documento.form.oldData).forEach(d => {
                                         ["Mod_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)){
-                                                if (d == "Nombre"){
+                                            if (v.startsWith(d, e)) {
+                                                if (d == "Nombre") {
                                                     old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                }else if (d == "Descripción") {
+                                                } else if (d == "Descripción") {
                                                     old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                }else {
+                                                } else {
                                                     old_Data[d == "Estado" ? d : d.split("Mod_doc_")[1]] = solicitud_documento.form.oldData[d];
                                                 }
                                             }
@@ -882,12 +882,12 @@ Gracias.`;
                                     });
                                     Object.keys(auditVar).forEach(d => {
                                         ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)){
-                                                if (d == "Nombre"){
+                                            if (v.startsWith(d, e)) {
+                                                if (d == "Nombre") {
                                                     updated_data["Nombre de la solicitud"] = auditVar[d];
-                                                }else if (d == "Descripción") {
+                                                } else if (d == "Descripción") {
                                                     updated_data["Descripción de la solicitud"] = auditVar[d];
-                                                }else {
+                                                } else {
                                                     updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
                                                 }
                                             }
@@ -938,15 +938,15 @@ Gracias.`;
                                     cuerpo = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Elaborada. Favor contactar a su supervisor para que proceda a hacer la autorización de la misma.
         
 Gracias.`;
-                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4,18]);
+                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
                                     Object.keys(solicitud_documento.form.oldData).forEach(d => {
                                         ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)){
-                                                if (d == "Nombre"){
+                                            if (v.startsWith(d, e)) {
+                                                if (d == "Nombre") {
                                                     old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                }else if (d == "Descripción") {
+                                                } else if (d == "Descripción") {
                                                     old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                }else {
+                                                } else {
                                                     old_Data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = solicitud_documento.form.oldData[d];
                                                 }
                                             }
@@ -954,12 +954,12 @@ Gracias.`;
                                     });
                                     Object.keys(auditVar).forEach(d => {
                                         ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)){
-                                                if (d == "Nombre"){
+                                            if (v.startsWith(d, e)) {
+                                                if (d == "Nombre") {
                                                     updated_data["Nombre de la solicitud"] = auditVar[d];
-                                                }else if (d == "Descripción") {
+                                                } else if (d == "Descripción") {
                                                     updated_data["Descripción de la solicitud"] = auditVar[d];
-                                                }else {
+                                                } else {
                                                     updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
                                                 }
                                             }
@@ -1002,12 +1002,12 @@ Gracias.`;
                             SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
                             Object.keys(solicitud_documento.form.oldData).forEach(d => {
                                 ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                    if (v.startsWith(d, e)){
-                                        if (d == "Nombre"){
+                                    if (v.startsWith(d, e)) {
+                                        if (d == "Nombre") {
                                             old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                        }else if (d == "Descripción") {
+                                        } else if (d == "Descripción") {
                                             old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                        }else {
+                                        } else {
                                             old_Data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = solicitud_documento.form.oldData[d];
                                         }
                                     }
@@ -1015,12 +1015,12 @@ Gracias.`;
                             });
                             Object.keys(auditVar).forEach(d => {
                                 ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                    if (v.startsWith(d, e)){
-                                        if (d == "Nombre"){
+                                    if (v.startsWith(d, e)) {
+                                        if (d == "Nombre") {
                                             updated_data["Nombre de la solicitud"] = auditVar[d];
-                                        }else if (d == "Descripción") {
+                                        } else if (d == "Descripción") {
                                             updated_data["Descripción de la solicitud"] = auditVar[d];
-                                        }else {
+                                        } else {
                                             updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
                                         }
                                     }
@@ -1061,12 +1061,12 @@ Gracias.`;
                         SWEETALERT.stop({message: MESSAGE.ic('mono.procesing')});
                         Object.keys(solicitud_documento.form.oldData).forEach(d => {
                             ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                if (v.startsWith(d, e)){
-                                    if (d == "Nombre"){
+                                if (v.startsWith(d, e)) {
+                                    if (d == "Nombre") {
                                         old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                    }else if (d == "Descripción") {
+                                    } else if (d == "Descripción") {
                                         old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                    }else {
+                                    } else {
                                         old_Data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = solicitud_documento.form.oldData[d];
                                     }
                                 }
@@ -1074,12 +1074,12 @@ Gracias.`;
                         });
                         Object.keys(auditVar).forEach(d => {
                             ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                if (v.startsWith(d, e)){
-                                    if (d == "Nombre"){
+                                if (v.startsWith(d, e)) {
+                                    if (d == "Nombre") {
                                         updated_data["Nombre de la solicitud"] = auditVar[d];
-                                    }else if (d == "Descripción") {
+                                    } else if (d == "Descripción") {
                                         updated_data["Descripción de la solicitud"] = auditVar[d];
-                                    }else {
+                                    } else {
                                         updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
                                     }
                                 }
@@ -1108,7 +1108,7 @@ Gracias.`;
         if (!solicitud_documento.trabaja_marco_legal) {
             data.updating.marco_legal = "$null"
         }
-        if (data.updating.estatus == 3){
+        if (data.updating.estatus == 3) {
             data.updating.fecha_solicitud = moment().format("YYYY-MM-DD HH:mm:ss");
         }
         resolve(true)
