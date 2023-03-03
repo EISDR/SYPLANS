@@ -572,7 +572,7 @@
                             </a>
                         </th>
                         <th style="text-align: center; vertical-align: middle"
-                            ng-if="auditoria_programa_plan.my_true_estatus <= 3" height="0">Agregar Lista de
+                            ng-show="auditoria_programa_plan.my_true_estatus <= 3" height="0">Agregar Lista de
                             Verificación
                         </th>
                         <th style="text-align: center; vertical-align: middle" height="0">
@@ -604,25 +604,25 @@
                         >
                             {{row.codigo}} - {{row.nombre}}
                         </td>
-                        <td ng-if="auditoria_programa_plan.my_true_estatus <= 3">
+                        <td ng-show="auditoria_programa_plan.my_true_estatus <= 3">
                             {{'Abierto'}}
                         </td>
-                        <td ng-if="auditoria_programa_plan.my_true_estatus > 3">
+                        <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
                             {{ !auditoria_programa_plan.hide_work_documento(row.id) ? 'Abierto' : 'Trabajado' }}
                         </td>
-                        <td ng-if="row.punto_verificacion">
+                        <td>
                             {{row.punto_verificacion}}
                         </td>
-                        <td ng-if="row.punto_verificacion">
+                        <td>
                             {{row.cumple == 1 ? 'Sí' : row.cumple == 0 ? 'No' : '' }}
                         </td>
-                        <td ng-if="row.punto_verificacion">
+                        <td>
                             {{row.tipo_inconformidad}}
                         </td>
-                        <td ng-if="row.punto_verificacion">
+                        <td>
                             {{row.observaciones}}
                         </td>
-                        <td ng-if="row.punto_verificacion">
+                        <td>
                             <a title='Ver imagen' ng-click="auditoria_programa_plan.verFile('archivo','',row);"><i
                                         class='icon-files-empty' ng-show="auditoria_programa_plan.check_file(row)"></i>
                             </a>
