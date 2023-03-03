@@ -5,9 +5,28 @@ app.controller("auditoria_lista_preventiva", function ($scope, $http, $compile) 
     auditoria_lista_preventiva.singular = "Asignar acciones preventivas";
     auditoria_lista_preventiva.plural = "Asignar acciones preventivas";
     auditoria_lista_preventiva.headertitle = "Asignar acciones preventivas";
+    auditoria_lista_preventiva.group_caracteristica = auditoria_lista_preventiva.session.groups[0] ? auditoria_lista_preventiva.session.groups[0].caracteristica : "";
     //auditoria_lista_preventiva.destroyForm = false;
     //auditoria_lista_preventiva.permissionTable = "tabletopermission";
     RUNCONTROLLER("auditoria_lista_preventiva", auditoria_lista_preventiva, $scope, $http, $compile);
+    if (typeof riesgo != "undefined") {
+        if (riesgo) {
+            if (typeof riesgo !== 'not defined') {
+                if (auditoria_lista_preventiva.group_caracteristica != ENUM_2.Grupos.director_general && auditoria_lista_preventiva.group_caracteristica != ENUM_2.Grupos.analista_de_calidad && auditoria_lista_preventiva.group_caracteristica != ENUM_2.Grupos.supervisor_de_calidad) {
+                    auditoria_lista_preventiva.fixFilters = [
+                        {
+                            field: "riesgo",
+                            value: riesgo_a.id
+                        },
+                        {
+                            field: "responsable",
+                            value: auditoria_lista_preventiva.session.id
+                        }
+                    ]
+                }
+            }
+        }
+    }
     auditoria_lista_preventiva.formulary = async function (data, mode, defaultData) {
         if (auditoria_lista_preventiva !== undefined) {
             RUN_B("auditoria_lista_preventiva", auditoria_lista_preventiva, $scope, $http, $compile);

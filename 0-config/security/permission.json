@@ -722,7 +722,13 @@
         "type": "empty",
         "allow": {
           "audit": false,
-          "export": false,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
           "import": false,
           "see_matriz_pei": true
         }
@@ -731,7 +737,13 @@
         "type": "empty",
         "allow": {
           "audit": false,
-          "export": false,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
           "import": false,
           "see_indicador_pei": true
         }
@@ -740,7 +752,13 @@
         "type": "empty",
         "allow": {
           "audit": false,
-          "export": false,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
           "import": false,
           "see_matriz_poa": true
         }
@@ -749,7 +767,13 @@
         "type": "empty",
         "allow": {
           "audit": false,
-          "export": false,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
           "import": false,
           "see_indicador_poa": true
         }
@@ -758,7 +782,13 @@
         "type": "empty",
         "allow": {
           "audit": false,
-          "export": false,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          },
           "import": false,
           "see_indicador_actividad": true
         }
