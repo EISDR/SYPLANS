@@ -21,12 +21,12 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "compania",
-                    value:  vw_procesados.user.compania_id
+                    value: vw_procesados.user.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator":  vw_procesados.user.institucion_id ? "=" : "is",
-                    "value":  vw_procesados.user.institucion_id ?  vw_procesados.user.institucion_id : "$null"
+                    "operator": vw_procesados.user.institucion_id ? "=" : "is",
+                    "value": vw_procesados.user.institucion_id ? vw_procesados.user.institucion_id : "$null"
                 },
                 {
                     field: "estatus",
@@ -215,8 +215,22 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                     if (!p.elementos.filter(f => {
                         return f.id === d.elemento_id
                     }).length)
-                        if (d.elemento_id)
-                            p.elementos.push({
+                        if (d.elemento_id) {
+                            let cumplidor = await aacontroldemandofalso.cumplimiento(
+                                "vw_report_indicadores_generico",
+                                baseController.session,
+                                "indicador_generico",
+                                d.elemento_id);
+                            let colored = "";
+                            let ponderacion = "";
+                            let clase = "";
+                            if (cumplidor)
+                                if (cumplidor.ponderacion)
+                                    if (cumplidor.ponderacion.titulo) {
+                                        ponderacion = cumplidor.ponderacion.titulo;
+                                        clase = `text_${cumplidor.ponderacion.id}`;
+                                    }
+                            let indicador = {
                                 id: d.elemento_id,
                                 nombre: d.elemento,
                                 direccion_meta: d.direccion_meta,
@@ -224,34 +238,61 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                                 alcanzado: d.alcanzado,
                                 alcanzado2: d.alcanzado2,
                                 tipo_meta: d.tipo_meta,
-                                month_inicio: d.month_inicio
-                            });
+                                month_inicio: d.month_inicio,
+                                cumplidor: cumplidor
+                            };
+                            let texto = vw_procesados.indicador(indicador);
+                            colored = `<span class="${clase} cumplidor" title="${texto.tooltip}${ponderacion}">${cumplidor.cumplimiento}%</span>`;
+                            indicador.colored = colored;
+                            p.elementos.push(indicador);
+                        }
                 }
             }
         }
         return categorias;
     };
-    vw_procesados.verIndicador = (indicador) => {
-        let data = {};
-        data.row = indicador;
-        vw_dashboard_productosgrid_proceso = {};
-        vw_dashboard_productosgrid_proceso.selectedPEI = data.row.id;
-        baseController.modal.modalView("indicador_producto_poa_proceso", {
-            header: {
-                title: data.row.nombre,
-            },
-            footer: {
-                cancelButton: true
-            },
-            content: {
-                loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                sameController: 'indicador_producto_poa_proceso'
-            },
-        });
+    vw_procesados.verIndicador = async (indicador) => {
+        if (indicador.cumplidor)
+            if (indicador.cumplidor.ficha) {
+                vw_procesados.FICHA = indicador.cumplidor.ficha.FICHA;
+                vw_procesados.modal.modalView("aacontroldemando/fichaindicador", {
+                    header: {
+                        title: indicador.nombre,
+                    },
+                    footer: {
+                        cancelButton: true
+                    },
+                    content: {
+                        loadingContentText: `Cargando Vista Previa del Indicador...`
+                    },
+                });
+            }
+        // let data = {};
+        // data.row = indicador;
+        // vw_dashboard_productosgrid_proceso = {};
+        // vw_dashboard_productosgrid_proceso.selectedPEI = data.row.id;
+        // baseController.modal.modalView("indicador_producto_poa_proceso", {
+        //     header: {
+        //         title: data.row.nombre,
+        //     },
+        //     footer: {
+        //         cancelButton: true
+        //     },
+        //     content: {
+        //         loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+        //         sameController: 'indicador_producto_poa_proceso'
+        //     },
+        // });
     };
     vw_procesados.indicador = (indicador) => {
+
+
         let data = {};
         data.row = indicador;
+        let cumplimiento = indicador.cumplidor?.cumplimiento || 0;
+        let sumas = (indicador.cumplidor?.general || [])[0]?.sumas;
+        let dirdir = (indicador.cumplidor?.general || [])[0]?.direccionMeta[0] || {nombre: "Ninguna"};
+
         let row = indicador;
         if (!data.row.alcanzado || !data.row.acumulado) {
             return {
@@ -337,7 +378,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
         }
         if (data.row.direccion_meta == 1) {
             icon = "icon-arrow-up7";
-            tooltip += `Proyectado: ${lindo.acumulado}\nAlcanzado: ${lindo.alcanzado}\nVarianza: ${lindo.vari}\nDirección: Subir`;
+            tooltip += `Proyectado: ${sumas.formatedSumMeta}\nAlcanzado: ${sumas.formatedSumAlcanzada}\nTendencia: ${dirdir.nombre}\nCumplimiento: ${cumplimiento}%`;
             print += `<b>Proyectado:</b> ${lindo.acumulado}, <b>Alcanzado:</b> ${lindo.alcanzado}, <b>Varianza:</b> ${lindo.vari}, <b>Dirección:</b> Subir`;
             if ((vari || 0) == 0) {
                 color += colorprint = "gray";
@@ -349,7 +390,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             }
         } else if (data.row.direccion_meta == 2) {
             icon = "icon-arrow-down7";
-            tooltip += `Proyectado: ${lindo.acumulado}\nAlcanzado: ${lindo.alcanzado}\nVarianza: ${lindo.vari}\nDirección: Bajar`;
+            tooltip += `Proyectado: ${sumas.formatedSumMeta}\nAlcanzado: ${sumas.formatedSumAlcanzada}\nTendencia: ${dirdir.nombre}\nCumplimiento: ${cumplimiento}%`;
             print += `<b>Proyectado:</b> ${lindo.acumulado}, <b>Alcanzado:</b> ${lindo.alcanzado}, <b>Varianza:</b> ${lindo.vari}, <b>Dirección:</b> Bajar`;
             if ((vari || 0) == 0) {
                 color += colorprint = "gray";
@@ -360,7 +401,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                 color += colorprint = "red";
             }
         } else if (data.row.direccion_meta == 3) {
-            tooltip += `Proyectado: ${lindo.acumulado}\nAlcanzado: ${lindo.alcanzado}\nVarianza: ${lindo.vari}\nDirección: Permanecer`;
+            tooltip += `Proyectado: ${sumas.formatedSumMeta}\nAlcanzado: ${sumas.formatedSumAlcanzada}\nTendencia: ${dirdir.nombre}\nCumplimiento: ${cumplimiento}%`;
             print += `<b>Proyectado:</b> ${lindo.acumulado}, <b>Alcanzado:</b> ${lindo.alcanzado}, <b>Varianza:</b> ${lindo.vari}, <b>Dirección:</b> Permanecer`;
             icon = "icon-minus3";
             if ((vari || 0) == 0) {
@@ -373,7 +414,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
         }
 
 
-        return {icon: icon, color: color, tooltip: tooltip, print: print, colorprint: colorprint};
+        return {icon: icon, color: color, tooltip: tooltip + "\n", print: print, colorprint: colorprint};
 
     };
     vw_procesados.openfile = () => {

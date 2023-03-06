@@ -127,19 +127,17 @@
                                                         Nombre
                                                     </th>
                                                     <th style="width: 10%;border: solid 1px black; background-color: #9BC2E6; padding: 5px; text-align: center">
-                                                        Resultados
+                                                        Cumplimiento
                                                     </th>
                                                 </tr>
                                                 <tr ng-repeat="(d,elemento) in proceso.elementos"
                                                     ng-if="proceso.elementos.length">
                                                     <td>{{elemento.nombre}}</td>
                                                     <td>
-
-                                                        <i style="cursor: pointer;"
-                                                           ng-click="vw_procesados.verIndicador(elemento)"
-                                                           title="{{vw_procesados.indicador(elemento).tooltip}}"
-
-                                                           class="border-white  position-right {{vw_procesados.indicador(elemento).icon}} {{vw_procesados.indicador(elemento).color}}"></i>
+                                                        <div
+                                                                style="cursor: pointer"
+                                                                ng-click="vw_procesados.verIndicador(elemento)"
+                                                                ng-bind-html="elemento.colored"></div>
                                                     </td>
                                                 </tr>
                                                 </tbody>
