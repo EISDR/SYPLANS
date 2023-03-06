@@ -69,21 +69,16 @@ DSON.keepmerge(CRUD_resumen_indicador_pei, {
                 },
                 shorttext: 370
             },
-            tipo_meta: {
-                label: () => {
+            tipo_meta_nombre: {
+                label: function () {
                     return "Unidad / Escala de Medición"
                 },
-                format: function (row) {
-                    return (resumen_pei_poa.session.tipoMenta.filter(d => d.id == row.tipo_meta)[0] || {}).nombre;
-                },
             },
-            direccion_meta: {
-                label: () => {
+            direccion_meta_nombre: {
+                label: function () {
                     return "Dirección Meta"
                 },
-                format: function (row) {
-                    return (resumen_pei_poa.session.direccionMeta.filter(d => d.id == row.direccion_meta)[0] || {}).nombre;
-                },
+                
             },
             linea_base: {
                 label: () => {
