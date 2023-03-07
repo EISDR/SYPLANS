@@ -335,6 +335,7 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
     // });
     //
     auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.close = function (data) {
+        auditoria_programa_plan_documentos_asociados_listaverificacion.tipo_inconformidad = "[NULL]";
         auditoria_programa_plan_documentos_asociados_listaverificacion.refresh();
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     };
@@ -343,8 +344,9 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.insert = function (data) {
+    // auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.insert = async function (data) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
+    //
     //     return true;
     // };
     auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
@@ -358,13 +360,69 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
         resolve(true);
     });
     //
-    // $scope.triggers.table.after.update = function (data) {
-    //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
-    // };
+    auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.update = async function (data) {
+        if (typeof auditoria_programa_plan != "undefined") {
+            if (auditoria_programa_plan) {
+                if (typeof auditoria_programa_plan !== 'not defined') {
+                    if (auditoria_programa_plan.my_true_estatus > 3) {
+                        let last_history = await BASEAPI.firstp('listaverificacion_history', {
+                            where: [
+                                {
+                                    field: "usuario",
+                                    value: auditoria_programa_plan_documentos_asociados_listaverificacion.session.id
+                                },
+                                {
+                                    field: "id_verificacion",
+                                    value: auditoria_programa_plan_documentos_asociados_listaverificacion.id
+                                },
+                                {
+                                    field: "ap_documento_asociado",
+                                    value: auditoria_programa_plan_documentos_asociados_listaverificacion.documento_asociado
+                                }
+                            ]
+                        })
+                        if (last_history) {
+                            BASEAPI.updateall('listaverificacion_history', {
+                                id_verificacion: auditoria_programa_plan_documentos_asociados_listaverificacion.id,
+                                ap_documento_asociado: auditoria_programa_plan_documentos_asociados_listaverificacion.documento_asociado,
+                                usuario: auditoria_programa_plan_documentos_asociados_listaverificacion.session.id,
+                                cumple: auditoria_programa_plan_documentos_asociados_listaverificacion.cumple,
+                                observaciones: data.updating.observaciones ? data.updating.observaciones : "$null",
+                                tipo_inconformidad: data.updating.tipo_inconformidad ? data.updating.tipo_inconformidad : "$null",
+                                fecha: moment().format("YYYY-MM-DD HH:mm:ss"),
+                                where: [
+                                    {
+                                        field: "id",
+                                        value: last_history.id
+                                    }
+                                ]
+                            }, function (result) {
+                                console.log(result)
+                            })
+                        } else {
+                            BASEAPI.insertID('listaverificacion_history', {
+                                id_verificacion: auditoria_programa_plan_documentos_asociados_listaverificacion.id,
+                                ap_documento_asociado: auditoria_programa_plan_documentos_asociados_listaverificacion.documento_asociado,
+                                usuario: auditoria_programa_plan_documentos_asociados_listaverificacion.session.id,
+                                cumple: auditoria_programa_plan_documentos_asociados_listaverificacion.cumple,
+                                observaciones: data.updating.observaciones ? data.updating.observaciones : "$null",
+                                tipo_inconformidad: data.updating.tipo_inconformidad ? data.updating.tipo_inconformidad : "$null",
+                                fecha: moment().format("YYYY-MM-DD HH:mm:ss")
+                            }, "", "", function (result) {
+                                console.log(result)
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
+    };
     auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
         if (auditoria_programa_plan_documentos_asociados_listaverificacion.from_where === 'cumple') {
             data.updating.cumple = 1;
+            data.updating.tipo_inconformidad = "$null";
         }else if (auditoria_programa_plan_documentos_asociados_listaverificacion.from_where === 'no cumple'){
             data.updating.cumple = 0;
             if (!auditoria_programa_plan_documentos_asociados_listaverificacion.listaverificacionfile_DragonCountFile) {
