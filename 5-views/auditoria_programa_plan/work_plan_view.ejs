@@ -274,15 +274,16 @@
                             <th style="text-align: center; vertical-align: middle" height="0">
                                 <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                    class="ng-binding ng-scope">
-                                    Auditor Responsable de Auditar Documento
+                                    Punto de Verificación
                                 </a>
                             </th>
                             <th style="text-align: center; vertical-align: middle" height="0">
                                 <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                    class="ng-binding ng-scope">
-                                    Punto de Verificación
+                                    Auditor Responsable de Auditar Documento
                                 </a>
                             </th>
+
                             <th style="text-align: center; vertical-align: middle" height="0">
                                 <a style="cursor: pointer;color: #FFF !important;text-decoration: underline"
                                    class="ng-binding ng-scope">
@@ -320,44 +321,49 @@
                             repeat-end="auditoria_programa_plan.get_files()" class=""
                             style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
                             <td
-                                rowspan="{{<%= scope %>.sp_('d.nombre_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                ng-if="<%= scope %>.sm_('d.nombre_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                                    rowspan="{{<%= scope %>.sp_('d.nombre_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                    ng-if="<%= scope %>.sm_('d.nombre_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.nombre_proceso}}
                             </td>
                             <td
-                                rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                                    rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                    ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.responsable_proceso}}
                             </td>
                             <td
-                                rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo ',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                                    rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo ',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                    ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.codigo}} - {{row.nombre}}
                             </td>
-                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
-                                {{row.responsable_ducumento}}
-                            </td>
-                            <td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.punto_verificacion}}
                             </td>
-                            <td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion + d.responsable_ducumento',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                                {{row.responsable_ducumento}}
+                            </td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.cumple == 1 ? 'Sí' : row.cumple == 0 ? 'No' : '' }}
                             </td>
-                            <td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.tipo_inconformidad}}
                             </td>
-                            <td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.observaciones}}
                             </td>
-                            <td>
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 <a title='Ver imagen' ng-click="auditoria_programa_plan.verFile('archivo','',row);"><i
                                             class='icon-files-empty'
                                             ng-show="auditoria_programa_plan.check_file(row)"></i>
                                 </a>
                             </td>
-                            <td     rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo ',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                                    ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                            <td rowspan="{{<%= scope %>.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo ',key,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                                ng-if="<%= scope %>.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo',key,auditoria_programa_plan.documentos_asociados_list_view.data)">
                                 {{row.comentfinal}}
                             </td>
                         </tr>

@@ -151,19 +151,19 @@
                 }) %></div>
         </div>
     </div>
-<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="padding-right: 0">
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="padding-right: 0">
      <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
             <i class="position-right"></i>
      </span>
-    <button
+        <button
 
-            dragonlanguage="" title="Exportar informe Preliminar"
-            type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
-            ng-click="auditoria_programa_plan.export_informe(auditoria_programa_plan.nombre)">
-        <b><i class="icon-printer2"></i></b>
-        <language>Imprimir</language>
-    </button>
-</div>
+                dragonlanguage="" title="Exportar informe Preliminar"
+                type="button" class="btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-right"
+                ng-click="auditoria_programa_plan.export_informe(auditoria_programa_plan.nombre)">
+            <b><i class="icon-printer2"></i></b>
+            <language>Imprimir</language>
+        </button>
+    </div>
     <div class="row"></div>
     <div dragonlanguage=""
          id="info-box" class="alert alert-info alert-styled-left alert-bordered">
@@ -211,8 +211,10 @@
             <tr>
                 <td colspan="7" style="border-top: none"></td>
             </tr>
-            <tr >
-                <th colspan="7" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la Auditoría</th>
+            <tr>
+                <th colspan="7" style="background-color: #f5f5f5; text-align: center">Departamentos Involucrados en la
+                    Auditoría
+                </th>
             </tr>
             <tr>
                 <td colspan="7" style="text-align: center; list-style-position: inside; border-bottom: none">
@@ -256,13 +258,14 @@
             <tr>
                 <th>Proceso</th>
                 <th>Documento</th>
-                <th>Auditor Responsable</th>
                 <th>Punto de Verificación</th>
+                <th>Auditor Responsable</th>
                 <th>Tipo</th>
                 <th>Observación</th>
                 <th>Comentario final de la Auditoría</th>
             </tr>
-            <tr ng-repeat="(key4,value4) in auditoria_programa_plan.documentos_asociados_list_view.data"style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
+            <tr ng-repeat="(key4,value4) in auditoria_programa_plan.documentos_asociados_list_view.data"
+                style="font-family: 'Arial Narrow';font-size: 15px; text-align: center; vertical-align: middle">
                 <td style="border-bottom: none"
                     rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
                     ng-if="auditoria_programa_plan.sm_('d.nombre_proceso',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
@@ -275,17 +278,25 @@
                     {{value4.codigo}} - {{value4.nombre}}
                 </td>
                 <td style="border-bottom: none"
-                    rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
-                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
-                    {{value4.responsable_ducumento}}
-                </td>
-                <td style="border-bottom: none">
+                    rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
                     {{value4.punto_verificacion}}
                 </td>
-                <td style="border-bottom: none">
+
+                <td style="border-bottom: none"
+                    rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion + d.responsable_ducumento',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
+                    {{value4.responsable_ducumento}}
+                </td>
+
+                <td style="border-bottom: none"
+                    rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
                     {{value4.tipo_inconformidad}}
                 </td>
-                <td style="border-bottom: none; width: 35%">
+                <td style="border-bottom: none; width: 35%"
+                    rowspan="{{auditoria_programa_plan.sp_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)}}"
+                    ng-if="auditoria_programa_plan.sm_('d.nombre_proceso+d.responsable_proceso + d.codigo + d.punto_verificacion',key4,auditoria_programa_plan.documentos_asociados_list_view.data)">
                     {{value4.observaciones}}
                 </td>
                 <td style="border-bottom: none"
@@ -308,7 +319,8 @@
             </tr>
             <tr ng-repeat="(key5, value5) in auditoria_programa_plan.informes_auditoria.data">
                 <td colspan="6" style="border-bottom: none;"><p ng-bind-html="value5.recomendaciones"></p></td>
-                <td colspan="1" style="text-align: center; border-bottom: none"><p ng-bind-html="value5.departamento"></p>
+                <td colspan="1" style="text-align: center; border-bottom: none"><p
+                            ng-bind-html="value5.departamento"></p>
                     <br><strong style="float: right; margin-top: -20px"> - {{value5.creadopor_nombre}}</strong></td>
             </tr>
             <tr>

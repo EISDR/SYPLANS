@@ -5,6 +5,7 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     auditoria_programa_plan.fixFilters = [];
     auditoria_programa_plan.plural = "plural";
     auditoria_programa_plan.headertitle = "Planes de Auditoría";
+    auditoria_programa_plan.orderbyx = "$ nombre_proceso,responsable_proceso,codigo,punto_verificacion,responsable_ducumento";
     auditoria_programa_plan.group_caracteristica = auditoria_programa_plan.session.groups[0] ? auditoria_programa_plan.session.groups[0].caracteristica : "";
     auditoria_programa_plan.supervisor_de_calidad = "SC";
     auditoria_programa_plan.analista_de_calidad = "AC";
@@ -610,6 +611,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
+
                 if (auditoria_programa_plan.auditoria_plan_documentos_asociados) {
                     if (auditoria_programa_plan.auditoria_plan_documentos_asociados.length > 0) {
                         auditoria_programa_plan.documentos_asociados_list = await BASEAPI.listp('vw_documentos_asociados', {
@@ -625,7 +627,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         });
                         auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                             limit: 0,
-                            orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento",
+                            orderby: auditoria_programa_plan.orderbyx,
                             order: "asc",
                             where: [
                                 {
@@ -819,6 +821,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     }
 
                 }
+
                 if (data === 'auditoria_plan_proceso') {
                     if (auditoria_programa_plan.auditoria_plan_proceso) {
                         if (auditoria_programa_plan.auditoria_plan_proceso.length > 0) {
@@ -882,7 +885,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                             });
                             auditoria_programa_plan.documentos_asociados_list_view = await BASEAPI.listp('vw_documentos_asociados_pv', {
                                 limit: 0,
-                                orderby: "$ nombre_proceso,responsable_proceso,codigo,responsable_ducumento",
+                                orderby: auditoria_programa_plan.orderbyx,
                                 order: "asc",
                                 where: [
                                     {
