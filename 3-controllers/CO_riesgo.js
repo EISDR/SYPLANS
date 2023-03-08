@@ -2513,6 +2513,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     // };
     riesgo.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        data.inserting.descripcion_historico = undefined;
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [
                 {
@@ -2565,6 +2566,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     // };
     riesgo.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        data.updating.descripcion_historico = undefined;
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [
                 {
