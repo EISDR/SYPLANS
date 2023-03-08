@@ -51,7 +51,7 @@
                             truelabel: "Proceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.procesos_categoria == documentos_asociados.procesos_categoria && item.estatus != '3')"
+                            condition: "(item.procesos_categoria == documentos_asociados.procesos_categoria && item.estatus == '3')"
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-if="!documentos_asociados.session.institucion">
