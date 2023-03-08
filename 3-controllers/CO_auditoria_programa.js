@@ -45,6 +45,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
             auditoria_programa.id = auditoriaData.id;
             auditoria_programa.nombre = auditoriaData.nombre;
             auditoria_programa.descripcion = auditoriaData.descripcion;
+            auditoria_programa.metodo_auditoria = auditoriaData.metodo_auditoria;
             auditoria_programa.fecha_inicio = auditoriaData.fecha_inicio;
             auditoria_programa.fecha_fin = auditoriaData.fecha_fin;
             auditoria_programa.range_date = LAN.date(auditoriaData.fecha_inicio) + " - " + LAN.date(auditoriaData.fecha_fin);
@@ -128,6 +129,12 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
         //rules.push(VALIDATION.general.required(value));
         rules.push(VALIDATION.yariel.maliciousCode(value));
         VALIDATION.validate(auditoria_programa, 'descripcion', rules);
+    });
+    auditoria_programa.$scope.$watch("auditoria_programa.metodo_auditoria", function (value) {
+        var rules = [];
+        //rules here
+        //rules.push(VALIDATION.general.required(value));
+        VALIDATION.validate(auditoria_programa, 'metodo_auditoria', rules);
     });
     auditoria_programa.$scope.$watch('auditoria_programa.fecha_inicio', function (value) {
         var rules = [];
@@ -306,7 +313,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                     pointer: {
                         icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
                         length: '12%',
-                        width: 20,
+                        width: 30,
                         offsetCenter: [0, '-55%'],
                         itemStyle: {
                             color: 'auto'
@@ -347,7 +354,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                         fontSize: 30
                     },
                     detail: {
-                        fontSize: 14,
+                        fontSize: 16,
                         offsetCenter: [0, '0%'],
                         valueAnimation: true,
                         formatter: function (value) {
