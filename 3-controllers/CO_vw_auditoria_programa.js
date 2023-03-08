@@ -150,6 +150,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
             vw_auditoria_programa.range_date = auditoriaData.fecha_inicio ? LAN.date(auditoriaData.fecha_inicio) + " - " + LAN.date(auditoriaData.fecha_fin) : "";
             vw_auditoria_programa.estatus = auditoriaData.estatus + '';
             vw_auditoria_programa.poa = auditoriaData.poa + '';
+            vw_auditoria_programa.metodo_auditoria = auditoriaData.metodo_auditoria;
             vw_auditoria_programa.current_estatus = auditoriaData.estatus;
             vw_auditoria_programa.estatus_nombre = auditoriaData.estatus_nombre;
             vw_auditoria_programa.compania = auditoriaData.compania;
@@ -221,6 +222,12 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
         //rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(vw_auditoria_programa, 'descripcion', rules);
     });
+    vw_auditoria_programa.$scope.$watch("vw_auditoria_programa.metodo_auditoria", function (value) {
+        var rules = [];
+        //rules here
+        //rules.push(VALIDATION.general.required(value));
+        VALIDATION.validate(vw_auditoria_programa, 'metodo_auditoria', rules);
+    });
     vw_auditoria_programa.$scope.$watch('vw_auditoria_programa.fecha_inicio', function (value) {
         var rules = [];
         rules.push(VALIDATION.general.required(value));
@@ -240,6 +247,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
     vw_auditoria_programa.cleanFields = function (){
         vw_auditoria_programa.nombre = "";
         vw_auditoria_programa.descripcion = "";
+        vw_auditoria_programa.metodo_auditoria = "";
         vw_auditoria_programa.fecha_inicio = "";
         vw_auditoria_programa.fecha_fin = "";
         vw_auditoria_programa.range_date = "";
@@ -328,6 +336,7 @@ app.controller("vw_auditoria_programa", function ($scope, $http, $compile) {
                         poa: vw_auditoria_programa.poa ? vw_auditoria_programa.poa : "$null",
                         compania: vw_auditoria_programa.session.compania_id ? vw_auditoria_programa.session.compania_id : "$null",
                         institucion: vw_auditoria_programa.session.institucion_id ? vw_auditoria_programa.session.institucion_id : "$null",
+                        metodo_auditoria: vw_auditoria_programa.metodo_auditoria ? vw_auditoria_programa.metodo_auditoria : "$null",
                         where: [
                             {
                                 field: "id",
@@ -383,6 +392,7 @@ Gracias.`;
                 poa: vw_auditoria_programa.poa ? vw_auditoria_programa.poa : "$null",
                 compania: vw_auditoria_programa.session.compania_id ? vw_auditoria_programa.session.compania_id : "$null",
                 institucion: vw_auditoria_programa.session.institucion_id ? vw_auditoria_programa.session.institucion_id : "$null",
+                metodo_auditoria: vw_auditoria_programa.metodo_auditoria ? vw_auditoria_programa.metodo_auditoria : "$null",
             }, '','',async function (result) {
                 if (result.data.data.length > 0) {
                     SWEETALERT.stop();
@@ -414,6 +424,7 @@ Gracias.`;
                         vw_auditoria_programa.id = auditoriaData.id;
                         vw_auditoria_programa.nombre = auditoriaData.nombre;
                         vw_auditoria_programa.descripcion = auditoriaData.descripcion;
+                        vw_auditoria_programa.metodo_auditoria = auditoriaData.metodo_auditoria;
                         vw_auditoria_programa.fecha_inicio = auditoriaData.fecha_inicio;
                         vw_auditoria_programa.fecha_fin = auditoriaData.fecha_fin;
                         vw_auditoria_programa.range_date = auditoriaData.fecha_inicio ? LAN.date(auditoriaData.fecha_inicio) + " - " + LAN.date(auditoriaData.fecha_fin) : "";
