@@ -539,6 +539,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     });
     indicador_generico_poa.$scope.$watch('indicador_generico_poa.producto', function (value) {
         indicador_generico_poa.descripcion = null;
+        indicador_generico_poa.departamento_nombre = null;
         indicador_generico_poa.fuente = null;
         indicador_generico_poa.medio_verificacion = null;
         indicador_generico_poa.tipo_meta_nombre = null;
@@ -573,6 +574,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     });
     indicador_generico_poa.$scope.$watch('indicador_generico_poa.entidad', function (value) {
         indicador_generico_poa.descripcion = null;
+        indicador_generico_poa.departamento_nombre = null;
         indicador_generico_poa.fuente = null;
         indicador_generico_poa.medio_verificacion = null;
         indicador_generico_poa.tipo_meta_nombre = null;
@@ -686,6 +688,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                         indicador_generico_poa.metodo_calculo = indicador_generico_poa.form.selected('indicador_generico').metodo_calculo;
                         indicador_generico_poa.indicador_pei_nombre = indicador_generico_poa.form.selected('indicador_generico').indicador_pei_nombre;
                         indicador_generico_poa.departamentoX = `${indicador_generico_poa.form.selected('indicador_generico').producto_name} - ${indicador_generico_poa.form.selected('indicador_generico').departamento_name}`;
+                        indicador_generico_poa.form.loadDropDown('departamento_nombre');
                         if (indicador_generico_poa.list_tipo_meta.length > 0) {
                             var selected1 = indicador_generico_poa.list_tipo_meta.filter(information => {
                                 if (information.id == indicador_generico_poa.form.selected('indicador_generico').tipo_meta) {
