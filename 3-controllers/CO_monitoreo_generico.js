@@ -140,7 +140,7 @@ app.controller("monitoreo_generico", function ($scope, $http, $compile) {
             allowver = true;
         }
         var permi = await monitoreo_generico.permission(indicador, periodo);
-        if (1== 1) {
+        if (1 == 1) {
             open_comments_indicador(type, indicador, true, periodo);
         } else {
             // SWEETALERT.show({
@@ -286,24 +286,68 @@ app.controller("monitoreo_generico", function ($scope, $http, $compile) {
         });
         animation1.loading(`.subcontent`, "", ``, '200', undefined, true);
         monitoreo_generico.poa_permission = monitoreo_generico.poa_permission.data;
-        monitoreo_generico.poa_data = await BASEAPI.listp('vw_monitoreo_generico', {
-            limit: 0,
-            orderby: "$ compania,indicador",
-            order: "asc",
-            where: [{
-                field: "compania",
-                value: user.compania_id
-            },
-                {
-                    field: "table_",
-                    value: monitoreo_generico.form.selected("entidad").id
+        monitoreo_generico.poa_data = [];
+
+        if (monitoreo_generico.entidad === "vw_procesos") {
+            monitoreo_generico.poa_data = await BASEAPI.listp('vw_monitoreo_generico', {
+                limit: 0,
+                orderby: "$ compania,indicador",
+                order: "asc",
+                join: [
+                    {
+                        table: "procesos",
+                        base: "registro",
+                        field: "id",
+                        columns: ["id", "nombre", "mapa_proceso"]
+                    },
+                    {
+                        table: "mapa_proceso",
+                        base: "procesos.mapa_proceso",
+                        field: "id",
+                        columns: ["id", "nombre", "estatus"]
+                    }
+                ],
+                where: [
+                    {
+                        field: "compania",
+                        value: user.compania_id
+                    },
+                    {
+                        field: "table_",
+                        value: monitoreo_generico.form.selected("entidad").id
+                    },
+                    {
+                        field: "indicador_id",
+                        operator: parseInt(monitoreo_generico.indicador) ? "=" : ">",
+                        value: parseInt(monitoreo_generico.indicador) || 0
+                    },
+                    {
+                        field: "$mapa_proceso.estatus",
+                        operator: "!=",
+                        value: 4
+                    }
+                ]
+            });
+        } else {
+            monitoreo_generico.poa_data = await BASEAPI.listp('vw_monitoreo_generico', {
+                limit: 0,
+                orderby: "$ compania,indicador",
+                order: "asc",
+                where: [{
+                    field: "compania",
+                    value: user.compania_id
                 },
-                {
-                    field: "indicador_id",
-                    operator: parseInt(monitoreo_generico.indicador) ? "=" : ">",
-                    value: parseInt(monitoreo_generico.indicador) || 0
-                }]
-        });
+                    {
+                        field: "table_",
+                        value: monitoreo_generico.form.selected("entidad").id
+                    },
+                    {
+                        field: "indicador_id",
+                        operator: parseInt(monitoreo_generico.indicador) ? "=" : ">",
+                        value: parseInt(monitoreo_generico.indicador) || 0
+                    }]
+            });
+        }
         monitoreo_generico.poa_data = monitoreo_generico.poa_data.data;
 
         // monitoreo_generico.indicadores = [...new Set(monitoreo_generico.poa_data.map(d => {
