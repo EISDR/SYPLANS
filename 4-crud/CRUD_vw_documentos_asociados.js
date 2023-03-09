@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_vw_documentos_asociados, {
     table: {
         //width: "width:3000px;",
-        //view: 'vw_vw_documentos_asociados',
+        view: 'vw_documentos_asociados_drp',
         //method: 'vw_documentos_asociados',
         //limits: [10, 50, 100, 0],
         //report: true,

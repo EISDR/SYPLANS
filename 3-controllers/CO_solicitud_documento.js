@@ -84,7 +84,7 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     }
     solicitud_documento.getMapaProceso();
     RUNCONTROLLER("solicitud_documento", solicitud_documento, $scope, $http, $compile);
-    solicitud_documento.formulary = function (data, mode, defaultData) {
+    solicitud_documento.formulary = async function (data, mode, defaultData) {
         if (solicitud_documento !== undefined) {
             RUN_B("solicitud_documento", solicitud_documento, $scope, $http, $compile);
             solicitud_documento.form.modalWidth = ENUM.modal.width.full;
@@ -95,6 +95,25 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 mapa_proceso: solicitud_documento.mapa_id
             };
             solicitud_documento.createForm(data, mode, defaultData);
+            solicitud_documento.documentos_creados = await BASEAPI.listp('vw_documentos_asociados', {
+                limit: 0,
+                "where": [
+                    {
+                        "field": "compania",
+                        "value": solicitud_documento.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": solicitud_documento.session.institucion_id ? "=" : "is",
+                        "value": solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null"
+                    },
+                    {
+                        field: "mapa_proceso",
+                        value: solicitud_documento.mapa_id ? solicitud_documento.mapa_id : -1
+                    }
+                ]
+            });
+            solicitud_documento.documentos_creados = solicitud_documento.documentos_creados.data;
             solicitud_documento.form.titles = {
                 new: "Nueva Solicitud de Documento",
             };
@@ -215,11 +234,16 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 }
                 VALIDATION.validate(solicitud_documento, 'documentos_asociados', rules);
             });
-            $scope.$watch("solicitud_documento.codigo_documento", function (value) {
+            $scope.$watch("solicitud_documento.codigo_documento", async function (value) {
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
+                let result = solicitud_documento.documentos_creados.filter(d=> {
+                    return d.codigo == value;
+                })[0];
+                console.log(result)
                 rules.push(VALIDATION.yariel.maliciousCode(value));
+                rules.push(VALIDATION.yariel.duplicateCode(value, result ? result.codigo : ""));
                 VALIDATION.validate(solicitud_documento, 'codigo_documento', rules);
             });
             if (solicitud_documento.caracteristica == ENUM_2.Grupos.analista_de_calidad || solicitud_documento.caracteristica == ENUM_2.Grupos.supervisor_de_calidad || (solicitud_documento.caracteristica == ENUM_2.Grupos.director_general && solicitud_documento.my_true_estatus == 2)) {

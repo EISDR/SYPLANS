@@ -264,7 +264,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     return "Código Manual"
                 },
                 format: (row) => {
-                    return baseController.COD("Módulo de Calidad -> Documentos", row.id,row.aprobado_en);
+                    return baseController.COD("Módulo de Calidad -> Documentos", row.id, row.aprobado_en);
                 },
                 sortable:false
             },
@@ -586,6 +586,25 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 ]
             });
             documentos_asociados.createForm(data, mode, defaultData, view);
+            documentos_asociados.documentos_creados = await BASEAPI.listp('vw_documentos_asociados', {
+                limit: 0,
+                "where": [
+                    {
+                        "field": "compania",
+                        "value": documentos_asociados.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": documentos_asociados.session.institucion_id ? "=" : "is",
+                        "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
+                    },
+                    {
+                        field: "mapa_proceso",
+                        value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id: -1
+                    }
+                ]
+            });
+            documentos_asociados.documentos_creados = documentos_asociados.documentos_creados.data;
             documentos_asociados.selectQueries['estatus'] = [
                 {
                     field: 'rol',
@@ -610,48 +629,17 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             $scope.$watch("documentos_asociados.codigo", async function (value) {
                 var rules = [];
                 //rules here
-                if (documentos_asociados.form.mode === "edit") {
-                    var result = await BASEAPI.firstp('vw_documentos_asociados', {
-                        "where": [
-                            {
-                                "field": "compania",
-                                "value": documentos_asociados.session.compania_id
-                            },
-                            {
-                                "field": "institucion",
-                                "operator": documentos_asociados.session.institucion_id ? "=" : "is",
-                                "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
-                            },
-                            {
-                                "field": "codigo",
-                                "value": value
-                            },
-                            {
-                                "field": "id",
-                                "operator": "!=",
-                                "value": documentos_asociados.id
-                            }
-                        ]
-                    });
-                } else {
-                    var result = await BASEAPI.firstp('vw_documentos_asociados', {
-                        "where": [
-                            {
-                                "field": "compania",
-                                "value": documentos_asociados.session.compania_id
-                            },
-                            {
-                                "field": "institucion",
-                                "operator": documentos_asociados.session.institucion_id ? "=" : "is",
-                                "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
-                            },
-                            {
-                                "field": "codigo",
-                                "value": value
-                            }
-                        ]
-                    });
+                var result;
+                if (documentos_asociados.form.mode == "edit"){
+                    result = documentos_asociados.documentos_creados.filter(d=> {
+                        return d.codigo == value && d.id != documentos_asociados.id;
+                    })[0];
+                }else{
+                    result = documentos_asociados.documentos_creados.filter(d=> {
+                        return d.codigo == value;
+                    })[0];
                 }
+                console.log(result)
                 rules.push(VALIDATION.general.required(value));
                 rules.push(VALIDATION.yariel.duplicateCode(value, result ? result.codigo : ""));
                 VALIDATION.validate(documentos_asociados, 'codigo', rules);
