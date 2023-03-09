@@ -169,11 +169,8 @@ DSON.keepmerge(CRUD_ser_salida, {
                         icon: (data) => {
                             return "hammer-wrench";
                         },
-                        permission: (data) => {
-                            return true;
-                        },
                         characterist: (data) => {
-                            return "";
+                            return "edit";
                         },
                         show: function (data) {
                             return data.row.ser_salida_estatus != "3";
