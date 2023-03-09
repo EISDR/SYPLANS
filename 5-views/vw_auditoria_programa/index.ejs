@@ -106,15 +106,28 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.created && <%= scope%>.current_estatus != 5">
+                            <div class='col-sm-12 col-md-6' ng-if="<%= scope%>.created && <%= scope%>.current_estatus != 5">
                                 <%- FORM.textarea('descripcion', scope, {
                                         //maxlength: 200,
                                 }) %>
                             </div>
-                            <div class='col-sm-12 col-md-12' ng-if="<%= scope%>.created && <%= scope%>.current_estatus == 5">
+                            <div class='col-sm-12 col-md-6' ng-if="<%= scope%>.created && <%= scope%>.current_estatus == 5">
                                 <%- FORM.textarea('descripcion', scope, {
                                     disabled: true
                                         //maxlength: 200,
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-6' ng-if="<%= scope%>.created && <%= scope%>.current_estatus != 5">
+                                <%- FORM.textarea('metodo_auditoria', scope, {
+                                    //maxlength: 200,
+                                    placeholder: "Método de Auditoría a Utilizar (Recurso Metodológico)"
+                                }) %>
+                            </div>
+                            <div class='col-sm-12 col-md-6' ng-if="<%= scope%>.created && <%= scope%>.current_estatus == 5">
+                                <%- FORM.textarea('metodo_auditoria', scope, {
+                                    disabled: true,
+                                    placeholder: "Método de Auditoría a Utilizar (Recurso Metodológico)"
+                                    //maxlength: 200,
                                 }) %>
                             </div>
                         </div>
