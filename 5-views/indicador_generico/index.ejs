@@ -220,8 +220,10 @@
             </script>
 
 
-            <div id="<%= 'indicador_generico2' %>" ng-controller="<%= 'indicador_generico2' %> as <%= 'indicador_generico2' %>">
-                <div class="row" ng-show="indicador_generico.entidad != 'vw_proyecto_item' && indicador_generico.entidad != 'vw_procesos'&& indicador_generico.entidad != 'vw_evento_indicador'">
+            <div id="<%= 'indicador_generico2' %>"
+                 ng-controller="<%= 'indicador_generico2' %> as <%= 'indicador_generico2' %>">
+                <div class="row"
+                     ng-show="indicador_generico.entidad != 'vw_proyecto_item' && indicador_generico.entidad != 'vw_procesos'&& indicador_generico.entidad != 'vw_evento_indicador'">
                     <div class="col-sm-6 col-md-6 " id="">
                         <%- FORM.select("indicador_generico_entidad", 'indicador_generico2', {
                             allownull: false,
@@ -238,7 +240,8 @@
                         }) %>
                     </div>
                 </div>
-                <div class="row" ng-show="indicador_generico.entidad == 'vw_proyecto_item' || indicador_generico.entidad == 'vw_procesos'">
+                <div class="row"
+                     ng-show="indicador_generico.entidad == 'vw_proyecto_item' || indicador_generico.entidad == 'vw_procesos'">
                     <div class="col-sm-6 col-md-6 " id="">
                         <%- FORM.select("indicador_generico_entidad", 'indicador_generico2', {
                             allownull: false,
@@ -250,7 +253,23 @@
                             text: "item.name",
                             value: "table_",
                             table: "indicador_generico_entidad",
-                            icon: {class: "list"}
+                            icon: {class: "list"},
+                            condition: "item.mapa_proceso_estatus!=4 && item.entidad==" + scope + ".entidad && item.compania==" + scope + ".session.compania_id",
+                            truelabel: "Indicador de Proceso",
+                            join: [
+                                {
+                                    table: "procesos",
+                                    base: "registro",
+                                    field: "id",
+                                    columns: ["id", "nombre", "mapa_proceso"]
+                                },
+                                {
+                                    table: "mapa_proceso",
+                                    base: "procesos.mapa_proceso",
+                                    field: "id",
+                                    columns: ["id", "nombre", "estatus"]
+                                }
+                            ]
                         }) %>
                     </div>
                 </div>
@@ -271,7 +290,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <div ng-show="<%= scope %>.table.loaded" class="dragon-panel" id="<%= scope %>TablePanel"
