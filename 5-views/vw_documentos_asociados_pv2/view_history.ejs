@@ -1,0 +1,28 @@
+<div class="subcontent">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div id="vw_procesos_v2" ng-controller="listaverificacion_history as listaverificacion_history">
+                        <div class="panel panel-flat">
+                            <%- include('../../7-plugins/templates/table/header',{scope:'listaverificacion_history'}); %>
+                            <div class="subcontent">
+                                <%- include('../../5-views/vw_procesos_v2/base',{scope:'listaverificacion_history'}); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.icon-plus-circle2 ').parent().hide();
+    listaverificacion_history.fixFilters = [
+        {
+            "field": "id_verificacion",
+            "value": vw_documentos_asociados_pv2.dataForView.id_punto_verificacion
+
+        }
+    ];
+</script>
