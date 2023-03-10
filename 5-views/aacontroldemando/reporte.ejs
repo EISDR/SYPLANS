@@ -157,10 +157,10 @@
                 <td>{{value.nombre}}</td>
                 <td ng-if="<%= scope %>.REPORTING.entidad==='Producto'">{{value.estrategico}}</td>
                 <td ng-if="value.boton">
-                    <a ng-click="<%= scope %>.execute(value.link)">{{value.boton.split("(")[1].split(")")[0]}}</a>
+                    <a title="Dar clic para ver detalle" ng-click="<%= scope %>.execute(value.link)">{{value.boton.split("(")[1].split(")")[0]}}</a>
                 </td>
                 <td ng-if="value.boton2">
-                    <a ng-click="<%= scope %>.execute(value.link2)">{{value.boton2.split("(")[1].split(")")[0]}}</a>
+                    <a title="Dar clic para ver detalle" ng-click="<%= scope %>.execute(value.link2)">{{value.boton2.split("(")[1].split(")")[0]}}</a>
                 </td>
                 <td style="background-color: {{value.color}};color:{{value.porcentaje===''?'black':'white'}};font-weight: bold">{{value.porcentaje}}{{value.porcentaje===''?'Pendiente':'%'}}</td>
                 <td ng-if="value.boton3">
