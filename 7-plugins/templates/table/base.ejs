@@ -51,7 +51,8 @@
         </tr>
         <tr class="bg-<%= COLOR.secundary %> dragon-columns" ng-if="<%= scope %>.CRUD().columnsOrder"
             ng-repeat="(r, larow) in <%= scope %>.CRUD().columnsOrder">
-            <th ng-repeat="(key, value) in larow" class="handle {{value.responsive}} text-center" colspan="{{value.col||1}}" rowspan="{{value.row||1}}">
+            <th ng-repeat="(key, value) in larow" class="handle {{value.responsive}} text-center"
+                colspan="{{value.col||1}}" rowspan="{{value.row||1}}">
                 {{value.label}}
             </th>
         </tr>
@@ -60,6 +61,7 @@
         <!--Rows-->
 
         <tr ng-repeat="(rowkey, row) in <%= scope %>.records.data track by rowkey" data-object="{{row}}"
+
             style="{{<%= scope %>.rowStyle(row)}}"
             class="dragon-rows {{<%= scope %>.rowClass(row)}}  {{<%= scope %>.rowDeleted(row)}} {{<%= scope %>.trCheck(row)}}">
             <%- include('rows',{scope:scope}); %>
