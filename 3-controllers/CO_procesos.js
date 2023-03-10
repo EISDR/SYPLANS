@@ -634,10 +634,10 @@ app.controller("procesos", function ($scope, $http, $compile) {
             let cuerpo = "";
             let cuerpo2 = "";
             if (data.updating.estatus == 3) {
-                titulo_push = `El documento "${data.updating.nombre}" ha sido Autorizado.`;
-                cuerpo_push = `El documento "${data.updating.nombre}" ha sido Autorizado.`;
-                titulo = `El documento "${data.updating.nombre}" ha sido Autorizado`
-                cuerpo = `Ha sido Autorizado por ${documentos_asociados.session.fullName()}.`;
+                titulo_push = `El proceso "${data.updating.nombre}" ha sido Autorizado.`;
+                cuerpo_push = `El proceso "${data.updating.nombre}" ha sido Autorizado.`;
+                titulo = `El proceso "${data.updating.nombre}" ha sido Autorizado`
+                cuerpo = `Ha sido Autorizado por ${procesos.session.fullName()}.`;
                 cuerpo2 = "Gracias.";
                 BASEAPI.insertID('documentos_asociados', {
                     proceso: procesos.id || "$null",
@@ -658,16 +658,16 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 }, '', '', function (result) {
 
                 });
-                function_send_email_custom_group_res_list(titulo_push, cuerpo_push, titulo, cuerpo, documentos_asociados.session.compania_id, documentos_asociados.session.institucion_id, documentos_asociados.solicitante, 18, 4, null, cuerpo2);
+                function_send_email_custom_group_res_list(titulo_push, cuerpo_push, titulo, cuerpo, procesos.session.compania_id, procesos.session.institucion_id, procesos.solicitante, 18, 4, null, cuerpo2);
             } else if (data.updating.estatus == 2) {
-                titulo_push = `El documento "${data.updating.nombre}" ha sido Elaborado.`;
+                titulo_push = `El proceso "${data.updating.nombre}" ha sido Elaborado.`;
                 cuerpo_push = `Uno de los supervisores de calidad deben proceder a Revisar y Autorizar el mismo.`;
-                titulo = `El documento "${data.updating.nombre}" ha sido Elaborado.`
-                cuerpo = `Ha sido Elaborado por ${documentos_asociados.session.fullName()}. 
+                titulo = `El proceso "${data.updating.nombre}" ha sido Elaborado.`
+                cuerpo = `Ha sido Elaborado por ${procesos.session.fullName()}. 
 
-Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dicho Documento. Los supervisores de calidad son :`;
+Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dicho Proceso. Los supervisores de calidad son :`;
                 cuerpo2 = "Gracias.";
-                function_send_email_custom_group_res_list(titulo_push, cuerpo_push, titulo, cuerpo, documentos_asociados.session.compania_id, documentos_asociados.session.institucion_id, documentos_asociados.solicitante, 18, 4, 18, cuerpo2);
+                function_send_email_custom_group_res_list(titulo_push, cuerpo_push, titulo, cuerpo, procesos.session.compania_id, procesos.session.institucion_id, procesos.solicitante, 18, 4, 18, cuerpo2);
             }
         };
         // $scope.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
