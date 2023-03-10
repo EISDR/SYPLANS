@@ -2079,6 +2079,7 @@
       "vw_documentos_asociados_pv2": {
         "type": "empty",
         "allow": {
+          "actions": true,
           "menu": true,
           "filter": true,
           "export": {
@@ -2094,6 +2095,10 @@
             "upload": true
           }
         }
+      },
+      "listaverificacion_history": {
+        "type": "empty",
+        "allow": {}
       },
       "indicador_generico_poaSIGNALvw_procesos": {
         "type": "report",
