@@ -21,12 +21,6 @@ DSON.keepmerge(CRUD_ser_salida, {
         //activeColumn: "active",
         //key: 'id',
         //deletekeys: ['id'],
-        rowspan: function (index, list, category) {
-            if (category === "span")
-                return ser_salida.sp_('d.ser_salida_tipo_nombre', index, list);
-            if (category === "seeme")
-                return ser_salida.sm_('d.ser_salida_tipo_nombre', index, list);
-        },
         columns: {
             // dbcolumnname: {
             //     visible: false,
