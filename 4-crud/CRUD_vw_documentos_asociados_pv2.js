@@ -20,6 +20,10 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
         //activeColumn: "active",
         //key: 'id',
         //deletekeys: ['id'],
+        rowspan: function (index, list, category, fromreport) {
+            return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre', index, list)
+                : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre', index, list);
+        },
         columns: {
             // dbcolumnname: {
             //     visible: false,
@@ -52,42 +56,66 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 label: function () {
                     return "Proceso"
                 },
-                // rowspan: function (index, list, category, fromreport) {
-                //     return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso', index, list)
-                //         : vw_documentos_asociados_pv2.sm_('d.nombre_proceso', index, list);
-                // }
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso', index, list);
+                }
             },
             nombre: {
                 label: function () {
                     return "Nombre del Documento"
                 },
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre', index, list);
+                }
             },
             responsable_ducumento: {
                 label: function () {
                     return "Auditor Responsable del Documento"
                 },
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento', index, list);
+                }
             },
             punto_verificacion: {
                 label: function () {
                     return "Punto de Verificación"
                 },
                 shorttext: 360,
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list);
+                }
             },
             tipo_inconformidad: {
                 label: function () {
                     return "Tipo de No Conformidad"
                 },
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad', index, list);
+                }
             },
             observaciones: {
                 label: function () {
                     return "Observación"
                 },
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones', index, list);
+                }
             },
             comentfinal: {
                 label: function(){
                     return "Comentario final de la auditoría"
                 },
                 shorttext: 360,
+                rowspan: function (index, list, category, fromreport) {
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones + d.comentfinal', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones + d.comentfinal', index, list);
+                }
             }
         },
         filters: {
@@ -206,6 +234,57 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
             ]
         }
+    }
+});
+CRUD_vw_documentos_asociados_pv2.table.options.push({
+    title: (data) => {
+        return "Ver historial de cambios hechos por los auditores";
+    },
+    icon: (data) => {
+        return "list";
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        //extra function
+        vw_documentos_asociados_pv2.dataForView = data.row;
+        vw_documentos_asociados_pv2.modal.modalView("vw_documentos_asociados_pv2/view_history", {
+
+            width: 'modal-full',
+            header: {
+                title: `Ver historial de cambios hechos por los auditores al punto de verificación: "${data.row.nombre}" `,
+                icon: "list"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'mapa_proceso'
+            },
+            event: {
+                // show: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: async function (eData) {
+                //
+                //     }
+                // },
+                // hide: {
+                //     begin: function (data) {
+                //
+                //     },
+                //     end: function (data) {
+                //     }
+                // }
+            },
+        });
+        return false;
     }
 });
 //modify methods that existing option
