@@ -10,6 +10,12 @@
         },
         {
           "modal": "",
+          "icon": "list2",
+          "href": "#documentos_ia",
+          "text": "Documento Inteligente"
+        },
+        {
+          "modal": "",
           "icon": "office",
           "href": "#compania",
           "text": "Compañía"

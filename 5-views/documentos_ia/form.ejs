@@ -1,0 +1,154 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad"}) %>
+            </div>
+            <div class='col-sm-12 col-md-12' style="margin-top: 20px">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class='col-sm-12 col-md-12'>
+                                <button ng-click="<%= scope %>.uploadImage();" type="button"
+                                        class="btn bg-primary btn-xs " style="float: left">
+                                    {{!documentos_ia.config.exampleImage?'Subir':'Reemplazar' }} Imagen de Ejemplo
+                                </button>
+                                <button ng-if="documentos_ia.config.exampleImage" ng-click="<%= scope %>.getCrude();"
+                                        type="button" class="btn bg-danger btn-xs" style="float: right">
+                                    Escanear Imagen {{!documentos_ia.config.informe_crude.length?'':'Nuevamente' }}
+                                </button>
+                            </div>
+                            <div class='col-sm-6 col-md-6' style="margin-top: 10px; height: 500px;overflow: auto"
+                                 ng-if="documentos_ia.config.exampleImage">
+                                <img width="100%" ng-src="{{documentos_ia.config.exampleImage}}">
+                            </div>
+                            <div class='col-sm-6 col-md-6' style="margin-top: 10px;height: 500px;overflow: auto">
+                                <table ng-if="documentos_ia.config.exampleImage"
+                                       class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table"
+                                       style="margin-top: 20px">
+                                    <thead>
+                                    <tr class="bg-<%= COLOR.secundary %>">
+                                        <td colspan="100%" class="text-center">
+                                            <h3>Resultados del Escanear a la imagen</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Línea</th>
+                                        <th>Texto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-if="documentos_ia.config.informe"
+                                        ng-repeat="(ix,item) in documentos_ia.config.informe_crude track by item.id">
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.text}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-12 col-md-12' ng-if="documentos_ia.config.informe_crude.length">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center"
+                         style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                        <h3>Configuración de campos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                            <thead class="bg-<%= COLOR.secundary %>">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre de Campo</th>
+                                <th>Líneas</th>
+                                <th title="En caso de que el resultado no contenga ningún valor">Por Defecto</th>
+                                <th title="Valor calculado">Script</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(ix,item) in documentos_ia.config.fields track by item.id">
+                                <td style="width: 5%">
+                                    {{ix+1}}
+                                </td>
+                                <td style="width: 20%">
+                                    <input type="text" class="form-control" ng-model="item.field">
+                                </td>
+                                <td style="width: 20%" ng-if="!item.script">
+                                    <label style="width: 49%">
+                                        Desde: <input type="number" class="form-control" ng-model="item.from">
+                                    </label>
+                                    <label style="width: 49%">
+                                        Hasta: <input type="number" class="form-control" ng-model="item.to">
+                                    </label>
+
+                                </td>
+                                <td style="width: 20%" ng-if="item.script">
+                                    Código Personalizado
+                                </td>
+                                <td style="width: 20%">
+                                    <input type="text" class="form-control" ng-model="item.defaultValue">
+                                </td>
+                                <td style="width: 45%">
+                                    <textarea class="form-control" ng-model="item.script"></textarea>
+                                </td>
+                                <td style="width: 5%">
+                                    <button title="Eliminar bloque" ng-click="<%= scope %>.deleteField(ix);"
+                                            type="button"
+                                            class="btn bg-danger btn-xs">
+                                        eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100%" class="text-right">
+                                    <button ng-click="<%= scope %>.addField();" type="button"
+                                            class="btn bg-success btn-xs">
+                                        Agregar nuevo campo
+                                    </button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                            <thead>
+                            <tr>
+                                <td colspan="100%" class="text-center">
+                                    <h3>Resultados de la configuración con la imagen de prueba</h3>
+                                    <button title="Verificar Resultados" ng-click="<%= scope %>.readFile();"
+                                            type="button"
+                                            class="btn bg-primary btn-xs " style="float: right">
+                                        Verificar Resultados
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="bg-<%= COLOR.secundary %>">
+                                <th>Campo</th>
+                                <th>Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(ix,item) in documentos_ia.config.informe track by item.field">
+                                <td>{{item.field}}</td>
+                                <td>{{item.result}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

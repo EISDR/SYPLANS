@@ -2222,6 +2222,24 @@
           "view": true,
           "audit": true
         }
+      },
+      "documentos_ia": {
+        "type": "empty",
+        "allow": {
+          "actions": true,
+          "view": false,
+          "audit": false,
+          "remove": false,
+          "menu": true,
+          "edit": true,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          }
+        }
       }
     }
   }

@@ -115,6 +115,119 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         ).then(result => {
             baseController.misnomenclaturas = result;
         });
+        if (!baseController.dynamicDocuments)
+            baseController.dynamicDocuments = BASEAPI.listf("documentos_ia",
+                [{
+                    field: 'compania',
+                    value: adasession.compania_id
+                }]
+            ).then(result => {
+                baseController.dynamicDocuments = result;
+                baseController.dynamicDocuments.forEach(d => {
+                    let parse = (d.config || "{fields: []}");
+                    d.config = JSON.parse(parse);
+                })
+            });
+
+        baseController.scanImage = async (entity) => {
+            let entityValue = baseController.dynamicDocuments.filter(d => {
+                return d.nombre === entity;
+            })[0];
+            debugger;
+            if (entityValue) {
+                let image = "";
+                let crude = [];
+                let informe = [];
+                let a = document.createElement("input");
+                a.type = "file";
+                a.accept = "image/png, image/gif, image/jpeg"
+                a.click();
+                a.onchange = () => {
+                    let file = a.files[0];
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = (evt) => {
+                            try {
+                                image = reader.result;
+                                if (image) {
+                                    Tesseract.recognize(image, 'eng').then(async ({data: {text}}) => {
+                                        if (text) {
+                                            text.split("\n").forEach((line, ix) => {
+                                                crude.push({
+                                                    id: ix + 1,
+                                                    text: line.replaceAll('"', "'")
+                                                });
+                                            });
+                                        }
+
+                                        if (entityValue.config.fields)
+                                            if (entityValue.config.fields.length) {
+                                                entityValue.config.fields.forEach((field, ix) => {
+                                                    if (field.script) {
+                                                        try {
+                                                            let extract = eval(field.script);
+                                                            extract = extract.map(d => d.text).join(" ").replaceAll("\n", " ").trim();
+                                                            informe.push({
+                                                                id: ix + 1,
+                                                                field: field.field,
+                                                                result: extract
+                                                            });
+                                                        } catch (e) {
+                                                            informe.push({
+                                                                id: ix + 1,
+                                                                field: field.field,
+                                                                result: JSON.stringify(e)
+                                                            });
+                                                        }
+                                                    } else {
+                                                        let extract = crude.filter(d => d.id >= field.from && d.id <= field.to).map(d => d.text);
+                                                        extract = extract.join(" ").replaceAll("\n", " ");
+                                                        if (extract.trim()) {
+                                                            informe.push({
+                                                                id: ix + 1,
+                                                                field: field.field,
+                                                                result: extract.trim()
+                                                            });
+                                                        } else {
+                                                            informe.push({
+                                                                id: ix + 1,
+                                                                field: field.field,
+                                                                result: field.defaultValue
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                                informe.forEach(info => {
+                                                    baseController.currentModel[info.field] = info.result;
+                                                });
+                                                baseController.currentModel.refreshAngular();
+                                            }
+                                        SWEETALERT.stop();
+                                        baseController.currentModel.refreshAngular();
+                                    });
+                                } else {
+                                    SWEETALERT.show({type: 'error', message: `Archivo inválido`});
+                                }
+                            } catch (e) {
+                                SWEETALERT.show({type: 'error', message: `Archivo inválido`});
+                            }
+                        };
+                        reader.onerror = function () {
+                            SWEETALERT.show({type: 'error', message: `Error al subir el archivo`});
+                        };
+                    } else {
+                        SWEETALERT.show({type: 'error', message: `Error al subir el archivo`});
+                    }
+                }
+            } else {
+                SWEETALERT.show({
+                    type: 'error',
+                    message: `La entidad ${entity.nombre} no está configurada para esta empresa`
+                });
+            }
+        };
+
         if (!baseController.ponderaciones)
             BASEAPI.listp("reporte_indicador_config", {
                 limit: 0,
