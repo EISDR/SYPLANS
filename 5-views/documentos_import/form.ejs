@@ -1,0 +1,61 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.input('nombre', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.select('documentos_ia', scope, {
+                    column: 'name',
+                    table: 'documentos_ia',
+                    allownew: false,
+                    allowedit: false,
+                    allowview: true,
+                    allowlist: false,
+                    refresh: true,
+                    helptext: "Con esta configuración se importarán todos los documentos adjuntados a este paquete de importación",
+                    truelabel: "Configuración",
+                    value: 'nombre',
+                    text: 'item.nombre'
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3' ng-show="documentos_import.allowFields('macro_proceso')">
+                <%- FORM.select("macro_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == documentos_import.session.compania_id && item.institucion == $null) && item.mapa_proceso_estatus!='4'",
+                    join: [
+                        {
+                            table: 'mapa_proceso',
+                            base: 'mapa_proceso',
+                            field: 'id',
+                            columns: ['id', 'nombre', 'estatus']
+                        }
+                    ]
+                }) %>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+</div>
+</div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

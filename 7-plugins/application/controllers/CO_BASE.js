@@ -133,7 +133,6 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             let entityValue = baseController.dynamicDocuments.filter(d => {
                 return d.nombre === entity;
             })[0];
-            debugger;
             if (entityValue) {
                 let image = "";
                 let crude = [];
@@ -145,12 +144,14 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 a.onchange = () => {
                     let file = a.files[0];
                     if (file) {
+                        SWEETALERT.loading({message: "Subiendo Documento"});
                         let reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = (evt) => {
                             try {
                                 image = reader.result;
                                 if (image) {
+                                    SWEETALERT.loading({message: "Procesando Documento"});
                                     Tesseract.recognize(image, 'eng').then(async ({data: {text}}) => {
                                         if (text) {
                                             text.split("\n").forEach((line, ix) => {
@@ -160,51 +161,15 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                                                 });
                                             });
                                         }
-
                                         if (entityValue.config.fields)
                                             if (entityValue.config.fields.length) {
-                                                entityValue.config.fields.forEach((field, ix) => {
-                                                    if (field.script) {
-                                                        try {
-                                                            let extract = eval(field.script);
-                                                            extract = extract.map(d => d.text).join(" ").replaceAll("\n", " ").trim();
-                                                            informe.push({
-                                                                id: ix + 1,
-                                                                field: field.field,
-                                                                result: extract
-                                                            });
-                                                        } catch (e) {
-                                                            informe.push({
-                                                                id: ix + 1,
-                                                                field: field.field,
-                                                                result: JSON.stringify(e)
-                                                            });
-                                                        }
-                                                    } else {
-                                                        let extract = crude.filter(d => d.id >= field.from && d.id <= field.to).map(d => d.text);
-                                                        extract = extract.join(" ").replaceAll("\n", " ");
-                                                        if (extract.trim()) {
-                                                            informe.push({
-                                                                id: ix + 1,
-                                                                field: field.field,
-                                                                result: extract.trim()
-                                                            });
-                                                        } else {
-                                                            informe.push({
-                                                                id: ix + 1,
-                                                                field: field.field,
-                                                                result: field.defaultValue
-                                                            });
-                                                        }
-                                                    }
-                                                });
+                                                IA.readFile(entityValue.config.fields, crude, informe);
                                                 informe.forEach(info => {
                                                     baseController.currentModel[info.field] = info.result;
                                                 });
                                                 baseController.currentModel.refreshAngular();
                                             }
                                         SWEETALERT.stop();
-                                        baseController.currentModel.refreshAngular();
                                     });
                                 } else {
                                     SWEETALERT.show({type: 'error', message: `Archivo inválido`});

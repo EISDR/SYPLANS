@@ -4,18 +4,18 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad"}) %>
             </div>
-            <div class='col-sm-12 col-md-12' style="margin-top: 20px">
+            <div class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row text-center">
                             <div class='col-sm-12 col-md-12'>
                                 <button ng-click="<%= scope %>.uploadImage();" type="button"
                                         class="btn bg-primary btn-xs " style="float: left">
-                                    {{!documentos_ia.config.exampleImage?'Subir':'Reemplazar' }} Imagen de Ejemplo
+                                    {{!documentos_ia.config.exampleImage?'Subir':'Reemplazar' }} documento
                                 </button>
                                 <button ng-if="documentos_ia.config.exampleImage" ng-click="<%= scope %>.getCrude();"
                                         type="button" class="btn bg-danger btn-xs" style="float: right">
-                                    Escanear Imagen {{!documentos_ia.config.informe_crude.length?'':'Nuevamente' }}
+                                    Escanear documento {{!documentos_ia.config.informe_crude.length?'':'Nuevamente' }}
                                 </button>
                             </div>
                             <div class='col-sm-6 col-md-6' style="margin-top: 10px; height: 500px;overflow: auto"
@@ -28,8 +28,8 @@
                                        style="margin-top: 20px">
                                     <thead>
                                     <tr class="bg-<%= COLOR.secundary %>">
-                                        <td colspan="100%" class="text-center">
-                                            <h3>Resultados del Escanear a la imagen</h3>
+                                        <td colspan="100%" class="text-center" style="padding: 0;">
+                                            <h5>Resultados al cargar documento</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -62,43 +62,139 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre de Campo</th>
-                                <th>Líneas</th>
                                 <th title="En caso de que el resultado no contenga ningún valor">Por Defecto</th>
-                                <th title="Valor calculado">Script</th>
+                                <th>Tipo</th>
+                                <th>Configuración</th>
+
+                                <!--                                <th title="Valor calculado">Script (Alternativa personalizada del campo)</th>-->
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="(ix,item) in documentos_ia.config.fields track by item.id">
-                                <td style="width: 5%">
+                                <td style="width: 2%;padding: 2px;">
                                     {{ix+1}}
                                 </td>
-                                <td style="width: 20%">
+                                <td style="width: 15%;padding: 2px;">
                                     <input type="text" class="form-control" ng-model="item.field">
                                 </td>
-                                <td style="width: 20%" ng-if="!item.script">
-                                    <label style="width: 49%">
-                                        Desde: <input type="number" class="form-control" ng-model="item.from">
-                                    </label>
-                                    <label style="width: 49%">
-                                        Hasta: <input type="number" class="form-control" ng-model="item.to">
-                                    </label>
-
-                                </td>
-                                <td style="width: 20%" ng-if="item.script">
-                                    Código Personalizado
-                                </td>
-                                <td style="width: 20%">
+                                <td style="width: 15%;padding: 2px;">
                                     <input type="text" class="form-control" ng-model="item.defaultValue">
                                 </td>
-                                <td style="width: 45%">
-                                    <textarea class="form-control" ng-model="item.script"></textarea>
+                                <td style="width: 15%;padding: 2px;">
+                                    <select class="form-control" ng-model="item.tipo">
+                                        <option value="6">Valor Por Defecto</option>
+                                        <option value="1">Rango entre líneas</option>
+                                        <option value="2">Rango entre coincidencias</option>
+                                        <option value="4">Instrucciones</option>
+                                        <option value="3">Script (Alternativa personalizada del campo)</option>
+                                        <option value="5">Valor Especial</option>
+                                        <option value="7">Valor Del Formulario</option>
+                                    </select>
                                 </td>
-                                <td style="width: 5%">
+                                <td style="width: 55%;padding: 2px;">
+
+                                    <div ng-if="item.tipo==='1'">
+                                        <label style="width: 49%">
+                                            Desde: <input type="number" class="form-control" ng-model="item.from">
+                                        </label>
+                                        <label style="width: 49%">
+                                            Hasta: <input type="number" class="form-control" ng-model="item.to">
+                                        </label>
+                                    </div>
+                                    <div ng-if="item.tipo==='2'">
+                                        <label style="width: 33%">
+                                            Desde: <input type="text" class="form-control" ng-model="item.from">
+                                        </label>
+                                        <label style="width: 33%">
+                                            Hasta: <input type="text" class="form-control" ng-model="item.to">
+                                        </label>
+                                        <label style="width: 33%">
+                                            Coincidencia: <input type="number" class="form-control"
+                                                                 ng-model="item.idnex">
+                                        </label>
+                                    </div>
+                                    <div ng-if="item.tipo==='3'">
+                                        <textarea class="form-control" ng-model="item.script"></textarea>
+                                    </div>
+                                    <div ng-if="item.tipo==='4'">
+                                        <table class="table table-condensed table-striped" style="padding: 0">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 30%">Instrucción</th>
+                                                <th style="width: 60%" colspan="3">Parámetros</th>
+                                                <th style="width: 10%">#</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody style="padding: 0">
+                                            <tr ng-repeat="(iy,line) in item.codes">
+                                                <td style="padding: 0">
+                                                    <select ng-model="line.code" class="form-control"
+                                                            style="    margin-top: 17px;"
+                                                            ng-options="opt.id as opt.nombre for opt in documentos_ia.codes">
+
+                                                    </select>
+                                                </td>
+                                                <td ng-repeat="(id,num) in [0,1,2]" style="padding: 0">
+                                                    <div class='row' ng-if="documentos_ia.elcode(line.code,num)">
+                                                        <div class='col-sm-12 col-md-12'>
+                                                            <label>{{documentos_ia.elcode(line.code,num).nombre}}</label>
+                                                            <input class="form-control" style="margin-top: -15px;"
+                                                                   type="text"
+                                                                   ng-model="line['param'+(id+1)]">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 0">
+                                                    <button title="Eliminar instrucción"
+                                                            style="width: 23px;padding: 4;margin: 0;"
+                                                            ng-click="item.codes.splice(iy,1)"
+                                                            type="button" class="btn bg-danger btn-xs">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                    <button title="Subir" style="width: 23px;padding: 4;margin: 0;"
+                                                            ng-click="documentos_ia.movecode(iy,item.codes)"
+                                                            type="button" class="btn bg-info btn-xs">
+                                                        <i class="icon-arrow-up7"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="100%" class="text-center" style="padding: 0">
+                                                    <button ng-click="item.codes.push({code:'L'})" type="button"
+                                                            style="margin-top: 2px;padding: 4px;"
+                                                            class="btn bg-success btn-xs">
+                                                        Agregar Instrucción
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div ng-if="item.tipo==='5'">
+                                        <label>Valor</label>
+                                        <select ng-model="item.from" class="form-control"
+                                                ng-options="opt as opt for opt in documentos_ia.valoresEspecialesList">
+
+                                        </select>
+                                    </div>
+                                    <div ng-if="item.tipo==='6'">
+                                        <label>
+                                            <b>El valor de este campo siempre será "{{item.defaultValue}}"</b>
+                                        </label>
+                                    </div>
+                                    <div ng-if="item.tipo==='7'">
+                                        <label>Campo Personalizado</label>
+                                        <select ng-model="item.from" class="form-control"
+                                                ng-options="opt as opt for opt in documentos_ia.customfields">
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 3%">
                                     <button title="Eliminar bloque" ng-click="<%= scope %>.deleteField(ix);"
                                             type="button"
                                             class="btn bg-danger btn-xs">
-                                        eliminar
+                                        <i class="icon-trash"></i>
                                     </button>
                                 </td>
                             </tr>

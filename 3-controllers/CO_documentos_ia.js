@@ -11,20 +11,48 @@ app.controller("documentos_ia", function ($scope, $http, $compile) {
     documentos_ia.headertitle = "Documentos Inteligentes";
     //documentos_ia.destroyForm = false;
     //documentos_ia.permissionTable = "tabletopermission";
+    documentos_ia.movecode = (ix, array) => {
+        if (array[ix - 1]) {
+            let temp = array[ix - 1];
+            array[ix - 1] = array[ix];
+            array[ix] = temp;
+        } else if (ix !== (array.length - 1)) {
+            let temp = array[array.length - 1];
+            array[array.length - 1] = array[ix];
+            array[ix] = temp;
+        }
+    }
+    documentos_ia.customfields = IA.customFields;
     documentos_ia.deleteField = (ix) => {
         if (documentos_ia.config.fields)
             documentos_ia.config.fields.splice(ix, 1);
     }
+    documentos_ia.elcode = (id, ix) => {
+        return documentos_ia.codes.filter(d => d.id === id)[0].params[ix] || undefined;
+    }
+    documentos_ia.executeCode = IA.executeCode;
+    documentos_ia.valoresEspeciales = IA.valoresEspeciales;
+    documentos_ia.valoresEspecialesList = IA.valoresEspecialesList;
+    documentos_ia.codes = IA.codes;
     documentos_ia.addField = () => {
         if (documentos_ia.config)
             if (documentos_ia.config.fields)
                 documentos_ia.config.fields.push({
                     id: new Date().getTime(),
                     field: "Field " + (documentos_ia.config.fields.length + 1),
+                    tipo: "1",
                     from: 0,
-                    to: 1,
+                    to: 5,
+                    idnex: 1,
                     script: "",
-                    defaultValue: ""
+                    defaultValue: "",
+                    codes: [
+                        {
+                            code: "L",
+                            param1: null,
+                            param2: null
+                        }
+                    ]
                 });
             else
                 documentos_ia.config = {fields: []};
@@ -33,13 +61,11 @@ app.controller("documentos_ia", function ($scope, $http, $compile) {
     }
     documentos_ia.getCrude = () => {
         if (documentos_ia.config.exampleImage) {
-            SWEETALERT.loading({message: "Processando Imagen"});
+            SWEETALERT.loading({message: "Processando Documento"});
             Tesseract.recognize(documentos_ia.config.exampleImage, 'eng').then(async ({data: {text}}) => {
                 documentos_ia.config.informe_crude = [];
                 documentos_ia.config.informe = [];
-                console.log(text);
                 if (text) {
-                    console.log(text.split("\n"));
                     text.split("\n").forEach((line, ix) => {
                         documentos_ia.config.informe_crude.push({
                             id: ix + 1,
@@ -60,41 +86,7 @@ app.controller("documentos_ia", function ($scope, $http, $compile) {
             if (documentos_ia.config.informe_crude.length) {
                 if ((documentos_ia.config.fields || []).length) {
                     SWEETALERT.loading({message: "Processando Informe y Configuración"});
-                    documentos_ia.config.fields.forEach((field, ix) => {
-                        if (field.script) {
-                            try {
-                                let extract = eval(field.script);
-                                extract = extract.map(d => d.text).join(" ").replaceAll("\n", " ").trim();
-                                documentos_ia.config.informe.push({
-                                    id: ix + 1,
-                                    field: field.field,
-                                    result: extract
-                                });
-                            } catch (e) {
-                                documentos_ia.config.informe.push({
-                                    id: ix + 1,
-                                    field: field.field,
-                                    result: JSON.stringify(e)
-                                });
-                            }
-                        } else {
-                            let extract = documentos_ia.config.informe_crude.filter(d => d.id >= field.from && d.id <= field.to).map(d => d.text);
-                            extract = extract.join(" ").replaceAll("\n", " ");
-                            if (extract.trim()) {
-                                documentos_ia.config.informe.push({
-                                    id: ix + 1,
-                                    field: field.field,
-                                    result: extract.trim()
-                                });
-                            } else {
-                                documentos_ia.config.informe.push({
-                                    id: ix + 1,
-                                    field: field.field,
-                                    result: field.defaultValue
-                                });
-                            }
-                        }
-                    });
+                    IA.readFile(documentos_ia.config.fields, documentos_ia.config.informe_crude, documentos_ia.config.informe);
                     SWEETALERT.stop();
                     documentos_ia.refreshAngular();
                 } else
@@ -144,13 +136,11 @@ app.controller("documentos_ia", function ($scope, $http, $compile) {
                 view: "Ver Documento Inteligente"
             };
             documentos_ia.createForm(data, mode, defaultData, undefined, (data) => {
-                console.log(data);
                 try {
                     if (mode === "new") {
                         documentos_ia.config = {fields: []};
                     } else {
                         let parse = (documentos_ia.config || "{fields: []}");
-                        console.log(parse);
                         documentos_ia.config = JSON.parse(parse);
                     }
                 } catch (e) {

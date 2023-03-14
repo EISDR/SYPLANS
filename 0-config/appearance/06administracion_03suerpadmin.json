@@ -12,7 +12,13 @@
           "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
-          "text": "Documento Inteligente"
+          "text": "Documentos Inteligente"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#documentos_import",
+          "text": "Importar Documentos"
         },
         {
           "modal": "",
@@ -89,6 +95,18 @@
           "icon": "office",
           "href": "#compania",
           "text": "Compañía"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#documentos_ia",
+          "text": "Documentos Inteligente"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#documentos_import",
+          "text": "Importar Documentos"
         },
         {
           "modal": "",
