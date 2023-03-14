@@ -344,6 +344,7 @@ DSON.keepmerge(CRUD_riesgo, {
                                     value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
                                 }]
                             }, FORM.modes.edit, {});
+                            data.$scope.riesgo_historico = data.row.riesgo_historico + '';
                             return false;
                         }
                     },

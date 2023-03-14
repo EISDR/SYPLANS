@@ -45,7 +45,7 @@
                 <div class="tab-pane active" id="basic">
                     <div class="row">
                         <div class="col-sm-4 col-md-4 " ng-if="riesgo.session.institucion">
-                            <%- FORM.select("riesgo_historico", scope, {
+                            <%- FORM.select("riesgo_historico_index", scope, {
                                 allownew: false,
                                 allowview: false,
                                 allowedit: false,
@@ -58,7 +58,7 @@
                             }) %>
                         </div>
                         <div class="col-sm-4 col-md-4 " ng-if="!riesgo.session.institucion">
-                            <%- FORM.select("riesgo_historico", scope, {
+                            <%- FORM.select("riesgo_historico_index", scope, {
                                 allownew: false,
                                 allowview: false,
                                 allowedit: false,
@@ -75,7 +75,7 @@
                                 dragonlanguage="" title="Continuar"
                                 type="button" role="button"
                                 class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-left"
-                                ng-click="<%= scope%>.show_plan(<%= scope%>.riesgo_historico);">
+                                ng-click="<%= scope%>.show_plan(<%= scope%>.riesgo_historico_index);">
                             <b><i class="icon-arrow-right7"></i></b>
                             Continuar
                         </button>

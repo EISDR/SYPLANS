@@ -1,11 +1,5 @@
 app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) {
     auditoria_lista_correctiva = this;
-    auditoria_lista_correctiva.fixFilters = [
-        {
-            field: 'id',
-            value: -1,
-        }
-    ];
     auditoria_lista_correctiva.session = new SESSION().current();
     auditoria_lista_correctiva.singular = "Asignar acciones de Mejora";
     auditoria_lista_correctiva.plural = "Asignar acciones de Mejora";
@@ -544,9 +538,28 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         resolve(true);
     });
     //
-    // auditoria_lista_correctiva.triggers.table.after.control = function (data) {
-    //     //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-    // };
+    auditoria_lista_correctiva.triggers.table.after.control = function (data) {
+        //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
+        if (data == "range_date"){
+            if (typeof riesgo != "undefined") {
+                if (riesgo) {
+                    if (typeof riesgo !== 'not defined') {
+                        auditoria_lista_correctiva.range_date = "";
+                        var rango_minimo = moment("01-01-" + riesgo.ano_historico).format("YYYY-MM-DD");
+                        var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo.ano_historico).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
+                        auditoria_lista_correctiva.range_date_min(rango_minimo);
+                        auditoria_lista_correctiva.range_date_max(rango_maximo);
+                        //cambio placebo
+                        if ( moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
+                            auditoria_lista_correctiva.range_date_start(rango_minimo);
+                            auditoria_lista_correctiva.range_date_end(rango_minimo);
+                        }
+                        auditoria_lista_correctiva.refreshAngular();
+                    }
+                }
+            }
+        }
+    };
     // $scope.triggers.table.before.control = function (data) {
     //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
     // };
