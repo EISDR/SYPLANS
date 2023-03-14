@@ -4,6 +4,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     riesgo = this;
     var user = new SESSION().current();
     riesgo.session = new SESSION().current();
+    riesgo.domeOnce = false;
     riesgo.esplan = false;
     if (window.location.href.split('?').length > 2)
         riesgo.esplan = window.location.href.split('?')[2] === "plan";
@@ -467,6 +468,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                                             value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
                                         }]
                                     }, FORM.modes.edit, {});
+                                    riesgo.riesgo_historico_drp = data.row.riesgo_historico + '';
                                     return false;
                                 }
                             },
@@ -1471,6 +1473,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                                             value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
                                         }]
                                     }, FORM.modes.edit, {});
+                                    riesgo.riesgo_historico_drp = data.row.riesgo_historico + '';
                                     return false;
                                 }
                             },
@@ -2108,12 +2111,12 @@ app.controller("riesgo", function ($scope, $http, $compile) {
         riesgo.singular = "Modo de Riesgo " + riesgo.entidad;
         riesgo.headertitle = "Modo de Riesgo " + riesgo.entidad;
     }
-    riesgo.$scope.$watch("riesgo.riesgo_historico", function (value) {
+    riesgo.$scope.$watch("riesgo.riesgo_historico_index", function (value) {
         var rules = [];
         //rules here
         //rules.push(VALIDATION.general.required(value));
         rules.push(VALIDATION.general.required(value));
-        VALIDATION.validate(riesgo, 'riesgo_historico', rules);
+        VALIDATION.validate(riesgo, 'riesgo_historico_index', rules);
     });
     riesgo.setPermission("export", false);
     riesgo.formulary = async function (data, mode, defaultData) {
@@ -2407,6 +2410,12 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             if (riesgo.esplan) {
                 riesgo.selected = false;
                 $('.icon-plus-circle2 ').parent().hide();
+                if (STORAGE.exist('historico')) {
+                    riesgo.riesgo_historico_index = STORAGE.get('historico');
+                    riesgo.form.loadDropDown('riesgo_historico_index');
+                    riesgo.getRiesgo(riesgo.riesgo_historico_index);
+                    riesgo.selected = true;
+                }
                 riesgo.fixFilters.push({
                     field: "ocurrencia",
                     value: 1
@@ -2500,6 +2509,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     //
     riesgo.triggers.table.after.close = function (data) {
         riesgo.getRiesgo();
+        riesgo.domeOnce = false;
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
@@ -2535,6 +2545,10 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     field: "departamento",
                     operator: "=",
                     value: riesgo.departamento
+                },
+                {
+                    field: "riesgo_historico",
+                    value: riesgo.historico_id
                 }
             ]
         });
@@ -2594,6 +2608,10 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     operator: "!=",
                     value: riesgo.id
                 },
+                {
+                    field: "riesgo_historico",
+                    value: riesgo.historico_id
+                }
             ]
         });
         if (validatett) {
@@ -2633,7 +2651,16 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             riesgo.form.options.registro.label = riesgo.entidadobj.name;
             riesgo.refreshAngular();
         }
-
+        if (data == 'riesgo_historico'){
+            if (!riesgo.domeOnce)
+            if (riesgo.form.mode == 'edit'){
+                if (riesgo.riesgo_historico_drp){
+                    riesgo.riesgo_historico = riesgo.riesgo_historico_drp;
+                    riesgo.form.loadDropDown('riesgo_historico');
+                    riesgo.domeOnce = true;
+                }
+            }
+        }
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
     };
     // $scope.triggers.table.before.control = function (data) {
@@ -2658,6 +2685,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
         VALIDATION.save(riesgo, async function () {
             riesgo.selected = true;
             riesgo.getRiesgo(elhistorico);
+            STORAGE.add('historico', elhistorico);
             if (!riesgo.session.institucion_id) {
                 riesgo.fixFilters = [
                     {
@@ -2710,7 +2738,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                 );
             }
             riesgo.refresh();
-        },["riesgo_historico"]);
+        },["riesgo_historico_index"]);
     }
     riesgo.go_back = async function() {
         riesgo.riesgo_historico = "[NULL]"

@@ -1,11 +1,5 @@
 app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) {
     auditoria_lista_correctiva = this;
-    auditoria_lista_correctiva.fixFilters = [
-        {
-            field: 'id',
-            value: -1,
-        }
-    ];
     auditoria_lista_correctiva.session = new SESSION().current();
     auditoria_lista_correctiva.singular = "Asignar acciones de Mejora";
     auditoria_lista_correctiva.plural = "Asignar acciones de Mejora";
@@ -544,9 +538,9 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         resolve(true);
     });
     //
-    // auditoria_lista_correctiva.triggers.table.after.control = function (data) {
-    //     //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-    // };
+    auditoria_lista_correctiva.triggers.table.after.control = function (data) {
+        //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
+    };
     // $scope.triggers.table.before.control = function (data) {
     //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
     // };
