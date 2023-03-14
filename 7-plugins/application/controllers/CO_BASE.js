@@ -115,6 +115,84 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         ).then(result => {
             baseController.misnomenclaturas = result;
         });
+        if (!baseController.dynamicDocuments)
+            baseController.dynamicDocuments = BASEAPI.listf("documentos_ia",
+                [{
+                    field: 'compania',
+                    value: adasession.compania_id
+                }]
+            ).then(result => {
+                baseController.dynamicDocuments = result;
+                baseController.dynamicDocuments.forEach(d => {
+                    let parse = (d.config || "{fields: []}");
+                    d.config = JSON.parse(parse);
+                })
+            });
+
+        baseController.scanImage = async (entity) => {
+            let entityValue = baseController.dynamicDocuments.filter(d => {
+                return d.nombre === entity;
+            })[0];
+            if (entityValue) {
+                let image = "";
+                let crude = [];
+                let informe = [];
+                let a = document.createElement("input");
+                a.type = "file";
+                a.accept = "image/png, image/gif, image/jpeg"
+                a.click();
+                a.onchange = () => {
+                    let file = a.files[0];
+                    if (file) {
+                        SWEETALERT.loading({message: "Subiendo Documento"});
+                        let reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = (evt) => {
+                            try {
+                                image = reader.result;
+                                if (image) {
+                                    SWEETALERT.loading({message: "Procesando Documento"});
+                                    Tesseract.recognize(image, 'eng').then(async ({data: {text}}) => {
+                                        if (text) {
+                                            text.split("\n").forEach((line, ix) => {
+                                                crude.push({
+                                                    id: ix + 1,
+                                                    text: line.replaceAll('"', "'")
+                                                });
+                                            });
+                                        }
+                                        if (entityValue.config.fields)
+                                            if (entityValue.config.fields.length) {
+                                                IA.readFile(entityValue.config.fields, crude, informe);
+                                                informe.forEach(info => {
+                                                    baseController.currentModel[info.field] = info.result;
+                                                });
+                                                baseController.currentModel.refreshAngular();
+                                            }
+                                        SWEETALERT.stop();
+                                    });
+                                } else {
+                                    SWEETALERT.show({type: 'error', message: `Archivo inválido`});
+                                }
+                            } catch (e) {
+                                SWEETALERT.show({type: 'error', message: `Archivo inválido`});
+                            }
+                        };
+                        reader.onerror = function () {
+                            SWEETALERT.show({type: 'error', message: `Error al subir el archivo`});
+                        };
+                    } else {
+                        SWEETALERT.show({type: 'error', message: `Error al subir el archivo`});
+                    }
+                }
+            } else {
+                SWEETALERT.show({
+                    type: 'error',
+                    message: `La entidad ${entity.nombre} no está configurada para esta empresa`
+                });
+            }
+        };
+
         if (!baseController.ponderaciones)
             BASEAPI.listp("reporte_indicador_config", {
                 limit: 0,

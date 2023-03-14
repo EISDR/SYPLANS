@@ -624,7 +624,7 @@ FORM = {
                                                     console.log(await BASEAPI.insertp(relation.config.toDeleteTable, relation.data));
                                                 }
                                             }
-                                            if($scope.triggers.table.after.update_relation)
+                                            if ($scope.triggers.table.after.update_relation)
                                                 $scope.triggers.table.after.update_relation({
                                                     updating: $scope[forme].inserting,
                                                     uploading: $scope[forme].uploading,
@@ -637,7 +637,7 @@ FORM = {
                                     }
                                 }
                                 if (!update_relation_ejecutado)
-                                    if($scope.triggers.table.after.update_relation)
+                                    if ($scope.triggers.table.after.update_relation)
                                         $scope.triggers.table.after.update_relation({
                                             updating: $scope[forme].inserting,
                                             uploading: $scope[forme].uploading,
@@ -1332,10 +1332,13 @@ FORM = {
                 });
             }, 500);
         };
-        $scope.openForm = async function (mode, view) {
+        $scope.openForm = async function (mode, view, callback, data) {
             $scope.fielsamera = [];
-            if (await $scope.triggers.table.before.open() === false)
+            if (await $scope.triggers.table.before.open() === false) {
+                if (callback)
+                    callback(data);
                 return;
+            }
             if ($scope[forme] !== null) {
                 $scope.pages.form.isOpen = true;
                 $scope.pages.form.subRequestCompleteVar = 0;
@@ -1686,8 +1689,10 @@ FORM = {
                     );
                 }
             }
+            if (callback)
+                callback(data);
         };
-        $scope.createForm = function (data, mode, defaultData, view) {
+        $scope.createForm = function (data, mode, defaultData, view, callback) {
             $scope.mode = mode;
 
             if ($scope.validate === undefined)
@@ -1740,10 +1745,10 @@ FORM = {
                             if (item !== 'null' && item !== undefined)
                                 eval(`$scope.${i} = \`${item}\`;`);
                         }
-                        $scope.openForm(mode, view);
+                        $scope.openForm(mode, view, callback, data);
                     });
                 } else {
-                    $scope.openForm(mode, view);
+                    $scope.openForm(mode, view, callback, data);
                 }
             }
         };

@@ -71,7 +71,7 @@ exports.query = (sql, args) => {
             });
         } catch (err) {
             exports.developerlog({query: sql, error: err});
-            resolve({query: sql, error: err.sqlMessage});
+            resolve({query: sql, error: err});
         }
     });
 };
@@ -89,12 +89,12 @@ exports.executeNonQuery = async function (query, params, show) {
                 index: 1
             };
         }).catch(err => {
-            exports.developerlog({query: query, error: err});
-            return {query: query, error: err.sqlMessage};
+            exports.developerlog({query: query, error: err.message});
+            return {query: query, error: err.message};
         });
     } catch (err) {
-        exports.developerlog({query: query, error: err});
-        return {query: query, error: err.sqlMessage};
+        exports.developerlog({query: query, error: err.message});
+        return {query: query, error: err.message};
     }
 };
 exports.executeNonQueryArray = async function (queries, params, show) {
@@ -221,6 +221,9 @@ exports.data = async function (query, params, index) {
         exports.developerlog(query.pxz);
         //var connection = new Database(params, params.CONFIG.mysql);
         return await exports.query(query, undefined).then(async (data) => {
+            if (data.error) {
+                exports.developerlog(data);
+            }
             data = data.rows;
             var realData = [];
             if (data)
@@ -239,8 +242,8 @@ exports.data = async function (query, params, index) {
                 count: [data ? data.length : 0],
             };
         }).catch(err => {
-            exports.developerlog({query: query, error: err});
-            return {query: query, error: err};
+            exports.developerlog({query: query, error: {error: true, sqlMessage: err.message}});
+            return {query: query, error: {error: true, sqlMessage: err.message}};
         });
     } catch (err) {
         exports.developerlog({query: query, error: err});

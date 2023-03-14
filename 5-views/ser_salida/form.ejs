@@ -1,5 +1,6 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
+
         <div class="row">
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.select('ser_salida_tipo', scope, {
@@ -261,7 +262,7 @@
         ser_salida.fecha_queja = moment(new Date()).format("YYYY/MM/DD");
         ser_salida.form.loadDropDown("ser_salida_estatus");
     }
-    if(!ser_salida.trabajando){
+    if (!ser_salida.trabajando) {
         ser_salida.form.options.ser_salida_estatus.disabled = true;
     } else {
         ser_salida.form.options.ser_salida_estatus.disabled = false;

@@ -43,7 +43,18 @@
                     //},
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-3' ng-show=" solicitud_documento.tipo_accion == '2'" ng-if="!solicitud_documento.session.institucion">
+            <div class='col-sm-3 col-md-3'>
+                <div class="row" ng-if="<%= scope %>.mode==='new'">
+                    <div class='col-sm-12 col-md-12 text-right'>
+                        <button ng-click="baseController.scanImage('Documentos');" type="button"
+                                class="btn bg-primary btn-xs">
+                            Escanear Documento
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-12 col-md-3' ng-show=" solicitud_documento.tipo_accion == '2'"
+                 ng-if="!solicitud_documento.session.institucion">
                 <%- FORM.select('documentos_asociados', scope, {
                     allownew: false,
                     allowedit: false,
@@ -54,39 +65,40 @@
                     icon: {class: "archive"},
                     text: 'item.nombre',
                     condition: "((item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && item.estatus_id == 2)"
-                            //self: true,
-                // allownull: false,
-                //refresh: true,
-                //condition: 'true',
-                //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
-                //disabled: false,
-                //helptext: "",
-                //value: 'id',
-                //query: {
-                //limit: 0,
-                //page: 1,
-                //where: [],
-                //orderby: 'id',
-                //order: 'asc',
-                //distinct: false
-                // join: [
-                //     {
-                //         table: 'ms_category',
-                //         base: 'category',
-                //         field: 'id',
-                //         columns: ['id', 'name']
-                //     },
-                //     {
-                //         table: 'otratable',
-                //         base: 'ms_category_id',
-                //         field: 'id',
-                //         columns: ['id', 'name']
-                //     }
-                // ]
-                //},
+                    //self: true,
+                    // allownull: false,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-3' ng-show=" solicitud_documento.tipo_accion == '2'" ng-if="solicitud_documento.session.institucion">
+            <div class='col-sm-12 col-md-3' ng-show=" solicitud_documento.tipo_accion == '2'"
+                 ng-if="solicitud_documento.session.institucion">
                 <%- FORM.select('documentos_asociados', scope, {
                     allownew: false,
                     allowedit: false,
@@ -97,39 +109,40 @@
                     icon: {class: "archive"},
                     text: 'item.nombre',
                     condition: "( item.institucion == solicitud_documento.session.institucion_id && item.estatus == 2)"
-                            //self: true,
-                // allownull: false,
-                //refresh: true,
-                //condition: 'true',
-                //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
-                //disabled: false,
-                //helptext: "",
-                //value: 'id',
-                //query: {
-                //limit: 0,
-                //page: 1,
-                //where: [],
-                //orderby: 'id',
-                //order: 'asc',
-                //distinct: false
-                // join: [
-                //     {
-                //         table: 'ms_category',
-                //         base: 'category',
-                //         field: 'id',
-                //         columns: ['id', 'name']
-                //     },
-                //     {
-                //         table: 'otratable',
-                //         base: 'ms_category_id',
-                //         field: 'id',
-                //         columns: ['id', 'name']
-                //     }
-                // ]
-                //},
+                    //self: true,
+                    // allownull: false,
+                    //refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    //query: {
+                    //limit: 0,
+                    //page: 1,
+                    //where: [],
+                    //orderby: 'id',
+                    //order: 'asc',
+                    //distinct: false
+                    // join: [
+                    //     {
+                    //         table: 'ms_category',
+                    //         base: 'category',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     },
+                    //     {
+                    //         table: 'otratable',
+                    //         base: 'ms_category_id',
+                    //         field: 'id',
+                    //         columns: ['id', 'name']
+                    //     }
+                    // ]
+                    //},
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-3' ng-show="solicitud_documento.tipo_accion == '3'" ng-if="!solicitud_documento.session.institucion">
+            <div class='col-sm-12 col-md-3' ng-show="solicitud_documento.tipo_accion == '3'"
+                 ng-if="!solicitud_documento.session.institucion">
                 <%- FORM.select('documentos_asociados', scope, {
                     allownew: false,
                     allowedit: false,
@@ -172,7 +185,8 @@
                     //},
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-3' ng-show="solicitud_documento.tipo_accion == '3'" ng-if="solicitud_documento.session.institucion">
+            <div class='col-sm-12 col-md-3' ng-show="solicitud_documento.tipo_accion == '3'"
+                 ng-if="solicitud_documento.session.institucion">
                 <%- FORM.select('documentos_asociados', scope, {
                     allownew: false,
                     allowedit: false,
@@ -215,7 +229,8 @@
                     //},
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3 focus-field-group' ng-show="solicitud_documento.tipo_accion == '3' || solicitud_documento.tipo_accion == '2'">
+            <div class='col-sm-3 col-md-3 focus-field-group'
+                 ng-show="solicitud_documento.tipo_accion == '3' || solicitud_documento.tipo_accion == '2'">
                 <%- FORM.select('estatus', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -237,7 +252,7 @@
             <div class='col-sm-12 col-md-6'>
                 <%- FORM.textarea('descripcion', scope, {
                     trueplaceholder: "Descripción de la Solicitud"
-                        //maxlength: 200,
+                    //maxlength: 200,
                 }) %>
             </div>
         </div>
@@ -289,7 +304,7 @@
                             condition: "( item.institucion == solicitud_documento.session.institucion_id) && (item.mapa_proceso == solicitud_documento.mapa_id)"
                         }) %>
                     </div>
-                    <div class="col-sm-3 col-md-3" >
+                    <div class="col-sm-3 col-md-3">
                         <%- FORM.select("proceso", scope, {
                             allownew: false,
                             allowedit: false,
@@ -309,83 +324,83 @@
                             truelabel: 'Tipo de Documento a solicitar',
                             text: 'item.nombre',
                             condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null)",
-                        //self: true,
-                        //allownull: true,
-                        //allownew: true,
-                        //allowedit: true,
-                        //allowview: true,
-                        //allowlist: true,
-                        //refresh: true,
-                        //condition: 'true',
-                        //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
-                        //disabled: false,
-                        //helptext: "",
-                        //value: 'id',
-                        //query: {
-                        //limit: 0,
-                        //page: 1,
-                        //where: [],
-                        //orderby: 'id',
-                        //order: 'asc',
-                        //distinct: false
-                        // join: [
-                        //     {
-                        //         table: 'ms_category',
-                        //         base: 'category',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     },
-                        //     {
-                        //         table: 'otratable',
-                        //         base: 'ms_category_id',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     }
-                        // ]
-                        //},
+                            //self: true,
+                            //allownull: true,
+                            //allownew: true,
+                            //allowedit: true,
+                            //allowview: true,
+                            //allowlist: true,
+                            //refresh: true,
+                            //condition: 'true',
+                            //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
+                            //disabled: false,
+                            //helptext: "",
+                            //value: 'id',
+                            //query: {
+                            //limit: 0,
+                            //page: 1,
+                            //where: [],
+                            //orderby: 'id',
+                            //order: 'asc',
+                            //distinct: false
+                            // join: [
+                            //     {
+                            //         table: 'ms_category',
+                            //         base: 'category',
+                            //         field: 'id',
+                            //         columns: ['id', 'name']
+                            //     },
+                            //     {
+                            //         table: 'otratable',
+                            //         base: 'ms_category_id',
+                            //         field: 'id',
+                            //         columns: ['id', 'name']
+                            //     }
+                            // ]
+                            //},
                         }) %>
                     </div>
                     <div class='col-sm-12 col-md-3' ng-if="solicitud_documento.session.institucion">
                         <%- FORM.select('tipo_documento', scope, {
-                                    column: 'name',
-                                    table: 'tipo_documento',
-                                    truelabel: 'Tipo de Documento',
-                                    text: 'item.nombre',
-                                    condition: "(item.institucion == solicitud_documento.session.institucion_id)",
-                                //self: true,
-                        //allownull: true,
-                        //allownew: true,
-                        //allowedit: true,
-                        //allowview: true,
-                        //allowlist: true,
-                        //refresh: true,
-                        //condition: 'true',
-                        //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
-                        //disabled: false,
-                        //helptext: "",
-                        //value: 'id',
-                        //query: {
-                        //limit: 0,
-                        //page: 1,
-                        //where: [],
-                        //orderby: 'id',
-                        //order: 'asc',
-                        //distinct: false
-                        // join: [
-                        //     {
-                        //         table: 'ms_category',
-                        //         base: 'category',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     },
-                        //     {
-                        //         table: 'otratable',
-                        //         base: 'ms_category_id',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     }
-                        // ]
-                        //},
+                            column: 'name',
+                            table: 'tipo_documento',
+                            truelabel: 'Tipo de Documento',
+                            text: 'item.nombre',
+                            condition: "(item.institucion == solicitud_documento.session.institucion_id)",
+                            //self: true,
+                            //allownull: true,
+                            //allownew: true,
+                            //allowedit: true,
+                            //allowview: true,
+                            //allowlist: true,
+                            //refresh: true,
+                            //condition: 'true',
+                            //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
+                            //disabled: false,
+                            //helptext: "",
+                            //value: 'id',
+                            //query: {
+                            //limit: 0,
+                            //page: 1,
+                            //where: [],
+                            //orderby: 'id',
+                            //order: 'asc',
+                            //distinct: false
+                            // join: [
+                            //     {
+                            //         table: 'ms_category',
+                            //         base: 'category',
+                            //         field: 'id',
+                            //         columns: ['id', 'name']
+                            //     },
+                            //     {
+                            //         table: 'otratable',
+                            //         base: 'ms_category_id',
+                            //         field: 'id',
+                            //         columns: ['id', 'name']
+                            //     }
+                            // ]
+                            //},
                         }) %>
                     </div>
                     <div class='col-sm-3 col-md-3 focus-field-group' ng-show="solicitud_documento.tipo_accion == '1'">
@@ -409,55 +424,55 @@
                     </div>
                     <div class="col-sm-12 col-md-6" ng-if="!solicitud_documento.session.institucion">
                         <%- FORM.select("solicitud_documento_area", scope, {
-                                    allowedit: false,
-                                    allowlist: false,
-                                    allownew: false,
-                                    allowview: false,
-                                    multiple: true,
-                                    text: "item.nombre",
-                                    value: "id",
-                                    table: "departamento",
-                                    icon: {class: "archive"},
-                                    truelabel: "Áreas Involucradas",
-                                    condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && (item.active)",
-                                    get: {
-                                        table: 'solicitud_documento_area',
-                                        fieldFrom: 'id',
-                                        fieldTo: 'solicitud_documento',
-                                        field: 'departamento'
-                                    },
-                                // parent: {
-                        //     model: 'eje_estrategico',
-                        //     myfield: 'id',
-                        //     sufield: 'id'
-                        // },
-                        })%>
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Áreas Involucradas",
+                            condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && (item.active)",
+                            get: {
+                                table: 'solicitud_documento_area',
+                                fieldFrom: 'id',
+                                fieldTo: 'solicitud_documento',
+                                field: 'departamento'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        }) %>
                     </div>
                     <div class="col-sm-12 col-md-6" ng-if="solicitud_documento.session.institucion">
                         <%- FORM.select("auditoria_plan_departamento", scope, {
-                                    allowedit: false,
-                                    allowlist: false,
-                                    allownew: false,
-                                    allowview: false,
-                                    multiple: true,
-                                    text: "item.nombre",
-                                    value: "id",
-                                    table: "departamento",
-                                    icon: {class: "archive"},
-                                    truelabel: "Áreas Involucradas",
-                                    condition: "(item.institucion == solicitud_documento.session.institucion_id) && (item.active)",
-                                    get: {
-                                        table: 'solicitud_documento_area',
-                                        fieldFrom: 'id',
-                                        fieldTo: 'solicitud_documento',
-                                        field: 'departamento'
-                                    },
-                                // parent: {
-                        //     model: 'eje_estrategico',
-                        //     myfield: 'id',
-                        //     sufield: 'id'
-                        // },
-                        })%>
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "departamento",
+                            icon: {class: "archive"},
+                            truelabel: "Áreas Involucradas",
+                            condition: "(item.institucion == solicitud_documento.session.institucion_id) && (item.active)",
+                            get: {
+                                table: 'solicitud_documento_area',
+                                fieldFrom: 'id',
+                                fieldTo: 'solicitud_documento',
+                                field: 'departamento'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        }) %>
                     </div>
                 </div>
                 <div class="row">
@@ -472,36 +487,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class='col-sm-6 col-md-6' ng-show="<%= scope%>.trabaja_marco_legal">
+                    <div class='col-sm-6 col-md-6' ng-show="<%= scope %>.trabaja_marco_legal">
                         <%- FORM.textarea('marco_legal', scope, {
-                                //maxlength: 200,
-                                trueplaceholder: "Marco Legal",
+                            //maxlength: 200,
+                            trueplaceholder: "Marco Legal",
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('alcance', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('objetivo', scope, {
                             trueplaceholder: "Objetivo"
-                                    //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('resultado_esperado', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
-                    <div class='col-sm-6 col-md-6' ng-show="!<%= scope%>.trabaja_marco_legal">
+                    <div class='col-sm-6 col-md-6' ng-show="!<%= scope %>.trabaja_marco_legal">
                         <%- FORM.textarea('descripcion', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
-                    <div class='col-sm-12 col-md-12' ng-show="<%= scope%>.trabaja_marco_legal">
+                    <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.trabaja_marco_legal">
                         <%- FORM.textarea('descripcion', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                 </div>
@@ -519,21 +534,26 @@
                 <%- FORM.footer(scope) %>
             </div>
         </div>
-        <div id="<%= 'vw_solicitud_documento_actividades' %>" ng-controller="<%= 'vw_solicitud_documento_actividades' %> as <%= 'vw_solicitud_documento_actividades' %>">
-            <div class="panel panel-white" ng-show="solicitud_documento.tipo_accion == '2' && solicitud_documento.documentos_asociados != '[NULL]'">
+        <div id="<%= 'vw_solicitud_documento_actividades' %>"
+             ng-controller="<%= 'vw_solicitud_documento_actividades' %> as <%= 'vw_solicitud_documento_actividades' %>">
+            <div class="panel panel-white"
+                 ng-show="solicitud_documento.tipo_accion == '2' && solicitud_documento.documentos_asociados != '[NULL]'">
                 <%- include('mod_doc',{scope: scope}); %>
             </div>
-            <div class="panel panel-white" ng-show="solicitud_documento.tipo_accion == '3' && solicitud_documento.documentos_asociados != '[NULL]'">
+            <div class="panel panel-white"
+                 ng-show="solicitud_documento.tipo_accion == '3' && solicitud_documento.documentos_asociados != '[NULL]'">
                 <%- include('delete_doc',{scope: scope}); %>
             </div>
         </div>
     </div>
 </div>
-<div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px" ng-show="solicitud_documento.documentos_asociados == '[NULL]' && solicitud_documento.tipo_accion !== '1'">
+<div class="modal-footer dragonformfooter" id="btnformfooter" style="padding-bottom: 10px"
+     ng-show="solicitud_documento.documentos_asociados == '[NULL]' && solicitud_documento.tipo_accion !== '1'">
      <span class="label label-white text-secundary-300 label-rounded label-icon">
             <i class="position-right"></i>
         </span>
-    <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right" ng-click="solicitud_documento.pages.form.close()">
+    <button title="Cancelar" type="button" class="btn bg-warning btn-labeled btn-xs pull-right"
+            ng-click="solicitud_documento.pages.form.close()">
         <b><i class="icon-cross2"></i></b>
         <language>Cancelar</language>
     </button>

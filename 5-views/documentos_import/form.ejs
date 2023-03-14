@@ -1,0 +1,200 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {
+                    //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('documentos_ia', scope, {
+                    column: 'name',
+                    table: 'documentos_ia',
+                    allownew: false,
+                    allowedit: false,
+                    allowview: true,
+                    allowlist: false,
+                    refresh: true,
+                    helptext: "Con esta configuración se importarán todos los documentos adjuntados a este paquete de importación",
+                    truelabel: "Configuración",
+                    value: 'nombre',
+                    text: 'item.nombre',
+                    icon: {class: "wrench3"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.selectsimple("tabla", scope, {
+                    label: "Entidad",
+                    value: "code",
+                    data: [{"code": "solicitud_documento", "name": "Solicitud de Documentos"}],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3' ng-show="documentos_import.allowFields('mapa_proceso')">
+                <%- FORM.select("mapa_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "mapa_proceso",
+                    truelabel: "Mapa Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == documentos_import.session.compania_id && item.institucion == $null) && item.estatus!='4'"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'
+                 ng-show="documentos_import.allowFields('mapa_proceso') && documentos_import.allowFields('macro_proceso')">
+                <%- FORM.select("macro_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == documentos_import.session.compania_id && item.institucion == $null) && item.mapa_proceso==documentos_import.mapa_proceso",
+                    join: [
+                        {
+                            table: 'mapa_proceso',
+                            base: 'mapa_proceso',
+                            field: 'id',
+                            columns: ['id', 'nombre', 'estatus']
+                        }
+                    ]
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'
+                 ng-show="!documentos_import.allowFields('mapa_proceso') && documentos_import.allowFields('macro_proceso')">
+                <%- FORM.select("macro_proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos_categoria",
+                    truelabel: "Macroproceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.compania == documentos_import.session.compania_id && item.institucion == $null) && item.mapa_proceso_estatus!='4'",
+                    join: [
+                        {
+                            table: 'mapa_proceso',
+                            base: 'mapa_proceso',
+                            field: 'id',
+                            columns: ['id', 'nombre', 'estatus']
+                        }
+                    ]
+                }) %>
+            </div>
+
+            <div class='col-sm-3 col-md-3'
+                 ng-show="documentos_import.allowFields('macro_proceso') && documentos_import.allowFields('proceso')">
+                <%- FORM.select("proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos",
+                    truelabel: "Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.procesos_categoria == documentos_import.macro_proceso && item.estatus != '3') && (item.active)"
+                }) %>
+            </div>
+            <div class='col-sm-3 col-md-3'
+                 ng-show="!documentos_import.allowFields('macro_proceso') && documentos_import.allowFields('proceso')">
+                <%- FORM.select("proceso", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    table: "procesos",
+                    truelabel: "Proceso",
+                    text: "item.nombre",
+                    icon: {class: "archive"},
+                    condition: "(item.estatus != '3') && (item.active)"
+                }) %>
+            </div>
+
+        </div>
+        <div class="row" >
+            <div class="col-sm-12 col-md-12 custom-upload" style="float: right">
+                <%- FORM.file("profileimage", scope, {
+                    title: 'Adjuntar Documentos al Paquete',
+                    truetext: 'Adjuntar Documentos al Paquete',
+                    maxfiles: 200,
+                    columns: 10,
+                    inline: true,
+                    acceptedFiles: "image/*",
+                    acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="<%= scope %>.form.mode==='edit'">
+            <div class="col-sm-12 col-md-12">
+                <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                    <thead>
+                    <tr>
+                        <td colspan="100%" class="text-center">
+                            <h3>Resultados de la importación</h3>
+                            <button title="Ejecutar Paquete de Importación" ng-click="<%= scope %>.ejecutarImport();"
+                                    type="button"
+                                    class="btn bg-primary btn-xs " style="float: right">
+                                Ejecutar Paquete de Importación
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="bg-<%= COLOR.secundary %>" style="padding: 0">
+                        <th>Log</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(ix,item) in <%= scope %>.log track by item.id">
+                        <td style="padding: 0" ng-bind-html="item.message"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+     <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+            <i class="position-right"></i>
+        </span>
+
+    <button
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
+    </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+    </div>
+</div>
+
+
+
+
+

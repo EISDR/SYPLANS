@@ -2949,3 +2949,276 @@ function_send_email_auditores_resposables = function (titulo_push, cuerpo_push, 
         send_notification.send.email_auditoria_auditores(data_json_email_primer_segundo_grupo);
     });
 };
+
+SITIENE = (valor, entonces, sino, crude) => {
+    return (TIENE(valor, crude) ? entonces : sino);
+}
+TIENE = (valor, crude) => {
+    return (crude || []).filter(d => d.text.indexOf(valor) !== -1).length;
+}
+LALINEA = (index, crude) => {
+    return (crude || []).map(d => d.text)[index - 1] || "";
+}
+DERECHA = (text, find) => {
+    return (text.split(find)[1] || '').trim();
+}
+IZQUIERDA = (text, find) => {
+    return (text.split(find)[0] || '').trim();
+}
+REEMPLAZAR = (text, find, by) => {
+    return (text || '').replaceAll(find, by).trim();
+}
+DERECHAADD = (value, text) => {
+    return value + text;
+}
+IZQUIERDAADD = (value, text) => {
+    return text + value;
+}
+IA = {
+    customFields: ["mapa_proceso", "macro_proceso", "proceso"],
+    codes: [
+        {
+            id: "L",
+            nombre: "La Línea",
+            params: [
+                {nombre: "Número", type: "number"}
+            ],
+            code: "LALINEA(@1,crude)"
+        },
+        {
+            id: "D",
+            nombre: "A la derecha de",
+            params: [
+                {nombre: "Texto", type: "text"}
+            ],
+            code: "DERECHA(@VALUE,@1)"
+        },
+        {
+            id: "I",
+            nombre: "A la izquierda de",
+            params: [
+                {nombre: "Texto", type: "text"}
+            ],
+            code: "IZQUIERDA(@VALUE,@1)"
+        },
+        {
+            id: "R",
+            nombre: "Reemplazar el texto",
+            params: [
+                {nombre: "De", type: "text"},
+                {nombre: "Por", type: "text"},
+            ],
+            code: "REEMPLAZAR(@VALUE,@1,@2)"
+        },
+        {
+            id: "S",
+            nombre: "Si tiene el texto",
+            params: [
+                {nombre: "Text", type: "text"},
+                {nombre: "Entonces", type: "text"},
+                {nombre: "De lo contrario", type: "text"},
+            ],
+            code: "SITIENE(@1,@2,@3,crude)"
+        },
+        {
+            id: "A",
+            nombre: "Agregar a la derecha",
+            params: [
+                {nombre: "Text", type: "text"}
+            ],
+            code: "DERECHAADD(@VALUE,@1)"
+        },
+        {
+            id: "B",
+            nombre: "Agregar a la izquierda",
+            params: [
+                {nombre: "Text", type: "text"}
+            ],
+            code: "IZQUIERDAADD(@VALUE,@1)"
+        }
+    ],
+    executeCode: (line, current, crude) => {
+        let elcodigo = IA.codes.filter(d => d.id === line.code)[0];
+        let result = current;
+        try {
+            result = eval(`${elcodigo.code.replaceAll('@VALUE', 'current').replaceAll('@1', 'line.param1').replaceAll('@2', 'line.param2').replaceAll('@3', 'line.param3')}`);
+        } catch (e) {
+            return current;
+        }
+        return result;
+    },
+    valoresEspeciales: {
+        "Id Usuario de la sesión": () => {
+            return baseController.session.userID;
+        },
+        "Nombre Usuario de la sesión": () => {
+            return baseController.session.fullName();
+        },
+        "Id Departamento de la sesión": () => {
+            return baseController.session.departamento;
+        },
+        "Nombre Departamento de la sesión": () => {
+            return baseController.session.departamento_nombre;
+        },
+        "Id POA de la sesión": () => {
+            return baseController.session.poa_id;
+        },
+        "Nombre POA de la sesión": () => {
+            return baseController.session.poa;
+        },
+        "Fecha Actual": () => {
+            return moment(new Date()).format("YYYY-MM-DD");
+        }
+    },
+    readFile: (fields, crude, informe) => {
+        for (const field of fields) {
+            let ix = fields.indexOf(field);
+            if (field.tipo === "1") {
+                let extract = crude.filter(d => d.id >= field.from && d.id <= field.to).map(d => d.text);
+                extract = extract.join(" ").replaceAll("\n", " ");
+                if (extract.trim()) {
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: extract.trim()
+                    });
+                } else {
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: field.defaultValue
+                    });
+                }
+            } else if (field.tipo === "3") {
+                try {
+                    let extract = eval(field.script);
+                    if (Array.isArray(extract)) {
+                        extract = extract.map(d => d.text).join(" ").replaceAll("\n", " ").trim();
+                    } else
+                        extract = (extract + "").replaceAll("\n", " ").trim();
+                    if (extract)
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: extract
+                        });
+                    else
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: field.defaultValue
+                        });
+                } catch (e) {
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: JSON.stringify(e)
+                    });
+                }
+            } else if (field.tipo === "2") {
+                try {
+                    let extract = crude.filter((d, ix) => {
+                        return ix > crude.findIndex(d => d.text.indexOf(field.from) !== -1) && ix < crude.findIndex(d => d.text.indexOf(field.to) !== -1)
+                    });
+                    if ((parseInt(field.index) || 0) > 0)
+                        extract = extract[field.index - 1];
+                    extract = extract.map(d => d.text).join(" ").replaceAll("\n", " ").trim();
+                    if (extract)
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: extract
+                        });
+                    else
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: field.defaultValue
+                        });
+                } catch (e) {
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: field.defaultValue
+                    });
+                }
+            } else if (field.tipo === "4") {
+                let currentValue = "";
+                if (field.codes)
+                    if (field.codes.length)
+                        for (const line of field.codes)
+                            currentValue = IA.executeCode(line, currentValue, crude);
+                let extract = (currentValue + "").replaceAll("\n", " ").trim();
+                if (extract)
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: extract
+                    });
+                else
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: field.defaultValue
+                    });
+            } else if (field.tipo === "5") {
+                let currentValue = "";
+                currentValue = IA.valoresEspeciales[field.from]() || "";
+                let extract = (currentValue + "").replaceAll("\n", " ").trim();
+                if (extract)
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: extract
+                    });
+                else
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: field.defaultValue
+                    });
+            } else if (field.tipo === "6") {
+                let currentValue = "";
+                currentValue = field.defaultValue || "";
+                let extract = (currentValue + "").replaceAll("\n", " ").trim();
+                if (extract)
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: extract
+                    });
+                else
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: field.defaultValue
+                    });
+            } else if (field.tipo === "7") {
+                if (typeof documentos_import !== "undefined") {
+                    if (documentos_import.macro_proceso !== "[NULL]") {
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: documentos_import.macro_proceso
+                        });
+                    } else {
+                        informe.push({
+                            id: ix + 1,
+                            field: field.field,
+                            result: "$null"
+                        });
+                    }
+                    continue;
+                }
+                let currentValue = "Se agregará al momento de importar en masa";
+                let extract = (currentValue + "").replaceAll("\n", " ").trim();
+                informe.push({
+                    id: ix + 1,
+                    field: field.field,
+                    result: extract
+                });
+            }
+        }
+    }
+}
+IA.valoresEspecialesList = Object.keys(IA.valoresEspeciales);
