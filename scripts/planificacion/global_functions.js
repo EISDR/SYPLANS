@@ -3068,6 +3068,12 @@ IA = {
         },
         "Fecha Actual": () => {
             return moment(new Date()).format("YYYY-MM-DD");
+        },
+        "Id Compañía de la sesión": () => {
+            return baseController.session.compania_id;
+        },
+        "Nombre Compañía de la sesión": () => {
+            return baseController.session.compania;
         }
     },
     readFile: (fields, crude, informe) => {
@@ -3195,11 +3201,11 @@ IA = {
                     });
             } else if (field.tipo === "7") {
                 if (typeof documentos_import !== "undefined") {
-                    if (documentos_import.macro_proceso !== "[NULL]") {
+                    if (documentos_import[field.from] !== "[NULL]") {
                         informe.push({
                             id: ix + 1,
                             field: field.field,
-                            result: documentos_import.macro_proceso
+                            result: documentos_import[field.from]
                         });
                     } else {
                         informe.push({

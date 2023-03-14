@@ -58,6 +58,9 @@ app.controller("documentos_import", function ($scope, $http, $compile) {
             resolve(text);
         });
     });
+    documentos_import.beforeData = async (toinsert) => {
+
+    };
     documentos_import.ejecutarImport = () => {
         var http = new HTTP();
         documentos_import.log = [];
@@ -93,14 +96,18 @@ app.controller("documentos_import", function ($scope, $http, $compile) {
                                         informe.forEach(info => {
                                             toinsert[info.field] = info.result;
                                         });
-                                        let result = BASEAPI.insertp(documentos_import.tabla, toinsert);
+                                        let result = await BASEAPI.insertp(documentos_import.tabla, toinsert);
                                         let bonito = [];
-                                        Object.keys(toinsert).forEach(prop => {
-                                            bonito.push(`<b>${prop}:</b> ${toinsert[prop]}`);
-                                        });
+                                        if (result.data.error === true)
+                                            bonito.push(`<b class="text-danger">${result.data.sqlMessage}:</b>`);
+                                        else
+                                            Object.keys(toinsert).forEach(prop => {
+                                                if (bonito.length < 2)
+                                                    bonito.push(`<b>${prop}:</b> ${toinsert[prop]}`);
+                                            });
                                         documentos_import.log.push({
                                             id: num,
-                                            message: `${documentos_import.tabla} insertada con exito con los valores:<br>${bonito.join("<br>")}`
+                                            message: `${documentos_import.tabla} insertada con exito con los valores: ${bonito.join(", ")}`
                                         });
                                     } else {
                                         documentos_import.log.push({
