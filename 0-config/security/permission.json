@@ -2244,6 +2244,11 @@
       "documentos_import": {
         "type": "empty",
         "allow": {
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          },
           "actions": true,
           "view": false,
           "audit": false,

@@ -44,6 +44,7 @@ var options = {
     remove: true,
     upload: true,
     alone: false,
+    inline: false,
     alwaysnew: false
 };
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
@@ -125,6 +126,7 @@ var toclient = JSON.stringify(options);
     }
 
 </script>
+<% if(!options.inline){ %>
 <div class="form-group-material form-group has-feedback has-{{<%= model %>.validate['<%= name %>'].type || <%= model %>.defaultColor }}  has-feedback-<%= options.icon.position %>"
      id="input<%= model %>_<%= nameclean %>">
     <% if(options.show === 'image'){ %>
@@ -163,6 +165,7 @@ var toclient = JSON.stringify(options);
         </p>
     </span>
 </div>
+<% } %>
 <script>
     if (!<%= model %>.
     filesToMove
@@ -569,3 +572,29 @@ var toclient = JSON.stringify(options);
     <%= model %>.refreshAngular();
 
 </script>
+<div>
+    <% if(options.inline){ %>
+        <script>
+            amLoad<%= name %> = true;
+            var root = <%= model %>.form.options.<%= name %>.folder;
+            baseController.viewDataToto = {
+                root: root,
+                file:<%= model %>.form.options.<%= name %>.file,
+                scope: <%= model %>,
+                nameclean: "<%= model %>_<%= nameclean %>",
+                options: <%= model %>.form.options.<%= nameclean %>,
+                maxsize:<%= model %>.
+                form.options.<%= name %>.maxsize_mb,
+                maxfiles:<%= model %>.
+                form.options.<%= name %>.maxfiles,
+                acceptedFiles: <%= model %>.
+                form.options.<%= name %>.acceptedFiles,
+                columns:<%= model %>.
+                form.options.<%= name %>.columns,
+                showMymessage:<%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
+                Mymessage:<%= model %>.form.options.<%= name %>.acceptedFiles_message !== null ?<%= model %>.form.options.<%= name %>.acceptedFiles_message:""
+            };
+        </script>
+        <%- include('../components/filemanagerinline',{scope:model}); %>
+    <% } %>
+</div>

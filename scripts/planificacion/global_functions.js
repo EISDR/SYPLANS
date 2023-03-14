@@ -2975,7 +2975,7 @@ IZQUIERDAADD = (value, text) => {
     return text + value;
 }
 IA = {
-    customFields: ["macro_proceso", "proceso"],
+    customFields: ["mapa_proceso", "macro_proceso", "proceso"],
     codes: [
         {
             id: "L",
