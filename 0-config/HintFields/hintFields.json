@@ -463,7 +463,7 @@
     {
       "entity": "actividades_poa",
       "fieldName": "presupuesto",
-      "displayName": "Presupuesto Asignado a las Actividades"
+      "displayName": "Presupuesto asignado"
     },
     {
       "entity": "actividades_poa",

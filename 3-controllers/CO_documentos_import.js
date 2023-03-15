@@ -8,7 +8,7 @@ app.controller("documentos_import", function ($scope, $http, $compile) {
     }];
     //documentos_import.singular = "singular";
     //documentos_import.plural = "plural";
-    documentos_import.headertitle = "Documentos";
+    documentos_import.headertitle = "Grupo de documentos a importar";
     //documentos_import.destroyForm = false;
     //documentos_import.permissionTable = "tabletopermission";
     RUNCONTROLLER("documentos_import", documentos_import, $scope, $http, $compile);
@@ -22,6 +22,8 @@ app.controller("documentos_import", function ($scope, $http, $compile) {
     }
     documentos_import.formulary = function (data, mode, defaultData) {
         documentos_import.log = [];
+        documentos_import.headertitle = "Lista de documentos a importar";
+        documentos_import.refreshAngular()
         if (documentos_import !== undefined) {
             RUN_B("documentos_import", documentos_import, $scope, $http, $compile);
             documentos_import.form.modalWidth = ENUM.modal.width.full;
@@ -144,9 +146,10 @@ app.controller("documentos_import", function ($scope, $http, $compile) {
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.close = function (data) {
-    //     //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
-    // };
+    documentos_import.triggers.table.after.close = function (data) {
+        documentos_import.headertitle = "Grupo de documentos a importar";
+        documentos_import.refreshAngular()
+    };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.close ${$scope.modelName}`);
     //     resolve(true);

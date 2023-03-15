@@ -2983,7 +2983,8 @@ IA = {
             params: [
                 {nombre: "Número", type: "number"}
             ],
-            code: "LALINEA(@1,crude)"
+            code: "LALINEA(@1,crude)",
+            title: "Con esta instrucción rellenas el valor del campo directamente con la 'línea' especificada."
         },
         {
             id: "D",
@@ -2991,7 +2992,8 @@ IA = {
             params: [
                 {nombre: "Texto", type: "text"}
             ],
-            code: "DERECHA(@VALUE,@1)"
+            code: "DERECHA(@VALUE,@1)",
+            title: "Con esta instrucción cortas el texto de la izquierda y te quedas con el texto de la derecha con la coincidencia de un texto especificado."
         },
         {
             id: "I",
@@ -2999,7 +3001,8 @@ IA = {
             params: [
                 {nombre: "Texto", type: "text"}
             ],
-            code: "IZQUIERDA(@VALUE,@1)"
+            code: "IZQUIERDA(@VALUE,@1)",
+            title: "Con esta instrucción cortas el texto de la derecha y te quedas con el texto de la izquierda con la coincidencia de un texto especificado."
         },
         {
             id: "R",
@@ -3008,7 +3011,8 @@ IA = {
                 {nombre: "De", type: "text"},
                 {nombre: "Por", type: "text"},
             ],
-            code: "REEMPLAZAR(@VALUE,@1,@2)"
+            code: "REEMPLAZAR(@VALUE,@1,@2)",
+            title: "Con esta instrucción reemplazas la coincidencia de un texto en el parámetro 'De' por el valor especificado en el parámetro 'Por'."
         },
         {
             id: "S",
@@ -3018,7 +3022,8 @@ IA = {
                 {nombre: "Entonces", type: "text"},
                 {nombre: "De lo contrario", type: "text"},
             ],
-            code: "SITIENE(@1,@2,@3,crude)"
+            code: "SITIENE(@1,@2,@3,crude)",
+            title: "Con esta instrucción indicas que valor tendrá el campo en caso de que la coincidencia sea encontrada u otro valor en caso de que no sea encontrada."
         },
         {
             id: "A",
@@ -3026,7 +3031,8 @@ IA = {
             params: [
                 {nombre: "Text", type: "text"}
             ],
-            code: "DERECHAADD(@VALUE,@1)"
+            code: "DERECHAADD(@VALUE,@1)",
+            title: "Con esta instrucción agregas el texto indicado a la derecha del resultado del campo."
         },
         {
             id: "B",
@@ -3034,7 +3040,8 @@ IA = {
             params: [
                 {nombre: "Text", type: "text"}
             ],
-            code: "IZQUIERDAADD(@VALUE,@1)"
+            code: "IZQUIERDAADD(@VALUE,@1)",
+            title: "Con esta instrucción agregas el texto indicado a la izquierda del resultado del campo."
         }
     ],
     executeCode: (line, current, crude) => {

@@ -166,13 +166,7 @@
           "href": "#",
           "text": "Evaluación y Carga de Evidencias"
         },
-        {
-          "menus": "",
-          "modal": "",
-          "icon": "task",
-          "href": "#asignaciones",
-          "text": "Asignaciones Especiales"
-        },
+
         {
           "menus": [
             {
@@ -201,6 +195,13 @@
           "icon": "eye",
           "href": "#",
           "text": "Monitoreo y Segumiento"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "task",
+          "href": "#asignaciones",
+          "text": "Asignaciones Especiales"
         },
         {
           "modal": "modal-full",

@@ -12,13 +12,13 @@
           "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
-          "text": "Documentos Inteligente"
+          "text": "Configuración Carga de Documentos"
         },
         {
           "modal": "",
           "icon": "list2",
           "href": "#documentos_import",
-          "text": "Importar Documentos"
+          "text": "Grupo de documentos a importar"
         },
         {
           "modal": "",
@@ -100,13 +100,13 @@
           "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
-          "text": "Documentos Inteligente"
+          "text": "Configuración Carga de Documentos"
         },
         {
           "modal": "",
           "icon": "list2",
           "href": "#documentos_import",
-          "text": "Importar Documentos"
+          "text": "Grupo de documentos a importar"
         },
         {
           "modal": "",

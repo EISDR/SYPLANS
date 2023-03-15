@@ -8,7 +8,7 @@ app.controller("documentos_ia", function ($scope, $http, $compile) {
     }];
     //documentos_ia.singular = "singular";
     //documentos_ia.plural = "plural";
-    documentos_ia.headertitle = "Documentos Inteligentes";
+    documentos_ia.headertitle = "Configuración Carga de Documentos";
     //documentos_ia.destroyForm = false;
     //documentos_ia.permissionTable = "tabletopermission";
     documentos_ia.movecode = (ix, array) => {

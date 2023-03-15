@@ -2,7 +2,7 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class='col-sm-4 col-md-4'>
-                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad"}) %>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad", disabled: true}) %>
             </div>
             <div class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
@@ -29,7 +29,7 @@
                                     <thead>
                                     <tr class="bg-<%= COLOR.secundary %>">
                                         <td colspan="100%" class="text-center" style="padding: 0;">
-                                            <h5>Resultados al cargar documento</h5>
+                                            <h5>Información extraída del Documento</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -52,8 +52,8 @@
             </div>
             <div class='col-sm-12 col-md-12' ng-if="documentos_ia.config.informe_crude.length">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center"
-                         style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    <div class="panel-heading text-left"
+                         style="font-weight: bold;padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                         <h3>Configuración de campos</h3>
                     </div>
                     <div class="panel-body">
@@ -62,8 +62,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre de Campo</th>
-                                <th title="En caso de que el resultado no contenga ningún valor">Por Defecto</th>
-                                <th>Tipo</th>
+                                <th title="En caso de que el resultado no contenga ningún valor">Valor por Defecto</th>
+                                <th>Tipo de Campo</th>
                                 <th>Configuración</th>
 
                                 <!--                                <th title="Valor calculado">Script (Alternativa personalizada del campo)</th>-->
@@ -83,13 +83,13 @@
                                 </td>
                                 <td style="width: 15%;padding: 2px;">
                                     <select class="form-control" ng-model="item.tipo">
-                                        <option value="6">Valor Por Defecto</option>
+                                        <option value="6">Valor por defecto</option>
                                         <option value="1">Rango entre líneas</option>
                                         <option value="2">Rango entre coincidencias</option>
+                                        <option value="5">Valor especial</option>
+                                        <option value="7">Valor del formulario</option>
                                         <option value="4">Instrucciones</option>
-                                        <option value="3">Script (Alternativa personalizada del campo)</option>
-                                        <option value="5">Valor Especial</option>
-                                        <option value="7">Valor Del Formulario</option>
+                                        <option value="3">Script (alternativa personalizada del campo)</option>
                                     </select>
                                 </td>
                                 <td style="width: 55%;padding: 2px;">
@@ -212,7 +212,7 @@
                         <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
                             <thead>
                             <tr>
-                                <td colspan="100%" class="text-center">
+                                <td colspan="100%" class="text-left" style="font-weight: bold">
                                     <h3>Resultados de la configuración con la imagen de prueba</h3>
                                     <button title="Verificar Resultados" ng-click="<%= scope %>.readFile();"
                                             type="button"

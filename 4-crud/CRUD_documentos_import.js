@@ -47,6 +47,11 @@ DSON.keepmerge(CRUD_documentos_import, {
                 export: false,
                 exportExample: false
             },
+            nombre: {
+                shorttext: 360, label: () => {
+                    return "Nombre del grupo de documentos a importar"
+                },
+            },
             tipo: {
                 label: () => {
                     return "Configuración"
@@ -54,8 +59,7 @@ DSON.keepmerge(CRUD_documentos_import, {
                 format: (row) => {
                     return row.documentos_ia_nombre;
                 }
-            },
-            nombre: {shorttext: 360}
+            }
         },
         filters: {
             columns: true

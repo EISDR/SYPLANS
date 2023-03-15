@@ -254,7 +254,7 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
 
                         }
                     }
-                    rules.push(VALIDATION.yariel.mayorQue(parseFloat(DSON.cleanNumber(value)), parseFloat(DSON.cleanNumber(presupuesto_aprobado.presupuesto_consumido_departamento)), "Presupuesto del área", "Presupuesto Asignado a las Actividades."));
+                    rules.push(VALIDATION.yariel.mayorQue(parseFloat(DSON.cleanNumber(value)), parseFloat(DSON.cleanNumber(presupuesto_aprobado.presupuesto_consumido_departamento)), "Presupuesto del área", "Presupuesto asignado."));
                     rules.push(VALIDATION.yariel.presupuesto_editar(parseInt(DSON.cleanNumber(presupuesto_aprobado.valor_antes)), parseInt(DSON.cleanNumber(presupuesto_aprobado.valor)).toFixed(2), parseInt(DSON.cleanNumber(presupuesto_aprobado.restante))));
                 }
                 // Aqui es donde se realiza la resta para el presupuesto restante
