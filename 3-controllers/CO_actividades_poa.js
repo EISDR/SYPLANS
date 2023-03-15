@@ -665,7 +665,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             {
                                 "field": "estatus_actividad",
                                 "operator": "",
-                                "value": `$ IN (${ENUM_2.actividad_poa_estatus.Abierta}, ${ENUM_2.actividad_poa_estatus.Trabajada})`
+                                "value": `$ IN (${ENUM_2.actividad_poa_estatus.Abierta}, ${ENUM_2.actividad_poa_estatus.Trabajada}, ${ENUM_2.actividad_poa_estatus.Ejecucion})`
                             },
                             {
                                 "field": "tempid",
