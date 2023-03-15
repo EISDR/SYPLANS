@@ -227,5 +227,76 @@
         <div class="subcontent">
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
         </div>
+        <div class="modal nomodal" id="exampleModalCenter" tabindex="-1" role="dialog" ng-if="productos_poa.session.maneja_pacc==1">
+            <div class="modal-dialog  modal-full modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="border: 3px solid #004d80">
+                        <div class="tab-content" style="height: 800px">
+                            <div class="tab-pane active" id="basic">
+                                <div class="row">
+                                    <div class="col-sm-9 col-md-9">
+                                        <label style="font-weight: bold">Filtro de búsqueda: <b class="text-danger">{{busquedacbs}}
+                                                {{actividades_poa.know(busquedacbs)}}</b></label>
+                                        <input ng-model="busquedacbs" type="text"
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            x
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row" >
+                                    <div class="col-sm-12 col-md-12"
+                                         style="margin-top: 15px;height: 700px;overflow: auto">
+                                        <table class=" table table-togglable table-framed sindu-table">
+                                            <thead>
+                                            <tr class="bg-secundary">
+                                                <th>Código de Catálogo de Bienes y Servicios (CBS)</th>
+                                                <th>Descripción de (CBS)</th>
+                                                <th>Objeto de Gasto</th>
+                                                <th>Descripción de Objeto de Gasto</th>
+                                                <th> </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="(i,cbs) in actividades_poa.cbslista | filter:busquedacbs | limitTo:100"
+                                                ng-show="busquedacbs"
+                                                class="{{actividades_poa.isselected(cbs)?'bg-extra-100':''}}">
+                                                <td>{{cbs.id}}</td>
+                                                <td>{{cbs.nombre}}</td>
+                                                <td>
+                                                    <!--                                                        {{cbs.codigo_clasificador}}-->
+                                                    <select style="width: 100%"
+                                                            ng-model="cbs.codigo_clasificadorsel"
+                                                            ng-options="item for item in actividades_poa.ausiliarSelect(cbs)">
+                                                    </select>
+                                                </td>
+                                                <td>{{cbs.desc_clasificador}}</td>
+                                                <td>
+                                                    <button ng-click="actividades_poa.selectcbs(cbs)"
+                                                            class="btn btn-{{actividades_poa.isselected(cbs)?'danger':'success'}}"
+                                                            style="height: 17px;padding: 0 3px 0 3px;font-size: 15px;">
+                                                        {{actividades_poa.isselected(cbs)?'Selleccionado':'Seleccionar'}}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="!busquedacbs" class="text-center">
+                                                <td style="height: 60px;padding: 23px;" colspan="4">
+                                                    <span class="alert alert-info alert-styled-left"> Favor digite el Código de Bienes y Servicios(CBS), Descripción u Objeto de Gasto en el filtro de búsqueda para vizualizar resultados. </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div><!--end-->

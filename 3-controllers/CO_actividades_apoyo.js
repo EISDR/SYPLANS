@@ -29,6 +29,23 @@ app.controller("actividades_apoyo", function ($scope, $http, $compile) {
         if (actividades_apoyo !== undefined) {
             RUN_B("actividades_apoyo", actividades_apoyo, $scope, $http, $compile);
             actividades_apoyo.triggers.table.before.open = () => new Promise((resolve, reject) => {
+                debugger
+                if (typeof productos_poa != "undefined") {
+                    if (productos_poa) {
+                        if (typeof productos_poa !== 'not defined') {
+                            if (actividades_poa.fecha_inicio === null || actividades_poa.fecha_fin === null || actividades_poa.fecha_fin === "") {
+                                actividades_apoyo.showMsjSi = true;
+                                actividades_apoyo.showMsjNo = false;
+                                resolve(true);
+                            } else {
+                                actividades_apoyo.showMsjSi = false;
+                                actividades_apoyo.showMsjNo = true;
+                                resolve(true);
+                            }
+                            return
+                        }
+                    }
+                }
                 if (actividades_poa.producto_object === undefined || actividades_poa.fecha_inicio === null || actividades_poa.fecha_fin === null || actividades_poa.fecha_fin === "") {
                     actividades_apoyo.showMsjSi = true;
                     actividades_apoyo.showMsjNo = false;
@@ -38,7 +55,6 @@ app.controller("actividades_apoyo", function ($scope, $http, $compile) {
                     actividades_apoyo.showMsjNo = true;
                     resolve(true);
                 }
-
             });
             actividades_apoyo.selectQueries["departamento"] = [
                 {
