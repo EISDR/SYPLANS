@@ -47,7 +47,11 @@ DSON.keepmerge(CRUD_documentos_ia, {
                 export: false,
                 exportExample: false
             },
-            nombre: {}
+            nombre: {
+                label: () => {
+                    return "Nombre de la configuración"
+                }
+            }
         },
         filters: {
             columns: true
