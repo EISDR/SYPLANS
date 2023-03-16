@@ -99,12 +99,12 @@ ERROR = {
         if (CONFIG.mode !== 'developer') {
             switch (category) {
                 case ERROR.category.database: {
-                    var errorfinal = ERROR.regulate(JSON.stringify(errors.join('<br>')));
+                    var errorfinal = errors.map(d => ERROR.regulate(d.sqlMessage));
 
                     if (errorfinal.regul) {
                         SWEETALERT.show({
                             type: "error",
-                            message: ERROR.regulate(errors.join('<br>')).regulated
+                            message: ERROR.regulate(JSON.stringify(errors)).regulated
                         });
                     } else {
                         SWEETALERT.confirm({

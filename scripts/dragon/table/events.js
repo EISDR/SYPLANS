@@ -285,14 +285,14 @@ TABLEEVENT = {
                     });
                 } else {
                     $scope.procesingRow++;
-                    $scope.procesingRowErrors.push(result.data, ERROR.category.database);
+                    $scope.procesingRowErrors.push(result.data);
                     if ($scope.procesingRow === $scope.procesingRowFor || $scope.procesingRowFor === 0) {
                         $scope.procesingRow = 0;
                         $scope.procesingRowFor = 0;
                         $scope.refresh();
                         SWEETALERT.stop();
                         $scope.reorderItems();
-                        ERROR.multiAlert($scope.procesingRowErrors, ERROR.category.database);
+                        ERROR.alert(result.data, ERROR.category.database);
                     }
                 }
 
@@ -405,13 +405,13 @@ TABLEEVENT = {
                     });
                 } else {
                     $scope.procesingRow++;
-                    $scope.procesingRowErrors.push(result.data, ERROR.category.database);
+                    $scope.procesingRowErrors.push(result.data);
                     if ($scope.procesingRow === $scope.procesingRowFor || $scope.procesingRowFor === 0) {
                         $scope.procesingRow = 0;
                         $scope.procesingRowFor = 0;
                         $scope.refresh();
                         SWEETALERT.stop();
-                        ERROR.multiAlert($scope.procesingRowErrors, ERROR.category.database);
+                        ERROR.alert(result.data, ERROR.category.database);
                     }
                 }
 
