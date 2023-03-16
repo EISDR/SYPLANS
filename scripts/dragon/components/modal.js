@@ -323,19 +323,21 @@ MODAL = {
                     );
                 }
             }
-            $("#modal" + data.id).on("show.bs.modal", function () {
+            $("#modal" + data.id).on("show.bs.modal", function (event) {
                 if (typeof data.event.show.begin === "function")
                     data.event.show.begin($scope);
             });
-            $("#modal" + data.id).on("hide.bs.modal", function () {
+            $("#modal" + data.id).on("hide.bs.modal", function (event) {
+                if (["exampleModalCenter", "exampleModalCenterApoyo"].indexOf(event.target.id) !== -1)
+                    return;
                 if (typeof data.event.hide.begin === "function")
                     data.event.hide.begin($scope);
             });
-            $("#modal" + data.id).on("hidden.bs.modal", function () {
+            $("#modal" + data.id).on("hidden.bs.modal", function (event) {
                 if (typeof data.event.hide.end === "function")
                     data.event.hide.end($scope);
             });
-            $("#modal" + data.id).on("shown.bs.modal", function () {
+            $("#modal" + data.id).on("shown.bs.modal", function (event) {
                 if (typeof data.event.show.end === "function")
                     data.event.show.end($scope);
             });
