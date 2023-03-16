@@ -285,7 +285,7 @@ TABLEEVENT = {
                     });
                 } else {
                     $scope.procesingRow++;
-                    $scope.procesingRowErrors.push(result.data.sqlMessage);
+                    $scope.procesingRowErrors.push(result.data, ERROR.category.database);
                     if ($scope.procesingRow === $scope.procesingRowFor || $scope.procesingRowFor === 0) {
                         $scope.procesingRow = 0;
                         $scope.procesingRowFor = 0;
