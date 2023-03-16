@@ -105,7 +105,8 @@
                             <i class="border-white  position-right"></i>
                         </a>
                     </li>
-                    <li class="" id="prod_comment_tab" ng-show="productos_poa.estado != '3' &&  (productos_poa.old_estado != 0 &&  productos_poa.old_estado.toString() != productos_poa.estado ) && productos_poa.form.mode !== FORM.modes.new">
+                    <li class="" id="prod_comment_tab"
+                        ng-show="productos_poa.estado != '3' &&  (productos_poa.old_estado != 0 &&  productos_poa.old_estado.toString() != productos_poa.estado ) && productos_poa.form.mode !== FORM.modes.new">
                         <a href="#prod_comment" data-toggle="tab">
                             <i class="position-left"></i>
                             Comentarios
@@ -122,6 +123,7 @@
                                     text: "item.nombre",
                                     table: "actividades_poa",
                                     field: "producto",
+                                    cbs: true,
                                     master: null,
                                     icon: {class: "archive"}
                                 }) %>
@@ -168,8 +170,8 @@
 
             </div>
 
+        </div>
     </div>
-</div>
     <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
      <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
             <i class="position-right"></i>
@@ -199,8 +201,8 @@
                 <b><i class="icon-floppy-disk"></i></b>
                 <language>MESSAGE.ic('mono.save')</language>
             </button>
-            <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
-                     data-toggle="dropdown">
+            <button style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                    data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-left">
@@ -214,21 +216,21 @@
         </div>
     </div>
 
-<script>
-    document.getElementById("closeModal").onclick = productos_poa.closeModal = function () {
-        if (productos_poa.form.mode == 'new'){
-            BASEAPI.deleteall('actividades_poa', [
-                {
-                    field: "tempid",
-                    value: productos_poa.actividades_poa
-                }
-            ], function (result) {
+    <script>
+        document.getElementById("closeModal").onclick = productos_poa.closeModal = function () {
+            if (productos_poa.form.mode == 'new') {
+                BASEAPI.deleteall('actividades_poa', [
+                    {
+                        field: "tempid",
+                        value: productos_poa.actividades_poa
+                    }
+                ], function (result) {
+                    productos_poa.modo_view_trabajar = false;
+                    MODAL.closeAll();
+                });
+            } else {
                 productos_poa.modo_view_trabajar = false;
                 MODAL.closeAll();
-            });
-        }else{
-            productos_poa.modo_view_trabajar = false;
-            MODAL.closeAll();
+            }
         }
-    }
-</script>
+    </script>
