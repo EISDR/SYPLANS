@@ -4,7 +4,64 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad", disabled: true}) %>
             </div>
-            <div class='col-sm-12 col-md-12'>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.selectsimple("tipo", scope, {
+                    label: "Tipo",
+                    value: "code",
+                    data: [
+                        {"code": "IMAGE", "name": "Scan de Imagen"},
+                        {"code": "EXCEL", "name": "Documento Excel"},
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+            <div ng-show="documentos_ia.tipo==='EXCEL'" class='col-sm-12 col-md-12'>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class='col-sm-12 col-md-12'>
+                                <%- FORM.file("excel", scope, {
+                                    title: 'Adjuntar Documento Excel',
+                                    truetext: 'Adjuntar Documento Excel',
+                                    maxfiles: 1,
+                                    columns: 1,
+                                }) %>
+                                <button ng-if="documentos_ia.config.exampleImage" ng-click="<%= scope %>.getCrude();"
+                                        type="button" class="btn bg-danger btn-xs" style="float: right">
+                                    Escanear documento {{!documentos_ia.config.informe_crude.length?'':'Nuevamente' }}
+                                </button>
+                            </div>
+                            <div class='col-sm-12 col-md-12' style="margin-top: 10px;height: 500px;overflow: auto">
+                                <table ng-if="documentos_ia.config.exampleImage"
+                                       class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table"
+                                       style="margin-top: 20px">
+                                    <thead>
+                                    <tr class="bg-<%= COLOR.secundary %>">
+                                        <td colspan="100%" class="text-center" style="padding: 0;">
+                                            <h5>Datos del Excel Cargado</h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Línea</th>
+                                        <th>Texto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-if="documentos_ia.config.informe"
+                                        ng-repeat="(ix,item) in documentos_ia.config.informe_crude track by item.id">
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.text}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-show="documentos_ia.tipo==='IMAGE'" class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row text-center">
@@ -50,7 +107,8 @@
                     </div>
                 </div>
             </div>
-            <div class='col-sm-12 col-md-12' ng-if="documentos_ia.config.informe_crude.length">
+            <div ng-show="documentos_ia.tipo==='IMAGE'" class='col-sm-12 col-md-12'
+                 ng-if="documentos_ia.config.informe_crude.length">
                 <div class="panel panel-default">
                     <div class="panel-heading text-left"
                          style="font-weight: bold;padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
@@ -237,6 +295,7 @@
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>

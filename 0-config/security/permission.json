@@ -2226,6 +2226,11 @@
       "documentos_ia": {
         "type": "empty",
         "allow": {
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          },
           "actions": true,
           "view": false,
           "audit": false,

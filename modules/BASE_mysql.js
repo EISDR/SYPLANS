@@ -234,8 +234,14 @@ exports.data = async function (query, params, index) {
                 count: [data.length],
             };
         }).catch(err => {
-            exports.developerlog({query: query, error: {error: true, sqlMessage: err.sqlMessage}});
-            return {query: query, error: {error: true, sqlMessage: err.sqlMessage}};
+            exports.developerlog({
+                query: query,
+                error: {data: {error: true, sqlMessage: err.sqlMessage}}
+            });
+            return {
+                query: query,
+                error: {data: {error: true, sqlMessage: err.sqlMessage}}
+            };
         });
     } catch (err) {
         exports.developerlog({query: query, error: err});
