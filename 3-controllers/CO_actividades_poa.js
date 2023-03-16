@@ -1129,7 +1129,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                     d.codigo_clasificadorsel = d.codigo_clasificador;
                 }
             });
-            $("#exampleModalCenter").modal("show");
+            if (actividades_poa.esapoyo){
+                $("#exampleModalCenterApoyo").modal("show");
+            }else{
+                $("#exampleModalCenter").modal("show");
+            }
             controller.refreshAngular();
         }
     };
@@ -1148,6 +1152,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
         controller.selectedKey = undefined;
         controller.refreshAngular();
         $("#exampleModalCenter").modal("hide");
+        $("#exampleModalCenterApoyo").modal("hide");
     };
     actividades_poa.loadlist = async () => {
         if (actividades_poa.session.maneja_pacc === 1) {
