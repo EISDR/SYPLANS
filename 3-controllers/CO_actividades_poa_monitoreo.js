@@ -485,6 +485,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                     actividades_poa_monitoreo.presupuesto_actividades = LAN.money(actividades_poa_monitoreo.filtros.selected('departamentoPre').presupuesto_actividades).format(true);
                     actividades_poa_monitoreo.presupuesto_liberado = LAN.money(actividades_poa_monitoreo.filtros.selected('departamentoPre').presupuesto_liberado).format(true);
                     actividades_poa_monitoreo.refrescarInputs();
+                    actividades_poa_monitoreo.refresh();
                 }
             } else {
                 // if (STORAGE.exist('depaM')) {
