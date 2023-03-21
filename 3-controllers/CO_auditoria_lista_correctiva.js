@@ -297,6 +297,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     };
     auditoria_lista_correctiva.saveAccionCorrectiva = function () {
         VALIDATION.save(auditoria_lista_correctiva, async function () {
+            var auditVar = auditoria_lista_correctiva.form.getAudit();
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
             // if (drp_actividades_apoyo.estatus == ENUM_2.actividad_apoyo_estatus.Cancelada) {
             //     if (LAN.money(drp_actividades_apoyo.presupuesto_consumido).value > 0) {
@@ -363,6 +364,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                 }
                 NOTIFY.success("Comentario agregado");
                 MODAL.close();
+                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_auditoria_lista_correctiva', auditVar,auditoria_lista_correctiva.form.oldData);
                 auditoria_lista_correctiva.refresh();
                 riesgo_a.refreshAngular();
                 SWEETALERT.stop();

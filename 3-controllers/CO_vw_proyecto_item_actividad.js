@@ -63,6 +63,7 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
     vw_proyecto_item_actividad.saveActividad = function () {
         var fields = vw_proyecto_item_actividad.estatus_id == ENUM_2.actividad_apoyo_estatus.Completa ? ["estatus_id", "comentario", "presupuesto"] : ["estatus_id", "comentario"];
         VALIDATION.save(vw_proyecto_item_actividad, async function () {
+            var auditVar = vw_proyecto_item_actividad.form.getAudit();
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
             for(var item of buttons){
                 item.disabled = true;
@@ -230,6 +231,7 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
                     item.disabled = false;
                 }
                 NOTIFY.success("Comentario agregado");
+                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_proyecto_item_actividad', auditVar,vw_proyecto_item_actividad.form.oldData);
                 MODAL.close();
                 vw_proyecto_item_actividad.refresh();
                 SWEETALERT.stop();

@@ -8,6 +8,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     vw_auditoria_lista_correctiva.plural = "plural";
     vw_auditoria_lista_correctiva.headertitle = "Seguimiento de Acciones de Mejora";
     vw_auditoria_lista_correctiva.destroyForm = false;
+    vw_auditoria_lista_correctiva.auditModel = "vw_auditoria_lista_correctiva";
     vw_auditoria_lista_correctiva.group_caracteristica = vw_auditoria_lista_correctiva.session.groups[0] ? vw_auditoria_lista_correctiva.session.groups[0].caracteristica : "";
     if (vw_auditoria_lista_correctiva.accion) {
         CRUD_vw_auditoria_lista_correctiva = {};
@@ -1296,6 +1297,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     };
     vw_auditoria_lista_correctiva.saveAccionCorrectiva = function () {
         VALIDATION.save(vw_auditoria_lista_correctiva, async function () {
+            var auditVar = vw_auditoria_lista_correctiva.form.getAudit();
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
             // if (drp_actividades_apoyo.estatus == ENUM_2.actividad_apoyo_estatus.Cancelada) {
             //     if (LAN.money(drp_actividades_apoyo.presupuesto_consumido).value > 0) {
@@ -1365,6 +1367,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                 for (var item of buttons) {
                     item.disabled = false;
                 }
+                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_auditoria_lista_correctiva', auditVar,vw_auditoria_lista_correctiva.form.oldData);
                 NOTIFY.success("Comentario agregado");
                 MODAL.close();
                 vw_auditoria_lista_correctiva.refresh();

@@ -248,6 +248,7 @@ app.controller("vw_proyecto_actividad_apoyo", function ($scope, $http, $compile)
     //
     vw_proyecto_actividad_apoyo.saveActividadApoyo = function () {
         VALIDATION.save(vw_proyecto_actividad_apoyo, async function () {
+            var auditVar = vw_proyecto_actividad_apoyo.form.getAudit();
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
 
             for(var item of buttons){
@@ -354,6 +355,7 @@ app.controller("vw_proyecto_actividad_apoyo", function ($scope, $http, $compile)
                     item.disabled = false;
                 }
                 NOTIFY.success("Comentario agregado");
+                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_proyecto_actividad_apoyo', auditVar,vw_proyecto_actividad_apoyo.form.oldData);
                 MODAL.close();
                 vw_proyecto_actividad_apoyo.refresh();
                 SWEETALERT.stop();
