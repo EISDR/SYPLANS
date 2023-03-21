@@ -255,6 +255,7 @@ app.controller("drp_actividades_apoyo", function ($scope, $http, $compile) {
     drp_actividades_apoyo.saveActividadApoyo = function () {
         VALIDATION.save(drp_actividades_apoyo, async function () {
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
+            var auditVar = drp_actividades_apoyo.form.getAudit();
             if (drp_actividades_apoyo.estatus == ENUM_2.actividad_apoyo_estatus.Cancelada) {
                 if (LAN.money(drp_actividades_apoyo.presupuesto_consumido).value > 0) {
                     SWEETALERT.show({
@@ -318,20 +319,7 @@ app.controller("drp_actividades_apoyo", function ($scope, $http, $compile) {
                                     }]
                                 });
                             }
-                await AUDIT.LOG(AUDIT.ACTIONS.update, drp_actividades_apoyo.auditModel,
-                    {
-                        id: drp_actividades_apoyo.id,
-                        nombre: drp_actividades_apoyo.nombre,
-                        estado: drp_actividades_apoyo.form.selected('estatus').nombre,
-                        presupuesto: drp_actividades_apoyo.act_apoyo_presupuesto
-                    },
-                    {
-                        id: drp_actividades_apoyo.id,
-                        nombre: drp_actividades_apoyo.nombre,
-                        estado: drp_actividades_apoyo.estado_antiguo,
-                        presupuesto: drp_actividades_apoyo.view_presupuesto
-                    }
-                );
+                await AUDIT.LOG(AUDIT.ACTIONS.update, drp_actividades_apoyo.auditModel, auditVar, drp_actividades_apoyo.form.oldData);
                 if (drp_actividades_apoyo.estado_antiguo != drp_actividades_apoyo.estatus){
                     if (drp_actividades_apoyo.estatus == ENUM_2.actividad_apoyo_estatus.Completa){
                         titulo_push = `Se ha completado la Actividad de Apoyo: "${drp_actividades_apoyo.nombre}"`;

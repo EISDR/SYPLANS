@@ -4,7 +4,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
     actividades_poa_monitoreo.id_actividad = [];
     actividades_poa_monitoreo.fileSI = [];
     actividades_poa_monitoreo.alert = false;
-    actividades_poa_monitoreo.auditModel = "vw_actividades_poa";
+    actividades_poa_monitoreo.auditModel = "vw_actividades_poa_grid";
     var session = new SESSION().current();
     actividades_poa_monitoreo.compania_idid = session.compania_id;
     actividades_poa_monitoreo.institucion_idid = session.institucion_id;
@@ -1032,6 +1032,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                         return;
 
                     BASEAPI.updateall($scope.tableOrMethod, dataToUpdate, async function (result) {
+                        var auditVar = actividades_poa_monitoreo.form.getAudit();
                         if (result.data.error === false) {
                             if ($scope.form !== null) {
                                 $scope.form.after.update({
@@ -1052,14 +1053,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                             var firstColumn = eval(`CRUD_${$scope.modelName}`).table.key || "id";
                             var DRAGONID = eval(`$scope.${firstColumn}`);
 
-                            await AUDIT.LOGCUSTOM(`Trabajar actividades`, $scope.tableOrView ? $scope.tableOrView : $scope.modelName, {
-                                id: $scope.id,
-                                Nombre: $scope.nombre,
-                                comentario: $scope.comentario,
-                                estatus: $scope.estatus_object.nombre,
-                                condición: $scope.razon != "[NULL]" ? `${$scope.razon_object.nombre} - ${$scope.razon_object.porcentaje}%` : null,
-                                presupuesto_asignado: $scope.presupuesto_dra
-                            });
+                            await AUDIT.LOG(AUDIT.ACTIONS.update, $scope.tableOrView ? $scope.tableOrView : $scope.modelName, auditVar,actividades_poa_monitoreo.form.oldData);
 
                             if ($scope.form !== null)
                                 $scope.form.mode = FORM.modes.edit;
