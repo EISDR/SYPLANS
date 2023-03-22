@@ -349,6 +349,33 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
         });
     };
     riesgo_resultado.getrefresh = async function () {
+        var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value: user.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": user.institucion_id ? "=" : "is",
+                    "value": user.institucion_id ? user.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (riesgoData) {
+            riesgo_resultado.historico_id = riesgoData.id;
+            riesgo_resultado.nombre_historico = riesgoData.nombre;
+            riesgo_resultado.descripcion_historico = riesgoData.descripcion;
+            riesgo_resultado.ano_historico = riesgoData.ano + '';
+            riesgo_resultado.estatus_historico = riesgoData.estatus_nombre;
+
+        }
         riesgo_resultado.probabilidades = [];
         riesgo_resultado.resultados = [];
         riesgo_resultado.impactos = [];
@@ -372,6 +399,10 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     {
                         field: "entidad",
                         value: riesgo_resultado.entidad
+                    },
+                    {
+                        field: "riesgo_historico",
+                        value: vw_resultante.historico_id ? vw_resultante.historico_id : -1
                     }
                 ];
             } else {
@@ -383,6 +414,10 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     {
                         field: "entidad",
                         value: riesgo_resultado.entidad
+                    },
+                    {
+                        field: "riesgo_historico",
+                        value: vw_resultante.historico_id ? vw_resultante.historico_id : -1
                     }
                 ];
             }

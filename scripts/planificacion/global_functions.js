@@ -2976,6 +2976,36 @@ IZQUIERDAADD = (value, text) => {
 }
 IA = {
     customFields: ["mapa_proceso", "macro_proceso", "proceso"],
+    listConfig: (id) => {
+        return IA.lists.filter(d => d.id === id)[0] || {};
+    },
+    lists: [
+        {id: 1, name: "Resultados Esperados", table: "resultado", key: "id", desc: "`nombre`"},
+        {id: 2, name: "Departamentos", table: "departamento", key: "id", desc: "`nombre`", force: true},
+        {id: 3, name: "Productos", table: "productos_poa", key: "id", desc: "`nombre`"},
+        {id: 4, name: "Tipo Inversión", table: "tipo_inversion", key: "id", desc: "`nombre`"},
+        {
+            id: 5,
+            name: "Involucrados de Productos",
+            table: "involucrados",
+            key: "id",
+            desc: "`nombre`",
+            key1: "`producto`",
+            key2: "`involucrado`",
+            where: [{field: "tipo", value: "1"}]
+        },
+        {
+            id: 6,
+            name: "Involucrados de Actividades",
+            table: "involucrados",
+            key: "id",
+            desc: "`nombre`",
+            key1: "`producto`",
+            key2: "`involucrado`",
+            where: [{field: "tipo", value: "5"}]
+        },
+        {id: 7, name: "Usuarios", table: "usuario", key: "id", desc: "concat(`nombre`,` `,`apellido`)"},
+    ],
     codes: [
         {
             id: "L",
@@ -3044,6 +3074,7 @@ IA = {
             title: "Con esta instrucción agregas el texto indicado a la izquierda del resultado del campo."
         }
     ],
+    excelTypes: ["texto", "entero", "decimal", "dinero", "booleano", "fecha", "fecha y hora", "lista simple", "lista multiple", "fijo", "SQL", "especial", "sheet", "clave"],
     executeCode: (line, current, crude) => {
         let elcodigo = IA.codes.filter(d => d.id === line.code)[0];
         let result = current;

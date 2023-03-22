@@ -23,11 +23,14 @@
                     condition: "(item.compania == documentos_import.session.compania_id)"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
+            <div class='col-sm-4 col-md-4' ng-show="documentos_import.documentos_ia_object.tipo!=='EXCEL'">
                 <%- FORM.selectsimple("tabla", scope, {
                     label: "Entidad",
                     value: "code",
-                    data: [{"code": "solicitud_documento", "name": "Solicitud de Documentos"}],
+                    data: models.filter(d => d).map(d => {
+                        return {code: d, name: d}
+                    }),
+                    // [ {"code": "solicitud_documento", "name": "Solicitud de Documentos"}],
                     icon: {class: "sphere3"}
                 }) %>
             </div>
@@ -121,16 +124,14 @@
             </div>
 
         </div>
-        <div class="row" >
+        <div class="row">
             <div class="col-sm-12 col-md-12 custom-upload" style="float: right">
                 <%- FORM.file("profileimage", scope, {
                     title: 'Adjuntar Documentos al Paquete',
                     truetext: 'Adjuntar Documentos al Paquete',
                     maxfiles: 200,
                     columns: 10,
-                    inline: true,
-                    acceptedFiles: "image/*",
-                    acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen"
+                    inline: true
                 }) %>
             </div>
         </div>
