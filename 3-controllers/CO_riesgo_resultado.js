@@ -385,9 +385,25 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
 
         new ANIMATION().loading(`.subcontent`, "", ``, '200', undefined, true);
         var aymywhere = [];
+        var aymywherePary = [];
         if (riesgo_resultado.institucion !== '[NULL]') {
             if (riesgo_resultado.institucion_object.tipo === "c") {
                 aymywhere = [
+                    {
+                        field: "compania",
+                        value: riesgo_resultado.institucion
+                    },
+                    {
+                        field: "institucion",
+                        operator: "is",
+                        value: "$null"
+                    },
+                    {
+                        field: "entidad",
+                        value: riesgo_resultado.entidad
+                    }
+                ];
+                aymywherePary = [
                     {
                         field: "compania",
                         value: riesgo_resultado.institucion
@@ -408,6 +424,16 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                 ];
             } else {
                 aymywhere = [
+                    {
+                        field: "institucion",
+                        value: riesgo_resultado.institucion
+                    },
+                    {
+                        field: "entidad",
+                        value: riesgo_resultado.entidad
+                    }
+                ];
+                aymywherePary = [
                     {
                         field: "institucion",
                         value: riesgo_resultado.institucion
