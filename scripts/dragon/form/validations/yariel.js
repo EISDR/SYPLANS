@@ -20,7 +20,17 @@ VALIDATION = DSON.merge(VALIDATION, {
                 type: VALIDATION.types.error
             };
         },
-
+        meta_alcanzada_indicador: function (array, field, default_value, current_value) {
+            debugger
+            let array_value = array.filter(d=> {
+                return d.valor_alcanzado > 0
+            }) || [];
+            return {
+                valid: current_value == default_value || array_value.length == 0,
+                message: `${field} no se puede cambiar debido a que existen metas alcanzadas ya digitadas en el indicador `,
+                type: VALIDATION.types.error
+            }
+        },
         reglapropia: function (value) {
             value = value || "";
             return {

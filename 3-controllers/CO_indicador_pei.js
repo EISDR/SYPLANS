@@ -192,7 +192,6 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             RUN_B("indicador_pei", indicador_pei, $scope, $http, $compile);
 
             indicador_pei.initiation = true;
-
             indicador_pei.triggers.table.after.control = function (data) {
                 if (data == "tipo_meta" && mode != "new" && indicador_pei.initiation) {
                     $(".subcontainer2").html('');
@@ -454,7 +453,10 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             };
 
             indicador_pei.form.readonly = {};
-            indicador_pei.createForm(data, mode, defaultData);
+            indicador_pei.createForm(data, mode, defaultData, undefined, function(){
+                indicador_pei.tipo_meta_old = indicador_pei.tipo_meta;
+                indicador_pei.direccion_meta_old = indicador_pei.direccion_meta;
+            });
 
             indicador_pei.$scope.$watch('indicador_pei.ws_connection_field', async function (value) {
                 await indicador_pei.runws(value, "resultExterno");
@@ -513,6 +515,9 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
 
             indicador_pei.$scope.$watch('indicador_pei.tipo_meta', function (value) {
                 var rules = [];
+                if (indicador_pei.list_indicador_pei_anos.length > 0 && indicador_pei.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_pei.list_indicador_pei_anos, "Tipo de dato de la meta",indicador_pei.tipo_meta_old,indicador_pei.tipo_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_pei, "tipo_meta", rules)
                 if (value && (!indicador_pei.initiation)) {
@@ -528,6 +533,9 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             });
             indicador_pei.$scope.$watch('indicador_pei.direccion_meta', function (value) {
                 var rules = [];
+                if (indicador_pei.list_indicador_pei_anos.length > 0 && indicador_pei.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_pei.list_indicador_pei_anos, "Dirección de la meta", indicador_pei.direccion_meta_old, indicador_pei.direccion_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_pei, "direccion_meta", rules)
             });
