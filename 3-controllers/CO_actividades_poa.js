@@ -19,6 +19,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     actividades_poa.compania = session.compania_id;
     actividades_poa.session = session;
     actividades_poa.no_limpiar_fecha_change = false;
+    actividades_poa.destroyform = false;
     actividades_poa.group_caracteristica = actividades_poa.session.groups[0] ? actividades_poa.session.groups[0].caracteristica : "";
     actividades_poa.director_general = ENUM_2.Grupos.director_general;
     actividades_poa.analista_de_planificacion = ENUM_2.Grupos.analista_de_planificacion;
@@ -2584,6 +2585,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     actividades_poa.formulary = function (data, mode, defaultData) {
         var session = new SESSION().current();
         actividades_poa.una_vez == "undefined"
+        actividades_poa.miswatches = ANGULARJS.scope("actividades_poa").$$watchers;
         if (actividades_poa !== undefined) {
             RUN_B("actividades_poa", actividades_poa, $scope, $http, $compile);
 
@@ -3098,7 +3100,6 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                         actividades_poa[d] = '';
                 });
                 actividades_poa.refreshAngular();
-
             };
             actividades_poa.presupuesto_restante_calculate = function () {
                 if (actividades_poa.form.selected('departamento') !== null) {

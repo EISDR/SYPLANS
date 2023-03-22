@@ -2723,8 +2723,30 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             }
             ;
         }
+        if (documentos_correctos.length !== documentos_seleccionados.length){
+            var procesos_seleccionados = auditoria_programa_plan.auditoria_plan_proceso.filter(function (item, index, inputArray) {
+                return inputArray.indexOf(item) == index;
+            });
+            // var documentos_list_filtrados = auditoria_programa_plan.documentos_list.filter(function (item, index, inputArray) {
+            //     return inputArray.indexOf(item) == index && item.cantidad_responsables > 0;
+            // });
+            var procesos_correctos = [];
+            if (procesos_seleccionados.length > 0) {
+                if (auditoria_programa_plan.procesoAuditores.data.length > 0)
+                    for (let i of auditoria_programa_plan.procesoAuditores.data) {
+                        for (let j of procesos_seleccionados) {
+                            if (!procesos_correctos.some(e => e.programa_plan == i.programa_plan && e.proceso == i.proceso)) {
+                                if ((i.proceso == j && i.usuario)) {
+                                    procesos_correctos.push(i)
+                                }
+                            }
+                        }
+                    };
+            }
+            return procesos_correctos.length === procesos_seleccionados.length;
+        }
         return documentos_correctos.length === documentos_seleccionados.length;
-    }
+    },
     auditoria_programa_plan.allow_autorize_audit = function () {
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;

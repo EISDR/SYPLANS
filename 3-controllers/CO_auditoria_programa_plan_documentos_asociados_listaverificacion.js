@@ -335,8 +335,7 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
     // });
     //
     auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.close = function (data) {
-        auditoria_programa_plan_documentos_asociados_listaverificacion.tipo_inconformidad = "[NULL]";
-        auditoria_programa_plan_documentos_asociados_listaverificacion.refresh();
+        
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {

@@ -2111,13 +2111,15 @@ app.controller("riesgo", function ($scope, $http, $compile) {
         riesgo.singular = "Modo de Riesgo " + riesgo.entidad;
         riesgo.headertitle = "Modo de Riesgo " + riesgo.entidad;
     }
-    riesgo.$scope.$watch("riesgo.riesgo_historico_index", function (value) {
-        var rules = [];
-        //rules here
-        //rules.push(VALIDATION.general.required(value));
-        rules.push(VALIDATION.general.required(value));
-        VALIDATION.validate(riesgo, 'riesgo_historico_index', rules);
-    });
+    if(riesgo.esplan){
+        riesgo.$scope.$watch("riesgo.riesgo_historico_index", function (value) {
+            var rules = [];
+            //rules here
+            //rules.push(VALIDATION.general.required(value));
+            rules.push(VALIDATION.general.required(value));
+            VALIDATION.validate(riesgo, 'riesgo_historico_index', rules);
+        });
+    }
     riesgo.setPermission("export", false);
     riesgo.formulary = async function (data, mode, defaultData) {
         riesgo.perspectivas = await BASEAPI.listp('perspectiva', {
@@ -2291,13 +2293,13 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             $scope.$watch("riesgo.nombre", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo, 'nombre', rules);
             });
             $scope.$watch("riesgo.causa_debilidad", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo, 'causa_debilidad', rules);
             });
             $scope.$watch("riesgo.descripcion", function (value) {
@@ -2309,13 +2311,13 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             $scope.$watch("riesgo.probabilidad", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo, 'probabilidad', rules);
             });
             $scope.$watch("riesgo.impacto", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo, 'impacto', rules);
             });
             $scope.$watch("riesgo.factor_riesgo", function (value) {
@@ -2327,7 +2329,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             $scope.$watch("riesgo.consecuencia", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo, 'consecuencia', rules);
             });
             $scope.$watch("riesgo.riesgo_entidad", function (value) {
@@ -2377,29 +2379,47 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                 }]
             });
             if (!riesgo.session.institucion_id) {
-                riesgo.fixFilters = [
-                    {
-                        field: "compania",
-                        value: riesgo.session.compania_id
-                    },
-                    {
-                        field: "historico_estatus",
-                        operator: "!=",
-                        value: "4"
-                    }
-                ];
+                if (!riesgo.esplan){
+                    riesgo.fixFilters = [
+                        {
+                            field: "compania",
+                            value: riesgo.session.compania_id
+                        },
+                        {
+                            field: "historico_estatus",
+                            operator: "!=",
+                            value: "4"
+                        }
+                    ];
+                }else{
+                    riesgo.fixFilters = [
+                        {
+                            field: "compania",
+                            value: riesgo.session.compania_id
+                        }
+                    ]
+                }
             } else {
-                riesgo.fixFilters = [
-                    {
-                        field: "institucion",
-                        value: riesgo.session.institucion_id
-                    },
-                    {
-                        field: "historico_estatus",
-                        operator: "!=",
-                        value: "4"
-                    }
-                ];
+                if (!riesgo.esplan) {
+                    riesgo.fixFilters = [
+                        {
+                            field: "institucion",
+                            value: riesgo.session.institucion_id
+                        },
+                        {
+                            field: "historico_estatus",
+                            operator: "!=",
+                            value: "4"
+                        }
+                    ];
+                }else{
+                    riesgo.fixFilters = [
+                        {
+                            field: "institucion",
+                            value: riesgo.session.institucion_id
+                        },
+                    ]
+                }
             }
             riesgo.fixFilters.push(
                 {
@@ -2429,7 +2449,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: riesgo.historico_id ? riesgo.historico_id : -1
+                        value: riesgo.esplan ? riesgo.riesgo_historico_index ? riesgo.riesgo_historico_index : -1 : riesgo.historico_id ? riesgo.historico_id : -1
                     }
                 );
             } else {
@@ -2441,7 +2461,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: riesgo.historico_id ? riesgo.historico_id : -1
+                        value: riesgo.esplan ? riesgo.riesgo_historico_index ? riesgo.riesgo_historico_index : -1 : riesgo.historico_id ? riesgo.historico_id : -1
                     }
                 );
             }
@@ -2523,6 +2543,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     // };
     riesgo.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        data.inserting.riesgo_historico_index = undefined;
         data.inserting.descripcion_historico = undefined;
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [
@@ -2580,6 +2601,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     // };
     riesgo.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        data.updating.riesgo_historico_index = undefined;
         data.updating.descripcion_historico = undefined;
         var validatett = await BASEAPI.firstp("riesgo", {
             where: [

@@ -435,6 +435,7 @@ Los auditores que estarán participando serán :
                                     list_participantes = list_participantes.data;
                                     function_send_email_custom_group_with_list(titulo_push, cuerpo_push, titulo_correo, cuerpo_correo, new SESSION().current().compania_id, new SESSION().current().institucion_id, 18, [17, 4], list_auditores, list_participantes, false, false, true, cuerpo_correo_2)
                                     data.$scope.my_true_estatus = 4;
+                                    data.$scope.estatus = '4';
                                     data.$scope.refresh();
                                 });
                             } else {
@@ -536,6 +537,7 @@ Los auditores que estarán participando serán :
                                     list_participantes = list_participantes.data;
                                     function_send_email_custom_group_with_list(titulo_push, cuerpo_push, titulo_correo, cuerpo_correo, new SESSION().current().compania_id, new SESSION().current().institucion_id, 18, [17, 4], list_auditores, list_participantes, false, false, true, cuerpo_correo_2)
                                     data.$scope.my_true_estatus = 4;
+                                    data.$scope.estatus = '4';
                                     data.$scope.refresh();
                                 });
                             } else {
