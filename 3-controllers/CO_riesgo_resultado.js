@@ -403,7 +403,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: vw_resultante.historico_id ? vw_resultante.historico_id : -1
+                        value: riesgo_resultado.historico_id ? riesgo_resultado.historico_id : -1
                     }
                 ];
             } else {
@@ -418,7 +418,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     },
                     {
                         field: "riesgo_historico",
-                        value: vw_resultante.historico_id ? vw_resultante.historico_id : -1
+                        value: riesgo_resultado.historico_id ? riesgo_resultado.historico_id : -1
                     }
                 ];
             }
