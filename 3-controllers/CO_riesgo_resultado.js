@@ -472,7 +472,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
             limit: 0,
             orderby: "$ compania",
             order: "desc",
-            where: aymywhere
+            where: aymywherePary
         });
         riesgo_resultado.resultantes = riesgo_resultado.resultantes.data;
 
