@@ -174,7 +174,8 @@ DSON.keepmerge(CRUD_ser_salida, {
                             return "edit";
                         },
                         show: function (data) {
-                            return data.row.ser_salida_estatus != "3";
+                            if (typeof ser_salida !== "undefined")
+                                return ser_salida.allowAction("Trabajar", "ser_salida", data.row.ser_salida_estatus);
                         },
                         click: function (data) {
                             data.$scope.my_true_estatus = data.row.ser_salida_estatus;
