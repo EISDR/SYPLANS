@@ -349,6 +349,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
         });
     };
     riesgo_resultado.getrefresh = async function () {
+        var user = new SESSION().current();
         var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
             order: "desc",
             where: [
@@ -381,7 +382,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
         riesgo_resultado.impactos = [];
         if (location.href.indexOf('riesgo_resultado/matriz') === -1)
             return;
-        var user = new SESSION().current();
+
         new ANIMATION().loading(`.subcontent`, "", ``, '200', undefined, true);
         var aymywhere = [];
         if (riesgo_resultado.institucion !== '[NULL]') {
