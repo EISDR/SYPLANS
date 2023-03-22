@@ -804,7 +804,10 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
 
             indicador_poa.form.readonly = {};
 
-            indicador_poa.createForm(data, mode, defaultData);
+            indicador_poa.createForm(data, mode, defaultData,undefined, function(){
+                indicador_poa.tipo_meta_old = indicador_pei.tipo_meta;
+                indicador_poa.direccion_meta_old = indicador_pei.direccion_meta;
+            });
 
             indicador_poa.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;
             indicador_poa.form.schemas.insert.fecha_fin = FORM.schemasType.calculated;
@@ -929,6 +932,9 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
 
             indicador_poa.$scope.$watch('indicador_poa.tipo_meta', function (value) {
                 var rules = [];
+                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Tipo de dato de la meta",indicador_poa.tipo_meta_old,indicador_poa.tipo_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_poa, "tipo_meta", rules)
                 if (value && (!indicador_poa.initiation)) {
@@ -939,6 +945,9 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
 
             indicador_poa.$scope.$watch('indicador_poa.direccion_meta', function (value) {
                 var rules = [];
+                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Dirección de la meta",indicador_poa.direccion_meta_old,indicador_poa.direccion_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_poa, "direccion_meta", rules)
             });
