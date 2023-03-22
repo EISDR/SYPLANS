@@ -1153,6 +1153,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
     });
 
     indicador_generico.list_indicador_generico_periodo = [];
+    indicador_generico.list_indicador_generico_periodo_unchanged = [];
     indicador_generico.valores = [];
     indicador_generico.list_mes = [];
 
@@ -1192,6 +1193,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
     indicador_generico.getIDedit = function () {
         if (indicador_generico.form.mode === FORM.modes.edit) {
             indicador_generico.list_indicador_generico_periodo = [];
+            indicador_generico.list_indicador_generico_periodo_unchanged = [];
             indicador_generico.valores = [];
             indicador_generico.limpiar = false;
             BASEAPI.listp('indicador_generico_periodo', {
@@ -1212,6 +1214,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 } else {
                     user.monitoreo_nombre = "Periodo ";
                 }
+                indicador_generico.list_indicador_generico_periodo_unchanged = result.data;
                 indicador_generico.list_indicador_generico_periodo = result.data;
                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                     indicador_generico.valores[indicador_generico.list_indicador_generico_periodo[key].id] = indicador_generico.list_indicador_generico_periodo[key].valor;
@@ -1428,7 +1431,11 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.selectQueries["registro"] = eval(indicador_generico.entidadobj.where);
             }
             indicador_generico.form.mode = mode;
-            indicador_generico.createForm(data, mode, defaultData);
+            indicador_generico.createForm(data, mode, defaultData,undefined, function(){
+                indicador_generico.tipo_meta_old = indicador_generico.tipo_meta;
+                indicador_generico.direccion_meta_old = indicador_generico.direccion_meta;
+                indicador_generico.poa_monitoreo_old = indicador_generico.poa_monitoreo;
+            });
 
             indicador_generico.applyMasks = async function () {
                 if (indicador_generico.working)
@@ -1878,6 +1885,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.poa_monitoreo', async function (value) {
                 var rules = [];
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Periodicidad",indicador_generico.poa_monitoreo_old,indicador_generico.poa_monitoreo));
+                }
                 if (value !== undefined || value !== "[NULL]") {
                     if (indicador_generico.form.selected('poa_monitoreo')) {
                         user.cantidad = indicador_generico.form.selected('poa_monitoreo').cantidad;
@@ -1915,12 +1925,18 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.getIMesNew();
                     indicador_generico.applyMasks();
                 }
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Tipo de dato de la meta",indicador_generico.tipo_meta_old,indicador_generico.tipo_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_generico, "tipo_meta", rules);
             });
 
             indicador_generico.$scope.$watch('indicador_generico.direccion_meta', function (value) {
                 var rules = [];
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Dirección de la meta",indicador_generico.direccion_meta_old,indicador_generico.direccion_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_generico, "direccion_meta", rules)
             });

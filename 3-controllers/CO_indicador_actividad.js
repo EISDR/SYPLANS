@@ -755,7 +755,10 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
 
             indicador_actividad.form.readonly = {};
 
-            indicador_actividad.createForm(data, mode, defaultData);
+            indicador_actividad.createForm(data, mode, defaultData, undefined, function(){
+                indicador_actividad.tipo_meta_old = indicador_actividad.tipo_meta;
+                indicador_actividad.direccion_meta_old = indicador_actividad.direccion_meta;
+            });
 
             indicador_actividad.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;
             indicador_actividad.form.schemas.insert.fecha_fin = FORM.schemasType.calculated;
@@ -861,6 +864,9 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
 
             indicador_actividad.$scope.$watch('indicador_actividad.tipo_meta', function (value) {
                 var rules = [];
+                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Tipo de dato de la meta",indicador_actividad.tipo_meta_old,indicador_actividad.tipo_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_actividad, "tipo_meta", rules);
                 if (value && (!indicador_actividad.initiation)) {
@@ -871,6 +877,9 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
 
             indicador_actividad.$scope.$watch('indicador_actividad.direccion_meta', function (value) {
                 var rules = [];
+                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Dirección de la meta",indicador_actividad.direccion_meta_old,indicador_actividad.direccion_meta));
+                }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_actividad, "direccion_meta", rules)
             });
