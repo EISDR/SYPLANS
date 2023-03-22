@@ -2,7 +2,7 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class='col-sm-4 col-md-4'>
-                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad", disabled: true}) %>
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Entidad"}) %>
             </div>
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.selectsimple("tipo", scope, {
@@ -10,57 +10,222 @@
                     value: "code",
                     data: [
                         {"code": "IMAGE", "name": "Scan de Imagen"},
-                        {"code": "EXCEL", "name": "Documento Excel"},
+                        {"code": "EXCEL", "name": "Documento Excel"}
                     ],
                     icon: {class: "sphere3"}
                 }) %>
             </div>
-            <div ng-show="documentos_ia.tipo==='EXCEL'" class='col-sm-12 col-md-12'>
+            <div ng-show="documentos_ia.tipo==='EXCEL'" class='col-sm-4 col-md-4'>
+                <%- FORM.file("excel", scope, {
+                    title: 'Adjuntar Documento Excel',
+                    truetext: 'Adjuntar Documento Excel',
+                    maxfiles: 1,
+                    columns: 1,
+                    inline: true,
+                    simpleone: true
+                }) %>
+            </div>
+            <div ng-show="documentos_ia.tipo==='EXCEL' && documentos_ia.galleryFiles.data.files[0]"
+                 class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row text-center">
-                            <div class='col-sm-12 col-md-12'>
-                                <%- FORM.file("excel", scope, {
-                                    title: 'Adjuntar Documento Excel',
-                                    truetext: 'Adjuntar Documento Excel',
-                                    maxfiles: 1,
-                                    columns: 1,
-                                }) %>
-                                <button ng-if="documentos_ia.config.exampleImage" ng-click="<%= scope %>.getCrude();"
+                            <div class='col-sm-4 col-md-12'>
+                                <button ng-if="documentos_ia.galleryFiles.data.files[0]"
+                                        ng-click="<%= scope %>.getCrude();"
                                         type="button" class="btn bg-danger btn-xs" style="float: right">
-                                    Escanear documento {{!documentos_ia.config.informe_crude.length?'':'Nuevamente' }}
+                                    Escanear Excel {{!documentos_ia.config.data_excel?'':'Nuevamente' }}
                                 </button>
                             </div>
-                            <div class='col-sm-12 col-md-12' style="margin-top: 10px;height: 500px;overflow: auto">
-                                <table ng-if="documentos_ia.config.exampleImage"
-                                       class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table"
-                                       style="margin-top: 20px">
-                                    <thead>
-                                    <tr class="bg-<%= COLOR.secundary %>">
-                                        <td colspan="100%" class="text-center" style="padding: 0;">
-                                            <h5>Datos del Excel Cargado</h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Línea</th>
-                                        <th>Texto</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-if="documentos_ia.config.informe"
-                                        ng-repeat="(ix,item) in documentos_ia.config.informe_crude track by item.id">
-                                        <td>{{item.id}}</td>
-                                        <td>{{item.text}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class='col-sm-12 col-md-12' style="margin-top: 10px;"
+                                 ng-if="documentos_ia.config.data_excel">
+                                <h3>Vista Previa de los datos cargados en el archivo Excel</h3>
+                                <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified">
+                                    <li class="{{ix===0?'active':''}}"
+                                        ng-repeat="(ix,sheet) in documentos_ia.config.data_excel.sheets">
+                                        <a href="#{{sheet.replace(' ','')}}" class="text-capitalize" data-toggle="tab"
+                                           id="tab{{sheet.replace(' ','')}}">
+                                            <i class="icon-archive position-left"></i>
+                                            {{sheet}}
+                                            <i class="border-white  position-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="panel panel-flat">
+                                    <div class="tab-content">
+                                        <div class="tab-pane {{ix===0?'active':''}}" id="{{sheet.replace(' ','')}}"
+                                             ng-repeat="(ix,sheet) in documentos_ia.config.data_excel.sheets">
+                                            <table ng-if="documentos_ia.config.data_excel"
+                                                   class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table"
+                                                   style="margin-top: 20px">
+                                                <thead>
+                                                <tr class="bg-<%= COLOR.secundary %>">
+                                                    <th ng-repeat="(ic,col) in documentos_ia.config.data_excel.mapping[sheet]">
+                                                        {{col}}
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="(ir,row) in documentos_ia.config.data_excel.excel[sheet]">
+                                                    <td ng-repeat="(ic,col) in documentos_ia.config.data_excel.mapping[sheet]">
+                                                        {{row[col]}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading text-left"
+                                                     style="font-weight: bold;padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                                    <h3>Configuración de campos para la hoja <span class="text-info">{{sheet}}</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <form class="row text-left">
+                                                        <div class='col-sm-3 col-md-3'>
+                                                            <label>Tabla Destino</label>
+                                                            <select class="form-control"
+                                                                    ng-model="documentos_ia.config.data_excel.destiny[sheet].table"
+                                                                    ng-options="opt as opt for opt in documentos_ia.tables">
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                    <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                                                        <thead class="bg-<%= COLOR.secundary %>">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Campo Origen</th>
+                                                            <th>Tipo del Campo</th>
+                                                            <th>Campo en el Excel</th>
+
+                                                            <th title="En caso de que el resultado no contenga ningún valor">
+                                                                Valor por Defecto
+                                                            </th>
+                                                            <th>Configuración</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="(ix,item) in documentos_ia.config.data_excel.fields[sheet] track by item.id">
+                                                            <td style="width: 2%;padding: 2px;">
+                                                                {{ix+1}}
+                                                            </td>
+                                                            <td style="width: 15%;padding: 2px;">
+                                                                <input ng-if="['lista multiple'].indexOf(item.tipo)===-1"
+                                                                       type="text" class="form-control"
+                                                                       ng-model="item.field">
+                                                                <label ng-show="['lista multiple'].indexOf(item.tipo)!==-1">Master
+                                                                    Detail de <span class="text-capitalize">{{documentos_ia.listConfig(item.from).key1}}</span>
+                                                                    & <span class="text-capitalize">{{documentos_ia.listConfig(item.from).key2}}</span></label>
+                                                            </td>
+
+                                                            <td style="width: 10%;padding: 2px;">
+                                                                <select class="form-control" ng-model="item.tipo"
+                                                                        ng-options="opt as opt for opt in documentos_ia.excelTypes">
+                                                                </select>
+                                                            </td>
+                                                            <td style="width: 15%;padding: 2px;">
+                                                                <select class="form-control"
+                                                                        ng-if="['SQL','fijo','especial','sheet'].indexOf(item.tipo)===-1"
+                                                                        ng-model="item.excel"
+                                                                        ng-options="opt as opt for opt in documentos_ia.config.data_excel.mapping[sheet]">
+                                                                </select>
+                                                                <label ng-if="['SQL','fijo','sheet'].indexOf(item.tipo)!==-1">No
+                                                                    Aplica</label>
+                                                            </td>
+                                                            <td style="width: 10%;padding: 2px;">
+                                                                <input type="text" class="form-control"
+                                                                       ng-show="['lista simple','lista multiple','fecha','fecha y hora'].indexOf(item.tipo)===-1"
+                                                                       ng-model="item.defaultValue">
+                                                                <label ng-show="['lista simple','lista multiple'].indexOf(item.tipo)!==-1">Vacío</label>
+                                                                <label ng-show="['fecha','fecha y hora'].indexOf(item.tipo)!==-1">Hoy</label>
+                                                            </td>
+                                                            <td style="width: 45%;padding: 2px;">
+                                                                <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 40%;float: left">
+                                                                    <labe>Sheet:</labe>
+                                                                    <select class="form-control" ng-model="item.from"
+                                                                            ng-options="opt as opt for opt in documentos_ia.config.data_excel.sheets">
+                                                                    </select>
+                                                                </div>
+                                                                <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 59%;float: left">
+                                                                    <labe>Campo:</labe>
+                                                                    <select class="form-control" ng-model="item.to"
+                                                                            ng-options="opt as opt for opt in documentos_ia.config.data_excel.mapping[item.from]">
+                                                                    </select>
+                                                                </div>
+
+                                                                <div ng-if="['especial'].indexOf(item.tipo)!==-1">
+                                                                    <label>Valor</label>
+                                                                    <select ng-model="item.from" class="form-control"
+                                                                            ng-options="opt as opt for opt in documentos_ia.valoresEspecialesList">
+
+                                                                    </select>
+                                                                </div>
+                                                                <div ng-if="['booleano'].indexOf(item.tipo)!==-1">
+                                                                    <labe>Valor Sí:</labe>
+                                                                    <input type="text" class="form-control"
+                                                                           ng-model="item.from">
+                                                                </div>
+                                                                <div ng-if="['SQL'].indexOf(item.tipo)!==-1">
+                                                                    <labe>SQL:</labe>
+                                                                    <textarea class="form-control"
+                                                                              ng-model="item.from"></textarea>
+                                                                </div>
+                                                                <div ng-if="['lista simple','lista multiple'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 60%;float: left">
+                                                                    <labe> Desde la Entidad:</labe>
+                                                                    <select class="form-control" ng-model="item.from"
+                                                                            ng-options="opt.id as opt.name for opt in documentos_ia.lists">
+                                                                    </select>
+                                                                </div>
+                                                                <div ng-if="['lista multiple'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 40%;float: left">
+                                                                    <labe> Separado Por:</labe>
+                                                                    <input type="text" maxlength="2"
+                                                                           class="form-control"
+                                                                           ng-model="item.separator">
+                                                                </div>
+                                                                <div ng-if="['lista simple','lista multiple'].indexOf(item.tipo)!==-1 && documentos_ia.listConfig(item.from).force"
+                                                                     style="width: 39%;float: left">
+                                                                    <labe>Forzar Insertado?:</labe>
+                                                                    <input type="checkbox" class="form-control"
+                                                                           ng-model="item.to">
+                                                                </div>
+                                                            </td>
+                                                            <td style="width: 3%">
+                                                                <button title="Eliminar bloque"
+                                                                        ng-click="<%= scope %>.deleteField(ix,documentos_ia.config.data_excel.fields[sheet]);"
+                                                                        type="button"
+                                                                        class="btn bg-danger btn-xs">
+                                                                    <i class="icon-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="100%" class="text-right">
+                                                                <button ng-click="<%= scope %>.addField(documentos_ia.config.data_excel.fields[sheet]);"
+                                                                        type="button"
+                                                                        class="btn bg-success btn-xs">
+                                                                    Agregar nuevo campo
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <div ng-show="documentos_ia.tipo==='IMAGE'" class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
                     <div class="panel-body">

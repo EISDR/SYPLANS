@@ -83,6 +83,14 @@ SWEETALERT = {
             if (typeof data.confirm === "function") data.confirm();
         });
     },
+    checkMarks: (obj) => {
+        let html = ["<ul>"];
+        Object.keys(obj).forEach(d => {
+            html.push(`<li>${d} <i class="icon-${obj[d] === false ? 'cross3' : 'checkmark'} text-${obj[d] === true ? 'success' : (obj[d] === false ? 'danger' : 'info')}"></i></li>`);
+        });
+        html.push("</ul>");
+        return html.join("");
+    },
     loading: function (data, animation) {
         SWEETALERT.lastLaert = swal({
             title: data.title || "",
@@ -92,6 +100,9 @@ SWEETALERT = {
             allowOutsideClick: data.allowOutsideClick || false
         });
         swal.showLoading();
+    },
+    changeHtml: (message) => {
+        $("#swal2-content").html(message)
     },
     stop: function () {
         swal.close()

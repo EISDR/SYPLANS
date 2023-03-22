@@ -45,7 +45,8 @@ var options = {
     upload: true,
     alone: false,
     inline: false,
-    alwaysnew: false
+    alwaysnew: false,
+    simpleone:false
 };
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
 options.color = options.type === "form" ? "{{" + model + ".validation.stateDefault()}}" : options.icon.color;
@@ -573,7 +574,7 @@ var toclient = JSON.stringify(options);
 
 </script>
 <div>
-    <% if(options.inline){ %>
+    <% if(options.inline && !options.simpleone){ %>
         <script>
             amLoad<%= name %> = true;
             var root = <%= model %>.form.options.<%= name %>.folder;
@@ -596,5 +597,28 @@ var toclient = JSON.stringify(options);
             };
         </script>
         <%- include('../components/filemanagerinline',{scope:model}); %>
-    <% } %>
+        <% } else if(options.inline && options.simpleone){ %>
+        <script>
+            amLoad<%= name %> = true;
+            var root = <%= model %>.form.options.<%= name %>.folder;
+            baseController.viewDataToto = {
+                root: root,
+                file:<%= model %>.form.options.<%= name %>.file,
+                scope: <%= model %>,
+                nameclean: "<%= model %>_<%= nameclean %>",
+                options: <%= model %>.form.options.<%= nameclean %>,
+                maxsize:<%= model %>.
+                form.options.<%= name %>.maxsize_mb,
+                maxfiles:<%= model %>.
+                form.options.<%= name %>.maxfiles,
+                acceptedFiles: <%= model %>.
+                form.options.<%= name %>.acceptedFiles,
+                columns:<%= model %>.
+                form.options.<%= name %>.columns,
+                showMymessage:<%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
+                Mymessage:<%= model %>.form.options.<%= name %>.acceptedFiles_message !== null ?<%= model %>.form.options.<%= name %>.acceptedFiles_message:""
+            };
+        </script>
+        <%- include('../components/filemanagerinlineone',{scope:model}); %>
+        <% } %>
 </div>

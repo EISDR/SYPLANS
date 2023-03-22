@@ -2237,6 +2237,7 @@
           "remove": false,
           "menu": true,
           "edit": true,
+          "add": true,
           "export": {
             "Clipboard": false,
             "PDF": false,
