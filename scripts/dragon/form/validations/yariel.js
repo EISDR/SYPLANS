@@ -22,7 +22,7 @@ VALIDATION = DSON.merge(VALIDATION, {
         },
         meta_alcanzada_indicador: function (array, field, default_value, current_value) {
             let array_value = array.filter(d=> {
-                return d.valor_alcanzado > 0
+                return d.valor_alcanzado
             }) || [];
             return {
                 valid: current_value == default_value || array_value.length == 0,
