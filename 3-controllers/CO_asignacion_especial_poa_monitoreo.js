@@ -11,6 +11,7 @@ app.controller("asignacion_especial_poa_monitoreo", function ($scope, $http, $co
     asignacion_especial_poa_monitoreo.fileSI = [];
     asignacion_especial_poa_monitoreo.poa_id = session.poa_id === null ? 0 : session.poa_id;
     asignacion_especial_poa_monitoreo.current_user_group = session.groups;
+    asignacion_especial_poa_monitoreo.session = session;
     asignacion_especial_poa_monitoreo.CURRENT_USER_GROUP = asignacion_especial_poa_monitoreo.current_user_group.length > 0 ? asignacion_especial_poa_monitoreo.current_user_group[0].group : 0;
     TRIGGER.run(asignacion_especial_poa_monitoreo);
     asignacion_especial_poa_monitoreo.triggers.table.after.load = async function (records) {
@@ -38,7 +39,7 @@ app.controller("asignacion_especial_poa_monitoreo", function ($scope, $http, $co
     };
     asignacion_especial_poa_monitoreo.triggers.table.after.close = function (data) {
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
-        asignacion_especial_poa_monitoreo.refresh();
+        mi_asignacion_especial_poa.refresh();
     };
     RUNCONTROLLER("asignacion_especial_poa_monitoreo", asignacion_especial_poa_monitoreo, $scope, $http, $compile);
     asignacion_especial_poa_monitoreo.singular = "Asignación Especial T";
@@ -74,6 +75,18 @@ app.controller("asignacion_especial_poa_monitoreo", function ($scope, $http, $co
                 edit: `${MESSAGE.i('planificacion.titleTrabajar')}`+" - "+`${MESSAGE.i('planificacion.titleAsignacion')}`,
                 view: "Ver ALL - "+`${MESSAGE.i('planificacion.titleAsignacion')}`
             };
+            asignacion_especial_poa_monitoreo.selectQueries['estatus'] = [
+                {
+                    field: 'rol',
+                    operator: '=',
+                    value: asignacion_especial_poa_monitoreo.session.groups[0].id
+                },
+                {
+                    field: 'entidad',
+                    operator: '=',
+                    value: "asignacion_especial_poa_monitoreo"
+                }
+            ];
             // implementacion de las notificaciones a la persona que la creo begin
             asignacion_especial_poa_monitoreo.form.after.update = function (data) {
                 asignacion_especial_poa_monitoreo.id_user_msj = [];

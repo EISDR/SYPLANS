@@ -256,9 +256,11 @@ DSON.keepmerge(CRUD_mi_asignacion_especial_poa, {
                     return "";
                 },
                 show: function (data) {
-                    return (data.row.poa_estado != ENUM_2.poa_estatus.Cerrado && data.row.estatus_id == ENUM_2.asignacion_especial_estatus.Pendiente);
+                    if (typeof mi_asignacion_especial_poa !== "undefined")
+                        return mi_asignacion_especial_poa.allowAction("Trabajar", "asignacion_especial_poa_monitoreo", data.row.estatus_id) && (new SESSION().current().est_poa !== ENUM_2.poa_estatus.Cerrado);
                 },
                 click: function (data) {
+                    mi_asignacion_especial_poa.my_true_estatus = data.row.estatus_id;
                     mi_asignacion_especial_poa.modalAction('asignacion_especial_poa_monitoreo', MESSAGE.i('planificacion.titleAsignacionEspecialTrabajar'), 'pencil5', 'edit', data.row.id);
                     return false;
                 }

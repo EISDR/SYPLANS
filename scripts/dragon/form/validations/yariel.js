@@ -10,7 +10,6 @@ VALIDATION = DSON.merge(VALIDATION, {
                 type: VALIDATION.types.error
             };
         },
-
         menorQue: function (value, value2, field, field2) {
             value = value || "";
             value2 = value2 || "";

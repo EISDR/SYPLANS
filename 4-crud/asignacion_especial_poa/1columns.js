@@ -224,7 +224,8 @@ DSON.keepmerge(CRUD_asignacion_especial_poa, {
                             return "";
                         },
                         show: function (data) {
-                            return (data.row.poa_estado != ENUM_2.poa_estatus.Cerrado && data.row.estatus_id == ENUM_2.asignacion_especial_estatus.Pendiente);
+                            if (typeof asignacion_especial_poa !== "undefined")
+                                return asignacion_especial_poa.allowAction("Editar", "asignacion_especial_poa_monitoreo", data.row.estatus_id) && (new SESSION().current().est_poa !== ENUM_2.poa_estatus.Cerrado);
                         },
                         click: function (data) {
                             data.$scope.formulary({
@@ -282,7 +283,8 @@ DSON.keepmerge(CRUD_asignacion_especial_poa, {
                             return "";
                         },
                         show: (data) =>{
-                            return (data.row.poa_estado != ENUM_2.poa_estatus.Cerrado && data.row.estatus_id == ENUM_2.asignacion_especial_estatus.Pendiente && data.row.estatus_presupuesto_id != ENUM_2.presupuesto_estatus.Completo);
+                            if (typeof asignacion_especial_poa !== "undefined")
+                                return asignacion_especial_poa.allowAction("Eliminar", "asignacion_especial_poa_monitoreo", data.row.estatus_id) && (new SESSION().current().est_poa !== ENUM_2.poa_estatus.Cerrado);
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
