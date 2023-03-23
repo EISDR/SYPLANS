@@ -217,9 +217,11 @@ DSON.keepmerge(CRUD_asignacion_especial_poa_monitoreo, {
                             return "";
                         },
                         show: function (data) {
-                            return data.row.estatus_id !== ENUM_2.asignacion_especial_estatus.Completa && (new SESSION().current().estado == ENUM_2.pei_estatus.Activo && new SESSION().current().est_poa !== ENUM_2.pei_estatus.Pendiente_a_autorizar);
+                            if (typeof asignacion_especial_poa_monitoreo !== "undefined")
+                                return asignacion_especial_poa_monitoreo.allowAction("Trabajar", "asignacion_especial_poa_monitoreo", data.row.estatus_id) && (new SESSION().current().estado == ENUM_2.pei_estatus.Activo && new SESSION().current().est_poa !== ENUM_2.pei_estatus.Pendiente_a_autorizar);
                         },
                         click: function (data) {
+                            asignacion_especial_poa_monitoreo.my_true_estatus = data.row.estatus_id;
                             data.$scope.formulary({
                                 where: [{
                                     field: eval(`CRUD_${data.$scope.modelName}`).table.key,
@@ -275,7 +277,8 @@ DSON.keepmerge(CRUD_asignacion_especial_poa_monitoreo, {
                             return "";
                         },
                         show: function (data) {
-                            return data.row.estatus_id == ENUM_2.asignacion_especial_estatus.Pendiente;
+                            if (typeof asignacion_especial_poa_monitoreo !== "undefined")
+                                return asignacion_especial_poa_monitoreo.allowAction("Eliminar", "asignacion_especial_poa_monitoreo", data.row.estatus_id)
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
