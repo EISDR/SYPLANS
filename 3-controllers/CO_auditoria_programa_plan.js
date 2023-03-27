@@ -3226,7 +3226,7 @@ Los participantes departamentales son:`
         // });
         // DOWNLOAD.excel(`Informe preliminar ${fecha}`, url);
         $("#informe_preliminar").printThis({
-            importCSS: false,                // import parent page css
+            importCSS: true,                // import parent page css
             loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
             printDelay: 333,
         });

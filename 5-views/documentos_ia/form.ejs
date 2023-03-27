@@ -25,6 +25,7 @@
                     simpleone: true
                 }) %>
             </div>
+
             <div ng-show="documentos_ia.tipo==='EXCEL' && documentos_ia.galleryFiles.data.files[0]"
                  class='col-sm-12 col-md-12'>
                 <div class="panel panel-default">
@@ -142,16 +143,30 @@
                                                             </td>
                                                             <td style="width: 45%;padding: 2px;">
                                                                 <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
-                                                                     style="width: 40%;float: left">
+                                                                     style="width: 25%;float: left">
                                                                     <labe>Sheet:</labe>
                                                                     <select class="form-control" ng-model="item.from"
                                                                             ng-options="opt as opt for opt in documentos_ia.config.data_excel.sheets">
                                                                     </select>
                                                                 </div>
                                                                 <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
-                                                                     style="width: 59%;float: left">
+                                                                     style="width: 25%;float: left">
                                                                     <labe>Campo:</labe>
                                                                     <select class="form-control" ng-model="item.to"
+                                                                            ng-options="opt as opt for opt in documentos_ia.config.data_excel.mapping[item.from]">
+                                                                    </select>
+                                                                </div>
+                                                                <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 25%;float: left">
+                                                                    <labe>Unido Por:</labe>
+                                                                    <select class="form-control" ng-model="item.unido"
+                                                                            ng-options="opt as opt for opt in documentos_ia.config.data_excel.mapping[sheet]">
+                                                                    </select>
+                                                                </div>
+                                                                <div ng-if="['sheet'].indexOf(item.tipo)!==-1"
+                                                                     style="width: 25%;float: left">
+                                                                    <labe>Con:</labe>
+                                                                    <select class="form-control" ng-model="item.con"
                                                                             ng-options="opt as opt for opt in documentos_ia.config.data_excel.mapping[item.from]">
                                                                     </select>
                                                                 </div>

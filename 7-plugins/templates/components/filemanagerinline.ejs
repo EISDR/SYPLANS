@@ -30,9 +30,23 @@
             });
             if (users.data)
                 users = users.data;
+
+            data.data.files = data.data.files.filter(d => {
+                let metadata = d.split('___');
+                if (new SESSION().current().groupadmin || new SESSION().current().super)
+                    return true;
+                if (viewModel.estricto)
+                    if (metadata[3])
+                        if (metadata[3].split('.')[0] != new SESSION().current().usuario_id)
+                            return false;
+                return true;
+            });
             for (var i in data.data.files) {
                 var file = data.data.files[i];
                 let metadata = file.split('___');
+                if (viewModel.estricto) {
+
+                }
                 data.data.files[i] = {
                     url: `${http.path([FOLDERS.files, viewModel.root])}/${encodeURIComponent(file)}`,
                     cleanUrl: http.cleanRoot(`${http.path([FOLDERS.files, viewModel.root])}/${encodeURIComponent(file)}`),
@@ -359,7 +373,7 @@
             <td style="padding: 3px;">
                 <div ng-if="!file.isFolder" class="visible-lg-inline">
                     <a title="{{file.original}}" class="" ng-click="<%= scope %>.galleryFiles.view(file)"
-                    style="display: block;width: 98%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                       style="display: block;width: 98%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
                         <i class="{{<%= scope %>.galleryFiles.Icon(file)}}"></i> {{file.original}}
                     </a>
                 </div>

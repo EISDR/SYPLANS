@@ -6,3 +6,14 @@
         </div>
     </div>
 </div><!--end-->
+<script>
+    if (documentos_import.session.groupadmin || documentos_import.session.super) {
+        documentos_import.setPermission("add", true);
+        documentos_import.setPermission("remove", true);
+    } else if (documentos_import.session.groups[0]) {
+        if (documentos_import.session.groups[0].name) {
+            documentos_import.setPermission("add", false);
+            documentos_import.setPermission("remove", false);
+        }
+    }
+</script>
