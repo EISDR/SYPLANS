@@ -111,7 +111,7 @@
                                         text: "item.nombre",
                                         table: "vw_indicador_generico",
                                         icon: {class: "archive"},
-                                        label: "Indicador",
+                                        label: "Indicador pro",
                                         condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
                                     }) %>
                                 </div>
@@ -147,7 +147,7 @@
                                         allowedit: false,
                                         allowview: false,
                                         allowlist: false,
-                                        refresh: true,
+                                        refresh: false,
                                         text: "item.nombre",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
@@ -178,7 +178,41 @@
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
-                                     ng-if="indicador_generico_poa.entidadParams &&  indicador_generico_poa.entidad!=='vw_procesos'">
+                                     ng-if="indicador_generico_poa.entidadParams &&  indicador_generico_poa.entidad==='vw_proyecto_item'">
+                                    <script>
+                                        delete CRUD_indicador_generico.table.single;
+                                    </script>
+                                    <%- FORM.select("indicador_generico", scope, {
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        refresh: false,
+                                        text: "item.nombre",
+                                        table: "indicador_generico",
+                                        icon: {class: "archive"},
+                                        label: "Indicador",
+                                        query: {
+                                            limit: 0,
+                                            // page: 1,
+                                            // where: [],
+                                            // orderby: 'id',
+                                            // order: 'asc',
+                                            // distinct: false,
+                                            join: [
+                                                {
+                                                    table: "proyecto_item",
+                                                    base: "registro",
+                                                    field: "id",
+                                                    columns: ["id", "nombre", "estatus"]
+                                                },
+                                            ],
+                                        },
+                                        condition: "item.proyecto_item_estatus==2 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
+                                    }) %>
+                                </div>
+                                <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
+                                     ng-if="indicador_generico_poa.entidadParams &&  (indicador_generico_poa.entidad!=='vw_procesos' && indicador_generico_poa.entidad!=='vw_proyecto_item')">
                                     <%- FORM.select("indicador_generico", scope, {
                                         allownew: false,
                                         allowedit: false,
