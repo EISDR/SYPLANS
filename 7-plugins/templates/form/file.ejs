@@ -46,7 +46,8 @@ var options = {
     alone: false,
     inline: false,
     alwaysnew: false,
-    simpleone:false
+    simpleone:false,
+    estricto:false
 };
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
 options.color = options.type === "form" ? "{{" + model + ".validation.stateDefault()}}" : options.icon.color;
@@ -579,6 +580,7 @@ var toclient = JSON.stringify(options);
             amLoad<%= name %> = true;
             var root = <%= model %>.form.options.<%= name %>.folder;
             baseController.viewDataToto = {
+                estricto:<%= model %>.form.options.<%= name %>.estricto,
                 root: root,
                 file:<%= model %>.form.options.<%= name %>.file,
                 scope: <%= model %>,
@@ -602,6 +604,7 @@ var toclient = JSON.stringify(options);
             amLoad<%= name %> = true;
             var root = <%= model %>.form.options.<%= name %>.folder;
             baseController.viewDataToto = {
+                estricto:<%= model %>.form.options.<%= name %>.estricto,
                 root: root,
                 file:<%= model %>.form.options.<%= name %>.file,
                 scope: <%= model %>,

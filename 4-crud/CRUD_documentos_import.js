@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_documentos_import, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_documentos_import, {
     table: {
         //width: "width:3000px;",
-        //view: 'vw_documentos_import',
+        view: 'vw_documentos_import',
         //method: 'documentos_import',
         //limits: [10, 50, 100, 0],
         //report: true,

@@ -6,7 +6,7 @@
                     //maxlength: 200,
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
+            <div class='col-sm-4 col-md-4' ng-show="!documentos_import.minopli">
                 <%- FORM.select('documentos_ia', scope, {
                     column: 'name',
                     table: 'documentos_ia',
@@ -23,7 +23,8 @@
                     condition: "(item.compania == documentos_import.session.compania_id)"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-show="documentos_import.documentos_ia_object.tipo!=='EXCEL'">
+            <div class='col-sm-4 col-md-4'
+                 ng-show="documentos_import.documentos_ia_object.tipo!=='EXCEL' && !documentos_import.minopli">
                 <%- FORM.selectsimple("tabla", scope, {
                     label: "Entidad",
                     value: "code",
@@ -32,6 +33,29 @@
                     }),
                     // [ {"code": "solicitud_documento", "name": "Solicitud de Documentos"}],
                     icon: {class: "sphere3"}
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="!documentos_import.minopli">
+            <div class="col-sm-12 col-md-12">
+                <%- FORM.select("permisos_usar", scope, {
+                    column: "involucrados",
+                    allownew: false,
+                    allowedit: false,
+                    allowlist: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.name",
+                    table: "a_clone_group",
+                    icon: {class: "archive"},
+                    label: "Permitir Usar a los Roles",
+                    get: {
+                        table: 'documentos_import_permiso',
+                        tableDelete: 'documentos_import_permiso',
+                        fieldFrom: 'id',
+                        fieldTo: 'documentos_import',
+                        field: 'a_clone_group'
+                    }
                 }) %>
             </div>
         </div>
@@ -131,7 +155,8 @@
                     truetext: 'Adjuntar Documentos al Paquete',
                     maxfiles: 200,
                     columns: 10,
-                    inline: true
+                    inline: true,
+                    estricto: true
                 }) %>
             </div>
         </div>

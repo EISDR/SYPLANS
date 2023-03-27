@@ -10,7 +10,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     indicador_generico_poa.conditionPoa = {estado: user.estado, poa_id: user.poa_id};
     indicador_generico_poa.estatus = ENUM_2.presupuesto_estatus.Completo;
     indicador_generico_poa.estado = ENUM_2.poa_estatus.Inactivo;
-    indicador_generico_poa.from_dash_procesos= false;
+    indicador_generico_poa.from_dash_procesos = false;
     indicador_generico_poa.group_permitir = user.groups[0] ? user.groups[0].caracteristica : "";
     indicador_generico_poa.asbierto = CONFIG.seguridadindicadores === "abierta";
 
@@ -124,9 +124,9 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
         ];
         indicador_generico_poa.tipos = await BASEAPI.listp('indicador_generico_entidad', {limit: 0});
         indicador_generico_poa.tipos = indicador_generico_poa.tipos.data;
-        indicador_generico_poa.plural = `` + indicador_generico_poa.entidadobj.name ;
-        indicador_generico_poa.singular = `` + indicador_generico_poa.entidadobj.name ;
-        indicador_generico_poa.headertitle = `` + indicador_generico_poa.entidadobj.name ;
+        indicador_generico_poa.plural = `` + indicador_generico_poa.entidadobj.name;
+        indicador_generico_poa.singular = `` + indicador_generico_poa.entidadobj.name;
+        indicador_generico_poa.headertitle = `` + indicador_generico_poa.entidadobj.name;
         indicador_generico_poa.refreshAngular();
     };
     var animation = new ANIMATION();
@@ -838,6 +838,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                                         "value": id
                                     }]
                                 });
+                                await HISTORY.save('indicador_generico_poa', {cambio: valor.toString(), id: id});
                                 await AUDIT.LOGCUSTOM("Trabajar Indicador de producto", 'vw_indicador_generico',
                                     {
                                         indicador: id,
