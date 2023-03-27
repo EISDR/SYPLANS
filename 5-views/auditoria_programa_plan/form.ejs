@@ -136,119 +136,12 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-12 col-md-12'>
+            <div class='col-sm-12 col-md-7'>
                 <%- FORM.textarea('descripcion', scope, {
                         //maxlength: 200,
                 }) %>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="!auditoria_programa_plan.session.institucion">
-                <%- FORM.select("auditoria_plan_departamento", scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    multiple: true,
-                    text: "item.nombre",
-                    value: "id",
-                    table: "departamento",
-                    icon: {class: "archive"},
-                    truelabel: "Departamentos Auditados",
-                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
-                    get: {
-                        table: 'auditoria_programa_plan_departamento',
-                        fieldFrom: 'id',
-                        fieldTo: 'programa_plan',
-                        field: 'departamento'
-                    },
-                // parent: {
-                //     model: 'eje_estrategico',
-                //     myfield: 'id',
-                //     sufield: 'id'
-                // },
-                })%>
-            </div>
-            <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="auditoria_programa_plan.session.institucion">
-                <%- FORM.select("auditoria_plan_departamento", scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    multiple: true,
-                    text: "item.nombre",
-                    value: "id",
-                    table: "departamento",
-                    icon: {class: "archive"},
-                    truelabel: "Departamentos Auditados",
-                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
-                    get: {
-                        table: 'auditoria_programa_plan_departamento',
-                        fieldFrom: 'id',
-                        fieldTo: 'programa_plan',
-                        field: 'departamento'
-                    },
-                // parent: {
-                //     model: 'eje_estrategico',
-                //     myfield: 'id',
-                //     sufield: 'id'
-                // },
-                })%>
-            </div>
-            <div class="col-sm-12 col-md-4" style="margin-top: 16px" ng-if="!auditoria_programa_plan.session.institucion">
-                <%- FORM.select("auditoria_plan_participantes", scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    multiple: true,
-                    text: "item.nombre + ' ' + item.apellido",
-                    value: "id",
-                    table: "usuario",
-                    icon: {class: "archive"},
-                    truelabel: "Participantes Departamentales",
-                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active && item.profile !== 19)",
-                    get: {
-                        table: 'auditoria_programa_plan_participantes',
-                        fieldFrom: 'id',
-                        fieldTo: 'programa_plan',
-                        field: 'usuario',
-                    },
-                    // parent: {
-                    //     model: 'eje_estrategico',
-                    //     myfield: 'id',
-                    //     sufield: 'id'
-                    // },
-                })%>
-            </div>
-            <div class="col-sm-12 col-md-4" style="margin-top: 16px" ng-if="auditoria_programa_plan.session.institucion">
-                <%- FORM.select("auditoria_plan_participantes", scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    multiple: true,
-                    columns: ["esresponsable"],
-                    text: "item.nombre + ' ' + item.apellido",
-                    value: "id",
-                    table: "usuario",
-                    icon: {class: "archive"},
-                    truelabel: "Participantes Departamentales",
-                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active && item.profile !== 19)",
-                    get: {
-                        table: 'auditoria_programa_plan_participantes',
-                        fieldFrom: 'id',
-                        fieldTo: 'programa_plan',
-                        field: 'usuario',
-                    },
-                    // parent: {
-                    //     model: 'eje_estrategico',
-                    //     myfield: 'id',
-                    //     sufield: 'id'
-                    // },
-                })%>
-            </div>
-            <div class="col-sm-12 col-md-5" style="margin-top: 16px" ng-if="!auditoria_programa_plan.session.institucion">
+            <div class="col-sm-12 col-md-5" ng-if="!auditoria_programa_plan.session.institucion">
                 <%- FORM.select("auditoria_plan_responsable", scope, {
                     allowedit: false,
                     allowlist: false,
@@ -333,7 +226,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-sm-12 col-md-5" style="margin-top: 16px" ng-if="auditoria_programa_plan.session.institucion">
+            <div class="col-sm-12 col-md-5" ng-if="auditoria_programa_plan.session.institucion">
                 <%- FORM.select("auditoria_plan_responsable", scope, {
                     allowedit: false,
                     allowlist: false,
@@ -395,7 +288,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
+                    <tr ng-repeat="(key,row) in auditoria_programa_plan.participantes_list.data" class=""
                         style="font-family: 'Arial Narrow'; font-size: 15px; text-align: center; vertical-align: middle">
                         <td>
                             {{row.nombre + ' ' + row.apellido}}
@@ -451,11 +344,11 @@
                             value: "$null"
                         }
                     },
-                // parent: {
-                //     model: 'eje_estrategico',
-                //     myfield: 'id',
-                //     sufield: 'id'
-                // },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
                 })%>
                 <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 " style="margin-top: -15px;">
                     <thead class="">
@@ -653,11 +546,11 @@
                             value: "$null"
                         }
                     },
-                // parent: {
-                //     model: 'eje_estrategico',
-                //     myfield: 'id',
-                //     sufield: 'id'
-                // },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
                 })%>
                 <table class=" table table-togglable table-framed sindu-table" ng-show="auditoria_programa_plan.documentos_asociados_list.data.length > 0" style="margin-top: -15px;">
                     <thead class="">
@@ -739,6 +632,115 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px"  ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_departamento", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamentos Auditados",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                    get: {
+                        table: 'auditoria_programa_plan_departamento',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'departamento'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px"  ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_departamento", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "departamento",
+                    icon: {class: "archive"},
+                    truelabel: "Departamentos Auditados",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
+                    get: {
+                        table: 'auditoria_programa_plan_departamento',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'departamento'
+                    },
+                // parent: {
+                //     model: 'eje_estrategico',
+                //     myfield: 'id',
+                //     sufield: 'id'
+                // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px" ng-if="!auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_participantes", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Participantes Departamentales",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active && item.profile !== 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_participantes',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+            <div class="col-sm-12 col-md-6" style="margin-top: 16px" ng-if="auditoria_programa_plan.session.institucion">
+                <%- FORM.select("auditoria_plan_participantes", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    columns: ["esresponsable"],
+                    text: "item.nombre + ' ' + item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "archive"},
+                    truelabel: "Participantes Departamentales",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active && item.profile !== 19)",
+                    get: {
+                        table: 'auditoria_programa_plan_participantes',
+                        fieldFrom: 'id',
+                        fieldTo: 'programa_plan',
+                        field: 'usuario',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+
+        </div>
+
     </div>
 </div>
 <br>
