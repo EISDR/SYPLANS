@@ -605,6 +605,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 ]
             });
             documentos_asociados.documentos_creados = documentos_asociados.documentos_creados.data;
+            var do_me_once = false;
             documentos_asociados.selectQueries['estatus'] = [
                 {
                     field: 'rol',
@@ -717,6 +718,18 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 if (documentos_asociados.id)
                     delete documentos_asociados.id
             }
+        };
+        documentos_asociados.triggers.table.after.control = function (data) {
+            if (data === "tipo_documento") {
+                if (documentos_asociados.form.selected('tipo_documento')) {
+                    documentos_asociados.show_actividades = documentos_asociados.form.selected('tipo_documento').trabaja_actividades === 1;
+                }
+            }
+            if (data === "estatus" && !do_me_once) {
+                documentos_asociados.form.loadDropDown('estatus')
+                do_me_once = true;
+            }
+            //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
         };
     };
     documentos_asociados.triggers.table.after.load = async function (records) {
@@ -943,14 +956,6 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
         }
     });
     //
-    documentos_asociados.triggers.table.after.control = function (data) {
-        if (data === "tipo_documento") {
-            if (documentos_asociados.form.selected('tipo_documento')) {
-                documentos_asociados.show_actividades = documentos_asociados.form.selected('tipo_documento').trabaja_actividades === 1;
-            }
-        }
-        //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-    };
     // $scope.triggers.table.before.control = function (data) {
     //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
     // };
