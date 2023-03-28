@@ -459,12 +459,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 //rules.push(VALIDATION.general.required(value));
                 if (auditoria_programa_plan.auditoria_plan_departamento) {
                     if (auditoria_programa_plan.auditoria_plan_departamento.length > 0) {
-                        auditoria_programa_plan.selectQueries["auditoria_plan_participantes"] = [
-                            {
-                                field: "departamento",
-                                value: auditoria_programa_plan.auditoria_plan_departamento
-                            }
-                        ];
                     }
                 }
                 auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes');
@@ -536,7 +530,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
                 if (auditoria_programa_plan.auditoria_plan_participantes) {
                     if (auditoria_programa_plan.auditoria_plan_participantes.length > 0) {
-                        auditoria_programa_plan.real_participantes_list = await BASEAPI.listp('vw_usuarios', {
+                        auditoria_programa_plan.real_participantes_list = await BASEAPI.listp('vw_cargo', {
                             limit: 0,
                             where: [
                                 {
@@ -706,12 +700,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 if (data === 'auditoria_plan_departamento') {
                     if (auditoria_programa_plan.auditoria_plan_departamento) {
                         if (auditoria_programa_plan.auditoria_plan_departamento.length > 0) {
-                            auditoria_programa_plan.selectQueries["auditoria_plan_participantes"] = [
-                                {
-                                    field: "departamento",
-                                    value: auditoria_programa_plan.auditoria_plan_departamento
-                                }
-                            ];
                             auditoria_programa_plan.departamento_list = await BASEAPI.listp('departamento', {
                                 limit: 0,
                                 where: [
