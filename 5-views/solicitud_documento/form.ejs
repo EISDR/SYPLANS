@@ -43,12 +43,13 @@
                     //},
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-3' ng-if="solicitud_documento.tipo_accion=='1'">
                 <div class="row" ng-if="<%= scope %>.mode==='new'">
-                    <div class='col-sm-12 col-md-12 text-right'>
-                        <button ng-click="baseController.scanImage('Documentos');" type="button"
-                                class="btn bg-primary btn-xs">
-                            Escanear Documento
+                    <div class='col-sm-12 col-md-12 text-left'>
+                        <button ng-click="baseController.scanImage('Documentos',true);" type="button"
+                                class="btn bg-primary btn-xs"
+                                title="Dar clic para completar el formulario de la solicitud a través de un documento existente.">
+                            Cargar Documento
                         </button>
                     </div>
                 </div>

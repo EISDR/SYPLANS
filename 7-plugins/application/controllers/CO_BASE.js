@@ -129,7 +129,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 })
             });
 
-        baseController.scanImage = async (entity) => {
+        baseController.scanImage = async (entity, simple) => {
             let entityValue = baseController.dynamicDocuments.filter(d => {
                 return d.nombre === entity;
             })[0];
@@ -163,7 +163,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                                         }
                                         if (entityValue.config.fields)
                                             if (entityValue.config.fields.length) {
-                                                IA.readFile(entityValue.config.fields, crude, informe);
+                                                IA.readFile(entityValue.config.fields, crude, informe, simple);
                                                 informe.forEach(info => {
                                                     baseController.currentModel[info.field] = info.result;
                                                 });

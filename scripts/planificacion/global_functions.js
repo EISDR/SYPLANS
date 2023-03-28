@@ -3114,7 +3114,7 @@ IA = {
             return baseController.session.compania;
         }
     },
-    readFile: (fields, crude, informe) => {
+    readFile: (fields, crude, informe, simple) => {
         for (const field of fields) {
             let ix = fields.indexOf(field);
             if (field.tipo === "1") {
@@ -3238,29 +3238,31 @@ IA = {
                         result: field.defaultValue
                     });
             } else if (field.tipo === "7") {
-                if (typeof documentos_import !== "undefined") {
-                    if (documentos_import[field.from] !== "[NULL]") {
-                        informe.push({
-                            id: ix + 1,
-                            field: field.field,
-                            result: documentos_import[field.from]
-                        });
-                    } else {
-                        informe.push({
-                            id: ix + 1,
-                            field: field.field,
-                            result: "$null"
-                        });
+                if (!simple) {
+                    if (typeof documentos_import !== "undefined") {
+                        if (documentos_import[field.from] !== "[NULL]") {
+                            informe.push({
+                                id: ix + 1,
+                                field: field.field,
+                                result: documentos_import[field.from]
+                            });
+                        } else {
+                            informe.push({
+                                id: ix + 1,
+                                field: field.field,
+                                result: "$null"
+                            });
+                        }
+                        continue;
                     }
-                    continue;
+                    let currentValue = "Se agregará al momento de importar en masa";
+                    let extract = (currentValue + "").replaceAll("\n", " ").trim();
+                    informe.push({
+                        id: ix + 1,
+                        field: field.field,
+                        result: extract
+                    });
                 }
-                let currentValue = "Se agregará al momento de importar en masa";
-                let extract = (currentValue + "").replaceAll("\n", " ").trim();
-                informe.push({
-                    id: ix + 1,
-                    field: field.field,
-                    result: extract
-                });
             }
         }
     }
