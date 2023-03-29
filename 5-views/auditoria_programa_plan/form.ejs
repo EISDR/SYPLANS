@@ -692,12 +692,12 @@
                     allownew: false,
                     allowview: false,
                     multiple: true,
-                    text: "item.nombre + ' ' + item.apellido",
+                    text: "item.nombre",
                     value: "id",
-                    table: "usuario",
+                    table: "cargo",
                     icon: {class: "archive"},
-                    truelabel: "Participantes Departamentales",
-                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active && item.profile !== 19)",
+                    truelabel: "Participantes",
+                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
                     get: {
                         table: 'auditoria_programa_plan_participantes',
                         fieldFrom: 'id',
@@ -718,13 +718,12 @@
                     allownew: false,
                     allowview: false,
                     multiple: true,
-                    columns: ["esresponsable"],
-                    text: "item.nombre + ' ' + item.apellido",
+                    text: "item.nombre",
                     value: "id",
-                    table: "usuario",
+                    table: "cargo",
                     icon: {class: "archive"},
-                    truelabel: "Participantes Departamentales",
-                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active && item.profile !== 19)",
+                    truelabel: "Participantes",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",
                     get: {
                         table: 'auditoria_programa_plan_participantes',
                         fieldFrom: 'id',
@@ -746,8 +745,8 @@
 <br>
 <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
      <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
-            <i class="position-right"></i>
-        </span>
+        <i class="position-right"></i>
+     </span>
 
     <button
 
