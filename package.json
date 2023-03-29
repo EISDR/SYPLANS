@@ -58,6 +58,7 @@
     "rich-filemanager-node": "^0.1.5",
     "rimraf": "^2.6.3",
     "shelljs": "^0.8.2",
+    "simple-mind-map": "^0.4.7",
     "string": "^3.3.3",
     "string-format": "^2.0.0",
     "sweetalert2": "^7.28.4",

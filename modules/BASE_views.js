@@ -1075,7 +1075,7 @@ exports.init = function (params) {
             var info = {deleted: [], error: []};
             for (var file of files) {
                 try {
-                    var filename = __dirname + '/..' + params.S(decodeURI(file)).replaceAll('/', '\\');
+                    var filename = __dirname + '/..' + params.S(decodeURIComponent(file)).replaceAll('/', '\\');
                     if (fs.lstatSync(filename).isDirectory()) {
                         params.rimraf.sync(filename);
                     } else {
