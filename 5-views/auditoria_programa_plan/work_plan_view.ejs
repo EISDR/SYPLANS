@@ -159,11 +159,11 @@
                             }) %>
                         </div>
                         <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
-                            Participantes Departamentales del Plan de Auditoría</label>
+                            Participantes del Plan de Auditoría</label>
                         <ol ng-show="auditoria_programa_plan.real_participantes_list.data.length > 0" style="">
                             <li ng-repeat="(key,row) in auditoria_programa_plan.real_participantes_list.data" class=""
                                 style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
-                                {{row.nombre + ' ' + row.apellido}} ({{row.departamento}})
+                                {{row.nombre}}
                             </li>
                         </ol>
                     </div>
@@ -396,7 +396,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
                         <label style="font-family: 'Arial Narrow'; font-size: 18px;">Puntos de Vista de los
-                            participantes departamentales</label>
+                            participantes</label>
                     </div>
                     <div class="panel-body" style="max-height: 500px; overflow: auto;">
                         <div ng-repeat="(key, row) in auditoria_programa_plan.informes_auditoria.data"
