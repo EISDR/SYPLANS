@@ -788,18 +788,6 @@
 </div>
 <script>
     $(function(){
-        $('#inputauditoria_programa_plan_auditoria_plan_departamento').on('select2:unselecting', function (e) {
-            if(auditoria_programa_plan.auditoria_plan_departamento.length === 1){
-                auditoria_programa_plan.selectQueries["auditoria_plan_participantes"] = [
-                    {
-                        field: "id",
-                        value: -1
-                    }
-                ];
-                auditoria_programa_plan.form.loadDropDown('auditoria_plan_participantes');
-                auditoria_programa_plan.refreshAngular();
-            }
-        });
         $('#inputauditoria_programa_plan_auditoria_plan_responsable').on('select2:unselecting', function (e) {
             var data = e.params.args.data;
                 BASEAPI.deleteall('auditoria_programa_plan_equipotrabajo', [
@@ -833,88 +821,52 @@
 
                 })
         });
-        $('#inputauditoria_programa_plan_auditoria_plan_proceso').on('select2:unselecting', function (e) {
+        $('#inputauditoria_programa_plan_auditoria_plan_proceso').on('select2:unselecting', async function (e) {
             var data = e.params.args.data;
-            BASEAPI.deleteall('auditoria_programa_plan_proceso',[
-                {
-                    field: "proceso",
-                    value: data.id
-                },
-                {
-                    field: "programa_plan",
-                    value: auditoria_programa_plan.id
-                }
-            ], function(result) {
-                BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
-                    limit: 0,
-                    where: [
-                        {
-                            field: "proceso",
-                            value: data.id
-                        },
-                        {
-                            field: "programa_plan",
-                            value: auditoria_programa_plan.id
-                        }
-                    ]
-                }, async function (result2) {
-                    if (result2.data.length > 0){
-                        let id_list_documentos_asoc = [];
-                        for (var i of result2.data) {
-                            id_list_documentos_asoc.push(i.id)
-                        }
-                        BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_listaverificacion', [
+            try {
+                await deleteAuditoriaProgramaPlanProceso(data.id);
+                const documentosAsociados = await getDocumentosAsociados(data.id);
+                if (documentosAsociados.length > 0) {
+                    const documentosAsocIds = documentosAsociados.map(doc => doc.id);
+                    await deleteDocumentosAsociadosListaverificacion(documentosAsocIds);
+                    await deleteDocumentosAsociadosResponsables(documentosAsocIds);
+                    await deleteDocumentosAsociados(documentosAsocIds);
+                    await auditoria_programa_plan.getProcesoUsuario();
+                    if (auditoria_programa_plan.auditoria_plan_proceso.length === 0) {
+                        auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
                             {
-                                field: "programa_plan_documentos_asociados",
-                                value: id_list_documentos_asoc
+                                field: "id",
+                                value: -1
                             }
-                        ], function (result) {
-                            BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
-                                {
-                                    field: "programa_plan_documentos_asociados",
-                                    value: id_list_documentos_asoc
-                                }
-                            ], function (result) {
-                                BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados', [
-                                    {
-                                        field: "id",
-                                        value: id_list_documentos_asoc
-                                    }
-                                ], async function (result) {
-                                    await auditoria_programa_plan.getProcesoUsuario();
-                                    if (auditoria_programa_plan.auditoria_plan_proceso.length === 0) {
-                                        auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
-                                            {
-                                                field: "id",
-                                                value: -1
-                                            }
-                                        ];
-                                        auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
-                                        auditoria_programa_plan.documentos_asociados_list = {data: []};
-                                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
-                                        auditoria_programa_plan.refreshAngular();
-                                    }
-                                });
-                            });
-                        });
-                    }else{
-                        await auditoria_programa_plan.getProcesoUsuario();
-                        if (auditoria_programa_plan.auditoria_plan_proceso.length === 0) {
-                            auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
-                                {
-                                    field: "id",
-                                    value: -1
-                                }
-                            ];
-
-                            auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
-                            auditoria_programa_plan.documentos_asociados_list = {data: []};
-                            auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
-                            auditoria_programa_plan.refreshAngular();
-                        }
+                        ];
+                        auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
+                        auditoria_programa_plan.documentos_asociados_list = {data: []};
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                        auditoria_programa_plan.refreshAngular();
                     }
-                });
-            });
+                }else{
+                    await auditoria_programa_plan.getProcesoUsuario();
+                    if (auditoria_programa_plan.auditoria_plan_proceso.length === 0) {
+                        auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
+                            {
+                                field: "id",
+                                value: -1
+                            }
+                        ];
+
+                        auditoria_programa_plan.auditoria_plan_documentos_asociados = [];
+                        auditoria_programa_plan.documentos_asociados_list = {data: []};
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                        auditoria_programa_plan.refreshAngular();
+                    }
+                }
+                await auditoria_programa_plan.getProcesoUsuario();
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                auditoria_programa_plan.refreshAngular();
+            } catch (error) {
+                console.error(error);
+                // Manejar el error de acuerdo a las necesidades del programa
+            }
         });
         $('#inputauditoria_programa_plan_auditoria_plan_documentos_asociados').on('select2:unselecting', function (e) {
             var data = e.params.args.data;

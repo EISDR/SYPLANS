@@ -67,6 +67,13 @@
                         <div class="panel panel-default" style="margin-bottom: 0;">
                             <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
                                 <label style="font-family: 'Arial Narrow'; font-size: 18px;">Lista de Procesos a Auditar</label>
+                                <ul class="breadcrumb-elements visible-elements">
+                                    <li>
+                                        <a id="add-proceso" ng-click="auditoria_programa_plan.add_proceso()" class="legitRipple" style="margin-top: -5px;">
+                                            <i title="Añadir" class="icon-plus-circle2"></i>&nbsp;
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="panel-body">
                                 <table class=" table table-togglable table-framed sindu-table"  ng-show="auditoria_programa_plan.procesos_list.data.length > 0 && auditoria_programa_plan.my_true_estatus > 3" style="margin-top: -15px;">
@@ -90,7 +97,7 @@
                                                 ¿Revisado?
                                             </a>
                                         </th>
-                                        <th style="text-align: center; vertical-align: middle" height="0">Marcar como revisado</th>
+                                        <th style="text-align: center; vertical-align: middle" height="0">Acciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -107,13 +114,18 @@
                                         </td>
                                         <td class="context-control"
                                             oncontextmenu="return false;">
-                                            <ul ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3"
-                                                class="icons-list dragon-action"
+                                            <ul class="icons-list dragon-action"
                                                 style="z-index: 99999; text-align: center;">
-                                                <li class="ng-scope">
+                                                <li class="ng-scope" ng-show="auditoria_programa_plan.done_proceso(row.id) && auditoria_programa_plan.my_true_estatus > 3">
                                                     <a title="Marcar este Proceso como revisado"
                                                        ng-click="<%= scope %>.revisar_proceso(row)">
                                                         <i class=" icon-checkmark-circle2"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="ng-scope" ng-show="<%= scope %>.permitir_borrar(row.id)">
+                                                    <a title="Eliminar este proceso"
+                                                       ng-click="<%= scope %>.eliminar_proceso(row)">
+                                                        <i class="icon-bin"></i>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -157,6 +169,13 @@
                         <div class="panel panel-default" style="margin-bottom: 0;">
                             <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
                                 <label style="font-family: 'Arial Narrow'; font-size: 18px;">Documentos a Auditar</label>
+                                <ul class="breadcrumb-elements visible-elements">
+                                    <li>
+                                        <a ng-click="auditoria_programa_plan.add_documento()" class="legitRipple" style="margin-top: -5px;">
+                                            <i title="Añadir" class="icon-plus-circle2 custom"></i>&nbsp;
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="panel-body">
                                 <table class=" table table-togglable table-framed sindu-table" ng-show="auditoria_programa_plan.documentos_asociados_list.data.length > 0" style="margin-top: -15px;">
@@ -212,50 +231,49 @@
                                             oncontextmenu="return false;">
                                             <ul class="icons-list dragon-action"
                                                 style="z-index: 99999; text-align: center;">
-                                                <li class="ng-scope">
-                                                    <a ng-show="auditoria_programa_plan.my_true_estatus <= 3 "
-                                                       title="Agregar lista de verificación"
+                                                <li class="ng-scope" ng-show="auditoria_programa_plan.my_true_estatus <= 3 || <%= scope %>.permitir_crear_eliminar(row.id)">
+                                                    <a title="Agregar lista de verificación"
                                                        ng-click="<%= scope %>.add_work_list(row)">
                                                         <i class="icon-file-plus2"></i>
                                                     </a>
                                                 </li>
-                                                <li class="ng-scope">
-                                                    <span ng-show="auditoria_programa_plan.check_responsable_documento(row)">
-                                                        <a ng-show="(auditoria_programa_plan.my_true_estatus > 3 && !auditoria_programa_plan.hide_work_documento(row.id))"
-                                                           style="color: black"
-                                                           title="Trabajar Lista de Verificación"
-                                                           ng-click="<%= scope %>.work_documento(row)">
-                                                            <i class="icon-hammer-wrench"></i>
-                                                        </a>
-                                                    </span>
+                                                <li class="ng-scope" ng-show="auditoria_programa_plan.check_responsable_documento(row) && auditoria_programa_plan.tiene_listaverificacion(row.id)">
+                                                    <a ng-show="(auditoria_programa_plan.my_true_estatus > 3 && !auditoria_programa_plan.hide_work_documento(row.id))"
+                                                       style="color: black"
+                                                       title="Trabajar Lista de Verificación"
+                                                       ng-click="<%= scope %>.work_documento(row)">
+                                                        <i class="icon-hammer-wrench"></i>
+                                                    </a>
                                                 </li>
-                                                <li class="ng-scope">
-                                                    <span ng-show="auditoria_programa_plan.my_true_estatus > 3 && auditoria_programa_plan.check_responsable_documento(row)">
-                                                        <a ng-show="(auditoria_programa_plan.done_documento(row.id) && !auditoria_programa_plan.hide_work_documento(row.id))"
-                                                           style="color: black"
-                                                           title="Marcar como Trabajado"
-                                                           ng-click="auditoria_programa_plan.work_doc_estatus(row)">
-                                                            <i class="icon-check"></i>
-                                                        </a>
-                                                    </span>
+                                                <li class="ng-scope" ng-show="(auditoria_programa_plan.my_true_estatus > 3 && auditoria_programa_plan.check_responsable_documento(row) ) && auditoria_programa_plan.tiene_listaverificacion(row.id)">
+                                                    <a ng-show="(auditoria_programa_plan.done_documento(row.id) && !auditoria_programa_plan.hide_work_documento(row.id))"
+                                                       style="color: black"
+                                                       title="Marcar como Trabajado"
+                                                       ng-click="auditoria_programa_plan.work_doc_estatus(row)">
+                                                        <i class="icon-check"></i>
+                                                    </a>
                                                 </li>
-                                                <span ng-show="auditoria_programa_plan.my_true_estatus > 3">
-                                                        <a ng-show="(!auditoria_programa_plan.done_documento(row.id) && !auditoria_programa_plan.check_responsable_documento(row))"
-                                                           style="color: black"
-                                                           title="Ver puntos trabajados"
-                                                           ng-click="auditoria_programa_plan.view_doc(row)">
-                                                            <i class="icon-eye"></i>
-                                                        </a>
-                                                    </span>
-                                                <li class="ng-scope">
-                                                    <span ng-show="auditoria_programa_plan.my_true_estatus > 3">
-                                                        <a ng-show="(auditoria_programa_plan.done_documento(row.id))"
-                                                           style="color: black"
-                                                           title="Ver puntos trabajados"
-                                                           ng-click="auditoria_programa_plan.view_doc(row)">
-                                                            <i class="icon-eye"></i>
-                                                        </a>
-                                                    </span>
+                                                <li class="ng-scope" ng-show="auditoria_programa_plan.my_true_estatus > 3 && auditoria_programa_plan.tiene_listaverificacion(row.id)">
+                                                    <a ng-show="(!auditoria_programa_plan.done_documento(row.id) && !auditoria_programa_plan.check_responsable_documento(row))"
+                                                       style="color: black"
+                                                       title="Ver puntos trabajados"
+                                                       ng-click="auditoria_programa_plan.view_doc(row)">
+                                                        <i class="icon-eye"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="ng-scope" ng-show="auditoria_programa_plan.my_true_estatus > 3 && auditoria_programa_plan.tiene_listaverificacion(row.id)">
+                                                    <a ng-show="(auditoria_programa_plan.done_documento(row.id))"
+                                                       style="color: black"
+                                                       title="Ver puntos trabajados"
+                                                       ng-click="auditoria_programa_plan.view_doc(row)">
+                                                        <i class="icon-eye"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="ng-scope" ng-show="<%= scope %>.permitir_crear_eliminar(row.id)">
+                                                    <a title="Eliminar este proceso"
+                                                       ng-click="<%= scope %>.eliminar_documento(row)">
+                                                        <i class="icon-bin"></i>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </td>

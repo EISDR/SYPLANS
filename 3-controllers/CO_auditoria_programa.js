@@ -78,12 +78,14 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                                 }
                             ];
                         }
-                        if (auditoria_programa.estatus >= 3 && auditoria_programa.group_caracteristica != ENUM_2.Grupos.director_general){
-                            $('.icon-plus-circle2 ').parent().hide();
-                            auditoria_programa.refreshAngular();
-                        }else{
-                            $('.icon-plus-circle2 ').parent().show();
-                            auditoria_programa.refreshAngular();
+                        if (MODAL.history.length == 0) {
+                            if (auditoria_programa.estatus >= 3 && auditoria_programa.group_caracteristica != ENUM_2.Grupos.director_general) {
+                                $('.icon-plus-circle2 ').parent().hide();
+                                auditoria_programa.refreshAngular();
+                            } else {
+                                $('.icon-plus-circle2 ').parent().show();
+                                auditoria_programa.refreshAngular();
+                            }
                         }
                         auditoria_programa_plan.refresh(() => {
                             auditoria_programa.loaded = true;

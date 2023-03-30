@@ -3268,3 +3268,60 @@ IA = {
     }
 }
 IA.valoresEspecialesList = Object.keys(IA.valoresEspeciales);
+
+async function deleteAuditoriaProgramaPlanProceso(procesoId) {
+    return BASEAPI.deleteallp('auditoria_programa_plan_proceso', [
+        {
+            field: "proceso",
+            value: procesoId
+        },
+        {
+            field: "programa_plan",
+            value: auditoria_programa_plan.id
+        }
+    ]);
+}
+
+async function getDocumentosAsociados(procesoId) {
+    const result = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+        limit: 0,
+        where: [
+            {
+                field: "proceso",
+                value: procesoId
+            },
+            {
+                field: "programa_plan",
+                value: auditoria_programa_plan.id
+            }
+        ]
+    });
+    return result.data;
+}
+
+async function deleteDocumentosAsociadosListaverificacion(documentosAsocIds) {
+    return BASEAPI.deleteallp('auditoria_programa_plan_documentos_asociados_listaverificacion', [
+        {
+            field: "programa_plan_documentos_asociados",
+            value: documentosAsocIds
+        }
+    ]);
+}
+
+async function deleteDocumentosAsociadosResponsables(documentosAsocIds) {
+    return BASEAPI.deleteallp('auditoria_programa_plan_documentos_asociados_responsables', [
+        {
+            field: "programa_plan_documentos_asociados",
+            value: documentosAsocIds
+        }
+    ]);
+}
+
+async function deleteDocumentosAsociados(documentosAsocIds) {
+    return BASEAPI.deleteallp('auditoria_programa_plan_documentos_asociados', [
+        {
+            field: "id",
+            value: documentosAsocIds
+        }
+    ]);
+}

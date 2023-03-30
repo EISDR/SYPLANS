@@ -17,6 +17,8 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
     auditoria_programa_plan.paso = false;
     auditoria_programa_plan.send_noti = false;
     auditoria_programa_plan.fileSI = [];
+    auditoria_programa_plan.lista_procesos_creados = [];
+    auditoria_programa_plan.lista_documentos_creados = [];
     auditoria_programa_plan.canStatus = "";
     auditoria_programa_plan.documentos_list = {};
     auditoria_programa_plan.estoyenelview = "";
@@ -437,6 +439,18 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     VALIDATION.validate(auditoria_programa_plan, 'comentarios', rules);
                 });
             }
+            $scope.$watch("auditoria_programa_plan.nuevo_proceso", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(auditoria_programa_plan, 'nuevo_proceso', rules);
+            });
+            $scope.$watch("auditoria_programa_plan.nuevo_documento", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(auditoria_programa_plan, 'nuevo_documento', rules);
+            });
             $scope.$watch("auditoria_programa_plan.estatus", function (value) {
                 var rules = [];
                 //rules here
@@ -582,7 +596,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                     field: "id",
                                     value: auditoria_programa_plan.auditoria_plan_proceso
                                 }
-                            ]
+                            ],
                         });
                         auditoria_programa_plan.selectQueries["auditoria_plan_documentos_asociados"] = [
                             {
@@ -1034,7 +1048,26 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     }
                 ],
             });
-
+            auditoria_programa_plan.lista_procesos_creados = await BASEAPI.listp('vw_auditoria_programa_plan_procesos', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "programa_plan",
+                        "value": auditoria_programa_plan.id
+                    }
+                ],
+            });
+            auditoria_programa_plan.lista_procesos_creados = auditoria_programa_plan.lista_procesos_creados.data;
+            auditoria_programa_plan.lista_documentos_creados = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "programa_plan",
+                        "value": auditoria_programa_plan.id
+                    }
+                ],
+            });
+            auditoria_programa_plan.lista_documentos_creados = auditoria_programa_plan.lista_documentos_creados.data;
             auditoria_programa.getPrograma();
             if (auditoria_programa_plan.form.mode === 'new') {
                 delete auditoria_programa_plan.id;
@@ -1203,7 +1236,234 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         this.proceso = "";
         this.usuario = "";
     }
-
+    auditoria_programa_plan.add_proceso = function () {
+        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_proceso_form", {
+            width: 'modal-lg',
+            header: {
+                title: 'Agregar nuevo proceso: ',
+                icon: "file-plus2"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: true
+            },
+            event: {
+                // show: {
+                //     end: function (data) {
+                //
+                //     }
+                // },
+                hide: {
+                    // begin: function (data) {
+                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                    //         $(`.${indicador_producto_poa.commentName}`).show();
+                    //     }else{
+                    //         $(`.${indicador_producto_poa.commentName}`).hide();
+                    //     }
+                    // },
+                    // end: async function (data) {
+                    //
+                    // }
+                }
+            },
+        });
+    }
+    auditoria_programa_plan.add_proceso_save = function () {
+        VALIDATION.save(auditoria_programa_plan, async function () {
+            auditoria_programa_plan.auditoria_plan_proceso.push(auditoria_programa_plan.nuevo_proceso);
+            BASEAPI.insert('auditoria_programa_plan_proceso', {
+                programa_plan: auditoria_programa_plan.id,
+                proceso: auditoria_programa_plan.nuevo_proceso,
+                from_recoleccion: 1
+            }, function(result){
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso')
+                MODAL.close()
+            });
+        }, ['nuevo_proceso']);
+    }
+    auditoria_programa_plan.permitir_borrar = function (proceso) {
+        if (auditoria_programa_plan.lista_procesos_creados && auditoria_programa_plan.lista_procesos_creados.length > 0) {
+            var procesos_creados = [...new Set(auditoria_programa_plan.lista_procesos_creados)];
+            return procesos_creados.some(d => d.proceso === proceso && d.from_recoleccion === 1);
+        }
+        return false;
+    }
+    auditoria_programa_plan.eliminar_proceso = async function (proceso) {
+        SWEETALERT.confirm({
+            message: "¿Está seguro que desea borrar el proceso?",
+            confirm: async function () {
+                SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
+                try {
+                    await deleteAuditoriaProgramaPlanProceso(proceso.id);
+                    const documentosAsociados = await getDocumentosAsociados(proceso.id);
+                    if (documentosAsociados.length > 0) {
+                        const documentosAsocIds = documentosAsociados.map(doc => doc.id);
+                        await deleteDocumentosAsociadosListaverificacion(documentosAsocIds);
+                        await deleteDocumentosAsociadosResponsables(documentosAsocIds);
+                        await deleteDocumentosAsociados(documentosAsocIds);
+                    }
+                    await auditoria_programa_plan.getProcesoUsuario();
+                    var index = auditoria_programa_plan.auditoria_plan_proceso.indexOf(proceso.id + '');
+                    if (index > -1) { // only splice array when item is found
+                        auditoria_programa_plan.auditoria_plan_proceso.splice(index, 1); // 2nd parameter means remove one item only
+                    }
+                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                    auditoria_programa_plan.refreshAngular();
+                } catch (error) {
+                    console.error(error);
+                    // Manejar el error de acuerdo a las necesidades del programa
+                }
+                SWEETALERT.stop();
+            }
+        })
+    }
+    auditoria_programa_plan.add_documento = function () {
+        auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_documento_form", {
+            width: 'modal-lg',
+            header: {
+                title: 'Agregar nuevo documento: ',
+                icon: "file-plus2"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: true
+            },
+            event: {
+                // show: {
+                //     end: function (data) {
+                //
+                //     }
+                // },
+                hide: {
+                    // begin: function (data) {
+                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                    //         $(`.${indicador_producto_poa.commentName}`).show();
+                    //     }else{
+                    //         $(`.${indicador_producto_poa.commentName}`).hide();
+                    //     }
+                    // },
+                    // end: async function (data) {
+                    //
+                    // }
+                }
+            },
+        });
+    }
+    auditoria_programa_plan.add_documento_save = function () {
+        VALIDATION.save(auditoria_programa_plan, async function () {
+            auditoria_programa_plan.auditoria_plan_documentos_asociados.push(auditoria_programa_plan.nuevo_documento);
+            BASEAPI.insert('auditoria_programa_plan_documentos_asociados', {
+                programa_plan: auditoria_programa_plan.id,
+                documento_asociado: auditoria_programa_plan.nuevo_documento,
+                from_recoleccion: 1
+            }, function(result){
+                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
+                MODAL.close()
+            });
+        }, ['nuevo_documento']);
+    }
+    auditoria_programa_plan.permitir_crear_eliminar = function (documento) {
+        if (auditoria_programa_plan.lista_documentos_creados && auditoria_programa_plan.lista_documentos_creados.length > 0) {
+            var documentos_creados = [...new Set(auditoria_programa_plan.lista_documentos_creados)];
+            return documentos_creados.some(d => d.documento_asociado === documento && d.from_recoleccion === 1);
+        }
+        return false;
+    }
+    auditoria_programa_plan.eliminar_documento = function (documento) {
+        SWEETALERT.confirm({
+            message: "¿Está seguro que desea borrar el Documento?",
+            confirm: async function () {
+                SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
+                BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados', [
+                    {
+                        field: "documento_asociado",
+                        value: documento.id
+                    },
+                    {
+                        field: "programa_plan",
+                        value: auditoria_programa_plan.id
+                    }
+                ], function (result) {
+                    debugger
+                    var index = auditoria_programa_plan.auditoria_plan_documentos_asociados.indexOf(documento.id + '');
+                    if (index > -1) { // only splice array when item is found
+                        auditoria_programa_plan.auditoria_plan_documentos_asociados.splice(index, 1); // 2nd parameter means remove one item only
+                    }
+                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                    SWEETALERT.stop();
+                })
+            }
+        });
+    }
+    // auditoria_programa_plan.eliminar_proceso = function (proceso) {
+    //     BASEAPI.deleteall('auditoria_programa_plan_proceso',[
+    //         {
+    //             field: "proceso",
+    //             value: proceso.id
+    //         },
+    //         {
+    //             field: "programa_plan",
+    //             value: auditoria_programa_plan.id
+    //         }
+    //     ], function(result) {
+    //         BASEAPI.list('vw_auditoria_programa_plan_documentos_asociados', {
+    //             limit: 0,
+    //             where: [
+    //                 {
+    //                     field: "proceso",
+    //                     value: proceso.id
+    //                 },
+    //                 {
+    //                     field: "programa_plan",
+    //                     value: auditoria_programa_plan.id
+    //                 }
+    //             ]
+    //         }, async function (result2) {
+    //             if (result2.data.length > 0){
+    //                 let id_list_documentos_asoc = [];
+    //                 for (var i of result2.data) {
+    //                     id_list_documentos_asoc.push(i.id)
+    //                 }
+    //                 BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_listaverificacion', [
+    //                     {
+    //                         field: "programa_plan_documentos_asociados",
+    //                         value: id_list_documentos_asoc
+    //                     }
+    //                 ], function (result) {
+    //                     BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados_responsables', [
+    //                         {
+    //                             field: "programa_plan_documentos_asociados",
+    //                             value: id_list_documentos_asoc
+    //                         }
+    //                     ], function (result) {
+    //                         BASEAPI.deleteall('auditoria_programa_plan_documentos_asociados', [
+    //                             {
+    //                                 field: "id",
+    //                                 value: id_list_documentos_asoc
+    //                             }
+    //                         ], async function (result) {
+    //                             await auditoria_programa_plan.getProcesoUsuario();
+    //                             auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+    //                             auditoria_programa_plan.refreshAngular();
+    //                         });
+    //                     });
+    //                 });
+    //             }else{
+    //                 await auditoria_programa_plan.getProcesoUsuario();
+    //                 auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+    //                 auditoria_programa_plan.refreshAngular();
+    //             }
+    //         });
+    //     });
+    // }
     auditoria_programa_plan.getRol = async function () {
         auditoria_programa_plan.auditores = await BASEAPI.listp('auditoria_programa_plan_equipotrabajo', {
             limit: 0,
@@ -2440,20 +2700,32 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             return false;
         }
     }
-    auditoria_programa_plan.done_proceso = function (value) {
-        if (auditoria_programa_plan.my_procesos_list) {
-            if (auditoria_programa_plan.my_procesos_list.length > 0) {
-                var proceso_trabajado = auditoria_programa_plan.my_procesos_list.filter(d => {
-                    return d.proceso == value;
+    auditoria_programa_plan.tiene_listaverificacion = function (value) {
+        if (auditoria_programa_plan.documentos_list) {
+            if (auditoria_programa_plan.documentos_list.length > 0) {
+                var documento_con_lista = auditoria_programa_plan.documentos_list.filter(d => {
+                    return d.documento_asociado == value;
                 });
-                if (proceso_trabajado)
-                    return (proceso_trabajado[0].total_documentos === proceso_trabajado[0].total_documentos_trabajados) && proceso_trabajado[0].revisado !== 1;
+                if (documento_con_lista.length > 0) {
+                    return documento_con_lista[0].total_listas > 0;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
         } else {
             return false;
         }
+    }
+    auditoria_programa_plan.done_proceso = function (value) {
+        if (!auditoria_programa_plan.my_procesos_list || auditoria_programa_plan.my_procesos_list.length === 0) {
+            return false;
+        }
+
+        const proceso_trabajado = auditoria_programa_plan.my_procesos_list.find(d => d.proceso === value);
+
+        return proceso_trabajado ? (proceso_trabajado.total_documentos === proceso_trabajado.total_documentos_trabajados) && proceso_trabajado.revisado !== 1 : false;
     }
     auditoria_programa_plan.work_doc_estatus = async function (row) {
         SWEETALERT.loading({message: MESSAGE.i('mono.procesing')})
@@ -2774,27 +3046,24 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         return documentos_correctos.length === documentos_seleccionados.length;
     }
     auditoria_programa_plan.change_message = function () {
-        var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
-            return inputArray.indexOf(item) === index;
-        });
-        var documentos_correctos = auditoria_programa_plan.documentos_list.filter(d => {
-            return d.total_listas > 0 && d.total_listas == d.total_listas_trabajadas;
-        });
-        auditoria_programa_plan.refreshAngular();
-        return documentos_correctos.length === documentos_seleccionados.length;
+        if (auditoria_programa_plan.auditoria_plan_documentos_asociados.length > 0 && auditoria_programa_plan.documentos_list.length > 0) {
+            var documentos_seleccionados = [...new Set(auditoria_programa_plan.auditoria_plan_documentos_asociados)];
+            var documentos_list = auditoria_programa_plan.documentos_list.slice();
+            var documentos_correctos = documentos_list.filter(d => d.total_listas > 0 && d.total_listas == d.total_listas_trabajadas);
+            auditoria_programa_plan.refreshAngular();
+            return documentos_correctos.length === documentos_seleccionados.length;
+        }
+            return false;
     }
     auditoria_programa_plan.allow_save_procesos = function () {
-        var procesos_seleccionados = auditoria_programa_plan.auditoria_plan_proceso.filter(function (item, index, inputArray) {
-            return inputArray.indexOf(item) == index;
-        });
-        var procesos_revisados = auditoria_programa_plan.my_procesos_list.filter(d => {
-            return d.revisado === 1;
-        });
-        return procesos_revisados.length === procesos_seleccionados.length;
+        var procesos_seleccionados = [...new Set(auditoria_programa_plan.auditoria_plan_proceso)];
+        var procesos_revisados = auditoria_programa_plan.my_procesos_list.filter(d => d.revisado === 1);
+        return procesos_revisados.length === procesos_seleccionados.length ? true : false;
     }
     auditoria_programa_plan.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-
+        delete data.inserting.nuevo_proceso;
+        delete data.inserting.nuevo_documento;
         if (auditoria_programa_plan.estatus > 1 && auditoria_programa_plan.auditores_lideres > 1) {
             SWEETALERT.show({
                 type: 'error',
@@ -2831,6 +3100,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             data.updating.elaborado_en = moment().format("YYYY-MM-DD HH:mm");
         }
         delete data.updating.comentarios_auditor;
+        delete data.updating.nuevo_proceso;
+        delete data.updating.nuevo_documento;
         if (auditoria_programa_plan.estatus_view) {
             auditoria_programa_plan.form.frominforme = true;
             if (auditoria_programa_plan.estatus == "5") {

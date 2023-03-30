@@ -1,0 +1,72 @@
+<div class="subcontent">
+    <div class="tab-pane active" id="basic">
+        <div class="panel panel-default" style="margin-bottom: 10px;">
+            <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+                <label style="font-family: 'Arial Narrow'; font-size: 21px;">Agregar un nuevo Proceso </label>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6" ng-show="!auditoria_programa_plan.session.institucion">
+                        <%- FORM.select("nuevo_proceso", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            text: "item.nombre_drp",
+                            value: "id",
+                            table: "vw_procesos",
+                            icon: {class: "archive"},
+                            truelabel: "Procesos a Auditar",
+                            condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
+                    <div class="col-sm-12 col-md-6" ng-show="auditoria_programa_plan.session.institucion">
+                        <%- FORM.select("nuevo_proceso", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            text: "item.nombre_drp",
+                            value: "id",
+                            table: "vw_procesos",
+                            icon: {class: "archive"},
+                            truelabel: "Procesos a Auditar",
+                            condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <button
+                            ng-show="!auditoria_programa_plan.hide_me"
+                            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                            onclick="MODAL.close()">
+                        <b><i class="icon-cross2"></i></b>
+                        <language>MESSAGE.ic('mono.cancel')</language>
+                    </button>
+                    <button
+                            ng-show="!auditoria_programa_plan.hide_me"
+                            dragonlanguage="" title="Agregar Comentario"
+                            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+                            ng-click="auditoria_programa_plan.add_proceso_save()">
+                        <b><i class="icon-floppy-disk"></i></b>
+                        <language>Guardar</language>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</div>
