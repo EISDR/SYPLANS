@@ -231,7 +231,7 @@
                                             oncontextmenu="return false;">
                                             <ul class="icons-list dragon-action"
                                                 style="z-index: 99999; text-align: center;">
-                                                <li class="ng-scope" ng-show="auditoria_programa_plan.my_true_estatus <= 3 || <%= scope %>.permitir_crear_eliminar(row.id)">
+                                                <li class="ng-scope" ng-show="!auditoria_programa_plan.done_documento(row.id) && <%= scope %>.permitir_crear_eliminar(row.id)">
                                                     <a title="Agregar lista de verificación"
                                                        ng-click="<%= scope %>.add_work_list(row)">
                                                         <i class="icon-file-plus2"></i>
@@ -419,7 +419,7 @@
                             // },
                             })%>
                         </div>
-                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Participantes del Plan de Auditoría</label>
+                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Roles Participantes del Plan de Auditoría</label>
                         <ol ng-show="auditoria_programa_plan.real_participantes_list.data.length > 0" style="">
                             <li ng-repeat="(key,row) in auditoria_programa_plan.real_participantes_list.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px; color: #888888 !important">
                                 {{row.nombre}}
