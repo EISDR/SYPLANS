@@ -1284,34 +1284,65 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         return false;
     }
     auditoria_programa_plan.eliminar_proceso = async function (proceso) {
-        SWEETALERT.confirm({
-            message: "¿Está seguro que desea borrar el proceso?",
-            confirm: async function () {
-                SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
-                try {
-                    await deleteAuditoriaProgramaPlanProceso(proceso.id);
-                    const documentosAsociados = await getDocumentosAsociados(proceso.id);
-                    if (documentosAsociados.length > 0) {
-                        const documentosAsocIds = documentosAsociados.map(doc => doc.id);
-                        await deleteDocumentosAsociadosListaverificacion(documentosAsocIds);
-                        await deleteDocumentosAsociadosResponsables(documentosAsocIds);
-                        await deleteDocumentosAsociados(documentosAsocIds);
+        const documentosAsociados = await getDocumentosAsociados(proceso.id);
+        if (documentosAsociados.length > 0){
+            SWEETALERT.confirm({
+                message: "Este proceso tiene documentos asociados a la auditoría al borrarse se eliminarán todas sus relaciones ¿Está seguro que desea borrar el proceso?",
+                confirm: async function () {
+                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
+                    try {
+                        await deleteAuditoriaProgramaPlanProceso(proceso.id);
+                        if (documentosAsociados.length > 0) {
+                            const documentosAsocIds = documentosAsociados.map(doc => doc.id);
+                            await deleteDocumentosAsociadosListaverificacion(documentosAsocIds);
+                            await deleteDocumentosAsociadosResponsables(documentosAsocIds);
+                            await deleteDocumentosAsociados(documentosAsocIds);
+                        }
+                        await auditoria_programa_plan.getProcesoUsuario();
+                        var index = auditoria_programa_plan.auditoria_plan_proceso.indexOf(proceso.id + '');
+                        if (index > -1) { // only splice array when item is found
+                            auditoria_programa_plan.auditoria_plan_proceso.splice(index, 1); // 2nd parameter means remove one item only
+                        }
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                        auditoria_programa_plan.refreshAngular();
+                    } catch (error) {
+                        console.error(error);
+                        // Manejar el error de acuerdo a las necesidades del programa
                     }
-                    await auditoria_programa_plan.getProcesoUsuario();
-                    var index = auditoria_programa_plan.auditoria_plan_proceso.indexOf(proceso.id + '');
-                    if (index > -1) { // only splice array when item is found
-                        auditoria_programa_plan.auditoria_plan_proceso.splice(index, 1); // 2nd parameter means remove one item only
-                    }
-                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
-                    auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
-                    auditoria_programa_plan.refreshAngular();
-                } catch (error) {
-                    console.error(error);
-                    // Manejar el error de acuerdo a las necesidades del programa
+                    SWEETALERT.stop();
                 }
-                SWEETALERT.stop();
-            }
-        })
+            })
+        }else{
+            SWEETALERT.confirm({
+                message: "¿Está seguro que desea borrar el proceso?",
+                confirm: async function () {
+                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing') + "..."})
+                    try {
+                        await deleteAuditoriaProgramaPlanProceso(proceso.id);
+                        if (documentosAsociados.length > 0) {
+                            const documentosAsocIds = documentosAsociados.map(doc => doc.id);
+                            await deleteDocumentosAsociadosListaverificacion(documentosAsocIds);
+                            await deleteDocumentosAsociadosResponsables(documentosAsocIds);
+                            await deleteDocumentosAsociados(documentosAsocIds);
+                        }
+                        await auditoria_programa_plan.getProcesoUsuario();
+                        var index = auditoria_programa_plan.auditoria_plan_proceso.indexOf(proceso.id + '');
+                        if (index > -1) { // only splice array when item is found
+                            auditoria_programa_plan.auditoria_plan_proceso.splice(index, 1); // 2nd parameter means remove one item only
+                        }
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados');
+                        auditoria_programa_plan.refreshAngular();
+                    } catch (error) {
+                        console.error(error);
+                        // Manejar el error de acuerdo a las necesidades del programa
+                    }
+                    SWEETALERT.stop();
+                }
+            })
+        }
+
     }
     auditoria_programa_plan.add_documento = function () {
         auditoria_programa_plan.modal.modalView("auditoria_programa_plan/add_documento_form", {

@@ -604,9 +604,16 @@ FORM = {
                                             }
                                             var whereDelete = [];
                                             whereDelete.push(relation.config.fieldsUpdate);
-                                            if (relation.config.where_delete) {
-                                                whereDelete.push(relation.config.where_delete);
+                                            if(Array.isArray(relation.config.where_delete)){
+                                                for (var i of relation.config.where_delete){
+                                                    whereDelete.push(i)
+                                                }
+                                            }else{
+                                                if (relation.config.where_delete) {
+                                                    whereDelete.push(relation.config.where_delete);
+                                                }
                                             }
+
                                             if ($scope[forme].multirepeat.indexOf(relation.config.toDeleteTable) === -1) {
                                                 var ddata = await BASEAPI.deleteallp(relation.config.toDeleteTable, whereDelete);
                                             }

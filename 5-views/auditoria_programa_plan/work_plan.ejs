@@ -52,11 +52,18 @@
                                     fieldFrom: 'id',
                                     fieldTo: 'programa_plan',
                                     field: 'proceso',
-                                    where_delete: {
-                                        field: "revisado",
-                                        operator: "is",
-                                        value: "$null"
-                                    }
+                                    where_delete: [
+                                        {
+                                            field: "revisado",
+                                            operator: "is",
+                                            value: "$null"
+                                        },
+                                        {
+                                            field: "from_recoleccion",
+                                            operator: "is",
+                                            value: "$null"
+                                        }
+                                    ]
                                 },
                                 // parent: {
                                 //     model: 'eje_estrategico',
@@ -154,11 +161,18 @@
                                     fieldTo: 'programa_plan',
                                     field: 'documento_asociado',
                                     dont_insert: true,
-                                    where_delete: {
-                                        field: "trabajado",
-                                        operator: "!=",
-                                        value: 1
-                                    }
+                                    where_delete: [
+                                        {
+                                            field: "trabajado",
+                                            operator: "!=",
+                                            value: 1
+                                        },
+                                        {
+                                            field: "from_recoleccion",
+                                            operator: "is",
+                                            value: "$null"
+                                        }
+                                    ]
                                 },
                                 // parent: {
                                 //     model: 'eje_estrategico',
