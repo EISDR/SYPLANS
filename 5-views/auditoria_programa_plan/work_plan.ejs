@@ -486,7 +486,7 @@
     <button ng-show="<%= scope %>.form.mode!=='new'"
             dragonlanguage="" title="MESSAGE.ic('mono.save')"
             type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
-            ng-click="<%= scope %>.pages.form.save()">
+            ng-click="auditoria_programa_plan.elsave()">
         <b><i class="icon-floppy-disk"></i></b>
         <language>MESSAGE.ic('mono.save')</language>
     </button>
@@ -495,7 +495,7 @@
                 style="margin-right: 1px !important;"
                 dragonlanguage="" title="MESSAGE.ic('mono.save')"
                 type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
-                ng-click="<%= scope %>.pages.form.save()">
+                ng-click="auditoria_programa_plan.elsave()">
             <b><i class="icon-floppy-disk"></i></b>
             <language>MESSAGE.ic('mono.save')</language>
         </button>
@@ -505,7 +505,7 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-left">
             <li>
-                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                <a ng-click="<%= scope %>.pages.form.elsave(undefined,undefined,false)" dragonlanguage="">
                     <i class="icon-floppy-disks"></i>
                     <language>MESSAGE.ic('mono.saveAndContinue')</language>
                 </a>

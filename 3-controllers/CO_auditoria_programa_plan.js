@@ -229,7 +229,6 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
                 estatus_plan_accion: 1
             };
             auditoria_programa_plan.createForm(data, mode, defaultData, view);
-
             auditoria_programa_plan.estoyenelview = view || "";
 
             auditoria_programa_plan.show_drp_down = false;
@@ -508,13 +507,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                 }
                             ]
                         });
-                        if (auditoria_programa_plan.participantes_list.data) {
-                            if (auditoria_programa_plan.participantes_list.data.length > 0) {
-                                auditoria_programa_plan.soyparticipe = auditoria_programa_plan.real_participantes_list.data.filter(d => {
-                                    return d.id == auditoria_programa_plan.session.id
-                                }).length > 0;
-                            }
-                        }
                     } else {
                         // auditoria_programa_plan.auditoria_plan_responsable = [];
                         auditoria_programa_plan.participantes_list = {data: []};
@@ -2665,22 +2657,11 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         }
     }
     auditoria_programa_plan.done_documento = function (value) {
-        if (auditoria_programa_plan.documentos_list) {
-            if (auditoria_programa_plan.documentos_list.length > 0) {
-                var documento_trabajado = auditoria_programa_plan.documentos_list.filter(d => {
-                    return d.documento_asociado == value;
-                });
-                if (documento_trabajado) {
-                    return (documento_trabajado[0].total_listas === documento_trabajado[0].total_listas_trabajadas);
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+        if (auditoria_programa_plan.documentos_list && auditoria_programa_plan.documentos_list.length > 0) {
+            const documento_trabajado = auditoria_programa_plan.documentos_list.find(d => d.documento_asociado === value);
+            return documento_trabajado ? documento_trabajado.total_listas > 0 ? documento_trabajado.total_listas === documento_trabajado.total_listas_trabajadas : false : false;
         }
+        return false;
     }
     auditoria_programa_plan.hide_work_documento = function (value) {
         if (auditoria_programa_plan.documentos_list) {
@@ -3062,6 +3043,18 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
     }
     auditoria_programa_plan.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        VALIDATION.validate(auditoria_programa_plan, "nuevo_proceso", [{
+            valid: true,
+            message: MESSAGE.i('validations.Fieldisrequired'),
+            type: VALIDATION.types.error,
+            visible: false
+        }]);
+        VALIDATION.validate(auditoria_programa_plan, "nuevo_documento", [{
+            valid: true,
+            message: MESSAGE.i('validations.Fieldisrequired'),
+            type: VALIDATION.types.error,
+            visible: false
+        }]);
         delete data.inserting.nuevo_proceso;
         delete data.inserting.nuevo_documento;
         if (auditoria_programa_plan.estatus > 1 && auditoria_programa_plan.auditores_lideres > 1) {
@@ -3094,14 +3087,15 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
     });
     auditoria_programa_plan.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+
+        delete data.updating.nuevo_proceso;
+        delete data.updating.nuevo_documento;
         if (auditoria_programa_plan.from_new) {
             await AUDIT.LOG(AUDIT.ACTIONS.insert, auditoria_programa_plan.tableOrView ? auditoria_programa_plan.tableOrView : auditoria_programa_plan.modelName, data.updating);
             data.updating.elaborado_por = auditoria_programa_plan.session.usuario_id;
             data.updating.elaborado_en = moment().format("YYYY-MM-DD HH:mm");
         }
         delete data.updating.comentarios_auditor;
-        delete data.updating.nuevo_proceso;
-        delete data.updating.nuevo_documento;
         if (auditoria_programa_plan.estatus_view) {
             auditoria_programa_plan.form.frominforme = true;
             if (auditoria_programa_plan.estatus == "5") {
@@ -3530,6 +3524,21 @@ Gracias`;
                 })
             }
         });
+    }
+    auditoria_programa_plan.elsave = function (pre, post, close) {
+        VALIDATION.validate(auditoria_programa_plan, "nuevo_proceso", [{
+            valid: true,
+            message: MESSAGE.i('validations.Fieldisrequired'),
+            type: VALIDATION.types.error,
+            visible: false
+        }]);
+        VALIDATION.validate(auditoria_programa_plan, "nuevo_documento", [{
+            valid: true,
+            message: MESSAGE.i('validations.Fieldisrequired'),
+            type: VALIDATION.types.error,
+            visible: false
+        }]);
+        auditoria_programa_plan.pages.form.save(pre,post,close)
     }
     // auditoria_programa_plan.exportPDF = function () {
     //     html2canvas(document.body).then(function(canvas) {
