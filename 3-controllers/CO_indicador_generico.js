@@ -1464,7 +1464,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.indice(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1482,6 +1482,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1532,7 +1533,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.money(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1550,6 +1551,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1600,7 +1602,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.decimal(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1618,6 +1620,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1667,7 +1670,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.percentage(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1685,6 +1688,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1734,7 +1738,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.integer(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1752,6 +1756,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1803,7 +1808,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 conuntPeriodo2++;
                             }
                         } else {
-                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo) {
+                            if (indicador_generico.poa_monitoreo_viejo == indicador_generico.poa_monitoreo && !indicador_generico.done) {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
                                     await indicador_generico.control.valor_absoluto(".subcontainer2", "periodos" + indicador_generico.list_indicador_generico_periodo[key].id, {
@@ -1821,6 +1826,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                     `);
                                     conuntPeriodo++;
                                 }
+                                indicador_generico.done = true;
                             } else {
                                 var conuntPeriodo = 1;
                                 for (var key in indicador_generico.list_indicador_generico_periodo) {
@@ -1886,9 +1892,13 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             indicador_generico.$scope.$watch('indicador_generico.poa_monitoreo', async function (value) {
                 var rules = [];
                 if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Periodicidad",indicador_generico.poa_monitoreo_old,indicador_generico.poa_monitoreo));
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Periodicidad",indicador_generico.poa_monitoreo_old,indicador_generico.poa_monitoreo,function (result){
+                        if (!result){
+                            indicador_generico.initiation = true;
+                        }
+                    }));
                 }
-                if (value !== undefined || value !== "[NULL]") {
+                if ((value !== undefined || value !== "[NULL]") && !indicador_generico.initiation) {
                     if (indicador_generico.form.selected('poa_monitoreo')) {
                         user.cantidad = indicador_generico.form.selected('poa_monitoreo').cantidad;
                         user.monitoreo_nombre = indicador_generico.form.selected('poa_monitoreo').nombre_mostrar;
@@ -1918,15 +1928,18 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.tipo_meta', function (value) {
                 var rules = [];
-
-                if (value) {
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Tipo de dato de la meta",indicador_generico.tipo_meta_old,indicador_generico.tipo_meta,function (result){
+                        if (!result){
+                            indicador_generico.initiation = true;
+                        }
+                    }));
+                }
+                if (value && ! indicador_generico.initiation) {
                     indicador_generico.tipo_meta = value + "";
                     $(".subcontainer2").html('');
                     indicador_generico.getIMesNew();
                     indicador_generico.applyMasks();
-                }
-                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Tipo de dato de la meta",indicador_generico.tipo_meta_old,indicador_generico.tipo_meta));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_generico, "tipo_meta", rules);

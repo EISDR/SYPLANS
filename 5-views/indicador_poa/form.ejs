@@ -86,6 +86,10 @@
                 </div>
                 <div ng-if="indicador_poa.departamento == '0' && indicador_poa.session.tipo_institucion == 1" class="col-sm-12 col-md-4  remove-input-space">
                     <%- FORM.select("producto", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
                         text: "item.nombre",
                         table: "drp_productos_poa_indi",
                         permission: "productos_poa",
@@ -100,6 +104,10 @@
                 </div>
                 <div ng-if="indicador_poa.departamento == '0' && indicador_poa.session.tipo_institucion == 2" class="col-sm-12 col-md-4  remove-input-space">
                     <%- FORM.select("producto", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
                         text: "item.nombre",
                         table: "drp_productos_poa_indi",
                         permission: "productos_poa",
@@ -115,6 +123,10 @@
                 <div ng-if="indicador_poa.departamento != '0' && indicador_poa.session.tipo_institucion == 1" class="col-sm-12 col-md-4  remove-input-space">
                     <%-
                     FORM.select("producto", scope, {
+                        allownew: false,
+                        allowedit: false,
+                        allowview: false,
+                        allowlist: false,
                         text: "item.nombre",
                         table: "drp_productos_poa_indi",
                         icon: {class: "archive"},
@@ -131,6 +143,10 @@
                 <div ng-if="indicador_poa.departamento != '0' && indicador_poa.session.tipo_institucion == 2" class="col-sm-12 col-md-4  remove-input-space">
                     <%-
                         FORM.select("producto", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
                             text: "item.nombre",
                             table: "drp_productos_poa_indi",
                             icon: {class: "archive"},
@@ -184,6 +200,10 @@
             </div>
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.select("caracteristica_indicador", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     table: "caracteristica_indicador",
                     multiple: true,

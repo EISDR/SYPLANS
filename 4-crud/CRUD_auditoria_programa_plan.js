@@ -2,13 +2,12 @@ CRUD_auditoria_programa_plan = {};
 DSON.keepmerge(CRUD_auditoria_programa_plan, CRUDDEFAULTS);
 CRUD_auditoria_programa_plan.esalgo = (row) => {
     let session = new SESSION().current();
-    let usuario = session.cargo;
     if (row.lista_participantes) {
         let participantes = JSON.parse(row.lista_participantes);
-        if (participantes.indexOf(usuario + "") !== -1)
+        if (participantes.indexOf(session.cargo + "") !== -1)
             return true;
     }
-    return row.lider == usuario;
+    return row.lider == session.id;
 };
 CRUD_auditoria_programa_plan.esDocumentoResponsables = (row) => {
     let session = new SESSION().current();

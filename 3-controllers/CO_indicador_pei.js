@@ -516,7 +516,11 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             indicador_pei.$scope.$watch('indicador_pei.tipo_meta', function (value) {
                 var rules = [];
                 if (indicador_pei.list_indicador_pei_anos.length > 0 && indicador_pei.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_pei.list_indicador_pei_anos, "Tipo de dato de la meta",indicador_pei.tipo_meta_old,indicador_pei.tipo_meta));
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_pei.list_indicador_pei_anos, "Tipo de dato de la meta",indicador_pei.tipo_meta_old,indicador_pei.tipo_meta,function (result){
+                        if (!result){
+                            indicador_pei.initiation = true;
+                        }
+                    }));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_pei, "tipo_meta", rules)

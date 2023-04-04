@@ -11,7 +11,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
         batch: false,
         sortable: false,
         fixheader: true,
-        sort: "$ nombre_proceso, nombre, responsable_ducumento, punto_verificacion, tipo_inconformidad, observaciones, comentfinal",
+        sort: "$ nombre_proceso, nombre, punto_verificacion, responsable_ducumento,  tipo_inconformidad, observaciones, comentfinal",
         //dragrow: 'num',
         //rowStyle: function (row, $scope) {
         //    return "color:red;";
@@ -23,8 +23,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
         //key: 'id',
         //deletekeys: ['id'],
         rowspan: function (index, list, category, fromreport) {
-            return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre', index, list)
-                : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre', index, list);
+            return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list)
+                : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list);
         },
         columns: {
             // dbcolumnname: {
@@ -77,8 +77,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     return "Auditor Responsable del Documento"
                 },
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento', index, list)
-                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento', index, list);
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list);
                 }
             },
             punto_verificacion: {
@@ -87,8 +87,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 shorttext: 360,
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list)
-                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion', index, list);
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list);
                 }
             },
             tipo_inconformidad: {
@@ -96,8 +96,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     return "Tipo de No Conformidad"
                 },
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad', index, list)
-                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad', index, list);
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.punto_verificacion ', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list);
                 }
             },
             observaciones: {
@@ -105,8 +105,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                     return "Observación"
                 },
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones', index, list)
-                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones', index, list);
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.punto_verificacion', index, list);
                 }
             },
             comentfinal: {
@@ -115,8 +115,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 shorttext: 360,
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones + d.comentfinal', index, list)
-                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre + d.responsable_ducumento + d.punto_verificacion + d.tipo_inconformidad + d.observaciones + d.comentfinal', index, list);
+                    return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre', index, list)
+                        : vw_documentos_asociados_pv2.sm_('d.nombre_proceso + d.nombre', index, list);
                 }
             }
         },

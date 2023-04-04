@@ -3275,7 +3275,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             for (var item of buttons) {
                 item.disabled = false;
             }
-        } else if (auditoria_programa_plan.estatus >= 5 && auditoria_programa_plan.estatus < 9) {
+        } else if (auditoria_programa_plan.estatus == 6) {
             if (!auditoria_programa_plan.allow_save_procesos()) {
                 SWEETALERT.show({
                     type: 'error',

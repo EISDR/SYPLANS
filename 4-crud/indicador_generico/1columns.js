@@ -271,6 +271,7 @@ DSON.keepmerge(CRUD_indicador_generico, {
                         },
                         click: function (data) {
                             data.$scope.poa_monitoreo_viejo = data.row.poa_monitoreo + '';
+                            data.$scope.done = false;
                             data.$scope.formulary({
                                 where: [{
                                     field: eval(`CRUD_${data.$scope.modelName}`).table.key,

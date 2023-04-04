@@ -933,7 +933,11 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
             indicador_poa.$scope.$watch('indicador_poa.tipo_meta', function (value) {
                 var rules = [];
                 if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Tipo de dato de la meta",indicador_poa.tipo_meta_old,indicador_poa.tipo_meta));
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Tipo de dato de la meta",indicador_poa.tipo_meta_old,indicador_poa.tipo_meta,function (result){
+                        if (!result){
+                            indicador_poa.initiation = true;
+                        }
+                    }));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_poa, "tipo_meta", rules)
@@ -1005,6 +1009,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
             });
 
             indicador_poa.triggers.table.after.open = function (data) {
+                indicador_poa.list_indicador_poa_periodo = [];
                 if (typeof productos_poa !== 'undefined') {
                     if (typeof productos_poa !== 'not defined') {
                         if (productos_poa) {

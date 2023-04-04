@@ -124,6 +124,10 @@
             </div>
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.select("caracteristica_indicador", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     table: "caracteristica_indicador",
                     multiple: true,

@@ -61,6 +61,10 @@
         <div class="row" ng-show="indicador_pei.showFuente!==true">
             <div class="col-sm-12 col-md-3">
                 <%- FORM.select("eje_estrategico", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
@@ -75,6 +79,10 @@
             </div>
             <div class="col-sm-12 col-md-3">
                 <%- FORM.select("objetivo_estrategico", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     permission: "objetivo_estrategico",
                     table: "drp_objetivo_estrategico",
@@ -89,6 +97,10 @@
             </div>
             <div class="col-sm-12 col-md-3">
                 <%- FORM.select("estrategia", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     permission: "estrategia",
                     table: "drp_estrategia",
@@ -103,6 +115,10 @@
             </div>
             <div class="col-sm-12 col-md-3">
                 <%- FORM.select("resultado", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     permission: "resultado",
                     table: "drp_resultado",
@@ -146,6 +162,10 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <%- FORM.select("caracteristica_indicador", scope, {
+                    allowedit: false,
+                    allownew: false,
+                    allowview: false,
+                    allowlist: false,
                     text: "item.nombre",
                     table: "caracteristica_indicador",
                     multiple: true,
