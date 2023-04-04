@@ -48,6 +48,13 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                 exportExample: false,
                 dead: true
             },
+            causa: {
+                visible: false,
+                visibleDetail: false,
+                export: false,
+                exportExample: false,
+                dead: true
+            },
             nombre: {},
             departamento_list: {
                 label: () => {
@@ -110,57 +117,57 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                     return "";
                 },
                 title: (data) => {
-                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined"){
-                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined") {
+                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        }  else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit) {
                             return MESSAGE.i('actions.Edit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Remove');
                         }
                     } else {
                         return MESSAGE.i('actions.Edit') + ", " +
                             MESSAGE.i('actions.View') + ", " +
-                            MESSAGE.i('actions.Remove')+ ", " +
+                            MESSAGE.i('actions.Remove') + ", " +
                             MESSAGE.i('actions.audit');
                     }
                 },
@@ -188,7 +195,7 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "";
                         },
                         show: function (data) {
-                            if ( baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2' || baseController.currentModel.modelName == 'riesgo')
+                            if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2' || baseController.currentModel.modelName == 'riesgo')
                                 return data.row.estatus_id == 1;
                         },
                         click: function (data) {
@@ -451,7 +458,7 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "";
                         },
                         show: (data) => {
-                            if ( baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion')
+                            if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion')
                                 return data.row.estatus_id == 1;
                             return true
                         },
@@ -488,7 +495,7 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "";
                         },
                         show: function (data) {
-                            if ( baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
+                            if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
                                 return data.row.estatus_id == 1;
 
                             if (typeof auditoria_lista_correctiva !== "undefined")

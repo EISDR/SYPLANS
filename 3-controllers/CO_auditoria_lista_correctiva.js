@@ -6,7 +6,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     auditoria_lista_correctiva.headertitle = "Asignar acciones de Mejora";
     auditoria_lista_correctiva.group_caracteristica = auditoria_lista_correctiva.session.groups[0] ? auditoria_lista_correctiva.session.groups[0].caracteristica : "";
     auditoria_lista_correctiva.Checked = false;
-    auditoria_lista_correctiva.check_responsables = function (){
+    auditoria_lista_correctiva.check_responsables = function () {
         if (typeof riesgo != "undefined") {
             if (riesgo) {
                 if (typeof riesgo !== 'not defined') {
@@ -36,7 +36,8 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                                 let lista_correctiva_id = [];
                                 for (var i of result.data) {
                                     lista_correctiva_id.push(i.id)
-                                };
+                                }
+                                ;
                                 auditoria_lista_correctiva.fixFilters = [
                                     {
                                         field: 'riesgo',
@@ -50,7 +51,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                                 setTimeout(function () {
                                     auditoria_lista_correctiva.refresh();
                                 }, 100)
-                            }else{
+                            } else {
                                 auditoria_lista_correctiva.fixFilters = [
                                     {
                                         field: 'id',
@@ -59,7 +60,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                                 ];
                                 setTimeout(function () {
                                     auditoria_lista_correctiva.refresh();
-                                },100)
+                                }, 100)
                             }
                         });
                     }
@@ -67,8 +68,8 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             }
         }
     }
-        //auditoria_lista_correctiva.destroyForm = false;
-        //auditoria_lista_correctiva.permissionTable = "tabletopermission";
+    //auditoria_lista_correctiva.destroyForm = false;
+    //auditoria_lista_correctiva.permissionTable = "tabletopermission";
     RUNCONTROLLER("auditoria_lista_correctiva", auditoria_lista_correctiva, $scope, $http, $compile);
     auditoria_lista_correctiva.formulary = async function (data, mode, defaultData, view) {
         if (auditoria_lista_correctiva !== undefined) {
@@ -84,7 +85,33 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                     }
                 ]
             });
-            auditoria_lista_correctiva.createForm(data, mode, defaultData, view);
+            auditoria_lista_correctiva.createForm(data, mode, defaultData, view, () => {
+                setTimeout(() => {
+
+                    let larealdata = false;
+                    try {
+                        larealdata = JSON.parse(auditoria_lista_correctiva.causa);
+                    } catch (e) {
+
+                    }
+                    auditoria_lista_correctiva.mind = new MindElixir({
+                        el: '#map',
+                        direction: MindElixir.LEFT,
+                        // or set as data that is return from `.getAllData()`
+                        // data: larealdata,
+                        draggable: true, // default true
+                        contextMenu: true, // default true
+                        toolBar: true, // default true
+                        nodeMenu: true, // default true
+                        keypress: true, // default true
+                    });
+                    if (larealdata)
+                        auditoria_lista_correctiva.mind.init(larealdata);
+                    else
+                        auditoria_lista_correctiva.mind.init(MindElixir.new('Raíz'));
+                }, 1000);
+            });
+
             auditoria_lista_correctiva.selectQueries['estatus_id'] = [
                 {
                     field: 'rol',
@@ -289,7 +316,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             await auditoria_lista_correctiva.files();
             auditoria_lista_correctiva.refreshAngular();
         }
-        if(!auditoria_lista_correctiva.Checked){
+        if (!auditoria_lista_correctiva.Checked) {
             auditoria_lista_correctiva.check_responsables();
             auditoria_lista_correctiva.Checked = true;
         }
@@ -364,7 +391,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                 }
                 NOTIFY.success("Comentario agregado");
                 MODAL.close();
-                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_auditoria_lista_correctiva', auditVar,auditoria_lista_correctiva.form.oldData);
+                await AUDIT.LOG(AUDIT.ACTIONS.update, 'vw_auditoria_lista_correctiva', auditVar, auditoria_lista_correctiva.form.oldData);
                 auditoria_lista_correctiva.refresh();
                 riesgo_a.refreshAngular();
                 SWEETALERT.stop();
@@ -494,6 +521,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     };
     auditoria_lista_correctiva.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+
+        if (auditoria_lista_correctiva.mind)
+            data.inserting.causa = JSON.stringify(auditoria_lista_correctiva.mind.getAllData());
+
         if (auditoria_lista_correctiva.presupuesto === "") {
             data.inserting.presupuesto = 0;
         }
@@ -523,6 +554,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     };
     auditoria_lista_correctiva.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+
+        if (auditoria_lista_correctiva.mind)
+            data.updating.causa = JSON.stringify(auditoria_lista_correctiva.mind.getAllData());
+
         if (auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) {
             SWEETALERT.show({
                 type: 'error',
@@ -542,7 +577,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     //
     auditoria_lista_correctiva.triggers.table.after.control = function (data) {
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-        if (data == "range_date"){
+        if (data == "range_date") {
             if (typeof riesgo != "undefined") {
                 if (riesgo) {
                     if (typeof riesgo !== 'not defined') {
@@ -552,7 +587,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                         auditoria_lista_correctiva.range_date_min(rango_minimo);
                         auditoria_lista_correctiva.range_date_max(rango_maximo);
                         //cambio placebo
-                        if ( moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
+                        if (moment().format("YYYY") != moment(rango_maximo).format("YYYY")) {
                             auditoria_lista_correctiva.range_date_start(rango_minimo);
                             auditoria_lista_correctiva.range_date_end(rango_minimo);
                         }

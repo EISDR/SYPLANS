@@ -1,10 +1,10 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-6 col-md-6' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
-                <%- FORM.input('nombre', scope, { trueplaceholder: "Nombre de la Acción de Mejora"}) %>
+            <div class='col-sm-6 col-md-6' ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre de la Acción de Mejora"}) %>
             </div>
-            <div class='col-sm-6 col-md-6' ng-if="<%= scope %>.mamfe || <%= scope%>.RvaR">
+            <div class='col-sm-6 col-md-6' ng-if="<%= scope %>.mamfe || <%= scope %>.RvaR">
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
             <div class='col-sm-6 col-md-6' ng-show="<%= scope %>.form.mode==='new'">
@@ -16,16 +16,19 @@
                         if (riesgo.soyamfe) {
                             <%= scope %>.
                             mamfe = true;
-                            <%= scope %>.RvaR = false;
+                            <%= scope %>.
+                            RvaR = false;
                         } else {
                             <%= scope %>.
                             mamfe = false;
-                            <%= scope %>.RvaR = true;
+                            <%= scope %>.
+                            RvaR = true;
                         }
                     } else {
                         <%= scope %>.
                         mamfe = false;
-                        <%= scope %>.RvaR = false;
+                        <%= scope %>.
+                        RvaR = false;
                     }
                 </script>
             </div>
@@ -40,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'>
                 <%- FORM.select('departamento', scope, {
                     column: 'name',
                     table: 'departamento',
@@ -61,7 +64,7 @@
                     }
                 }) %>
             </div>
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'>
                 <%- FORM.select('responsable', scope, {
                     column: 'name',
                     text: "item.completo",
@@ -84,7 +87,8 @@
             <div class='col-sm-4 col-md-4' ng-show="false">
                 <%- FORM.datetime('ejecucion', scope, {label: 'Fecha de Ejecución', label_custom: true}) %>
             </div>
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope%>.RvaR ? "col-sm-3" : "col-md-4"}}' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'
+                 ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
                 <%- FORM.daterange('range_date', scope, {
                     from: "fecha_inicio",
                     to: "fecha_fin",
@@ -92,11 +96,15 @@
                     label: "Fecha inicio / Fecha fin"
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.mamfe && !<%= scope%>.RvaR">
+            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
                 <%- FORM.money('presupuesto', scope, {label: 'Presupuesto'}) %>
             </div>
+            <div class="col-sm-12">
+                <label>Causa Raíz de esta acción de mejora</label>
+                <div id="map"></div>
+            </div>
         </div>
-        <div class="row" ng-if="<%= scope %>.mamfe || <%= scope%>.RvaR">
+        <div class="row" ng-if="<%= scope %>.mamfe || <%= scope %>.RvaR">
             <div class='col-sm-8 col-md-8'>
                 <%- FORM.daterange('range_date', scope, {
                     from: "fecha_inicio",
@@ -107,7 +115,8 @@
             </div>
         </div>
         <div class="row" ng-show="false">
-            <div class='col-sm-12 col-md-12' ng-if="(<%= scope %>.mamfe || <%= scope %>.RvaR) && <%= scope %>.estatus==4">
+            <div class='col-sm-12 col-md-12'
+                 ng-if="(<%= scope %>.mamfe || <%= scope %>.RvaR) && <%= scope %>.estatus==4">
                 <%- FORM.textarea('accion_implantada', scope, {
                     trueplaceholder: "Acción Implmentada"
                 }) %>
