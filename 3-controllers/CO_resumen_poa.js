@@ -4,6 +4,7 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
     var user = new SESSION().current();
     resumen_poa.session = user;
     RUNCONTROLLER("resumen_poa", resumen_poa, $scope, $http, $compile);
+    resumen_poa.dontCheck = true;
     resumen_poa.colors = COLOR.secundary;
     resumen_poa.resumen_poa_list = [];
     resumen_poa.fixFilters = [

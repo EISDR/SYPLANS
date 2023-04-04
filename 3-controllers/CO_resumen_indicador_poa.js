@@ -4,7 +4,7 @@ app.controller("resumen_indicador_poa", function ($scope, $http, $compile) {
     var user = new SESSION().current();
     resumen_indicador_poa.session = user;
     RUNCONTROLLER("resumen_indicador_poa", resumen_indicador_poa, $scope, $http, $compile);
-
+    resumen_indicador_poa.dontCheck = true;
     resumen_indicador_poa.fixFilters = [{
         field: "poa",
         value: resumen_indicador_poa.session.poa_id

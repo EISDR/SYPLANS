@@ -10,6 +10,7 @@ app.controller("resumen_indicador_actividad", function ($scope, $http, $compile)
         field: "poa",
         value: resumen_indicador_actividad.session.poa_id
     }];
+    resumen_indicador_actividad.dontCheck = true;
     resumen_indicador_actividad.colors = COLOR.secundary;
     resumen_indicador_actividad.tipeExport = '';
     resumen_indicador_actividad.group_caracteristica = user.groups[0] ? user.groups[0].caracteristica : "";

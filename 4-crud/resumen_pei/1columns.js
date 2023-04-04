@@ -33,24 +33,24 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 label: "Objetivo Estratégico",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? resumen_pei_poa.sp_('d.objetivo_estrategico', index, list)
-                        : resumen_pei_poa.sm_('d.objetivo_estrategico', index, list);
+                    return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico', index, list)
+                        : resumen_pei_poa.sm_('d.eje_estrategico + d.objetivo_estrategico', index, list);
                 }
             },
             estrategia: {
                 label: "Estrategia",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? resumen_pei_poa.sp_('d.estrategia', index, list)
-                        : resumen_pei_poa.sm_('d.estrategia', index, list);
+                    return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list)
+                        : resumen_pei_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list);
                 }
             },
             resultado: {
                 label: "Resultado Esperado",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
-                    return (category === "span") ? resumen_pei_poa.sp_('d.resultado', index, list)
-                        : resumen_pei_poa.sm_('d.resultado', index, list);
+                    return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado', index, list)
+                        : resumen_pei_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado', index, list);
                 }
             },
             indicador: {

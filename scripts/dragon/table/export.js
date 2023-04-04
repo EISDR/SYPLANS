@@ -111,7 +111,7 @@ EXPORT = {
                         goChecked = true;
                 }
                 if (item.id === "orginalformat") {
-                    if (type === "XLS") {
+                    if (type === "XLS" && !$scope.dontCheck) {
                         goChecked = true;
                     }
                 }

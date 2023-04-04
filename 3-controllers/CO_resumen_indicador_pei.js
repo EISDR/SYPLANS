@@ -3,6 +3,7 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
     resumen_indicador_pei.destroyForm = false;
     var user = new SESSION().current();
     RUNCONTROLLER("resumen_indicador_pei", resumen_indicador_pei, $scope, $http, $compile);
+    resumen_indicador_pei.dontCheck = true;
     resumen_indicador_pei.session = user;
     resumen_indicador_pei.colors = COLOR.secundary;
     resumen_indicador_pei.tipeExport = '';

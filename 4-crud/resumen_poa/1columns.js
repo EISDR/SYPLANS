@@ -53,8 +53,8 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
-                    return (category === "span") ? resumen_poa.sp_('d.objetivo_estrategico', index, list)
-                        : resumen_poa.sm_('d.objetivo_estrategico', index, list);
+                    return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico', index, list)
+                        : resumen_poa.sm_('d.eje_estrategico + d.objetivo_estrategico', index, list);
                 }
             },
             estrategia: {
@@ -63,8 +63,8 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
-                    return (category === "span") ? resumen_poa.sp_('d.estrategia', index, list)
-                        : resumen_poa.sm_('d.estrategia', index, list);
+                    return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list)
+                        : resumen_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list);
                 }
             },
             resultado_nombre: {
@@ -73,8 +73,8 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
-                    return (category === "span") ? resumen_poa.sp_('d.resultado_nombre', index, list)
-                        : resumen_poa.sm_('d.resultado_nombre', index, list);
+                    return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre', index, list)
+                        : resumen_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre', index, list);
                 }
             },
             producto: {
@@ -82,8 +82,8 @@ DSON.keepmerge(CRUD_resumen_poa, {
                     return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
                 },
                 rowspan: function (index, list, category) {
-                    return (category === "span") ? resumen_poa.sp_('d.producto', index, list)
-                        : resumen_poa.sm_('d.producto', index, list);
+                    return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre + d.producto', index, list)
+                        : resumen_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre + d.producto', index, list);
                 }
             },
             actividad: {
