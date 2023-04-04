@@ -805,8 +805,8 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
             indicador_poa.form.readonly = {};
 
             indicador_poa.createForm(data, mode, defaultData,undefined, function(){
-                indicador_poa.tipo_meta_old = indicador_pei.tipo_meta;
-                indicador_poa.direccion_meta_old = indicador_pei.direccion_meta;
+                indicador_poa.tipo_meta_old = indicador_poa.tipo_meta;
+                indicador_poa.direccion_meta_old = indicador_poa.direccion_meta;
             });
 
             indicador_poa.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;

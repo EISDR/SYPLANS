@@ -20,6 +20,7 @@ VALIDATION = DSON.merge(VALIDATION, {
             };
         },
         meta_alcanzada_indicador: function (array, field, default_value, current_value, callback) {
+            debugger
             if (callback){
                 let array_value = array.filter(d=> {
                     return d.valor_alcanzado
