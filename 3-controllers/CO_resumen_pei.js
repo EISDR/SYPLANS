@@ -10,7 +10,11 @@ app.controller(
         var animation1 = new ANIMATION();
         resumen_pei.session = user;
 
-
+        resumen_pei.fixFilters = [
+            {
+                "field": "compania",
+                "value": user.compania_id
+            }];
         resumen_pei.resumen_pei_get = async function () {
             animation1.loading(`#tabs_resumen`, "", ``, '120');
             resumen_pei.resumen_pei_list = await BASEAPI.listp('resumen_pei', {

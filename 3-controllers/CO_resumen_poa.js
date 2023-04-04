@@ -6,6 +6,11 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
     RUNCONTROLLER("resumen_poa", resumen_poa, $scope, $http, $compile);
     resumen_poa.colors = COLOR.secundary;
     resumen_poa.resumen_poa_list = [];
+    resumen_poa.fixFilters = [
+        {
+            "field": "compania",
+            "value": user.compania_id
+        }];
     resumen_poa.tipeExport = '';
     indicador_poa_periodo_list = [];
     resumen_poa.group_caracteristica = user.groups[0] ? user.groups[0].caracteristica : "";

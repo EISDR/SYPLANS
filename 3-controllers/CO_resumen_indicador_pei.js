@@ -8,7 +8,11 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
     resumen_indicador_pei.tipeExport = '';
     resumen_indicador_pei.resumen_indicador_pei_list = [];
     resumen_indicador_pei.headerBody_list = [];
-
+    resumen_indicador_pei.fixFilters = [
+        {
+            "field": "compania",
+            "value": user.compania_id
+        }];
     resumen_indicador_pei.tipo_meta_list = [];
     resumen_indicador_pei.direccion_meta_list = [];
     resumen_indicador_pei.indicador_pei_ano_list = [];
