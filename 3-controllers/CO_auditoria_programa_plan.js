@@ -1128,7 +1128,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             if (auditoria_programa_plan.participantes_list.data) {
                 if (auditoria_programa_plan.participantes_list.data.length > 0) {
                     auditoria_programa_plan.soyparticipe = auditoria_programa_plan.real_participantes_list.data.filter(d => {
-                        return d.id == auditoria_programa_plan.session.id
+                        return d.id == auditoria_programa_plan.session.cargo
                     }).length > 0;
                 }
             }
