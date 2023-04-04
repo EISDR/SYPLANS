@@ -1,1 +1,31 @@
 <%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<div class="col-sm-12" id="lala" style="display: none">
+    <h3>Causa Raíz de esta acción de mejora</h3>
+    <div id="map"></div>
+</div>
+<script>
+    setTimeout(() => {
+
+        let larealdata = false;
+        try {
+            larealdata = JSON.parse(auditoria_lista_correctiva.dataForView.causa);
+        } catch (e) {
+
+        }
+        if (larealdata) {
+            $("#lala").show();
+            auditoria_lista_correctiva.mind = new MindElixir({
+                el: '#map',
+                direction: MindElixir.LEFT,
+                // or set as data that is return from `.getAllData()`
+                // data: larealdata,
+                draggable: true, // default true
+                contextMenu: false, // default true
+                toolBar: true, // default true
+                nodeMenu: false, // default true
+                keypress: false, // default true
+            });
+            auditoria_lista_correctiva.mind.init(larealdata);
+        }
+    }, 1000);
+</script>
