@@ -17,7 +17,7 @@
                             table: "vw_procesos",
                             icon: {class: "archive"},
                             truelabel: "Procesos a Auditar",
-                            condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
+                            condition: "(item.mapa_proceso == auditoria_programa_plan.mapa_id) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
                             // parent: {
                             //     model: 'eje_estrategico',
                             //     myfield: 'id',
@@ -36,7 +36,7 @@
                             table: "vw_procesos",
                             icon: {class: "archive"},
                             truelabel: "Procesos a Auditar",
-                            condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
+                            condition: "(item.mapa_proceso == auditoria_programa_plan.mapa_id ) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null && auditoria_programa_plan.auditoria_plan_proceso.indexOf(item.id+'')===-1))",
                             // parent: {
                             //     model: 'eje_estrategico',
                             //     myfield: 'id',
