@@ -11,8 +11,8 @@ app.controller("resumen_indicador_pei", function ($scope, $http, $compile) {
     resumen_indicador_pei.headerBody_list = [];
     resumen_indicador_pei.fixFilters = [
         {
-            "field": "poa",
-            "value": user.poa_id
+            "field": "pei",
+            "value": user.pei_id
         }];
     resumen_indicador_pei.tipo_meta_list = [];
     resumen_indicador_pei.direccion_meta_list = [];

@@ -9,8 +9,8 @@ app.controller("resumen_poa", function ($scope, $http, $compile) {
     resumen_poa.resumen_poa_list = [];
     resumen_poa.fixFilters = [
         {
-            "field": "pei",
-            "value": user.pei_id
+            "field": "poa",
+            "value": user.poa_id
         }];
     resumen_poa.tipeExport = '';
     indicador_poa_periodo_list = [];
