@@ -24,7 +24,7 @@ app.controller("vw_procesos_v2", function ($scope, $http, $compile) {
     vw_procesos_v2.triggers.table.after.load = async function (records) {
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
         vw_procesos_v2.fileSI = [];
-        vw_procesos_v2.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_drp', 'proceso', 'nombre', 'id');
+        vw_procesos_v2.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_mp', 'proceso', 'nombre', 'id');
         vw_procesos_v2.runMagicOneToMany('proc_ele', 'procesos_elemento', 'proceso', 'nombre', 'id');
         vw_procesos_v2.runMagicOneToMany('proc_ind', 'vw_indicador_generico_v2', 'registro', 'nombre_indicador', 'id');
         for (var items of records.data) {

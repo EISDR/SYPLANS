@@ -569,7 +569,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
         procesos.triggers.table.after.load = async function (records) {
             //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
             procesos.fileSI = [];
-            procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados', 'proceso', 'nombre', 'id');
+            procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_mp', 'proceso', 'nombre', 'id');
             procesos.setPermission("add", false);
             for (var items of records.data) {
                 procesos.files = () => new Promise(async (resolve, reject) => {
