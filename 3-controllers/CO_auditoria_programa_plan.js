@@ -1409,13 +1409,20 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
     auditoria_programa_plan.add_documento_save = function () {
         VALIDATION.save(auditoria_programa_plan, async function () {
             auditoria_programa_plan.auditoria_plan_documentos_asociados.push(auditoria_programa_plan.nuevo_documento);
-            BASEAPI.insert('auditoria_programa_plan_documentos_asociados', {
+            BASEAPI.insertID('auditoria_programa_plan_documentos_asociados', {
                 programa_plan: auditoria_programa_plan.id,
                 documento_asociado: auditoria_programa_plan.nuevo_documento,
                 from_recoleccion: 1
-            }, function(result){
-                auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
-                MODAL.close()
+            }, "","",function(result){
+                if (result.data.data.length > 0) {
+                    BASEAPI.insert('auditoria_programa_plan_documentos_asociados_responsables', {
+                        usuario: auditoria_programa_plan.session.id,
+                        programa_plan_documentos_asociados: result.data.data[0].id
+                    }, function (result) {
+                        auditoria_programa_plan.form.loadDropDown('auditoria_plan_documentos_asociados')
+                        MODAL.close()
+                    });
+                }
             });
         }, ['nuevo_documento']);
     }
