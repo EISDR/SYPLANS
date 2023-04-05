@@ -12,8 +12,8 @@ app.controller(
 
         resumen_pei.fixFilters = [
             {
-                "field": "compania",
-                "value": user.compania_id
+                "field": "pei",
+                "value": user.pei_id
             }];
         resumen_pei.resumen_pei_get = async function () {
             animation1.loading(`#tabs_resumen`, "", ``, '120');
