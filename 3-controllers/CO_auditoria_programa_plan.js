@@ -141,6 +141,32 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
             }
         }
     }
+    auditoria_programa_plan.getMapaProceso = async function (callback) {
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
+            where: [
+                {
+                    field: "compania",
+                    value: auditoria_programa_plan.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": auditoria_programa_plan.session.institucion_id ? "=" : "is",
+                    "value": auditoria_programa_plan.session.institucion_id ? auditoria_programa_plan.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
+                }
+            ]
+        });
+        if (mapaData) {
+            auditoria_programa_plan.mapa_id = mapaData.id;
+        }
+        if (callback)
+            callback();
+    }
     // auditoria_programa_plan.destroyForm = false;
     //auditoria_programa_plan.permissionTable = "tabletopermission";
     RUNCONTROLLER("auditoria_programa_plan", auditoria_programa_plan, $scope, $http, $compile);
@@ -1060,6 +1086,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 ],
             });
             auditoria_programa_plan.lista_documentos_creados = auditoria_programa_plan.lista_documentos_creados.data;
+            await auditoria_programa_plan.getMapaProceso();
             auditoria_programa.getPrograma();
             if (auditoria_programa_plan.form.mode === 'new') {
                 delete auditoria_programa_plan.id;

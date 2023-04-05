@@ -332,7 +332,7 @@
                     table: "vw_procesos",
                     icon: {class: "archive"},
                     truelabel: "Procesos a Auditar",
-                    condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && ((item.active == 1 && item.estatus_id == 3) && item.solicitado_eliminar == null)",
+                    condition: "(item.mapa_proceso == auditoria_programa_plan.mapa_id ) && ((item.active == 1 && item.estatus_id == 3) && (item.solicitado_eliminar == null))",
                     get: {
                         table: 'auditoria_programa_plan_proceso',
                         fieldFrom: 'id',
@@ -433,7 +433,7 @@
                     table: "vw_procesos",
                     icon: {class: "archive"},
                     truelabel: "Procesos a Auditar",
-                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && ((item.active == 1 && item.estatus_id == 3) && item.solicitado_eliminar == null)",
+                    condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && ((item.active == 1 && item.estatus_id == 3) && (item.mapa_proceso == auditoria_programa_plan.mapa_id && item.solicitado_eliminar == null))",
                     get: {
                         table: 'auditoria_programa_plan_proceso',
                         fieldFrom: 'id',
