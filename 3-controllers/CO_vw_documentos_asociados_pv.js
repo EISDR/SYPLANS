@@ -22,7 +22,7 @@ app.controller("vw_documentos_asociados_pv", function ($scope, $http, $compile) 
     RUN_B("vw_documentos_asociados_pv", vw_documentos_asociados_pv, $scope, $http, $compile);
     vw_documentos_asociados_pv.get_documentos = async function(){
         animation.loading(`.subcontent`, "", ``, '200', undefined, true);
-        vw_documentos_asociados_pv.documentos_list = await BASEAPI.listp('vw_documentos_asociados',{
+        vw_documentos_asociados_pv.documentos_list = await BASEAPI.listp('vw_documentos_asociados_mp',{
             limit: 0,
             where: [
                 {
@@ -258,7 +258,6 @@ app.controller("vw_documentos_asociados_pv", function ($scope, $http, $compile) 
 
     };
     vw_documentos_asociados_pv.verFile = function (key, row) {
-        console.log(row, "Coñazo")
         if (key != "archivo")
             return;
 
