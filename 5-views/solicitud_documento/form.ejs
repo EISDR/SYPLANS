@@ -315,7 +315,7 @@
                             truelabel: "Proceso",
                             text: "item.nombre",
                             icon: {class: "archive"},
-                            condition: "(item.procesos_categoria == solicitud_documento.proceso_categoria && item.estatus != '3') && (item.active)"
+                            condition: "(item.procesos_categoria == solicitud_documento.proceso_categoria && (item.estatus != '4' && item.estatus != '3') ) && (item.active)"
                         }) %>
                     </div>
                     <div class='col-sm-12 col-md-3' ng-if="!solicitud_documento.session.institucion">
