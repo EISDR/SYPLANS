@@ -73,6 +73,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     RUNCONTROLLER("auditoria_lista_correctiva", auditoria_lista_correctiva, $scope, $http, $compile);
     auditoria_lista_correctiva.formulary = async function (data, mode, defaultData, view) {
         if (auditoria_lista_correctiva !== undefined) {
+            delete auditoria_lista_correctiva.causa;
             RUN_B("auditoria_lista_correctiva", auditoria_lista_correctiva, $scope, $http, $compile);
             auditoria_lista_correctiva.form.modalWidth = ENUM.modal.width.full;
             auditoria_lista_correctiva.form.readonly = {};
