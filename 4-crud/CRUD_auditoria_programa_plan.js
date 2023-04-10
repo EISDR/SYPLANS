@@ -12,7 +12,6 @@ CRUD_auditoria_programa_plan.esalgo = (row) => {
 CRUD_auditoria_programa_plan.esDocumentoResponsables = (row) => {
     let session = new SESSION().current();
     let usuario = session.id;
-    auditoria_programa_plan.viewSoyLider = row.lider == usuario;
     if (row.lista_documentos_responsables) {
         let documentos_responsables = JSON.parse(row.lista_documentos_responsables);
         if (documentos_responsables.indexOf(usuario + "") !== -1)
@@ -1162,6 +1161,7 @@ Los auditores que estarán participando serán :
                     data.$scope.mi_id = data.row.id;
                     data.$scope.my_true_estatus = data.row.estatus;
                     data.$scope.dataForWork = data.row;
+                    data.$scope.viewSoyLider = data.row.lider == new SESSION().current().id;
                     var auditoria_auditores = await BASEAPI.listp('vw_auditoria_programa_plan_equipotrabajo', {
                         limit: 0,
                         where: [
