@@ -211,7 +211,7 @@ app.controller("dashboard", function ($scope, $http, $compile) {
                 dashboard.Mactividades = "en ejecución";
                 break;
             case "ejecutado":
-                dashboard.Mactividades = "completados";
+                dashboard.Mactividades = "ejecutado";
                 break;
             case "detenidas":
                 dashboard.Mactividades = "detenidos";

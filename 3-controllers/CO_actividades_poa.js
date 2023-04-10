@@ -455,9 +455,9 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                 "value": dashboard./**/poabushin
                             },
                             {
-                                "field": "estatus_actividad",
-                                "operator": "=",
-                                "value": ENUM_2.actividad_poa_estatus.Completada
+                                "field": "presupuesto_consumido",
+                                "operator": ">",
+                                "value": 0
                             },
                             {
                                 "field": "tempid",
@@ -485,8 +485,8 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                 'connector': 'AND'
                             },
                             {
-                                "field": "presupuesto_consumido",
-                                "operator": "=",
+                                "field": "presupuesto_real_no",
+                                "operator": ">",
                                 "value": `0`,
                                 "close": ")",
                             },
@@ -736,9 +736,9 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                 "value": notificacion./**/poabushin || notificacion.poadd
                             },
                             {
-                                "field": "estatus_actividad",
-                                "operator": "=",
-                                "value": ENUM_2.actividad_poa_estatus.Completada
+                                "field": "presupuesto_consumido",
+                                "operator": ">",
+                                "value": 0
                             },
                             {
                                 "field": "tempid",
@@ -766,8 +766,8 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                 'connector': 'AND'
                             },
                             {
-                                "field": "presupuesto_consumido",
-                                "operator": "=",
+                                "field": "presupuesto_real_no",
+                                "operator": ">",
                                 "value": `0`,
                                 "close": ")",
                             },
@@ -811,63 +811,61 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     if (typeof dashboard_departamento != "undefined") {
         if (typeof dashboard_departamento !== 'not defined') {
             if (dashboard_departamento) {
-                if (paso) {
-                    actividades_poa.fixFilters = [];
-                    if (dashboard_departamento.Mactividades == "completados") {
-                        actividades_poa.fixFilters = [
-                            {
-                                "field": "poa",
-                                "value": dashboard_departamento.poa
-                            },
-                            {
-                                "field": "presupuesto_consumido",
-                                "operator": ">",
-                                "value": `0`
-                            },
-                            {
-                                "field": "departamento",
-                                "value": dashboard_departamento.departamento
-                            },
-                            {
-                                "field": "tempid",
-                                "operator": "is",
-                                "value": "$null"
-                            },
-                        ];
-                        //OR act_apoyo_has_one_complete>0
-                    }
-                    if (dashboard_departamento.Mactividades == "no ejecutado") {
-                        actividades_poa.fixFilters = [
-                            {
-                                "field": "poa",
-                                "value": dashboard_departamento.poa
-                            },
-                            {
-                                "field": "presupuesto",
-                                "operator": ">",
-                                "value": `0`,
-                                "open": "(",
-                                'connector': 'AND'
-                            },
-                            {
-                                "field": "presupuesto_consumido",
-                                "operator": "=",
-                                "value": `0`,
-                                "close": ")",
-                            },
-                            {
-                                "field": "departamento",
-                                "value": dashboard_departamento.departamento
-                            },
-                            {
-                                "field": "tempid",
-                                "operator": "is",
-                                "value": "$null"
-                            },
-                        ];
-                    }
-                    paso = false;
+                actividades_poa.fixFilters = [];
+                if (dashboard_departamento.Mactividades == "completados") {
+                    actividades_poa.fixFilters = [
+                        {
+                            "field": "poa",
+                            "value": dashboard_departamento.poa
+                        },
+                        {
+                            "field": "presupuesto_consumido",
+                            "operator": ">",
+                            "value": `0`
+                        },
+                        {
+                            "field": "departamento",
+                            "value": dashboard_departamento.departamento
+                        },
+                        {
+                            "field": "tempid",
+                            "operator": "is",
+                            "value": "$null"
+                        },
+                    ];
+                    //OR act_apoyo_has_one_complete>0
                 }
+                if (dashboard_departamento.Mactividades == "no ejecutado") {
+                    actividades_poa.fixFilters = [
+                        {
+                            "field": "poa",
+                            "value": dashboard_departamento.poa
+                        },
+                        {
+                            "field": "presupuesto",
+                            "operator": ">",
+                            "value": `0`,
+                            "open": "(",
+                            'connector': 'AND'
+                        },
+                        {
+                            "field": "presupuesto_real_no",
+                            "operator": ">",
+                            "value": `0`,
+                            "close": ")",
+                        },
+                        {
+                            "field": "departamento",
+                            "value": dashboard_departamento.departamento
+                        },
+                        {
+                            "field": "tempid",
+                            "operator": "is",
+                            "value": "$null"
+                        },
+                    ];
+                }
+                paso = false;
             }
         }
     }
