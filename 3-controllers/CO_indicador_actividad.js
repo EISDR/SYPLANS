@@ -190,6 +190,18 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
         indicador_actividad.runMagicManyToMany('caracteristica', "caracteristica_indicador", "indicador_actividad", "id", 'nombre', "caracteristica_indicador_actividad", "caracteristica", "id");
         indicador_actividad.check_poa();
         check_poa_close(indicador_actividad, user);
+        indicador_actividad.tipo_meta_list = await BASEAPI.listp('tipoMeta', {
+            limit: 0,
+            orderby: "id",
+            order: "asc"
+        });
+        indicador_actividad.tipo_meta_list = indicador_actividad.tipo_meta_list.data;
+        indicador_actividad.direccion_meta_list = await BASEAPI.listp('direccionMeta', {
+            limit: 0,
+            orderby: "id",
+            order: "asc"
+        });
+        indicador_actividad.direccion_meta_list = indicador_actividad.direccion_meta_list.data;
         indicador_actividad.columns().metas = {
             label: "metas",
             shorttext: 370,
@@ -404,6 +416,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
     indicador_actividad.formulary = function (data, mode, defaultData) {
         if (indicador_actividad !== undefined) {
             indicador_actividad.initiation = true;
+            var do_once_dp = false;
             indicador_actividad.triggers.table.after.control = function (data) {
                 if (data == 'producto') {
                     if (indicador_actividad.form.selected('producto') !== null) {
@@ -451,6 +464,12 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                         indicador_actividad.form.options.tipo_meta.disabled = true;
                         indicador_actividad.form.loadDropDown('tipo_meta');
 
+                    }
+                }
+                if (data == 'direccion_meta') {
+                    if (mode === "edit" && !do_once_dp) {
+                        do_once_dp = true;
+                        indicador_actividad.oldData_forAudit = indicador_actividad.form.getAudit();
                     }
                 }
                 // if (data == "actividad_monitoreo" && mode != "new") {
@@ -751,6 +770,20 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 if (indicador_actividad)
                     if (indicador_actividad.currentModel)
                         indicador_actividad.currentModel.clicaalgo();
+                indicador_actividad.form.oldData['Nombre'] = indicador_actividad.oldData_forAudit['Nombre'];
+                indicador_actividad.form.oldData['Año'] = indicador_actividad.oldData_forAudit['Año'];
+                indicador_actividad.form.oldData['Año Línea Base'] = indicador_actividad.oldData_forAudit['Año Línea Base'];
+                indicador_actividad.form.oldData['Característica de indicador '] = indicador_actividad.oldData_forAudit['Característica de indicador '];
+                indicador_actividad.form.oldData['Proyecto/Producto'] = indicador_actividad.oldData_forAudit['Proyecto/Producto'];
+                indicador_actividad.form.oldData['Desagregacion_demografica_geografia'] = indicador_actividad.oldData_forAudit['Desagregacion_demografica_geografia'];
+                indicador_actividad.form.oldData['Descripción'] = indicador_actividad.oldData_forAudit['Descripción'];
+                indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta'];
+                indicador_actividad.form.oldData['Fuente'] = indicador_actividad.oldData_forAudit['Fuente'];
+                indicador_actividad.form.oldData['Medio de verificación'] = indicador_actividad.oldData_forAudit['Medio de verificación'];
+                indicador_actividad.form.oldData['Método cálculo'] = indicador_actividad.oldData_forAudit['Método cálculo'];
+                indicador_actividad.form.oldData['Observación'] = indicador_actividad.oldData_forAudit['Observación'];
+                indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta']
+                indicador_actividad.form.oldData['Tipo de dato de la meta'] = indicador_actividad.oldData_forAudit['Tipo de dato de la meta']
             };
 
             indicador_actividad.form.readonly = {};

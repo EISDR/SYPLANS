@@ -208,6 +208,18 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         indicador_poa.columns().metas = {
             label: "metas", shorttext: 370, sorted: false, order: "asc", sortable: false, export: false
         };
+        indicador_poa.tipo_meta_list = await BASEAPI.listp('tipoMeta', {
+            limit: 0,
+            orderby: "id",
+            order: "asc"
+        });
+        indicador_poa.tipo_meta_list = indicador_poa.tipo_meta_list.data;
+        indicador_poa.direccion_meta_list = await BASEAPI.listp('direccionMeta', {
+            limit: 0,
+            orderby: "id",
+            order: "asc"
+        });
+        indicador_poa.direccion_meta_list = indicador_poa.direccion_meta_list.data;
         $('.has-colspan').attr('rowspan', 3);
         $('.has-colspan').css('vertical-align', 'middle');
         BASEAPI.listp('vw_indicador_poa_periodo', {
@@ -419,6 +431,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
     indicador_poa.formulary = function (data, mode, defaultData) {
         if (indicador_poa !== undefined) {
             indicador_poa.initiation = true;
+            var do_once_dp = false;
             indicador_poa.triggers.table.after.control = function (data) {
                 if (data == 'producto') {
                     if (indicador_poa.form.selected('producto') !== null) {
@@ -465,6 +478,12 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                     $(".subcontainer1").html('');
                     indicador_poa.getIMesNew();
                     indicador_poa.initiation = false;
+                }
+                if (data == 'producto') {
+                    if (mode === "edit" && !do_once_dp) {
+                        do_once_dp = true;
+                        indicador_poa.oldData_forAudit = indicador_poa.form.getAudit();
+                    }
                 }
             };
             indicador_poa.triggers.table.after.close = function () {
@@ -800,6 +819,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 delete indicador_poa.yadata;
                 if (indicador_poa.clicaalgo)
                     indicador_poa.clicaalgo();
+                indicador_poa.form.oldData['Nombre'] = indicador_poa.oldData_forAudit['Nombre'];
+                indicador_poa.form.oldData['Año'] = indicador_poa.oldData_forAudit['Año'];
+                indicador_poa.form.oldData['Año Línea Base'] = indicador_poa.oldData_forAudit['Año Línea Base'];
+                indicador_poa.form.oldData['Característica de indicador '] = indicador_poa.oldData_forAudit['Característica de indicador '];
+                indicador_poa.form.oldData['Proyecto/Producto'] = indicador_poa.oldData_forAudit['Proyecto/Producto'];
+                indicador_poa.form.oldData['Desagregacion_demografica_geografia'] = indicador_poa.oldData_forAudit['Desagregacion_demografica_geografia'];
+                indicador_poa.form.oldData['Descripción'] = indicador_poa.oldData_forAudit['Descripción'];
+                indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta'];
+                indicador_poa.form.oldData['Fuente'] = indicador_poa.oldData_forAudit['Fuente'];
+                indicador_poa.form.oldData['Medio de verificación'] = indicador_poa.oldData_forAudit['Medio de verificación'];
+                indicador_poa.form.oldData['Método cálculo'] = indicador_poa.oldData_forAudit['Método cálculo'];
+                indicador_poa.form.oldData['Observación'] = indicador_poa.oldData_forAudit['Observación'];
+                indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta']
+                indicador_poa.form.oldData['Tipo de dato de la meta'] = indicador_poa.oldData_forAudit['Tipo de dato de la meta']
             };
 
             indicador_poa.form.readonly = {};

@@ -133,7 +133,6 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
                 indicador_pei.refreshAngular();
             }
         });
-
     };
     if (!new SESSION().current().intersectorial) {
         indicador_pei.fixFilters = [
@@ -192,6 +191,7 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             RUN_B("indicador_pei", indicador_pei, $scope, $http, $compile);
 
             indicador_pei.initiation = true;
+            var do_once_dp = false;
             indicador_pei.triggers.table.after.control = function (data) {
                 if (data == "tipo_meta" && mode != "new" && indicador_pei.initiation) {
                     $(".subcontainer2").html('');
@@ -202,6 +202,12 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
                     $(".subcontainer1").html('');
                     indicador_pei.getIAnoNew();
                     indicador_pei.initiation = false;
+                }
+                if (data == 'resultado') {
+                    if (mode === "edit" && !do_once_dp) {
+                        do_once_dp = true;
+                        indicador_pei.oldData_forAudit = indicador_pei.form.getAudit();
+                    }
                 }
             };
 
@@ -449,7 +455,24 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
                 indicador_pei.applyMasksfalse = false;
                 indicador_pei.refreshAngular();
                 delete indicador_pei.yadata;
-                indicador_pei.currentModel.clicaalgo();
+                indicador_pei.form.oldData['Nombre'] = indicador_pei.oldData_forAudit['Nombre'];
+                indicador_pei.form.oldData['Año'] = indicador_pei.oldData_forAudit['Año'];
+                indicador_pei.form.oldData['Año Línea Base'] = indicador_pei.oldData_forAudit['Año Línea Base'];
+                indicador_pei.form.oldData['Característica de indicador '] = indicador_pei.oldData_forAudit['Característica de indicador '];
+                indicador_pei.form.oldData['Eje_estrategico'] = indicador_pei.oldData_forAudit['Eje_estrategico'];
+                indicador_pei.form.oldData['Objetivo Estratégico'] = indicador_pei.oldData_forAudit['Objetivo Estratégico'];
+                indicador_pei.form.oldData['Estrategia'] = indicador_pei.oldData_forAudit['Estrategia'];
+                indicador_pei.form.oldData['Resultado Esperado'] = indicador_pei.oldData_forAudit['Resultado Esperado'];
+                indicador_pei.form.oldData['Unidad Ejecutora'] = indicador_pei.oldData_forAudit['Unidad Ejecutora'];
+                indicador_pei.form.oldData['Desagregacion_demografica_geografia'] = indicador_pei.oldData_forAudit['Desagregacion_demografica_geografia'];
+                indicador_pei.form.oldData['Descripción'] = indicador_pei.oldData_forAudit['Descripción'];
+                indicador_pei.form.oldData['Dirección de la meta'] = indicador_pei.oldData_forAudit['Dirección de la meta'];
+                indicador_pei.form.oldData['Fuente'] = indicador_pei.oldData_forAudit['Fuente'];
+                indicador_pei.form.oldData['Medio de verificación'] = indicador_pei.oldData_forAudit['Medio de verificación'];
+                indicador_pei.form.oldData['Método cálculo'] = indicador_pei.oldData_forAudit['Método cálculo'];
+                indicador_pei.form.oldData['Observación'] = indicador_pei.oldData_forAudit['Observación'];
+                indicador_pei.form.oldData['Dirección de la meta'] = indicador_pei.oldData_forAudit['Dirección de la meta']
+                indicador_pei.form.oldData['Tipo de dato de la meta'] = indicador_pei.oldData_forAudit['Tipo de dato de la meta']
             };
 
             indicador_pei.form.readonly = {};

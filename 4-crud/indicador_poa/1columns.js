@@ -389,6 +389,7 @@ DSON.keepmerge(CRUD_indicador_poa, {
                         },
                         click: function (data) {
                             data.$scope.showFuente = false;
+                            data.$scope.departamento = data.row.departamento + '';
                             data.$scope.formulary({
                                 where: [{
                                     field: eval(`CRUD_${data.$scope.modelName}`).table.key,
