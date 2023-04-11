@@ -466,7 +466,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
 
                     }
                 }
-                if (data == 'direccion_meta') {
+                if (data == 'actividades_poa') {
                     if (mode === "edit" && !do_once_dp) {
                         do_once_dp = true;
                         indicador_actividad.oldData_forAudit = indicador_actividad.form.getAudit();
@@ -774,7 +774,8 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 indicador_actividad.form.oldData['Año'] = indicador_actividad.oldData_forAudit['Año'];
                 indicador_actividad.form.oldData['Año Línea Base'] = indicador_actividad.oldData_forAudit['Año Línea Base'];
                 indicador_actividad.form.oldData['Característica de indicador '] = indicador_actividad.oldData_forAudit['Característica de indicador '];
-                indicador_actividad.form.oldData['Proyecto/Producto'] = indicador_actividad.oldData_forAudit['Proyecto/Producto'];
+                indicador_actividad.form.oldData['Producto'] = indicador_actividad.oldData_forAudit['Producto'];
+                indicador_actividad.form.oldData['Actividades'] = indicador_actividad.oldData_forAudit['Actividades'];
                 indicador_actividad.form.oldData['Desagregacion_demografica_geografia'] = indicador_actividad.oldData_forAudit['Desagregacion_demografica_geografia'];
                 indicador_actividad.form.oldData['Descripción'] = indicador_actividad.oldData_forAudit['Descripción'];
                 indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta'];
