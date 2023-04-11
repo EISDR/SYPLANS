@@ -4,6 +4,7 @@ app.controller("dashboard_departamento", function ($scope, $http, $compile) {
     dashboard_indicadores = undefined;
     dashboard_cofiguration = undefined;
     dashboard_presupuesto_barra = undefined;
+    productos_poa = undefined;
     RUNCONTROLLER("dashboard_departamento", dashboard_departamento, $scope, $http, $compile);
     RUN_B("dashboard_departamento", dashboard_departamento, $scope, $http, $compile);
 

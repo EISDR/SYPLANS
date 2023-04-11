@@ -41,16 +41,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
             "field": "poa",
             "value": -1
         }];
-    if (typeof productos_poa != "undefined") {
-        if (typeof productos_poa !== 'not defined') {
-            if (productos_poa) {
-                if (paso) {
-                    actividades_poa.fixFilters = [];
-                }
-                paso = false;
-            }
-        }
-    }
+
     if (typeof dashboard_cofiguration != "undefined") {
         if (dashboard_cofiguration) {
             if (typeof dashboard_cofiguration !== 'not defined') {
@@ -1016,6 +1007,13 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                 field: "poa",
                 value: actividades_poa.session.poa_id
             });
+        }
+        if (typeof productos_poa != "undefined") {
+            if (typeof productos_poa !== 'not defined') {
+                if (productos_poa) {
+                    actividades_poa.fixFilters = [];
+                }
+            }
         }
     }
 

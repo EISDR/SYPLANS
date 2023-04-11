@@ -62,6 +62,12 @@ scope = 'notificacion';
                             value: `%(${notificacion.departamento})%`
                         })
                     }
+                    if (notificacion.poadd !== '[NULL]') {
+                        vw_indicadores_notificacion.fixFilters.push({
+                            field: 'poa',
+                            value: notificacion.poadd
+                        })
+                    }
                     vw_indicadores_notificacion.refresh();
                 };
             </script>

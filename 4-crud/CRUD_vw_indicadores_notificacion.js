@@ -96,13 +96,15 @@ DSON.keepmerge(CRUD_vw_indicadores_notificacion, {
                 format: function (row) {
                     let ponderacion = "";
                     let clase = "";
-                    if (row.cumplidor)
+                    if (row.cumplidor) {
                         if (row.cumplidor.ponderacion)
                             if (row.cumplidor.ponderacion.titulo) {
                                 ponderacion = row.cumplidor.ponderacion.titulo;
                                 clase = `text_${row.cumplidor.ponderacion.id}`;
                             }
-                    return `<span class="${clase}" title="${ponderacion}">${row.cumplidor.cumplimiento}%</span>`;
+                        if (row.cumplidor.cumplimiento)
+                            return `<span class="${clase}" title="${ponderacion}">${row.cumplidor.cumplimiento}%</span>`;
+                    }
                 },
                 sortable: false
             },
