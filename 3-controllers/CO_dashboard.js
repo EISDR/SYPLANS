@@ -1,5 +1,9 @@
 app.controller("dashboard", function ($scope, $http, $compile) {
     dashboard = this;
+    dashboard_departamento = undefined;
+    dashboard_indicadores = undefined;
+    dashboard_cofiguration = undefined;
+    dashboard_presupuesto_barra = undefined;
     RUNCONTROLLER("dashboard", dashboard, $scope, $http, $compile);
     RUN_B("dashboard", dashboard, $scope, $http, $compile);
     dashboard.isloading = true;

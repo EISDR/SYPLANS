@@ -1,6 +1,9 @@
 app.controller("dashboard_indicadores", function ($scope, $http, $compile) {
     dashboard_indicadores = this;
-
+    dashboard = undefined;
+    dashboard_departamento = undefined;
+    dashboard_cofiguration = undefined;
+    dashboard_presupuesto_barra = undefined;
     RUNCONTROLLER("dashboard_indicadores", dashboard_indicadores, $scope, $http, $compile);
     RUN_B("dashboard_indicadores", dashboard_indicadores, $scope, $http, $compile);
     dashboard_indicadores.headertitle = "Indicadores_Producto";
