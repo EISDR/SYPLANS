@@ -66,6 +66,32 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
         data: []
     };
     dashboard_proceso.array_procesos = [];
+    dashboard_proceso.getPrograma = async function (callback) {
+        var auditoriaData = await BASEAPI.firstp('vw_auditoria_programa', {
+            order: "desc",
+            where: [
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 5
+                },
+                {
+                    field: "compania",
+                    value: dashboard_proceso.session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator": dashboard_proceso.session.institucion_id ? "=" : "is",
+                    "value": dashboard_proceso.session.institucion_id ? dashboard_proceso.session.institucion_id : "$null"
+                },
+            ]
+        });
+        if (auditoriaData) {
+            dashboard_proceso.programa_id = auditoriaData.id;
+        }
+        if (callback)
+            callback();
+    };
     dashboard_proceso.getMapaProceso = async function (callback) {
         var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
             order: "desc",
@@ -103,7 +129,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 },
                 {
                     field: "id",
-                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                    value: dashboard_proceso.programa_id ? dashboard_proceso.programa_id : -1
                 }
             ];
         } else {
@@ -119,7 +145,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 },
                 {
                     field: "id",
-                    value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                    value: dashboard_proceso.programa_id ? dashboard_proceso.programa_id : -1
                 }
             ];
         }
@@ -135,7 +161,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
             cerradas: 0,
             canceladas: 0
         };
-        BASEAPI.listp('vw_dashboard_plan_auditoria_proceso', {
+        BASEAPI.listp('vw_dashboard_plan_auditoria', {
             limit: 0,
             orderby: "id",
             order: "asc",
@@ -399,6 +425,7 @@ app.controller("dashboard_proceso", function ($scope, $http, $compile) {
                 callback();
         });
     }
+    dashboard_proceso.getPrograma();
     dashboard_proceso.getMapaProceso();
     dashboard_proceso.getPlanesAuditoria();
     dashboard_proceso.getProcesos();
