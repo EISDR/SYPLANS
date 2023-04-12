@@ -292,21 +292,6 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
             //     },
             // }
             ]
-        },
-        single: [
-            {
-                'table': 'poa',
-                'base': 'poa',
-                'field': 'id',
-                'columns': ['id', 'nombre']
-            },
-
-            {
-                'table': 'razon',
-                'base': 'razon',
-                'field': 'id',
-                'columns': ['id', 'nombre_razon']
-            }
-            ]
+        }
     }
 });
