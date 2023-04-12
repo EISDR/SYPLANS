@@ -41,8 +41,7 @@ app.controller("asignacion_especial_poa", function ($scope, $http, $compile) {
         asignacion_especial_poa.check_date();
     }
     asignacion_especial_poa.check_date = function () {
-        var current_year = moment().format("YYYY");
-        if (parseInt(current_year) > parseInt(session.periodo_poa)){
+        if (session.estado == 0){
             $('.icon-plus-circle2 ').parent().hide();
         }else {
             $('.icon-plus-circle2 ').parent().show();
