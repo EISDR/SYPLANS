@@ -195,6 +195,10 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "";
                         },
                         show: function (data) {
+                            if (typeof riesgo !== "undefined")
+                                if (!riesgo.agrega_acciones)
+                                    return false
+
                             if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2' || baseController.currentModel.modelName == 'riesgo')
                                 return data.row.estatus_id == 1;
                         },
@@ -219,6 +223,10 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return 'edit';
                         },
                         show: (data) => {
+                            if (typeof riesgo !== "undefined")
+                                if (riesgo.agrega_acciones)
+                                    return false
+
                             if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
                                 return false;
 
@@ -254,6 +262,10 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return 'edit';
                         },
                         show: (data) => {
+                            if (typeof riesgo !== "undefined")
+                                if (riesgo.agrega_acciones)
+                                    return false
+
                             if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
                                 return false;
 
@@ -286,13 +298,10 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "eye";
                         },
                         permission: (data) => {
-                            return 'view';
+                            return 'edit';
                         },
                         characterist: (data) => {
                             return "";
-                        },
-                        show: function (data) {
-                            return true
                         },
                         click: function (data) {
                             if (!DSON.oseaX(data.row)) {
@@ -495,6 +504,10 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             return "";
                         },
                         show: function (data) {
+                            if (typeof riesgo !== "undefined")
+                                if (!riesgo.agrega_acciones)
+                                    return false
+
                             if (baseController.currentModel.modelName == 'auditoria_programa_plan_documentos_asociados_listaverificacion' || baseController.currentModel.modelName == 'evento_riesgo_generico2')
                                 return data.row.estatus_id == 1;
 

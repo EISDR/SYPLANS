@@ -160,6 +160,11 @@ DSON.keepmerge(CRUD_auditoria_lista_preventiva, {
                             return "";
                         },
                         show: function (data) {
+                            if (typeof riesgo !== "undefined")
+                                if (!riesgo.agrega_acciones)
+                                    return false
+
+
                             return true;
                         },
                         click: function (data) {
@@ -180,7 +185,7 @@ DSON.keepmerge(CRUD_auditoria_lista_preventiva, {
                             return "eye";
                         },
                         permission: (data) => {
-                            return 'view';
+                            return 'edit';
                         },
                         characterist: (data) => {
                             return "";
@@ -379,6 +384,13 @@ DSON.keepmerge(CRUD_auditoria_lista_preventiva, {
                         },
                         characterist: (data) => {
                             return "";
+                        },
+                        show: (data) => {
+                            if (typeof riesgo !== "undefined")
+                                if (!riesgo.agrega_acciones)
+                                    return false
+
+                            return true;
                         },
                         click: function (data) {
                             SWEETALERT.confirm({

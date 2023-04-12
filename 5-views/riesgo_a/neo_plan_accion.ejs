@@ -1,0 +1,171 @@
+<div class="row"></div>
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="tab-content">
+        <div class="tab-pane active" id="basic">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h3 style="margin-top: 15px;">Información del Riesgo</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 " ng-show="false">
+                            <%- FORM.inputview("id", scope, {
+                                placeholder: "id"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 ">
+                            <%- FORM.inputview("view_entidad", scope, {
+                                placeholder: "Entidad"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 " id="registrodiv">
+                            <%- FORM.inputview("view_registro", scope, {
+                                placeholder: "Nombre"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-3 ">
+                            <%- FORM.inputview("view_riesgo_a", scope, {
+                                placeholder: "Riesgo"
+                            }) %>
+                        </div>
+                        <div class="row" ng-show="false">
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.checkbox('fin_plan_accion', scope, {
+                                    truetext: "¿Fin del plan de acción?"
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-4 col-md-4' ng-show="false">
+                            <%- FORM.inputview('view_nombre', scope, {trueplaceholder: "Nombre"}) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.inputview('view_causa_debilidad', scope, {
+                                placeholder: "Causa o Debilidad"
+                            }) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.inputview('view_consecuencia', scope, {placeholder: "Efecto"}) %>
+                        </div>
+                        <div class='col-sm-4 col-md-4'>
+                            <%- FORM.inputview('view_factor_riesgo', scope, {placeholder: "Factor de Riesgo"}) %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.inputview('view_probabilidad', scope, {
+                                placeholder: "Probabilidad Ponderada",
+                            }) %>
+                        </div>
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.inputview('view_impacto', scope, {
+                                placeholder: "Impacto Ponderado"
+                            }) %>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.textarea('view_supuestos', scope, {
+                                trueplaceholder: "Supuestos",
+                                disabled: true,
+                            }) %>
+                        </div>
+                        <div class='col-sm-6 col-md-6'>
+                            <%- FORM.textarea('view_descripcion', scope, {
+                                trueplaceholder: "Descripción",
+                                disabled: true,
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-show="<%= scope %>.esplan" class="row">
+                <ul class="nav nav-primary nav-tabs primary nav-justified">
+                    <li class="active">
+                        <a href="#AC" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                            <i class="icon-archive position-left"></i>
+                            Acciones Correctivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                    <li ng-if="false">
+                        <a href="#AP" data-toggle="tab" id="tabPEI1" aria-expanded="false">
+                            <i class="icon-archive position-left"></i>
+                            Acciones Preventivas
+                            <i class="border-white  position-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <script>
+                        <%= scope %>.form.mode = 'edit';
+                    </script>
+                    <div class="tab-pane" id="AP" ng-if="false">
+                        <%- FORM.relation("preventivas", scope, {
+                            text: "item.nombre",
+                            table: "auditoria_lista_preventiva",
+                            field: "riesgo",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                    <div class="tab-pane active" id="AC">
+                        <%- FORM.relation("correctivas", scope, {
+                            text: "item.nombre",
+                            table: "auditoria_lista_correctiva",
+                            custombase: 'auditoria_lista_correctiva',
+                            field: "riesgo",
+                            master: null,
+                            icon: {class: "archive"}
+                        }) %>
+                    </div>
+                </div>
+                <div class="modal-footer dragonformfooter" id="btnformfooter_plan" ng-show="<%= scope %>.esplan">
+                    <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+                        <i class="position-right"></i>
+                    </span>
+
+                    <button title="Continuar"
+                            type="button" class="btn bg-primary btn-labeled btn-xs pull-right"
+                            ng-click="riesgo_a.updateAndContinue()">
+                        <b><i class="icon-check"></i></b>
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $( function (){
+        setTimeout(() => {
+            if ($(".dragonformfooter").length < 4) {
+                let btnformfooter_plan = $('#btnformfooter_plan');
+                $('.modal-body').prepend(riesgo_a.returnBuild(btnformfooter_plan.clone()));
+            }
+        }, 1000);
+        if (riesgo_a.esplan){
+            BASEAPI.list('auditoria_lista_correctiva',{
+                limit: 0,
+                order: "desc",
+                where: [
+                    {
+                        field: "riesgo",
+                        value: Matriz_id
+                    }
+                ]
+            },function(result){
+                riesgo_a.list_acciones_correctivas = result.data;
+            });
+        }
+    })
+</script>
+
+
+
+
+

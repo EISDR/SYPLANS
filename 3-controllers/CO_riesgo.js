@@ -6,6 +6,8 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     riesgo.session = new SESSION().current();
     riesgo.domeOnce = false;
     riesgo.esplan = false;
+    if (window.location.href.split('?').length > 3)
+        riesgo.agrega_acciones = window.location.href.split('?')[4] === "create" ? true : window.location.href.split('?')[3] === "create" ? true : false;
     if (window.location.href.split('?').length > 2)
         riesgo.esplan = window.location.href.split('?')[2] === "plan";
 
@@ -915,7 +917,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                             return "";
                         },
                         show: function (data) {
-                            return riesgo.esplan && data.row.condition != "Finalizado";
+                            return (riesgo.esplan && !riesgo.agrega_acciones ) && data.row.condition != "Finalizado";
                         },
                         click: function (data) {
                             Row_id = data.row.riesgo_a_id;
@@ -923,6 +925,69 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                             From_where = 'plan_accion';
 
                             baseController.modal.modalView("riesgo_a/plan_accion_mamfe", {
+                                width: ENUM.modal.width.full,
+                                header: {
+                                    title: 'Plan de Acción del Riesgo: "' + data.row.nombre + '"',
+                                    icon: "hammer-wrench"
+                                },
+                                footer: {
+                                    cancelButton: false
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: 'riesgo_a'
+                                },
+                                event: {
+                                    show: {
+                                        end: function () {
+                                            setTimeout(function () {
+                                                if (typeof riesgo_a !== 'undefined') {
+                                                    if (typeof riesgo_a !== 'not defined') {
+                                                        if (riesgo_a) {
+                                                            riesgo_a.getFromView(data.row);
+                                                            riesgo_a.refreshAngular();
+                                                        }
+                                                    }
+                                                }
+                                            }, 1000)
+                                        }
+                                    }
+                                }
+                            });
+                            BASEAPI.list('riesgo', {
+                                limit: 1
+                            }, function (result) {
+                                data.$scope.refresh();
+                                if (typeof riesgo_a !== 'undefined') {
+                                    if (typeof riesgo_a !== 'not defined') {
+                                        if (riesgo_a) {
+                                            riesgo_a.getFromView(data.row);
+                                        }
+                                    }
+                                }
+                            });
+                            return false;
+                        }
+                    },
+                    {
+                        title: (data) => {
+                            return "Crear Acciones correctivas";
+                        },
+                        icon: (data) => {
+                            return "hammer-wrench";
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            return (riesgo.esplan && riesgo.agrega_acciones) && data.row.condition != "Finalizado";
+                        },
+                        click: function (data) {
+                            Row_id = data.row.riesgo_a_id;
+                            Matriz_id = data.row.id;
+                            From_where = 'plan_accion';
+
+                            baseController.modal.modalView("riesgo_a/neo_plan_accion_mamfe", {
                                 width: ENUM.modal.width.full,
                                 header: {
                                     title: 'Plan de Acción del Riesgo: "' + data.row.nombre + '"',
@@ -1918,7 +1983,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                             return "";
                         },
                         show: function (data) {
-                            return riesgo.esplan && data.row.condicion != 1;
+                            return  (riesgo.esplan && !riesgo.agrega_acciones)  && data.row.condicion != 1;
                         },
                         click: function (data) {
                             Row_id = data.row.riesgo_a_id;
@@ -1926,6 +1991,69 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                             From_where = 'plan_accion';
 
                             baseController.modal.modalView("riesgo_a/plan_accion", {
+                                width: ENUM.modal.width.full,
+                                header: {
+                                    title: 'Plan de Acción del Riesgo: "' + data.row.nombre + '"',
+                                    icon: "hammer-wrench"
+                                },
+                                footer: {
+                                    cancelButton: false
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: 'riesgo_a'
+                                },
+                                event: {
+                                    show: {
+                                        end: function () {
+                                            setTimeout(function () {
+                                                if (typeof riesgo_a !== 'undefined') {
+                                                    if (typeof riesgo_a !== 'not defined') {
+                                                        if (riesgo_a) {
+                                                            riesgo_a.getFromView(data.row);
+                                                            riesgo_a.refreshAngular();
+                                                        }
+                                                    }
+                                                }
+                                            }, 1000)
+                                        }
+                                    }
+                                }
+                            });
+                            BASEAPI.list('riesgo', {
+                                limit: 1
+                            }, function (result) {
+                                data.$scope.refresh();
+                                if (typeof riesgo_a !== 'undefined') {
+                                    if (typeof riesgo_a !== 'not defined') {
+                                        if (riesgo_a) {
+                                            riesgo_a.getFromView(data.row);
+                                        }
+                                    }
+                                }
+                            });
+                            return false;
+                        }
+                    },
+                    {
+                        title: (data) => {
+                            return "Crear Acciones Correctivas";
+                        },
+                        icon: (data) => {
+                            return "hammer-wrench";
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            return  (riesgo.esplan && riesgo.agrega_acciones) && data.row.condicion != 1;
+                        },
+                        click: function (data) {
+                            Row_id = data.row.riesgo_a_id;
+                            Matriz_id = data.row.id;
+                            From_where = 'plan_accion';
+
+                            baseController.modal.modalView("riesgo_a/neo_plan_accion", {
                                 width: ENUM.modal.width.full,
                                 header: {
                                     title: 'Plan de Acción del Riesgo: "' + data.row.nombre + '"',

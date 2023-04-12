@@ -462,6 +462,7 @@
 <script>
     $( function (){
         setTimeout(() => {
+            $('.icon-plus-circle2 ').parent().hide();
             if ($(".dragonformfooter").length < 4) {
                 let btnformfooter_plan = $('#btnformfooter_plan');
                 $('.modal-body').prepend(riesgo_a.returnBuild(btnformfooter_plan.clone()));

@@ -266,7 +266,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                         riesgo_a.list_acciones_correctivas = riesgo.list_acciones_correctivas;
 
                     }
-                    if (riesgo.todasaccionescorrectivas()) {
+                    if (riesgo.todasaccionescorrectivas() && !riesgo.agrega_acciones) {
                         if (MODAL.current())
                             if (MODAL.current().id.indexOf("_view_") !== -1)
                                 return;
