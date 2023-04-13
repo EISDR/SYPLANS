@@ -401,7 +401,7 @@ app.controller("proyecto_item", function ($scope, $http, $compile) {
         proyecto_item.presupuesto_consumido = 0;
         proyecto_item.presupuesto_restante = 0;
         for(var i of proyecto_item.lista_actividades){
-            proyecto_item.presupuesto_consumido += i.presupuesto;
+            proyecto_item.presupuesto_consumido += LAN.money(i.presupuesto).value;
         }
         proyecto_item.presupuesto_restante = proyecto_item.presupuesto_DragonClean - proyecto_item.presupuesto_consumido;
         proyecto_item.presupuesto_total_restante = proyecto_item.presupuesto_restante_calculate();

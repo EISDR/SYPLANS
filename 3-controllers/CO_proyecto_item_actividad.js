@@ -418,7 +418,7 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
                         if (proyecto_item_actividad.form.selected('proyecto_item').presupuesto > 0) {
                             var PY_PR = LAN.money(proyecto_item_actividad.proyecto_item_presupuesto_restante).value;
                             var PA_PR = LAN.money(proyecto_item_actividad.presupuesto).value;
-                            var PA_PRA = proyecto_item_actividad.presupuesto_anterior;
+                            var PA_PRA = LAN.money(proyecto_item_actividad.presupuesto_anterior).value;
 
                             var RESTANTE = proyecto_item_actividad.form.mode === 'new' ?
                                 (PY_PR - PA_PR) :
@@ -437,7 +437,7 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
                     if (proyecto_item.presupuesto_DragonClean > 0) {
                         var PY_PR = LAN.money(proyecto_item.presupuesto_restante).value;
                         var PA_PR = LAN.money(proyecto_item_actividad.presupuesto).value;
-                        var PA_PRA = proyecto_item_actividad.presupuesto_anterior;
+                        var PA_PRA = LAN.money(proyecto_item_actividad.presupuesto_anterior).value;
 
                         var RESTANTE = proyecto_item_actividad.form.mode === 'new' ?
                             (PY_PR - PA_PR) :
@@ -496,7 +496,7 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
         proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
         proyecto_item_actividad.proyecto_item_presupuesto_restante = 0;
         for(var i of proyecto_item_actividad.proyecto_item_lista_actividades){
-            proyecto_item_actividad.proyecto_item_presupuesto_consumido += i.presupuesto;
+            proyecto_item_actividad.proyecto_item_presupuesto_consumido += LAN.money(i.presupuesto).value;
         }
         proyecto_item_actividad.proyecto_item_presupuesto_restante = LAN.money(proyecto_item_actividad.form.selected('proyecto_item').presupuesto).value - proyecto_item_actividad.proyecto_item_presupuesto_consumido;
     }
