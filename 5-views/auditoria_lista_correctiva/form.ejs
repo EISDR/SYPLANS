@@ -87,6 +87,16 @@
             <div class='col-sm-4 col-md-4' ng-show="false">
                 <%- FORM.datetime('ejecucion', scope, {label: 'Fecha de Ejecución', label_custom: true}) %>
             </div>
+            <div class="row" ng-if="<%= scope %>.mamfe || <%= scope %>.RvaR">
+                <div class='col-sm-8 col-md-8'>
+                    <%- FORM.daterange('range_date', scope, {
+                        from: "fecha_inicio",
+                        to: "fecha_fin",
+                        label_custom: true,
+                        label: "Fecha inicio / Fecha fin"
+                    }) %>
+                </div>
+            </div>
             <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'
                  ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
                 <%- FORM.daterange('range_date', scope, {
@@ -104,16 +114,7 @@
                 <div id="map"></div>
             </div>
         </div>
-        <div class="row" ng-if="<%= scope %>.mamfe || <%= scope %>.RvaR">
-            <div class='col-sm-8 col-md-8'>
-                <%- FORM.daterange('range_date', scope, {
-                    from: "fecha_inicio",
-                    to: "fecha_fin",
-                    label_custom: true,
-                    label: "Fecha inicio / Fecha fin"
-                }) %>
-            </div>
-        </div>
+
         <div class="row" ng-show="false">
             <div class='col-sm-12 col-md-12'
                  ng-if="(<%= scope %>.mamfe || <%= scope %>.RvaR) && <%= scope %>.estatus==4">

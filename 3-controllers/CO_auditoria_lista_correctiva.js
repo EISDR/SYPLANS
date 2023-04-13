@@ -582,7 +582,6 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             if (typeof riesgo != "undefined") {
                 if (riesgo) {
                     if (typeof riesgo !== 'not defined') {
-                        auditoria_lista_correctiva.range_date = "";
                         var rango_minimo = moment("01-01-" + riesgo.ano_historico).format("YYYY-MM-DD");
                         var rango_maximo = moment(("01-01-" + moment("01-01-" + riesgo.ano_historico).add(1, 'years').format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
                         auditoria_lista_correctiva.range_date_min(rango_minimo);
