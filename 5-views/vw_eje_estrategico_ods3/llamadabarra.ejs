@@ -5,10 +5,18 @@
             <li dragonlanguage="" style="margin-right: -10px;" title="Refrescar">
                 <a ng-click="<%= scope %>.vw_eje_estrategico_ods3_get();"><i class="icon-rotate-cw3"></i></a>
             </li>
+            <li dragonlanguage="">
+                <button
+                        dragonlanguage="" title="Descargar - Formato de impresión"
+                        ng-click="vw_eje_estrategico_ods3.exportPDF();"
+                        type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                    <i class="icon-printer2"></i>
+                </button>
+            </li>
         </ul>
         <%- include('../../7-plugins/templates/header/end',{scope:scope}); %>
     </div>
-    <div class="subcontent">
+    <div class="subcontent" >
         <%- include('../filter_ID',{scope:scope}); %>
         <script>
             <%= scope %>.disabledepa = true;

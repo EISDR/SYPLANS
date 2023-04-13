@@ -521,7 +521,7 @@ app.controller("vw_eje_estrategico_ods3", function ($scope, $http, $compile) {
 
     vw_eje_estrategico_ods3.exportPDF = function () {
 
-        $("#vw_eje_estrategico_ods3Export").printThis({
+        $("#toprint").printThis({
             importCSS: false,                // import parent page css
             loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
             printDelay: 333,
