@@ -298,6 +298,13 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     dead: true
                 }
             };
+            procesos.fixFilters = [
+                {
+                    "field": "estatus_id",
+                    "operator": "!=",
+                    "value": 4
+                }
+            ];
         } else {
             CRUD_procesos.table.columns = columns = {
                 // dbcolumnname: {

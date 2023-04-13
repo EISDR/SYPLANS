@@ -175,7 +175,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             categorias.forEach(c => {
                 c.procesos = [];
                 vw_procesados.list.forEach(d => {
-                    if (d.categoria_id !== c.id || d.proceso_general === 1)
+                    if (d.categoria_id !== c.id || d.proceso_general === 1 || d.estatus_proceso == 4)
                         return;
                     if (!c.procesos.filter(p => {
                         return p.id === d.proceso_id
@@ -200,7 +200,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                         if (!p.documentos.filter(f => {
                             return f.id === d.documento_id
                         }).length)
-                            if (d.documento_id && !d.documento_general) {
+                            if (d.documento_id && !d.documento_general && d.estatus_documento != 4) {
                                 let tienefile = await vw_procesados.getfile(d.documento_id);
                                 p.documentos.push({
                                     id: d.documento_id,

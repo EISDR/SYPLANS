@@ -123,7 +123,7 @@ app.controller("vw_procesos", function ($scope, $http, $compile) {
     };
     vw_procesos.triggers.table.after.load = function (records) {
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-        vw_procesos.runMagicOneToMany('doc_asoc', 'documentos_asociados', 'proceso', 'nombre', 'id');
+        vw_procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_mp', 'proceso', 'nombre', 'id');
     };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);

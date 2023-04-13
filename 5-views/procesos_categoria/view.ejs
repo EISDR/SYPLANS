@@ -1,9 +1,16 @@
 <%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
 <script>
-    vw_procesos.fixFilters = [{
-        "field": "procesos_categoria",
-        "value": procesos_categoria.dataForView.id
-    }];
+    vw_procesos.fixFilters = [
+        {
+            "field": "procesos_categoria",
+            "value": procesos_categoria.dataForView.id
+        },
+        {
+            "field": "estatus_id",
+            "operator": "!=",
+            "value": 4
+        }
+    ];
 </script>
 <div><br></div>
 <div class="table table-togglable table-framed">

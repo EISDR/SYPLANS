@@ -111,7 +111,7 @@ app.controller("procesos_categoria", function ($scope, $http, $compile) {
     };
     procesos_categoria.triggers.table.after.load = function (records) {
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
-        procesos_categoria.runMagicOneToMany('procesos', 'vw_procesos_grid', 'procesos_categoria', 'nombre', 'id');
+        procesos_categoria.runMagicOneToMany('procesos', 'vw_procesos_grid_view', 'procesos_categoria', 'nombre', 'id');
         if (!procesos_categoria.loaded){
             procesos_categoria.refresh();
             procesos_categoria.loaded = true;
