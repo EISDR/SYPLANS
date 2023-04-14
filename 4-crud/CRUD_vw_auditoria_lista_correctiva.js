@@ -78,6 +78,11 @@ DSON.keepmerge(CRUD_vw_auditoria_lista_correctiva, {
                     return "Departamentos"
                 }
             },
+            cargos_list: {
+                label: () => {
+                    return "Cargos"
+                },
+            },
             responsable_list: {
                 label: function (){
                     return "Responsables"

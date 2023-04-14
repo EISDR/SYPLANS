@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-4" : "col-md-4"}}'>
                 <%- FORM.select('departamento', scope, {
                     column: 'name',
                     table: 'departamento',
@@ -64,12 +64,38 @@
                     }
                 }) %>
             </div>
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-4" : "col-md-4"}}'>
+                <%- FORM.select("cargos", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "cargo",
+                    icon: {class: "archive"},
+                    truelabel: "Cargos",
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active)",
+                    get: {
+                        table: 'auditoria_lista_correctiva_cargo',
+                        fieldFrom: 'id',
+                        fieldTo: 'auditoria_lista_correctiva',
+                        field: 'cargo',
+                    },
+                    // parent: {
+                    //     model: 'eje_estrategico',
+                    //     myfield: 'id',
+                    //     sufield: 'id'
+                    // },
+                })%>
+            </div>
+            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-4" : "col-md-4"}}'>
                 <%- FORM.select('responsable', scope, {
                     column: 'name',
                     text: "item.completo",
                     table: 'vw_usuario',
-                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active && auditoria_lista_correctiva.departamento.indexOf(item.departamento+'')!==-1)",
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active && auditoria_lista_correctiva.check_if_exists(item))",
                     allownew: false,
                     allowedit: false,
                     allowview: false,
@@ -97,7 +123,9 @@
                     }) %>
                 </div>
             </div>
-            <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-3" : "col-md-4"}}'
+        </div>
+        <div class="row">
+            <div class='col-sm-12 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-md-6" : "col-md-4"}}' style="margin-top: 10px"
                  ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
                 <%- FORM.daterange('range_date', scope, {
                     from: "fecha_inicio",
@@ -106,7 +134,7 @@
                     label: "Fecha inicio / Fecha fin"
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3' ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
+            <div class='col-sm-12 col-md-6' ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR" style="margin-top: 10px">
                 <%- FORM.money('presupuesto', scope, {label: 'Presupuesto'}) %>
             </div>
             <div class="col-sm-12">

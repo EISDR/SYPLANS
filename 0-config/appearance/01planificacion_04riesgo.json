@@ -107,8 +107,14 @@
         {
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles?plan",
+          "href": "#riesgo?vw_productos_poa_detalles?plan?create",
           "text": "Plan de Acción"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_productos_poa_detalles?plan",
+          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",
