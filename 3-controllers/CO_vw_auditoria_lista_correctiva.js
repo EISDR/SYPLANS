@@ -85,6 +85,11 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                             return "Departamentos"
                         }
                     },
+                    cargos_list: {
+                        label: function () {
+                            return "Cargos"
+                        },
+                    },
                     responsable_list: {
                         label: function () {
                             return "Responsables"
@@ -630,6 +635,11 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                             return "Departamentos"
                         }
                     },
+                    cargos_list: {
+                        label: function () {
+                            return "Cargos"
+                        },
+                    },
                     responsable_list: {
                         label: function () {
                             return "Responsables"
@@ -1105,7 +1115,29 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                 }
             ];
         }else {
-            BASEAPI.list('vw_auditoria_lista_correctiva',{
+            vw_auditoria_lista_correctiva.cargos_responsables = await  BASEAPI.listp('vw_auditoria_lista_correctiva',{
+                limit:0,
+                join: [
+                    {
+                        "table": "auditoria_lista_correctiva_cargo",
+                        "base": "id",
+                        "field": "auditoria_lista_correctiva",
+                        "columns": ["id","cargo"]
+                    }
+                ],
+                where:[
+                    {
+                        field: "programa_plan",
+                        value: value
+                    },
+                    {
+                        field: "auditoria_lista_correctiva_cargo.cargo",
+                        value: vw_auditoria_lista_correctiva.session.cargo
+                    }
+                ]
+            });
+            vw_auditoria_lista_correctiva.cargos_responsables = vw_auditoria_lista_correctiva.cargos_responsables.data;
+            vw_auditoria_lista_correctiva.usuarios_responsables = await BASEAPI.listp('vw_auditoria_lista_correctiva',{
                 limit:0,
                 join: [
                     {
@@ -1113,7 +1145,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                         "base": "id",
                         "field": "auditoria_lista_correctiva",
                         "columns": ["id","responsable"]
-                    },
+                    }
                 ],
                 where:[
                     {
@@ -1125,27 +1157,26 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                         value: vw_auditoria_lista_correctiva.session.id
                     }
                 ]
-            }, function (result){
-                if (result.data.length > 0){
-                    let lista_correctiva_id = [];
-                    for (var i of result.data){
-                        lista_correctiva_id.push(i.id)
-                    };
-                    vw_auditoria_lista_correctiva.fixFilters = [
-                        {
-                            field: 'programa_plan',
-                            value: vw_auditoria_lista_correctiva.plan,
-                        },
-                        {
-                            "field": "id",
-                            "value":  lista_correctiva_id
-                        }
-                    ];
-                    setTimeout(function(){
-                        vw_auditoria_lista_correctiva.refresh();
-                    },100)
-                }
             });
+            vw_auditoria_lista_correctiva.usuarios_responsables =  vw_auditoria_lista_correctiva.usuarios_responsables.data;
+
+            const cargosResponsables = Array.isArray(vw_auditoria_lista_correctiva.cargos_responsables) ? vw_auditoria_lista_correctiva.cargos_responsables.map(item => item.id) : [];
+            const usuariosResponsables = Array.isArray(vw_auditoria_lista_correctiva.usuarios_responsables) ? vw_auditoria_lista_correctiva.usuarios_responsables.map(item => item.id) : [];
+
+            const idsSinDuplicados = [...new Set([...cargosResponsables, ...usuariosResponsables])];
+            vw_auditoria_lista_correctiva.fixFilters = [
+                {
+                    field: 'programa_plan',
+                    value: vw_auditoria_lista_correctiva.plan,
+                },
+                {
+                    "field": "id",
+                    "value":  idsSinDuplicados
+                }
+            ];
+            setTimeout(function(){
+                vw_auditoria_lista_correctiva.refresh();
+            },100)
         }
         vw_auditoria_lista_correctiva.refresh(async () => {
             if (vw_auditoria_lista_correctiva.plan_object) {
@@ -1380,6 +1411,9 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
         vw_auditoria_lista_correctiva.runMagicManyToMany('departamento_list', 'departamento',
             'auditoria_lista_correctiva', 'id', 'nombre', 'auditoria_lista_correctiva_departamento',
             'departamento', 'id');
+        vw_auditoria_lista_correctiva.runMagicManyToMany('cargos_list', 'cargo',
+            'auditoria_lista_correctiva', 'id', 'nombre', 'auditoria_lista_correctiva_cargo',
+            'cargo', 'id');
         vw_auditoria_lista_correctiva.runMagicManyToMany('responsable_list', 'vw_usuario',
             'auditoria_lista_correctiva', 'id', 'completo', 'auditoria_lista_correctiva_responsable',
             'responsable', 'id');

@@ -131,6 +131,143 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 }
             },
         },
+        filters: {
+            columns: [
+                {
+                    key: 'proyecto_item',
+                    label: 'Proyecto Especial',
+                    type: FILTER.types.relation,
+                    table: 'proyecto_item',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [{
+                            "field": "compania",
+                            "value": new SESSION().current() ? new SESSION().current().compania_id : -1
+                        }],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'nombre',
+                    label: function() {
+                        return 'Actividad'
+                    },
+                    type: FILTER.types.string,
+                    placeholder: 'Actividad'
+                },
+                {
+                    key: 'responsable_id',
+                    label: function() {
+                        return 'Responsable'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'vw_usuario',
+                    value: "id",
+                    text: "item.completo",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": new SESSION().current() ? new SESSION().current().compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'from',
+                    label: 'Fecha Inicio',
+                    type: FILTER.types.date,
+                    placeholder: 'Fecha Inicio'
+                },
+                {
+                    key: 'to',
+                    label: 'Fecha Fin',
+                    type: FILTER.types.date,
+                    placeholder: 'Fecha Fin'
+                },
+                {
+                    key: 'presupuesto',
+                    label: 'Presupuesto',
+                    type: FILTER.types.decimal,
+                    placeholder: 'Presupuesto',
+                    maxlength: 20
+                },
+                {
+                    key: 'avance_porcentaje',
+                    label: 'Procentaje de Avance',
+                    type: FILTER.types.integer,
+                    placeholder: 'Procentaje de Avance',
+                    maxlength: 20
+                },
+                {
+                    key: 'razon',
+                    label: function() {
+                        return 'Evaluación de cierre'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'razon',
+                    value: "id",
+                    text: "item.nombre_razon",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": new SESSION().current() ? new SESSION().current().compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
+                            },
+                            {
+                                "field": "tipo",
+                                "value": 1
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'estatus_id',
+                    label:  function() { return 'Estado' },
+                    type: FILTER.types.relation,
+                    table: 'auditoria_programa_plan_estatus',
+                    value: "code",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "entidad",
+                                "value": 12
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+            ]
+        },
         options: [
             {
                 text: (data) => {

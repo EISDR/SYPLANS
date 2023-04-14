@@ -108,8 +108,14 @@
         {
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_procesos?plan?mamfe",
+          "href": "#riesgo?vw_procesos?plan?mamfe?create",
           "text": "Plan de Acción"
+        },
+        {
+          "modal": "",
+          "icon": "chess",
+          "href": "#riesgo?vw_procesos?plan?mamfe",
+          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",

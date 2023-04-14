@@ -6,38 +6,62 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     auditoria_lista_correctiva.headertitle = "Asignar acciones de Mejora";
     auditoria_lista_correctiva.group_caracteristica = auditoria_lista_correctiva.session.groups[0] ? auditoria_lista_correctiva.session.groups[0].caracteristica : "";
     auditoria_lista_correctiva.Checked = false;
-    auditoria_lista_correctiva.check_responsables = function () {
+    auditoria_lista_correctiva.check_responsables = async function () {
         if (typeof riesgo != "undefined") {
             if (riesgo) {
                 if (typeof riesgo !== 'not defined') {
-                    if (auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.director_general && auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.analista_de_calidad && auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.supervisor_de_calidad) {
-                        BASEAPI.list('vw_auditoria_lista_correctiva_riesgo', {
-                            limit: 0,
-                            join: [
-                                {
-                                    "table": "auditoria_lista_correctiva_responsable",
-                                    "base": "id",
-                                    "field": "auditoria_lista_correctiva",
-                                    "columns": ["id", "responsable"]
-                                },
-                            ],
-                            where: [
-                                {
-                                    field: "riesgo",
-                                    value: riesgo_a.id
-                                },
-                                {
-                                    field: "auditoria_lista_correctiva_responsable.responsable",
-                                    value: auditoria_lista_correctiva.session.id
-                                }
-                            ]
-                        }, function (result) {
-                            if (result.data.length > 0) {
-                                let lista_correctiva_id = [];
-                                for (var i of result.data) {
-                                    lista_correctiva_id.push(i.id)
-                                }
-                                ;
+                    if (!riesgo.agrega_acciones) {
+                        if (auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.director_general && auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.analista_de_calidad && auditoria_lista_correctiva.group_caracteristica != ENUM_2.Grupos.supervisor_de_calidad) {
+                            auditoria_lista_correctiva.cargos_responsables = await BASEAPI.listp('vw_auditoria_lista_correctiva', {
+                                limit: 0,
+                                join: [
+                                    {
+                                        "table": "auditoria_lista_correctiva_cargo",
+                                        "base": "id",
+                                        "field": "auditoria_lista_correctiva",
+                                        "columns": ["id", "cargo"]
+                                    }
+                                ],
+                                where: [
+                                    {
+                                        field: "riesgo",
+                                        value: riesgo_a.id
+                                    },
+                                    {
+                                        field: "auditoria_lista_correctiva_cargo.cargo",
+                                        value: auditoria_lista_correctiva.session.cargo
+                                    }
+                                ]
+                            });
+                            auditoria_lista_correctiva.cargos_responsables = auditoria_lista_correctiva.cargos_responsables.data;
+                            auditoria_lista_correctiva.usuarios_responsables = await BASEAPI.listp('vw_auditoria_lista_correctiva', {
+                                limit: 0,
+                                join: [
+                                    {
+                                        "table": "auditoria_lista_correctiva_responsable",
+                                        "base": "id",
+                                        "field": "auditoria_lista_correctiva",
+                                        "columns": ["id", "responsable"]
+                                    }
+                                ],
+                                where: [
+                                    {
+                                        field: "riesgo",
+                                        value: riesgo_a.id
+                                    },
+                                    {
+                                        field: "auditoria_lista_correctiva_responsable.responsable",
+                                        value: auditoria_lista_correctiva.session.id
+                                    }
+                                ]
+                            });
+                            auditoria_lista_correctiva.usuarios_responsables = auditoria_lista_correctiva.usuarios_responsables.data;
+
+                            const cargosResponsables = Array.isArray(auditoria_lista_correctiva.cargos_responsables) ? auditoria_lista_correctiva.cargos_responsables.map(item => item.id) : [];
+                            const usuariosResponsables = Array.isArray(auditoria_lista_correctiva.usuarios_responsables) ? auditoria_lista_correctiva.usuarios_responsables.map(item => item.id) : [];
+
+                            const idsSinDuplicados = [...new Set([...cargosResponsables, ...usuariosResponsables])];
+                            if (idsSinDuplicados.length > 0) {
                                 auditoria_lista_correctiva.fixFilters = [
                                     {
                                         field: 'riesgo',
@@ -45,12 +69,9 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                                     },
                                     {
                                         "field": "id",
-                                        "value": lista_correctiva_id
+                                        "value": idsSinDuplicados
                                     }
                                 ];
-                                setTimeout(function () {
-                                    auditoria_lista_correctiva.refresh();
-                                }, 100)
                             } else {
                                 auditoria_lista_correctiva.fixFilters = [
                                     {
@@ -58,11 +79,12 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                                         value: -1,
                                     }
                                 ];
-                                setTimeout(function () {
-                                    auditoria_lista_correctiva.refresh();
-                                }, 100)
+
                             }
-                        });
+                            setTimeout(function () {
+                                auditoria_lista_correctiva.refresh();
+                            }, 100)
+                        }
                     }
                 }
             }
@@ -235,6 +257,9 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         auditoria_lista_correctiva.runMagicManyToMany('departamento_list', 'departamento',
             'auditoria_lista_correctiva', 'id', 'nombre', 'auditoria_lista_correctiva_departamento',
             'departamento', 'id');
+        auditoria_lista_correctiva.runMagicManyToMany('cargos_list', 'cargo',
+            'auditoria_lista_correctiva', 'id', 'nombre', 'auditoria_lista_correctiva_cargo',
+            'cargo', 'id');
         auditoria_lista_correctiva.runMagicManyToMany('responsable_list', 'vw_usuario',
             'auditoria_lista_correctiva', 'id', 'completo', 'auditoria_lista_correctiva_responsable',
             'responsable', 'id');
@@ -529,10 +554,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         if (auditoria_lista_correctiva.presupuesto === "") {
             data.inserting.presupuesto = 0;
         }
-        if (auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) {
+        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0) ) {
             SWEETALERT.show({
                 type: 'error',
-                message: `Debe de agregar al menos un responsable`,
+                message: `Debe de agregar al menos un cargo o persona responsable`,
             });
             let buttons = document.getElementsByClassName("btn btn-labeled");
             for (var item of buttons) {
@@ -559,10 +584,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         if (auditoria_lista_correctiva.mind)
             data.updating.causa = JSON.stringify(auditoria_lista_correctiva.mind.getAllData());
 
-        if (auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) {
+        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0) ) {
             SWEETALERT.show({
                 type: 'error',
-                message: `Debe de agregar al menos un responsable`,
+                message: `Debe de agregar al menos un cargo o persona responsable`,
             });
             let buttons = document.getElementsByClassName("btn btn-labeled");
             for (var item of buttons) {
@@ -626,4 +651,19 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             }
         }
     };
+    auditoria_lista_correctiva.check_if_exists = function (item) {
+        const departmentList = auditoria_lista_correctiva.departamento.map(String);
+        const jobList = auditoria_lista_correctiva.cargos.map(String);
+
+        switch (true) {
+            case (departmentList.length > 0 && jobList.length > 0):
+                return departmentList.includes(String(item.departamento)) && jobList.includes(String(item.cargo));
+            case (departmentList.length > 0):
+                return departmentList.includes(String(item.departamento));
+            case (jobList.length > 0):
+                return jobList.includes(String(item.cargo));
+            default:
+                return false;
+        }
+    }
 });
