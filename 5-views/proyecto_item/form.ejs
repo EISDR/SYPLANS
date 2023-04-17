@@ -302,6 +302,53 @@
         proyecto_item_actividad.setPermission("edit", true);
         proyecto_item_actividad.setPermission("remove", true);
     }
+
+    $(function(){
+        $('#inputproyecto_item_ods').on('select2:unselecting', async function (e) {
+            var data = e.params.args.data;
+            try {
+                var mods_actividades = await BASEAPI.listp('vw_Proyecto_item_actividad_mods_ods', {
+                    where: [
+                        {
+                            field: "ods",
+                            value: data.id
+                        },
+                        {
+                            field: proyecto_item.form.mode == 'edit' ? 'proyecto_item' : 'tempid',
+                            value: proyecto_item.form.mode == 'edit' ? proyecto_item.id : proyecto_item.proyecto_item_actividad
+                        }
+                    ]
+                });
+                mods_actividades = mods_actividades.data;
+                const mods_actividadesIds = mods_actividades.map(mod => mod.id);
+                console.log(mods_actividadesIds)
+                if (mods_actividadesIds.length > 0){
+                    $("[name='proyecto_item_ods']").select2("close");
+                    SWEETALERT.confirm({
+                        message: `<p>Existen Actividades relacionadas a Metas correspondientes al ODS que intenta Borrar.</p> <p>¿Desea continuar con la acción de Borrar?</p>`,
+                        confirm: async function () {
+                            BASEAPI.deleteall('proyecto_actividad_mods', [
+                                {
+                                    field: "id",
+                                    value: mods_actividadesIds
+                                }
+                            ], function(result){
+                                proyecto_item_actividad.refresh();
+                                SWEETALERT.stop();
+                            });
+                        },
+                        cancel: async function () {
+                            proyecto_item.ods.push(data.id);
+                            proyecto_item.form.loadDropDown('ods')
+                        }
+                    });
+                }
+            }catch (error){
+                console.error(error)
+                // mensaje de error coño
+            }
+        });
+    })
 </script>
 
 
