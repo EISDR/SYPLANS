@@ -65,7 +65,7 @@
                     truelabel: 'Documento Asociado',
                     icon: {class: "archive"},
                     text: 'item.nombre',
-                    condition: "((item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && item.estatus_id == 2)"
+                    condition: "((item.compania == solicitud_documento.session.compania_id && item.institucion == $null) && (item.estatus_id == 2 && item.mapa_proceso == solicitud_documento.mapa_id))"
                     //self: true,
                     // allownull: false,
                     //refresh: true,
@@ -109,7 +109,7 @@
                     truelabel: 'Documento Asociado',
                     icon: {class: "archive"},
                     text: 'item.nombre',
-                    condition: "( item.institucion == solicitud_documento.session.institucion_id && item.estatus == 2)"
+                    condition: "( item.institucion == solicitud_documento.session.institucion_id && (item.estatus_id == 2 && item.mapa_proceso == solicitud_documento.mapa_id))"
                     //self: true,
                     // allownull: false,
                     //refresh: true,
