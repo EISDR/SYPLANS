@@ -268,8 +268,8 @@
   "tipo_riesgo":"Tipos de Riesgos",
   "riesgo_aSIGNALprocesosSIGNALmamfe":"Creación de Modo de Fallos (AMFE)",
   "riesgoSIGNALvw_procesosSIGNALmamfe":"Creación de Riesgo (AMFE)",
-  "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfe":"Acciones de Mejoras (AMFE)",
-  "riesgoSIGNALvw_productos_poa_detallesSIGNALplan":"Plan de Acción (VAR)",
+  "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfe":"Trabajar Acciones de Mejoras (AMFE)",
+  "riesgoSIGNALvw_productos_poa_detallesSIGNALplan":"Trabajar Acciones de mejora (VAR)",
   "vw_resultanteSIGNALprocesoSIGNALmamfe":"Matriz Resultante (AMFE)",
   "riesgo_probabilidadSIGNALprocesoSIGNALmamfe":"Ocurrencias (AMFE)",
   "riesgo_impactoSIGNALprocesoSIGNALmamfe":"Gravedad (AMFE)",
@@ -301,5 +301,7 @@
   "aacontroldemandogSIGNALmodolistaDASHproceso":"Reporte Cumplimiento proceso",
   "vw_auditoria_lista_correctivaSIGNALevento":"Seguimiento de Acciones de mejora",
   "riesgo_historicoSIGNALvar": "Gestiones de Riesgo Pasadas",
-  "dashboard_proceso": "Dashboard - proceso"
+  "dashboard_proceso": "Dashboard - proceso",
+  "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfeSIGNALcreate":"Plan de Acción (AMFE)",
+  "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate":"Plan de Acción (VAR)"
 }

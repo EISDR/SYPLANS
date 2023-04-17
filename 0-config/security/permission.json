@@ -1282,7 +1282,15 @@
         "type": "full",
         "allow": {}
       },
+      "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfeSIGNALcreate": {
+        "type": "full",
+        "allow": {}
+      },
       "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfe": {
+        "type": "full",
+        "allow": {}
+      },
+      "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate": {
         "type": "full",
         "allow": {}
       },
