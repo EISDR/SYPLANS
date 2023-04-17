@@ -166,7 +166,6 @@
           "href": "#",
           "text": "Evaluación y Carga de Evidencias"
         },
-
         {
           "menus": [
             {
@@ -462,6 +461,20 @@
               "icon": "pie-chart7",
               "href": "#indicador_generico?vw_denominacion_pnpsp_gg",
               "text": "Indicadores IPN"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#monitoreo_generico?vw_denominacion_pnpsp_gg",
+              "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#indicador_generico_poa?vw_denominacion_pnpsp_gg",
+              "text": "Evaluación y carga de evidencias"
             },
             {
               "menus": "",
