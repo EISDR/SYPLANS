@@ -264,21 +264,21 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 $scope.$watch("solicitud_documento.objetivo", function (value) {
                     var rules = [];
                     //rules here
-                    rules.push(VALIDATION.general.required(value));
+                    // rules.push(VALIDATION.general.required(value));
                     rules.push(VALIDATION.yariel.maliciousCode(value));
                     VALIDATION.validate(solicitud_documento, 'objetivo', rules);
                 });
                 $scope.$watch("solicitud_documento.alcance", function (value) {
                     var rules = [];
                     //rules here
-                    rules.push(VALIDATION.general.required(value));
+                    // rules.push(VALIDATION.general.required(value));
                     rules.push(VALIDATION.yariel.maliciousCode(value));
                     VALIDATION.validate(solicitud_documento, 'alcance', rules);
                 });
                 $scope.$watch("solicitud_documento.marco_legal", function (value) {
                     var rules = [];
                     //rules here
-                    rules.push(VALIDATION.general.required(value));
+                    // rules.push(VALIDATION.general.required(value));
                     rules.push(VALIDATION.yariel.maliciousCode(value));
                     VALIDATION.validate(solicitud_documento, 'marco_legal', rules);
                 });
@@ -287,31 +287,13 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                     //rules here
                     // rules.push(VALIDATION.general.required(value));
                     // rules.push(VALIDATION.yariel.maliciousCode(value));
-                    if (solicitud_documento.trabaja_marco_legal) {
-                        VALIDATION.validate(solicitud_documento, "marco_legal", [{
-                            valid: !DSON.oseaX(solicitud_documento.marco_legal),
-                            message: MESSAGE.i('validations.Fieldisrequired'),
-                            type: VALIDATION.types.error,
-                            visible: false
-                        }]);
-                        solicitud_documento.refreshAngular()
-                    } else {
-                        setTimeout(function () {
-                            VALIDATION.validate(solicitud_documento, "marco_legal", [{
-                                valid: true,
-                                message: MESSAGE.i('validations.Fieldisrequired'),
-                                type: VALIDATION.types.error,
-                                visible: false
-                            }]);
-                        }, 500)
-                    }
 
                     VALIDATION.validate(solicitud_documento, 'trabaja_marco_legal', rules);
                 });
                 $scope.$watch("solicitud_documento.resultado_esperado", function (value) {
                     var rules = [];
                     //rules here
-                    rules.push(VALIDATION.general.required(value));
+                    // rules.push(VALIDATION.general.required(value));
                     rules.push(VALIDATION.yariel.maliciousCode(value));
                     VALIDATION.validate(solicitud_documento, 'resultado_esperado', rules);
                 });
