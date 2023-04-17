@@ -305,11 +305,12 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 VALIDATION.validate(solicitud_documento, 'nombre_documento', rules);
             });
             solicitud_documento.triggers.table.after.control = function (data) {
-                if ((data === "estatus" && solicitud_documento.form.mode === "new") && !do_me_once) {
-                    console.log("entre")
-                    solicitud_documento.estatus = '1';
-                    solicitud_documento.my_true_estatus = 1;
-                    solicitud_documento.form.loadDropDown('estatus')
+                if (data === "estatus" && !do_me_once) {
+                    if (solicitud_documento.form.mode === "new") {
+                        solicitud_documento.estatus = '1';
+                        solicitud_documento.my_true_estatus = 1;
+                    }
+                    solicitud_documento.form.loadDropDown('estatus');
                     do_me_once = true;
                 }
                 if (data === "tipo_documento") {
