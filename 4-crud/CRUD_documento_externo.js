@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_documento_externo, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_documento_externo, {
     table: {
         //width: "width:3000px;",
-        //view: 'vw_documento_externo',
+        view: 'vw_documento_externo',
         //method: 'documento_externo',
         //limits: [10, 50, 100, 0],
         //report: true,
@@ -57,6 +57,11 @@ DSON.keepmerge(CRUD_documento_externo, {
                 label: () => {
                     return "Fecha Creación"
                 }, formattype: ENUM.FORMAT.date
+            },
+            estatus_nombre: {
+                label: function () {
+                    return "Estatus"
+                },
             },
             archivo: {
                 label: function () {
@@ -143,6 +148,38 @@ DSON.keepmerge(CRUD_documento_externo, {
                 menus: [
                     {
                         text: (data) => {
+                            return MESSAGE.i('actions.Work');
+                        },
+                        icon: (data) => {
+                            return "hammer-wrench";
+                        },
+                        permission: (data) => {
+                            return 'edit';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            if (typeof documento_externo !== "undefined")
+                                return documento_externo.allowAction("Trabajar", "documento_externo", data.row.estatus);
+                        },
+                        click: function (data) {
+                            data.$scope.my_true_estatus = data.row.estatus;
+
+                            data.$scope.formulary({
+                                where: [{
+                                    field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                                    value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                                }]
+                            }, FORM.modes.edit, {},"form_work");
+                            data.$scope.form.titles = {
+                                edit: `Trabajar Documento Externo "${data.row.nombre}"`
+                            };
+                            return false;
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return MESSAGE.i('actions.Edit');
                         },
                         icon: (data) => {
@@ -155,7 +192,8 @@ DSON.keepmerge(CRUD_documento_externo, {
                             return "";
                         },
                         show: function (data) {
-                            return true;
+                            if (typeof documento_externo !== "undefined")
+                                return documento_externo.allowAction("Editar", "documento_externo", data.row.estatus);
                         },
                         click: function (data) {
                             data.$scope.formulary({
@@ -179,6 +217,10 @@ DSON.keepmerge(CRUD_documento_externo, {
                         },
                         characterist: (data) => {
                             return "";
+                        },
+                        show: (data) =>{
+                            if (typeof documento_externo !== "undefined")
+                                return documento_externo.allowAction("Ver", "documento_externo", data.row.estatus);
                         },
                         click: function (data) {
                             if (!DSON.oseaX(data.row)) {
@@ -343,6 +385,10 @@ DSON.keepmerge(CRUD_documento_externo, {
                         characterist: (data) => {
                             return "";
                         },
+                        show: (data) =>{
+                            if (typeof documento_externo !== "undefined")
+                                return documento_externo.allowAction("Auditoria", "documento_externo", data.row.estatus);
+                        },
                         click: function (data) {
                             if (!DSON.oseaX(data.row)) {
                                 data.$scope.dataForView = data.row;
@@ -374,6 +420,10 @@ DSON.keepmerge(CRUD_documento_externo, {
                         },
                         characterist: (data) => {
                             return "";
+                        },
+                        show: (data) =>{
+                            if (typeof documento_externo !== "undefined")
+                                return documento_externo.allowAction("Eliminar", "documento_externo", data.row.estatus);
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
