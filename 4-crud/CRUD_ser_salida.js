@@ -2,7 +2,7 @@ CRUD_ser_salida = {};
 DSON.keepmerge(CRUD_ser_salida, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_ser_salida, {
     table: {
-        //width: "width:3000px;",
+        width: "width:1800px;",
         view: 'vw_ser_salida',
         //method: 'ser_salida',
         //limits: [10, 50, 100, 0],
@@ -80,6 +80,11 @@ DSON.keepmerge(CRUD_ser_salida, {
             fecha_queja: {
                 label: () => {
                     return "Fecha";
+                }, formattype: ENUM.FORMAT.date
+            },
+            fecha_compromiso: {
+                label: () => {
+                    return "Fecha límite del compromiso";
                 }, formattype: ENUM.FORMAT.date
             }
         },

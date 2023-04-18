@@ -152,20 +152,29 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-6 col-md-6'>
                 <%- FORM.date('fecha_queja', scope, {
                     placeholder: "Fecha Creación de la Queja",
                     label_custom: true,
                     label: "Fecha Creación de la Queja"
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.date('fecha_compromiso', scope, {
+                    placeholder: "Fecha limite del compromiso",
+                    label_custom: true,
+                    label: "Fecha limite del compromiso"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-4'>
                 <%- FORM.input('nombre_queja', scope, {trueplaceholder: "Nombre del Solicitante"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-4'>
                 <%- FORM.phone('telefono_queja', scope, {placeholder: "Teléfono"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-4'>
                 <%- FORM.input('correo_queja', scope, {trueplaceholder: "Correo"}) %>
             </div>
         </div>
@@ -176,7 +185,7 @@
                     placeholder: "Detalle del Reporte\t"
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3' ng-if="ser_salida.trabajando">
+            <div class='col-sm-3 col-md-3' style="margin-top: 5px" ng-if="ser_salida.trabajando">
                 <%- FORM.file("evidencia", scope, {
                     title: 'Ver Evidencia',
                     maxfiles: 99,
@@ -189,7 +198,7 @@
                     // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3' ng-if="!ser_salida.trabajando">
+            <div class='col-sm-3 col-md-3' style="margin-top: 5px" ng-if="!ser_salida.trabajando">
                 <%- FORM.file("evidencia", scope, {
                     title: 'Subir Evidencia',
                     maxfiles: 999,
@@ -260,6 +269,7 @@
     if (ser_salida.mode === "new") {
         ser_salida.ser_salida_estatus = "1";
         ser_salida.fecha_queja = moment(new Date()).format("YYYY/MM/DD");
+        ser_salida.fecha_compromiso = moment(new Date()).format("YYYY/MM/DD");
         ser_salida.form.loadDropDown("ser_salida_estatus");
     }
     if (!ser_salida.trabajando) {
@@ -268,7 +278,7 @@
         ser_salida.form.options.ser_salida_estatus.disabled = false;
     }
 
-    ["ser_salida_tipo", "nombre", "esproceso", "ser_servicio", "proceso", "nivel_urgencia", "nivel_impacto", "fecha_queja", "nombre_queja", "telefono_queja", "correo_queja", "detalle_reporte", "descripcion", "evidencia"].forEach(field => {
+    ["ser_salida_tipo", "nombre", "esproceso", "ser_servicio", "proceso", "nivel_urgencia", "nivel_impacto", "fecha_queja", "fecha_compromiso", "nombre_queja", "telefono_queja", "correo_queja", "detalle_reporte", "descripcion", "evidencia"].forEach(field => {
 
         if (ser_salida.form)
             if (ser_salida.form.options)

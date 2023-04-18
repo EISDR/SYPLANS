@@ -161,6 +161,12 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
                 //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(ser_salida, 'comentario_cerrar', rules);
             });
+            $scope.$watch("ser_salida.fecha_compromiso", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(ser_salida, 'fecha_compromiso', rules);
+            });
         }
     };
     ser_salida.currentNivel = () => {
@@ -210,15 +216,39 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
     //     return true;
     // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    ser_salida.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        const format = "YYYY-MM-DD";
+        if(moment(ser_salida.fecha_compromiso, format).isBefore(moment(ser_salida.fecha_queja, format))){
+            SWEETALERT.show({
+                type: "error",
+                message: "La fecha límite de compromiso no puede ser menor a la fecha de creación de la queja",
+            })
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
+        resolve(true);
+    });
     //
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     // };
     ser_salida.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        const format = "YYYY-MM-DD";
+        if(moment(ser_salida.fecha_compromiso, format).isBefore(moment(ser_salida.fecha_queja, format))){
+            SWEETALERT.show({
+                type: "error",
+                message: "La fecha límite de compromiso no puede ser menor a la fecha de creación de la queja",
+            })
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
         if (ser_salida.estatusbefore !== ser_salida.ser_salida_estatus) {
             let elcoment = data.updating.comentario + "";
             data.updating.comentario = "";
