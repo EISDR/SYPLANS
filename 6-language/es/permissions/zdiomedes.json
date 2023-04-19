@@ -304,5 +304,6 @@
   "dashboard_proceso": "Dashboard - proceso",
   "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfeSIGNALcreate":"Plan de Acción (AMFE)",
   "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate":"Plan de Acción (VAR)",
+  "vw_auditoria_lista_correctiva":"Trabajar de Acciones de mejora (Auditoría)",
   "vw_auditoria_lista_correctivaSIGNALevaluate":"Seguimiento de Acciones de mejora"
 }
