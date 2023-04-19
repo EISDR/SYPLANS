@@ -246,6 +246,7 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             data.$scope.ver = false;
                             data.$scope.estatus_id = data.row.estatus_id + '';
                             data.$scope.departamento_name = data.row.departamento_list;
+                            data.$scope.cargo_name = data.row.cargos_list;
                             data.$scope.responsable_name = data.row.responsable_list;
                             data.$scope.formulary({
                                 where: [{
@@ -284,8 +285,9 @@ DSON.keepmerge(CRUD_auditoria_lista_correctiva, {
                             data.$scope.my_true_estatus = data.row.estatus_id;
                             data.$scope.ver = false;
                             data.$scope.estatus_id = data.row.estatus_id + '';
-                            data.$scope.departamento_name = data.row.departamento_name + '';
-                            data.$scope.responsable_name = data.row.responsable_name + '';
+                            data.$scope.departamento_name = data.row.departamento_list + '';
+                            data.$scope.cargo_name = data.row.cargos_list + '';
+                            data.$scope.responsable_name = data.row.departamento_list + '';
                             data.$scope.formulary({
                                 where: [{
                                     field: eval(`CRUD_${data.$scope.modelName}`).table.key,

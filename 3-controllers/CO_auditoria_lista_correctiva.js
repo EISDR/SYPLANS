@@ -516,9 +516,48 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.open = function (data) {
-    //     //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
-    // };
+    auditoria_lista_correctiva.triggers.table.after.open = async function (data) {
+        auditoria_lista_correctiva.lista_responsables = await BASEAPI.listp('auditoria_lista_correctiva_responsable',{
+            limit: 0,
+            where: [
+                {
+                    field: "auditoria_lista_correctiva",
+                    value: auditoria_lista_correctiva.id
+                }
+            ]
+        });
+        auditoria_lista_correctiva.lista_responsables = auditoria_lista_correctiva.lista_responsables.data;
+        auditoria_lista_correctiva.lista_cargos = await BASEAPI.listp('auditoria_lista_correctiva_cargo',{
+            limit: 0,
+            where: [
+                {
+                    field: "auditoria_lista_correctiva",
+                    value: auditoria_lista_correctiva.id
+                }
+            ]
+        });
+        auditoria_lista_correctiva.lista_cargos = auditoria_lista_correctiva.lista_cargos.data;
+        if (auditoria_lista_correctiva.lista_responsables.length === 0){
+            BASEAPI.insert('auditoria_lista_correctiva_responsable', {
+                responsable: auditoria_lista_correctiva.session.id,
+                auditoria_lista_correctiva: auditoria_lista_correctiva.id
+            }, async function(result){
+                auditoria_lista_correctiva.responsable.push(auditoria_lista_correctiva.session.id + '')
+                auditoria_lista_correctiva.form.loadDropDown('responsable');
+            })
+        };
+        if (auditoria_lista_correctiva.lista_cargos.length === 0){
+            BASEAPI.insert('auditoria_lista_correctiva_cargo', {
+                cargo: auditoria_lista_correctiva.session.cargo,
+                auditoria_lista_correctiva: auditoria_lista_correctiva.id
+            }, async function(result){
+                auditoria_lista_correctiva.cargos.push(auditoria_lista_correctiva.session.cargo + '')
+                auditoria_lista_correctiva.form.loadDropDown('cargos');
+            })
+        }
+        await auditoria_lista_correctiva.get_list_data()
+        //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
+    };
     auditoria_lista_correctiva.triggers.table.before.open = () => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.open ${$scope.modelName}`);
         if (auditoria_lista_correctiva.form.mode === "new")
@@ -528,6 +567,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     //
     auditoria_lista_correctiva.triggers.table.after.close = function (data) {
         auditoria_lista_correctiva.Checked = false;
+        auditoria_lista_correctiva.refresh();
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
@@ -665,5 +705,26 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             default:
                 return false;
         }
+    }
+    auditoria_lista_correctiva.get_list_data = async function(){
+        auditoria_lista_correctiva.responsables = await BASEAPI.listp('vw_usuario', {
+            limit: 0,
+            where: [
+                {
+                    field: "id",
+                    value: auditoria_lista_correctiva.responsable
+                }
+            ]
+        });
+        auditoria_lista_correctiva.cargos_list = await BASEAPI.listp('cargo', {
+            limit: 0,
+            where: [
+                {
+                    field: "id",
+                    value: auditoria_lista_correctiva.cargos
+                }
+            ]
+        });
+        auditoria_lista_correctiva.refreshAngular();
     }
 });

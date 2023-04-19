@@ -1584,6 +1584,49 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
             }
         }
     };
+    vw_auditoria_lista_correctiva.triggers.table.after.open = async function (data) {
+        vw_auditoria_lista_correctiva.lista_responsables = await BASEAPI.listp('auditoria_lista_correctiva_responsable',{
+            limit: 0,
+            where: [
+                {
+                    field: "auditoria_lista_correctiva",
+                    value: vw_auditoria_lista_correctiva.id
+                }
+            ]
+        });
+        vw_auditoria_lista_correctiva.lista_responsables = vw_auditoria_lista_correctiva.lista_responsables.data;
+        vw_auditoria_lista_correctiva.lista_cargos = await BASEAPI.listp('auditoria_lista_correctiva_cargo',{
+            limit: 0,
+            where: [
+                {
+                    field: "auditoria_lista_correctiva",
+                    value: vw_auditoria_lista_correctiva.id
+                }
+            ]
+        });
+        vw_auditoria_lista_correctiva.lista_cargos = vw_auditoria_lista_correctiva.lista_cargos.data;
+        if (vw_auditoria_lista_correctiva.lista_responsables.length === 0){
+            BASEAPI.insert('auditoria_lista_correctiva_responsable', {
+                responsable: vw_auditoria_lista_correctiva.session.id,
+                auditoria_lista_correctiva: vw_auditoria_lista_correctiva.id
+            }, async function(result){
+                vw_auditoria_lista_correctiva.responsable.push(vw_auditoria_lista_correctiva.session.id + '')
+                vw_auditoria_lista_correctiva.form.loadDropDown('responsable');
+                await vw_auditoria_lista_correctiva.get_list_data()
+            })
+        };
+        if (vw_auditoria_lista_correctiva.lista_cargos.length === 0){
+            BASEAPI.insert('auditoria_lista_correctiva_cargo', {
+                cargo: vw_auditoria_lista_correctiva.session.cargo,
+                auditoria_lista_correctiva: vw_auditoria_lista_correctiva.id
+            }, async function(result){
+                vw_auditoria_lista_correctiva.cargos.push(vw_auditoria_lista_correctiva.session.cargo + '')
+                vw_auditoria_lista_correctiva.form.loadDropDown('cargos');
+                await vw_auditoria_lista_correctiva.get_list_data()
+            })
+        }
+        //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
+    };
     // $scope.triggers.table.after.load = function (records) {
     //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
     // };
@@ -1592,10 +1635,6 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     //     resolve(true);
     // });
     //
-    // vw_auditoria_lista_correctiva.triggers.table.after.open = async function (data) {
-    //
-    //     //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
-    // };
     // $scope.triggers.table.before.open = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.open ${$scope.modelName}`);
     //     resolve(true);
@@ -1604,6 +1643,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     vw_auditoria_lista_correctiva.triggers.table.after.close = function (data) {
         vw_auditoria_lista_correctiva.departamentos = undefined;
         vw_auditoria_lista_correctiva.responsables = undefined;
+        vw_auditoria_lista_correctiva.cargos_list = undefined;
         //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
@@ -1642,5 +1682,35 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
     vw_auditoria_lista_correctiva.allow_estatus = function (estatus){
         let permitidos = [5,8];
         return permitidos.includes(estatus);
+    }
+    vw_auditoria_lista_correctiva.get_list_data = async function(){
+        vw_auditoria_lista_correctiva.departamentos = await BASEAPI.listp('departamento', {
+            limit: 0,
+            where: [
+                {
+                    field: "id",
+                    value: vw_auditoria_lista_correctiva.departamento
+                }
+            ]
+        });
+        vw_auditoria_lista_correctiva.responsables = await BASEAPI.listp('vw_usuario', {
+            limit: 0,
+            where: [
+                {
+                    field: "id",
+                    value: vw_auditoria_lista_correctiva.responsable
+                }
+            ]
+        });
+        vw_auditoria_lista_correctiva.cargos_list = await BASEAPI.listp('cargo', {
+            limit: 0,
+            where: [
+                {
+                    field: "id",
+                    value: vw_auditoria_lista_correctiva.cargos
+                }
+            ]
+        });
+        vw_auditoria_lista_correctiva.refreshAngular();
     }
 });

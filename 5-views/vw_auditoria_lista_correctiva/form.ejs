@@ -49,6 +49,27 @@
                         }) %>
                     </div>
                     <div class='col-sm-4' ng-show="false">
+                        <%- FORM.select("cargos", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "cargo",
+                            icon: {class: "archive"},
+                            truelabel: "Cargos",
+                            condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active)",
+                            get: {
+                                table: 'auditoria_lista_correctiva_cargo',
+                                fieldFrom: 'id',
+                                fieldTo: 'auditoria_lista_correctiva',
+                                field: 'cargo',
+                            },
+                        })%>
+                    </div>
+                    <div class='col-sm-4' ng-show="false">
                         <%- FORM.select('responsable', scope, {
                             column: 'name',
                             text: "item.completo",
@@ -68,7 +89,7 @@
                             }
                         }) %>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-3">
                         <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;"> Departamentos </label>
                         <ol ng-show="vw_auditoria_lista_correctiva.departamentos.data.length > 0" style="">
                             <li ng-repeat="(key,row) in vw_auditoria_lista_correctiva.departamentos.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;">
@@ -76,7 +97,15 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-3">
+                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;"> Cargos </label>
+                        <ol ng-show="vw_auditoria_lista_correctiva.cargos_list.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in vw_auditoria_lista_correctiva.cargos_list.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;">
+                                {{row.nombre}}
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
                         <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;"> Responsables </label>
                         <ol ng-show="vw_auditoria_lista_correctiva.responsables.data.length > 0" style="">
                             <li ng-repeat="(key,row) in vw_auditoria_lista_correctiva.responsables.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;">
@@ -84,7 +113,7 @@
                             </li>
                         </ol>
                     </div>
-                    <div class='col-sm-4 col-md-4'>
+                    <div class='col-sm-4 col-md-3'>
                         <%- FORM.inputview('presupuesto', scope, {trueplaceholder: "Presupuesto"}) %>
                     </div>
                 </div>
@@ -183,26 +212,8 @@
 
     $(function(){
         setTimeout(async function(){
-            vw_auditoria_lista_correctiva.departamentos = await BASEAPI.listp('departamento', {
-                limit: 0,
-                where: [
-                    {
-                        field: "id",
-                        value: vw_auditoria_lista_correctiva.departamento
-                    }
-                ]
-            });
-            vw_auditoria_lista_correctiva.responsables = await BASEAPI.listp('vw_usuario', {
-                limit: 0,
-                where: [
-                    {
-                        field: "id",
-                        value: vw_auditoria_lista_correctiva.responsable
-                    }
-                ]
-            });
-            vw_auditoria_lista_correctiva.refreshAngular();
-        }, 1000)
+            await vw_auditoria_lista_correctiva.get_list_data();
+        },1000)
     })
 </script>
 

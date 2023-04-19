@@ -39,15 +39,67 @@
                             condition: "item.plan_status == auditoria_lista_correctiva.my_true_estatus && item.entidad == 'auditoria_lista_correctiva'"
                         }) %>
                     </div>
+                    <div class='col-sm-4' ng-show="false">
+                        <%- FORM.select("cargos", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "cargo",
+                            icon: {class: "archive"},
+                            truelabel: "Cargos",
+                            condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active)",
+                            get: {
+                                table: 'auditoria_lista_correctiva_cargo',
+                                fieldFrom: 'id',
+                                fieldTo: 'auditoria_lista_correctiva',
+                                field: 'cargo',
+                            },
+                        })%>
+                    </div>
+                    <div class='col-sm-4' ng-show="false">
+                        <%- FORM.select('responsable', scope, {
+                            column: 'name',
+                            text: "item.completo",
+                            table: 'vw_usuario',
+                            condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active)",
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            multiple: true,
+                            get: {
+                                table: 'auditoria_lista_correctiva_responsable',
+                                tableDelete: 'auditoria_lista_correctiva_responsable',
+                                fieldFrom: 'id',
+                                fieldTo: 'auditoria_lista_correctiva',
+                                field: 'responsable'
+                            }
+                        }) %>
+                    </div>
                     <div class='col-sm-4 col-md-4' >
                         <label class="control-label is-visible animate ng-binding">Departamentos</label>
-                        <div ng-bind-html="auditoria_lista_correctiva.departamento_name">
+                        <div style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;" ng-bind-html="auditoria_lista_correctiva.departamento_name">
                         </div>
                     </div>
-                    <div class='col-sm-4 col-md-4'>
-                        <label class="control-label is-visible animate ng-binding">Responsables</label>
-                        <div ng-bind-html="auditoria_lista_correctiva.responsable_name">
-                        </div>
+                    <div class="col-sm-12 col-md-4">
+                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;"> Cargos </label>
+                        <ul ng-show="auditoria_lista_correctiva.cargos_list.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in auditoria_lista_correctiva.cargos_list.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;">
+                                {{row.nombre}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;"> Responsables </label>
+                        <ul ng-show="auditoria_lista_correctiva.responsables.data.length > 0" style="">
+                            <li ng-repeat="(key,row) in auditoria_lista_correctiva.responsables.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; color: #888888 !important;">
+                                {{row.completo}}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -132,17 +184,22 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
-        comentarios_acciones_correctivas.cell.dblselect = function (row) {
-        };
-        if (comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion) {
-            comentarios_acciones_correctivas.setPermission("actions", false);
-            comentarios_acciones_correctivas.setPermission("remove", false);
-        } else {
-            comentarios_acciones_correctivas.setPermission("actions", true);
-            comentarios_acciones_correctivas.setPermission("remove", true);
-        }
-    </script>
+<script type="text/javascript">
+    comentarios_acciones_correctivas.cell.dblselect = function (row) {
+    };
+    if (comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_acciones_correctivas.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion) {
+        comentarios_acciones_correctivas.setPermission("actions", false);
+        comentarios_acciones_correctivas.setPermission("remove", false);
+    } else {
+        comentarios_acciones_correctivas.setPermission("actions", true);
+        comentarios_acciones_correctivas.setPermission("remove", true);
+    }
+    $(function(){
+        setTimeout(async function(){
+            await auditoria_lista_correctiva.get_list_data();
+        },1000)
+    })
+</script>
 
 
 
