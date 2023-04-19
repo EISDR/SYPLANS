@@ -188,7 +188,6 @@ $(document).ready(function () {
             MENU.reseler();
     });
     $(window).bind('hashchange', function () { //detect hash change
-        debugger;
         CHANGINGMENU = true;
         $("body").removeClass("sidebar-mobile-main");
         if(location.href.indexOf("#information/about")===-1){

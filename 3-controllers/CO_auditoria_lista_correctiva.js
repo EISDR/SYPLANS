@@ -134,7 +134,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                         auditoria_lista_correctiva.mind.init(MindElixir.new('Raíz'));
                 }, 1000);
             });
-
+            if (mode === 'new') {
+                console.log("entre")
+                auditoria_lista_correctiva.from_work = false;
+            }
             auditoria_lista_correctiva.selectQueries['estatus_id'] = [
                 {
                     field: 'rol',

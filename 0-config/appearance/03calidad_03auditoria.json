@@ -20,16 +20,30 @@
           "text": "Creación de Planes de Auditoría"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "clippy",
+              "href": "#vw_correctiva",
+              "text": "Creación de Acciones de Mejora"
+            },
+            {
+              "modal": "",
+              "icon": "notebook",
+              "href": "#vw_auditoria_lista_correctiva",
+              "text": "Trabajar Acciones de Mejora"
+            },
+            {
+              "modal": "",
+              "icon": "bookmark4",
+              "href": "#vw_auditoria_lista_correctiva?evaluate",
+              "text": "Seguimiento de Acciones de Mejora"
+            }
+          ],
           "modal": "",
-          "icon": "clippy",
-          "href": "#vw_correctiva",
-          "text": "Creación de Acciones de Mejora"
-        },
-        {
-          "modal": "",
-          "icon": "notebook",
-          "href": "#vw_auditoria_lista_correctiva",
-          "text": "Seguimiento de Acciones de Mejora"
+          "icon": "brain",
+          "href": "#",
+          "text": "Plan de Acción"
         },
         {
           "menus": [
@@ -97,16 +111,30 @@
           "text": "Creación de Planes de Auditoría"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "clippy",
+              "href": "#vw_correctiva",
+              "text": "Creación de Acciones de Mejora"
+            },
+            {
+              "modal": "",
+              "icon": "notebook",
+              "href": "#vw_auditoria_lista_correctiva",
+              "text": "Trabajar Acciones de Mejora"
+            },
+            {
+              "modal": "",
+              "icon": "bookmark4",
+              "href": "#vw_auditoria_lista_correctiva?evaluate",
+              "text": "Seguimiento de Acciones de Mejora"
+            }
+          ],
           "modal": "",
-          "icon": "clippy",
-          "href": "#vw_correctiva",
-          "text": "Creación de Acciones de Mejora"
-        },
-        {
-          "modal": "",
-          "icon": "notebook",
-          "href": "#vw_auditoria_lista_correctiva",
-          "text": "Seguimiento de Acciones de Mejora"
+          "icon": "brain",
+          "href": "#",
+          "text": "Plan de Acción"
         },
         {
           "menus": [
