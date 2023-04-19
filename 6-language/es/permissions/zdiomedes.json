@@ -299,9 +299,10 @@
   "indicador_genericoSIGNALvw_procesos": "Indicadores - proceso",
   "monitoreo_genericoSIGNALvw_procesos":"Monitoreo y Seguimiento - proceso",
   "aacontroldemandogSIGNALmodolistaDASHproceso":"Reporte Cumplimiento proceso",
-  "vw_auditoria_lista_correctivaSIGNALevento":"Seguimiento de Acciones de mejora",
+  "vw_auditoria_lista_correctivaSIGNALevento":"Gestión de plan de acción - Seguimiento de Acciones de mejora ",
   "riesgo_historicoSIGNALvar": "Gestiones de Riesgo Pasadas",
   "dashboard_proceso": "Dashboard - proceso",
   "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfeSIGNALcreate":"Plan de Acción (AMFE)",
-  "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate":"Plan de Acción (VAR)"
+  "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate":"Plan de Acción (VAR)",
+  "vw_auditoria_lista_correctivaSIGNALevaluate":"Seguimiento de Acciones de mejora"
 }

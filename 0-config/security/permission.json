@@ -1918,6 +1918,22 @@
           }
         }
       },
+      "vw_auditoria_lista_correctivaSIGNALevaluate": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "actions": true,
+          "audit": true,
+          "view": true,
+          "comment": true,
+          "work": true,
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          }
+        }
+      },
       "comentarios_acciones_correctivas": {
         "type": "empty",
         "allow": {}
