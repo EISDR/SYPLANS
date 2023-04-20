@@ -84,7 +84,11 @@ app.controller("modulo_notificacion", function ($scope, $http, $compile) {
                     var rules = [];
                     //rules here
                     // rules.push(VALIDATION.general.required(value));
-                    $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i> Editar Notificación: ${value}</h6>`);
+
+                    if (modulo_notificacion.form.mode === "new") {
+                        $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i> Crear Notificación: ${value || ""}</h6>`);
+                    } else
+                        $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i> Editar Notificación: ${value || ""}</h6>`);
                     VALIDATION.validate(modulo_notificacion, 'nombre', rules);
                 });
                 $scope.$watch("modulo_notificacion.descripcion", function (value) {
