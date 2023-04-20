@@ -203,6 +203,7 @@ async function execute() {
         modules.mysql.lacone = PARAMS.mysql.createPool(PARAMS.CONFIG.mysql);
         ladataDB = modules.mysql;
     } else {
+        modules.postgre.lacone = new PARAMS.postgre.Pool(PARAMS.CONFIG.postgre);
         ladataDB = modules.postgre;
     }
     mailFunc = (req) => {
@@ -314,12 +315,13 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
     // }
     for (const notificacion of notificaciones) {
         let registros = await ladataDB.data(`select * from ${notificacion.view}`, PARAMS);
-        let usersByRole = await ladataDB.data(`select * from usuario where profile in(${(notificacion.roles || '0').replaceAll(';', ',')})`, PARAMS);
+        let usersByRole = await ladataDB.data(`select * from usuario where profile in (${(notificacion.roles || '0').replaceAll(';', ',')})`, PARAMS);
         usersByRole = usersByRole.data;
-        let usersByUser = await ladataDB.data(`select * from usuario where id in(${(notificacion.usuarios || '0').replaceAll(';', ',')})`, PARAMS);
+        let usersByUser = await ladataDB.data(`select * from usuario where id in (${(notificacion.usuarios || '0').replaceAll(';', ',')})`, PARAMS);
         usersByUser = usersByUser.data;
         registros = registros.data;
-
+        if(!registros)
+            continue;
         let today = new Date();
         let todayNoTime = todate(dateToString(today));
         let todayFormated = dateToString(today);
