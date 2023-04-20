@@ -1,0 +1,509 @@
+<%- FORM.tabs(scope, [
+    {id: "basic", text: "Datos Básicos", icon: "icon-list3"},
+    {id: "template", text: "Plantilla", icon: "icon-html5"},
+    {id: "fixsend", text: "Envíos Fijos", icon: "icon-mail5"},
+    {id: "keys", text: "Claves", icon: "icon-key"},
+    {id: "advance", text: "Avanzado", icon: "icon-cog2"}
+]) %>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.selectsimple("view", scope, {
+                    label: "Entidad",
+                    value: "code",
+                    data: models.filter(d => d).filter(d => d.indexOf('mdn_') !== -1).map(d => {
+                        return {code: d, name: params.capitalize(d.replace('mdn_', '').replaceAll('_', ' '))}
+                    }),
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+
+            <div class='col-sm-12 col-md-12' ng-show="modulo_notificacion.view">
+                <%- FORM.input('descripcion', scope, {}) %>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="template">
+        <div class="row" ng-show="modulo_notificacion.view!=='[NULL]'">
+            <div class='col-sm-12 col-md-12 '>
+                <div class="remove-input-space form-group-material form-group">
+                    <label class="control-label is-visible animate" style="color:#000000 !important;">Variables:</label>
+                    <div>
+                        <p> {{modulo_notificacion.strFieldsByTable()}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.input('subject', scope, {
+                    trueplaceholder: "Asunto"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.html('template', scope, {
+                    placeholder: "Plantilla del Correo"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.checkbox('masterpage', scope, {
+                    truetext: "Aplicar estilo SYPLANS?"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.checkbox('tambienpush', scope, {
+                    truetext: "También envía notificación Push?"
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12' ng-show="modulo_notificacion.tambienpush">
+                <%- FORM.html('template_push', scope, {
+                    placeholder: "Plantilla para notificación Push"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="modulo_notificacion.view==='[NULL]'">
+            <div class="col-sm-12 col-md-12">
+                <div class="alert bg-warning border-warning alert-styled-left mt-10">
+                    <b>Debe elegir la entidad con la cual trabajará esta notificación para poder configurar la
+                        plantilla.</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="fixsend">
+        <div class="row">
+            <div class="col-sm-10 col-md-10">
+                <%- FORM.select("roles", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    disabled: false,
+                    text: "item.name",
+                    value: "id",
+                    table: "a_clone_group",
+                    icon: {class: "users4"},
+                    truelabel: "Roles fijos a enviar",
+                    get: {
+                        table: 'modulo_notificacion_group',
+                        fieldFrom: 'id',
+                        fieldTo: 'modulo_notificacion',
+                        field: 'a_clone_group'
+                    }
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.selectsimple("destiny_roles", scope, {
+                    label: "Destino",
+                    value: "code",
+                    data: [
+                        {"code": "TO", "name": "Para (To)"},
+                        {"code": "CC", "name": "Copia (CC)"}
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+            <div class="col-sm-10 col-md-10">
+                <%- FORM.select("usuario", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    disabled: false,
+                    text: "item.nombre+' '+item.apellido",
+                    value: "id",
+                    table: "usuario",
+                    icon: {class: "user"},
+                    truelabel: "Usuario fijos a enviar",
+                    get: {
+                        table: 'modulo_notificacion_usuario',
+                        fieldFrom: 'id',
+                        fieldTo: 'modulo_notificacion',
+                        field: 'usuario'
+                    },
+                    condition: "item.compania==modulo_notificacion.session.compania_id"
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.selectsimple("destiny_usuario", scope, {
+                    label: "Destino",
+                    value: "code",
+                    data: [
+                        {"code": "TO", "name": "Para (To)"},
+                        {"code": "CC", "name": "Copia (CC)"}
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+            <div class="col-sm-10 col-md-10">
+                <%- FORM.tags("direct_emails", scope, {
+                    placeholder: "Correos fijos a enviar",
+                    placeholderHolder: "Digite el correo"
+                }) %>
+            </div>
+            <div class='col-sm-2 col-md-2'>
+                <%- FORM.selectsimple("destiny_fix", scope, {
+                    label: "Destino",
+                    value: "code",
+                    data: [
+                        {"code": "TO", "name": "Para (To)"},
+                        {"code": "CC", "name": "Copia (CC)"}
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="keys">
+        <div class="row" ng-show="modulo_notificacion.view!=='[NULL]'">
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("field_code", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "key"},
+                    truelabel: "Variable clave para no repetir envío",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class='col-sm-6 col-md-6'>
+                <%- FORM.selectsimple("disparo_type", scope, {
+                    label: "Tipo de evento que activa la notificación",
+                    value: "code",
+                    data: [
+                        {"code": "fecha", "name": "Por Fecha"},
+                        {"code": "vigencia", "name": "Por Vigencia"},
+                        {"code": "estimado", "name": "Por Tiempo Estimado de Estatus"},
+                        {"code": "code", "name": "Acción en SYPLANS"}
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+        </div>
+
+        <div class="row" ng-show="modulo_notificacion.view!=='[NULL]'">
+            <div class='col-sm-6 col-md-6' ng-show="modulo_notificacion.disparo_type==='code'">
+                <%- FORM.selectsimple("field_action", scope, {
+                    label: "Acción dentro de SYPLANS",
+                    value: "code",
+                    data: [
+                        {"code": "GASNC", "name": "Gestión de Escalamiento - Salidas no Conforme"}
+                    ],
+                    icon: {class: "sphere3"}
+                }) %>
+            </div>
+            <div class="col-sm-3 col-md-3" ng-show="modulo_notificacion.disparo_type==='estimado'">
+                <%- FORM.select("field_entidad", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.nombre",
+                    value: "id",
+                    table: "auditoria_entidad_flujo",
+                    icon: {class: "list"},
+                    truelabel: "Módulo u opción"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='estimado'">
+                <%- FORM.select("field_estatus", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.nombre + ' ('+ item.tiempo_estimado +')'",
+                    value: "id",
+                    table: "auditoria_programa_plan_estatus",
+                    icon: {class: "list"},
+                    truelabel: "Estatus",
+                    condition: "item.entidad==modulo_notificacion.field_entidad && item.tiempo_estimado"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='estimado'">
+                <%- FORM.select("field_estimado", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "calendar"},
+                    truelabel: "Variable que contiene el tiempo transcurrido disparará el envío",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='vigencia'">
+                <%- FORM.select("field_vigencia", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "calendar"},
+                    truelabel: "Variable que contiene la vigencia disparará el envío",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='vigencia'">
+                <%- FORM.select("field_tiempo", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "calendar"},
+                    truelabel: "Variable que contiene el tiempo",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='vigencia'">
+                <%- FORM.selectsimple("field_tiempocondition", scope, {
+                    label: "Condición",
+                    value: "code",
+                    data: [
+                        {"code": "igual", "name": "Cuando sea Igual"},
+                        {"code": "mayor", "name": "Cuando sea Mayor"},
+                        {"code": "menor", "name": "Cuando sea Menor"},
+                        {"code": "mayorigual", "name": "Cuando sea Mayor o Igual"},
+                        {"code": "menorigual", "name": "Cuando sea Menor o Igual"}
+                    ],
+                    icon: {class: "time"}
+                }) %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='fecha'">
+                <%- FORM.select("field_date", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "calendar"},
+                    truelabel: "Variable que contiene la fecha que disparará el envío",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='fecha'">
+                <%- FORM.selectsimple("field_fechacondition", scope, {
+                    label: "Condición",
+                    value: "code",
+                    data: [
+                        {"code": "igual", "name": "Cuando sea Igual"},
+                        {"code": "mayor", "name": "Cuando sea Mayor"},
+                        {"code": "menor", "name": "Cuando sea Menor"},
+                        {"code": "mayorigual", "name": "Cuando sea Mayor o Igual"},
+                        {"code": "menorigual", "name": "Cuando sea Menor o Igual"}
+                    ],
+                    icon: {class: "time"}
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='fecha'">
+                <%- FORM.checkbox('date_strict', scope, {
+                    truetext: "Tomará en cuenta la hora?"
+                }) %>
+            </div>
+        </div>
+        <div class='row' ng-show="modulo_notificacion.view!=='[NULL]'">
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("field_email", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "mail5"},
+                    truelabel: "Variable que contiene los correos a enviar",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("field_email_cc", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "mail5"},
+                    truelabel: "Variable que contiene los correos a enviar en CC",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("field_email_cco", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "mail5"},
+                    truelabel: "Variable que contiene los correos a enviar en CCO",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <%- FORM.select("field_email_exc", scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    disabled: false,
+                    text: "item.column_name",
+                    value: "column_name",
+                    table: "vw_mdnfields",
+                    icon: {class: "list"},
+                    truelabel: "Variable que contiene la lista negra",
+                    condition: "item.table_name==modulo_notificacion.view"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type!=='code'">
+                <%- FORM.checkbox('send_one', scope, {
+                    truetext: "Repetir Diario?"
+                }) %>
+            </div>
+        </div>
+        <div class="row" ng-show="modulo_notificacion.view==='[NULL]'">
+            <div class="col-sm-12 col-md-12">
+                <div class="alert bg-warning border-warning alert-styled-left mt-10">
+                    <b>Debe elegir la entidad con la cual trabajará esta notificación para poder configurar las
+                        claves</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="advance">
+        <div class="row" ng-show="modulo_notificacion.view!=='[NULL]'">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel-heading text-left"
+                     style="font-weight: bold;padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    <h3>Condiciones necesarias para ejecutar envío aparte de la fecha</h3>
+                </div>
+                <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table mt-10">
+                    <thead>
+                    <tr class="bg-<%= COLOR.secundary %>">
+                        <th style="width: 20%">Variable</th>
+                        <th style="width: 20%">Tipo</th>
+                        <th style="width: 20%">Operador</th>
+                        <th style="width: 20%">Valor</th>
+                        <th style="width: 15%">Conjunción</th>
+                        <th style="width: 5%">.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(ix,item) in modulo_notificacion.code.conditions track by item.id">
+                        <td style="padding: 2px;">
+                            <select class="form-control" ng-model="item.variable"
+                                    ng-options="opt.column_name as opt.column_name for opt in modulo_notificacion.FieldsByTablePure()">
+                            </select>
+                        </td>
+                        <td style="padding: 2px;">
+                            <select class="form-control" ng-model="item.tipo"
+                                    ng-options="opt as opt for opt in modulo_notificacion.types">
+                            </select>
+                        </td>
+                        <td style="padding: 2px;">
+                            <select class="form-control" ng-model="item.operador"
+                                    ng-options="opt as opt for opt in modulo_notificacion.operators[item.tipo]">
+                            </select>
+                        </td>
+                        <td style="padding: 2px;">
+                            <div ng-show="item.operador.indexOf('-')===-1">
+                                <input type="text" class="form-control"
+                                       ng-show="['Cadena'].indexOf(item.tipo)!==-1"
+                                       ng-model="item.valor">
+
+                                <input type="number" class="form-control"
+                                       ng-show="['Numero'].indexOf(item.tipo)!==-1"
+                                       ng-model="item.valor">
+
+                                <input type="date" class="form-control"
+                                       ng-show="['Fecha'].indexOf(item.tipo)!==-1"
+                                       ng-model="item.valor">
+
+                                <select class="form-control" ng-show="['Booleano'].indexOf(item.tipo)!==-1"
+                                        ng-model="item.valor"
+                                        ng-options="opt as opt for opt in ['Si','No']">
+                                </select>
+                                <select class="form-control" ng-model="item.valor"
+                                        ng-show="['Campo'].indexOf(item.tipo)!==-1"
+                                        ng-options="opt.column_name as opt.column_name for opt in modulo_notificacion.FieldsByTablePure()">
+                                </select>
+                            </div>
+                        </td>
+                        <td style="padding: 2px;">
+                            <div ng-show="ix<(modulo_notificacion.code.conditions.length-1)">
+                                <select class="form-control" ng-model="item.conjucion"
+                                        ng-options="opt as opt for opt in ['Y','O']">
+                                </select>
+                            </div>
+
+                        </td>
+                        <td style="width: 3%">
+                            <button title="Eliminar condición"
+                                    ng-click="modulo_notificacion.deleteField(ix)"
+                                    type="button"
+                                    class="btn bg-danger btn-xs">
+                                <i class="icon-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100%" class="text-right">
+                            <button ng-click="modulo_notificacion.addField()"
+                                    type="button"
+                                    class="btn bg-success btn-xs">
+                                Agregar nueva condición
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" ng-show="modulo_notificacion.view==='[NULL]'">
+            <div class="col-sm-12 col-md-12">
+                <div class="alert bg-warning border-warning alert-styled-left mt-10">
+                    <b>Debe elegir la entidad con la cual trabajará esta notificación para poder utilizar el modo
+                        avanzado</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

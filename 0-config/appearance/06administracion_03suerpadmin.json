@@ -22,6 +22,18 @@
         },
         {
           "modal": "",
+          "icon": "alert",
+          "href": "#modulo_notificacion",
+          "text": "Módulo de Notificaciones"
+        },
+        {
+          "modal": "",
+          "icon": "alert",
+          "href": "#modulo_notificacion_cache",
+          "text": "Log de Notificaciones"
+        },
+        {
+          "modal": "",
           "icon": "office",
           "href": "#compania",
           "text": "Compañía"

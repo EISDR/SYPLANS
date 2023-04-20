@@ -133,6 +133,11 @@
           "comment_activities": true
         }
       },
+      "modulo_notificacion_cache": {
+        "type": "report",
+        "allow": {
+        }
+      },
       "cargo": {
         "type": "full",
         "allow": {}
@@ -2283,6 +2288,30 @@
           "view": false,
           "audit": false,
           "remove": true,
+          "menu": true,
+          "edit": true,
+          "add": true,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          }
+        }
+      },
+      "modulo_notificacion": {
+        "type": "empty",
+        "allow": {
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          },
+          "actions": true,
+          "view": false,
+          "audit": true,
+          "remove": false,
           "menu": true,
           "edit": true,
           "add": true,

@@ -15,7 +15,8 @@ var options = {
     ],
     maxtags: 100,
     disabled: false,
-    allowDuplicates: false
+    allowDuplicates: false,
+    placeholderHolder:"Digite"
 
 };
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
@@ -71,7 +72,7 @@ var toclient = JSON.stringify(options);
             type="text"
 
             ng-disabled="<%= model %>.form.options.<%= name %>.disabled"
-            placeholder="<%= options.placeholder %>"
+            placeholder="<%= options.placeholderHolder %>"
             class="form-control border-<%= COLOR.secundary %>">
 
 
@@ -99,27 +100,13 @@ var toclient = JSON.stringify(options);
                 });
             }
         }
-        var engine = new Bloodhound({
-                local: <%= model %>.form.options.<%= name %>.autocomplete,
-            datumTokenizer
-    :
-
-        function (d) {
+        var engine = new Bloodhound({local: <%= model %>.form.options.<%= name %>.autocomplete,
+            datumTokenizer: function (d) {
             return Bloodhound.tokenizers.whitespace(d.value);
-        }
-
-    ,
+        },
         queryTokenizer: Bloodhound.tokenizers.whitespace
-    })
-        ;
+        });
         engine.initialize();
-        // Initialize tokenfield
-        <!--$('[name="<%= model %>_<%= nameclean %>"]').tokenfield({-->
-        <!--typeahead: [null, {-->
-        <!--displayKey: 'value',-->
-        <!--source: engine.ttAdapter()-->
-        <!--}]-->
-        <!--});-->
         var isReadProgram = <%= model %>.
         form.isReadOnly('<%= name %>');
         if (isReadProgram !== false) {
@@ -130,33 +117,19 @@ var toclient = JSON.stringify(options);
                 $('[name="<%= model %>_<%= nameclean %>"]').val(isReadProgram);
             }
         }
-
         $('[name="<%= model %>_<%= nameclean %>"]').tagsinput({
-                maxTags: <%= model %>.form.options.<%= name %>.maxtags,
-            allowDuplicates
-    : <%= model %>.
-        form.options.<%= name %>.allowDuplicates,
-            tagClass
-    :
-
-        function (item) {
+            maxTags: <%= model %>.form.options.<%= name %>.maxtags,
+            allowDuplicates:<%= model %>.form.options.<%= name %>.allowDuplicates,
+            tagClass: function (item) {
             return 'label bg-' + COLOR.secundary;
-        }
-
-    ,
+        },
         typeahead: [null, {
             displayKey: 'value',
             source: engine.ttAdapter()
         }]
-    })
-        ;
-
-        <%= model %>.
-        triggers.table.after.control("<%= nameclean %>");
-
-
-
         });
-        $(".bootstrap-tagsinput").addClass('alpha-' + COLOR.secundary);
-    });
+
+        <%= model %>.triggers.table.after.control("<%= nameclean %>");
+        });
+
 </script>

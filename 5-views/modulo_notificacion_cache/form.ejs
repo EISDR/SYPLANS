@@ -1,0 +1,53 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('code', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.integer('module_notification', scope, {
+                        //length:15
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.date('date', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('permanent', scope) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('to', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('cc', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('subject', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('email', scope, {}) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.datetime('sendDate', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('push', scope, {
+                //maxlength: 200,
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

@@ -39,15 +39,16 @@
 exports.mode = "developer";
 exports.developerlog = (obj) => {
     if (exports.mode === "developer")
-        console.log(obj);
+        if (obj)
+            console.log(obj);
 }
 exports.prodlog = (obj) => {
     console.log(obj);
 }
 exports.lacone = undefined;
 exports.query = (sql, args, pool) => {
-    if (exports.lacone)
-        exports.prodlog("Procesos:" + JSON.stringify(exports.lacone.getStatus()));
+    // if (exports.lacone)
+    //     exports.prodlog("Procesos:" + JSON.stringify(exports.lacone.getStatus()));
     return new Promise((resolve, reject) => {
         try {
             exports.lacone.getConnection(function (err, connection) {
