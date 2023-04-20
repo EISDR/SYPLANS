@@ -580,8 +580,18 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     //
     auditoria_lista_correctiva.triggers.table.after.insert = function (data) {
         //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-        if (typeof vw_correctiva !== "undefined")
-            vw_correctiva.refresh();
+        if (typeof vw_correctiva !== "undefined"){
+            console.log(data)
+            BASEAPI.insert('modulo_notificacion_task', {
+                accion: "CSNC",
+                record_id: data.inserted.id,
+                date: moment().format("YYYY-MM-DD")
+            }, function(result){
+                if (result)
+                    vw_correctiva.refresh();
+            })
+
+        }
         if (typeof riesgo !== "undefined") {
             riesgo_a.refreshAngular();
             riesgo.refresh();
