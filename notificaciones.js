@@ -307,8 +307,6 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
     let listaEstatus = await ladataDB.data(`select * from auditoria_programa_plan_estatus where tiempo_estimado is not null and tiempo_estimado!=''`, PARAMS);
     listaEstatus = listaEstatus.data;
     notificaciones = notificaciones.data;
-
-
     // if (true) {
     //     //kunai
     //     notificaciones = [notificaciones[0]];
@@ -456,6 +454,7 @@ ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, mome
                                 realOperator = `===true`;
                             if (condition.operador === "Falso-")
                                 realOperator = `===true`;
+                            break;
                         }
                         case "Campo": {
                             originalValue = originalValue || "";
@@ -469,6 +468,23 @@ ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, mome
                                 realOperator = `==condition.valor`;
                             if (condition.operador === "Diferente a")
                                 realOperator = `!=condition.valor`;
+                            break;
+                        }
+                        default: {
+                            originalValue = originalValue || "";
+                            if (condition.operador === "Contiene")
+                                realOperator = `.indexOf(condition.valor)!==-1`;
+                            if (condition.operador === "No Contiene")
+                                realOperator = `.indexOf(condition.valor)===-1`;
+                            if (condition.operador === "Igual a")
+                                realOperator = `==condition.valor`;
+                            if (condition.operador === "Diferente a")
+                                realOperator = `!=condition.valor`;
+                            if (condition.operador === "En Blanco-")
+                                realOperator = `==''`;
+                            if (condition.operador === "Con Algún Valor-")
+                                realOperator = `!=''`;
+                            break
                         }
                     }
                     try {
