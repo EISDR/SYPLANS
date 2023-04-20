@@ -294,8 +294,9 @@ async function execute() {
     totime = (str) => {
         return moment("2000-01-01 " + str).toDate();
     }
-    console.clear();
+
     while (true) {
+
         await buclex(ladataDB, PARAMS, moment);
         await delay(60000);
     }
@@ -304,6 +305,8 @@ async function execute() {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
+    console.clear();
+    console.log('loading: ' + new Date());
     let notificaciones = await ladataDB.data(`select * from vw_modulo_notificacion`, PARAMS);
     let listaEstatus = await ladataDB.data(`select * from auditoria_programa_plan_estatus where tiempo_estimado is not null and tiempo_estimado!=''`, PARAMS);
     listaEstatus = listaEstatus.data;
@@ -320,7 +323,7 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
         let usersByUser = await ladataDB.data(`select * from usuario where id in (${(notificacion.usuarios || '0').replaceAll(';', ',')})`, PARAMS);
         usersByUser = usersByUser.data;
         registros = registros.data;
-        if(!registros)
+        if (!registros)
             continue;
         let today = new Date();
         let todayNoTime = todate(dateToString(today));
