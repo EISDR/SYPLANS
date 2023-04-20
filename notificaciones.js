@@ -63,8 +63,19 @@ async function execute() {
             }
         }
     };
+    function desofuscar(file) {
+        if (file.indexOf("#bqqObnf#") !== -1) {
+            var result = "";
+            for (var chart of file) {
+                result += String.fromCharCode(chart.charCodeAt(0) - 1);
+            }
+            return result;
+        } else
+            return file;
+    }
 
     /*GOLBAL VARS*/
+
     var CONFIG = {};
     //GET CONFIG
     configs = getFiles("./" + folders.configBase + "/");
@@ -86,6 +97,8 @@ async function execute() {
         mergeObject(file, CONFIG);
     });
 
+    var configMode = CONFIG.mode === "developer" ? folders.config : `${folders.eviroments}/${CONFIG.mode}`;
+
     //GET MODULES NODEJS
     for (var i in CONFIG.modules) {
         var module = CONFIG.modules[i];
@@ -93,6 +106,28 @@ async function execute() {
         localModulesVars.push(module.var);
         eval("var " + module.var + " = require('" + module.module + "');");
     }
+
+
+    CONFIG = {};
+    configs = getFiles("./" + folders.configBase + "/");
+    configs = configs.filter(function (file) {
+        return file.indexOf('.disabled') === -1;
+    });
+    configs.forEach(function (config) {
+        var fileContent = fs.readFileSync(folders.configBase + "/" + config) + "";
+        var file = eval("(" + desofuscar(fileContent) + ")");
+        mergeObject(file, CONFIG);
+    });
+    configs = getFiles("./" + configMode + "/");
+    configs = configs.filter(function (file) {
+        return file.indexOf('.disabled') === -1;
+    });
+    configs.forEach(function (config) {
+        var fileContent = fs.readFileSync(configMode + "/" + config) + "";
+        var file = eval("(" + desofuscar(fileContent) + ")");
+        mergeObject(file, CONFIG);
+    });
+
     var filesmodules = fs.readdirSync("./" + folders.modules + "/");
     for (var i in filesmodules) {
         var file = filesmodules[i];
