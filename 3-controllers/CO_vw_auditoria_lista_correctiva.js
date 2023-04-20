@@ -1092,6 +1092,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     return true
                                 },
                                 click: async function (data) {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     let responsables = await BASEAPI.listp('auditoria_lista_correctiva_responsable', {
                                         limit: 0,
                                         where: [
@@ -1124,6 +1125,7 @@ Gracias por su colaboración.`
 Gracias por su colaboración.`
 
                                     function_send_email_cargos_y_resposables(titulo_push, cuerpo_push, titulo_correo, cuerpo_correo, vw_auditoria_lista_correctiva.session.compania_id, vw_auditoria_lista_correctiva.session.institucion_id, responsablesIds, cargosIds, 6, [17,18]);
+                                    SWEETALERT.stop();
                                 }
                             },
                             {
@@ -1140,10 +1142,19 @@ Gracias por su colaboración.`
                                     return "";
                                 },
                                 show: (data) => {
-                                    return true
+                                    const format = "YYYY-MM-DD";
+                                    return moment(data.row.fecha_fin, format).isBefore(moment().format(format));
                                 },
-                                click: async function (data) {
-                                    alert("Aún Pendiente!")
+                                click:  function (data) {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                                    BASEAPI.insert('modulo_notificacion_task', {
+                                        accion: "PAVSNC",
+                                        record_id: data.row.id,
+                                        date: moment().format("YYYY-MM-DD")
+                                    }, function(result){
+                                        if (result)
+                                            SWEETALERT.stop();
+                                    })
                                 }
                             }
                         ]
