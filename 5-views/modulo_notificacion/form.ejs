@@ -439,23 +439,23 @@
                         <td style="padding: 2px;">
                             <div ng-show="item.operador.indexOf('-')===-1">
                                 <input type="text" class="form-control"
-                                       ng-show="['Cadena'].indexOf(item.tipo)!==-1"
+                                       ng-if="['Cadena'].indexOf(item.tipo)!==-1"
                                        ng-model="item.valor">
 
-                                <input type="number" class="form-control"
-                                       ng-show="['Numero'].indexOf(item.tipo)!==-1"
+                                <input type="text" class="form-control"
+                                       ng-if="['Numero'].indexOf(item.tipo)!==-1"
                                        ng-model="item.valor">
 
                                 <input type="date" class="form-control"
-                                       ng-show="['Fecha'].indexOf(item.tipo)!==-1"
+                                       ng-if="['Fecha'].indexOf(item.tipo)!==-1"
                                        ng-model="item.valor">
 
-                                <select class="form-control" ng-show="['Booleano'].indexOf(item.tipo)!==-1"
+                                <select class="form-control" ng-if="['Booleano'].indexOf(item.tipo)!==-1"
                                         ng-model="item.valor"
                                         ng-options="opt as opt for opt in ['Si','No']">
                                 </select>
                                 <select class="form-control" ng-model="item.valor"
-                                        ng-show="['Campo'].indexOf(item.tipo)!==-1"
+                                        ng-if="['Campo'].indexOf(item.tipo)!==-1"
                                         ng-options="opt.column_name as opt.column_name for opt in modulo_notificacion.FieldsByTablePure()">
                                 </select>
                             </div>

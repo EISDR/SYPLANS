@@ -63,6 +63,7 @@ async function execute() {
             }
         }
     };
+
     function desofuscar(file) {
         if (file.indexOf("#bqqObnf#") !== -1) {
             var result = "";
@@ -309,10 +310,11 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
 
 
     // if (true) {
-    //     await ladataDB.data(`truncate table modulo_notificacion_cache`, PARAMS);
+    //     //kunai
+    //     notificaciones = [notificaciones[0]];
+    //     await ladataDB.data(`delete from modulo_notificacion_cache where module_notification='${notificaciones[0].id}'`, PARAMS);
     // }
     for (const notificacion of notificaciones) {
-
         let registros = await ladataDB.data(`select * from ${notificacion.view}`, PARAMS);
         let usersByRole = await ladataDB.data(`select * from usuario where profile in(${(notificacion.roles || '0').replaceAll(';', ',')})`, PARAMS);
         usersByRole = usersByRole.data;
@@ -323,7 +325,7 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
         let today = new Date();
         let todayNoTime = todate(dateToString(today));
         let todayFormated = dateToString(today);
-        let rawCampos = notificacion.campos.split(', ').map(d => d.replace('@', ''));
+        let rawCampos = notificacion.campos.split(', ').map(d => d.replaceAll('@', ''));
         let ejsTemplate = "email/module_notification_plane";
         if (notificacion.masterpage)
             ejsTemplate = "email/module_notification_syplans";
@@ -332,7 +334,6 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
         fixed.roles = usersByRole.map(d => d.correo);
         fixed.users = usersByUser.map(d => d.correo);
         fixed.correos = (notificacion.direct_emails || '').split(',');
-
 
         for (const registro of registros) {
             let mailParams = false;
@@ -344,7 +345,7 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
                     for (const task of tasks) {
                         if (notificacion.field_action === task.accion) {
                             if (code == task.record_id) {
-                                mailParams = await ejecutarregistro(notificacion, registro, usersByRole, usersByUser, moment);
+                                mailParams = await ejecutarregistro(notificacion, registro, usersByRole, usersByUser, moment, listaEstatus);
                                 if (mailParams !== false) {
                                     console.log(`una tarea de ${task.accion}`);
                                     await ladataDB.data(`update modulo_notificacion_task set sended=1 where id=${task.id}`, PARAMS);
@@ -358,7 +359,7 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
                 cached = cached.data.length;
                 if (cached)
                     continue;
-                mailParams = await ejecutarregistro(notificacion, registro, usersByRole, usersByUser, moment);
+                mailParams = await ejecutarregistro(notificacion, registro, usersByRole, usersByUser, moment, listaEstatus);
             }
             if (mailParams !== false) {
                 await ladataDB.data(`insert into modulo_notificacion_cache(\`code\`,\`module_notification\`,\`date\`,\`permanent\`,\`to\`,\`cc\`,\`subject\`,\`email\`,\`push\`) VALUES('${code}',${notificacion.id},'${todayFormated}',${notificacion.send_one ? 0 : 1},'${mailParams.to.join(", ")}','${mailParams.cc.join(", ")}','${mailParams.subject}','${mailParams.fields.message}','${''}')`, PARAMS);
@@ -368,11 +369,11 @@ buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
     resolve(true);
 });
 
-ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, moment) => {
+ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, moment, listaEstatus) => {
     let today = new Date();
     let todayNoTime = todate(dateToString(today));
     let todayFormated = dateToString(today);
-    let rawCampos = notificacion.campos.split(', ').map(d => d.replace('@', ''));
+    let rawCampos = notificacion.campos.split(', ').map(d => d.replaceAll('@', ''));
     let ejsTemplate = "email/module_notification_plane";
     if (notificacion.masterpage)
         ejsTemplate = "email/module_notification_syplans";
@@ -382,11 +383,119 @@ ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, mome
     fixed.users = usersByUser.map(d => d.correo);
     fixed.correos = (notificacion.direct_emails || '').split(',');
 
+    let loscode = undefined;
     try {
-        let loscode = JSON.parse(notificacion.code);
-        console.log(loscode);
+        loscode = JSON.parse(notificacion.code);
     } catch (e) {
-
+    }
+    if (loscode) {
+        let resulter = true;
+        if (loscode) {
+            if (loscode.conditions) {
+                let nextConjution = "Y";
+                let debugm = "";
+                for (const condition of loscode.conditions) {
+                    let indexx = loscode.conditions.indexOf(condition);
+                    let localResulter = true;
+                    let realOperator = "==condition.valor";
+                    let originalValue = registro[condition.variable];
+                    switch (condition.tipo) {
+                        case "Cadena": {
+                            originalValue = originalValue || "";
+                            if (condition.operador === "Contiene")
+                                realOperator = `.indexOf(condition.valor)!==-1`;
+                            if (condition.operador === "No Contiene")
+                                realOperator = `.indexOf(condition.valor)===-1`;
+                            if (condition.operador === "Igual a")
+                                realOperator = `==condition.valor`;
+                            if (condition.operador === "Diferente a")
+                                realOperator = `!=condition.valor`;
+                            if (condition.operador === "En Blanco-")
+                                realOperator = `==''`;
+                            if (condition.operador === "Con Algún Valor-")
+                                realOperator = `!=''`;
+                            break
+                        }
+                        case "Numero": {
+                            originalValue = parseFloat(originalValue) || -1;
+                            if (condition.operador === "Igual a")
+                                realOperator = `==condition.valor`;
+                            if (condition.operador === "Diferente a")
+                                realOperator = `!=condition.valor`;
+                            if (condition.operador === "Es Nulo-")
+                                realOperator = `===-1`;
+                            if (condition.operador === "Menor que")
+                                realOperator = `<condition.valor`;
+                            if (condition.operador === "Menor o igual")
+                                realOperator = `<=condition.valor`;
+                            if (condition.operador === "Mayor que")
+                                realOperator = `>condition.valor`;
+                            if (condition.operador === "Mayor o igual")
+                                realOperator = `>=condition.valor`;
+                            break
+                        }
+                        case "Fecha": {
+                            originalValue = todate(originalValue) || todayNoTime;
+                            originalValue = todate(dateToString(originalValue));
+                            condition.valor = todate(condition.valor) || todayNoTime;
+                            if (condition.operador === "Fecha Exacta")
+                                realOperator = `$moment(originalValue).diff(condition.valor , 'minutes')==0`;
+                            if (condition.operador === "Antes de")
+                                realOperator = `$moment(originalValue).diff(condition.valor , 'minutes')<0`;
+                            if (condition.operador === "Después de")
+                                realOperator = `$moment(originalValue).diff(condition.valor , 'minutes')>0`;
+                            if (condition.operador === "Fecha Exacta o Antes")
+                                realOperator = `$moment(originalValue).diff(condition.valor , 'minutes')<=0`;
+                            if (condition.operador === "Fecha Exacta o Después")
+                                realOperator = `$moment(originalValue).diff(condition.valor , 'minutes')>=0`;
+                            break
+                        }
+                        case "Booleano": {
+                            originalValue = originalValue == "1";
+                            if (condition.operador === "Verdadero-")
+                                realOperator = `===true`;
+                            if (condition.operador === "Falso-")
+                                realOperator = `===true`;
+                        }
+                        case "Campo": {
+                            originalValue = originalValue || "";
+                            condition.valor = registro[condition.valor];
+                            condition.valor = condition.valor || "";
+                            if (condition.operador === "Contiene a")
+                                realOperator = `.indexOf(condition.valor)!==-1`;
+                            if (condition.operador === "No Contiene a")
+                                realOperator = `.indexOf(condition.valor)===-1`;
+                            if (condition.operador === "Igual a")
+                                realOperator = `==condition.valor`;
+                            if (condition.operador === "Diferente a")
+                                realOperator = `!=condition.valor`;
+                        }
+                    }
+                    try {
+                        if (realOperator[0] === '$') {
+                            realOperator = realOperator.replace('$', '');
+                            localResulter = eval(realOperator);
+                        } else
+                            localResulter = eval(`originalValue${realOperator}`);
+                    } catch (e) {
+                        localResulter = false;
+                    }
+                    if (nextConjution === "Y") {
+                        resulter = (resulter && localResulter) || false;
+                    } else {
+                        resulter = (resulter || localResulter) || false;
+                    }
+                    debugm += (`${originalValue}${realOperator.replace("condition.valor", `'${condition.valor}'`)}`);
+                    if (indexx < loscode.conditions.length - 1)
+                        debugm += (` ${condition.conjucion || "Y"} `.warning);
+                    nextConjution = condition.conjucion || "Y";
+                }
+                console.log(`(${debugm}) = ${resulter}`);
+            }
+        }
+        if (resulter === false) {
+            return false;
+        }
     }
 
     let diff = undefined;
@@ -491,15 +600,16 @@ ejecutarregistro = async (notificacion, registro, usersByRole, usersByUser, mome
     let template = notificacion.template;
     let templatePush = notificacion.template_push;
     rawCampos.forEach(campo => {
-        template = template.replaceAll(`@${campo}`, registro[campo] || '');
-        templatePush = templatePush.replaceAll(`@${campo}`, registro[campo] || '');
-        subject = subject.replaceAll(`@${campo}`, registro[campo] || '');
+        template = template.replaceAll(`@${campo}@`, registro[campo] || '');
+        templatePush = templatePush.replaceAll(`@${campo}@`, registro[campo] || '');
+        subject = subject.replaceAll(`@${campo}@`, registro[campo] || '');
     });
     mailParams.subject = subject;
     mailParams.fields = {message: template};
     mailParams.name = "noReply";
     mailParams.template = ejsTemplate;
     console.log(mailParams);
+    //kunai
     mailFunc(mailParams);
     return mailParams;
 }

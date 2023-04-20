@@ -56,10 +56,10 @@ DSON.keepmerge(CRUD_modulo_notificacion_cache, {
             },
             permanent: {
                 format: (row) => {
-                    return row.permanent == 0 ? 'Si' : 'No';
+                    return row.permanent == 1 ? 'Si' : 'No';
                 },
                 label: () => {
-                    return "Unico Envío"
+                    return "Único Envío"
                 },
                 visible: true
             },

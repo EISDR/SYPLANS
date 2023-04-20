@@ -9,13 +9,13 @@ app.controller("modulo_notificacion", function ($scope, $http, $compile) {
         modulo_notificacion.types = ["Cadena", "Numero", "Fecha", "Booleano", "Campo"]
         modulo_notificacion.operators = {
             Cadena: ['Contiene', 'No Contiene', 'Igual a', 'Diferente a', 'En Blanco-', 'Con Algún Valor-'],
-            Numero: ['Igual a', 'Diferente a', 'Es Nulo', 'Menor que', 'Menor o igual', 'Mayor que', 'Mayor o igual'],
+            Numero: ['Igual a', 'Diferente a', 'Es Nulo-', 'Menor que', 'Menor o igual', 'Mayor que', 'Mayor o igual'],
             Fecha: ['Fecha Exacta', 'Antes de', 'Después de', 'Fecha Exacta o Antes', 'Fecha Exacta o Después'],
             Booleano: ['Verdadero-', 'Falso-'],
             Campo: ['Igual a', 'Diferente a', 'Contiene a', 'No Contiene a']
         };
         modulo_notificacion.FieldsByTable = () => {
-            return modulo_notificacion.fields.filter(d => d.table_name === modulo_notificacion.view).map(d => ('@' + d.column_name));
+            return modulo_notificacion.fields.filter(d => d.table_name === modulo_notificacion.view).map(d => ('@' + d.column_name + '@'));
         }
         modulo_notificacion.FieldsByTablePure = () => {
             return modulo_notificacion.fields.filter(d => d.table_name === modulo_notificacion.view);
@@ -65,6 +65,15 @@ app.controller("modulo_notificacion", function ($scope, $http, $compile) {
                         } else {
                             let parse = (modulo_notificacion.code || "{conditions: []}");
                             modulo_notificacion.code = JSON.parse(parse);
+                            if (modulo_notificacion.code.conditions) {
+                                if (modulo_notificacion.code.conditions.length) {
+                                    modulo_notificacion.code.conditions.forEach(d => {
+                                        if (d.tipo === "Fecha") {
+                                            d.valor = new Date(d.valor);
+                                        }
+                                    });
+                                }
+                            }
                         }
                     } catch (e) {
                         console.log(e);
