@@ -101,7 +101,7 @@
                             trueplaceholder: "Código"
                         }) %>
                     </div>
-                    <div class='col-sm-5 col-md-5'>
+                    <div class='col-sm-3 col-md-3'>
                         <%- FORM.input('nombre', scope, {}) %>
                     </div>
                     <div class='col-sm-1 col-md-1'>
@@ -133,7 +133,7 @@
                         // },
                         })%>
                     </div>
-                    <div class="col-sm-12 col-md-3" style="margin-top: 16px"  ng-if="documentos_asociados.session.institucion">
+                    <div class="col-sm-4 col-md-4" ng-if="documentos_asociados.session.institucion">
                         <%- FORM.select("documentos_relacionados", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -159,8 +159,11 @@
                         // },
                         })%>
                     </div>
-                    <div style="text-align: center;" class="col-sm-1 col-md-1">
+                    <div style="text-align: center;" class="col-sm-2 col-md-2">
                         <%- FORM.checkbox("trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?"}) %>
+                    </div>
+                    <div style="text-align: center;" class="col-sm-1 col-md-1">
+                        <%- FORM.checkbox("es_confidencial", scope, {text: "¿Es confidencial?"}) %>
                     </div>
                 </div>
                 <div class="row">
@@ -196,17 +199,93 @@
                                 //maxlength: 200,
                         }) %>
                     </div>
+                    <div class="col-sm-12 col-md-6" ng-show="<%= scope%>.es_confidencial">
+                        <%- FORM.select("roles_permitidos", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            value: "id",
+                            table: "group",
+                            icon: {class: "archive"},
+                            truelabel: "Roles Permitidos",
+                            get: {
+                                table: 'documentos_asociados_roles',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'rol'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
+                    <div class="col-sm-12 col-md-6" ng-if="!documentos_asociados.session.institucion" ng-show="<%= scope%>.es_confidencial">
+                        <%- FORM.select("usuarios_permitidos", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre + ' ' + item.apellido",
+                            value: "id",
+                            table: "usuario",
+                            icon: {class: "archive"},
+                            truelabel: "Usuarios permitidos",
+                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && documentos_asociados.check_if_exists(item)))",
+                            get: {
+                                table: 'documentos_asociados_usuarios',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'usuario'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
+                    <div class="col-sm-12 col-md-6" ng-if="documentos_asociados.session.institucion" ng-show="<%= scope%>.es_confidencial">
+                        <%- FORM.select("usuarios_permitidos", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre + ' ' + item.apellido",
+                            value: "id",
+                            table: "usuario",
+                            icon: {class: "archive"},
+                            truelabel: "Usuarios permitidos",
+                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active && documentos_asociados.check_if_exists(item)))",
+                            get: {
+                                table: 'documentos_asociados_usuarios',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'usuario'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-md-4"></div>
                     <div class="col-sm-4 col-md-4 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
                         <%- FORM.file("documento_asociadofile", scope, {
-                                    title: 'Subir Documento',
-                                    maxfiles: 999,
-                                    columns: 4,
-                                    truetext: 'Subir Documento',
-                                    imagefloat: "right",
-                                // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                            title: 'Subir Documento',
+                            maxfiles: 999,
+                            columns: 4,
+                            truetext: 'Subir Documento',
+                            imagefloat: "right",
+                        // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                         // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                         }) %>
                     </div>

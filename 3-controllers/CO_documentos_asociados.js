@@ -448,6 +448,35 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
         });
         if (mapaData) {
             documentos_asociados.mapa_id = mapaData.id;
+            var documentos_confidenciales = await BASEAPI.listp('vw_documentos_confidenciales', {
+                limit:0,
+                where: [
+                    {
+                        field: "compania",
+                        value:  documentos_asociados.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator":  documentos_asociados.session.institucion_id ? "=" : "is",
+                        "value":  documentos_asociados.session.institucion_id ?  documentos_asociados.session.institucion_id : "$null"
+                    },
+                    {
+                        open:"(",
+                        field: "rol",
+                        operator: "=",
+                        value: documentos_asociados.session.groups[0].id,
+                        connector: "OR"
+                    },
+                    {
+                        close:")",
+                        field: "usuario",
+                        operator: "=",
+                        value: documentos_asociados.session.id,
+                    }
+                ]
+            });
+            documentos_confidenciales = documentos_confidenciales.data;
+            const documentos_confidencialesIds = documentos_confidenciales.map(doc => doc.id)
             if (MODAL.history.length > 0) {
                 if (typeof dashboard_proceso != "undefined") {
                     if (dashboard_proceso) {
@@ -472,6 +501,16 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                                     {
                                         field: "mapa_proceso",
                                         value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                                    },
+                                    {
+                                        field: "es_confidencial",
+                                        operator: "is",
+                                        value: "$null",
+                                        connector: "OR"
+                                    },
+                                    {
+                                        field: "id",
+                                        value: documentos_confidencialesIds,
                                     }
                                 ];
                                 if (dashboard_proceso.session.institucion) {
@@ -523,6 +562,16 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     {
                         field: "mapa_proceso",
                         value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id : -1
+                    },
+                    {
+                        field: "es_confidencial",
+                        operator: "is",
+                        value: "$null",
+                        connector: "OR"
+                    },
+                    {
+                        field: "id",
+                        value: documentos_confidencialesIds,
                     }
                 ];
             }
@@ -858,6 +907,13 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
     // };
     documentos_asociados.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        if (!documentos_asociados.trabaja_marco_legal){
+            data.updating.marco_legal = "";
+        }
+        if (!documentos_asociados.es_confidencial){
+            data.relations[1].data = [];
+            data.relations[2].data = [];
+        }
         if (!documentos_asociados.documento_asociadofile_DragonCountFile) {
             SWEETALERT.show({type: 'error', message: "Antes de GUARDAR el registro debe subir la imagen del nuevo documento a ser creado"});
             resolve(false);
@@ -1066,4 +1122,11 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
             }
         }
     };
+    documentos_asociados.check_if_exists = function (item) {
+        if (documentos_asociados.roles_permitidos.length > 0){
+            return documentos_asociados.roles_permitidos.includes(String(item.profile));
+        }else{
+            return true
+        }
+    }
 });
