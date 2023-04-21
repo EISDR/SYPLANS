@@ -509,7 +509,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                                         connector: "OR"
                                     },
                                     {
-                                        field: "id",
+                                        field: CONFIG.mysqlactive ? "id" : "$id::text",
                                         value: documentos_confidencialesIds,
                                     }
                                 ];
@@ -570,7 +570,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                         connector: "OR"
                     },
                     {
-                        field: "id",
+                        field: CONFIG.mysqlactive ? "id" : "$BASE.id::text",
                         value: documentos_confidencialesIds,
                     }
                 ];
