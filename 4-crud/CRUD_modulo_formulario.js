@@ -83,13 +83,19 @@ DSON.keepmerge(CRUD_modulo_formulario, {
                             }
                         if (ponderation) {
                             $(`.Unique`).css('background', ponderation.color);
-                            return `<div title="${ponderation.nombre}" class='Unique shape_element'></div><div class="text-center">${(formuled + "") + row.sufijo}</div>`;
+                            return `<div title="${ponderation.nombre}" class='Unique shape_element'></div><div class="text-center">${(Number(formuled).toFixed(2) + "") + row.sufijo}</div>`;
                         } else {
-                            return (formuled + "") + row.sufijo;
+                            return (Number(formuled).toFixed(2) + "") + row.sufijo;
                         }
                     } catch (e) {
                         return "Error en indicador";
                     }
+                }
+            },
+            link: {
+                format: (row) => {
+                    let link = `${CONFIG.ssl === true ? 'https://' : 'http://'}${CONFIG.subdomain !== '' ? CONFIG.subdomain + '.' : ''}${CONFIG.domain}${(CONFIG.port === 80 || CONFIG.port === 443 || CONFIG.port === 443) ? '' : (":" + CONFIG.port)}${CONFIG.folderslash}/#auth/formulario?id=${row.id}`;
+                    return `<a href="${link}" target="_blank">Vizualizar</a>`
                 }
             }
         },
