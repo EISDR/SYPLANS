@@ -92,7 +92,7 @@
                     text: "item.nombre",
                     table: 'vw_procesos',
                     truelabel: "Proceso padre",
-                    condition: "((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
             <div class='col-sm-4 col-md-4' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
@@ -104,7 +104,7 @@
                     text: "item.nombre",
                     table: 'vw_procesos',
                     truelabel: "Proceso padre",
-                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && item.id != procesos.id) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
             <div class='col-sm-4 col-md-4' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
@@ -116,7 +116,7 @@
                     text: "item.nombre",
                     table: 'procesos',
                     truelabel: "Proceso padre",
-                    condition: "((item.institucion == procesos.session.institucion_id && item.id != procesos.id) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
+                    condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
             <div class='col-sm-4 col-md-4' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
@@ -128,7 +128,7 @@
                     text: "item.nombre",
                     table: 'procesos',
                     truelabel: "Proceso padre",
-                    condition: "((item.institucion == procesos.session.institucion_id && item.id != procesos.id) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
+                    condition: "((item.institucion == procesos.session.institucion_id && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
             <div class='col-sm-2 col-md-2' ng-show="procesos.form.mode==='new'">
