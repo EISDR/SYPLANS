@@ -7,10 +7,19 @@
             <div class="col-sm-3 col-md-3">
                 <%- FORM.checkbox("trabaja_actividades", scope, {text: '¿Trabaja Actividades?'}) %>
             </div>
-            <div class='col-sm-12 col-md-12'>
+            <div class='col-sm-12 col-md-12'
+                 class="remove-input-space form-group-material form-group has-feedback has-success  has-feedback-left">
                 <%- FORM.textarea('descripcion', scope, {
-                //maxlength: 200,
+                    //maxlength: 200,
                 }) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <label class="control-label is-visible animate ng-binding">Variables</label>
+                <span>{{ tipo_documento.variables.join(', ')}}</span>
+
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.html('plantilla', scope, {height: 500}) %>
             </div>
         </div>
     </div>
