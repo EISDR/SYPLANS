@@ -1062,12 +1062,34 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                                     loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
                                     sameController: 'riesgo_a'
                                 },
+                                event: {
+                                    show: {
+                                        end: function () {
+                                            setTimeout(function () {
+                                                if (typeof riesgo_a !== 'undefined') {
+                                                    if (typeof riesgo_a !== 'not defined') {
+                                                        if (riesgo_a) {
+                                                            riesgo_a.getFromView(data.row);
+                                                            riesgo_a.refreshAngular();
+                                                        }
+                                                    }
+                                                }
+                                            }, 1000)
+                                        }
+                                    }
+                                }
                             });
                             BASEAPI.list('riesgo', {
                                 limit: 1
                             }, function (result) {
                                 data.$scope.refresh();
-                                riesgo_a.getFromView(data.row);
+                                if (typeof riesgo_a !== 'undefined') {
+                                    if (typeof riesgo_a !== 'not defined') {
+                                        if (riesgo_a) {
+                                            riesgo_a.getFromView(data.row);
+                                        }
+                                    }
+                                }
                             });
                             return false;
                         }
@@ -1102,12 +1124,34 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                                     loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
                                     sameController: 'riesgo_a'
                                 },
+                                event: {
+                                    show: {
+                                        end: function () {
+                                            setTimeout(function () {
+                                                if (typeof riesgo_a !== 'undefined') {
+                                                    if (typeof riesgo_a !== 'not defined') {
+                                                        if (riesgo_a) {
+                                                            riesgo_a.getFromView(data.row);
+                                                            riesgo_a.refreshAngular();
+                                                        }
+                                                    }
+                                                }
+                                            }, 1000)
+                                        }
+                                    }
+                                }
                             });
                             BASEAPI.list('riesgo', {
                                 limit: 1
                             }, function (result) {
                                 data.$scope.refresh();
-                                riesgo_a.getFromView(data.row);
+                                if (typeof riesgo_a !== 'undefined') {
+                                    if (typeof riesgo_a !== 'not defined') {
+                                        if (riesgo_a) {
+                                            riesgo_a.getFromView(data.row);
+                                        }
+                                    }
+                                }
                             });
                             return false;
                         }
