@@ -93,6 +93,12 @@ DSON.keepmerge(CRUD_vw_procesos_v2, {
                 },
                 shorttext: 360
             },
+            proceso_padre_nombre: {
+                label: function () {
+                    return "Proceso Padre"
+                },
+                shorttext: 360
+            },
             archivo: {
                 label: function () {
                     return "Imagen Adjunta"

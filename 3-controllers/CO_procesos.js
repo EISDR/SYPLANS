@@ -214,6 +214,12 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     },
                     shorttext: 360
                 },
+                proceso_padre_nombre: {
+                    label: function () {
+                        return "Proceso Padre"
+                    },
+                    shorttext: 360
+                },
                 archivo: {
                     label: function () {
                         return "Imagen Adjunta"
@@ -385,6 +391,12 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 recursos: {
                     label: function () {
                         return "Recursos (Humanos, Tecnológicos, etc)"
+                    },
+                    shorttext: 360
+                },
+                proceso_padre_nombre: {
+                    label: function () {
+                        return "Proceso Padre"
                     },
                     shorttext: 360
                 },
