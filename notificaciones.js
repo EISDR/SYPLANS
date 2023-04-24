@@ -296,7 +296,6 @@ async function execute() {
     }
 
     while (true) {
-
         await buclex(ladataDB, PARAMS, moment);
         await delay(60000);
     }

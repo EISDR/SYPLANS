@@ -1,0 +1,226 @@
+<%- FORM.tabs(scope, [
+    {
+        id: "basic",
+        text: "Datos Básicos y Campos",
+        icon: "icon-list3"
+    },
+    {
+        id: "indicadores",
+        text: "Indicadores",
+        icon: "icon-html5"
+    },
+    {
+        id: "respuestas",
+        text: "Respuestas",
+        icon: "icon-html5",
+        condition: "modulo_formulario.form.mode==='edit'"
+    },
+    {
+        id: "enviar",
+        text: "Enviar",
+        icon: "icon-mail5",
+        condition: "modulo_formulario.form.mode==='edit'"
+    }
+]) %>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('nombre', scope, {}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.input('descripcion', scope, {}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                    <thead class="bg-<%= COLOR.secundary %>">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre de Campo</th>
+                        <th>Tipo del Campo</th>
+                        <th>Configuración</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(ix,item) in modulo_formulario.config.fields track by item.id">
+                        <td style="width: 5%;padding: 2px;">
+                            {{ix+1}}
+                        </td>
+                        <td style="width: 10%;padding: 2px;">
+                            <input type="text" class="form-control" ng-model="item.field">
+                        </td>
+                        <td style="width: 10%;padding: 2px;">
+                            <select3 class="form-control" ng-model="item.tipo"
+                                     s2-options="opt as opt for opt in modulo_formulario.field_types">
+                            </select3>
+                        </td>
+                        <td style="width: 60%;padding: 2px;">
+                            <!--ng-if="['sheet'].indexOf(item.tipo)!==-1"-->
+                            <div class="row">
+                                <div class='col-sm-2 col-md-2'>
+                                    <label style="display: block">Tamaño:</label>
+                                    <select ng-model="item.config.col" class="form-control"
+                                            style="width: 50%;    display: inline-block;"
+                                            ng-options="opt as opt for opt in [1,2,3,4,5,6,7,8,9,10,11,12]">
+
+                                    </select>/12
+                                </div>
+                                <div class='col-sm-1 col-md-1' ng-if="['check'].indexOf(item.tipo)===-1">
+                                    <label>Requerido:</label>
+                                    <input type="checkbox" class="form-control" ng-model="item.config.required">
+                                </div>
+                                <div class='col-sm-3 col-md-3'
+                                     ng-if="['alfanumérico'].indexOf(item.tipo)!==-1">
+                                    <label>Máximo de caracteres:</label>
+                                    <input type="number" class="form-control" ng-model="item.config.max">
+                                </div>
+                                <div class='col-sm-3 col-md-3'
+                                     ng-if="['numérico'].indexOf(item.tipo)!==-1">
+                                    <label>Mínimo:</label>
+                                    <input type="number" class="form-control" ng-model="item.config.min">
+                                </div>
+                                <div class='col-sm-3 col-md-3'
+                                     ng-if="['numérico'].indexOf(item.tipo)!==-1">
+                                    <label>Máximo:</label>
+                                    <input type="number" class="form-control" ng-model="item.config.max">
+                                </div>
+                                <div class='col-sm-3 col-md-3'
+                                     ng-if="['desición'].indexOf(item.tipo)!==-1">
+                                    <label>Opción Positiva:</label>
+                                    <input type="text" class="form-control" ng-model="item.config.goodoption">
+                                </div>
+
+                                <div class='col-sm-3 col-md-3'
+                                     ng-if="['desición'].indexOf(item.tipo)!==-1">
+                                    <label>Opción Negativa:</label>
+                                    <input type="text" class="form-control" ng-model="item.config.badoption">
+                                </div>
+                                <div class='col-sm-9 col-md-9'
+                                     ng-if="['lista','lista múltiple'].indexOf(item.tipo)!==-1">
+                                    <label>Opciones separadas por coma(,):</label>
+                                    <input type="text" class="form-control" ng-model="item.config.options">
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 10%">
+                            <button title="Eliminar campo"
+                                    ng-click="<%= scope %>.deleteField(ix,modulo_formulario.config.fields);"
+                                    type="button"
+                                    class="btn bg-danger btn-xs">
+                                <i class="icon-trash"></i>
+                            </button>
+                            <button title="Subir" style="width: 23px;padding: 4px;margin: 0;"
+                                    ng-click="<%= scope %>.movecode(ix,modulo_formulario.config.fields)"
+                                    type="button" class="btn bg-info btn-xs">
+                                <i class="icon-arrow-up7"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100%" class="text-right">
+                            <button ng-click="<%= scope %>.addField();"
+                                    type="button"
+                                    class="btn bg-success btn-xs">
+                                Agregar nuevo campo
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="indicadores">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('indicador', scope, {
+                    trueplaceholder: "Filtro",
+                    helptext: "Ejemplo: NombredelCampo>=50000"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('formula', scope, {
+                    trueplaceholder: "Fórmula",
+                    helptext: "Ejemplo: filtrados/total, donde filtrados=Los registros filtrados por el indicador y total=El total de registros guardados con este formulario."
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.input('sufijo', scope, {
+                    trueplaceholder: "Sufijo",
+                    helptext: "Ejemplo: %, este texto aparecerá delante del resultado de la fórmula"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                    <thead class="bg-<%= COLOR.secundary %>">
+                    <tr>
+                        <th>Nombre del indicador</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Color</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(ix,item) in modulo_formulario.config.indicadores track by item.id">
+                        <td style="width: 20%;padding: 2px;">
+                            <input type="text" class="form-control" ng-model="item.nombre">
+                        </td>
+                        <td style="width: 10%;padding: 2px;">
+                            <input type="number" class="form-control" ng-model="item.desde">
+                        </td>
+                        <td style="width: 10%;padding: 2px;">
+                            <input type="number" class="form-control" ng-model="item.hasta">
+                        </td>
+                        <td style="width: 10%;padding: 2px;">
+                            <input type="color" class="form-control" ng-model="item.color">
+                        </td>
+
+                        <td style="width: 10%">
+                            <button title="Eliminar campo"
+                                    ng-click="<%= scope %>.deleteField(ix,modulo_formulario.config.indicadores);"
+                                    type="button"
+                                    class="btn bg-danger btn-xs">
+                                <i class="icon-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100%" class="text-right">
+                            <button ng-click="<%= scope %>.addIndicador();"
+                                    type="button"
+                                    class="btn bg-success btn-xs">
+                                Agregar nuevo indicador
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="respuestas">
+        <div class='col-sm-12 col-md-12'>
+            <%- FORM.relation("respuestas", scope, {
+                table: "modulo_formulario_registro",
+                field: "modulo_formulario",
+                master: null,
+                icon: {class: "archive"}
+            }) %>
+        </div>
+    </div>
+    <div class="tab-pane" id="enviar">
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+

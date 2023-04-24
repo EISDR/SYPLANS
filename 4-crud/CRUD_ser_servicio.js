@@ -88,7 +88,7 @@ DSON.keepmerge(CRUD_ser_servicio, {
                 },
                 {
                     key: 'ser_servicio_direccion',
-                    label: function(){
+                    label: function () {
                         return 'A Quién va Dirigido'
                     },
                     type: FILTER.types.string,
@@ -96,7 +96,7 @@ DSON.keepmerge(CRUD_ser_servicio, {
                 },
                 {
                     key: 'departamento',
-                    label: function() {
+                    label: function () {
                         return 'Departamento'
                     },
                     type: FILTER.types.relation,
@@ -113,7 +113,7 @@ DSON.keepmerge(CRUD_ser_servicio, {
                             },
                             {
                                 "field": "institucion",
-                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "operator": new SESSION().current() ? (new SESSION().current().institucion_id ? "=" : "is") : "=",
                                 "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
                             }
                         ],
@@ -124,7 +124,7 @@ DSON.keepmerge(CRUD_ser_servicio, {
                 },
                 {
                     key: 'usuario',
-                    label: function() {
+                    label: function () {
                         return 'Persona responsable'
                     },
                     type: FILTER.types.relation,
@@ -141,7 +141,7 @@ DSON.keepmerge(CRUD_ser_servicio, {
                             },
                             {
                                 "field": "institucion",
-                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "operator": new SESSION().current() ? (new SESSION().current().institucion_id ? "=" : "is") : "=",
                                 "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
                             }
                         ],
@@ -178,57 +178,57 @@ DSON.keepmerge(CRUD_ser_servicio, {
                     return "";
                 },
                 title: (data) => {
-                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined"){
-                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                    if (typeof eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`) != "undefined") {
+                        if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.audit) {
                             return MESSAGE.i('actions.Remove') + ", " +
                                 MESSAGE.i('actions.audit');
-                        }  else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.Edit') + ", " +
                                 MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view && eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.View') + ", " +
                                 MESSAGE.i('actions.Remove');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.edit) {
                             return MESSAGE.i('actions.Edit');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.view) {
                             return MESSAGE.i('actions.View');
-                        } else if(eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove){
+                        } else if (eval(`PERMISSIONS.mypermission.${data.$scope.modelName}`).allow.remove) {
                             return MESSAGE.i('actions.Remove');
                         }
                     } else {
                         return MESSAGE.i('actions.Edit') + ", " +
                             MESSAGE.i('actions.View') + ", " +
-                            MESSAGE.i('actions.Remove')+ ", " +
+                            MESSAGE.i('actions.Remove') + ", " +
                             MESSAGE.i('actions.audit');
                     }
                 },

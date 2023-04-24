@@ -10,10 +10,86 @@ app.controller("auth", function ($scope, $http, $compile) {
     // });
 
     if (new SESSION().current()) {
-        if (location.href.indexOf('auth/login') !== -1) {
+        if (location.href.indexOf('auth/login') !== -1 && location.href.indexOf(`/home#auth/formulario`) === -1) {
             var http = new HTTP();
             http.folderredirect('');
         }
+    }
+
+    auth.enviarFormulario = async () => {
+        let toinsert = {
+            modulo_formulario: auth.queries.id || 0,
+            respuestas: JSON.stringify(baseController.formulario.registro),
+            fecha: "$now()",
+            ip: baseController.session ? baseController.session.ip : "0",
+            nombre: baseController.session ? baseController.session.fullName() : "Anónimo",
+            origen: baseController.session ? "interno" : "externo",
+            usuario: baseController.session ? baseController.session.usuario_id : 0,
+            browser: getBrowser()
+        };
+        if (baseController.formulario)
+            if (baseController.formulario.config)
+                if (baseController.formulario.config.fields)
+                    if (baseController.formulario.config.fields.length) {
+                        for (const d of baseController.formulario.config.fields) {
+                            if (d.config.required)
+                                if (!baseController.formulario.registro[d.field]) {
+                                    SWEETALERT.show({
+                                        message: `El campo ${d.field} es requerido`,
+                                        type: 'warning'
+                                    });
+                                    return;
+                                }
+                        }
+                    }
+        SWEETALERT.loading({message: "Enviando Respuestas"});
+        BASEAPI.insertIDp("modulo_formulario_registro", toinsert);
+        SWEETALERT.show({message: "Gracias por compartirnos tus respuestas"});
+        baseController.formulario.end = true;
+        baseController.refreshAngular();
+    }
+    auth.createForm = async () => {
+        SWEETALERT.loading({message: "Cargando Formulario"});
+        baseController.formulario = {nombre: "", registro: {}};
+        let formID = auth.queries.id || 0;
+        if (baseController.session) {
+            let yalolleno = await BASEAPI.firstp('modulo_formulario_registro', {
+                where: [{field: "usuario", value: baseController.session.usuario_id}]
+            });
+            if (yalolleno) {
+                baseController.formulario.registro = {};
+                baseController.formulario.nombre = `Hola ${baseController.session.fullName()}, gracias por haber llenado este formulario, estaremos trabajando en tus opiniones.`;
+                baseController.refreshAngular();
+                SWEETALERT.stop();
+                return;
+            }
+        }
+        if (formID) {
+            baseController.formulario = await BASEAPI.firstp('modulo_formulario', {
+                where: [{value: formID}]
+            });
+            baseController.formulario.registro = {};
+            try {
+                baseController.formulario.config = JSON.parse(baseController.formulario.config);
+            } catch (e) {
+                baseController.formulario.config = {fields: []};
+            }
+            if (baseController.formulario)
+                if (baseController.formulario.config)
+                    if (baseController.formulario.config.fields)
+                        if (baseController.formulario.config.fields.length) {
+                            baseController.formulario.config.fields.forEach(d => {
+                                if (d.tipo === "lista" || d.tipo === "lista múltiple") {
+                                    d.realOptions = [...new Set((d.config.options || '').split(','))];
+                                }
+                            });
+                        }
+        } else {
+            baseController.formulario.registro = {};
+            baseController.formulario.nombre = "404: Este formulario no existe o fue eliminado.";
+        }
+        baseController.refreshAngular();
+        SWEETALERT.stop();
     }
 
     if (location.href.indexOf('token=') !== -1) {
@@ -600,5 +676,6 @@ app.controller("auth", function ($scope, $http, $compile) {
             });
         });
     };
+
 
 });

@@ -168,7 +168,7 @@ SESSION = function () {
     };
     this.ifLogoffRedirec = function (view) {
         var href = view || location.href;
-        if (href.indexOf('auth/login') === -1) {
+        if (href.indexOf('auth/login') === -1 && href.indexOf(`auth/formulario`) === -1) {
             if (href.indexOf('auth/forgot') === -1) {
                 if (href.indexOf('auth/createaccount') === -1) {
                     if (href.indexOf('auth/restore') === -1) {

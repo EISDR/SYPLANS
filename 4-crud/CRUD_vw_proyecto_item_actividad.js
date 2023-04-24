@@ -18,13 +18,13 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
             },
             departamento: {},
             proyecto_item_nombre: {
-                label: function() {
+                label: function () {
                     return "Proyecto Especial"
                 },
                 shorttext: 370
             },
             nombre: {
-                label: function(){
+                label: function () {
                     return "Actividad"
                 },
                 shorttext: 370
@@ -50,14 +50,14 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 shorttext: 370,
             },
             avance_porcentaje: {
-                label: function(){
+                label: function () {
                     return "Porcentaje de avance"
                 },
                 sorttype: "percentage",
                 formattype: "percentage",
             },
             razon_nombre: {
-                label: function(){
+                label: function () {
                     return "Evaluación de cierre"
                 },
                 shorttext: 370,
@@ -154,7 +154,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'nombre',
-                    label: function() {
+                    label: function () {
                         return 'Actividad'
                     },
                     type: FILTER.types.string,
@@ -162,7 +162,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'responsable_id',
-                    label: function() {
+                    label: function () {
                         return 'Responsable'
                     },
                     type: FILTER.types.relation,
@@ -179,7 +179,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                             },
                             {
                                 "field": "institucion",
-                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "operator": new SESSION().current() ? (new SESSION().current().institucion_id ? "=" : "is") : "=",
                                 "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
                             }
                         ],
@@ -216,7 +216,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'razon',
-                    label: function() {
+                    label: function () {
                         return 'Evaluación de cierre'
                     },
                     type: FILTER.types.relation,
@@ -233,7 +233,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                             },
                             {
                                 "field": "institucion",
-                                "operator": new SESSION().current().institucion_id ? "=" : "is",
+                                "operator": new SESSION().current() ? (new SESSION().current().institucion_id ? "=" : "is") : "=",
                                 "value": new SESSION().current() ? new SESSION().current().institucion_id ? new SESSION().current().institucion_id : "$null" : -1
                             },
                             {
@@ -248,7 +248,9 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'estatus_id',
-                    label:  function() { return 'Estado' },
+                    label: function () {
+                        return 'Estado'
+                    },
                     type: FILTER.types.relation,
                     table: 'auditoria_programa_plan_estatus',
                     value: "code",
@@ -448,7 +450,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                         characterist: (data) => {
                             return "";
                         },
-                        show: (data) =>{
+                        show: (data) => {
                             return false
                         },
                         click: function (data) {
@@ -489,7 +491,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                             });
                             return false;
                         },
-                        show: (data) =>{
+                        show: (data) => {
                             return false
                         },
                     },
@@ -518,7 +520,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                             });
                             return false;
                         },
-                        show: (data) =>{
+                        show: (data) => {
                             return false
                         },
                     },
@@ -535,7 +537,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                         characterist: (data) => {
                             return "";
                         },
-                        show: (data) =>{
+                        show: (data) => {
                             return false
                         },
                         click: function (data) {

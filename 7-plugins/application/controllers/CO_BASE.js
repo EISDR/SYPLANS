@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngSanitize', 'ngMask']);
+var app = angular.module('app', ['ngSanitize', 'ngMask', 'ngTagsInput', 'rt.select3']);
 CINTILLO = "";
 
 function encodelast(url) {
@@ -394,7 +394,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         var session = new SESSION();
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);
-        if (location.href.indexOf(`/home#auth/login`) === -1)
+        if (location.href.indexOf(`/home#auth/login`) === -1 && location.href.indexOf(`/home#auth/formulario`) === -1)
             CONTROL.run(baseController, $compile);
         baseController.about = eval(`CONFIG.version.about.${MESSAGE.current().code}`).replace("[ENTER]", `
     
@@ -916,7 +916,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         };
         RUN_B = function (conrollerName, inside, $scope, $http, $compile) {
             FORM.run(inside, $http);
-            if (location.href.indexOf(`/home#auth/login`) === -1)
+            if (location.href.indexOf(`/home#auth/login`) === -1 && location.href.indexOf(`/home#auth/formulario`) === -1)
                 CONTROL.run(inside, $compile);
             VALIDATION.run(inside);
         };

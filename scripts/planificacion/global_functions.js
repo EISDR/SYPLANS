@@ -2464,8 +2464,8 @@ createfalse = async () => {
             pei: undefined,
             productos: undefined,
             actividades: undefined,
-            tiposMeta: baseController.session.tipoMenta,
-            direccionesMeta: baseController.session.direccionMeta,
+            tiposMeta: baseController.session ? baseController.session.tipoMenta : [],
+            direccionesMeta: baseController.session ? baseController.session.direccionMeta : [],
             periodicidad: baseController.poa_monitorieo
         },
         listp: async (api, where) => {
@@ -2758,7 +2758,7 @@ createfalse = async () => {
     if (!aacontroldemandofalso.api.ponderaciones)
         aacontroldemandofalso.api.ponderaciones = await aacontroldemandofalso.listp("reporte_indicador_config", {
             field: "compania",
-            value: baseController.session.compania_id
+            value: baseController.session ? baseController.session.compania_id : "0"
         });
     if (!aacontroldemandofalso.api.formulas)
         aacontroldemandofalso.api.formulas = await aacontroldemandofalso.listp("reporte_tipometa_formula");
@@ -3355,7 +3355,7 @@ function_send_email_cargos_y_resposables = function (titulo_push, cuerpo_push, t
         ]
     }).then(function (result) {
         usuario_data = result.data;
-        if (responsables.length > 0){
+        if (responsables.length > 0) {
             usuario_primer_grupo.push(usuario_data.filter(search => {
                 return responsables.includes(search.id);
             }));
@@ -3373,7 +3373,9 @@ function_send_email_cargos_y_resposables = function (titulo_push, cuerpo_push, t
             for (var resul of item) {
                 id_usuarios_primer_grupo.push(resul.id);
                 correo_usuarios_primer_grupo.push(resul.correo);
-                directores_departamentales.push(usuario_data.filter(d => {return d.departamento == resul.departamento && d.profile == segundo_grupo}))
+                directores_departamentales.push(usuario_data.filter(d => {
+                    return d.departamento == resul.departamento && d.profile == segundo_grupo
+                }))
             }
         }
         for (item2 of usuario_segundo_grupo) {
@@ -3414,3 +3416,6 @@ function_send_email_cargos_y_resposables = function (titulo_push, cuerpo_push, t
         send_notification.send.email(data_json_email_primer_segundo_grupo);
     });
 };
+getBrowser = () => {
+    return navigator.userAgent;
+}

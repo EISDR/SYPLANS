@@ -2323,6 +2323,15 @@
             "DOC": false
           }
         }
+      },
+      "modulo_formulario": {
+        "type": "full",
+        "allow": {}
+      },
+      "modulo_formulario_registro": {
+        "type": "report",
+        "allow": {
+        }
       }
     }
   }
