@@ -195,7 +195,7 @@
                                     truelabel: "Proceso",
                                     text: "item.nombre",
                                     icon: {class: "archive"},
-                                    condition: "(item.procesos_categoria == solicitud_documento.edit_doc_proceso_categoria && item.estatus != '3') && (item.active)"
+                                    condition: "(item.procesos_categoria == solicitud_documento.edit_doc_proceso_categoria && item.estatus == '3') && (item.active)"
                                 }) %>
                             </div>
                             <div class='col-sm-12 col-md-6' ng-if="!solicitud_documento.session.institucion">
@@ -243,12 +243,12 @@
                             </div>
                             <div class='col-sm-12 col-md-6' ng-if="solicitud_documento.session.institucion">
                                 <%- FORM.select('edit_doc_tipo_documento', scope, {
-                                            column: 'name',
-                                            table: 'tipo_documento',
-                                            truelabel: 'Tipo de Documento a solicitar',
-                                            text: 'item.nombre',
-                                            condition: "(item.institucion == solicitud_documento.session.institucion_id)",
-                                        //self: true,
+                                    column: 'name',
+                                    table: 'tipo_documento',
+                                    truelabel: 'Tipo de Documento a solicitar',
+                                    text: 'item.nombre',
+                                    condition: "(item.institucion == solicitud_documento.session.institucion_id)",
+                                //self: true,
                                 //allownull: true,
                                 //allownew: true,
                                 //allowedit: true,
