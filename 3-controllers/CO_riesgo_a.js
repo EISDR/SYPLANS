@@ -1528,12 +1528,12 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
     };
     riesgo_a.saveImprovisado = () => {
         VALIDATION.save(riesgo_a, async function () {
-            SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+            SWEETALERT.loading({message: MESSAGE.ic('mono.loading') + "..."});
             BASEAPI.updateall('riesgo', {
                 mamfe_gravedad_current: riesgo_a.mamfe_gravedad_current,
                 mamfe_ocurrencia_current: riesgo_a.mamfe_ocurrencia_current,
                 mamfe_deteccion_current: riesgo_a.mamfe_deteccion_current,
-                observacion: riesgo_a.observacion,
+                observacion: riesgo_a.observacion || "",
                 where: [
                     {
                         field: "id",
@@ -1549,11 +1549,11 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         }, ["mamfe_gravedad_current","mamfe_ocurrencia_current","mamfe_deteccion_current"]);
     };
     riesgo_a.saveImprovisadoVaR = () => {
-        SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+        SWEETALERT.loading({message: MESSAGE.ic('mono.loading') + "..."});
         BASEAPI.updateall('riesgo', {
             probabilidad_current: riesgo_a.probabilidad_current,
             impacto_current: riesgo_a.impacto_current,
-            observacion: riesgo_a.observacion,
+            observacion: riesgo_a.observacion || "",
             condicion: 1,
             where: [
                 {
