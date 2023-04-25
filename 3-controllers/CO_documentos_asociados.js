@@ -837,11 +837,9 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 //rules here
                 // rules.push(VALIDATION.general.required(value));
                 if (value) {
-                    documentos_asociados.validate['marco_legal'] = {
-                        messages: MESSAGE.i('validations.Fieldisrequired'),
-                        type: "error",
-                        valid: (!DSON.oseaX0(documentos_asociados.marco_legal) && documentos_asociados.marco_legal !== "[NULL]")
-                    };
+                    var rules_marco_legal = [];
+                    rules_marco_legal.push(VALIDATION.general.required(documentos_asociados.marco_legal));
+                    VALIDATION.validate(documentos_asociados, 'marco_legal', rules_marco_legal);
                 }else{
                     documentos_asociados.validate['marco_legal'] = {
                         messages: "",
@@ -863,6 +861,16 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             $scope.$watch("documentos_asociados.marco_legal", function (value) {
                 var rules = [];
                 //rules here
+                if (documentos_asociados.trabaja_marco_legal) {
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(documentos_asociados, 'marco_legal', rules);
+                }else{
+                    documentos_asociados.validate['marco_legal'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                }
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(documentos_asociados, 'marco_legal', rules);
             });
