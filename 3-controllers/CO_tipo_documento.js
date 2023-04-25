@@ -1,6 +1,13 @@
 app.controller("tipo_documento", function ($scope, $http, $compile) {
     tipo_documento = this;
     tipo_documento.session = new SESSION().current();
+    tipo_documento.variables = ["nombre_mapa", "nombre_proceso", "responsable_proceso", "codigo",
+        "nombre", "estatus", "documento_estatus", "nombre_drp", "descripcion",
+        "creador_por_nombre", "creado_en", "aprobado_por_nombre", "tipo_documento",
+        "aprobado_en", "observacion", "solicitante_nombre", "solicitante_departamento", "fecha_solicitud",
+        "solicitud_documento_nombre", "alcance", "objetivo", "resultado_esperado", "marco_legal",
+        "folder", "version", "responsable_proceso_departamento", "documento_general", "version_documento", "es_confidencial"];
+    tipo_documento.variables = tipo_documento.variables.map(d => `@${d}@`);
     tipo_documento.fixFilters = [
         {
             field: "compania",
@@ -22,10 +29,13 @@ app.controller("tipo_documento", function ($scope, $http, $compile) {
         if (tipo_documento !== undefined) {
             RUN_B("tipo_documento", tipo_documento, $scope, $http, $compile);
             tipo_documento.form.modalWidth = ENUM.modal.width.full;
-            tipo_documento.form.readonly = {compania: tipo_documento.session.compania_id, institucion: tipo_documento.session.institucion_id};
+            tipo_documento.form.readonly = {
+                compania: tipo_documento.session.compania_id,
+                institucion: tipo_documento.session.institucion_id
+            };
             tipo_documento.createForm(data, mode, defaultData);
             tipo_documento.form.titles = {
-                new: "Nuevo - Tipo de Documento" ,
+                new: "Nuevo - Tipo de Documento",
                 edit: "Editar - Tipo de Documento",
                 view: "Ver ALL - Tipo de Documento"
             };
@@ -43,9 +53,9 @@ app.controller("tipo_documento", function ($scope, $http, $compile) {
             });
             //ms_product.selectQueries['compania'] = [
             //    {
-                //    field: 'id',
-                //    operator: '!=',
-                //    value: -1
+            //    field: 'id',
+            //    operator: '!=',
+            //    value: -1
             //    }
             //];
             $scope.$watch("tipo_documento.compania", function (value) {
@@ -56,9 +66,9 @@ app.controller("tipo_documento", function ($scope, $http, $compile) {
             });
             //ms_product.selectQueries['institucion'] = [
             //    {
-                //    field: 'id',
-                //    operator: '!=',
-                //    value: -1
+            //    field: 'id',
+            //    operator: '!=',
+            //    value: -1
             //    }
             //];
             $scope.$watch("tipo_documento.institucion", function (value) {

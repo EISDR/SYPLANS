@@ -40,6 +40,13 @@
         },
         {
           "modal": "",
+          "icon": "list",
+          "condition": "true",
+          "href": "#ws_connection",
+          "text": "Aplicaciones Externas"
+        },
+        {
+          "modal": "",
           "icon": "office",
           "href": "#compania",
           "text": "Compañía"

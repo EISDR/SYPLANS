@@ -53,9 +53,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     return "Código"
                 },
                 format: (row) => {
-                    return baseController.COD("Módulo de Calidad -> Documentos", row.id,row.aprobado_en);
+                    return baseController.COD("Módulo de Calidad -> Documentos", row.id, row.aprobado_en);
                 },
-                sortable:false
+                sortable: false
             },
             nombre: {},
             descripcion: {shorttext: 360},
@@ -195,13 +195,17 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'id',
-                    label: function() { return 'Código Automático'},
+                    label: function () {
+                        return 'Código Automático'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Código Automático'
                 },
                 {
                     key: 'procesos_categoria',
-                    label: function() { return 'Macroproceso'},
+                    label: function () {
+                        return 'Macroproceso'
+                    },
                     type: FILTER.types.relation,
                     table: 'vw_procesos_categoria',
                     value: "id",
@@ -286,7 +290,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'estatus_id',
-                    label:  function() { return 'Estado' },
+                    label: function () {
+                        return 'Estado'
+                    },
                     type: FILTER.types.relation,
                     table: 'auditoria_programa_plan_estatus',
                     value: "code",
@@ -312,7 +318,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'tipo_documento_id',
-                    label: function () { return 'Tipo de Documento' },
+                    label: function () {
+                        return 'Tipo de Documento'
+                    },
                     type: FILTER.types.relation,
                     table: 'tipo_documento',
                     value: "id",
@@ -338,7 +346,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'objetivo',
-                    label: function() { return 'Objetivo' },
+                    label: function () {
+                        return 'Objetivo'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Objetivo'
                 },
@@ -350,7 +360,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'trabaja_marco_legal',
-                    label: function() { return '¿Trabaja Marco Legal?'},
+                    label: function () {
+                        return '¿Trabaja Marco Legal?'
+                    },
                     type: FILTER.types.bool,
                     placeholder: '¿Trabaja Marco Legal?'
                 },
@@ -621,6 +633,46 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     },
                     {
                         text: (data) => {
+                            return "Imprimir desde plantilla"
+                        },
+                        icon: (data) => {
+                            return "printer2";
+                        },
+                        permission: (data) => {
+                            return 'view';
+                        },
+                        show: (data) => {
+                            return true;
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: function (data) {
+                            console.log(data.row);
+                            $("#eluniquex").html();
+                            SWEETALERT.loading({message: `Generando documento.`});
+                            let plantilla = "";
+
+                            if (!DSON.oseaX(data.row)) {
+                                plantilla = data.row.plantilla||"";
+
+                                Object.keys(data.row).forEach(d => {
+                                    plantilla = plantilla.replaceAll(`@${d}@`, data.row[d] || "");
+                                });
+                            }
+                            $("#eluniquex").html(plantilla);
+                            if (data.row.estatus !== 'Autorizado')
+                                $("#eluniquex").attr('data-before', data.row.estatus);
+                            $("#eluniquex").printThis({
+                                printDelay: 333,
+                                loadCSS: "styles/zfrola/mathquill.css",
+                            });
+                            SWEETALERT.stop();
+                            return false;
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {
@@ -847,7 +899,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                             field: eval(`CRUD_${data.$scope.modelName}`).table.key,
                             value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
                         }]
-                    }, FORM.modes.edit, {}, "ver_edit" );
+                    }, FORM.modes.edit, {}, "ver_edit");
                     data.$scope.form.titles = {
                         edit: "Cambiar Versión del Documento",
                     };
