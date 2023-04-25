@@ -101,78 +101,15 @@
                             trueplaceholder: "Código"
                         }) %>
                     </div>
-                    <div class='col-sm-3 col-md-3'>
+                    <div class='col-sm-9 col-md-9'>
                         <%- FORM.input('nombre', scope, {}) %>
                     </div>
-                    <div class='col-sm-1 col-md-1'>
+                    <div class='col-sm-2 col-md-2'>
                         <%- FORM.inputview('version', scope, {trueplaceholder: "Verisión del documento" } ) %>
-                    </div>
-                    <div class="col-sm-4 col-md-4"  ng-if="!documentos_asociados.session.institucion">
-                        <%- FORM.select("documentos_relacionados", scope, {
-                            allowedit: false,
-                            allowlist: false,
-                            allownew: false,
-                            allowview: false,
-                            multiple: true,
-                            text: "item.nombre",
-                            value: "id",
-                            table: "vw_documentos_asociados_drp",
-                            icon: {class: "archive"},
-                            truelabel: "Documentos Asociados",
-                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && item.estatus_id != 4)) && (item.id != documentos_asociados.id && item.documento_general == 0)",
-                            get: {
-                                table: 'documentos_asociados_relacionado',
-                                fieldFrom: 'id',
-                                fieldTo: 'documento_asociado',
-                                field: 'documento_asociado_relacionado'
-                            },
-                        // parent: {
-                        //     model: 'eje_estrategico',
-                        //     myfield: 'id',
-                        //     sufield: 'id'
-                        // },
-                        })%>
-                    </div>
-                    <div class="col-sm-4 col-md-4" ng-if="documentos_asociados.session.institucion">
-                        <%- FORM.select("documentos_relacionados", scope, {
-                            allowedit: false,
-                            allowlist: false,
-                            allownew: false,
-                            allowview: false,
-                            multiple: true,
-                            text: "item.nombre",
-                            value: "id",
-                            table: "vw_documentos_asociados_drp",
-                            icon: {class: "archive"},
-                            truelabel: "Documentos Asociados",
-                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active && item.estatus_id != 4) ) && (item.id != documentos_asociados.id && item.documento_general == 0)",
-                            get: {
-                                table: 'documentos_asociados_relacionado',
-                                fieldFrom: 'id',
-                                fieldTo: 'documento_asociado',
-                                field: 'documento_asociado_relacionado'
-                            },
-                        // parent: {
-                        //     model: 'eje_estrategico',
-                        //     myfield: 'id',
-                        //     sufield: 'id'
-                        // },
-                        })%>
-                    </div>
-                    <div style="text-align: center;" class="col-sm-2 col-md-2">
-                        <%- FORM.checkbox("trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?"}) %>
-                    </div>
-                    <div style="text-align: center;" class="col-sm-1 col-md-1">
-                        <%- FORM.checkbox("es_confidencial", scope, {text: "¿Es confidencial?"}) %>
                     </div>
                 </div>
                 <div class="row">
-                    <div class='col-sm-6 col-md-6' ng-show="<%= scope%>.trabaja_marco_legal">
-                        <%- FORM.textarea('marco_legal', scope, {
-                                //maxlength: 200,,
-                                trueplaceholder: "Marco Legal",
-                        }) %>
-                    </div>
+
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('alcance', scope, {
                                 //maxlength: 200,
@@ -189,17 +126,29 @@
                                 //maxlength: 200,
                         }) %>
                     </div>
-                    <div class='col-sm-6 col-md-6' ng-show="!<%= scope%>.trabaja_marco_legal">
+                    <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('descripcion', scope, {
                                 //maxlength: 200,
                         }) %>
                     </div>
-                    <div class='col-sm-12 col-md-12' ng-show="<%= scope%>.trabaja_marco_legal">
-                        <%- FORM.textarea('descripcion', scope, {
-                                //maxlength: 200,
+                </div>
+                <div class="row">
+                    <div style="text-align: center;" class="col-sm-1 col-md-1">
+                        <%- FORM.checkbox("trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?"}) %>
+                    </div>
+                    <div class='col-sm-11 col-md-11' ng-show="<%= scope%>.trabaja_marco_legal">
+                        <%- FORM.textarea('marco_legal', scope, {
+                            //maxlength: 200,,
+                            trueplaceholder: "Marco Legal",
                         }) %>
                     </div>
-                    <div class="col-sm-12 col-md-6" ng-show="<%= scope%>.es_confidencial">
+                </div>
+                <br>
+                <div class="row">
+                    <div style="text-align: center;" class="col-sm-1 col-md-1">
+                        <%- FORM.checkbox("es_confidencial", scope, {text: "¿Es confidencial?"}) %>
+                    </div>
+                    <div class="col-sm-12 col-md-5" ng-show="<%= scope%>.es_confidencial">
                         <%- FORM.select("roles_permitidos", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -267,6 +216,60 @@
                                 fieldFrom: 'id',
                                 fieldTo: 'documento_asociado',
                                 field: 'usuario'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12"  ng-if="!documentos_asociados.session.institucion">
+                        <%- FORM.select("documentos_relacionados", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "vw_documentos_asociados_drp",
+                            icon: {class: "archive"},
+                            truelabel: "Documentos Asociados",
+                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && item.estatus_id != 4) && item.mapa_proceso == documentos_asociados.mapa_id) && (item.id != documentos_asociados.id && item.documento_general == 0)",
+                            get: {
+                                table: 'documentos_asociados_relacionado',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'documento_asociado_relacionado'
+                            },
+                            // parent: {
+                            //     model: 'eje_estrategico',
+                            //     myfield: 'id',
+                            //     sufield: 'id'
+                            // },
+                        })%>
+                    </div>
+                    <div class="col-sm-12 col-md-12" ng-if="documentos_asociados.session.institucion">
+                        <%- FORM.select("documentos_relacionados", scope, {
+                            allowedit: false,
+                            allowlist: false,
+                            allownew: false,
+                            allowview: false,
+                            multiple: true,
+                            text: "item.nombre",
+                            value: "id",
+                            table: "vw_documentos_asociados_drp",
+                            icon: {class: "archive"},
+                            truelabel: "Documentos Asociados",
+                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active && item.estatus_id != 4) && item.mapa_proceso == documentos_asociados.mapa_id) && (item.id != documentos_asociados.id && item.documento_general == 0)",
+                            get: {
+                                table: 'documentos_asociados_relacionado',
+                                fieldFrom: 'id',
+                                fieldTo: 'documento_asociado',
+                                field: 'documento_asociado_relacionado'
                             },
                             // parent: {
                             //     model: 'eje_estrategico',

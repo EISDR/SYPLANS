@@ -4,7 +4,7 @@ CRUD_documentos_asociados = {};
 DSON.keepmerge(CRUD_documentos_asociados, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_documentos_asociados, {
     table: {
-        width: "width:2400px;",
+        width: "width:3000px;",
         view: 'vw_documentos_asociados',
         //method: 'documentos_asociados',
         //limits: [10, 50, 100, 0],

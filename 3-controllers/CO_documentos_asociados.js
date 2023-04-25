@@ -116,6 +116,15 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 // export: false,
                 // exportExample: false,
             },
+            es_confidencial: {
+                label: function () {
+                    return "¿Es confidencial?"
+                },
+                format: function (row) {
+                    return row.es_confidencial === 1 ? 'Sí' : 'No'
+                },
+                shorttext: 360
+            },
             creado_en: {
                 shorttext: 360,
                 label: function () {
@@ -310,6 +319,27 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 shorttext: 360
             },
             resultado_esperado: {shorttext: 360},
+            es_confidencial: {
+                label: function () {
+                    return "¿Es confidencial?"
+                },
+                format: function (row) {
+                    return row.es_confidencial === 1 ? 'Sí' : 'No'
+                },
+                shorttext: 360
+            },
+            roles_permitidos: {
+                label: function () {
+                    return "Roles permitidos a ver el documento"
+                },
+                shorttext: 360
+            },
+            usuarios_permitidos: {
+                label: function () {
+                    return "Usuarios permitidos a ver el documento"
+                },
+                shorttext: 360
+            },
             creado_por_nombre: {
                 label: function () {
                     return "Creado Por"
@@ -483,36 +513,59 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                         if (typeof dashboard_proceso !== 'not defined') {
                             if (!documentos_asociados.paso) {
                                 documentos_asociados.fixFilters = [];
-                                documentos_asociados.fixFilters = [
-                                    {
-                                        "field": "documento_estatus",
-                                        "value": dashboard_proceso.Mdocumentos
-                                    },
-                                    {
-                                        field: "documento_general",
-                                        operator: "is",
-                                        value: "$null"
-                                    },
-                                    {
-                                        field: "estatus_id",
-                                        operator: "!=",
-                                        value: ENUM_2.documentos_estatus.Eliminado
-                                    },
-                                    {
-                                        field: "mapa_proceso",
-                                        value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
-                                    },
-                                    {
-                                        field: "es_confidencial",
-                                        operator: "is",
-                                        value: "$null",
-                                        connector: "OR"
-                                    },
-                                    {
-                                        field: CONFIG.mysqlactive ? "id" : "$id::text",
-                                        value: documentos_confidencialesIds,
-                                    }
-                                ];
+                                if (documentos_asociados.caracteristica == ENUM_2.Grupos.director_general || documentos_asociados.caracteristica == ENUM_2.Grupos.analista_de_calidad || documentos_asociados.caracteristica == ENUM_2.Grupos.supervisor_de_calidad){
+                                    documentos_asociados.fixFilters = [
+                                        {
+                                            "field": "documento_estatus",
+                                            "value": dashboard_proceso.Mdocumentos
+                                        },
+                                        {
+                                            field: "documento_general",
+                                            operator: "is",
+                                            value: "$null"
+                                        },
+                                        {
+                                            field: "estatus_id",
+                                            operator: "!=",
+                                            value: ENUM_2.documentos_estatus.Eliminado
+                                        },
+                                        {
+                                            field: "mapa_proceso",
+                                            value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                                        }
+                                    ];
+                                }else {
+                                    documentos_asociados.fixFilters = [
+                                        {
+                                            "field": "documento_estatus",
+                                            "value": dashboard_proceso.Mdocumentos
+                                        },
+                                        {
+                                            field: "documento_general",
+                                            operator: "is",
+                                            value: "$null"
+                                        },
+                                        {
+                                            field: "estatus_id",
+                                            operator: "!=",
+                                            value: ENUM_2.documentos_estatus.Eliminado
+                                        },
+                                        {
+                                            field: "mapa_proceso",
+                                            value: dashboard_proceso.mapa_id ? dashboard_proceso.mapa_id : -1
+                                        },
+                                        {
+                                            field: "es_confidencial",
+                                            operator: "is",
+                                            value: "$null",
+                                            connector: "OR"
+                                        },
+                                        {
+                                            field: CONFIG.mysqlactive ? "id" : "$id::text",
+                                            value: documentos_confidencialesIds,
+                                        }
+                                    ];
+                                }
                                 if (dashboard_proceso.session.institucion) {
                                     documentos_asociados.fixFilters.push({
                                         "field": "institucion",
@@ -539,41 +592,69 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     }
                 }
             }else{
-                documentos_asociados.fixFilters = [
-                    {
-                        field: "compania",
-                        value: documentos_asociados.session.compania_id
-                    },
-                    {
-                        field: "documento_general",
-                        operator: "is",
-                        value: "$null"
-                    },
-                    {
-                        "field": "institucion",
-                        "operator": documentos_asociados.session.institucion_id ? "=" : "is",
-                        "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
-                    },
-                    {
-                        field: "estatus_id",
-                        operator: "!=",
-                        value: ENUM_2.documentos_estatus.Eliminado
-                    },
-                    {
-                        field: "mapa_proceso",
-                        value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id : -1
-                    },
-                    {
-                        field: "es_confidencial",
-                        operator: "is",
-                        value: "$null",
-                        connector: "OR"
-                    },
-                    {
-                        field: CONFIG.mysqlactive ? "id" : "$BASE.id::text",
-                        value: documentos_confidencialesIds,
-                    }
-                ];
+                if (documentos_asociados.caracteristica == ENUM_2.Grupos.director_general || documentos_asociados.caracteristica == ENUM_2.Grupos.analista_de_calidad || documentos_asociados.caracteristica == ENUM_2.Grupos.supervisor_de_calidad){
+                    documentos_asociados.fixFilters = [
+                        {
+                            field: "compania",
+                            value: documentos_asociados.session.compania_id
+                        },
+                        {
+                            field: "documento_general",
+                            operator: "is",
+                            value: "$null"
+                        },
+                        {
+                            "field": "institucion",
+                            "operator": documentos_asociados.session.institucion_id ? "=" : "is",
+                            "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
+                        },
+                        {
+                            field: "estatus_id",
+                            operator: "!=",
+                            value: ENUM_2.documentos_estatus.Eliminado
+                        },
+                        {
+                            field: "mapa_proceso",
+                            value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id : -1
+                        }
+                    ];
+                } else {
+                    documentos_asociados.fixFilters = [
+                        {
+                            field: "compania",
+                            value: documentos_asociados.session.compania_id
+                        },
+                        {
+                            field: "documento_general",
+                            operator: "is",
+                            value: "$null"
+                        },
+                        {
+                            "field": "institucion",
+                            "operator": documentos_asociados.session.institucion_id ? "=" : "is",
+                            "value": documentos_asociados.session.institucion_id ? documentos_asociados.session.institucion_id : "$null"
+                        },
+                        {
+                            field: "estatus_id",
+                            operator: "!=",
+                            value: ENUM_2.documentos_estatus.Eliminado
+                        },
+                        {
+                            field: "mapa_proceso",
+                            value: documentos_asociados.mapa_id ? documentos_asociados.mapa_id : -1
+                        },
+                        {
+                            field: "es_confidencial",
+                            operator: "is",
+                            value: "$null",
+                            connector: "OR"
+                        },
+                        {
+                            field: CONFIG.mysqlactive ? "id" : "$BASE.id::text",
+                            value: documentos_confidencialesIds,
+                        }
+                    ];
+                }
             }
         }else{
             documentos_asociados.fixFilters = [
@@ -751,13 +832,37 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(documentos_asociados, 'resultado_esperado', rules);
             });
+            $scope.$watch("documentos_asociados.trabaja_marco_legal", function (value) {
+                var rules = [];
+                //rules here
+                // rules.push(VALIDATION.general.required(value));
+                if (value) {
+                    documentos_asociados.validate['marco_legal'] = {
+                        messages: MESSAGE.i('validations.Fieldisrequired'),
+                        type: "error",
+                        valid: (!DSON.oseaX0(documentos_asociados.marco_legal) && documentos_asociados.marco_legal !== "[NULL]")
+                    };
+                }else{
+                    documentos_asociados.validate['marco_legal'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                }
+                documentos_asociados.refreshAngular();
+                VALIDATION.validate(documentos_asociados, 'trabaja_marco_legal', rules);
+            });
 
+            $scope.$watch("documentos_asociados.alcance", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.general.required(value));
+                rules.push(VALIDATION.yariel.maliciousCode(value));
+                VALIDATION.validate(documentos_asociados, 'alcance', rules);
+            });
             $scope.$watch("documentos_asociados.marco_legal", function (value) {
                 var rules = [];
                 //rules here
-                if (documentos_asociados.marco_required) {
-                    rules.push(VALIDATION.general.required(value));
-                }
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(documentos_asociados, 'marco_legal', rules);
             });
@@ -786,6 +891,12 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
         documentos_asociados.runMagicManyToMany('documentos_relacionados', 'documentos_asociados',
             'documento_asociado', 'id', 'nombre', 'documentos_asociados_relacionado',
             'documento_asociado_relacionado', 'id');
+        documentos_asociados.runMagicManyToMany('roles_permitidos', 'group',
+            'documento_asociado', 'id', 'name', 'documentos_asociados_roles',
+            'rol', 'id');
+        documentos_asociados.runMagicManyToMany('usuarios_permitidos', 'vw_usuario',
+            'documento_asociado', 'id', 'completo', 'documentos_asociados_usuarios',
+            'usuario', 'id');
         documentos_asociados.fileSI = [];
         for (var items of records.data) {
             documentos_asociados.files = () => new Promise(async (resolve, reject) => {
@@ -834,6 +945,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                         location.reload();
                 }
             }, 200);
+        documentos_asociados.getMapaProceso();
         documentos_asociados.refresh();
     };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
