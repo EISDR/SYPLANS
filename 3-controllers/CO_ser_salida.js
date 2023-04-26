@@ -65,14 +65,24 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
             $scope.$watch("ser_salida.esproceso", function (value) {
                 var rules = [];
                 //rules here
-                if (!ser_salida.esproceso) {
-                    delete ser_salida.validate["proceso"];
-                    rules.push(VALIDATION.general.required(ser_salida.ser_servicio));
-                    VALIDATION.validate(ser_salida, 'ser_servicio', rules);
-                } else {
-                    delete ser_salida.validate["ser_servicio"];
-                    rules.push(VALIDATION.general.required(ser_salida.proceso));
-                    VALIDATION.validate(ser_salida, 'proceso', rules);
+                if (value) {
+                    var rules_proceso = [];
+                    ser_salida.validate['ser_servicio'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                    rules_proceso.push(VALIDATION.general.required(ser_salida.proceso));
+                    VALIDATION.validate(ser_salida, 'proceso', rules_proceso);
+                }else{
+                    var rules_ser_servicio = [];
+                    ser_salida.validate['proceso'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                    rules_ser_servicio.push(VALIDATION.general.required(ser_salida.ser_servicio));
+                    VALIDATION.validate(ser_salida, 'ser_servicio', rules_ser_servicio);
                 }
             });
             $scope.$watch("ser_salida.ser_salida_tipo", function (value) {
@@ -84,13 +94,29 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
             $scope.$watch("ser_salida.ser_servicio", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                if (!ser_salida.esproceso){
+                    rules.push(VALIDATION.general.required(value));
+                }else{
+                    ser_salida.validate['ser_servicio'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                }
                 VALIDATION.validate(ser_salida, 'ser_servicio', rules);
             });
             $scope.$watch("ser_salida.proceso", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                if (!ser_salida.esproceso){
+                    ser_salida.validate['proceso'] = {
+                        messages: "",
+                        type: "success",
+                        valid: true
+                    };
+                }else{
+                    rules.push(VALIDATION.general.required(value));
+                }
                 VALIDATION.validate(ser_salida, 'proceso', rules);
             });
             $scope.$watch("ser_salida.nivel_urgencia", function (value) {
@@ -218,6 +244,11 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
     // };
     ser_salida.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        if (!ser_salida.esproceso){
+            data.inserting.proceso = "$null";
+        }else{
+            data.inserting.ser_servicio = "$null";
+        }
         const format = "YYYY-MM-DD";
         if(moment(ser_salida.fecha_compromiso, format).isBefore(moment(ser_salida.fecha_queja, format))){
             SWEETALERT.show({
@@ -237,6 +268,11 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     // };
     ser_salida.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        if (!ser_salida.esproceso){
+            data.updating.proceso = "$null";
+        }else{
+            data.updating.ser_servicio = "$null";
+        }
         const format = "YYYY-MM-DD";
         if(moment(ser_salida.fecha_compromiso, format).isBefore(moment(ser_salida.fecha_queja, format))){
             SWEETALERT.show({
