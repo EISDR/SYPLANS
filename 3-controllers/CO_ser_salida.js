@@ -67,11 +67,11 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
                 //rules here
                 if (!ser_salida.esproceso) {
                     delete ser_salida.validate["proceso"];
-                    rules.push(VALIDATION.general.required(value));
+                    rules.push(VALIDATION.general.required(ser_salida.ser_servicio));
                     VALIDATION.validate(ser_salida, 'ser_servicio', rules);
                 } else {
                     delete ser_salida.validate["ser_servicio"];
-                    rules.push(VALIDATION.general.required(value));
+                    rules.push(VALIDATION.general.required(ser_salida.proceso));
                     VALIDATION.validate(ser_salida, 'proceso', rules);
                 }
             });
