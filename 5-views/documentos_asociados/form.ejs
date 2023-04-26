@@ -26,8 +26,8 @@
             <div class="panel-body">
                 <div class="row" ng-if="documentos_asociados.directo">
                     <div class='col-sm-2 col-md-2'>
-                        <%- FORM.inputview('id', scope, {trueplaceholder: "Número del Documento" } ) %>
-                     </div>
+                        <%- FORM.inputview('id', scope, {trueplaceholder: "Número del Documento"}) %>
+                    </div>
                     <div class="col-sm-3 col-md-3" ng-if="!documentos_asociados.session.institucion">
                         <%- FORM.select("procesos_categoria", scope, {
                             allownew: false,
@@ -105,31 +105,37 @@
                         <%- FORM.input('nombre', scope, {}) %>
                     </div>
                     <div class='col-sm-2 col-md-2'>
-                        <%- FORM.inputview('version', scope, {trueplaceholder: "Verisión del documento" } ) %>
+                        <%- FORM.inputview('version', scope, {trueplaceholder: "Verisión del documento"}) %>
                     </div>
-                    <div class='col-sm-3 col-md-3'> <%- FORM.date('vigencia', scope, {trueplaceholder: "Vecha de vigencia"}) %></div>
+                    <div class='col-sm-3 col-md-3'>
+                        <%- FORM.date('vigencia', scope, {
+                            placeholder: "Vigencia del documento",
+                            label_custom: true,
+                            label: "Vigencia del documento"
+                        }) %>
+                    </div>
                 </div>
                 <div class="row">
 
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('alcance', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('objetivo', scope, {
                             trueplaceholder: "Objetivo"
-                                    //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('resultado_esperado', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.textarea('descripcion', scope, {
-                                //maxlength: 200,
+                            //maxlength: 200,
                         }) %>
                     </div>
                 </div>
@@ -137,7 +143,7 @@
                     <div style="text-align: center;" class="col-sm-1 col-md-1">
                         <%- FORM.checkbox("trabaja_marco_legal", scope, {text: "¿Maneja Marco legal?"}) %>
                     </div>
-                    <div class='col-sm-11 col-md-11' ng-show="<%= scope%>.trabaja_marco_legal">
+                    <div class='col-sm-11 col-md-11' ng-show="<%= scope %>.trabaja_marco_legal">
                         <%- FORM.textarea('marco_legal', scope, {
                             //maxlength: 200,,
                             trueplaceholder: "Marco Legal",
@@ -149,7 +155,7 @@
                     <div style="text-align: center;" class="col-sm-1 col-md-1">
                         <%- FORM.checkbox("es_confidencial", scope, {text: "¿Es confidencial?"}) %>
                     </div>
-                    <div class="col-sm-12 col-md-5" ng-show="<%= scope%>.es_confidencial">
+                    <div class="col-sm-12 col-md-5" ng-show="<%= scope %>.es_confidencial">
                         <%- FORM.select("roles_permitidos", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -171,9 +177,10 @@
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
-                        })%>
+                        }) %>
                     </div>
-                    <div class="col-sm-12 col-md-6" ng-if="!documentos_asociados.session.institucion" ng-show="<%= scope%>.es_confidencial">
+                    <div class="col-sm-12 col-md-6" ng-if="!documentos_asociados.session.institucion"
+                         ng-show="<%= scope %>.es_confidencial">
                         <%- FORM.select("usuarios_permitidos", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -197,9 +204,10 @@
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
-                        })%>
+                        }) %>
                     </div>
-                    <div class="col-sm-12 col-md-6" ng-if="documentos_asociados.session.institucion" ng-show="<%= scope%>.es_confidencial">
+                    <div class="col-sm-12 col-md-6" ng-if="documentos_asociados.session.institucion"
+                         ng-show="<%= scope %>.es_confidencial">
                         <%- FORM.select("usuarios_permitidos", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -223,11 +231,11 @@
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
-                        })%>
+                        }) %>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-12"  ng-if="!documentos_asociados.session.institucion">
+                    <div class="col-sm-12 col-md-12" ng-if="!documentos_asociados.session.institucion">
                         <%- FORM.select("documentos_relacionados", scope, {
                             allowedit: false,
                             allowlist: false,
@@ -251,7 +259,7 @@
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
-                        })%>
+                        }) %>
                     </div>
                     <div class="col-sm-12 col-md-12" ng-if="documentos_asociados.session.institucion">
                         <%- FORM.select("documentos_relacionados", scope, {
@@ -277,7 +285,7 @@
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
-                        })%>
+                        }) %>
                     </div>
                 </div>
                 <div class="row">
@@ -289,8 +297,8 @@
                             columns: 4,
                             truetext: 'Subir Documento',
                             imagefloat: "right",
-                        // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
-                        // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                            // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                            // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4"></div>
@@ -339,8 +347,8 @@
             <b><i class="icon-floppy-disk"></i></b>
             <language>MESSAGE.ic('mono.save')</language>
         </button>
-        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
-                 data-toggle="dropdown">
+        <button style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                data-toggle="dropdown">
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-left">
@@ -356,7 +364,7 @@
 <script>
     documentos_asociados.setPermission("file.upload", true);
     documentos_asociados.setPermission("file.remove", true);
-    document.getElementById("closeModal").onclick = documentos_asociados.closeModal = function(){
+    document.getElementById("closeModal").onclick = documentos_asociados.closeModal = function () {
         if (documentos_asociados.form.mode == "edit" && !documentos_asociados.documento_asociadofile_DragonCountFile) {
             SWEETALERT.show({type: 'error', message: "Favor subir un documento para completar el proceso."});
         } else {
