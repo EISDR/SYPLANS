@@ -114,7 +114,7 @@
                     allownew: false,
                     allowview: false,
                     text: "item.nombre",
-                    table: 'procesos',
+                    table: 'vw_procesos',
                     truelabel: "Proceso padre",
                     condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
@@ -126,7 +126,7 @@
                     allownew: false,
                     allowview: false,
                     text: "item.nombre",
-                    table: 'procesos',
+                    table: 'vw_procesos',
                     truelabel: "Proceso padre",
                     condition: "((item.institucion == procesos.session.institucion_id && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
@@ -247,9 +247,167 @@
                 // },
                 }) %>
             </div>
+        </div>
+        <div class="row">
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.html('descripcion', scope, {
                     placeholder: "Descripción"
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+<!--            procesos entrada-->
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+                <%- FORM.select('procesos_entrada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Entrada",
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_entrada',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_entrada',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+                <%- FORM.select('procesos_entrada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Entrada",
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_entrada',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_entrada',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+                <%- FORM.select('procesos_entrada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Entrada",
+                    condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_entrada',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_entrada',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+                <%- FORM.select('procesos_entrada', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Entrada",
+                    condition: "((item.institucion == procesos.session.institucion_id && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_entrada',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_entrada',
+                    },
+                }) %>
+            </div>
+<!--            procesos salida-->
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+                <%- FORM.select('procesos_salida', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de salida",
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_salida',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_salida',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+                <%- FORM.select('procesos_salida', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Salida",
+                    condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_salida',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_salida',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+                <%- FORM.select('procesos_salida', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Salida",
+                    condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_salida',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_salida',
+                    },
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+                <%- FORM.select('procesos_salida', scope, {
+                    allowedit: false,
+                    allowlist: false,
+                    allownew: false,
+                    allowview: false,
+                    multiple: true,
+                    text: "item.nombre",
+                    table: 'vw_procesos',
+                    truelabel: "Procesos de Salida",
+                    condition: "((item.institucion == procesos.session.institucion_id && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
+                    get: {
+                        table: 'procesos_salida',
+                        fieldFrom: 'id',
+                        fieldTo: 'proceso',
+                        field: 'proceso_salida',
+                    },
                 }) %>
             </div>
         </div>

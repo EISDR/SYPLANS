@@ -220,6 +220,18 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     },
                     shorttext: 360
                 },
+                proceso_entrada: {
+                    label: function () {
+                        return "Procesos de Entrada"
+                    },
+                    shorttext: 360
+                },
+                proceso_salida: {
+                    label: function () {
+                        return "Proceso de Salida"
+                    },
+                    shorttext: 360
+                },
                 archivo: {
                     label: function () {
                         return "Imagen Adjunta"
@@ -397,6 +409,18 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 proceso_padre_nombre: {
                     label: function () {
                         return "Proceso Padre"
+                    },
+                    shorttext: 360
+                },
+                proceso_entrada: {
+                    label: function () {
+                        return "Procesos de Entrada"
+                    },
+                    shorttext: 360
+                },
+                proceso_salida: {
+                    label: function () {
+                        return "Proceso de Salida"
                     },
                     shorttext: 360
                 },
@@ -589,6 +613,12 @@ app.controller("procesos", function ($scope, $http, $compile) {
             //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
             procesos.fileSI = [];
             procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_mp', 'proceso', 'nombre', 'id');
+            procesos.runMagicManyToMany('proceso_entrada', 'procesos',
+                'proceso', 'id', 'nombre', 'procesos_entrada',
+                'proceso_entrada', 'id');
+            procesos.runMagicManyToMany('proceso_salida', 'procesos',
+                'proceso', 'id', 'nombre', 'procesos_salida',
+                'proceso_salida', 'id');
             procesos.setPermission("add", false);
             for (var items of records.data) {
                 procesos.files = () => new Promise(async (resolve, reject) => {
