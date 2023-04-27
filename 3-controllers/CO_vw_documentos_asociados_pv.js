@@ -1,17 +1,7 @@
 app.controller("vw_documentos_asociados_pv", function ($scope, $http, $compile) {
     vw_documentos_asociados_pv = this;
     vw_documentos_asociados_pv.session = new SESSION().current();
-    vw_documentos_asociados_pv.fixFilters = [
-        {
-            field: "compania",
-            value: vw_documentos_asociados_pv.session.compania_id
-        },
-        {
-            "field": "institucion",
-            "operator": vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
-            "value": vw_documentos_asociados_pv.session.institucion_id ? vw_documentos_asociados_pv.session.institucion_id : "$null"
-        }
-    ];
+    vw_documentos_asociados_pv.caracteristica = vw_documentos_asociados_pv.session.groups[0].caracteristica;
     var animation = new ANIMATION();
     //vw_documentos_asociados_pv.singular = "singular";
     //vw_documentos_asociados_pv.plural = "plural";
@@ -22,20 +12,116 @@ app.controller("vw_documentos_asociados_pv", function ($scope, $http, $compile) 
     RUN_B("vw_documentos_asociados_pv", vw_documentos_asociados_pv, $scope, $http, $compile);
     vw_documentos_asociados_pv.get_documentos = async function(){
         animation.loading(`.subcontent`, "", ``, '200', undefined, true);
-        vw_documentos_asociados_pv.documentos_list = await BASEAPI.listp('vw_documentos_asociados_mp',{
-            limit: 0,
+        var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
+            order: "desc",
             where: [
                 {
                     field: "compania",
-                    value: vw_documentos_asociados_pv.session.compania_id
+                    value:  vw_documentos_asociados_pv.session.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator": vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
-                    "value": vw_documentos_asociados_pv.session.institucion_id ? vw_documentos_asociados_pv.session.institucion_id : "$null"
+                    "operator":  vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
+                    "value":  vw_documentos_asociados_pv.session.institucion_id ?  vw_documentos_asociados_pv.session.institucion_id : "$null"
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
             ]
         });
+        if (mapaData) {
+            vw_documentos_asociados_pv.mapa_id = mapaData.id;
+            var documentos_confidenciales = await BASEAPI.listp('vw_documentos_confidenciales', {
+                limit: 0,
+                where: [
+                    {
+                        field: "compania",
+                        value: vw_documentos_asociados_pv.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
+                        "value": vw_documentos_asociados_pv.session.institucion_id ? vw_documentos_asociados_pv.session.institucion_id : "$null"
+                    },
+                    {
+                        open: "(",
+                        field: "rol",
+                        operator: "=",
+                        value: vw_documentos_asociados_pv.session.groups[0].id,
+                        connector: "OR"
+                    },
+                    {
+                        close: ")",
+                        field: "usuario",
+                        operator: "=",
+                        value: vw_documentos_asociados_pv.session.id,
+                    }
+                ]
+            });
+            documentos_confidenciales = documentos_confidenciales.data;
+            const documentos_confidencialesIds = documentos_confidenciales.map(doc => doc.id)
+            if (vw_documentos_asociados_pv.caracteristica == ENUM_2.Grupos.director_general || vw_documentos_asociados_pv.caracteristica == ENUM_2.Grupos.analista_de_calidad || vw_documentos_asociados_pv.caracteristica == ENUM_2.Grupos.supervisor_de_calidad) {
+                vw_documentos_asociados_pv.documentos_list = await BASEAPI.listp('vw_documentos_asociados_mp', {
+                    limit: 0,
+                    where: [
+                        {
+                            field: "compania",
+                            value: vw_documentos_asociados_pv.session.compania_id
+                        },
+                        {
+                            "field": "institucion",
+                            "operator": vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
+                            "value": vw_documentos_asociados_pv.session.institucion_id ? vw_documentos_asociados_pv.session.institucion_id : "$null"
+                        },
+                        {
+                            field: "estatus_id",
+                            operator: "!=",
+                            value: ENUM_2.documentos_estatus.Eliminado
+                        },
+                        {
+                            field: "mapa_proceso",
+                            value: vw_documentos_asociados_pv.mapa_id ? vw_documentos_asociados_pv.mapa_id : -1
+                        }
+                    ]
+                });
+            } else {
+                vw_documentos_asociados_pv.documentos_list = await BASEAPI.listp('vw_documentos_asociados_mp', {
+                    limit: 0,
+                    where: [
+                        {
+                            field: "compania",
+                            value: vw_documentos_asociados_pv.session.compania_id
+                        },
+                        {
+                            "field": "institucion",
+                            "operator": vw_documentos_asociados_pv.session.institucion_id ? "=" : "is",
+                            "value": vw_documentos_asociados_pv.session.institucion_id ? vw_documentos_asociados_pv.session.institucion_id : "$null"
+                        },
+                        {
+                            field: "estatus_id",
+                            operator: "!=",
+                            value: ENUM_2.documentos_estatus.Eliminado
+                        },
+                        {
+                            field: "mapa_proceso",
+                            value: vw_documentos_asociados_pv.mapa_id ? vw_documentos_asociados_pv.mapa_id : -1
+                        },
+                        {
+                            field: "es_confidencial",
+                            operator: "is",
+                            value: "$null",
+                            connector: "OR"
+                        },
+                        {
+                            field: CONFIG.mysqlactive ? "id" : "$BASE.id::text",
+                            value: documentos_confidencialesIds,
+                        }
+                    ]
+                });
+            };
+        }
         animation.stoploading(`.subcontent`);
         vw_documentos_asociados_pv.refreshAngular();
     }
