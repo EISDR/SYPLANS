@@ -37,11 +37,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     return "Versión del Documento"
                 }
             },
-            id: {
-                label: function () {
-                    return "Código Automático"
-                }
-            },
             nombre_mapa: {
                 label: () => {
                     return "Macroproceso"
@@ -56,16 +51,25 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 visible: false,
                 visibleDetail: true,
             },
-            codigo: {
+            id: {
                 label: function () {
-                    return "Código Manual"
+                    return "Código Automático"
                 },
                 format: (row) => {
                     return baseController.COD("Módulo de Calidad -> Documentos", row.id,row.aprobado_en);
                 },
+            },
+            codigo: {
+                label: function () {
+                    return "Código Manual"
+                },
                 sortable:false
             },
-            nombre: {},
+            nombre: {
+                label: function () {
+                    return "Nombre del documento"
+                },
+            },
             descripcion: {shorttext: 360},
             estatus: {shorttext: 360},
             observacion: {
@@ -253,11 +257,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     return "Versión del Documento"
                 }
             },
-            id: {
-                label: function () {
-                    return "Código Automático"
-                }
-            },
             nombre_mapa: {
                 label: () => {
                     return "Macroproceso"
@@ -268,16 +267,26 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     return "Proceso"
                 }
             },
-            codigo: {
+            id: {
                 label: function () {
-                    return "Código Manual"
+                    return "Código Automático"
                 },
                 format: (row) => {
                     return baseController.COD("Módulo de Calidad -> Documentos", row.id, row.aprobado_en);
                 },
+            },
+            codigo: {
+                label: function () {
+                    return "Código Manual"
+                },
+
                 sortable:false
             },
-            nombre: {},
+            nombre: {
+                label: function () {
+                    return "Nombre del documento"
+                },
+            },
             descripcion: {shorttext: 360},
             estatus: {shorttext: 360},
             observacion: {
