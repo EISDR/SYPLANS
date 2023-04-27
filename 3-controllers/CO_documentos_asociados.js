@@ -32,11 +32,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             //         return row.id + "*";
             //     }
             // },
-            version_documento: {
-                label: function () {
-                    return "Versión del Documento"
-                }
-            },
+
             nombre_mapa: {
                 label: () => {
                     return "Macroproceso"
@@ -69,6 +65,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 label: function () {
                     return "Nombre del documento"
                 },
+            },
+            version_documento: {
+                label: function () {
+                    return "Versión del Documento"
+                }
             },
             descripcion: {shorttext: 360},
             estatus: {shorttext: 360},
@@ -252,11 +253,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             //         return row.id + "*";
             //     }
             // },
-            version_documento: {
-                label: function () {
-                    return "Versión del Documento"
-                }
-            },
+
             nombre_mapa: {
                 label: () => {
                     return "Macroproceso"
@@ -285,6 +282,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 label: function () {
                     return "Nombre del documento"
                 },
+            },
+            version_documento: {
+                label: function () {
+                    return "Versión del Documento"
+                }
             },
             descripcion: {shorttext: 360},
             estatus: {shorttext: 360},
