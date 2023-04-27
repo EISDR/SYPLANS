@@ -249,14 +249,7 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-12 col-md-12'>
-                <%- FORM.html('descripcion', scope, {
-                    placeholder: "Descripción"
-                }) %>
-            </div>
-        </div>
-        <div class="row">
-<!--            procesos entrada-->
+            <!--            procesos entrada-->
             <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
@@ -333,7 +326,7 @@
                     },
                 }) %>
             </div>
-<!--            procesos salida-->
+            <!--            procesos salida-->
             <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
@@ -408,6 +401,13 @@
                         fieldTo: 'proceso',
                         field: 'proceso_salida',
                     },
+                }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.html('descripcion', scope, {
+                    placeholder: "Descripción"
                 }) %>
             </div>
         </div>
