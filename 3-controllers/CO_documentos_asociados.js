@@ -279,7 +279,6 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 label: function () {
                     return "Código Manual"
                 },
-
                 sortable:false
             },
             nombre: {
