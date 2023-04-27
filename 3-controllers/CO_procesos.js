@@ -38,6 +38,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     if (typeof dashboard_proceso != "undefined") {
                         if (dashboard_proceso) {
                             if (typeof dashboard_proceso !== 'not defined') {
+                                debugger
                                 if (!procesos.paso) {
                                     procesos.fixFilters = [];
                                     procesos.fixFilters = [
@@ -316,13 +317,19 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     dead: true
                 }
             };
-            procesos.fixFilters = [
-                {
-                    "field": "estatus_id",
-                    "operator": "!=",
-                    "value": 4
+            if (typeof procesos_categoria != "undefined") {
+                if (procesos_categoria) {
+                    if (typeof procesos_categoria !== 'not defined') {
+                        procesos.fixFilters = [
+                            {
+                                "field": "estatus_id",
+                                "operator": "!=",
+                                "value": 4
+                            },
+                        ]
+                    }
                 }
-            ];
+            }
         } else {
             CRUD_procesos.table.columns = columns = {
                 // dbcolumnname: {
