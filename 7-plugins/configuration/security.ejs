@@ -56,13 +56,6 @@
                     icon: {class: "wrench3"}
                 }) %>
             </div>
-            <div class="col-sm-12 col-md-3  " ng-show="configuration.mode!=='admin'">
-                <%- FORM.input("config.users.fields.username", scope, {
-                    maxlength: 50,
-                    placeholder: "Username Field",
-                    icon: {class: "none"}
-                }) %>
-            </div>
 
             <div class="col-sm-12 col-md-2 ">
 
@@ -75,7 +68,25 @@
                     icon: {class: "wrench3"}
                 }) %>
             </div>
+            <div class="col-sm-12 col-md-3  " ng-show="configuration.mode!=='admin'">
+                <%- FORM.input("config.users.fields.username", scope, {
+                    maxlength: 50,
+                    placeholder: "Username Field",
+                    icon: {class: "none"}
+                }) %>
+            </div>
 
+
+
+            <div class="col-sm-12 col-md-3  center-icon" ng-show="configuration.mode!=='admin'">
+                <%- FORM.input("config.users.fields.password", scope, {
+                    maxlength: 50,
+                    placeholder: "Username Field",
+                    icon: {class: "none"}
+                }) %>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-12 col-md-2 ">
                 <%-
                 FORM.selectsimple("config.users.autenticacion", scope, {
@@ -110,14 +121,6 @@
                     }) %>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-3  center-icon" ng-show="configuration.mode!=='admin'">
-                <%- FORM.input("config.users.fields.password", scope, {
-                    maxlength: 50,
-                    placeholder: "Username Field",
-                    icon: {class: "none"}
-                }) %>
-            </div>
-
 
         </div>
 

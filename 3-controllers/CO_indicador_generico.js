@@ -1041,13 +1041,13 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
         } else {
             indicador_generico.tipos = await BASEAPI.listp('indicador_generico_entidad', {limit: 0});
             indicador_generico.tipos = indicador_generico.tipos.data;
-            indicador_generico.plural = indicador_generico.entidadobj.name + ` (Indicadores)`;
+            indicador_generico.plural = indicador_generico.entidadobj.name + ` `;
             if (indicador_generico.entidad == "vw_evento_indicador") {
                 indicador_generico.singular = indicador_generico.entidadobj.name + ' del evento: ' + indicador_generico2.form.selected('evento_indicador').nombre;
             } else {
-                indicador_generico.singular = indicador_generico.entidadobj.name + ` (Indicadores)`;
+                indicador_generico.singular = indicador_generico.entidadobj.name + ` `;
             }
-            indicador_generico.headertitle = indicador_generico.entidadobj.name + ` (Indicadores)`;
+            indicador_generico.headertitle = indicador_generico.entidadobj.name + ` `;
             indicador_generico.runMagicColum('tipo_meta', 'tipoMeta', "id", "nombre");
             indicador_generico.runMagicColum('direccion_meta', 'direccionMeta', "id", "nombre");
             if (indicador_generico.entidad == "vw_evento_indicador") {
