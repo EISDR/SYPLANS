@@ -192,7 +192,7 @@
                             table: "usuario",
                             icon: {class: "archive"},
                             truelabel: "Usuarios permitidos",
-                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active && documentos_asociados.check_if_exists(item)))",
+                            condition: "((item.compania == documentos_asociados.session.compania_id && item.institucion == $null) && (item.active))",
                             get: {
                                 table: 'documentos_asociados_usuarios',
                                 fieldFrom: 'id',
@@ -219,7 +219,7 @@
                             table: "usuario",
                             icon: {class: "archive"},
                             truelabel: "Usuarios permitidos",
-                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active && documentos_asociados.check_if_exists(item)))",
+                            condition: "((item.institucion == documentos_asociados.session.institucion_id) && (item.active))",
                             get: {
                                 table: 'documentos_asociados_usuarios',
                                 fieldFrom: 'id',
