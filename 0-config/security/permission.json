@@ -1840,7 +1840,14 @@
         "type": "empty",
         "allow": {
           "menu": true,
-          "filter": true
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
         }
       },
       "proyecto_actividad_apoyo": {
