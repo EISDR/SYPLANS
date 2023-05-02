@@ -943,7 +943,10 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     var elano = auditoria_programa.poa ? auditoria_programa.poa : auditoria_programa_plan.current_year;
                     var rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
                     var rango_maximo = moment(("01-01-" + (parseInt(elano) + 1))).add(-1, 'day').format("YYYY-MM-DD");
-
+                    if (mode === 'new'){
+                        auditoria_programa_plan.range_date_start(moment((moment().format("MM-DD-") + elano)));
+                        auditoria_programa_plan.range_date_end(moment(("01-01-" + elano)));
+                    }
                     auditoria_programa_plan.range_date_min(rango_minimo);
                     auditoria_programa_plan.range_date_max(rango_maximo);
                     auditoria_programa_plan.refreshAngular();
