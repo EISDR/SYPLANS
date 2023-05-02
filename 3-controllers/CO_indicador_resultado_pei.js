@@ -347,11 +347,12 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
                 }
             }
 
-        if (indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === "" || indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === undefined || indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === null) {
-            indicador_resultado_pei.list_indicador_resultado_pei[key].allow.allow = 1;
-            indicador_resultado_pei.list_indicador_resultado_pei[key].message = "";
-            eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = false`);
-        }
+        if (indicador_resultado_pei.list_indicador_resultado_pei[key].sinllegar == 0)
+            if (indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === "" || indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === undefined || indicador_resultado_pei.list_indicador_resultado_pei[key].valor_alcanzado === null) {
+                indicador_resultado_pei.list_indicador_resultado_pei[key].allow.allow = 1;
+                indicador_resultado_pei.list_indicador_resultado_pei[key].message = "";
+                eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = false`);
+            }
 
         if (indicador_resultado_pei.queries.id) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = true`);

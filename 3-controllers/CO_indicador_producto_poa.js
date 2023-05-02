@@ -378,6 +378,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
         if (CONFIG.seguridadindicadores !== "abierta")
             eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = disabled`);
         else {
+            console.log("lo abrio 1");
             indicador_producto_poa.list_indicador_producto_poa[key].allow.allow = 1;
             indicador_producto_poa.list_indicador_producto_poa[key].message = "";
             eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = false`);
@@ -394,11 +395,13 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
             eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = true`);
         }
 
-        if (indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === "" || indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === undefined || indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === null) {
-            indicador_producto_poa.list_indicador_producto_poa[key].allow.allow = 1;
-            indicador_producto_poa.list_indicador_producto_poa[key].message = "";
-            eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = false`);
-        }
+        if (indicador_producto_poa.list_indicador_producto_poa[key].sinllegar == 0)
+            if (indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === "" || indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === undefined || indicador_producto_poa.list_indicador_producto_poa[key].valor_alcanzado === null) {
+                console.log("lo abrio 2");
+                indicador_producto_poa.list_indicador_producto_poa[key].allow.allow = 1;
+                indicador_producto_poa.list_indicador_producto_poa[key].message = "";
+                eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = false`);
+            }
         if (indicador_producto_poa.queries.id) {
             eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = true`);
         }

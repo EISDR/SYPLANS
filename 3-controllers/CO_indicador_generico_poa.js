@@ -405,11 +405,12 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
             eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[key].id}.disabled = true`);
         }
 
-        if (indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === "" || indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === undefined || indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === null) {
-            indicador_generico_poa.list_indicador_generico_poa[key].allow.allow = 1;
-            indicador_generico_poa.list_indicador_generico_poa[key].message = "";
-            eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[key].id}.disabled = false`);
-        }
+        if (indicador_generico_poa.list_indicador_generico_poa[key].sinllegar == 0)
+            if (indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === "" || indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === undefined || indicador_generico_poa.list_indicador_generico_poa[key].valor_alcanzado === null) {
+                indicador_generico_poa.list_indicador_generico_poa[key].allow.allow = 1;
+                indicador_generico_poa.list_indicador_generico_poa[key].message = "";
+                eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[key].id}.disabled = false`);
+            }
         if (indicador_generico_poa.queries.id) {
             eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[key].id}.disabled = true`);
         }
