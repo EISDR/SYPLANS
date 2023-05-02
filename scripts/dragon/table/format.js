@@ -180,9 +180,9 @@ TABLEFORMAT = {
                     if (typeof columnObj.export === "function")
                         eval(`newRow.${column} = columnObj.export(row.${column});`);
                     else if (columnObj.formattype == "date" && extra.orginalformat) {
-                        return eval(`newRow.${column} = moment(row.${column}).format('YYYY-MM-DD');`)
+                        return eval(`newRow.${column} = row.${column} ? moment(row.${column}).format('YYYY-MM-DD') : '';`)
                     } else if (columnObj.formattype == "datetime" && extra.orginalformat) {
-                        return eval(`newRow.${column} = moment(row.${column}).format('YYYY-MM-DD HH:mm:ss');`)
+                        return eval(`newRow.${column} = row.${column} ? moment(row.${column}).format('YYYY-MM-DD HH:mm:ss') : '';`)
                     } else if (extra.orginalformat)
                         eval(`newRow.${column} = HTML.strip(row.${column});`);
                     else if (columnObj.formattype == "date" || columnObj.formattype == "datetime") {

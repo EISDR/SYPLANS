@@ -3,9 +3,8 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
     table: {
         width: "width:2000px;",
-        view: 'vw_documentos_asociados',
+        view: 'vw_documentos_asociados_mp',
         //method: 'vw_documentos_asociados_pv',
-        limits: [0],
         //report: true,
         batch: false,
         //persist: false,
@@ -55,7 +54,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
             },
             nombre_proceso: {
                 label: function (){
-                    return "Subproceso"
+                    return "Proceso"
                 }
             },
             codigo: {
@@ -68,15 +67,12 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                     return "Nombre del Documento"
                 }
             },
-            tipo_documento_c: {
+            tipo_documento: {
                 label: function (){
                     return "Tipo de Documento"
                 },
-                format: function (row){
-                    return row.tipo_documento
-                }
             },
-            departamento_responsable_proceso: {
+            responsable_proceso_departamento: {
                 label: function (){
                     return "Área/Departamento"
                 }
@@ -100,12 +96,212 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
             folder: {
                 label: function (){
                     return "Ubicación"
-                }
+                },
+                format: function (row){
+                    return row.folder ? `<a title="Click para ver documento">${row.folder}</a>` : ''
+                },
+                fileicon: true
             }
         },
         filters: {
-            columns: true
-        }
+            columns: [
+                {
+                    key: 'procesos_categoria',
+                    label: function () {
+                        return 'Macroproceso'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'vw_procesos_categoria',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'proceso',
+                    label: 'Proceso',
+                    type: FILTER.types.relation,
+                    table: 'vw_procesos',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            },
+                            {
+                                field: "estatus_mapa",
+                                operator: "!=",
+                                value: 4
+                            },
+                            {
+                                field: "estatus_id",
+                                operator: "!=",
+                                value: 4
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'codigo',
+                    label: 'Código',
+                    type: FILTER.types.string,
+                    placeholder: 'Código'
+                },
+                {
+                    key: 'nombre',
+                    label: function () {
+                        return 'Nombre del Documento'
+                    },
+                    type: FILTER.types.string,
+                    placeholder: 'Nombre'
+                },
+                {
+                    key: 'tipo_documento_id',
+                    label: function () {
+                        return 'Tipo de Documento'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'tipo_documento',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'responsable_proceso_departamento_id',
+                    label: function() {
+                        return 'Área/Departamento '
+                    },
+                    type: FILTER.types.relation,
+                    table: 'departamento',
+                    value: "id",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'estatus_id',
+                    label: function () {
+                        return 'Estatus'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'auditoria_programa_plan_estatus',
+                    value: "code",
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "entidad",
+                                "value": 2
+                            },
+                        ],
+                        orderby: "id",
+                        order: "asc"
+                    },
+                },
+                {
+                    key: 'id_responsable_proceso',
+                    label: 'Responsable del Proceso',
+                    type: FILTER.types.relation,
+                    table: 'usuario',
+                    value: "id",
+                    text: "item.nombre + ' ' + item.apellido",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'aprobado_en',
+                    label: function() {
+                        return 'Fecha de Autorización'
+                    },
+                    type: FILTER.types.date,
+                    placeholder: 'Fecha de Autorización'
+                },
+            ]
+        },
     }
 });
 //modify methods that existing option

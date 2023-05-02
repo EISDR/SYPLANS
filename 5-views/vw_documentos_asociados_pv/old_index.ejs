@@ -1,0 +1,107 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+            <!--Breadcrumb and Table Options-->
+            <div class="breadcrumb-line">
+
+                <%- include('../../7-plugins/templates/header/rastro',{scope:scope}); %>
+                <ul class="breadcrumb-elements visible-elements" style="margin-right: -20px;">
+                    <li class="dropdown visible-lg visible-md" dragonlanguage="" ng-show="<%= scope %>.hideColumnsCount() && !<%= scope %>.buttonhidecolumns">
+                        <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                           aria-expanded="false">
+                            <i dragonlanguage="" title="MESSAGE.i('navbar.HideColumns')" class=" icon-list3 "></i>
+                            <span class="label bg-<%= COLOR.secundary %>-400">{{<%= scope %>.hideColumns().length}}</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li ng-repeat="(keyblock,item) in <%= scope %>.columns() track by keyblock"
+                                ng-show="item.visible===false&&item.dead!==true">
+                                <a class="legitRipple" title="Column" ng-click="<%= scope %>.showColumn(keyblock);">
+                                    {{<%= scope %>.columnLabel(item,keyblock,false)}}
+                                    <i dragonlanguage="" title="MESSAGE.i('navbar.ShowColumns')" class="icon-eye-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="<%= scope %>.showallColumn();" class="legitRipple">
+                                    <language>MESSAGE.i('mono.ShowAll')</language>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li dragonlanguage="">
+                        <a title="Imprimir" class="legitRipple"  ng-click="<%= scope %>.openmodalField('PDF');">
+                            <i Class="icon-file-download2"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="<%= scope %>.get_documentos()" class="legitRipple" id="refreshBtn">
+                            <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')" class="icon-rotate-cw3 loadingButton"></i> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--Breadcrumb and Table Options-->
+        </div>
+        <div class="subcontent" id="PDF">
+            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
+                <div dragonlanguage=""
+                     ng-show="<%= scope %>.documentos_list.data.length<=0 || <%= scope %>.documentos_list.data == undefined"
+                     class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                    <language>MESSAGE.ic('table.nodata')</language>
+                </div>
+
+                <table  ng-show="<%= scope %>.documentos_list.data.length>0"
+                        class="table table-bordered" id="documentosTable"
+                        data-animation="bounceInUp"
+                        data-scope="<%= scope %>"
+                        style="margin-top: 15px; width: 2000px">
+                    <thead class="bg-<%= COLOR.secundary %>" id="<%= scope %>head">
+                        <tr>
+                            <th colspan="9" style="background-color: white; color: black; font-size: 18px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center ">
+                                Lista maestra de Documentos de {{<%= scope %>.session.institucion ? <%= scope %>.session.institucion : <%= scope %>.session.compania}}
+                            </th>
+                            <th style="background-color: white; color: black; font-size: 16px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center; border: lightgrey solid 1px ">
+                                Ultima Actualización:
+                            </th>
+                            <th style="background-color: white; color: black; font-size: 16px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center ">
+                                {{<%= scope %>.get_date()}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="border: transparent">Macroproceso</th>
+                            <th style="border: transparent">Proceso</th>
+                            <th style="border: transparent">Código</th>
+                            <th style="border: transparent">Nombre del Documento</th>
+                            <th style="border: transparent">Tipo del Documento</th>
+                            <th style="border: transparent">Versión</th>
+                            <th style="border: transparent">Área/Departamento</th>
+                            <th style="border: transparent">Estatus</th>
+                            <th style="border: transparent">Responsable del Proceso</th>
+                            <th style="border: transparent">Fecha de Autorización</th>
+                            <th style="border: transparent">Ubicación</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="(key,value) in <%= scope %>.documentos_list.data">
+                    <tr>
+                        <td style="text-align: left">{{value.nombre_mapa}}</td>
+                        <td style="text-align: left">{{value.nombre_proceso}}</td>
+                        <td style="text-align: left">{{value.codigo}}</td>
+                        <td style="text-align: left">{{value.nombre}}</td>
+                        <td style="text-align: left">{{value.tipo_documento}}</td>
+                        <td style="text-align: left">{{value.version_documento}}</td>
+                        <td style="text-align: left">{{value.responsable_proceso_departamento}}</td>
+                        <td style="text-align: left">{{value.estatus}}</td>
+                        <td style="text-align: left">{{value.responsable_proceso}}</td>
+                        <td style="text-align: left">{{value.estatus_id == 2 ? value.aprobado_en ? vw_documentos_asociados_pv.get_date(value.aprobado_en) : "" : ""}}</td>
+                        <td style="text-align: left">{{value.folder}}<br><a title="Ver Documento" class="legitRipple"  style="float: right" ng-show="value.folder" ng-click="vw_documentos_asociados_pv.verFile('archivo', value)"><i class="icon-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--end-->
+<script>
+    vw_documentos_asociados_pv.refreshAngular();
+</script>
