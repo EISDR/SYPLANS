@@ -177,7 +177,6 @@
       ],
       "modal": "",
       "icon": "shield2",
-      "condition": "baseController.usuarioNoDepartamental",
       "href": "#",
       "text": "Prevención y Control de Riesgo (AMFE)"
     }
@@ -360,7 +359,6 @@
       ],
       "modal": "",
       "icon": "shield2",
-      "condition": "baseController.usuarioNoDepartamental",
       "href": "#",
       "text": "Prevención y Control de Riesgo (AMFE)"
     }
