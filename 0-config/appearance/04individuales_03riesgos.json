@@ -21,16 +21,24 @@
           "text": "Matriz de Riesgos"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "clipboard3",
+              "href": "#riesgo?vw_productos_poa_detalles?plan?create",
+              "text": "Creación de Acciones Correctivas"
+            },
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_productos_poa_detalles?plan",
+              "text": "Trabajar Acciones Correctivas"
+            }
+          ],
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles?plan?create",
+          "href": "#",
           "text": "Plan de Acción"
-        },
-        {
-          "modal": "",
-          "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles?plan",
-          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",
@@ -103,16 +111,24 @@
           "text": "Creación de Matriz Riesgo"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_procesos?plan?mamfe?create",
+              "text": "Creación de Acciones Correctivas"
+            },
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_procesos?plan?mamfe",
+              "text": "Trabajar Acciones Correctivas"
+            }
+          ],
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_procesos?plan?mamfe?create",
+          "href": "#",
           "text": "Plan de Acción"
-        },
-        {
-          "modal": "",
-          "icon": "chess",
-          "href": "#riesgo?vw_procesos?plan?mamfe",
-          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",
@@ -188,16 +204,24 @@
           "text": "Matriz de Riesgos"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_productos_poa_detalles?plan?create",
+              "text": "Creación de Acciones Correctivas"
+            },
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_productos_poa_detalles?plan",
+              "text": "Trabajar Acciones Correctivas"
+            }
+          ],
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles?plan?create",
+          "href": "#",
           "text": "Plan de Acción"
-        },
-        {
-          "modal": "",
-          "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles?plan",
-          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",
@@ -270,16 +294,24 @@
           "text": "Creación de Matriz Riesgo"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_procesos?plan?mamfe?create",
+              "text": "Creación de Acciones Correctivas"
+            },
+            {
+              "modal": "",
+              "icon": "chess",
+              "href": "#riesgo?vw_procesos?plan?mamfe",
+              "text": "Trabajar Acciones Correctivas"
+            }
+          ],
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_procesos?plan?mamfe?create",
+          "href": "#",
           "text": "Plan de Acción"
-        },
-        {
-          "modal": "",
-          "icon": "chess",
-          "href": "#riesgo?vw_procesos?plan?mamfe",
-          "text": "Trabajar Acciones Correctivas"
         },
         {
           "modal": "",
