@@ -37,14 +37,14 @@ app.controller("asignacion_especial_poa", function ($scope, $http, $compile) {
 
     RUNCONTROLLER("asignacion_especial_poa", asignacion_especial_poa, $scope, $http, $compile);
 
-    asignacion_especial_poa.triggers.table.after.load = async function (record) {
-        asignacion_especial_poa.check_date();
-    }
+    // asignacion_especial_poa.triggers.table.after.load = async function (record) {
+    //
+    // }
     asignacion_especial_poa.check_date = function () {
         if (session.estado == 0){
-            $('.icon-plus-circle2 ').parent().hide();
-        }else {
-            $('.icon-plus-circle2 ').parent().show();
+            SWEETALERT.show({message:'Para poder crear una asignación especial debe seleccionar un POA Activo'})
+        }else{
+            asignacion_especial_poa.formulary(null,'new')
         }
     }
     asignacion_especial_poa.singular = "Asignación Especial POA";
