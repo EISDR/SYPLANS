@@ -9,7 +9,7 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
 
     riesgo_a.entidad = window.location.href.split('?')[1].replaceAll('RF', '');
 
-    if (window.location.href.split('?').length > 2) {
+    if (window.location.href.indexOf('mamfe') !== -1) {
         riesgo_a.soyamfe = true;
         CRUD_riesgo_a = {};
         DSON.keepmerge(CRUD_riesgo_a, CRUDDEFAULTS);
@@ -1313,6 +1313,33 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
             rules.push(VALIDATION.yariel.mayorCero(value, "Valoración Detección (D)"));
             VALIDATION.validate(riesgo_a, 'mamfe_deteccion_current', rules);
         });
+        $scope.$watch("riesgo_a.observacion", function (value) {
+            var rules = [];
+            //rules here
+            rules.push(VALIDATION.general.required(value));
+            VALIDATION.validate(riesgo_a, 'observacion', rules);
+        });
+    }
+    if(!riesgo_a.soyamfe && riesgo_a.esplan){
+
+        $scope.$watch("riesgo_a.probabilidad_current", function (value) {
+            var rules = [];
+            //rules here
+            rules.push(VALIDATION.general.required(value));
+            VALIDATION.validate(riesgo_a, 'probabilidad_current', rules);
+        });
+        $scope.$watch("riesgo_a.impacto_current", function (value) {
+            var rules = [];
+            //rules here
+            rules.push(VALIDATION.general.required(value));
+            VALIDATION.validate(riesgo_a, 'impacto_current', rules);
+        });
+        $scope.$watch("riesgo_a.observacion", function (value) {
+            var rules = [];
+            //rules here
+            rules.push(VALIDATION.general.required(value));
+            VALIDATION.validate(riesgo_a, 'observacion', rules);
+        });
     }
     riesgo_a.eltipo = false;
     riesgo_a.changeIndicador = function (table) {
@@ -1393,8 +1420,8 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         riesgo_a.view_consecuencia = row.consecuencia;
         riesgo_a.view_factor_riesgo = row.factor_riesgo;
         riesgo_a.view_supuestos = row.supuestos;
-        riesgo_a.probabilidad_current = row.probabilidad_current + "";
-        riesgo_a.impacto_current = row.impacto_current + "";
+        riesgo_a.probabilidad_current = row.probabilidad_current ? row.probabilidad_current + "" : "[NULL]";
+        riesgo_a.impacto_current = row.impacto_current ? row.impacto_current + "" : "[NULL]";
         riesgo_a.view_probabilidad = row.probabilidad_nombre + " - " + row.probabilidad_valor + "%";
         riesgo_a.view_impacto = row.impacto_nombre + " - " + row.impacto_valor;
         riesgo_a.view_descripcion = row.descripcion;
@@ -1533,7 +1560,7 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                 mamfe_gravedad_current: riesgo_a.mamfe_gravedad_current,
                 mamfe_ocurrencia_current: riesgo_a.mamfe_ocurrencia_current,
                 mamfe_deteccion_current: riesgo_a.mamfe_deteccion_current,
-                observacion: riesgo_a.observacion || "",
+                observacion: riesgo_a.observacion,
                 where: [
                     {
                         field: "id",
@@ -1546,26 +1573,28 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                     riesgo.refresh();
                 SWEETALERT.stop();
             });
-        }, ["mamfe_gravedad_current","mamfe_ocurrencia_current","mamfe_deteccion_current"]);
+        }, ["mamfe_gravedad_current","mamfe_ocurrencia_current","mamfe_deteccion_current","observacion"]);
     };
     riesgo_a.saveImprovisadoVaR = () => {
-        SWEETALERT.loading({message: MESSAGE.ic('mono.loading') + "..."});
-        BASEAPI.updateall('riesgo', {
-            probabilidad_current: riesgo_a.probabilidad_current,
-            impacto_current: riesgo_a.impacto_current,
-            observacion: riesgo_a.observacion || "",
-            condicion: 1,
-            where: [
-                {
-                    field: "id",
-                    value: riesgo_a.id_matriz
-                },
-            ]
-        }, function (result) {
-            riesgo_a.modal.closeAll();
-            if (typeof riesgo !== "undefined")
-                riesgo.refresh();
-            SWEETALERT.stop();
-        });
+        VALIDATION.save(riesgo_a, async function () {
+            SWEETALERT.loading({message: MESSAGE.ic('mono.loading') + "..."});
+            BASEAPI.updateall('riesgo', {
+                probabilidad_current: riesgo_a.probabilidad_current,
+                impacto_current: riesgo_a.impacto_current,
+                observacion: riesgo_a.observacion,
+                condicion: 1,
+                where: [
+                    {
+                        field: "id",
+                        value: riesgo_a.id_matriz
+                    },
+                ]
+            }, function (result) {
+                riesgo_a.modal.closeAll();
+                if (typeof riesgo !== "undefined")
+                    riesgo.refresh();
+                SWEETALERT.stop();
+            });
+        }, ["probabilidad_current","impacto_current","observacion"]);
     };
 });
