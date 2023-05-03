@@ -266,7 +266,7 @@
   "vw_reporte_prod_riesgo":"Riesgos Asociados a los Productos (VAR)",
   "vw_reporte_act_riesgo":"Riesgos Asociados a las Actividades (VAR)",
   "tipo_riesgo":"Tipos de Riesgos",
-  "riesgo_aSIGNALprocesosSIGNALmamfe":"Creación de Modo de Fallos (AMFE)",
+  "riesgo_aSIGNALprocesoSIGNALmamfe":"Creación de Modo de Fallos (AMFE)",
   "riesgoSIGNALvw_procesosSIGNALmamfe":"Creación de Riesgo (AMFE)",
   "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfe":"Trabajar Acciones de Mejoras (AMFE)",
   "riesgoSIGNALvw_productos_poa_detallesSIGNALplan":"Trabajar Acciones de mejora (VAR)",
@@ -305,5 +305,6 @@
   "riesgoSIGNALvw_procesosSIGNALplanSIGNALmamfeSIGNALcreate":"Plan de Acción (AMFE)",
   "riesgoSIGNALvw_productos_poa_detallesSIGNALplanSIGNALcreate":"Plan de Acción (VAR)",
   "vw_auditoria_lista_correctiva":"Trabajar de Acciones de mejora (Auditoría)",
-  "vw_auditoria_lista_correctivaSIGNALevaluate":"Seguimiento de Acciones de mejora"
+  "vw_auditoria_lista_correctivaSIGNALevaluate":"Seguimiento de Acciones de mejora",
+  "riesgo_resultado_amfeSIGNALpei_poa":"Niveles de Riesgo (GOD)",
 }
