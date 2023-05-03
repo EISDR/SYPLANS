@@ -1279,10 +1279,6 @@
         "type": "full",
         "allow": {}
       },
-      "riesgo_aSIGNALprocesosSIGNALmamfe": {
-        "type": "full",
-        "allow": {}
-      },
       "riesgoSIGNALvw_procesosSIGNALmamfe": {
         "type": "full",
         "allow": {}
@@ -2339,6 +2335,14 @@
         "type": "report",
         "allow": {
         }
+      },
+      "riesgo_resultado_amfeSIGNALpei_poa": {
+        "type": "full",
+        "allow": {}
+      },
+      "riesgo_aSIGNALprocesoSIGNALmamfe": {
+        "type": "full",
+        "allow": {}
       }
     }
   }
