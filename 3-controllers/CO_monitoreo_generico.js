@@ -301,6 +301,12 @@ app.controller("monitoreo_generico", function ($scope, $http, $compile) {
                         columns: ["id", "nombre", "mapa_proceso"]
                     },
                     {
+                        table: "procesos_categoria",
+                        base: "procesos.procesos_categoria",
+                        field: "id",
+                        columns: ["id", "nombre", "mapa_proceso"]
+                    },
+                    {
                         table: "mapa_proceso",
                         base: "procesos.mapa_proceso",
                         field: "id",

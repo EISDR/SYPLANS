@@ -46,8 +46,9 @@ var options = {
     alone: false,
     inline: false,
     alwaysnew: false,
-    simpleone:false,
-    estricto:false
+    simpleone: false,
+    estricto: false,
+    botonsubir: "Subir Archivo"
 };
 options = OBJECT.merge(options, opts); var nameclean = name.replace(/\./g, '_');
 options.color = options.type === "form" ? "{{" + model + ".validation.stateDefault()}}" : options.icon.color;
@@ -129,44 +130,44 @@ var toclient = JSON.stringify(options);
 
 </script>
 <% if(!options.inline){ %>
-<div class="form-group-material form-group has-feedback has-{{<%= model %>.validate['<%= name %>'].type || <%= model %>.defaultColor }}  has-feedback-<%= options.icon.position %>"
-     id="input<%= model %>_<%= nameclean %>">
-    <% if(options.show === 'image'){ %>
-        <img id="showImage<%= model %>_<%= nameclean %>"
-             style="max-height: <%= options.image %>px;float: <%= options.imagefloat %>"
-             src="assets/images/placeholder.jpg" alt="">
-    <% } %>
-    <button name="<%= model %>_<%= nameclean %>"
-            type="button"
-            title='{{<%= model %>.<%= name %>_DragonCountFile>0? (<%= model %>.filesMessages + " " + "(" + <%= model %>.<%= name %>_DragonCountFile+")") :""}}  {{<%= model %>.form.options.<%= name %>.text}}'
-            role="button"
-            count="{{<%= model %>.<%= name %>_DragonCountFile}}"
-            class="btn bg-<%= options.color %>-600 btn-block legitRipple filedragon">
-        <%= options.model ? "{{" + options.model + "}}" : "" %>
+    <div class="form-group-material form-group has-feedback has-{{<%= model %>.validate['<%= name %>'].type || <%= model %>.defaultColor }}  has-feedback-<%= options.icon.position %>"
+         id="input<%= model %>_<%= nameclean %>">
+        <% if(options.show === 'image'){ %>
+            <img id="showImage<%= model %>_<%= nameclean %>"
+                 style="max-height: <%= options.image %>px;float: <%= options.imagefloat %>"
+                 src="assets/images/placeholder.jpg" alt="">
+        <% } %>
+        <button name="<%= model %>_<%= nameclean %>"
+                type="button"
+                title='{{<%= model %>.<%= name %>_DragonCountFile>0? (<%= model %>.filesMessages + " " + "(" + <%= model %>.<%= name %>_DragonCountFile+")") :""}}  {{<%= model %>.form.options.<%= name %>.text}}'
+                role="button"
+                count="{{<%= model %>.<%= name %>_DragonCountFile}}"
+                class="btn bg-<%= options.color %>-600 btn-block legitRipple filedragon">
+            <%= options.model ? "{{" + options.model + "}}" : "" %>
 
-        <i class="icon-<%= options.icon.class %> position-<%= options.icon.position %>"></i>
-        <span ng-show="<%= model %>.form.options.<%= name %>.maxfiles>0">
+            <i class="icon-<%= options.icon.class %> position-<%= options.icon.position %>"></i>
+            <span ng-show="<%= model %>.form.options.<%= name %>.maxfiles>0">
             {{<%= model %>.<%= name %>_DragonCountFile>0 ? (<%= model %>.form.options.<%= name %>.truetext + " " + "(" + <%= model %>
             .<%= name %>_DragonCountFile + ")" ) : <%= model %>.form.options.<%= name %>.truetext || (<%= model %>.form.options.<%= name %>.text + " " + "(" + <%= model %>
             .<%= name %>_DragonCountFile+")") || <%= model %>.form.options.<%= name %>.text}}
         </span>
-    </button>
-    <i ng-show="<%= model %>.form.options.<%= name %>.mess.length>0"
-       id="popover<%= model %>_<%= nameclean %>" class="icon-help">
-    </i>
-    <span ng-if="<%= model %>.form.options.<%= name %>.helptext!=''"
-          class="help-block text-muted">
+        </button>
+        <i ng-show="<%= model %>.form.options.<%= name %>.mess.length>0"
+           id="popover<%= model %>_<%= nameclean %>" class="icon-help">
+        </i>
+        <span ng-if="<%= model %>.form.options.<%= name %>.helptext!=''"
+              class="help-block text-muted">
         {{<%= model %>.form.options.<%= name %>.helptext}}
     </span>
 
-    <span ng-show="<%= model %>.validate['<%= name %>'].messages.length>0" class="help-block">
+        <span ng-show="<%= model %>.validate['<%= name %>'].messages.length>0" class="help-block">
 
         <p class="text-{{validation.type}}" ng-show="validation.visible!==false || <%= model %>.form.intent===true"
            ng-repeat="(key,validation) in <%= model %>.validate['<%= name %>'].messages track by key">
                <i class="{{validation.icon}}"></i> {{validation.message}}
         </p>
     </span>
-</div>
+    </div>
 <% } %>
 <script>
     if (!<%= model %>.
@@ -429,6 +430,7 @@ var toclient = JSON.stringify(options);
             form.options.<%= name %>.folder;
             baseController.viewData = {
                 root: root,
+                botonsubir: "<%= options.botonsubir %>",
                 file:
                 <%= model %>.form.options.<%= name %>.file,
                 scope: <%= model %>,
@@ -580,48 +582,82 @@ var toclient = JSON.stringify(options);
             amLoad<%= name %> = true;
             var root = <%= model %>.form.options.<%= name %>.folder;
             baseController.viewDataToto = {
-                estricto:<%= model %>.form.options.<%= name %>.estricto,
+                estricto:
+                <%= model %>.form.options.<%= name %>.estricto,
                 root: root,
-                file:<%= model %>.form.options.<%= name %>.file,
+                botonsubir: "<%= options.botonsubir %>",
+                file:
+                <%= model %>.form.options.<%= name %>.file,
                 scope: <%= model %>,
                 nameclean: "<%= model %>_<%= nameclean %>",
-                options: <%= model %>.form.options.<%= nameclean %>,
-                maxsize:<%= model %>.
-                form.options.<%= name %>.maxsize_mb,
-                maxfiles:<%= model %>.
-                form.options.<%= name %>.maxfiles,
-                acceptedFiles: <%= model %>.
-                form.options.<%= name %>.acceptedFiles,
-                columns:<%= model %>.
-                form.options.<%= name %>.columns,
-                showMymessage:<%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
-                Mymessage:<%= model %>.form.options.<%= name %>.acceptedFiles_message !== null ?<%= model %>.form.options.<%= name %>.acceptedFiles_message:""
-            };
+                options:
+                <%= model %>.form.options.<%= nameclean %>,
+                maxsize:
+                <%= model %>.
+                form
+                .options.<%= name %>.maxsize_mb,
+                maxfiles:
+                <%= model %>.
+                form
+                .options.<%= name %>.maxfiles,
+                acceptedFiles:
+                <%= model %>.
+                form
+                .options.<%= name %>.acceptedFiles,
+                columns:
+                <%= model %>.
+                form
+                .options.<%= name %>.columns,
+                showMymessage:
+                <%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
+                Mymessage:
+                <%= model %>.form.options.<%= name %>.acceptedFiles_message !== null?<%= model %>.form.options.<%= name %>.acceptedFiles_message
+            :
+            ""
+            }
+            ;
         </script>
         <%- include('../components/filemanagerinline',{scope:model}); %>
-        <% } else if(options.inline && options.simpleone){ %>
+    <% } else if(options.inline && options.simpleone){ %>
         <script>
             amLoad<%= name %> = true;
             var root = <%= model %>.form.options.<%= name %>.folder;
             baseController.viewDataToto = {
-                estricto:<%= model %>.form.options.<%= name %>.estricto,
+                estricto:
+                <%= model %>.form.options.<%= name %>.estricto,
                 root: root,
-                file:<%= model %>.form.options.<%= name %>.file,
+                botonsubir: "<%= options.botonsubir %>",
+                file:
+                <%= model %>.form.options.<%= name %>.file,
                 scope: <%= model %>,
                 nameclean: "<%= model %>_<%= nameclean %>",
-                options: <%= model %>.form.options.<%= nameclean %>,
-                maxsize:<%= model %>.
-                form.options.<%= name %>.maxsize_mb,
-                maxfiles:<%= model %>.
-                form.options.<%= name %>.maxfiles,
-                acceptedFiles: <%= model %>.
-                form.options.<%= name %>.acceptedFiles,
-                columns:<%= model %>.
-                form.options.<%= name %>.columns,
-                showMymessage:<%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
-                Mymessage:<%= model %>.form.options.<%= name %>.acceptedFiles_message !== null ?<%= model %>.form.options.<%= name %>.acceptedFiles_message:""
-            };
+                options:
+                <%= model %>.form.options.<%= nameclean %>,
+                maxsize:
+                <%= model %>.
+                form
+                .options.<%= name %>.maxsize_mb,
+                maxfiles:
+                <%= model %>.
+                form
+                .options.<%= name %>.maxfiles,
+                acceptedFiles:
+                <%= model %>.
+                form
+                .options.<%= name %>.acceptedFiles,
+                columns:
+                <%= model %>.
+                form
+                .options.<%= name %>.columns,
+                showMymessage:
+                <%= model %>.form.options.<%= name %>.acceptedFiles !== null ? true : false,
+                Mymessage:
+                <%= model %>.form.options.<%= name %>.acceptedFiles_message !== null?<%= model %>.form.options.<%= name %>.acceptedFiles_message
+            :
+            ""
+            }
+            ;
         </script>
         <%- include('../components/filemanagerinlineone',{scope:model}); %>
-        <% } %>
+    <% } %>
 </div>

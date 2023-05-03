@@ -66,6 +66,10 @@
 
                     <tr height="20" class="centralizarth"
                         style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"
+                            ng-if="monitoreo_generico.entidad_object.name==='Procesos'">
+                            Macro Proceso
+                        </td>
                         <td style="text-align: center;vertical-align: middle" rowspan="2">
                             {{monitoreo_generico.entidad_object.name}}
                         </td>
@@ -85,7 +89,8 @@
                     </tr>
                     <tr height="20" class="centralizarth"
                         style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
-                        <td style="text-align: center" ng-if="ra.value!=='D' && ra.value!=='%'" colspan="{{ra.value==='Alerta'?3:1}}"
+                        <td style="text-align: center" ng-if="ra.value!=='D' && ra.value!=='%'"
+                            colspan="{{ra.value==='Alerta'?3:1}}"
                             ng-repeat="(ka,ra ) in <%= scope %>.poa_valor">
                             {{ra.value}}
                         </td>
@@ -95,6 +100,11 @@
                         ng-if="(<%= scope %>.institucion!='[NULL]'? <%= scope %>.institucion==(row.institucion||row.compania):true)"
 
                         ng-repeat="(i,row) in item.records">
+                        <td style="text-align: center;vertical-align: middle"
+                            rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.records)}}"
+                            ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records) && monitoreo_generico.entidad_object.name==='Procesos'">
+                            {{row.procesos_categoria_nombre}}
+                        </td>
                         <td rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.records)}}"
                             ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records)">
 
@@ -180,8 +190,9 @@
                         </td>
                         <td rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
                             ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)">
-                        <span title="{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}">
-                            {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).cumplimiento||0}}%
+                        <span title="{{(<%= scope %>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.titulo}}"
+                              style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}">
+                            {{(<%= scope %>.pequenoHistorial[row.indicador_data.indicador_id]||{}).cumplimiento||0}}%
                         </span>
                         </td>
                         <td
@@ -202,9 +213,9 @@
                             <span ng-if="ra.value==='Dedo'" style="display:none">
                                    {{<%= scope %>.dif(row,ra)}}
                             </span>
-<!--                            <span ng-if="ra.value==='%'">-->
-<!--                                   {{<%= scope %>.percent(row,ra)}}%-->
-<!--                            </span>-->
+                            <!--                            <span ng-if="ra.value==='%'">-->
+                            <!--                                   {{<%= scope %>.percent(row,ra)}}%-->
+                            <!--                            </span>-->
                             <span ng-if="ra.value==='Alerta'" ng-show="<%= scope %>.pasado(row,ra)"
                                   ng-dblclick="<%= scope %>.alertme('warning',<%= scope %>.permissionNormal(row.indicador_id,ra.id).debug||'Es posible que se pueda modificar ya que no posee valor alcanzado.')"
                             >
@@ -225,7 +236,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <div title="{{<%= scope %>.alert_tootip(row,ra)}}" class="shape_element"
-                                             style="background: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};"> </div>
+                                             style="background: {{(<%= scope %>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}};"> </div>
                                     </td>
                                 </tr>
                                      <tr>

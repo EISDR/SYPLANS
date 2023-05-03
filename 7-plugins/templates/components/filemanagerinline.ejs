@@ -313,7 +313,7 @@
         ng-show="<%= scope %>.galleryFiles.reachMaxFiles() && <%= scope %>.allow(['file.upload'])">
         <a ng-click="<%= scope %>.galleryFiles.uploadview()">
             <i class="icon-upload"></i>
-            Subir Archivo
+            {{<%= scope %>.galleryFiles.viewModel.botonsubir}}
         </a>
     </li>
 </ul>
