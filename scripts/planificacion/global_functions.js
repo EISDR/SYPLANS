@@ -1461,7 +1461,6 @@ function_send_email_custom_group_res_list = function (titulo_push, cuerpo_push, 
                 return search.profile == segundo_grupo || search.id == responsable;
             }));
         }
-        debugger
         if (Array.isArray(list)) {
             usuario_list.push(usuario_data.filter(search => {
                 return list.includes(search.profile);

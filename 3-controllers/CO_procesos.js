@@ -38,7 +38,6 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     if (typeof dashboard_proceso != "undefined") {
                         if (dashboard_proceso) {
                             if (typeof dashboard_proceso !== 'not defined') {
-                                debugger
                                 if (!procesos.paso) {
                                     procesos.fixFilters = [];
                                     procesos.fixFilters = [

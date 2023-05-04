@@ -2942,6 +2942,166 @@
       "entity": "tipo_inconformidad",
       "fieldName": "descripcion",
       "displayName": "Descripción"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "view",
+      "displayName": "Entidad"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "active",
+      "displayName": "¿Activo?"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "subject",
+      "displayName": "Asunto"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "template",
+      "displayName": "Plantilla del Correo"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "masterpage",
+      "displayName": "¿Aplicar estilo SYPLANS?"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "tambienpush",
+      "displayName": "¿También envía notificación Push?"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "template_push",
+      "displayName": "Plantilla para notificación Push"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "roles",
+      "displayName": "Roles fijos a enviar"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "destiny_roles",
+      "displayName": "Destino (Roles)"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "usuario",
+      "displayName": "Usuario fijos a enviar"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "destiny_usuario",
+      "displayName": "Destino (Usuarios)"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "direct_emails",
+      "displayName": "Correos fijos a enviar"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "destiny_fix",
+      "displayName": "Destino (Correos)"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_code",
+      "displayName": "Variable clave para no repetir envío"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "disparo_type",
+      "displayName": "Tipo de evento que activa la notificación"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_action",
+      "displayName": "Acción dentro de SYPLANS"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_entidad",
+      "displayName": "Módulo u opción"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_estimado",
+      "displayName": "Variable que contiene el tiempo transcurrido disparará el envío"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_vigencia",
+      "displayName": "Variable que contiene la vigencia disparará el envío"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_tiempo",
+      "displayName": "Variable que contiene el tiempo"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_tiempocondition",
+      "displayName": "Condición (Tiempo)"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_date",
+      "displayName": "Variable que contiene la fecha que disparará el envío"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_fechacondition",
+      "displayName": "Condición (Fecha)"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "date_strict",
+      "displayName": "¿Tomará en cuenta la hora?"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_email",
+      "displayName": "Variable que contiene los correos a enviar"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_email_cc",
+      "displayName": "Variable que contiene los correos a enviar en CC"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_email_cco",
+      "displayName": "Variable que contiene los correos a enviar en CCO"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "field_email_exc",
+      "displayName": "Variable que contiene la lista negra"
+    },
+    {
+      "entity": "modulo_notificacion",
+      "fieldName": "send_one",
+      "displayName": "¿Repetir Diario?"
     }
   ]
 }

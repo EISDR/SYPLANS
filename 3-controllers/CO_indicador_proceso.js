@@ -939,7 +939,7 @@ app.controller("indicador_proceso", function ($scope, $http, $compile) {
                                 content: "Captura la  Línea Base"
                             }
                         }, false, '', "Línea Base", false);
-                        debugger
+
                         if (indicador_proceso.form.mode !== FORM.modes.edit) {
                             var conuntPeriodo2 = 1;
                             for (var key in indicador_proceso.list_mes) {

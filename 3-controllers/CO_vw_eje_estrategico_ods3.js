@@ -65,7 +65,6 @@ app.controller("vw_eje_estrategico_ods3", function ($scope, $http, $compile) {
     };
 
     vw_eje_estrategico_ods3.sumformat = function (valor, tipo_meta) {
-    debugger;
         switch (tipo_meta) {
             case 1: {
                 return parseInt(valor) || 0;

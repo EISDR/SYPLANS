@@ -350,7 +350,6 @@ app.controller("proyecto_item_actividad", function ($scope, $http, $compile) {
                 }
                 if (data == 'proyecto_item'){
                     if (proyecto_item_actividad.form.selected('proyecto_item')) {
-                        debugger
                         var rango_minimo = moment(proyecto_item_actividad.form.selected('proyecto_item').from).format("YYYY-MM-DD");
                         var rango_maximo = moment(proyecto_item_actividad.form.selected('proyecto_item').to).format("YYYY-MM-DD");
 
