@@ -14,6 +14,7 @@ app.controller("modulo_notificacion", function ($scope, $http, $compile) {
             Booleano: ['Verdadero-', 'Falso-'],
             Campo: ['Igual a', 'Diferente a', 'Contiene a', 'No Contiene a']
         };
+
         modulo_notificacion.FieldsByTable = () => {
             return modulo_notificacion.fields.filter(d => d.table_name === modulo_notificacion.view).map(d => ('@' + d.column_name + '@'));
         }
@@ -38,6 +39,24 @@ app.controller("modulo_notificacion", function ($scope, $http, $compile) {
                 final.splice(ix, 1);
         }
         modulo_notificacion.session = new SESSION().current();
+        modulo_notificacion.lacompania = await BASEAPI.firstp("compania", {where: [{value: modulo_notificacion.session.compania_id}]});
+        modulo_notificacion.completeDisable = async () => {
+            SWEETALERT.confirm({
+                message: modulo_notificacion.lacompania.maneja_notificaciones ?
+                    "Estás seguro/a que desea desactivar todas las notificaciones?" :
+                    "Estás seguro/a que desea activar las notificaciones que estén activas individualmente?",
+                confirm: function () {
+                    SWEETALERT.loading({message: "Procesando"});
+                    modulo_notificacion.lacompania.maneja_notificaciones = modulo_notificacion.lacompania.maneja_notificaciones ? 0 : 1;
+                    BASEAPI.updateallp("compania", {
+                        maneja_notificaciones: modulo_notificacion.lacompania.maneja_notificaciones,
+                        where: [{value: modulo_notificacion.session.compania_id}]
+                    });
+                    SWEETALERT.show({message: "Proceso Completado"});
+                    modulo_notificacion.refreshAngular();
+                }
+            });
+        }
         modulo_notificacion.fixFilters = [{
             field: "compania",
             value: modulo_notificacion.session.compania_id

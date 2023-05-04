@@ -306,7 +306,7 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 buclex = (ladataDB, PARAMS, moment) => new Promise(async (resolve, reject) => {
     console.clear();
     console.log('loading: ' + new Date());
-    let notificaciones = await ladataDB.data(`select * from vw_modulo_notificacion`, PARAMS);
+    let notificaciones = await ladataDB.data(`select * from vw_modulo_notificacion where active=1 and maneja_notificaciones=1`, PARAMS);
     let listaEstatus = await ladataDB.data(`select * from auditoria_programa_plan_estatus where tiempo_estimado is not null and tiempo_estimado!=''`, PARAMS);
     listaEstatus = listaEstatus.data;
     notificaciones = notificaciones.data;

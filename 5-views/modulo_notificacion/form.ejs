@@ -22,7 +22,9 @@
                     icon: {class: "sphere3"}
                 }) %>
             </div>
-
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.checkbox('active', scope, {}) %>
+            </div>
             <div class='col-sm-12 col-md-12' ng-show="modulo_notificacion.view">
                 <%- FORM.input('descripcion', scope, {}) %>
             </div>

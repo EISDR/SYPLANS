@@ -2,6 +2,20 @@
     <div class="panel panel-flat">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
+            <div style="padding: 5px">
+                <button ng-show="<%= scope %>.lacompania.maneja_notificaciones"
+                        title="Desactivar todas las notificaciones" type="button"
+                        class="btn bg-danger btn-xs mr-0"
+                        ng-click="<%= scope %>.completeDisable()">
+                    Desactivar todas las notificaciones
+                </button>
+                <button ng-show="!<%= scope %>.lacompania.maneja_notificaciones"
+                        title="Activar todas las notificaciones con el check de activas." type="button"
+                        class="btn bg-success btn-xs mr-0 float-right"
+                        ng-click="<%= scope %>.completeDisable()">
+                    Activar todas las notificaciones con el check de activas.
+                </button>
+            </div>
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
         </div>
     </div>
