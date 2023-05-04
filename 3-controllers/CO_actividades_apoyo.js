@@ -29,7 +29,6 @@ app.controller("actividades_apoyo", function ($scope, $http, $compile) {
         if (actividades_apoyo !== undefined) {
             RUN_B("actividades_apoyo", actividades_apoyo, $scope, $http, $compile);
             actividades_apoyo.triggers.table.before.open = () => new Promise((resolve, reject) => {
-                debugger
                 if (typeof productos_poa != "undefined") {
                     if (productos_poa) {
                         if (typeof productos_poa !== 'not defined') {
@@ -75,7 +74,6 @@ app.controller("actividades_apoyo", function ($scope, $http, $compile) {
                     actividades_apoyo.oldpresupuesto = actividades_apoyo.presupuesto;
                     actividades_apoyo.oldfecha_inicio = actividades_apoyo.fecha_inicio;
                     actividades_apoyo.oldfecha_fin = actividades_apoyo.fecha_fin;
-                debugger;
                     ["bienes_permiso", "bienes_permiso_nombre", "presupuestario", "presupuestario_nombre"].forEach(d => {
                         if (actividades_apoyo[d] === '[NULL]')
                             actividades_apoyo[d] = '';

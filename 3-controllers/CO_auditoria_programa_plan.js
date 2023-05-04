@@ -1451,7 +1451,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         value: auditoria_programa_plan.id
                     }
                 ], function (result) {
-                    debugger
+
                     var index = auditoria_programa_plan.auditoria_plan_documentos_asociados.indexOf(documento.id + '');
                     if (index > -1) { // only splice array when item is found
                         auditoria_programa_plan.auditoria_plan_documentos_asociados.splice(index, 1); // 2nd parameter means remove one item only
@@ -3012,7 +3012,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
         }
     }
     auditoria_programa_plan.allow_save_documents = function () {
-        debugger
+
         var documentos_seleccionados = auditoria_programa_plan.auditoria_plan_documentos_asociados.filter(function (item, index, inputArray) {
             return inputArray.indexOf(item) == index;
         });

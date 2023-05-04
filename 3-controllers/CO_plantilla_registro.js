@@ -17,7 +17,6 @@ app.controller("plantilla_registro", function ($scope, $http, $compile) {
     };
     plantilla_registro.elqueunavez = {};
     plantilla_registro.setBase64 = async (control) => {
-        debugger;
         const file = control.files[0];
         const base64 = await plantilla_registro.convertBase64(file);
         let avatar = document.getElementById("base_" + control.id);

@@ -211,7 +211,6 @@ app.controller("solicitud_proceso", function ($scope, $http, $compile) {
                     }
                 }
                 if (solicitud_proceso.tipo_accion == 3) {
-                    debugger
                     if (solicitud_proceso.form.selected('proceso')) {
                         solicitud_proceso.delete_pro_id = solicitud_proceso.form.selected('proceso').id;
                         solicitud_proceso.delete_pro_mapa_proceso = solicitud_proceso.form.selected('proceso').mapa_proceso + "";

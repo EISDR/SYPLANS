@@ -191,7 +191,6 @@
                                         control_mando_b.actividades_productos = [];
                                         if (control_mando_b.from_gauge_productos) {
                                             for (let i = 0; i < control_mando_b.from_gauge_productos.length; i++) {
-                                                debugger;
                                                 control_mando_b.gauge_producto_list['gauge_productos' + i] = (echarts.init(document.getElementById('gauge_productos_' + i), 'infographic'));
                                                 control_mando_b.actividades_productos[i] = control_mando_b.from_producto_actividades.filter(d => {
                                                     return d.producto == control_mando_b.from_gauge_productos[i].id;

@@ -2,7 +2,6 @@ MENU = {
     current: {parents: [], menu: {}},
     favorites: [],
     reseler: () => {
-        debugger;
         var view = window.location.href.split("#");
         if (view.length > 1)
             view = view[1];
@@ -70,7 +69,6 @@ MENU = {
     },
     expand: function (a,debug) {
         if(debug)
-            debugger;
         var LI = a.parent();
         LI.addClass('active');
         var UL = LI.parent();

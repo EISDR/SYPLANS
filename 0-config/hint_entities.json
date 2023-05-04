@@ -1,0 +1,459 @@
+{
+  "entities": [
+    {
+      "id": "34",
+      "controllerName": "notificacion",
+      "displayName": "(Dashboard) Dashboard de Inicio"
+    },
+    {
+      "id": "36",
+      "controllerName": "control_mando",
+      "displayName": "(Dashboard) Tablero de Control BSC"
+    },
+    {
+      "id": "35",
+      "controllerName": "control_mando_b",
+      "displayName": "(Dashboard) Tablero de Control"
+    },
+    {
+      "id": "1",
+      "controllerName": "dashboard_departamento",
+      "displayName": "(Dashboard) presupuesto Dpto."
+    },
+    {
+      "id": "2",
+      "controllerName": "dashboard",
+      "displayName": "(Dashboard) POA Departamental"
+    },
+    {
+      "id": "3",
+      "controllerName": "dashboard_cofiguration",
+      "displayName": "(Dashboard) Plan Operativo Anual"
+    },
+    {
+      "id": "35",
+      "controllerName": "organigrama_pei",
+      "displayName": "(Dashboard) Alineación PEI - Instrumentos de Planificación Nacional (RESUMEN)"
+    },
+    {
+      "id": "5",
+      "controllerName": "foda_items",
+      "displayName": "(Plan Estratégico Institucional) FODA"
+    },
+    {
+      "id": "6",
+      "controllerName": "pesta_items",
+      "displayName": "(Plan Estratégico Institucional) PESTAL"
+    },
+    {
+      "id": "7",
+      "controllerName": "marco_estrategico_valores",
+      "displayName": "(Plan Estratégico Institucional) Normativa Institucional"
+    },
+    {
+      "id": "8",
+      "controllerName": "clientes_institucion",
+      "displayName": "(Plan Estratégico Institucional) Compromiso institucional"
+    },
+    {
+      "id": "9",
+      "controllerName": "eje_estrategico",
+      "displayName": "(Plan Estratégico Institucional) Eje estratégico"
+    },
+    {
+      "id": "10",
+      "controllerName": "objetivo_estrategico",
+      "displayName": "(Plan Estratégico Institucional) Objetivo estratégico"
+    },
+    {
+      "id": "37",
+      "controllerName": "objetivo_estrategico_especifico",
+      "displayName": "(Plan Estratégico Institucional) Objetivo Específico"
+    },
+    {
+      "id": "11",
+      "controllerName": "estrategia",
+      "displayName": "(Plan Estratégico Institucional) Estrategia"
+    },
+    {
+      "id": "38",
+      "controllerName": "resultado",
+      "displayName": "(Plan Estratégico Institucional) Resultado Esperado"
+    },
+    {
+      "id": "12",
+      "controllerName": "indicador_pei",
+      "displayName": "(Plan Estratégico Institucional) Indicador PEI"
+    },
+    {
+      "id": "14",
+      "controllerName": "presupuesto_aprobado",
+      "displayName": "(Plan Operativo Anual) Programación de presupuesto"
+    },
+    {
+      "id": "15",
+      "controllerName": "departamento_poa",
+      "displayName": "(Plan Operativo Anual) Autorizar POA - Liberar presupuesto"
+    },
+    {
+      "id": "16",
+      "controllerName": "productos_poa",
+      "displayName": "(Plan Operativo Anual) Productos"
+    },
+    {
+      "id": "17",
+      "controllerName": "actividades_poa",
+      "displayName": "(Plan Operativo Anual) Actividades"
+    },
+    {
+      "id": "19",
+      "controllerName": "actividades_apoyo",
+      "displayName": "(Plan Operativo Anual) Actividades de Apoyo"
+    },
+    {
+      "id": "21",
+      "controllerName": "indicador_poa",
+      "displayName": "(Plan Operativo Anual) Indicador de Productos"
+    },
+    {
+      "id": "23",
+      "controllerName": "indicador_actividad",
+      "displayName": "(Plan Operativo Anual) Indicador de Actividades"
+    },
+    {
+      "id": "20",
+      "controllerName": "drp_actividades_apoyo",
+      "displayName": "(Evaluación y carga de Evidencias) Actividades de apoyo"
+    },
+    {
+      "id": "18",
+      "controllerName": "actividades_poa_monitoreo",
+      "displayName": "(Evaluación y carga de Evidencias) Actividades"
+    },
+    {
+      "id": "22",
+      "controllerName": "indicador_producto_poa",
+      "displayName": "(Evaluación y carga de Evidencias) Indicador de Productos"
+    },
+    {
+      "id": "24",
+      "controllerName": "indicador_producto_poa_actividad",
+      "displayName": "(Evaluación y carga de Evidencias) Indicador de Actividades"
+    },
+    {
+      "id": "39",
+      "controllerName": "indicador_resultado_pei",
+      "displayName": "(Evaluación y carga de Evidencias) Indicador PEI"
+    },
+    {
+      "id": "48",
+      "controllerName": "monitoreo_producto",
+      "displayName": "(monitoreo y Seguimiento) Productos"
+    },
+    {
+      "id": "49",
+      "controllerName": "monitoreo_actividad",
+      "displayName": "(monitoreo y Seguimiento) Actividades"
+    },
+    {
+      "id": "25",
+      "controllerName": "asignacion_especial_poa",
+      "displayName": "Asignaciones especiales"
+    },
+    {
+      "id": "26",
+      "controllerName": "filtros_pei",
+      "displayName": "(Mega Consulta) Filtros PEI"
+    },
+    {
+      "id": "27",
+      "controllerName": "filtros_poa",
+      "displayName": "(Mega Consulta) Filtros POA"
+    },
+    {
+      "id": "50",
+      "controllerName": "monitoreo_productov",
+      "displayName": "(REPORTES) Indicadores de Productos"
+    },
+    {
+      "id": "55",
+      "controllerName": "monitoreo_actividad",
+      "displayName": "(REPORTES) Indicadores de Actividades"
+    },
+    {
+      "id": "56",
+      "controllerName": "vw_desempeno",
+      "displayName": "(REPORTES) Distribución del Nivel de Cumplimiento"
+    },
+    {
+      "id": "32",
+      "controllerName": "razon",
+      "displayName": "(Mantenimientos) Condiciones de Cierre"
+    },
+    {
+      "id": "57",
+      "controllerName": "catalogo_bienes_servicios",
+      "displayName": "(Mantenimientos) Catálogo de Bienes y Servicios"
+    },
+    {
+      "id": "58",
+      "controllerName": "perspectiva",
+      "displayName": "(Mantenimientos) Perspectiva"
+    },
+    {
+      "id": "13",
+      "controllerName": "caracteristica_indicador",
+      "displayName": "(Mantenimientos) Características del Indicador"
+    },
+    {
+      "id": "59",
+      "controllerName": "vw_compromiso",
+      "displayName": "(Mantenimientos) Compromisos Nacionales e Internacionales"
+    },
+    {
+      "id": "60",
+      "controllerName": "otros_compromiso",
+      "displayName": "(Mantenimientos) Metas Compromisos Nacionales e Internacionales"
+    },
+    {
+      "id": "61",
+      "controllerName": "involucrados",
+      "displayName": "(Mantenimientos) Involucrados"
+    },
+    {
+      "id": "62",
+      "controllerName": "notificacion",
+      "displayName": "(Mantenimientos) Notificación"
+    },
+    {
+      "id": "63",
+      "controllerName": "procedimiento_seleccion",
+      "displayName": "(Mantenimientos) Procedimiento de Selección"
+    },
+    {
+      "id": "64",
+      "controllerName": "fuente_financiamiento",
+      "displayName": "(Mantenimientos) Fuente de Financiamiento"
+    },
+    {
+      "id": "33",
+      "controllerName": "clasificadores",
+      "displayName": "(Mantenimientos) Clasificadores"
+    },
+    {
+      "id": "28",
+      "controllerName": "end",
+      "displayName": "(Instrumentos de Planificación Nacional) Estrategia Nacional de Desarrollo"
+    },
+    {
+      "id": "30",
+      "controllerName": "objetivo",
+      "displayName": "(Instrumentos de Planificación Nacional) Objetivos Generales"
+    },
+    {
+      "id": "51",
+      "controllerName": "objetivo_especifico",
+      "displayName": "(Instrumentos de Planificación Nacional) Objetivos Específicos"
+    },
+    {
+      "id": "52",
+      "controllerName": "linea_accion",
+      "displayName": "(Instrumentos de Planificación Nacional) Líneas de Acción"
+    },
+    {
+      "id": "29",
+      "controllerName": "ods",
+      "displayName": "(Instrumentos de Planificación Nacional) Objetivos de Desarrollo Sostenible"
+    },
+    {
+      "id": "53",
+      "controllerName": "mods",
+      "displayName": "(Instrumentos de Planificación Nacional) Metas de Objetivos de Desarrollo Sostenible"
+    },
+    {
+      "id": "31",
+      "controllerName": "pnpsp",
+      "displayName": "(Instrumentos de Planificación Nacional) Plan Nacional Plurianual del Sector Público"
+    },
+    {
+      "id": "54",
+      "controllerName": "denominacion_pnpsp",
+      "displayName": "(Instrumentos de Planificación Nacional) Denominación Resultados PNPSP"
+    },
+    {
+      "id": "65",
+      "controllerName": "politica_gobierno",
+      "displayName": "(Instrumentos de Planificación Nacional) Política de Gobierno"
+    },
+    {
+      "id": "66",
+      "controllerName": "impacto_politica",
+      "displayName": "(Instrumentos de Planificación Nacional) Impacto de la Política"
+    },
+    {
+      "id": "67",
+      "controllerName": "indicador_generico",
+      "displayName": "(Instrumentos de Planificación Nacional) Indicadores IPN"
+    },
+    {
+      "id": "68",
+      "controllerName": "pacc",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Crear/Modificar PACC General"
+    },
+    {
+      "id": "69",
+      "controllerName": "transfer_pacc",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Transferir POA a PACC"
+    },
+    {
+      "id": "70",
+      "controllerName": "vw_pacc",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Evaluación PACC Departamental"
+    },
+    {
+      "id": "72",
+      "controllerName": "consolidacion",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Consolidación"
+    },
+    {
+      "id": "73",
+      "controllerName": "unificacion",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Unificación"
+    },
+    {
+      "id": "74",
+      "controllerName": "pacc_status",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Estatus del PACC"
+    },
+    {
+      "id": "75",
+      "controllerName": "pacc_departamento_status",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Estatus del PACC Departamental"
+    },
+    {
+      "id": "76",
+      "controllerName": "aprobacion_mae",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Aprobación MAE"
+    },
+    {
+      "id": "77",
+      "controllerName": "aprobacion_digepres",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Aprobación DIGEPRES"
+    },
+    {
+      "id": "78",
+      "controllerName": "aprobacion_dgcp",
+      "displayName": "(Plan Anual de Compras y Contrataciones) Difusión del PACC"
+    },
+    {
+      "id": "40",
+      "controllerName": "riesgo_probabilidad",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Probabilidades"
+    },
+    {
+      "id": "41",
+      "controllerName": "riesgo_impacto",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Impactos"
+    },
+    {
+      "id": "42",
+      "controllerName": "riesgo_resultado",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Niveles de Riesgo"
+    },
+    {
+      "id": "43",
+      "controllerName": "riesgo_a",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Riesgos"
+    },
+    {
+      "id": "44",
+      "controllerName": "riesgo_control",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Control de Riesgo"
+    },
+    {
+      "id": "45",
+      "controllerName": "riesgo",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Matriz de Riesgos"
+    },
+    {
+      "id": "46",
+      "controllerName": "vw_riesgo",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Plan de Acción"
+    },
+    {
+      "id": "47",
+      "controllerName": "estrategia_tratamiento",
+      "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Estrategias de Tratamientos"
+    },
+    {
+      "id": "88",
+      "controllerName": "solicitud_proceso",
+      "displayName": "(Gestión de Procesos) Solicitud de Procesos"
+    },
+    {
+      "id": "89",
+      "controllerName": "procesos",
+      "displayName": "(Gestión de Procesos) Creación de Procesos"
+    },
+    {
+      "id": "90",
+      "controllerName": "solicitud_documento",
+      "displayName": "(Gestión de Documentos) Solicitud de Documentos"
+    },
+    {
+      "id": "91",
+      "controllerName": "documentos_asociados",
+      "displayName": "(Gestión de Documentos) Documentos"
+    },
+    {
+      "id": "79",
+      "controllerName": "vw_auditoria_programa",
+      "displayName": "(Gestión de Auditoría) Programa de Auditoría"
+    },
+    {
+      "id": "80",
+      "controllerName": "auditoria_programa_plan",
+      "displayName": "(Gestión de Auditoría) Plan de Auditoría"
+    },
+    {
+      "id": "81",
+      "controllerName": "vw_correctiva",
+      "displayName": "(Gestión de Auditoría) Creación de Acciones de Mejora"
+    },
+    {
+      "id": "87",
+      "controllerName": "auditoria_lista_correctiva",
+      "displayName": "(Gestión de Auditoría) Creación de Acciones de Mejora -  Asignar acciones de Mejora"
+    },
+    {
+      "id": "92",
+      "controllerName": "vw_auditoria_lista_correctiva",
+      "displayName": "(Gestión de Auditoría) Seguimiento de Acciones de Mejora"
+    },
+    {
+      "id": "82",
+      "controllerName": "tipo_auditorias",
+      "displayName": "(Gestión de Auditoría) Tipos de Auditorías"
+    },
+    {
+      "id": "83",
+      "controllerName": "tipo_auditores",
+      "displayName": "(Gestión de Auditoría) Tipos de Auditores"
+    },
+    {
+      "id": "84",
+      "controllerName": "tipo_rol_auditores",
+      "displayName": "(Gestión de Auditoría) Rol de Auditores"
+    },
+    {
+      "id": "85",
+      "controllerName": "tipo_inconformidad",
+      "displayName": "(Gestión de Auditoría) Tipos de inconformidad"
+    },
+    {
+      "id": "93",
+      "controllerName": "modulo_notificacion",
+      "displayName": "(Administración) Módulo de Notificaciones"
+    }
+  ]
+}
