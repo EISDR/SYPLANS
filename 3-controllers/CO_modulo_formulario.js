@@ -7,6 +7,14 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
             field: "compania",
             value: modulo_formulario.session.compania_id
         }];
+        modulo_formulario.tamanos = [
+            {nombre: "Muy Pequeño", value: 2},
+            {nombre: "Pequeño", value: 4},
+            {nombre: "Mitad", value: 6},
+            {nombre: "Grande", value: 8},
+            {nombre: "Muy Grande", value: 10},
+            {nombre: "Línea Completa", value: 12}
+        ];
         modulo_formulario.singular = "Formulario";
         modulo_formulario.plural = "Formularios";
         modulo_formulario.registros = await BASEAPI.listp('modulo_formulario_registro', {limit: 0});
@@ -93,6 +101,10 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                     var rules = [];
                     //rules here
                     //rules.push(VALIDATION.general.required(value));
+                    if (modulo_formulario.form.mode === "new") {
+                        $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i> Crear Notificación: ${value || ""}</h6>`);
+                    } else
+                        $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i> Editar Notificación: ${value || ""}</h6>`);
                     VALIDATION.validate(modulo_formulario, 'nombre', rules);
                 });
                 $scope.$watch("modulo_formulario.descripcion", function (value) {

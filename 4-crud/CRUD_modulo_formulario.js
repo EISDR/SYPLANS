@@ -53,6 +53,9 @@ DSON.keepmerge(CRUD_modulo_formulario, {
                 label: "Condición",
                 format: function (row) {
                     try {
+                        if (!row.indicador) {
+                            return "Sin indicador";
+                        }
                         let configuration = JSON.parse(row.config);
                         let respuestas = modulo_formulario.registros.filter(d => d.modulo_formulario == row.id).map(d => JSON.parse(d.respuestas));
                         let total = respuestas.length;

@@ -54,13 +54,19 @@ app.controller("auth", function ($scope, $http, $compile) {
         let formID = auth.queries.id || 0;
         if (baseController.session) {
             let yalolleno = await BASEAPI.firstp('modulo_formulario_registro', {
-                where: [{field: "usuario", value: baseController.session.usuario_id}]
+                where: [
+                    {field: "usuario", value: baseController.session.usuario_id},
+                    {field: "modulo_formulario", value: formID}
+                ]
             });
             if (yalolleno) {
                 baseController.formulario.registro = {};
                 baseController.formulario.nombre = `Hola ${baseController.session.fullName()}, gracias por haber llenado este formulario, estaremos trabajando en tus opiniones.`;
+                baseController.formulario.internoyalleno = true;
+                baseController.formulario.end = true;
                 baseController.refreshAngular();
                 SWEETALERT.stop();
+
                 return;
             }
         }

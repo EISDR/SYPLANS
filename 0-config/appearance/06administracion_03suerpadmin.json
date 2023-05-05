@@ -4,6 +4,12 @@
       "menus": [
         {
           "modal": "",
+          "icon": "office",
+          "href": "#compania",
+          "text": "Compañía"
+        },
+        {
+          "modal": "",
           "icon": "list2",
           "href": "#code_generator",
           "text": "Nomenclaturas"
@@ -21,16 +27,24 @@
           "text": "Grupo de documentos a importar"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "alert",
+              "href": "#modulo_notificacion",
+              "text": "Crear Notificaciones"
+            },
+            {
+              "modal": "",
+              "icon": "alert",
+              "href": "#modulo_notificacion_cache",
+              "text": "Log de Notificaciones"
+            }
+          ],
           "modal": "",
-          "icon": "alert",
-          "href": "#modulo_notificacion",
-          "text": "Módulo de Notificaciones"
-        },
-        {
-          "modal": "",
-          "icon": "alert",
-          "href": "#modulo_notificacion_cache",
-          "text": "Log de Notificaciones"
+          "icon": "user-tie",
+          "href": "#",
+          "text": "Modulo de Notificaciones"
         },
         {
           "modal": "",
@@ -44,12 +58,6 @@
           "condition": "true",
           "href": "#ws_connection",
           "text": "Aplicaciones Externas"
-        },
-        {
-          "modal": "",
-          "icon": "office",
-          "href": "#compania",
-          "text": "Compañía"
         },
         {
           "modal": "",
