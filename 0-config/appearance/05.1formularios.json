@@ -1,0 +1,21 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- FORMULARIOS -",
+      "disable": true
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "minus",
+      "href": "#",
+      "text": "- FORMULARIOS -",
+      "disable": true,
+      "esformulario": true
+    }
+  ]
+}

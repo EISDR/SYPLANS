@@ -107,6 +107,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
     var session = new SESSION();
     let adasession = session.current();
     if (adasession) {
+
         baseController.misnomenclaturas = BASEAPI.listf("code_generator",
             [{
                 field: 'compania',
@@ -392,6 +393,25 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
     }
     begin = async () => {
         var session = new SESSION();
+        // baseController.misformularios = await BASEAPI.listp("modulo_formulario",
+        //     [{
+        //         field: 'compania',
+        //         value: adasession.compania_id
+        //     }]);
+        // baseController.misformularios = baseController.misformularios.data;
+        // let menudeformu = CONFIG[baseController.currentMenu].filter(d => d.esformulario === true)[0];
+        // baseController.misformularios.forEach(row => {
+        //     if (menudeformu.menus) {
+        //         let link = `#auth/formulario?id=${row.id}`;
+        //         menudeformu.menus.push(
+        //             {
+        //                 "icon": "list3",
+        //                 "href": link,
+        //                 "text": row.nombre.trim()
+        //             }
+        //         );
+        //     }
+        // });
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);
         if (location.href.indexOf(`/home#auth/login`) === -1 && location.href.indexOf(`/home#auth/formulario`) === -1)

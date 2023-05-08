@@ -1,0 +1,24 @@
+{
+  "menus": [
+    {
+      "menus": [
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Lista",
+      "esformulario": true
+    }
+  ],
+  "menus_privado": [
+    {
+      "menus": [
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Lista",
+      "esformulario": true
+    }
+  ]
+}
