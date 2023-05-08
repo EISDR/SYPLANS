@@ -1,6 +1,12 @@
 {
   "menus": [
     {
+      "modal": "",
+      "icon": "list",
+      "href": "#modulo_formulario",
+      "text": "Crear Formularios"
+    },
+    {
       "menus": [
       ],
       "modal": "",
@@ -11,6 +17,12 @@
     }
   ],
   "menus_privado": [
+    {
+      "modal": "",
+      "icon": "list",
+      "href": "#modulo_formulario",
+      "text": "Crear Formularios"
+    },
     {
       "menus": [
       ],

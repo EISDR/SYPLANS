@@ -393,25 +393,28 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
     }
     begin = async () => {
         var session = new SESSION();
-        // baseController.misformularios = await BASEAPI.listp("modulo_formulario",
-        //     [{
-        //         field: 'compania',
-        //         value: adasession.compania_id
-        //     }]);
-        // baseController.misformularios = baseController.misformularios.data;
-        // let menudeformu = CONFIG[baseController.currentMenu].filter(d => d.esformulario === true)[0];
-        // baseController.misformularios.forEach(row => {
-        //     if (menudeformu.menus) {
-        //         let link = `#auth/formulario?id=${row.id}`;
-        //         menudeformu.menus.push(
-        //             {
-        //                 "icon": "list3",
-        //                 "href": link,
-        //                 "text": row.nombre.trim()
-        //             }
-        //         );
-        //     }
-        // });
+        if (session.current()) {
+            baseController.misformularios = await BASEAPI.listp("modulo_formulario",
+                [{
+                    field: 'compania',
+                    value: session.compania_id
+                }]);
+            baseController.misformularios = baseController.misformularios.data;
+            if (baseController.elelemenu.filter(d => d.esformulario === true)[0])
+                baseController.misformularios.forEach(row => {
+                    if (baseController.elelemenu.filter(d => d.esformulario === true)[0].menus) {
+                        let link = `#auth/formulario?id=${row.id}`;
+                        baseController.elelemenu.filter(d => d.esformulario === true)[0].menus.push(
+                            {
+                                "modal": "modal-full",
+                                "icon": "list3",
+                                "href": link,
+                                "text": row.nombre.trim()
+                            }
+                        );
+                    }
+                });
+        }
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);
         if (location.href.indexOf(`/home#auth/login`) === -1 && location.href.indexOf(`/home#auth/formulario`) === -1)

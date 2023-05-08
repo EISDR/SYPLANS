@@ -123,12 +123,24 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         };
         modulo_formulario.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
             data.inserting.config = JSON.stringify(modulo_formulario.config);
+
             resolve(true);
         });
+        modulo_formulario.triggers.table.after.insert = function (data) {
+            location.reload();
+            return true;
+        };
+        modulo_formulario.triggers.table.after.delete = function (data) {
+            location.reload();
+            return true;
+        };
         modulo_formulario.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
             data.updating.config = JSON.stringify(modulo_formulario.config);
             resolve(true);
         });
+        modulo_formulario.afterDelete = async function (data) {
+            location.reload();
+        }
         RUNTABLE('modulo_formulario');
         modulo_formulario.refreshAngular();
     }

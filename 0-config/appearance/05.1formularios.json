@@ -14,8 +14,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- FORMULARIOS -",
-      "disable": true,
-      "esformulario": true
+      "disable": true
     }
   ]
 }
