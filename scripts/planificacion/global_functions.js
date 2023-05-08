@@ -1947,7 +1947,7 @@ merge_acts_PACC = async function (departamento, callback) {
                             BASEAPI.insert('comentarios', poa_dept.filter(d => {
                                 ['compania', 'count_productos', 'count_actividades', 'count_actividades_cbs', 'count_actividades_apoyo_cbs', 'departamento', 'estatus', 'estatus_nombre',
                                     'id_presupuesto', 'nombre', 'poa', 'presupuesto_actividades', 'presupuesto_institucional',
-                                    'presupuesto_liberado', 'presupuesto_restante', 'restante_crear', 'restante_editar', 'valor'].forEach(g => delete d[g])
+                                    'presupuesto_liberado', 'presupuesto_restante', 'restante_crear', 'restante_editar', 'valor', 'active', 'presupuesto_aprobado'].forEach(g => delete d[g])
                                 d.value = d.id;
                                 delete d.id;
                                 d.created_by = session.usuario_id;
