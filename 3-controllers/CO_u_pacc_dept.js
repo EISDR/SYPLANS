@@ -1182,7 +1182,7 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
         u_pacc_dept.unidad_medida = await BASEAPI.listp('unidad_medida', {
             where: [{
                 field: "compania",
-                value: u_pacc_dept.session.compania_id
+                value: u_pacc_dept.us.compania_id
             }, {
                 field: "active",
                 value: 1
@@ -1201,12 +1201,12 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "compania",
-                    value: u_pacc_dept.session.compania_id
+                    value: u_pacc_dept.us.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator": u_pacc_dept.session.institucion_id ? "=" : "is",
-                    "value": u_pacc_dept.session.institucion_id ? u_pacc_dept.session.institucion_id : "$null"
+                    "operator": u_pacc_dept.us.institucion_id ? "=" : "is",
+                    "value": u_pacc_dept.us.institucion_id ? u_pacc_dept.us.institucion_id : "$null"
                 }
             ]
         });
@@ -1217,12 +1217,12 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "compania",
-                    value: u_pacc_dept.session.compania_id
+                    value: u_pacc_dept.us.compania_id
                 },
                 {
                     "field": "institucion",
-                    "operator": u_pacc_dept.session.institucion_id ? "=" : "is",
-                    "value": u_pacc_dept.session.institucion_id ? u_pacc_dept.session.institucion_id : "$null"
+                    "operator": u_pacc_dept.us.institucion_id ? "=" : "is",
+                    "value": u_pacc_dept.us.institucion_id ? u_pacc_dept.us.institucion_id : "$null"
                 }
             ]
         });
