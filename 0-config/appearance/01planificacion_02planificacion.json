@@ -456,39 +456,47 @@
               "text": "Política de Gobierno"
             },
             {
-              "menus": "",
+              "menus": [
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#aacontroldemandog?-pnpsp",
+                  "text": "Cumplimiento IPN"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#indicador_generico?vw_denominacion_pnpsp_gg",
+                  "text": "Crear Indicador IPN"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#monitoreo_generico?vw_denominacion_pnpsp_gg",
+                  "text": "Monitoreo y Seguimiento"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#indicador_generico_poa?vw_denominacion_pnpsp_gg",
+                  "text": "Evaluación y carga de evidencias"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#aacontroldemandog?modolista-pnpsp",
+                  "text": "Reporte Cumplimiento IPN"
+                }
+              ],
               "modal": "",
               "icon": "pie-chart7",
-              "href": "#indicador_generico?vw_denominacion_pnpsp_gg",
+              "href": "#",
               "text": "Indicadores IPN"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "pie-chart7",
-              "href": "#monitoreo_generico?vw_denominacion_pnpsp_gg",
-              "text": "Monitoreo y Seguimiento"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "pie-chart7",
-              "href": "#indicador_generico_poa?vw_denominacion_pnpsp_gg",
-              "text": "Evaluación y carga de evidencias"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "pie-chart7",
-              "href": "#aacontroldemandog?-pnpsp",
-              "text": "Cumplimiento IPN"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "pie-chart7",
-              "href": "#aacontroldemandog?modolista-pnpsp",
-              "text": "Reporte Cumplimiento IPN"
             }
           ],
           "modal": "",
