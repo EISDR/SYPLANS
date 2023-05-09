@@ -120,8 +120,6 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                     auditoria_lista_correctiva.mind = new MindElixir({
                         el: '#map',
                         direction: MindElixir.LEFT,
-                        // or set as data that is return from `.getAllData()`
-                        // data: larealdata,
                         draggable: true, // default true
                         contextMenu: true, // default true
                         toolBar: true, // default true
@@ -220,19 +218,8 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
-                if (auditoria_lista_correctiva.departamento) {
-                    if (auditoria_lista_correctiva.departamento.length > 0) {
-                        auditoria_lista_correctiva.selectQueries["responsable"] = [];
-                    } else {
-                        auditoria_lista_correctiva.responsable = [
-                            {
-                                field: "departamento",
-                                value: -1
-                            }
-                        ];
-                    }
-                }
-                auditoria_lista_correctiva.form.loadDropDown('responsable');
+
+                // auditoria_lista_correctiva.form.loadDropDown('responsable');
                 VALIDATION.validate(auditoria_lista_correctiva, 'departamento', rules);
             });
             //ms_product.selectQueries['responsable'] = [
@@ -520,7 +507,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     // });
     //
     auditoria_lista_correctiva.triggers.table.after.open = async function (data) {
-        auditoria_lista_correctiva.lista_responsables = await BASEAPI.listp('auditoria_lista_correctiva_responsable',{
+        auditoria_lista_correctiva.lista_responsables = await BASEAPI.listp('auditoria_lista_correctiva_responsable', {
             limit: 0,
             where: [
                 {
@@ -530,7 +517,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             ]
         });
         auditoria_lista_correctiva.lista_responsables = auditoria_lista_correctiva.lista_responsables.data;
-        auditoria_lista_correctiva.lista_cargos = await BASEAPI.listp('auditoria_lista_correctiva_cargo',{
+        auditoria_lista_correctiva.lista_cargos = await BASEAPI.listp('auditoria_lista_correctiva_cargo', {
             limit: 0,
             where: [
                 {
@@ -540,24 +527,24 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             ]
         });
         auditoria_lista_correctiva.lista_cargos = auditoria_lista_correctiva.lista_cargos.data;
-        if (auditoria_lista_correctiva.lista_responsables.length === 0){
-            BASEAPI.insert('auditoria_lista_correctiva_responsable', {
-                responsable: auditoria_lista_correctiva.session.id,
-                auditoria_lista_correctiva: auditoria_lista_correctiva.id
-            }, async function(result){
-                auditoria_lista_correctiva.responsable.push(auditoria_lista_correctiva.session.id + '')
-                auditoria_lista_correctiva.form.loadDropDown('responsable');
-            })
-        };
-        if (auditoria_lista_correctiva.lista_cargos.length === 0){
-            BASEAPI.insert('auditoria_lista_correctiva_cargo', {
-                cargo: auditoria_lista_correctiva.session.cargo,
-                auditoria_lista_correctiva: auditoria_lista_correctiva.id
-            }, async function(result){
-                auditoria_lista_correctiva.cargos.push(auditoria_lista_correctiva.session.cargo + '')
-                auditoria_lista_correctiva.form.loadDropDown('cargos');
-            })
-        }
+        // if (auditoria_lista_correctiva.lista_responsables.length === 0) {
+        //     BASEAPI.insert('auditoria_lista_correctiva_responsable', {
+        //         responsable: auditoria_lista_correctiva.session.id,
+        //         auditoria_lista_correctiva: auditoria_lista_correctiva.id
+        //     }, async function (result) {
+        //         auditoria_lista_correctiva.responsable.push(auditoria_lista_correctiva.session.id + '')
+        //         auditoria_lista_correctiva.form.loadDropDown('responsable');
+        //     })
+        // }
+        // if (auditoria_lista_correctiva.lista_cargos.length === 0) {
+        //     BASEAPI.insert('auditoria_lista_correctiva_cargo', {
+        //         cargo: auditoria_lista_correctiva.session.cargo,
+        //         auditoria_lista_correctiva: auditoria_lista_correctiva.id
+        //     }, async function (result) {
+        //         auditoria_lista_correctiva.cargos.push(auditoria_lista_correctiva.session.cargo + '')
+        //         auditoria_lista_correctiva.form.loadDropDown('cargos');
+        //     })
+        // }
         await auditoria_lista_correctiva.get_list_data()
         //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
     };
@@ -580,13 +567,13 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     //
     auditoria_lista_correctiva.triggers.table.after.insert = function (data) {
         //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-        if (typeof vw_correctiva !== "undefined"){
+        if (typeof vw_correctiva !== "undefined") {
             console.log(data)
             BASEAPI.insert('modulo_notificacion_task', {
                 accion: "CSNC",
                 record_id: data.inserted.id,
                 date: moment().format("YYYY-MM-DD")
-            }, function(result){
+            }, function (result) {
                 if (result)
                     vw_correctiva.refresh();
             })
@@ -601,13 +588,33 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
     auditoria_lista_correctiva.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
 
+        let cargosSeleccionados = auditoria_lista_correctiva.cargos !== "[NULL]" ?
+            (auditoria_lista_correctiva.cargos || []) : [];
+        cargosSeleccionados = cargosSeleccionados.map(d => parseInt(d) || 0);
+
+
+        let usuariosSeleccionados = auditoria_lista_correctiva.responsables !== "[NULL]" ?
+            (auditoria_lista_correctiva.responsables || []) : [];
+        usuariosSeleccionados = usuariosSeleccionados.map(d => parseInt(d) || 0);
+
+        if (!cargosSeleccionados.length && !usuariosSeleccionados.length) {
+            SWEETALERT.show({
+                type: 'error',
+                message: `Debe de agregar al menos un cargo o persona responsable`,
+            });
+            let buttons = document.getElementsByClassName("btn btn-labeled");
+            for (var item of buttons) {
+                item.disabled = false;
+            }
+            resolve(false);
+        }
         if (auditoria_lista_correctiva.mind)
             data.inserting.causa = JSON.stringify(auditoria_lista_correctiva.mind.getAllData());
 
         if (auditoria_lista_correctiva.presupuesto === "") {
             data.inserting.presupuesto = 0;
         }
-        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0) ) {
+        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0)) {
             SWEETALERT.show({
                 type: 'error',
                 message: `Debe de agregar al menos un cargo o persona responsable`,
@@ -637,7 +644,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         if (auditoria_lista_correctiva.mind)
             data.updating.causa = JSON.stringify(auditoria_lista_correctiva.mind.getAllData());
 
-        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0) ) {
+        if ((auditoria_lista_correctiva.responsable == '[NULL]' || auditoria_lista_correctiva.responsable.length === 0) && (auditoria_lista_correctiva.cargos == '[NULL]' || auditoria_lista_correctiva.cargos.length === 0)) {
             SWEETALERT.show({
                 type: 'error',
                 message: `Debe de agregar al menos un cargo o persona responsable`,
@@ -704,22 +711,60 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             }
         }
     };
-    auditoria_lista_correctiva.check_if_exists = function (item) {
-        const departmentList = auditoria_lista_correctiva.departamento.map(String);
-        const jobList = auditoria_lista_correctiva.cargos.map(String);
 
-        switch (true) {
-            case (departmentList.length > 0 && jobList.length > 0):
-                return departmentList.includes(String(item.departamento)) && jobList.includes(String(item.cargo));
-            case (departmentList.length > 0):
-                return departmentList.includes(String(item.departamento));
-            case (jobList.length > 0):
-                return jobList.includes(String(item.cargo));
-            default:
-                return false;
+    auditoria_lista_correctiva.cargosInDepartamentos = function (cargoID) {
+        let cargos = auditoria_lista_correctiva.form?.options?.cargos?.data || [];
+        let usuarios = auditoria_lista_correctiva.form?.options?.responsable?.data || [];
+        let departamentosSeleccionados = auditoria_lista_correctiva.departamento !== "[NULL]" ?
+            (auditoria_lista_correctiva.departamento || []) : [];
+        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d) || 0);
+        if (!departamentosSeleccionados.length)
+            return true;
+        let usuariosConDepartamentosSeleccionads = usuarios.filter(d => departamentosSeleccionados.indexOf(d.departamento) !== -1);
+        let cargosDeUsuariosDeLosDepartamentosSel = usuariosConDepartamentosSeleccionads.map(d => d.cargo);
+        return cargosDeUsuariosDeLosDepartamentosSel.indexOf(cargoID) !== -1;
+    };
+    auditoria_lista_correctiva.usuariosDelCargoYODepartamento = function (departamentoID, cargoID) {
+        let cargos = auditoria_lista_correctiva.form?.options?.cargos?.data || [];
+        let usuarios = auditoria_lista_correctiva.form?.options?.responsable?.data || [];
+        let cargosSeleccionados = auditoria_lista_correctiva.cargos !== "[NULL]" ?
+            (auditoria_lista_correctiva.cargos || []) : [];
+        let departamentosSeleccionados = auditoria_lista_correctiva.departamento !== "[NULL]" ?
+            (auditoria_lista_correctiva.departamento || []) : [];
+        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d) || 0);
+        cargosSeleccionados = cargosSeleccionados.map(d => parseInt(d) || 0);
+        if (!departamentosSeleccionados.length && !cargosSeleccionados.length)
+            return true;
+        if (departamentosSeleccionados.length && !cargosSeleccionados.length) {
+            return departamentosSeleccionados.indexOf(departamentoID) !== -1;
+        } else if (!departamentosSeleccionados.length && cargosSeleccionados.length) {
+            return cargosSeleccionados.indexOf(cargoID) !== -1;
+        } else if (departamentosSeleccionados.length && cargosSeleccionados.length) {
+            return cargosSeleccionados.indexOf(cargoID) !== -1 && departamentosSeleccionados.indexOf(departamentoID) !== -1;
+        }
+    };
+
+    auditoria_lista_correctiva.check_if_exists = function (item) {
+        if (auditoria_lista_correctiva.departamento !== "[NULL]") {
+            const departmentList = auditoria_lista_correctiva.departamento.map(String);
+            let cargis = auditoria_lista_correctiva.cargos;
+            if (cargis === "[NULL]")
+                cargis = [];
+            const jobList = (cargis || []).map(String);
+
+            switch (true) {
+                case (departmentList.length > 0 && jobList.length > 0):
+                    return departmentList.includes(String(item.departamento)) && jobList.includes(String(item.cargo));
+                case (departmentList.length > 0):
+                    return departmentList.includes(String(item.departamento));
+                case (jobList.length > 0):
+                    return jobList.includes(String(item.cargo));
+                default:
+                    return false;
+            }
         }
     }
-    auditoria_lista_correctiva.get_list_data = async function(){
+    auditoria_lista_correctiva.get_list_data = async function () {
         auditoria_lista_correctiva.responsables = await BASEAPI.listp('vw_usuario', {
             limit: 0,
             where: [

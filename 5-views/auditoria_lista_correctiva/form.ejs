@@ -76,7 +76,7 @@
                     table: "cargo",
                     icon: {class: "archive"},
                     truelabel: "Cargos",
-                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active)",
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active) && auditoria_lista_correctiva.cargosInDepartamentos(item.id)",
                     get: {
                         table: 'auditoria_lista_correctiva_cargo',
                         fieldFrom: 'id',
@@ -88,14 +88,14 @@
                     //     myfield: 'id',
                     //     sufield: 'id'
                     // },
-                })%>
+                }) %>
             </div>
             <div class='col-sm-4 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-sm-4" : "col-md-4"}}'>
                 <%- FORM.select('responsable', scope, {
                     column: 'name',
                     text: "item.completo",
                     table: 'vw_usuario',
-                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active && auditoria_lista_correctiva.check_if_exists(item))",
+                    condition: "(item.compania == " + scope + ".session.compania_id && item.institucion == $null) && (item.active) && auditoria_lista_correctiva.usuariosDelCargoYODepartamento(item.departamento,item.cargo)",
                     allownew: false,
                     allowedit: false,
                     allowview: false,
@@ -125,7 +125,8 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-12 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-md-6" : "col-md-4"}}' style="margin-top: 10px"
+            <div class='col-sm-12 {{!<%= scope %>.mamfe && !<%= scope %>.RvaR ? "col-md-6" : "col-md-4"}}'
+                 style="margin-top: 10px"
                  ng-if="!<%= scope %>.mamfe && !<%= scope %>.RvaR">
                 <%- FORM.daterange('range_date', scope, {
                     from: "fecha_inicio",
@@ -139,7 +140,7 @@
             </div>
             <div class="col-sm-12">
                 <label>Causa Raíz de esta acción de mejora</label>
-                <div id="map"></div>
+                <div id="map" style="height: 400px"></div>
             </div>
         </div>
 

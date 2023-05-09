@@ -11,6 +11,29 @@
       "text": "Documentos Externos"
     },
     {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#modulo_formulario",
+          "text": "Crear Formularios"
+        },
+        {
+          "menus": [
+          ],
+          "modal": "",
+          "icon": "list",
+          "href": "#",
+          "text": "Lista",
+          "esformulario": true
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Módulo de Formularios"
+    },
+    {
       "icon": "file-text2",
       "href": "#aconfig_configuracion",
       "text": "Reporte Configurable"

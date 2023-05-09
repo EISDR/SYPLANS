@@ -1326,6 +1326,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             if (MODAL.history.length === 0)
                 baseController.currentModel = inside;
         };
+        baseController.refreshAngular();
     };
     begin();
 
