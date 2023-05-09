@@ -46,22 +46,30 @@
           "text": "Creación de procesos"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_generico?vw_procesos",
+              "text": "Creación de Indicadores"
+            },
+            {
+              "modal": "",
+              "icon": "file-upload",
+              "href": "#indicador_generico_poa?vw_procesos",
+              "text": "Evaluación y carga de evidencia"
+            },
+            {
+              "modal": "",
+              "icon": "spinner10",
+              "href": "#monitoreo_generico?vw_procesos",
+              "text": "Monitoreo y Seguimiento"
+            }
+          ],
           "modal": "",
           "icon": "stats-bars3",
-          "href": "#indicador_generico?vw_procesos",
+          "href": "#",
           "text": "Indicadores"
-        },
-        {
-          "modal": "",
-          "icon": "file-upload",
-          "href": "#indicador_generico_poa?vw_procesos",
-          "text": "Evaluación y carga de evidencia"
-        },
-        {
-          "modal": "",
-          "icon": "spinner10",
-          "href": "#monitoreo_generico?vw_procesos",
-          "text": "Monitoreo y Seguimiento"
         },
         {
           "menus": "",
@@ -85,6 +93,13 @@
           "icon": "pie-chart2",
           "href": "#dashboard_proceso",
           "text": "Dashboard"
+        },
+        {
+          "menus": "",
+          "modal": "",
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?-proceso",
+          "text": "Cumplimiento de Procesos"
         },
         {
           "modal": "",
@@ -117,22 +132,37 @@
           "text": "Creación de procesos"
         },
         {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_generico?vw_procesos",
+              "text": "Indicadores"
+            },
+            {
+              "modal": "",
+              "icon": "file-upload",
+              "href": "#indicador_generico_poa?vw_procesos",
+              "text": "Evaluación y carga de evidencia"
+            },
+            {
+              "modal": "",
+              "icon": "spinner10",
+              "href": "#monitoreo_generico?vw_procesos",
+              "text": "Monitoreo y Seguimiento"
+            }
+          ],
           "modal": "",
           "icon": "stats-bars3",
           "href": "#indicador_generico?vw_procesos",
           "text": "Indicadores"
         },
         {
+          "menus": "",
           "modal": "",
-          "icon": "file-upload",
-          "href": "#indicador_generico_poa?vw_procesos",
-          "text": "Evaluación y carga de evidencia"
-        },
-        {
-          "modal": "",
-          "icon": "spinner10",
-          "href": "#monitoreo_generico?vw_procesos",
-          "text": "Monitoreo y Seguimiento"
+          "icon": "pie-chart7",
+          "href": "#aacontroldemandog?modolista-proceso",
+          "text": "Reporte Cumplimiento de Procesos"
         }
       ],
       "modal": "",

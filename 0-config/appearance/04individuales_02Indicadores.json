@@ -45,15 +45,15 @@
           "menus": "",
           "modal": "",
           "icon": "eye2",
-          "href": "#monitoreo_generico",
-          "text": "Monitoreo de Indicadores"
+          "href": "#indicador_generico_poa",
+          "text": "Evaluación y Carga de Evidencia"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "eye2",
-          "href": "#indicador_generico_poa",
-          "text": "Evaluación y Carga de Evidencia"
+          "href": "#monitoreo_generico",
+          "text": "Monitoreo de Indicadores"
         }
       ]
     }
