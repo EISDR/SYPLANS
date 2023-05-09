@@ -400,20 +400,23 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     value: session.compania_id
                 }]);
             baseController.misformularios = baseController.misformularios.data;
-            if (baseController.elelemenu.filter(d => d.esformulario === true)[0])
-                baseController.misformularios.forEach(row => {
-                    if (baseController.elelemenu.filter(d => d.esformulario === true)[0].menus) {
-                        let link = `#auth/formulario?id=${row.id}`;
-                        baseController.elelemenu.filter(d => d.esformulario === true)[0].menus.push(
-                            {
-                                "modal": "modal-full",
-                                "icon": "list3",
-                                "href": link,
-                                "text": row.nombre.trim()
-                            }
-                        );
-                    }
-                });
+            baseController.elelemenu.forEach(segundonivel => {
+                if ((segundonivel.menus || []).filter(d => d.esformulario === true)[0])
+                    baseController.misformularios.forEach(row => {
+                        if ((segundonivel.menus || []).filter(d => d.esformulario === true)[0].menus) {
+                            let link = `#auth/formulario?id=${row.id}`;
+                            (segundonivel.menus || []).filter(d => d.esformulario === true)[0].menus.push(
+                                {
+                                    "modal": "modal-full",
+                                    "icon": "list3",
+                                    "href": link,
+                                    "text": row.nombre.trim()
+                                }
+                            );
+                        }
+                    });
+            });
+
         }
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);

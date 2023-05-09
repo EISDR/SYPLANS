@@ -54,7 +54,7 @@ app.controller("auth", function ($scope, $http, $compile) {
         let formID = auth.queries.id || 0;
         try {
             MENU.setActive("auth/formulario?id=" + formID);
-            baseController.setSeparator("- FORMULARIOS -");
+            baseController.setSeparator("- OPCIONES INDIVIDUALES -");
 
         } catch (e) {
 
