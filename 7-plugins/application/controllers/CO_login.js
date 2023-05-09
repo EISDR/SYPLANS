@@ -52,6 +52,13 @@ app.controller("auth", function ($scope, $http, $compile) {
         SWEETALERT.loading({message: "Cargando Formulario"});
         baseController.formulario = {nombre: "", registro: {}};
         let formID = auth.queries.id || 0;
+        try {
+            MENU.setActive("auth/formulario?id=" + formID);
+            baseController.setSeparator("- FORMULARIOS -");
+
+        } catch (e) {
+
+        }
         if (baseController.session) {
             let yalolleno = await BASEAPI.firstp('modulo_formulario_registro', {
                 where: [
@@ -96,6 +103,7 @@ app.controller("auth", function ($scope, $http, $compile) {
         }
         baseController.refreshAngular();
         SWEETALERT.stop();
+
     }
 
     if (location.href.indexOf('token=') !== -1) {

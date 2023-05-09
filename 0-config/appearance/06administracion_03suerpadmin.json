@@ -46,12 +46,7 @@
           "href": "#",
           "text": "Modulo de Notificaciones"
         },
-        {
-          "modal": "",
-          "icon": "list",
-          "href": "#modulo_formulario",
-          "text": "Módulo de Formularios"
-        },
+
         {
           "modal": "",
           "icon": "list",

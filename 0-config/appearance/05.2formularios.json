@@ -1,0 +1,36 @@
+{
+  "menus": [
+    {
+      "modal": "",
+      "icon": "list",
+      "href": "#modulo_formulario",
+      "text": "Crear Formularios"
+    },
+    {
+      "menus": [
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Lista",
+      "esformulario": true
+    }
+  ],
+  "menus_privado": [
+    {
+      "modal": "",
+      "icon": "list",
+      "href": "#modulo_formulario",
+      "text": "Crear Formularios"
+    },
+    {
+      "menus": [
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Lista",
+      "esformulario": true
+    }
+  ]
+}
