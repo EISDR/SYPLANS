@@ -419,22 +419,29 @@ var toclient = JSON.stringify(options);
 
     $(document).ready(function () {
         if (new SESSION().isLogged()) {
-            if (<%= model + "." + options.forme %>.
-            options
-                .<%= name %>.mess
-        )
-            {
+            if (<%= model + "." + options.forme %>.options.<%= name %>.mess) {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
                     title: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.label + "`"),
-                    content
-            :
-                eval("`" +<%= model + "." + options.forme %>.options
-                    .<%= name %>.popover.content + "`"
-            ),
-                trigger: 'click'
-            })
-                ;
+                    content: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.popover.content + "`"),
+                trigger: 'manual'
+            });
+                // Obtén el elemento que deseas observar
+                const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
+
+                // Agrega un event listener al objeto document
+                document.addEventListener("click", function(evento) {
+                    // Verifica si el evento ocurrió fuera del elemento que estamos observando
+                    if (elemento !== evento.target && !elemento.contains(evento.target)) {
+                        // Se hizo clic fuera del elemento
+                        $('#popover<%= model %>_<%= nameclean %>').popover('hide')
+
+                    }
+                });
+                $('#popover<%= model %>_<%= nameclean %>').on('click', function(evento) {
+                    evento.stopPropagation();
+                    $(this).popover('show');
+                });
             }
         }
         <%= model + "." + options.forme %>.
