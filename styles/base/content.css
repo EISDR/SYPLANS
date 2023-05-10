@@ -49,3 +49,7 @@ body {
 .text-green {
     color: forestgreen;
 }
+
+.elreverse {
+    filter: contrast(1.2);
+}

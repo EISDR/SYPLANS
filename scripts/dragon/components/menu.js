@@ -18,6 +18,7 @@ MENU = {
             view = view.split("?")[0];
         }
         MENU.setActive(view);
+        MENU.reversal();
     },
     setLast: function (menu) {
         MENU.current.parents = [];
@@ -67,9 +68,10 @@ MENU = {
             MENU.setLast(a);
             MENU.expand(a);
         }
+        MENU.reversal();
     },
-    expand: function (a,debug) {
-        if(debug)
+    expand: function (a, debug) {
+        if (debug)
             debugger;
         var LI = a.parent();
         LI.addClass('active');
@@ -81,6 +83,7 @@ MENU = {
             var UL = LI.parent();
             UL.show();
         });
+        MENU.reversal();
     },
     setBrothers: function (item) {
         item.childs = DSON.ifundefined(item.childs, []);
@@ -94,12 +97,17 @@ MENU = {
                 item.childs.push(MENU.getMenu(child));
             }
         }
+        MENU.reversal();
+    },
+    reversal: () => {
+        $('.hidden-ul').removeClass("elreverse");
+        $('.active [style="display: block;"].hidden-ul').last().addClass("elreverse");
     },
     hideNavBar: function () {
         $("ul.dragon-navbar:not(:has(li))").parent().remove();
     },
     hideMenus: function (controller) {
-        $("[href='#" + controller.replaceAll('SIGNAL', '?').replaceAll('EQUALS', '=').replaceAll('SLASH', '/').replaceAll('DASH', '-')+ "']").parent().remove();
+        $("[href='#" + controller.replaceAll('SIGNAL', '?').replaceAll('EQUALS', '=').replaceAll('SLASH', '/').replaceAll('DASH', '-') + "']").parent().remove();
         $("ul.hidden-ul:not(:has(li))").parent().remove();
     },
     run: function ($scope) {
