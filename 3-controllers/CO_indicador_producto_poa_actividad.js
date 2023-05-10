@@ -460,7 +460,7 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
                 eval(`indicador_producto_poa_actividad.form.options.meta${indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].id}.disabled = true`);
             }
 
-            if (indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].sinllegar == 0)
+            if (indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow.sinllegar == 0)
                 if (indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].valor_alcanzado === "" || indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].valor_alcanzado === undefined || indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].valor_alcanzado === null) {
                     indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow.allow = 1;
                     indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].message = "";
