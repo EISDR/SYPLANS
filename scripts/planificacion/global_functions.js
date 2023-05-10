@@ -2738,7 +2738,7 @@ createfalse = async () => {
             };
         },/**/
         periodicidad: (periodos) => {
-            return aacontroldemandofalso.api.periodicidad.filter(d => {
+            return baseController.poa_monitorieo.filter(d => {
                 return d.cantidad === (periodos || []).length;
             })[0] || {
                 cantidad: 1,
