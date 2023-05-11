@@ -1,7 +1,21 @@
 app.controller("unidad_medida", function ($scope, $http, $compile) {
     unidad_medida = this;
-    var session = new SESSION().current();
-    unidad_medida.fixFilters = [];
+    unidad_medida.session = new SESSION().current();
+    if (unidad_medida.session.super) {
+        unidad_medida.fixFilters = [];
+    }else{
+        unidad_medida.fixFilters = [
+            {
+                field: "compania",
+                value: unidad_medida.session.compania_id
+            },
+            {
+                field: "institucion",
+                operator: "=",
+                value: unidad_medida.session.institucion_id ? unidad_medida.session.institucion_id : "null"
+            },
+        ];
+    }
     RUNCONTROLLER("unidad_medida", unidad_medida, $scope, $http, $compile);
     unidad_medida.headertitle = "Unidad de Medida";
     unidad_medida.plural = "Unidades de Medida";
@@ -17,7 +31,7 @@ app.controller("unidad_medida", function ($scope, $http, $compile) {
             };
             unidad_medida.form.readonly = {active: 1};
             unidad_medida.createForm(data, mode, defaultData);
-
+            var do_me_once = 0;
             unidad_medida.$scope.$watch('unidad_medida.nombre', function (value) {
                 var rules = [];
                 rules.push(VALIDATION.general.required(value));
@@ -29,6 +43,25 @@ app.controller("unidad_medida", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(unidad_medida, "compania", rules);
             });
+            unidad_medida.triggers.table.after.control = function (data) {
+                if (data === 'compania' && !unidad_medida.session.super){
+                    unidad_medida.compania = unidad_medida.session.compania_id + '';
+                    unidad_medida.form.options.compania.disabled = true;
+                    if (do_me_once < 2){
+                        unidad_medida.form.loadDropDown('compania');
+                        do_me_once ++;
+                    }
+                }
+                if (data === 'institucion' && !unidad_medida.session.super){
+                    unidad_medida.institucion = unidad_medida.session.institucion_id + '';
+                    unidad_medida.form.options.institucion.disabled = true;
+                    if (do_me_once < 2){
+                        unidad_medida.form.loadDropDown('institucion');
+                        do_me_once ++;
+                    }
+                }
+                //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
+            };
         }
     };
     unidad_medida.triggers.table.after.load = function (records) {
