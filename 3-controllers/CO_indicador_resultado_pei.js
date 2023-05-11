@@ -275,8 +275,8 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         var exist = indicador_resultado_pei.permissions.filter(d => d.indicador == indicador && d.periodo == periodo);
         if (exist.length === 0) {
             return {
-                allow: 0,
-                debug: "Este año del PEI aún no contiene POA"
+                allow: 1,
+                debug: ""
             };
         } else {
             return exist[0];
