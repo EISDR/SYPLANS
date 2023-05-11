@@ -410,14 +410,6 @@
               "icon": "alarm",
               "href": "#ws_periods",
               "text": "Frecuencia Automática"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "lifebuoy",
-              "href": "#unidad_medida",
-              "condition": "baseController.session.super",
-              "text": "Unidades de Medida"
             }
           ],
           "modal": "",
@@ -901,14 +893,6 @@
               "icon": "lifebuoy",
               "href": "#involucrados?pei_poa",
               "text": "Involucrados"
-            },
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "lifebuoy",
-              "href": "#unidad_medida",
-              "condition": "baseController.session.super",
-              "text": "Unidades de Medida"
             },
             {
               "menus": "",

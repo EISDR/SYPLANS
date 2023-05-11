@@ -91,6 +91,13 @@
               "href": "#fuente_financiamiento",
               "condition": "baseController.session.maneja_pacc===1 || baseController.session.pacc",
               "text": "Fuente de Financiamientos"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#unidad_medida",
+              "text": "Unidades de Medida"
             }
           ],
           "icon": "hammer-wrench",
