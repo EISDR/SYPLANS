@@ -200,7 +200,7 @@ app.controller("auth", function ($scope, $http, $compile) {
                             "b": MESSAGE.i('login.b'),
                             "c": MESSAGE.i('login.c'),
                             "d": MESSAGE.i('login.d'),
-                            "url": new HTTP().folderpath(["#auth", `login?restore=${result.data.md5}`])
+                            "url": new HTTP().folderpath(["home#auth", `login?restore=${result.data.md5}`])
                         }
                     }, function (result) {
                         animation.stoploading($("#idsend"), $("#spinersend"));
