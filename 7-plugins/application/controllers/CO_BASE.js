@@ -124,10 +124,11 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 }]
             ).then(result => {
                 baseController.dynamicDocuments = result;
-                baseController.dynamicDocuments.forEach(d => {
-                    let parse = (d.config || "{fields: []}");
-                    d.config = JSON.parse(parse);
-                })
+                if (baseController.dynamicDocuments)
+                    baseController.dynamicDocuments.forEach(d => {
+                        let parse = (d.config || "{fields: []}");
+                        d.config = JSON.parse(parse);
+                    })
             });
 
         baseController.scanImage = async (entity, simple) => {
