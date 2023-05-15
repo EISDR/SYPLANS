@@ -1,5 +1,21 @@
 CRUD_ser_salida = {};
 DSON.keepmerge(CRUD_ser_salida, CRUDDEFAULTS);
+CRUD_ser_salida.currentNivel = (row) => {
+    let entidad = row.esproceso ? 'proceso' : 'pei_poa';
+    if (row.nivel_urgencia && row.nivel_impacto) {
+        let p = row.nivel_urgencia_valor / 100;
+        let i = row.nivel_impacto_valor;
+        let n = p * i;
+        let nivel = ser_salida.niveles.filter(d => {
+            return n >= d.valor && n <= d.valor_to && d.entidad === entidad;
+        })[0];
+        if (nivel) {
+            nivel.calc = Number(n).toFixed(2);
+        }
+        return nivel;
+    }
+    return undefined;
+};
 DSON.keepmerge(CRUD_ser_salida, {
     table: {
         width: "width:1800px;",
@@ -76,6 +92,26 @@ DSON.keepmerge(CRUD_ser_salida, {
                 label: () => {
                     return "Estatus";
                 },
+            },
+            esproceso: {
+                label: () => {
+                    return "¿Proceso?";
+                },
+                formattype: ENUM.FORMAT.bool
+            },
+            indice_prioridad: {
+                label: () => {
+                    return "Indice de prioridad";
+                },
+                format: (row) => {
+                    if (row.esproceso){
+                        return `(IPR=GxOxD) = ` + (row.nivel_urgencia||0)*(row.nivel_impacto||0)*(row.nivel_detectabilidad||0);
+                    }else{
+                        $(`.color${row.id}`).css('background', CRUD_ser_salida.currentNivel(row).color);
+                        $(`.texto`).css({'text-align': 'center', 'margin': '0'});
+                        return `<div class='color${row.id} shape_element' title="${CRUD_ser_salida.currentNivel(row).nombre}"> </div> <p class="texto">${CRUD_ser_salida.currentNivel(row).nombre}</p>`;
+                    }
+                }
             },
             fecha_queja: {
                 label: () => {
