@@ -1089,7 +1089,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
 
 
             productos_poa.createForm(data, mode, defaultData);
-            productos_poa.id = mode == 'new'? undefined: productos_poa.id;
+            productos_poa.id = mode == 'new' ? undefined : productos_poa.id;
             productos_poa.old_estado = 0;
             productos_poa.siNo = 0;
             if (productos_poa.group_caracteristica == ENUM_2.Grupos.director_departamental || productos_poa.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
@@ -1103,7 +1103,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                         "value": productos_poa.departamento_list
                     }
                 ];
-            }else{
+            } else {
                 productos_poa.selectQueries["departamento"] = [
                     {
                         "field": "poa",
@@ -1142,7 +1142,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                             productos_poa.form.loadDropDown('estado');
                             productos_poa.refreshAngular();
                         } else if (productos_poa.old_estado == ENUM_2.productos_estatus.Abierto.toString() && productos_poa.siNo == 0) {
-                            if (!productos_poa.session.meneja_estatus_producto_por_actividades) {
+                            if (!CONFIGCOMPANY.estatus_productoXactividades) {
                                 productos_poa.selectQueries["estado"] = [
                                     {
                                         "field": "id",
@@ -1693,7 +1693,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
             }
         });
     };
-    productos_poa.alert_restante_insuficiente = async function (){
+    productos_poa.alert_restante_insuficiente = async function () {
         if (productos_poa.departamento_object) {
             productos_poa.actividades_asig_alDept = await BASEAPI.listp('actividades_poa', {
                 limit: 0,
@@ -1711,7 +1711,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                         'field': 'producto',
                         'operator': 'is not',
                         'value': "$null",
-                        'connector':'OR'
+                        'connector': 'OR'
                     },
                     {
                         'close': ')',
@@ -1720,14 +1720,14 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                     }
                 ]
             });
-            if (productos_poa.actividades_asig_alDept.data.length > 0){
+            if (productos_poa.actividades_asig_alDept.data.length > 0) {
                 productos_poa.presupuesto_actividades = 0;
                 for (var i in productos_poa.actividades_asig_alDept.data) {
                     productos_poa.presupuesto_actividades += LAN.money(productos_poa.actividades_asig_alDept.data[i].presupuesto).value;
                 }
                 productos_poa.refreshAngular();
                 return productos_poa.presupuesto_actividades > productos_poa.departamento_object.valor
-            }else{
+            } else {
                 productos_poa.actividades_asig_alprod = await BASEAPI.listp('actividades_poa', {
                     limit: 0,
                     where: [
@@ -1739,7 +1739,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                             'open': '(',
                             'field': 'producto',
                             'value': productos_poa.id,
-                            'connector':'OR'
+                            'connector': 'OR'
                         },
                         {
                             'close': ')',

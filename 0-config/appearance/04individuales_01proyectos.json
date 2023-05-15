@@ -131,7 +131,6 @@
           "href": "#proyecto_estatus",
           "text": "Estatus de Proyectos Especiales"
         },
-
         {
           "menus": "",
           "modal": "",
@@ -159,11 +158,12 @@
           "href": "#",
           "text": "Configuración"
         }
-  ],
+      ],
       "modal": "",
       "icon": "list3",
       "href": "#",
-      "text": "Gestión de Proyectos Especiales"
+      "text": "Gestión de Proyectos Especiales",
+      "condition": "CONFIGCOMPANY.proyectos_especiales"
     }
   ],
   "menus_privado": [
@@ -322,7 +322,8 @@
       "modal": "",
       "icon": "list3",
       "href": "#",
-      "text": "Gestión de Proyectos Especiales"
+      "text": "Gestión de Proyectos Especiales",
+      "condition": "CONFIGCOMPANY.proyectos_especiales"
     }
   ]
 }

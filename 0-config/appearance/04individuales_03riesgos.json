@@ -88,7 +88,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Prevención y Control de Riesgo (VaR)"
+      "text": "Prevención y Control de Riesgo (VaR)",
+      "condition": "CONFIGCOMPANY.riesgo_var"
     },
     {
       "menus": [
@@ -178,7 +179,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Prevención y Control de Riesgo (AMFE)"
+      "text": "Prevención y Control de Riesgo (AMFE)",
+      "condition": "CONFIGCOMPANY.riesgo_amfe"
     }
   ],
   "menus_privado": [
@@ -270,7 +272,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Prevención y Control de Riesgo (VaR)"
+      "text": "Prevención y Control de Riesgo (VaR)",
+      "condition": "CONFIGCOMPANY.riesgo_var"
     },
     {
       "menus": [
@@ -360,7 +363,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Prevención y Control de Riesgo (AMFE)"
+      "text": "Prevención y Control de Riesgo (AMFE)",
+      "condition": "CONFIGCOMPANY.riesgo_amfe"
     }
   ]
 }

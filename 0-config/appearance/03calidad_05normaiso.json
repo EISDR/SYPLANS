@@ -12,6 +12,7 @@
       "modal": "",
       "icon": "bookmark4",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Norma ISO 9001"
     }
   ],
@@ -28,6 +29,7 @@
       "modal": "",
       "icon": "bookmark4",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Norma ISO 9001"
     }
   ]

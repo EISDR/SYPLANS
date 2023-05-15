@@ -89,7 +89,7 @@ app.controller("end", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     operator: "=",
-                    value: new SESSION().current() ? (new SESSION().current().sectorial|| new SESSION().current().compania_id) : -1
+                    value: new SESSION().current() ? (CONFIGCOMPANY.sectorial|| new SESSION().current().compania_id) : -1
                 },
             ]
         });

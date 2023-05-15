@@ -55,7 +55,8 @@
           "href": "#monitoreo_generico",
           "text": "Monitoreo de Indicadores"
         }
-      ]
+      ],
+      "condition": "CONFIGCOMPANY.gestion_indicadores"
     }
   ],
   "menus_privado": [
@@ -100,7 +101,8 @@
           "href": "#indicador_generico_poa",
           "text": "Evaluación y Carga de Evidencia"
         }
-      ]
+      ],
+      "condition": "CONFIGCOMPANY.gestion_indicadores"
     }
   ]
 }

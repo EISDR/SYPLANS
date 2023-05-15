@@ -200,7 +200,7 @@
           "modal": "",
           "icon": "task",
           "href": "#asignaciones",
-          "condition": "",
+          "condition": "CONFIGCOMPANY.asignaciones_especiales",
           "text": "Asignaciones Especiales"
         },
         {
@@ -489,10 +489,12 @@
               "modal": "",
               "icon": "pie-chart7",
               "href": "#",
+              "condition": "CONFIGCOMPANY.ipn",
               "text": "Indicadores IPN"
             }
           ],
           "modal": "",
+          "condition": "CONFIGCOMPANY.ods",
           "icon": "design",
           "href": "#",
           "text": "Instrumentos de Planificación Nacional"
@@ -544,6 +546,7 @@
       "modal": "",
       "icon": "home2",
       "href": "#",
+      "condition": "CONFIGCOMPANY.planificacion",
       "text": "Planificación Estratégica y Operativa"
     }
   ],
@@ -747,6 +750,7 @@
           "modal": "",
           "icon": "lifebuoy",
           "href": "#asignaciones",
+          "condition": "CONFIGCOMPANY.asignaciones_especiales",
           "text": "Asignaciones Especiales"
         },
         {
@@ -949,6 +953,7 @@
       "modal": "",
       "icon": "home2",
       "href": "#",
+      "condition": "CONFIGCOMPANY.planificacion",
       "text": "Planificación Estratégica y Operativa"
     }
   ]

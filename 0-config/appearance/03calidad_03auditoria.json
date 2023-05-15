@@ -87,7 +87,8 @@
       "modal": "",
       "icon": "star-empty3",
       "href": "#",
-      "text": "Gestión de Auditoría"
+      "text": "Gestión de Auditoría",
+      "condition": "CONFIGCOMPANY.calidad"
     }
   ],
   "menus_privado": [
@@ -178,7 +179,8 @@
       "modal": "",
       "icon": "star-empty3",
       "href": "#",
-      "text": "Gestión de Auditoría"
+      "text": "Gestión de Auditoría",
+      "condition": "CONFIGCOMPANY.calidad"
     }
   ]
 }

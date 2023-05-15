@@ -24,13 +24,15 @@
           "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
-          "text": "Configuración Carga de Documentos"
+          "text": "Configuración Carga de Documentos",
+          "condition": "CONFIGCOMPANY.import_masivo"
         },
         {
           "modal": "",
           "icon": "list2",
           "href": "#documentos_import",
-          "text": "Grupo de documentos a importar"
+          "text": "Grupo de documentos a importar",
+          "condition": "CONFIGCOMPANY.import_masivo"
         },
         {
           "menus": [
@@ -63,7 +65,8 @@
           "modal": "",
           "icon": "book",
           "href": "#login_history",
-          "text": "Historial de Accesos"
+          "text": "Historial de Accesos",
+          "condition": "CONFIGCOMPANY.historial_acceso"
         },
         {
           "modal": "",
@@ -133,19 +136,22 @@
           "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
-          "text": "Configuración Carga de Documentos"
+          "text": "Configuración Carga de Documentos",
+          "condition": "CONFIGCOMPANY.import_masivo"
         },
         {
           "modal": "",
           "icon": "list2",
           "href": "#documentos_import",
-          "text": "Grupo de documentos a importar"
+          "text": "Grupo de documentos a importar",
+          "condition": "CONFIGCOMPANY.import_masivo"
         },
         {
           "modal": "",
           "icon": "book",
           "href": "#login_history",
-          "text": "Historial de Accesos"
+          "text": "Historial de Accesos",
+          "condition": "CONFIGCOMPANY.historial_acceso"
         },
         {
           "modal": "",

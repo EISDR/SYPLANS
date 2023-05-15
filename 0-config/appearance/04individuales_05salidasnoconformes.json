@@ -26,7 +26,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Gestión de Salidas no Conforme"
+      "text": "Gestión de Salidas no Conforme",
+      "condition": "CONFIGCOMPANY.salidas"
     }
   ],
   "menus_privado": [
@@ -56,7 +57,8 @@
       "modal": "",
       "icon": "shield2",
       "href": "#",
-      "text": "Gestión de Salidas no Conforme"
+      "text": "Gestión de Salidas no Conforme",
+      "condition": "CONFIGCOMPANY.salidas"
     }
   ]
 }

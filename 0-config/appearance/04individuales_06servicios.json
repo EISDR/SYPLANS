@@ -3,12 +3,14 @@
     {
       "icon": "pie-chart5",
       "href": "#ser_servicio",
-      "text": "Creación de Servicio"
+      "text": "Creación de Servicio",
+      "condition": "CONFIGCOMPANY.servicio"
     },
     {
       "icon": "file-text2",
       "href": "#documento_externo",
-      "text": "Documentos Externos"
+      "text": "Documentos Externos",
+      "condition": "CONFIGCOMPANY.documentos_externos"
     },
     {
       "menus": [
@@ -31,29 +33,58 @@
       "modal": "",
       "icon": "list",
       "href": "#",
-      "text": "Módulo de Formularios"
+      "text": "Módulo de Formularios",
+      "condition": "CONFIGCOMPANY.formularios"
     },
     {
       "icon": "file-text2",
       "href": "#aconfig_configuracion",
-      "text": "Reporte Configurable"
+      "text": "Reporte Configurable",
+      "condition": "CONFIGCOMPANY.reporte_configurable"
     }
   ],
   "menus_privado": [
     {
       "icon": "pie-chart5",
       "href": "#ser_servicio",
-      "text": "Creación de Servicio"
+      "text": "Creación de Servicio",
+      "condition": "CONFIGCOMPANY.servicio"
     },
     {
       "icon": "file-text2",
       "href": "#documento_externo",
-      "text": "Documentos Externos"
+      "text": "Documentos Externos",
+      "condition": "CONFIGCOMPANY.documentos_externos"
+    },
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "list",
+          "href": "#modulo_formulario",
+          "text": "Crear Formularios"
+        },
+        {
+          "menus": [
+          ],
+          "modal": "",
+          "icon": "list",
+          "href": "#",
+          "text": "Lista",
+          "esformulario": true
+        }
+      ],
+      "modal": "",
+      "icon": "list",
+      "href": "#",
+      "text": "Módulo de Formularios",
+      "condition": "CONFIGCOMPANY.formularios"
     },
     {
       "icon": "file-text2",
       "href": "#aconfig_configuracion",
-      "text": "Reporte Configurable"
+      "text": "Reporte Configurable",
+      "condition": "CONFIGCOMPANY.reporte_configurable"
     }
   ]
 }

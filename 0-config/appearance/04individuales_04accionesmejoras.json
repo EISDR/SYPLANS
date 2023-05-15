@@ -27,7 +27,8 @@
           "href": "#vw_auditoria_lista_correctiva?evento",
           "text": "Seguimiento de plan de Acción"
         }
-      ]
+      ],
+      "condition": "CONFIGCOMPANY.plan_accion"
     }
   ],
   "menus_privado": [
@@ -58,7 +59,8 @@
           "href": "#vw_auditoria_lista_correctiva?evento",
           "text": "Seguimiento de plan de Acción"
         }
-      ]
+      ],
+      "condition": "CONFIGCOMPANY.plan_accion"
     }
   ]
 }

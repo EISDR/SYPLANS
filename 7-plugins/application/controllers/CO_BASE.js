@@ -346,21 +346,20 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             });
         };
         baseController.elelemenu = undefined;
-        baseController.cleanMenu = (menu) => {
-            if (menu.condition) {
+        baseController.cleanMenu = (arr, ix) => {
+            if (arr[ix].condition) {
                 let result = false;
                 try {
-                    result = eval(menu.condition);
+                    if (arr[ix].condition.indexOf("pacc") !== -1)
+                        debugger;
+                    result = eval(arr[ix].condition);
                 } catch (e) {
 
                 }
-                if (!result)
-                    menu.aire = false;
-            }
-            if (menu.menus)
-                for (const submenu of menu.menus) {
-                    baseController.cleanMenu(submenu);
+                if (!result) {
+                    arr.splice(ix, 1);
                 }
+            }
         };
         baseController.myMenu = function () {
             let sessionx = new SESSION().current();
@@ -445,6 +444,83 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     value: intersession.compania_id
                 }]);
             baseController.misformularios = baseController.misformularios.data;
+
+            //primer paseo
+
+            // if (arr[ix].condition) {
+            //     let result = false;
+            //     try {
+            //         if (arr[ix].condition.indexOf("pacc") !== -1)
+            //             debugger;
+            //         result = eval(arr[ix].condition);
+            //     } catch (e) {
+            //
+            //     }
+            //     if (!result) {
+            //         arr.splice(ix, 1);
+            //     }
+            // }
+
+            var predicado = menu => {
+                if (menu.condition) {
+                    let result = false;
+                    try {
+                        result = eval(menu.condition);
+                    } catch (e) {
+
+                    }
+                    return result;
+                }
+                return true;
+            };
+
+            baseController.elelemenu = baseController.elelemenu.filter(predicado);
+
+            baseController.elelemenu.forEach((menu) => {
+                if (menu.menus)
+                    menu.menus = menu.menus.filter(predicado);
+            });
+            baseController.elelemenu.forEach((menu) => {
+                if (menu.menus)
+                    menu.menus.forEach((submenu) => {
+                        if (submenu.menus)
+                            submenu.menus = submenu.menus.filter(predicado);
+                    });
+            });
+            baseController.elelemenu.forEach((menu) => {
+                if (menu.menus) {
+                    menu.menus.forEach((submenu) => {
+                        if (submenu.menus) {
+                            submenu.menus.forEach((tercer, iz) => {
+                                baseController.cleanMenu(submenu.menus, iz);
+                            });
+                        }
+                    });
+                }
+            });
+            //segundo paseo
+            baseController.elelemenu.forEach((menu, ix) => {
+                baseController.cleanMenu(baseController.elelemenu, ix);
+            });
+            baseController.elelemenu.forEach((menu) => {
+                if (menu.menus) {
+                    menu.menus.forEach((submenu, iy) => {
+                        baseController.cleanMenu(menu.menus, iy);
+                    });
+                }
+            });
+            baseController.elelemenu.forEach((menu) => {
+                if (menu.menus) {
+                    menu.menus.forEach((submenu) => {
+                        if (submenu.menus) {
+                            submenu.menus.forEach((tercer, iz) => {
+                                baseController.cleanMenu(submenu.menus, iz);
+                            });
+                        }
+                    });
+                }
+            });
+
             baseController.elelemenu.forEach(segundonivel => {
                 if ((segundonivel.menus || []).filter(d => d.esformulario === true)[0])
                     baseController.misformularios.forEach(row => {
@@ -461,9 +537,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                         }
                     });
             });
-            baseController.elelemenu.forEach(menu => {
-                baseController.cleanMenu(menu);
-            });
+
         }
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);

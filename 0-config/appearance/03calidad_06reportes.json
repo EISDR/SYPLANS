@@ -12,6 +12,7 @@
       "modal": "",
       "icon": "drawer3",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Reportes"
     }
   ],
@@ -28,6 +29,7 @@
       "modal": "",
       "icon": "drawer3",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Reportes"
     }
   ]

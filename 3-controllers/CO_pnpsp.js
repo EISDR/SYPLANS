@@ -55,7 +55,7 @@ app.controller("pnpsp", function ($scope, $http, $compile) {
                 },
                 {
                     field: "compania",
-                    value: new SESSION().current() ? (new SESSION().current().sectorial|| new SESSION().current().compania_id) : -1
+                    value: new SESSION().current() ? (CONFIGCOMPANY.sectorial|| new SESSION().current().compania_id) : -1
                 },
             ]
         });
@@ -85,7 +85,7 @@ app.controller("pnpsp", function ($scope, $http, $compile) {
                 },
                 {
                     field: "compania",
-                    value: new SESSION().current() ? (new SESSION().current().sectorial|| new SESSION().current().compania_id) : -1
+                    value: new SESSION().current() ? (CONFIGCOMPANY.sectorial|| new SESSION().current().compania_id) : -1
                 },
                 {
                     field: "id",

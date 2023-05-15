@@ -18,7 +18,8 @@
       "modal": "",
       "icon": "list",
       "href": "#",
-      "text": "Módulo de Plantillas"
+      "text": "Módulo de Plantillas",
+      "condition": "CONFIGCOMPANY.plantillas_ods"
     }
   ],
   "menus_privado": [
@@ -40,7 +41,8 @@
       "modal": "",
       "icon": "list",
       "href": "#",
-      "text": "Módulo de Plantillas"
+      "text": "Módulo de Plantillas",
+      "condition": "CONFIGCOMPANY.plantillas_ods"
     }
   ]
 }

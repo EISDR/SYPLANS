@@ -82,6 +82,7 @@
       "modal": "",
       "icon": "map5",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Gestión de Proceso"
     }
   ],
@@ -168,6 +169,7 @@
       "modal": "",
       "icon": "map5",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "Gestión de Proceso"
     }
   ]

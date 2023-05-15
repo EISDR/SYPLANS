@@ -5,6 +5,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- Plantillas -",
+      "condition": "CONFIGCOMPANY.plantillas_ods",
       "disable": true
     }
   ],
@@ -14,6 +15,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- Plantillas -",
+      "condition": "CONFIGCOMPANY.plantillas_ods",
       "disable": true
     }
   ]

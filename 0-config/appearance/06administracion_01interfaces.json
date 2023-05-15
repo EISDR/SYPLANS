@@ -12,8 +12,8 @@
       "modal": "",
       "icon": "make-group",
       "href": "#",
-      "condition": "baseController.session.super",
-      "text": "Módulo de Interfaces"
+      "text": "Módulo de Interfaces",
+      "condition": "CONFIGCOMPANY.interfaces"
     }
   ],
   "menus_privado": [
@@ -29,8 +29,8 @@
       "modal": "",
       "icon": "make-group",
       "href": "#",
-      "condition": "baseController.session.super",
-      "text": "Módulo de Interfaces"
+      "text": "Módulo de Interfaces",
+      "condition": "CONFIGCOMPANY.interfaces"
     }
   ]
 }

@@ -4,6 +4,7 @@
       "modal": "",
       "icon": "minus",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "- CALIDAD -",
       "disable": true
     }
@@ -13,6 +14,7 @@
       "modal": "",
       "icon": "minus",
       "href": "#",
+      "condition": "CONFIGCOMPANY.calidad",
       "text": "- CALIDAD -",
       "disable": true
     }

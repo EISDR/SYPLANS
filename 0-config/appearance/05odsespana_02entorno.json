@@ -30,7 +30,8 @@
       "modal": "",
       "icon": "list",
       "href": "#",
-      "text": "Configuración"
+      "text": "Configuración",
+      "condition": "CONFIGCOMPANY.plantillas_ods"
     }
   ],
   "menus_privado": [
@@ -58,7 +59,8 @@
       "modal": "",
       "icon": "list",
       "href": "#",
-      "text": "Entorno"
+      "text": "Entorno",
+      "condition": "CONFIGCOMPANY.plantillas_ods"
     }
   ]
 }
