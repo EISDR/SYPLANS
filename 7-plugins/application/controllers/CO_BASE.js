@@ -206,6 +206,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 }]
             }).then((data) => {
                 baseController.ponderaciones = data.data
+                if (!baseController.ponderaciones)
+                    return;
                 let ponderaciones = baseController.ponderaciones.sort(GetSortOrder("orden"));
                 let finalPonderaciones = [];
                 let distinctPonderations = [...new Set(baseController.ponderaciones.map(d => d.tipo_meta))];
@@ -432,7 +434,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 ]
             });
             if (!CONFIGCOMPANY) {
-                CONFIGCOMPANY.pacc = intersession.maneja_pacc === 1 || intersession.pacc;
+                if (intersession)
+                    CONFIGCOMPANY.pacc = intersession.maneja_pacc === 1 || intersession.pacc;
             }
             baseController.CONFIGCOMPANY = CONFIGCOMPANY;
             baseController.misformularios = await BASEAPI.listp("modulo_formulario",
