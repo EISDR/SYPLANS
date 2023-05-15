@@ -349,7 +349,7 @@ BASEAPI = {
 
 function call_myswal() {
     var sesion = new SESSION().current();
-    var urlError = new HTTP().tagpath("#" + baseController.currentModel.modelName);
+    var urlError = new HTTP().tagpath("#" + (baseController.currentModel || {}).modelName);
     myswal = swal.mixin({
         confirmButtonClass: "btn btn-" + COLOR.success,
         cancelButtonClass: "btn btn-" + COLOR.danger,
