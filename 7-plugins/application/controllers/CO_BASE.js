@@ -434,6 +434,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 ]
             });
             if (!CONFIGCOMPANY) {
+                CONFIGCOMPANY = {};
                 if (intersession)
                     CONFIGCOMPANY.pacc = intersession.maneja_pacc === 1 || intersession.pacc;
             }
