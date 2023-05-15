@@ -103,10 +103,25 @@
           "text": "Monitoreo y Seguimiento"
         },
         {
-          "menus": "",
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#ods?proyecto_item",
+              "text": "Creación de Objetivos de Desarrollo Sostenible"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#indicador_generico?vw_mods",
+              "text": "Creación de Indicadores ODS"
+            }
+          ],
           "modal": "",
           "icon": "flag3",
-          "href": "#ods?proyecto_item",
+          "href": "#",
           "text": "Objetivos de Desarrollo Sostenible"
         },
         {
@@ -255,10 +270,25 @@
           "text": "Monitoreo y Seguimiento"
         },
         {
-          "menus": "",
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#ods?proyecto_item",
+              "text": "Creación de Objetivos de Desarrollo Sostenible"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#indicador_generico?vw_mods",
+              "text": "Creación de Indicadores ODS"
+            }
+          ],
           "modal": "",
           "icon": "flag3",
-          "href": "#ods?proyecto_item",
+          "href": "#",
           "text": "Objetivos de Desarrollo Sostenible"
         },
         {
