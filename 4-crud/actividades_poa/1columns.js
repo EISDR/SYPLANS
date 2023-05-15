@@ -86,11 +86,11 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 label: function () {
                     return "Tipo de Inversión"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             bienes_permiso: {
                 label: function () {
@@ -104,11 +104,11 @@ DSON.keepmerge(CRUD_actividades_poa, {
                     }
                 },
 
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             bienes_permiso_nombre: {
                 label: function () {
@@ -121,11 +121,11 @@ DSON.keepmerge(CRUD_actividades_poa, {
                         return row.bienes_permiso_nombre
                     }
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario: {
                 label: function () {
@@ -138,11 +138,11 @@ DSON.keepmerge(CRUD_actividades_poa, {
                         return row.presupuestario
                     }
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario_nombre: {
                 label: function () {
@@ -155,11 +155,11 @@ DSON.keepmerge(CRUD_actividades_poa, {
                         return row.presupuestario_nombre
                     }
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             estatus: {
                 label: "Estatus",

@@ -330,10 +330,35 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 });
             }
             return eval(`CONFIG.${baseController.currentMenu}`).filter(d => {
+                if (d.disable && d.condition) {
+                    let result = false;
+                    try {
+                        result = eval(d.condition);
+                    } catch (e) {
+
+                    }
+                    return result;
+                }
                 return d.disable
             });
         };
         baseController.elelemenu = undefined;
+        baseController.cleanMenu = (menu) => {
+            if (menu.condition) {
+                let result = false;
+                try {
+                    result = eval(menu.condition);
+                } catch (e) {
+
+                }
+                if (!result)
+                    menu.aire = false;
+            }
+            if (menu.menus)
+                for (const submenu of menu.menus) {
+                    baseController.cleanMenu(submenu);
+                }
+        };
         baseController.myMenu = function () {
             let sessionx = new SESSION().current();
             var renderCompania = sessionx.institucion_id ? ('I' + sessionx.institucion_id) : ('C' + sessionx.compania_id);
@@ -343,8 +368,10 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 baseController.elelemenu = eval(`CONFIG.${baseController.currentMenu}${renderCompania}`);
             }
             baseController.elelemenu = eval(`CONFIG.${baseController.currentMenu}`);
+
         };
-        baseController.myMenu();
+
+
         baseController.buildParent = function () {
             let sessionx = new SESSION().current();
             var renderCompania = sessionx.institucion_id ? ('I' + sessionx.institucion_id) : ('C' + sessionx.compania_id);
@@ -390,14 +417,27 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 location.reload();
             }, 500);
         };
+        baseController.myMenu();
     }
     begin = async () => {
         var session = new SESSION();
         if (session.current()) {
+            let intersession = session.current();
+            CONFIGCOMPANY = await BASEAPI.firstp("compania_config", {
+                orderby: "compania_id",
+                order: "desc",
+                where: [
+                    {field: "compania_id", value: intersession.compania_id},
+                ]
+            });
+            if (!CONFIGCOMPANY) {
+                CONFIGCOMPANY.pacc = intersession.maneja_pacc === 1 || intersession.pacc;
+            }
+            baseController.CONFIGCOMPANY = CONFIGCOMPANY;
             baseController.misformularios = await BASEAPI.listp("modulo_formulario",
                 [{
                     field: 'compania',
-                    value: session.compania_id
+                    value: intersession.compania_id
                 }]);
             baseController.misformularios = baseController.misformularios.data;
             baseController.elelemenu.forEach(segundonivel => {
@@ -416,7 +456,9 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                         }
                     });
             });
-
+            baseController.elelemenu.forEach(menu => {
+                baseController.cleanMenu(menu);
+            });
         }
         COMPILE.run(baseController, $scope, $compile);
         MODAL.run(baseController, $compile);
@@ -984,7 +1026,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                         eval(`${inside}`).refresh();
         };
         RUNCONTROLLER = function (conrollerName, inside, $scope, $http, $compile) {
-
+            inside.configcompany = CONFIGCOMPANY;
             inside.alertme = function (type, message) {
                 if (message)
                     SWEETALERT.show({
@@ -1329,7 +1371,36 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             if (MODAL.history.length === 0)
                 baseController.currentModel = inside;
         };
+        baseController.allloaded = true;
         baseController.refreshAngular();
+        $(document).ready(function () {
+            $(document).on('click', '.dragon-menu a:not(.has-ul)', function () {
+                $("body").removeClass("sidebar-mobile-main");
+            });
+            // $(document).on('click', 'body', function (e) {
+            //     if ($(e.target).prop("tagName") !== "I") {
+            //         $('.popover').popover('hide');
+            //     }
+            // });
+            baseController.refreshAngular();
+
+            MESSAGE.run();
+            $(".remove-content").removeClass("has-ul");
+            createfalse();
+        });
+
+
+        setTimeout(function () {
+            if (new SESSION().current()) {
+                if (document.location.href.indexOf('#') === -1 && new SESSION().current().homePage) {
+                    new HTTP().redirecttag(new SESSION().current().homePage.replace('#', ''));
+                } else if (document.location.href.indexOf('#') === -1) {
+                    new HTTP().redirecttag(CONFIG.home.replace('#', ''));
+                }
+            } else {
+                new SESSION().ifLogoffRedirec();
+            }
+        }, 1000);
     };
     begin();
 

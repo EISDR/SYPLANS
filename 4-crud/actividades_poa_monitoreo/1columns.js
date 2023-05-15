@@ -81,51 +81,51 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 label: function(){
                     return "Tipo de Inversión"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             biene_permiso: {
                 label: function() {
                     return "Código de Bienes y Servicios"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             biene_permiso_nombre: {
                 label: function() {
                     return "Descripcion de Bienes y Servicios"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario: {
                 label: function() {
                     return "Código del Clasificador Presupuestario"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario_nombre: {
                 label: function() {
                     return "Descripción del Clasificador Presupuestario"
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             comentario: {
                 label: "Comentario",

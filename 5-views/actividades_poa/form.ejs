@@ -175,7 +175,7 @@
         })
         %>
     </div>
-    <div ng-show="actividades_poa.session.maneja_pacc == 1">
+    <div ng-show="actividades_poa.configcompany.pacc == 1">
         <div class="col-sm-3 col-md-3" ng-show="!actividades_poa.maneja_presupuesto">
             <%-
             FORM.select("tipo_inversion", scope, {
@@ -199,7 +199,7 @@
 <div class="row">
     <div><br/></div>
 </div>
-<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1 && !actividades_poa.maneja_presupuesto"
+<div class="row" ng-if="actividades_poa.configcompany.pacc == 1 && !actividades_poa.maneja_presupuesto"
      style="margin-top: 20px">
     <div class="col-sm-12 col-md-12">
         <button
@@ -212,7 +212,7 @@
         </button>
     </div>
 </div>
-<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1" style="margin-top: 20px">
+<div class="row" ng-if="actividades_poa.configcompany.pacc == 1" style="margin-top: 20px">
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
         <%- FORM.inputview("bienes_permiso", scope, {placeholder: "Código de Bienes y Servicios", posttype: "text"}) %>
     </div>
@@ -223,7 +223,7 @@
         }) %>
     </div>
 </div>
-<div class="row" ng-if="actividades_poa.session.maneja_pacc == 1">
+<div class="row" ng-if="actividades_poa.configcompany.pacc == 1">
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
         <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
     </div>
@@ -358,7 +358,7 @@
 </div>
 
 <div class="modal nomodal" id="exampleModalCenter" tabindex="-1" role="dialog"
-     ng-show="actividades_poa.session.maneja_pacc==1">
+     ng-show="actividades_poa.configcompany.pacc==1">
     <div class="modal-dialog  modal-full modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body" style="border: 3px solid #004d80">

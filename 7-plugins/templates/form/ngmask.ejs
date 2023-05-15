@@ -53,7 +53,7 @@ var toclient = JSON.stringify(options);
      id="input<%= model %>_<%= nameclean %>">
     <label
             class="control-label is-visible animate" style="color:#000000 !important;">
-        {{::<%= model %>.form.options.<%= name %>.placeholder}}
+        {{::<%= model %>.form.options.<%= name %>.truetext|| <%= model %>.form.options.<%= name %>.placeholder}}
         <% if(options.popover){ %>
             <i
                     id="popover<%= model %>_<%= nameclean %>" class="icon-help">

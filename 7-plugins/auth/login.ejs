@@ -49,8 +49,12 @@ FORM = {
     template: function (view, data) {
         return include('../../7-plugins/templates/' + view, data);
     },
-    checkbox: function (name, model, options) {
-        return FORM.template('form/checkbox', {name: name, model: model, opts: options});
+    checkbox: function (name, model, options, label) {
+        console.log(label);
+        var loque = {name: name, model: model, opts: options};
+        if (label)
+            loque.opts.truetext = label;
+        return FORM.template('form/checkbox', loque);
     },
     checkboxlist: function (name, model, options) {
         return FORM.template('form/checkboxlist', {name: name, model: model, opts: options});

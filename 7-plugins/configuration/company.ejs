@@ -119,28 +119,6 @@
     </div>
 </div>
 
-<div class="panel panel-<%= COLOR.secundary %>" ng-show="configuration.mode!=='admin'">
-    <div class="panel-heading">
-        <h6 class="panel-title" dragonlanguage><i class="icon-wrench3 position-left"></i>
-            <language>MESSAGE.ic('mono.wizard')</language>
-        </h6>
-    </div>
-
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-sm-4 col-md-4  ">
-                <%- FORM.input("config.wizardlimit", scope, {
-                    maxlength: 50,
-                    placeholder: "Steps limit",
-                    icon: {class: "menu"}
-                }) %>
-            </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.checkbox('config.autostart', scope) %>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="panel panel-<%= COLOR.secundary %>" ng-show="configuration.mode!=='admin'">
     <div class="panel-heading">

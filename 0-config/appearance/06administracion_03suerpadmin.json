@@ -10,6 +10,12 @@
         },
         {
           "modal": "",
+          "icon": "office",
+          "href": "#compania_config",
+          "text": "Configuración"
+        },
+        {
+          "modal": "",
           "icon": "list2",
           "href": "#code_generator",
           "text": "Nomenclaturas"
@@ -46,7 +52,6 @@
           "href": "#",
           "text": "Modulo de Notificaciones"
         },
-
         {
           "modal": "",
           "icon": "list",

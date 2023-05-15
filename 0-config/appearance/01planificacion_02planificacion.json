@@ -200,6 +200,7 @@
           "modal": "",
           "icon": "task",
           "href": "#asignaciones",
+          "condition": "",
           "text": "Asignaciones Especiales"
         },
         {

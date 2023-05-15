@@ -265,13 +265,13 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
     };
 
     indicador_resultado_pei.permission = function (indicador, periodo) {
-        if (indicador_resultado_pei.indicador_pei_object)
-            if (indicador_resultado_pei.indicador_pei_object.estatus_pei != ENUM_2.pei_estatus.Autorizado) {
-                return {
-                    allow: 0,
-                    debug: "El PEI de este indicador aún no está autorizado"
-                };
-            }
+        // if (indicador_resultado_pei.indicador_pei_object)
+        //     if (indicador_resultado_pei.indicador_pei_object.estatus_pei != ENUM_2.pei_estatus.Autorizado) {
+        //         return {
+        //             allow: 0,
+        //             debug: "El PEI de este indicador aún no está autorizado"
+        //         };
+        //     }
         var exist = indicador_resultado_pei.permissions.filter(d => d.indicador == indicador && d.periodo == periodo);
         if (exist.length === 0) {
             return {

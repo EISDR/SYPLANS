@@ -5,7 +5,8 @@
       "icon": "minus",
       "href": "#",
       "text": "- PACC -",
-      "disable": true
+      "disable": true,
+      "condition": "CONFIGCOMPANY.pacc==1"
     }
   ],
   "menus_privado": [

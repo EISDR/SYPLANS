@@ -83,7 +83,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li ng-show="{{(menu.condition?$eval(menu.condition):true)}}"
+                    <li ng-show="{{menu.aire!==false}}"
                         ng-if="!menu.disable" data-markmain="{{menu.mark}}"
                         ng-repeat="(key, menu) in baseController.elelemenu" class="{{menu.class}} jsonData"
                         data-text="{{menu.text}}" data-href="{{menu.href}}" data-icon="{{menu.icon}}"
@@ -111,7 +111,7 @@
 
 
                         <ul data-nivel="2" class="sort-menu" ng-if="menu.menus">
-                            <li ng-show="{{(segundo.condition?$eval(segundo.condition):true)}}"
+                            <li ng-show="{{segundo.aire!==false}}"
                                 ng-repeat="(key2, segundo) in menu.menus"
                                 ng-init="innerIndex2=$parent.$index + '' + $index" class="{{segundo.class}}"
                                 data-text="{{segundo.text}}" data-href="{{segundo.href}}" data-icon="{{segundo.icon}}"
@@ -127,7 +127,7 @@
 
 
                                 <ul data-nivel="3" class="sort-menu" ng-if="segundo.menus">
-                                    <li ng-show="{{(tercero.condition?$eval(tercero.condition):true)}}"
+                                    <li ng-show="{{tercero.aire!==false}}"
                                         ng-repeat="(key3, tercero) in segundo.menus"
                                         ng-init="innerIndex3= innerIndex2 + '' + $index"
                                         class="{{tercero.class}}" data-text="{{tercero.text}}"
@@ -261,33 +261,7 @@
 </div>
 <script>
 
-    $(document).ready(function () {
-        $(document).on('click', '.dragon-menu a:not(.has-ul)', function () {
-            $("body").removeClass("sidebar-mobile-main");
-        });
-        // $(document).on('click', 'body', function (e) {
-        //     if ($(e.target).prop("tagName") !== "I") {
-        //         $('.popover').popover('hide');
-        //     }
-        // });
-        MESSAGE.run();
-        MENU.setActive();
-        $(".remove-content").removeClass("has-ul");
-        createfalse();
-    });
 
-
-    setTimeout(function () {
-        if (new SESSION().current()) {
-            if (document.location.href.indexOf('#') === -1 && new SESSION().current().homePage) {
-                new HTTP().redirecttag(new SESSION().current().homePage.replace('#', ''));
-            } else if (document.location.href.indexOf('#') === -1) {
-                new HTTP().redirecttag(CONFIG.home.replace('#', ''));
-            }
-        } else {
-            new SESSION().ifLogoffRedirec();
-        }
-    }, 1000);
 
 
 </script>

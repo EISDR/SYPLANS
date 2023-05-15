@@ -335,7 +335,7 @@ DSON.keepmerge(CRUD_compania, {
                 },
                 show: function (data) {
                     if (!DSON.oseaX(data.row)) {
-                        if (data.row.maneja_institucion == 1) {
+                        if (CONFIGCOMPANY.institucional == 1) {
                             if (new SESSION().current().super) {
                                 return true;
                             }

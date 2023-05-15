@@ -103,7 +103,7 @@
                     %>
                 </div>
                 <div ng-show="actividades_apoyo.session.tipo_institucion == 1">
-                    <div class="col-sm-4 col-md-4" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                    <div class="col-sm-4 col-md-4" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.configcompany.pacc == 1">
                         <%-
                         FORM.select("tipo_inversion", scope, {
                             allowedit: false,
@@ -130,7 +130,7 @@
                 </script>
             </div>
             <div class="row"
-                 ng-show="(actividades_apoyo.session.tipo_institucion == 1 && actividades_apoyo.maneja_presupuesto_act_apoyo) && actividades_poa.session.maneja_pacc == 1"
+                 ng-show="(actividades_apoyo.session.tipo_institucion == 1 && actividades_apoyo.maneja_presupuesto_act_apoyo) && actividades_poa.configcompany.pacc == 1"
                  style="margin-top: 20px">
                 <div class="col-sm-12 col-md-12">
                     <button
@@ -144,25 +144,25 @@
                     </button>
                 </div>
             </div>
-            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.session.maneja_pacc == 1" style="margin-top: 20px">
+            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.configcompany.pacc == 1" style="margin-top: 20px">
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
                     <%- FORM.inputview("bienes_permiso", scope, {
                         placeholder: "Código de Bienes y Servicios",
                         posttype: "text"
                     }) %>
                 </div>
-                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.configcompany.pacc == 1">
                     <%- FORM.inputview("bienes_permiso_nombre", scope, {
                         placeholder: "Descripción de Bienes y Servicios",
                         posttype: "text"
                     }) %>
                 </div>
             </div>
-            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.session.maneja_pacc == 1">
+            <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.configcompany.pacc == 1">
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
                     <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
                 </div>
-                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.session.maneja_pacc == 1">
+                <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.configcompany.pacc == 1">
                     <%- FORM.inputview("presupuestario_nombre", scope, {
                         placeholder: "Descripción del Objeto",
                         posttype: "text"
@@ -226,7 +226,7 @@
     </div>
 </div>
 <div class="modal nomodal" id="exampleModalCenterApoyo" tabindex="-1" role="dialog"
-     ng-show="actividades_poa.session.maneja_pacc==1">
+     ng-show="actividades_poa.configcompany.pacc==1">
     <div class="modal-dialog  modal-full modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body" style="border: 3px solid #004d80">

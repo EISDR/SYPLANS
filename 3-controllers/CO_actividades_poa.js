@@ -1063,7 +1063,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
         }
         actividades_poa.runMagicOneToMany('actividades_apoyo', 'actividades_apoyo', 'actividades_poa', 'nombre', 'id');
 
-        if (actividades_poa.session.maneja_pacc === 1) {
+        if (baseController.CONFIGCOMPANY.pacc === 1) {
             if (!actividades_poa.cbslista) {
                 actividades_poa.cbslista = await BASEAPI.listp('vw_bienes_servicio_large', {
                     limit: 0,
@@ -1091,7 +1091,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
 
     };
     actividades_poa.ausiliarSelect = (cbs) => {
-        if (actividades_poa.session.maneja_pacc === 1) {
+        if (baseController.CONFIGCOMPANY.pacc === 1) {
             let newarray = [];
             if (cbs)
                 if (actividades_poa.auxiliares)
@@ -1113,7 +1113,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     actividades_poa.selectedRecord = {};
     actividades_poa.esapoyo = false;
     actividades_poa.cbslist = (apoyo) => {
-        if (actividades_poa.session.maneja_pacc === 1) {
+        if (baseController.CONFIGCOMPANY.pacc === 1) {
             actividades_poa.esapoyo = (apoyo === true);
             let controller = actividades_poa.esapoyo ? actividades_apoyo : actividades_poa;
             actividades_poa.cbslista.forEach(d => {
@@ -1152,7 +1152,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
         $("#exampleModalCenterApoyo").modal("hide");
     };
     actividades_poa.loadlist = async () => {
-        if (actividades_poa.session.maneja_pacc === 1) {
+        if (baseController.CONFIGCOMPANY.pacc === 1) {
             let controller = apoyo ? actividades_apoyo : actividades_poa;
             if (!actividades_poa.cbslista) {
                 var animation = new ANIMATION();
@@ -1290,11 +1290,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                 label: function () {
                                     return "Tipo de Inversión"
                                 },
-                                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                                visible: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                                visibleDetail: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
                                 export: false,
                                 exportExample: false,
-                                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                                dead: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? false : true : false
                             },
                             bienes_permiso: {
                                 label: function () {
@@ -1308,11 +1308,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                     }
                                 },
 
-                                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                                visible: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                                visibleDetail: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
                                 export: false,
                                 exportExample: false,
-                                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                                dead: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? false : true : false
                             },
                             bienes_permiso_nombre: {
                                 label: function () {
@@ -1325,11 +1325,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                         return row.bienes_permiso_nombre
                                     }
                                 },
-                                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                                visible: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                                visibleDetail: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
                                 export: false,
                                 exportExample: false,
-                                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                                dead: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? false : true : false
                             },
                             presupuestario: {
                                 label: function () {
@@ -1342,11 +1342,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                         return row.presupuestario
                                     }
                                 },
-                                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                                visible: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                                visibleDetail: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
                                 export: false,
                                 exportExample: false,
-                                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                                dead: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? false : true : false
                             },
                             presupuestario_nombre: {
                                 label: function () {
@@ -1359,11 +1359,11 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                         return row.presupuestario_nombre
                                     }
                                 },
-                                visible: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
-                                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? true : false : false,
+                                visible: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
+                                visibleDetail: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? true : false : false,
                                 export: false,
                                 exportExample: false,
-                                dead: new SESSION().current() ? new SESSION().current().maneja_pacc == 1 ? false : true : false
+                                dead: new SESSION().current() ? baseController.CONFIGCOMPANY.pacc == 1 ? false : true : false
                             },
                             estatus: {
                                 label: "Estatus",
