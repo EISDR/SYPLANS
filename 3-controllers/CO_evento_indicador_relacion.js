@@ -5,7 +5,7 @@ app.controller("evento_indicador_relacion", function ($scope, $http, $compile) {
     if (evento_indicador.accion){
         evento_indicador_relacion.singular = "Evento";
         evento_indicador_relacion.plural = "Eventos";
-        evento_indicador_relacion.headertitle = "Eventos Relacionados";
+        evento_indicador_relacion.headertitle = "Eventos  relacionados a Indicadores";
         evento_indicador_relacion.fixFilters = [
             {
                 field: "compania",
@@ -19,7 +19,7 @@ app.controller("evento_indicador_relacion", function ($scope, $http, $compile) {
     }else {
         evento_indicador_relacion.singular = "Evento de Indicador";
         evento_indicador_relacion.plural = "Eventos de Indicadores";
-        evento_indicador_relacion.headertitle = "Eventos de Indicadores Relacionados";
+        evento_indicador_relacion.headertitle = "Eventos relacionados a Indicadores";
         evento_indicador_relacion.fixFilters = [
             {
                 field: "compania",
