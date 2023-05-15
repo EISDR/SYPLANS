@@ -1,8 +1,8 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.input('nombre', scope, {}) %>
+            <div class='col-sm-4 col-md-4' ng-if="evento_indicador.accion">
+                <%- FORM.input('nombre', scope, {trueplaceholder: "Nombre (Nombre que agrupa los Eventos de Indicador a crear)"}) %>
             </div>
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.select('urgencia', scope, {
