@@ -175,10 +175,15 @@ DSON.keepmerge(CRUD_unidad_medida, {
                             SWEETALERT.confirm({
                                 message: MESSAGE.i('alerts.AYSDelete'),
                                 confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
+                                    let unidad_usada = await BASEAPI.firstp('vw_pacc_departamental_detail', {where: [{field: "unidad", value: data.row.id}]});
+                                    if (unidad_usada){
+                                        SWEETALERT.show({type: "error", message: `Esta unidad de medida no puede eliminarse debido que esta siendo utilizada en el PACC departamental`});
+                                    }else {
+                                        SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                        data.$scope.deleteRow(data.row).then(function () {
+                                            SWEETALERT.stop();
+                                        });
+                                    }
                                 }
                             });
                             return false;
