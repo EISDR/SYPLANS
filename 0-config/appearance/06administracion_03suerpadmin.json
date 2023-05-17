@@ -134,6 +134,12 @@
         },
         {
           "modal": "",
+          "icon": "office",
+          "href": "#compania_config",
+          "text": "Configuración"
+        },
+        {
+          "modal": "",
           "icon": "list2",
           "href": "#documentos_ia",
           "text": "Configuración Carga de Documentos",
@@ -145,6 +151,33 @@
           "href": "#documentos_import",
           "text": "Grupo de documentos a importar",
           "condition": "CONFIGCOMPANY.import_masivo"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "alert",
+              "href": "#modulo_notificacion",
+              "text": "Crear Notificaciones"
+            },
+            {
+              "modal": "",
+              "icon": "alert",
+              "href": "#modulo_notificacion_cache",
+              "text": "Log de Notificaciones"
+            }
+          ],
+          "modal": "",
+          "icon": "user-tie",
+          "href": "#",
+          "text": "Modulo de Notificaciones"
+        },
+        {
+          "modal": "",
+          "icon": "list",
+          "condition": "true",
+          "href": "#ws_connection",
+          "text": "Aplicaciones Externas"
         },
         {
           "modal": "",
