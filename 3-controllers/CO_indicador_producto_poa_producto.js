@@ -2,7 +2,7 @@ app.controller("indicador_producto_poa_producto", function ($scope, $http, $comp
         indicador_producto_poa_producto = this;
         indicador_producto_poa_producto.destroyForm = false;
         indicador_producto_poa_producto.textModal = '';
-        indicador_producto_poa_producto.asbierto = CONFIG.seguridadindicadores === "abierta";
+        indicador_producto_poa_producto.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
         var user = new SESSION().current();
         indicador_producto_poa_producto.usuario_id = user.usuario_id;
         indicador_producto_poa_producto.conditionPoa = {estado: user.estado, poa_id: user.poa_id};
@@ -72,7 +72,7 @@ app.controller("indicador_producto_poa_producto", function ($scope, $http, $comp
                 if ((indicador_producto_poa_producto.arrays['periodo' + v1].indexOf(indicador_producto_poa_producto.get_month) > -1) && (user.estado == ENUM_2.poa_estatus.Activo)) {
 
 
-                    if (CONFIG.seguridadindicadores !== "abierta") {
+                    if (!CONFIGCOMPANY.carga_evidencia_abierta) {
                         for (var i = v1 - 1; i >= 0; i--) {
                             if (indicador_producto_poa_producto.list_indicador_producto_poa_producto[i])
                                 if (eval(`indicador_producto_poa_producto.form.options.meta${indicador_producto_poa_producto.list_indicador_producto_poa_producto[i].id}`)) {
@@ -437,7 +437,7 @@ app.controller("indicador_producto_poa_producto", function ($scope, $http, $comp
             ids.push(indicador_producto_poa_producto.list_indicador_producto_poa_producto[key].id);
             $(`[name=${names}]`).addClass("meta_alcanzada");
 
-            if (CONFIG.seguridadindicadores !== "abierta")
+            if (!CONFIGCOMPANY.carga_evidencia_abierta)
                 eval(`indicador_producto_poa_producto.form.options.meta${indicador_producto_poa_producto.list_indicador_producto_poa_producto[key].id}.disabled = disabled`);
             else {
                 indicador_producto_poa_producto.list_indicador_producto_poa_producto[key].allow.allow = 1;
@@ -909,7 +909,7 @@ app.controller("indicador_producto_poa_producto", function ($scope, $http, $comp
                             updates = !indicador_producto_poa_producto.permissionOf[indicador_producto_poa_producto.list_indicador_producto_poa_producto[cc].periodo - 1];
 
                             if (permitidos.indexOf(id) !== -1) {
-                                if (updates || CONFIG.seguridadindicadores === "abierta") {
+                                if (updates || CONFIGCOMPANY.carga_evidencia_abierta) {
                                     await BASEAPI.updateallp('indicador_producto_periodo', {
                                         "valor_alcanzado": valor === '' || valor === null || valor === undefined ? '' : valor.toString(),
                                         // "comentario": comment,

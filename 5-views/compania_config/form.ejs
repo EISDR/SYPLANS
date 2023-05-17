@@ -17,7 +17,7 @@
                 <%- FORM.checkbox('mesa_ayuda', scope, {}, 'Mesa de Ayuda') %>
             </div>
             <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('repositorio_archivos', scope) %>
+                <%- FORM.checkbox('repositorio_archivos', scope, {}, 'Repositorio de Archivos') %>
             </div>
             <div class='col-sm-3 col-md-3'>
                 <%- FORM.color('color_principal', scope, {trueplaceholder: "Color Principal"}) %>
@@ -56,12 +56,6 @@
                 <h3 class="text-primary">Notificaciones</h3>
             </div>
             <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('notificaciones_correo', scope, {}, 'Por Correo') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('notificaciones_push', scope, {}, 'Dentro de la aplicación(Push)') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
                 <%- FORM.integer('dias_de_gracia', scope, {
                     placeholder: "Días de gracia para Notificaciones de vencimiento"
                 }) %>
@@ -69,36 +63,45 @@
             <div class='col-sm-3 col-md-3'>
                 <%- FORM.hour('hora_notificacion', scope, {truetext: "Hora de las Notificaciones de vencimiento"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.input('onesignal_key', scope, {trueplaceholder: "Onesignal Key"}) %>
+            <div class='col-sm-12 col-md-12'></div>
+            <div class='col-sm-3 col-md-1'>
+                <%- FORM.checkbox('notificaciones_correo', scope, {}, 'Por Correo') %>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.input('onesignal_appauth', scope, {trueplaceholder: "Onesignal Auth"}) %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.input('onesignal_appid', scope, {trueplaceholder: "Onesignal Appid"}) %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.input('smtp_host', scope, {trueplaceholder: "Host SMTP"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.input('smtp_port', scope, {trueplaceholder: "Puerto SMTP"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('smtp_ssl', scope, {}, 'El SMTP usa SSL?') %>
+            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
+                <%- FORM.checkbox('smtp_ssl', scope, {}, 'SSL?') %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.input('smtp_email', scope, {trueplaceholder: "Correo que envía"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.normalpassword('smtp_password', scope, {placeholder: "Contraseña del correo que envía"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.input('smtp_sender', scope, {trueplaceholder: "Correo que se muestra al recibir"}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
+            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
                 <%- FORM.input('smtp_sender_name', scope, {trueplaceholder: "Nombre que se muestra al recibir"}) %>
             </div>
+            <div class='col-sm-12 col-md-12'></div>
+            <div class='col-sm-3 col-md-1'>
+                <%- FORM.checkbox('notificaciones_push', scope, {}, '(Push)') %>
+            </div>
+            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
+                <%- FORM.input('onesignal_key', scope, {trueplaceholder: "Onesignal Key"}) %>
+            </div>
+            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
+                <%- FORM.input('onesignal_appauth', scope, {trueplaceholder: "Onesignal Auth"}) %>
+            </div>
+            <div class='col-sm-3 col-md-3' ng-show="compania_config.notificaciones_push">
+                <%- FORM.input('onesignal_appid', scope, {trueplaceholder: "Onesignal Appid"}) %>
+            </div>
+
             <div class='col-sm-12 col-md-12'>
                 <h3 class="text-primary">Riesgo</h3>
             </div>
@@ -157,9 +160,9 @@
     </div>
 </div>
 <script>
-    setTimeout(()=>{
+    setTimeout(() => {
         compania_config.refreshAngular();
-    },500);
+    }, 500);
 </script>
 <%- FORM.footer(scope) %>
 

@@ -12,7 +12,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
     indicador_generico_poa.estado = ENUM_2.poa_estatus.Inactivo;
     indicador_generico_poa.from_dash_procesos = false;
     indicador_generico_poa.group_permitir = user.groups[0] ? user.groups[0].caracteristica : "";
-    indicador_generico_poa.asbierto = CONFIG.seguridadindicadores === "abierta";
+    indicador_generico_poa.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
 
     RUNCONTROLLER("indicador_generico_poa", indicador_generico_poa, $scope, $http, $compile);
     indicador_generico_poa.multiplo = 0;
@@ -80,7 +80,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
 
 
                 if (indicador_generico_poa.lista_indicador_actividades.length === 0) {
-                    if (CONFIG.seguridadindicadores !== "abierta") {
+                    if (!CONFIGCOMPANY.carga_evidencia_abierta) {
                         for (var i = v1 - 1; i >= 0; i--) {
                             if (indicador_generico_poa.list_indicador_generico_poa[i])
                                 if (eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[i].id}`)) {
@@ -392,7 +392,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
         ids.push(indicador_generico_poa.list_indicador_generico_poa[key].id);
         $(`[name=${names}]`).addClass("meta_alcanzada");
 
-        if (CONFIG.seguridadindicadores !== "abierta")
+        if (!CONFIGCOMPANY.carga_evidencia_abierta)
             eval(`indicador_generico_poa.form.options.meta${indicador_generico_poa.list_indicador_generico_poa[key].id}.disabled = disabled`);
         else {
             indicador_generico_poa.list_indicador_generico_poa[key].allow.allow = 1;
@@ -828,7 +828,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                         updates = !indicador_generico_poa.permissionOf[indicador_generico_poa.list_indicador_generico_poa[cc].periodo - 1];
 
                         if (permitidos.indexOf(id) !== -1) {
-                            if (updates || CONFIG.seguridadindicadores === "abierta") {
+                            if (updates || CONFIGCOMPANY.carga_evidencia_abierta) {
                                 await BASEAPI.updateallp('indicador_generico_periodo', {
                                     "valor_alcanzado": valor === '' || valor === null || valor === undefined ? '' : valor.toString(),
                                     // "comentario": comment,

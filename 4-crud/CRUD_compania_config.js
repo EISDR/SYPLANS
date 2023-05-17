@@ -9,8 +9,8 @@ DSON.keepmerge(CRUD_compania_config, {
         //report: true,
         batch: false,
         //persist: false,
-        sort:"compania_id",
-        order:"compania_id",
+        sort: "$BASE.compania_id",
+        order: "$BASE.compania_id",
         sortable: false,
         //dragrow: 'num',
         //rowStyle: function (row, $scope) {
@@ -49,52 +49,23 @@ DSON.keepmerge(CRUD_compania_config, {
                 export: false,
                 exportExample: false
             },
-            pacc: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            institucional: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            sectorial: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            ods: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            estatus_productoXactividades: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            notificaciones_correo: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            notificaciones_push: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            planificacion: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            asignaciones_especiales: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            ipn: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            calidad: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            proyectos_especiales: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            gestion_indicadores: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            riesgo_var: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            riesgo_amfe: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            plan_accion: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            salidas: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            servicio: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            documentos_externos: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            formularios: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            reporte_configurable: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            plantillas_ods: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            import_masivo: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            historial_acceso: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            mesa_ayuda: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            repositorio_archivos: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            interfaces: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            color_principal: {formattype: ENUM.FORMAT.color, sortable: false},
-            color_secundario: {formattype: ENUM.FORMAT.color, sortable: false},
-            dias_de_gracia: {formattype: ENUM.FORMAT.numeric},
-            hora_notificacion: {},
-            onesignal_key: {},
-            onesignal_appauth: {},
-            onesignal_appid: {},
-            carga_evidencia_abierta: {},
-            smtp_host: {},
-            smtp_port: {},
-            smtp_ssl: {visible: true, sorttype: ENUM.FORMAT.bool, formattype: ENUM.FORMAT.bool},
-            smtp_email: {},
-            smtp_password: {formattype: ENUM.FORMAT.password},
-            smtp_sender: {},
-            smtp_sender_name: {}
+            compania_nombre: {
+                label: () => {
+                    return "Compañía"
+                }
+            },
         },
         filters: {
             columns: true
-        }
+        },
+        single: [
+            {
+                'table': 'compania',
+                'base': 'compania_id',
+                'field': 'id',
+                'columns': ['id', 'nombre']
+            }
+        ]
     }
 });
 //modify methods that existing option

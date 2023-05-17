@@ -19,7 +19,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
             indicador_resultado_pei.queries.id = vw_dashboard_productosgrid_pei.selectedPEI;
             indicador_resultado_pei.indicador_pei = vw_dashboard_productosgrid_pei.selectedPEI;
         }
-    indicador_resultado_pei.asbierto = CONFIG.seguridadindicadores === "abierta";
+    indicador_resultado_pei.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
     indicador_resultado_pei.textModal = '';
 
     var user = new SESSION().current();
@@ -318,7 +318,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         ids.push(indicador_resultado_pei.list_indicador_resultado_pei[key].id);
         $(`[name=${names}]`).addClass("meta_alcanzada");
 
-        if (CONFIG.seguridadindicadores !== "abierta") {
+        if (!CONFIGCOMPANY.carga_evidencia_abierta) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = disabled`);
         } else {
             indicador_resultado_pei.list_indicador_resultado_pei[key].allow.allow = 1;

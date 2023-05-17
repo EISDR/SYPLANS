@@ -2,10 +2,6 @@ app.controller("compania_config", function ($scope, $http, $compile) {
     compania_config = this;
     //compania_config.fixFilters = [];
     compania_config.session = new SESSION().current();
-    compania_config.fixFilters = [{
-        field: "compania_id",
-        value: compania_config.session.compania_id
-    }];
     compania_config.singular = "Configuración";
     compania_config.plural = "Configuraciones";
     compania_config.headertitle = "Configuración de la compañía";
@@ -284,10 +280,6 @@ app.controller("compania_config", function ($scope, $http, $compile) {
         }
     };
     compania_config.triggers.table.after.load = async function (records) {
-        if (!records.data.length) {
-            await BASEAPI.insertp("compania_config", {compania_id: compania_config.session.compania_id});
-            location.reload();
-        }
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
 
     };

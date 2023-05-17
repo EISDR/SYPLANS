@@ -238,32 +238,3 @@ button.btn {
 .bg-default:hover {
     color: black !important;
 }
-
-.navigation > li > ul li.active > a, .navigation > li > ul li.active > a:hover, .navigation > li > ul li.active > a:focus {
-    background-color: #9c282d;
-    color: #fff;
-}
-
-.navigation > li.active > a, .navigation > li.active > a:hover, .navigation > li.active > a:focus {
-    background-color: #9c282d;
-    color: #fff;
-}
-
-#losseparator {
-    background-color: #9c282d;
-    color: #fff !important;
-    width: 100%;
-    font-weight: bold !important;
-}
-
-#losseparator a {
-    color: #fff !important;
-    font-weight: bold !important;
-}
-
-
-.menu-list li > a:hover, .menu-list li > a:focus {
-    background-color: #9c282d;
-    color: #fff !important;
-    font-weight: bold !important;
-}

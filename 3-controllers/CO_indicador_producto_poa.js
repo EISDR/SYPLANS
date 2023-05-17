@@ -9,7 +9,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
     indicador_producto_poa.estado = ENUM_2.poa_estatus.Inactivo;
     indicador_producto_poa.group_permitir = user.groups[0] ? user.groups[0].caracteristica : "";
     indicador_producto_poa.departamento_list = eval(user.departamentos_y_secundarios) || user.departamento;
-    indicador_producto_poa.asbierto = CONFIG.seguridadindicadores === "abierta";
+    indicador_producto_poa.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
     indicador_producto_poa.session = user;
     RUNCONTROLLER("indicador_producto_poa", indicador_producto_poa, $scope, $http, $compile);
     indicador_producto_poa.multiplo = 0;
@@ -69,7 +69,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
 
 
                 if (indicador_producto_poa.lista_indicador_actividades.length === 0) {
-                    if (CONFIG.seguridadindicadores !== "abierta") {
+                    if (!CONFIGCOMPANY.carga_evidencia_abierta) {
                         for (var i = v1 - 1; i >= 0; i--) {
                             if (indicador_producto_poa.list_indicador_producto_poa[i])
                                 if (eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[i].id}`)) {
@@ -375,7 +375,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
         ids.push(indicador_producto_poa.list_indicador_producto_poa[key].id);
         $(`[name=${names}]`).addClass("meta_alcanzada");
 
-        if (CONFIG.seguridadindicadores !== "abierta")
+        if (!CONFIGCOMPANY.carga_evidencia_abierta)
             eval(`indicador_producto_poa.form.options.meta${indicador_producto_poa.list_indicador_producto_poa[key].id}.disabled = disabled`);
         else {
             console.log("lo abrio 1");
@@ -835,7 +835,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
                         updates = !indicador_producto_poa.permissionOf[indicador_producto_poa.list_indicador_producto_poa[cc].periodo - 1];
 
                         if (permitidos.indexOf(id) !== -1) {
-                            if (updates || CONFIG.seguridadindicadores === "abierta") {
+                            if (updates || CONFIGCOMPANY.carga_evidencia_abierta) {
 
                                 await BASEAPI.updateallp('indicador_poa_periodo', {
                                     "valor_alcanzado": valor === '' || valor === null || valor === undefined ? '' : valor.toString(),
