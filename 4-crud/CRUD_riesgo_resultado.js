@@ -82,7 +82,28 @@ DSON.keepmerge(CRUD_riesgo_resultado, {
             }
         },
         filters: {
-            columns: true
+            columns: [
+                {
+                    key: 'nombre',
+                    label: 'Nombre',
+                    type: FILTER.types.string,
+                    placeholder: 'Nombre'
+                },
+                {
+                    key: 'descripcion',
+                    label: 'Descripción',
+                    type: FILTER.types.string,
+                    placeholder: 'Descripción'
+                },
+                {
+                    key: 'valor',
+                    label: function() {
+                        return 'Valor';
+                    },
+                    type: FILTER.types.decimal,
+                    placeholder: 'Valor'
+                },
+            ]
         }
     }
 });

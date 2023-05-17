@@ -141,19 +141,88 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class='col-sm-3 col-md-3'>
-                                        <%- FORM.integer('mamfe_gravedad_current', scope, {
-                                            trueplaceholder: "Valoración Gravedad (G)"
+                                    <div class='col-sm-3 col-md-3' ng-if="!riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_gravedad_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_impacto",
+                                            icon: {class: "archive"},
+                                            label: "Gravedad (G)",
+                                            condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
                                         }) %>
                                     </div>
-                                    <div class='col-sm-3 col-md-3'>
-                                        <%- FORM.integer('mamfe_ocurrencia_current', scope, {
-                                            trueplaceholder: "Valoración Ocurrencia (O)"
+                                    <div class='col-sm-3 col-md-3' ng-if="riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_gravedad_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_impacto",
+                                            icon: {class: "archive"},
+                                            label: "Gravedad (G)",
+                                            condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
                                         }) %>
                                     </div>
-                                    <div class='col-sm-3 col-md-3'>
-                                        <%- FORM.integer('mamfe_deteccion_current', scope, {
-                                            trueplaceholder: "Valoración Detección (D)"
+                                    <div class='col-sm-3 col-md-3' ng-if="!riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_ocurrencia_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_probabilidad",
+                                            icon: {class: "archive"},
+                                            label: "Ocurrencia (O)",
+                                            condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3' ng-if="riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_ocurrencia_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_probabilidad",
+                                            icon: {class: "archive"},
+                                            label: "Ocurrencia (O)",
+                                            condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3' ng-if="!riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_deteccion_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_impacto",
+                                            icon: {class: "archive"},
+                                            label: "Detección (D)",
+                                            condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
+                                        }) %>
+                                    </div>
+                                    <div class='col-sm-3 col-md-3' ng-if="riesgo_a.session.institucion">
+                                        <%- FORM.select("mamfe_deteccion_current", scope, {
+                                            allownew: false,
+                                            allowview: false,
+                                            allowedit: false,
+                                            allowlist: false,
+                                            text: "item.valor",
+                                            value: "valor",
+                                            table: "riesgo_impacto",
+                                            icon: {class: "archive"},
+                                            label: "Detección (D)",
+                                            condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
                                         }) %>
                                     </div>
 
@@ -165,7 +234,7 @@
                                             </label>
 
                                             <input readonly
-                                                   value="{{(riesgo_a.mamfe_gravedad_current||0)*(riesgo_a.mamfe_ocurrencia_current||0)*(riesgo_a.mamfe_deteccion_current||0)}}"
+                                                   value="{{(riesgo_a.mamfe_gravedad_current||0)*(riesgo_a.mamfe_ocurrencia_current||0)*(riesgo_a.mamfe_deteccion_current||0) || 0}}"
                                                    type="text"
                                                    class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
                                                    style="padding-left: 31px !important;" placeholder=""

@@ -72,7 +72,9 @@ DSON.keepmerge(CRUD_riesgo_probabilidad, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
+                    label: function () {
+                        return 'Nombre pru'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Nombre'
                 },
@@ -84,7 +86,9 @@ DSON.keepmerge(CRUD_riesgo_probabilidad, {
                 },
                 {
                     key: 'valor',
-                    label: 'Valor',
+                    label: function() {
+                        return 'Valor';
+                    },
                     type: FILTER.types.decimal,
                     placeholder: 'Valor'
                 },
