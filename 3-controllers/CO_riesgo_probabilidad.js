@@ -85,7 +85,7 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                             return "Valor"
                         },
                         format: function (row) {
-                            return `${row.valor} - ${row.valor_hasta}`;
+                            return `${row.valor}`;
                         }
                     },
                     compania: {
@@ -113,7 +113,9 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'valor',
-                            label: 'Valor',
+                            label: function() {
+                                return 'Valor'
+                            },
                             type: FILTER.types.decimal,
                             placeholder: 'Valor'
                         },
@@ -439,7 +441,7 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         ]
                     }
                 ]
-            }
+            },
         });
         riesgo_probabilidad.fixFilters.push({
             field: "mamfe",
@@ -532,7 +534,9 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'valor',
-                            label: 'Valor',
+                            label: function() {
+                                return 'Valor'
+                            },
                             type: FILTER.types.decimal,
                             placeholder: 'Valor'
                         },
@@ -858,7 +862,7 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         ]
                     }
                 ]
-            }
+            },
         });
         riesgo_probabilidad.fixFilters.push({
             field: "mamfe",
@@ -907,12 +911,23 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                 //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo_probabilidad, 'descripcion', rules);
             });
-            $scope.$watch("riesgo_probabilidad.valor", function (value) {
-                var rules = [];
-                //rules here
-                rules.push(VALIDATION.general.required(value));
-                VALIDATION.validate(riesgo_probabilidad, 'valor', rules);
-            });
+            if (riesgo_probabilidad.soyamfe) {
+                $scope.$watch("riesgo_probabilidad.valor", function (value) {
+                    var rules = [];
+                    //rules here
+                    rules.push(VALIDATION.yariel.mayorOigualCero(value, "Valor"));
+                    rules.push(VALIDATION.yariel.menorQue(value, 10,"Valor", "10"));
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(riesgo_probabilidad, 'valor', rules);
+                });
+            }else{
+                $scope.$watch("riesgo_probabilidad.valor", function (value) {
+                    var rules = [];
+                    //rules here
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(riesgo_probabilidad, 'valor', rules);
+                });
+            }
             //ms_product.selectQueries['compania'] = [
             //    {
             //    field: 'id',
@@ -960,29 +975,8 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         value: riesgo_probabilidad.entidad
                     },
                     {
-                        open: '((',
-                        field: "$" + data.inserting.valor,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`
-                    },
-                    {
-                        field: "$" + data.inserting.valor,
-                        operator: 'BETWEEN',
-                        connector: "OR",
-                        value: `$ valor and valor_hasta`,
-                        close: ')'
-                    },
-                    {
-                        open: '(',
-                        field: "$" + data.inserting.valor_hasta,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`
-                    },
-                    {
-                        field: "$" + data.inserting.valor_hasta,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`,
-                        close: '))'
+                        field: "valor",
+                        value: data.inserting.valor
                     }
                 ]
             });
@@ -990,7 +984,7 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                 if (exist.data.length) {
                     SWEETALERT.show({
                         type: 'warning',
-                        message: `El valor desde y hasta interfiere con la ocurrencia "${exist.data[0].nombre}"`
+                        message: `El valor existe en la ocurrencia "${exist.data[0].nombre}"`
                     });
                     var buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {
@@ -1026,29 +1020,8 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                         value: riesgo_probabilidad.entidad
                     },
                     {
-                        open: '((',
-                        field: "$" + data.updating.valor,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`
-                    },
-                    {
-                        field: "$" + data.updating.valor,
-                        operator: 'BETWEEN',
-                        connector: "OR",
-                        value: `$ valor and valor_hasta`,
-                        close: ')'
-                    },
-                    {
-                        open: '(',
-                        field: "$" + data.updating.valor_hasta,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`
-                    },
-                    {
-                        field: "$" + data.updating.valor_hasta,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_hasta`,
-                        close: '))'
+                        field: "valor",
+                        value: data.updating.valor
                     }
                 ]
             });
@@ -1056,7 +1029,7 @@ app.controller("riesgo_probabilidad", function ($scope, $http, $compile) {
                 if (exist.data.length) {
                     SWEETALERT.show({
                         type: 'warning',
-                        message: `El valor desde y hasta interfiere con la ocurrencia "${exist.data[0].nombre}"`
+                        message: `El valor existe en la ocurrencia "${exist.data[0].nombre}"`
                     });
                     var buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {

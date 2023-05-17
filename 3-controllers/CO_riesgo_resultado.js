@@ -71,7 +71,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     },
                     nombre: {
                         label: function () {
-                            return "Gravedad"
+                            return "Detectabilidad"
                         },
                     },
                     descripcion: {
@@ -86,7 +86,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                             return "Valor"
                         },
                         format: function (row) {
-                            return `${row.valor} - ${row.valor_to}`;
+                            return `${row.valor}`;
                         }
                     },
                     compania: {
@@ -99,8 +99,29 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     }
                 },
                 filters: {
-                    columns: true
-                }
+                    columns: [
+                        {
+                            key: 'nombre',
+                            label: 'Nombre',
+                            type: FILTER.types.string,
+                            placeholder: 'Nombre'
+                        },
+                        {
+                            key: 'descripcion',
+                            label: 'Descripción',
+                            type: FILTER.types.string,
+                            placeholder: 'Descripción'
+                        },
+                        {
+                            key: 'valor',
+                            label: function() {
+                                return 'Valor';
+                            },
+                            type: FILTER.types.decimal,
+                            placeholder: 'Valor'
+                        },
+                    ]
+                },
             }
         });
         riesgo_resultado.fixFilters.push({
@@ -255,12 +276,23 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(riesgo_resultado, 'color', rules);
             });
-            $scope.$watch("riesgo_resultado.valor", function (value) {
-                var rules = [];
-                //rules here
-                rules.push(VALIDATION.general.required(value));
-                VALIDATION.validate(riesgo_resultado, 'valor', rules);
-            });
+            if (riesgo_resultado.soyamfe) {
+                $scope.$watch("riesgo_resultado.valor", function (value) {
+                    var rules = [];
+                    //rules here
+                    rules.push(VALIDATION.yariel.mayorOigualCero(value, "Valor"));
+                    rules.push(VALIDATION.yariel.menorQue(value, 10,"Valor", "10"));
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(riesgo_resultado, 'valor', rules);
+                });
+            }else {
+                $scope.$watch("riesgo_resultado.valor", function (value) {
+                    var rules = [];
+                    //rules here
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(riesgo_resultado, 'valor', rules);
+                });
+            }
             $scope.$watch("riesgo_resultado.valor_to", function (value) {
                 var rules = [];
                 //rules here
@@ -771,29 +803,8 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                         value: 1
                     },
                     {
-                        open: '((',
-                        field: "$" + data.inserting.valor,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_to`
-                    },
-                    {
-                        field: "$" + data.inserting.valor,
-                        operator: 'BETWEEN',
-                        connector: "OR",
-                        value: `$ valor and valor_to`,
-                        close: ')'
-                    },
-                    {
-                        open: '(',
-                        field: "$" + data.inserting.valor_to,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_to`
-                    },
-                    {
-                        field: "$" + data.inserting.valor_to,
-                        operator: 'BETWEEN',
-                        value: `$ valor and valor_to`,
-                        close: '))'
+                        field: "valor",
+                        value: data.inserting.valor
                     }
                 ]
             });
@@ -801,7 +812,7 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                 if (exist.data.length) {
                     SWEETALERT.show({
                         type: 'warning',
-                        message: `El rango desde y hasta interfiere con la detectabilidad "${exist.data[0].nombre}"`
+                        message: `El valor existe en la detectabilidad "${exist.data[0].nombre}"`
                     });
                     var buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {
@@ -815,54 +826,55 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
     //
 
     riesgo_resultado.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
-        var exist = await BASEAPI.listp("riesgo_resultado", {
-            where: [
-                {
-                    field: 'id',
-                    operator: '!=',
-                    value: riesgo_resultado.id
-                },
-                {
-                    field: 'compania',
-                    value: new SESSION().current().compania_id
-                },
-                {
-                    field: 'institucion',
-                    operator: new SESSION().current().institucion_id ? "=" : '',
-                    value: new SESSION().current().institucion_id || "$ is NULL"
-                },
-                {
-                    field: "entidad",
-                    value: riesgo_resultado.entidad
-                },
-                {
-                    open: '((',
-                    field: "$" + data.updating.valor,
-                    operator: 'BETWEEN',
-                    value: `$ valor and valor_to`
-                },
-                {
-                    field: "$" + data.updating.valor,
-                    operator: 'BETWEEN',
-                    connector: "OR",
-                    value: `$ valor and valor_to`,
-                    close: ')'
-                },
-                {
-                    open: '(',
-                    field: "$" + data.updating.valor_to,
-                    operator: 'BETWEEN',
-                    value: `$ valor and valor_to`
-                },
-                {
-                    field: "$" + data.updating.valor_to,
-                    operator: 'BETWEEN',
-                    value: `$ valor and valor_to`,
-                    close: '))'
-                }
-            ]
-        });
+
         if (!riesgo_resultado.soyamfe) {
+            var exist = await BASEAPI.listp("riesgo_resultado", {
+                where: [
+                    {
+                        field: 'id',
+                        operator: '!=',
+                        value: riesgo_resultado.id
+                    },
+                    {
+                        field: 'compania',
+                        value: new SESSION().current().compania_id
+                    },
+                    {
+                        field: 'institucion',
+                        operator: new SESSION().current().institucion_id ? "=" : '',
+                        value: new SESSION().current().institucion_id || "$ is NULL"
+                    },
+                    {
+                        field: "entidad",
+                        value: riesgo_resultado.entidad
+                    },
+                    {
+                        open: '((',
+                        field: "$" + data.updating.valor,
+                        operator: 'BETWEEN',
+                        value: `$ valor and valor_to`
+                    },
+                    {
+                        field: "$" + data.updating.valor,
+                        operator: 'BETWEEN',
+                        connector: "OR",
+                        value: `$ valor and valor_to`,
+                        close: ')'
+                    },
+                    {
+                        open: '(',
+                        field: "$" + data.updating.valor_to,
+                        operator: 'BETWEEN',
+                        value: `$ valor and valor_to`
+                    },
+                    {
+                        field: "$" + data.updating.valor_to,
+                        operator: 'BETWEEN',
+                        value: `$ valor and valor_to`,
+                        close: '))'
+                    }
+                ]
+            });
             if (exist.data)
                 if (exist.data.length) {
                     SWEETALERT.show({
@@ -876,11 +888,37 @@ app.controller("riesgo_resultado", function ($scope, $http, $compile) {
                     resolve(false);
                 }
         }else {
+            var exist = await BASEAPI.listp("riesgo_resultado", {
+                where: [
+                    {
+                        field: 'id',
+                        operator: '!=',
+                        value: riesgo_resultado.id
+                    },
+                    {
+                        field: 'compania',
+                        value: new SESSION().current().compania_id
+                    },
+                    {
+                        field: 'institucion',
+                        operator: new SESSION().current().institucion_id ? "=" : '',
+                        value: new SESSION().current().institucion_id || "$ is NULL"
+                    },
+                    {
+                        field: "entidad",
+                        value: riesgo_resultado.entidad
+                    },
+                    {
+                        field: "valor",
+                        value: data.updating.valor
+                    }
+                ]
+            });
             if (exist.data)
                 if (exist.data.length) {
                     SWEETALERT.show({
                         type: 'warning',
-                        message: `El rango desde y hasta interfiere con la detectabilidad "${exist.data[0].nombre}"`
+                        message: `El valor existe en la detectabilidad "${exist.data[0].nombre}"`
                     });
                     var buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {

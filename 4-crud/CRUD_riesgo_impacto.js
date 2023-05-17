@@ -84,7 +84,9 @@ DSON.keepmerge(CRUD_riesgo_impacto, {
                 },
                 {
                     key: 'valor',
-                    label: 'Valor',
+                    label: function() {
+                        return 'Valor';
+                    },
                     type: FILTER.types.decimal,
                     placeholder: 'Valor'
                 },

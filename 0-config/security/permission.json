@@ -2367,6 +2367,18 @@
             "DOC": false
           }
         }
+      },
+      "riesgo_probabilidad": {
+        "type": "full",
+        "allow": {}
+      },
+      "riesgo_impacto": {
+        "type": "full",
+        "allow": {}
+      },
+      "riesgo_resultado": {
+        "type": "full",
+        "allow": {}
       }
     }
   }
