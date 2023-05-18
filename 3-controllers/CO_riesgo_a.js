@@ -294,6 +294,9 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                                     return true;
                                 },
                                 click: function (data) {
+                                    data.row.mamfe_ocurrencia = parseFloat(data.row.mamfe_ocurrencia);
+                                    data.row.mamfe_gravedad = parseFloat(data.row.mamfe_gravedad);
+                                    data.row.mamfe_deteccion = parseFloat(data.row.mamfe_deteccion);
                                     data.$scope.formulary({
                                         where: [{
                                             field: eval(`CRUD_${data.$scope.modelName}`).table.key,
@@ -1247,6 +1250,29 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                     VALIDATION.validate(riesgo_a, 'mamfe_deteccion', rules);
                 });
             }
+            riesgo_a.triggers.table.after.control = function (data) {
+                //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
+                // if (data === "view_descripcion"){
+                //     if (typeof vw_riesgo !== 'undefined') {
+                //         if (typeof vw_riesgo !== 'not defined') {
+                //             if (vw_riesgo) {
+                //                 riesgo_control.fixFilters = [{field: 'riesgo', value: vw_riesgo.id},{field: "real", value: 1}];
+                //             }
+                //         }
+                //     }
+                // }
+                if (!CONFIG.mysqlactive) {
+                    if (data === 'mamfe_deteccion' && mode === 'edit') {
+                        riesgo_a.mamfe_deteccion = riesgo_a.mamfe_deteccion + '.00'
+                    }
+                    if (data === 'mamfe_gravedad' && mode === 'edit') {
+                        riesgo_a.mamfe_gravedad = riesgo_a.mamfe_gravedad + '.00'
+                    }
+                    if (data === 'mamfe_ocurrencia' && mode === 'edit') {
+                        riesgo_a.mamfe_ocurrencia = riesgo_a.mamfe_ocurrencia + '.00'
+                    }
+                }
+            };
         }
     };
     riesgo_a.selectQueries['estado_plan_accion'] = [
@@ -1395,18 +1421,6 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         resolve(true);
     });
     //
-    riesgo_a.triggers.table.after.control = function (data) {
-        //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-        // if (data === "view_descripcion"){
-        //     if (typeof vw_riesgo !== 'undefined') {
-        //         if (typeof vw_riesgo !== 'not defined') {
-        //             if (vw_riesgo) {
-        //                 riesgo_control.fixFilters = [{field: 'riesgo', value: vw_riesgo.id},{field: "real", value: 1}];
-        //             }
-        //         }
-        //     }
-        // }
-    };
     // $scope.triggers.table.before.control = function (data) {
     //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
     // };
