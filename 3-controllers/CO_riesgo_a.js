@@ -1376,18 +1376,24 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
     //     return true;
     // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    riesgo_a.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        data.inserting.mamfe_deteccion = parseInt(data.inserting.mamfe_deteccion)
+        data.inserting.mamfe_gravedad = parseInt(data.inserting.mamfe_gravedad)
+        data.inserting.mamfe_ocurrencia = parseInt(data.inserting.mamfe_ocurrencia)
+        resolve(true);
+    });
     //
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     // };
-    // $scope.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    riesgo_a.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        data.updating.mamfe_deteccion = parseInt(data.updating.mamfe_deteccion)
+        data.updating.mamfe_gravedad = parseInt(data.updating.mamfe_gravedad)
+        data.updating.mamfe_ocurrencia = parseInt(data.updating.mamfe_ocurrencia)
+        resolve(true);
+    });
     //
     riesgo_a.triggers.table.after.control = function (data) {
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
@@ -1557,9 +1563,9 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         VALIDATION.save(riesgo_a, async function () {
             SWEETALERT.loading({message: MESSAGE.ic('mono.loading') + "..."});
             BASEAPI.updateall('riesgo', {
-                mamfe_gravedad_current: riesgo_a.mamfe_gravedad_current,
-                mamfe_ocurrencia_current: riesgo_a.mamfe_ocurrencia_current,
-                mamfe_deteccion_current: riesgo_a.mamfe_deteccion_current,
+                mamfe_gravedad_current: parseInt(riesgo_a.mamfe_gravedad_current),
+                mamfe_ocurrencia_current: parseInt(riesgo_a.mamfe_ocurrencia_current),
+                mamfe_deteccion_current: parseInt(riesgo_a.mamfe_deteccion_current),
                 observacion: riesgo_a.observacion,
                 where: [
                     {
