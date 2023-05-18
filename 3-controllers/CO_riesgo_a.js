@@ -1372,6 +1372,10 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         location.href = location.href.split('?')[0] + '?' + table;
     };
     riesgo_a.triggers.table.after.load = async function (records) {
+        riesgo_a.niveles = await BASEAPI.listf("riesgo_resultado_amfe", [{
+            field: "compania",
+            value: riesgo_a.session.compania_id
+        }]);
         riesgo_a.runMagicOneToMany('riesgo_control', 'riesgo_control', 'riesgo', 'nombre', 'id');
         riesgo_a.runMagicColum('factor_riesgo', 'perspectiva', "id", "nombre");
         riesgo_a.runMagicColum('proceso', 'proceso', "id", "nombre");
@@ -1616,5 +1620,22 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                 SWEETALERT.stop();
             });
         }, ["probabilidad_current","impacto_current","observacion"]);
+    };
+    riesgo_a.predeterminado = { color:"#969696", nombre: "Nivel Indeterminado"};
+    riesgo_a.currentNivel = () => {
+        if (!DSON.oseaX0(riesgo_a.mamfe_deteccion) && !DSON.oseaX0(riesgo_a.mamfe_gravedad) && !DSON.oseaX0(riesgo_a.mamfe_ocurrencia)) {
+            let d = riesgo_a.mamfe_deteccion;
+            let o = riesgo_a.mamfe_ocurrencia;
+            let g = riesgo_a.mamfe_gravedad;
+            let n = g*o*d;
+            let nivel = riesgo_a.niveles.filter(d => {
+                return n >= d.valor && n <= d.valor_to;
+            })[0];
+            if (nivel) {
+                nivel.calc = Number(n).toFixed(2);
+            }
+            return nivel || riesgo_a.predeterminado;
+        }
+        return undefined;
     };
 });
