@@ -401,5 +401,7 @@
   "field_email_cc":"Variable que contiene los correos a enviar en CC",
   "field_email_cco":"Variable que contiene los correos a enviar en CCO",
   "field_email_exc":"Variable que contiene la lista negra",
-  "send_one":"¿Repetir Diario?"
+  "send_one":"¿Repetir Diario?",
+  "nivel_riesgo_salida_plural":"Niveles de Riesgo",
+  "nivel_riesgo_salida":"Nivel de Riesgo"
 }

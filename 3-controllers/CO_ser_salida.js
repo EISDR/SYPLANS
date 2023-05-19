@@ -5,10 +5,12 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
         ser_salida.session = new SESSION().current();
         ser_salida.trabajando = false;
         ser_salida.showmerelations = false;
-        ser_salida.fixFilters = [{
-            field: "compania",
-            value: ser_salida.session.compania_id
-        }];
+        ser_salida.fixFilters = [
+            {
+                field: "compania",
+                value: ser_salida.session.compania_id
+            }
+        ];
         ser_salida.singular = "Salida no Conforme";
         ser_salida.plural = "Salidas no Conforme";
         ser_salida.headertitle = "Salidas no Conforme";
@@ -16,10 +18,18 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
         //ser_salida.destroyForm = false;
         //ser_salida.permissionTable = "tabletopermission";
         RUNCONTROLLER("ser_salida", ser_salida, $scope, $http, $compile);
-        ser_salida.niveles = await BASEAPI.listf("riesgo_resultado", [{
-            field: "compania",
-            value: ser_salida.session.compania_id
-        }]);
+        ser_salida.predeterminado = { color:"#969696", nombre: "Nivel Indeterminado"};
+        ser_salida.niveles = await BASEAPI.listf("nivel_riesgo_salida", [
+            {
+                field: "compania",
+                value: ser_salida.session.compania_id
+            },
+            {
+                field: "institucion",
+                operator: ser_salida.session.institucion_id ? "=" : "is",
+                value: ser_salida.session.institucion_id ? ser_salida.session.institucion_id : "$null"
+            }
+        ]);
         ser_salida.formulary = function (data, mode, defaultData, trabajando) {
             if (ser_salida !== undefined) {
                 ser_salida.trabajando = trabajando;
@@ -77,6 +87,9 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
                             type: "success",
                             valid: true
                         };
+                        ser_salida.nivel_urgencia = ser_salida.nivel_urgencia == "[NULL]" ? "" : ser_salida.nivel_urgencia;
+                        ser_salida.nivel_impacto = ser_salida.nivel_impacto== "[NULL]" ? "" : ser_salida.nivel_impacto;
+                        ser_salida.refreshAngular();
                         rules_proceso.push(VALIDATION.general.required(ser_salida.proceso));
                         VALIDATION.validate(ser_salida, 'proceso', rules_proceso);
                     } else {
@@ -201,26 +214,47 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
             }
         };
         ser_salida.currentNivel = () => {
-            let entidad = ser_salida.esproceso ? 'proceso' : 'pei_poa';
-            if (ser_salida.nivel_urgencia_object && ser_salida.nivel_impacto_object) {
-                let p = ser_salida.nivel_urgencia_object.valor / 100;
-                let i = ser_salida.nivel_impacto_object.valor;
+            let proceso = ser_salida.esproceso ? 1 : 0;
+            if (!ser_salida.esproceso) {
+                let p = (ser_salida.nivel_urgencia_object ? ser_salida.nivel_urgencia_object.valor : 0) / 100;
+                let i = (ser_salida.nivel_impacto_object ? ser_salida.nivel_impacto_object.valor : 0);
                 let n = p * i;
+                ser_salida.predeterminado.calc = Number(n).toFixed(2);
                 let nivel = ser_salida.niveles.filter(d => {
-                    return n >= d.valor && n <= d.valor_to && d.entidad === entidad;
+                    return n >= d.valor && n <= d.valor_to && d.proceso === proceso;
                 })[0];
                 if (nivel) {
                     nivel.calc = Number(n).toFixed(2);
                 }
-                return nivel;
+                return nivel || ser_salida.predeterminado;
+            }else{
+                let g = ser_salida.nivel_urgencia || 0;
+                let o = ser_salida.nivel_impacto || 0;
+                let d = ser_salida.nivel_detectabilidad || 0;
+                let n = g * o * d;
+                ser_salida.predeterminado.calc = Number(n).toFixed(2);
+                let nivel = ser_salida.niveles.filter(d => {
+                    return n >= d.valor && n <= d.valor_to && d.proceso === proceso;
+                })[0];
+                if (nivel) {
+                    nivel.calc = Number(n).toFixed(2);
+                }
+                return nivel || ser_salida.predeterminado;
             }
             return undefined;
         };
         ser_salida.triggers.table.after.load = async function (records) {
-            ser_salida.niveles = await BASEAPI.listf("riesgo_resultado", [{
-                field: "compania",
-                value: ser_salida.session.compania_id
-            }]);
+            ser_salida.niveles = await BASEAPI.listf("nivel_riesgo_salida", [
+                {
+                    field: "compania",
+                    value: ser_salida.session.compania_id
+                },
+                {
+                    field: "institucion",
+                    operator: ser_salida.session.institucion_id ? "=" : "is",
+                    value: ser_salida.session.institucion_id ? ser_salida.session.institucion_id : "$null"
+                }
+            ]);
         };
         // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
         //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
