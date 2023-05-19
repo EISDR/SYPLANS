@@ -138,15 +138,16 @@
                     </label>
 
                     <input readonly
-                           value="{{(<%= scope %>.nivel_urgencia||0)*(<%= scope %>.nivel_impacto||0)*(<%= scope %>.nivel_detectabilidad||0)}}"
+                           value="{{<%= scope %>.currentNivel().nombre}} ({{<%= scope %>.currentNivel().calc}})"
                            type="text"
                            class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
                            style="padding-left: 31px !important;" placeholder="" disabled="disabled">
 
-                    <div class="form-control-feedback ng-scope" style="top: 35px">
-                        <i class="text-secundary icon-lock2">
-
-                        </i>
+                    <div class="form-control-feedback ng-scope" style="top: 32px;width: 25px;">
+                        <label ng-if="<%= scope %>.currentNivel()" title="Alerta: Porcentaje menor a 75%"
+                               class="ponerRedondo"
+                               style="background-color: {{<%= scope %>.currentNivel().color}};margin: -6px 0px 0px 0px;width: 100px;">
+                        </label>
                     </div>
                 </div>
             </div>

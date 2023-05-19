@@ -1,13 +1,25 @@
 CRUD_ser_salida = {};
 DSON.keepmerge(CRUD_ser_salida, CRUDDEFAULTS);
 CRUD_ser_salida.currentNivel = (row) => {
-    let entidad = row.esproceso ? 'proceso' : 'pei_poa';
-    if (row.nivel_urgencia && row.nivel_impacto) {
-        let p = row.nivel_urgencia_valor / 100;
-        let i = row.nivel_impacto_valor;
+    let proceso = row.esproceso ? 1 : 0;
+    if (!row.esproceso) {
+        let p = (row.nivel_urgencia_valor || 0) / 100;
+        let i = (row.nivel_impacto_valor || 0);
         let n = p * i;
         let nivel = ser_salida.niveles.filter(d => {
-            return n >= d.valor && n <= d.valor_to && d.entidad === entidad;
+            return n >= d.valor && n <= d.valor_to && d.proceso === proceso;
+        })[0];
+        if (nivel) {
+            nivel.calc = Number(n).toFixed(2);
+        }
+        return nivel;
+    }else{
+        let g = row.nivel_urgencia || 0;
+        let o = row.nivel_impacto || 0;
+        let d = row.nivel_detectabilidad || 0;
+        let n = g * o * d;
+        let nivel = ser_salida.niveles.filter(d => {
+            return n >= d.valor && n <= d.valor_to && d.proceso === proceso;
         })[0];
         if (nivel) {
             nivel.calc = Number(n).toFixed(2);
@@ -95,22 +107,18 @@ DSON.keepmerge(CRUD_ser_salida, {
             },
             esproceso: {
                 label: () => {
-                    return "¿Proceso?";
+                    return "¿Asociado a Proceso?";
                 },
                 formattype: ENUM.FORMAT.bool
             },
             indice_prioridad: {
                 label: () => {
-                    return "Indice de prioridad";
+                    return "Prioridad";
                 },
                 format: (row) => {
-                    if (row.esproceso){
-                        return `(IPR=GxOxD) = ` + (row.nivel_urgencia||0)*(row.nivel_impacto||0)*(row.nivel_detectabilidad||0);
-                    }else{
-                        $(`.color${row.id}`).css('background', CRUD_ser_salida.currentNivel(row).color);
-                        $(`.texto`).css({'text-align': 'center', 'margin': '0'});
-                        return `<div class='color${row.id} shape_element' title="${CRUD_ser_salida.currentNivel(row).nombre}"> </div> <p class="texto">${CRUD_ser_salida.currentNivel(row).nombre}</p>`;
-                    }
+                    $(`.color${row.id}`).css('background', CRUD_ser_salida.currentNivel(row) ? CRUD_ser_salida.currentNivel(row).color  : "transparent" );
+                    $(`.texto`).css({'text-align': 'center', 'margin': '0'});
+                    return `<div class='color${row.id} shape_element' title="${CRUD_ser_salida.currentNivel(row) ? CRUD_ser_salida.currentNivel(row).nombre : ""}"> </div> <p class="texto">${CRUD_ser_salida.currentNivel(row) ? CRUD_ser_salida.currentNivel(row).nombre : ""}</p>`;
                 }
             },
             fecha_queja: {

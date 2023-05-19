@@ -2379,6 +2379,10 @@
       "riesgo_resultado": {
         "type": "full",
         "allow": {}
+      },
+      "nivel_riesgo_salida": {
+        "type": "full",
+        "allow": {}
       }
     }
   }

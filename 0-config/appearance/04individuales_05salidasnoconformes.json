@@ -15,6 +15,12 @@
               "icon": "folder-search",
               "href": "#ser_salida_tipo",
               "text": "Tipos de Salidas no Conforme"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#nivel_riesgo_salida",
+              "text": "Niveles de Riesgo"
             }
           ],
           "modal": "",
@@ -46,6 +52,12 @@
               "icon": "folder-search",
               "href": "#ser_salida_tipo",
               "text": "Tipos de Salidas no Conforme"
+            },
+            {
+              "modal": "",
+              "icon": "file-stats",
+              "href": "#nivel_riesgo_salida",
+              "text": "Niveles de Riesgo"
             }
           ],
           "modal": "",
