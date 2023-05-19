@@ -494,7 +494,6 @@
             }
           ],
           "modal": "",
-          "condition": "CONFIGCOMPANY.ods",
           "icon": "design",
           "href": "#",
           "text": "Instrumentos de Planificación Nacional"
