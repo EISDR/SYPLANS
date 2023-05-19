@@ -267,7 +267,10 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     }
                 };
                 if (indicador_generico.session.tipo_institucion == 2) {
-                    indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
+                    if (indicador_generico2.form)
+                        if (indicador_generico2.form.options)
+                            if (indicador_generico2.form.options.indicador_generico_entidad)
+                                indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
                 }
             } else if (indicador_generico.entidad == "vw_proyecto_item") {
                 indicador_generico.fixFilters = [
@@ -389,7 +392,10 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         shorttext: 370
                     }
                 };
-                indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
+                if (indicador_generico2.form)
+                    if (indicador_generico2.form.options)
+                        if (indicador_generico2.form.options.indicador_generico_entidad)
+                            indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_procesos") {
                 indicador_generico.getMapaProceso = async function (callback) {
                     var mapaData = await BASEAPI.firstp('vw_mapa_proceso', {
@@ -397,12 +403,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         where: [
                             {
                                 field: "compania",
-                                value:  indicador_generico.session.compania_id
+                                value: indicador_generico.session.compania_id
                             },
                             {
                                 "field": "institucion",
-                                "operator":  indicador_generico.session.institucion_id ? "=" : "is",
-                                "value":  indicador_generico.session.institucion_id ?  indicador_generico.session.institucion_id : "$null"
+                                "operator": indicador_generico.session.institucion_id ? "=" : "is",
+                                "value": indicador_generico.session.institucion_id ? indicador_generico.session.institucion_id : "$null"
                             },
                             {
                                 field: "estatus",
@@ -428,7 +434,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                                 value: indicador_generico.mapa_id ? indicador_generico.mapa_id : -1
                             }
                         ];
-                    }else{
+                    } else {
                         indicador_generico.fixFilters = [
                             {
                                 "field": "table_",
@@ -447,7 +453,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     if (callback)
                         callback();
                 }
-                indicador_generico.getMapaProceso(function(){
+                indicador_generico.getMapaProceso(function () {
                     indicador_generico.refresh();
                 });
                 CRUD_indicador_generico.table.columns = columns = {
@@ -694,8 +700,11 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         'field': 'id',
                         'columns': ['id', 'nombre']
                     }
-                ]
-                indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
+                ];
+                if (indicador_generico2.form)
+                    if (indicador_generico2.form.options)
+                        if (indicador_generico2.form.options.indicador_generico_entidad)
+                            indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_evento_indicador") {
                 indicador_generico.getRiesgo = async function (callback) {
                     var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
@@ -724,7 +733,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     if (callback)
                         callback();
                 };
-                indicador_generico.getRiesgo(function(){
+                indicador_generico.getRiesgo(function () {
                     indicador_generico.refresh();
                 });
                 if (STORAGE.exist('evento')) {
@@ -917,7 +926,10 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         shorttext: 370
                     }
                 };
-                indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
+                if (indicador_generico2.form)
+                    if (indicador_generico2.form.options)
+                        if (indicador_generico2.form.options.indicador_generico_entidad)
+                            indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else {
                 indicador_generico.fixFilters = [
                     {
@@ -1450,7 +1462,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.selectQueries["registro"] = eval(indicador_generico.entidadobj.where);
             }
             indicador_generico.form.mode = mode;
-            indicador_generico.createForm(data, mode, defaultData,undefined, function(){
+            indicador_generico.createForm(data, mode, defaultData, undefined, function () {
                 indicador_generico.tipo_meta_old = indicador_generico.tipo_meta;
                 indicador_generico.direccion_meta_old = indicador_generico.direccion_meta;
                 indicador_generico.poa_monitoreo_old = indicador_generico.poa_monitoreo;
@@ -1925,9 +1937,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.poa_monitoreo', async function (value) {
                 var rules = [];
-                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Periodicidad",indicador_generico.poa_monitoreo_old,indicador_generico.poa_monitoreo,function (result){
-                        if (!result){
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Periodicidad", indicador_generico.poa_monitoreo_old, indicador_generico.poa_monitoreo, function (result) {
+                        if (!result) {
                             indicador_generico.initiation = true;
                         }
                     }));
@@ -1962,14 +1974,14 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.tipo_meta', function (value) {
                 var rules = [];
-                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Tipo de dato de la meta",indicador_generico.tipo_meta_old,indicador_generico.tipo_meta,function (result){
-                        if (!result){
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Tipo de dato de la meta", indicador_generico.tipo_meta_old, indicador_generico.tipo_meta, function (result) {
+                        if (!result) {
                             indicador_generico.initiation = true;
                         }
                     }));
                 }
-                if (value && ! indicador_generico.initiation) {
+                if (value && !indicador_generico.initiation) {
                     indicador_generico.tipo_meta = value + "";
                     $(".subcontainer2").html('');
                     indicador_generico.getIMesNew();
@@ -1981,8 +1993,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.direccion_meta', function (value) {
                 var rules = [];
-                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Dirección de la meta",indicador_generico.direccion_meta_old,indicador_generico.direccion_meta));
+                if (indicador_generico.list_indicador_generico_periodo_unchanged.length > 0 && indicador_generico.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_generico.list_indicador_generico_periodo_unchanged, "Dirección de la meta", indicador_generico.direccion_meta_old, indicador_generico.direccion_meta));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_generico, "direccion_meta", rules)
