@@ -4,7 +4,7 @@
         <div class="subcontent">
             <div class="row">
                 <div class="col-md-6">
-                    <label class=""> Niveles de Riesgo </label>
+                    <label class=""> Prioridad (no asociados a procesos) </label>
                     <ul id="leyendas" class="list-group" style="padding: 24px 0;">
                         <li ng-repeat="(key,value) in ser_salida.niveles | filter: {proceso: '0'}">
                             <label class="ponerRedondo" style="background-color: {{ value.color }}"></label>
@@ -14,7 +14,7 @@
                     <br>
                 </div>
                 <div class="col-md-6">
-                    <label class=""> Niveles de Riesgo asociados a Procesos</label>
+                    <label class=""> Prioridad (asociados a procesos) </label>
                     <ul id="leyendas" class="list-group" style="padding: 24px 0;">
                         <li ng-repeat="(key,value) in ser_salida.niveles | filter: {proceso: '1'}">
                             <label class="ponerRedondo" style="background-color: {{ value.color }}"></label>
