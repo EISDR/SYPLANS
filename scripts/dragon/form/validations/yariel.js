@@ -204,5 +204,16 @@ VALIDATION = DSON.merge(VALIDATION, {
                 type: VALIDATION.types.error,
             };
         },
+        noStatus: function (value, array, estatus) {
+            debugger
+            value = value || -1;
+            let object = array.filter(d=> { return d.id == value})[0];
+            return {
+                valid: (object.estatus_id !== estatus),
+                message: "El proyecto está finalizado y no puede ser seleccionado para este indicador",
+                type: VALIDATION.types.error
+            };
+        }
+
     }
 });
