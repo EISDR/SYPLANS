@@ -430,6 +430,9 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
             vw_proyecto_item_actividad.form.modalWidth = ENUM.modal.width.full;
             vw_proyecto_item_actividad.form.readonly = {};
             vw_proyecto_item_actividad.createForm(data, mode, defaultData, view);
+            var do_me_once_estatus = false;
+            var do_me_once_res = false;
+            var do_me_once_raz = false;
             vw_proyecto_item_actividad.selectQueries['estatus_id'] = [
                 {
                     field: 'rol',
@@ -585,6 +588,27 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
                 if (data == 'show_presupuesto_consumido') {
                     vw_proyecto_item_actividad.show_presupuesto_consumido = LAN.money(vw_proyecto_item_actividad.show_presupuesto_consumido).format(true);
                 }
+                if (data == 'estatus_id' && mode == "edit") {
+                    if (!do_me_once_estatus) {
+                        vw_proyecto_item_actividad.estatus_id = vw_proyecto_item_actividad.open.default.estatus_id;
+                        vw_proyecto_item_actividad.form.loadDropDown('estatus_id');
+                        do_me_once_estatus = true;
+                    }
+                }
+                if (data == 'responsable_id' && mode == "edit") {
+                    if (!do_me_once_res) {
+                        vw_proyecto_item_actividad.responsable_id = vw_proyecto_item_actividad.open.default.responsable_id;
+                        vw_proyecto_item_actividad.form.loadDropDown('responsable_id');
+                        do_me_once_res = true;
+                    }
+                }
+                if (data == 'razon' && mode == "edit") {
+                    if (!do_me_once_res) {
+                        vw_proyecto_item_actividad.razon = vw_proyecto_item_actividad.open.default.razon;
+                        vw_proyecto_item_actividad.form.loadDropDown('razon');
+                        do_me_once_raz = true;
+                    }
+                }
             };
         }
     };
@@ -625,11 +649,15 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
         vw_proyecto_item_actividad.proyecto_item_lista_actividades = vw_proyecto_item_actividad.proyecto_item_lista_actividades.data;
         vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
         vw_proyecto_item_actividad.proyecto_item_presupuesto_restante = 0;
-        if (vw_proyecto_item_actividad.proyecto_item_lista_actividades.length > 0) {
-            for (var i of vw_proyecto_item_actividad.proyecto_item_lista_actividades) {
-                vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido += LAN.money(i.presupuesto).value;
+        if (vw_proyecto_item_actividad.proyecto_item_lista_actividades) {
+            if (vw_proyecto_item_actividad.proyecto_item_lista_actividades.length > 0) {
+                for (var i of vw_proyecto_item_actividad.proyecto_item_lista_actividades) {
+                    vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido += LAN.money(i.presupuesto).value;
+                }
+            } else {
+                vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
             }
-        }else{
+        } else {
             vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido = 0;
         }
         vw_proyecto_item_actividad.proyecto_item_presupuesto_restante = LAN.money(vw_proyecto_item_actividad.presupuesto_producto).value - vw_proyecto_item_actividad.proyecto_item_presupuesto_consumido;
