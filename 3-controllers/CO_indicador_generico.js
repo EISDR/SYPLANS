@@ -116,6 +116,25 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             order: "asc"
         });
         indicador_generico.direccion_meta_list = indicador_generico.direccion_meta_list.data;
+        if (indicador_generico.entidad == 'vw_proyecto_item'){
+            indicador_generico.proyectos_list = await BASEAPI.listp('vw_proyecto_item', {
+                limit: 0,
+                orderby: "id",
+                order: "asc",
+                where: [
+                    {
+                        field: "compania_id",
+                        value:  indicador_generico.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator":  indicador_generico.session.institucion_id ? "=" : "is",
+                        "value":  indicador_generico.session.institucion_id ?  indicador_generico.session.institucion_id : "$null"
+                    },
+                ]
+            });
+            indicador_generico.proyectos_list = indicador_generico.proyectos_list.data;
+        }
         if (!indicador_generico.eltipo) {
             indicador_generico.entidadobj = await BASEAPI.firstp('indicador_generico_entidad', {
                 where: [{
@@ -1923,6 +1942,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             indicador_generico.$scope.$watch('indicador_generico.registro', function (value) {
                 var rules = [];
                 rules.push(VALIDATION.general.required(value));
+                if (indicador_generico.entidad == "vw_proyecto_item"){
+                    rules.push(VALIDATION.yariel.noStatus(value, indicador_generico.proyectos_list, 3));
+                }
                 VALIDATION.validate(indicador_generico, "registro", rules)
             });
 
