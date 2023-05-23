@@ -158,7 +158,7 @@ app.controller("proyecto_item", function ($scope, $http, $compile) {
     //proyecto_item.destroyForm = false;
     //proyecto_item.permissionTable = "tabletopermission";
     RUNCONTROLLER("proyecto_item", proyecto_item, $scope, $http, $compile);
-    proyecto_item.formulary = async function (data, mode, defaultData) {
+    proyecto_item.formulary = async function (data, mode, defaultData, view) {
         if (proyecto_item !== undefined) {
             RUN_B("proyecto_item", proyecto_item, $scope, $http, $compile);
             proyecto_item.form.modalWidth = ENUM.modal.width.full;
@@ -192,7 +192,7 @@ app.controller("proyecto_item", function ($scope, $http, $compile) {
                     value: "proyecto_item"
                 }
             ];
-            proyecto_item.createForm(data, mode, defaultData);
+            proyecto_item.createForm(data, mode, defaultData, view);
             $scope.$watch("proyecto_item.nombre", function (value) {
                 var rules = [];
                 //rules here

@@ -2,14 +2,50 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class='col-sm-9 col-md-9'>
-                <%- FORM.input('nombre', scope, {}) %>
+                <%- FORM.input('nombre', scope, { disabled: true}) %>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
-                <script>
-                    <%= scope %>.initstatus = <%= scope %>.firststatus.nombre;
-                    <%= scope %>.refreshAngular();
-                </script>
+            <div class='col-sm-3 col-md-3 add-class'>
+                <%- FORM.select('estatus', scope, {
+                    column: 'name',
+                    text: "item.nombre",
+                    table: 'vw_auditoria_programa_plan_estatus',
+                    condition: "item.plan_status == proyecto_item.my_true_estatus && item.entidad == 'proyecto_item'",
+                            //self: true,
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                //condition: 'true',
+                //multiple: false,get: {table: "responsable_linked", fieldFrom: "id", fieldTo: "myid(responsable)", field: "theirid"},
+                //disabled: false,
+                //helptext: "",
+                //value: 'id',
+                //text: 'item.name',
+                //query: {
+                //limit: 0,
+                //page: 1,
+                //where: [],
+                //orderby: 'id',
+                //order: 'asc',
+                //distinct: false
+                // join: [
+                //     {
+                //         table: 'ms_category',
+                //         base: 'category',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     },
+                //     {
+                //         table: 'otratable',
+                //         base: 'ms_category_id',
+                //         field: 'id',
+                //         columns: ['id', 'name']
+                //     }
+                // ]
+                //},
+                }) %>
             </div>
         </div>
         <div class="row">
@@ -25,6 +61,7 @@
                         allowedit: false,
                         allowview: false,
                         allowlist: false,
+                    disabled: true,
                 //refresh: true,
                 //condition: 'true',
                 //multiple: false,get: {table: "departamento_linked", fieldFrom: "id", fieldTo: "myid(departamento)", field: "theirid"},
@@ -65,7 +102,8 @@
                     allownew: false,
                     allowedit: false,
                     allowview: false,
-                    allowlist: false
+                    allowlist: false,
+                    disabled: true,
                             //self: true,
                 //allownull: true,
                 //allownew: true,
@@ -111,6 +149,7 @@
                     allowlist: false,
                     allowview: false,
                     multiple: true,
+                    disabled: true,
                     permission: "resultado",
                     text: "item.nombre_completo",
                     table: "involucrados",
@@ -134,6 +173,7 @@
                     allowlist: false,
                     allowview: false,
                     multiple: true,
+                    disabled: true,
                     permission: "resultado",
                     text: "item.nombre_completo",
                     table: "involucrados",
@@ -154,18 +194,19 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.daterange('range_date', scope, {
                     from: "from",
-                    to: "to"
+                    to: "to",
+                    disabled: true,
                 }) %>
             </div>
 
             <div class="col-sm-4 col-md-4">
                 <%-
-                        FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado al proyecto", maxlength: 15})
+                        FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado al proyecto", maxlength: 15,  disabled: true,})
                 %>
             </div>
             <div class="col-sm-4 col-md-4">
                 <%-
-                        FORM.inputview("presupuesto_total_restante", scope, {trueplaceholder: "Presupuesto restante", maxlength: 15})
+                        FORM.inputview("presupuesto_total_restante", scope, {trueplaceholder: "Presupuesto restante", maxlength: 15,  disabled: true,})
                 %>
             </div>
         </div>
@@ -173,6 +214,7 @@
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('descripcion', scope, {
                         //maxlength: 200,
+                    disabled: true,
                 }) %>
             </div>
         </div>
@@ -188,7 +230,8 @@
                     table: "drp_resultado",
                     icon: {class: "archive"},
                     label: "Resultado esperado",
-                    condition: "item.pei==proyecto_item.session.pei_id"
+                    condition: "item.pei==proyecto_item.session.pei_id",
+                    disabled: true,
                 }) %>
             </div>
             <div class="col-sm-6 col-md-6" ng-if="!proyecto_item.session.institucion && (proyecto_item.session.tipo_institucion == 1 || proyecto_item.session.maneja_ods)">
@@ -198,6 +241,7 @@
                     allowlist: false,
                     allowview: false,
                     multiple: true,
+                    disabled: true,
                     text: "item.edt + ' ' + item.nombre",
                     table: "ods",
                     icon: {class: "archive"},
@@ -218,6 +262,7 @@
                     allowlist: false,
                     allowview: false,
                     multiple: true,
+                    disabled: true,
                     text: "item.edt + ' ' + item.nombre",
                     table: "ods",
                     icon: {class: "archive"},
@@ -259,53 +304,6 @@
         proyecto_item_actividad.setPermission("edit", true);
         proyecto_item_actividad.setPermission("remove", true);
     }
-
-    $(function(){
-        $('#inputproyecto_item_ods').on('select2:unselecting', async function (e) {
-            var data = e.params.args.data;
-            try {
-                var mods_actividades = await BASEAPI.listp('vw_Proyecto_item_actividad_mods_ods', {
-                    where: [
-                        {
-                            field: "ods",
-                            value: data.id
-                        },
-                        {
-                            field: proyecto_item.form.mode == 'edit' ? 'proyecto_item' : 'tempid',
-                            value: proyecto_item.form.mode == 'edit' ? proyecto_item.id : proyecto_item.proyecto_item_actividad
-                        }
-                    ]
-                });
-                mods_actividades = mods_actividades.data;
-                const mods_actividadesIds = mods_actividades.map(mod => mod.id);
-                console.log(mods_actividadesIds)
-                if (mods_actividadesIds.length > 0){
-                    $("[name='proyecto_item_ods']").select2("close");
-                    SWEETALERT.confirm({
-                        message: `<p>Existen Actividades relacionadas a Metas correspondientes al ODS que intenta Borrar.</p> <p>¿Desea continuar con la acción de Borrar?</p>`,
-                        confirm: async function () {
-                            BASEAPI.deleteall('proyecto_actividad_mods', [
-                                {
-                                    field: "id",
-                                    value: mods_actividadesIds
-                                }
-                            ], function(result){
-                                proyecto_item_actividad.refresh();
-                                SWEETALERT.stop();
-                            });
-                        },
-                        cancel: async function () {
-                            proyecto_item.ods.push(data.id);
-                            proyecto_item.form.loadDropDown('ods')
-                        }
-                    });
-                }
-            }catch (error){
-                console.error(error)
-                // mensaje de error coño
-            }
-        });
-    })
 </script>
 
 

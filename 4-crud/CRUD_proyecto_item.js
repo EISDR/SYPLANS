@@ -201,10 +201,10 @@ DSON.keepmerge(CRUD_proyecto_item, {
                 menus: [
                     {
                         text: (data) => {
-                            return data.row.estatus_id == 1 ? MESSAGE.i('actions.Edit') : "Trabajar";
+                            return "Trabajar";
                         },
                         icon: (data) => {
-                            return data.row.estatus_id == 1 ? "pencil5" : 'hammer-wrench';
+                            return "hammer-wrench";
                         },
                         permission: (data) => {
                             return 'edit';
@@ -213,7 +213,40 @@ DSON.keepmerge(CRUD_proyecto_item, {
                             return "";
                         },
                         show: function (data) {
-                            return true;
+                            if (typeof proyecto_item !== "undefined")
+                                return proyecto_item.allowAction("Trabajar", "proyecto_item", data.row.estatus_id);
+                        },
+                        click: function (data) {
+                            data.$scope.my_true_estatus = data.row.estatus_id;
+                            data.$scope.presupuesto_anterior = data.row.presupuesto;
+                            data.$scope.formulary({
+                                where: [{
+                                    field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                                    value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                                }]
+                            }, FORM.modes.edit, {},  'form_work');
+                            data.$scope.form.titles = {
+                                edit: "Trabajar - Proyecto Especial",
+                            };
+                            return false;
+                        }
+                    },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Edit');
+                        },
+                        icon: (data) => {
+                            return "pencil5";
+                        },
+                        permission: (data) => {
+                            return 'edit';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            if (typeof proyecto_item !== "undefined")
+                                return proyecto_item.allowAction("Editar", "proyecto_item", data.row.estatus_id);
                         },
                         click: function (data) {
                             data.$scope.my_true_estatus = data.row.estatus_id;
@@ -435,16 +468,80 @@ DSON.keepmerge(CRUD_proyecto_item, {
                         characterist: (data) => {
                             return "";
                         },
-                        click: function (data) {
-                            SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDelete'),
-                                confirm: async function () {
-                                    SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                    data.$scope.deleteRow(data.row).then(function () {
-                                        SWEETALERT.stop();
-                                    });
-                                }
+                        show: (data) => {
+                            if (typeof proyecto_item !== "undefined")
+                                return proyecto_item.allowAction("Eliminar", "proyecto_item", data.row.estatus_id);
+                        },
+                        click: async function (data) {
+                            var delete_relations = [];
+                            var result_actividad = await BASEAPI.firstp('proyecto_item_actividad', {
+                                where: [{
+                                    field: "proyecto_item",
+                                    value: data.row.id
+                                }]
                             });
+                            if (result_actividad) {
+                                delete_relations.push(' "Actividades de Proyecto Especiales"');
+                            }
+                            var result_indicadores = await BASEAPI.firstp('indicador_generico', {
+                                where: [
+                                    {
+                                        field: "registro",
+                                        value: data.row.id
+                                    },
+                                    {
+                                        field: "table_",
+                                        value: CONFIG.mysqlactive ? 9 : 9002
+                                    }
+                                ]
+                            });
+                            if (result_indicadores) {
+                                delete_relations.push(' "Indicadores de Proyecto Especiales"');
+                            }
+                            if (delete_relations.length > 0) {
+                                SWEETALERT.confirm({
+                                    type: "warning",
+                                    message: `Al ELIMINAR este PROYECTO ESPECIAL se estarán borrando relaciones existentes con la/s entidad/es <br> ${delete_relations}.<br> ¿ Está seguro que desea ELIMINAR. ?`,
+                                    confirm:  async function () {
+                                        SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                        BASEAPI.deleteall('proyecto_item_actividad',[
+                                            {
+                                                field: "proyecto_item",
+                                                value: data.row.id
+                                            }
+                                        ], function (result) {
+                                            if (result) {
+                                                BASEAPI.deleteall('indicador_generico', [
+                                                    {
+                                                        field: "registro",
+                                                        value: data.row.id
+                                                    },
+                                                    {
+                                                        field: "table_",
+                                                        value: CONFIG.mysqlactive ? 9 : 9002
+                                                    }
+                                                ], function (result) {
+                                                    if (result) {
+                                                        data.$scope.deleteRow(data.row).then(function () {
+                                                            SWEETALERT.stop();
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                SWEETALERT.confirm({
+                                    message: MESSAGE.i('alerts.AYSDelete'),
+                                    confirm: async function () {
+                                        SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
+                                        data.$scope.deleteRow(data.row).then(function () {
+                                            SWEETALERT.stop();
+                                        });
+                                    }
+                                });
+                            }
                             return false;
                         }
                     }
