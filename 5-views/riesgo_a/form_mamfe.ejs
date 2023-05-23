@@ -110,23 +110,19 @@
                     </label>
 
                     <input readonly
-                           value="{{(riesgo_a.mamfe_gravedad||0)*(riesgo_a.mamfe_ocurrencia||0)*(riesgo_a.mamfe_deteccion||0) || 0}}"
+                           value="{{<%= scope %>.currentNivel().nombre}} ({{(riesgo_a.mamfe_gravedad||0)*(riesgo_a.mamfe_ocurrencia||0)*(riesgo_a.mamfe_deteccion||0) || 0}})"
                            type="text"
                            class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength"
                            style="padding-left: 31px !important;" placeholder="" disabled="disabled">
 
-                    <div class="form-control-feedback ng-scope" style="top: 32px;width: 25px;left: 60px">
+
+                    <div class="form-control-feedback ng-scope" style="top: 32px;width: 25px;">
                         <label ng-if="<%= scope %>.currentNivel()" title="Alerta: Porcentaje menor a 75%"
                                class="ponerRedondo"
-                               style="background-color: {{<%= scope %>.currentNivel().color}}; margin: -6px 10px 0px 0px;width: 100px; ">
+                               style="background-color: {{<%= scope %>.currentNivel().color}};margin: -6px 0px 0px 0px;width: 100px;">
                         </label>
-                        <label style="position: absolute; float: left; margin: -6px 0px 0px 0px; max-width: 300px; width: 300px; color: #888888; text-align: left">{{<%= scope %>.currentNivel().nombre}}</label>
                     </div>
-                    <div class="form-control-feedback ng-scope" style="top: 35px">
-                        <i class="text-secundary icon-lock2">
 
-                        </i>
-                    </div>
                 </div>
             </div>
 

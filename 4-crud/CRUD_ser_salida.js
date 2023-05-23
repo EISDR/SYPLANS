@@ -278,22 +278,14 @@ DSON.keepmerge(CRUD_ser_salida, {
                             return "";
                         },
                         click: function (data) {
-                            if (!DSON.oseaX(data.row)) {
-                                data.$scope.dataForView = data.row;
-                                data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
-                                    header: {
-                                        title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
-                                        icon: "user"
-                                    },
-                                    footer: {
-                                        cancelButton: true
-                                    },
-                                    content: {
-                                        loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
-                                        sameController: true
-                                    },
-                                });
-                            }
+                            data.$scope.my_true_estatus = data.row.ser_salida_estatus;
+                            data.$scope.formulary({
+                                where: [{
+                                    field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                                    value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                                }]
+                            }, FORM.modes.edit, {}, false, "form_view");
+                            return false;
                         }
                     },
                     {

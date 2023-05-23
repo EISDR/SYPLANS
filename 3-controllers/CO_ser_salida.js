@@ -30,7 +30,7 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
                 value: ser_salida.session.institucion_id ? ser_salida.session.institucion_id : "$null"
             }
         ]);
-        ser_salida.formulary = function (data, mode, defaultData, trabajando) {
+        ser_salida.formulary = function (data, mode, defaultData, trabajando, view) {
             if (ser_salida !== undefined) {
                 ser_salida.trabajando = trabajando;
                 RUN_B("ser_salida", ser_salida, $scope, $http, $compile);
@@ -42,7 +42,7 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
                     view: "Ver Salida no Conforme"
                 };
 
-                ser_salida.createForm(data, mode, defaultData);
+                ser_salida.createForm(data, mode, defaultData, view);
                 ser_salida.mode = mode;
                 //ms_product.selectQueries['compania'] = [
                 //    {
