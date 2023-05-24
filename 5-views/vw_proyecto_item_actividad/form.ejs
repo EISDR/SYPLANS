@@ -353,6 +353,7 @@
     };
     comentarios_p_actividad_apoyo.cell.dblselect = function (row) {
     };
+    vw_proyecto_item_actividad.setPermission("file.upload", true);
     if (comentarios_p_actividad.group_caracteristica !== ENUM_2.Grupos.director_general && comentarios_p_actividad.group_caracteristica !== ENUM_2.Grupos.analista_de_planificacion){
         comentarios_p_actividad.setPermission("actions", false);
         comentarios_p_actividad.setPermission("remove", false);
