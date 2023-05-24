@@ -149,7 +149,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_impacto",
+                                            table: "vw_riesgo_impacto_mamfe",
                                             icon: {class: "archive"},
                                             label: "Gravedad (G)",
                                             condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
@@ -163,7 +163,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_impacto",
+                                            table: "vw_riesgo_impacto_mamfe",
                                             icon: {class: "archive"},
                                             label: "Gravedad (G)",
                                             condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
@@ -177,7 +177,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_probabilidad",
+                                            table: "vw_riesgo_probabilidad_mamfe",
                                             icon: {class: "archive"},
                                             label: "Ocurrencia (O)",
                                             condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
@@ -191,7 +191,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_probabilidad",
+                                            table: "vw_riesgo_probabilidad_mamfe",
                                             icon: {class: "archive"},
                                             label: "Ocurrencia (O)",
                                             condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
@@ -205,7 +205,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_impacto",
+                                            table: "riesgo_resultado",
                                             icon: {class: "archive"},
                                             label: "Detección (D)",
                                             condition: "(item.compania == riesgo_a.session.compania_id && item.institucion == null) && (item.entidad == 'proceso' && item.mamfe == 1)"
@@ -219,7 +219,7 @@
                                             allowlist: false,
                                             text: "item.valor",
                                             value: "valor",
-                                            table: "riesgo_impacto",
+                                            table: "riesgo_resultado",
                                             icon: {class: "archive"},
                                             label: "Detección (D)",
                                             condition: "(item.institucion  == riesgo_a.session.institucion_id) && (item.entidad == 'proceso' && item.mamfe == 1)"
