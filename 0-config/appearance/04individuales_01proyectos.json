@@ -117,6 +117,13 @@
               "icon": "flag3",
               "href": "#indicador_generico?vw_mods",
               "text": "Creación de Indicadores ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#ods_config",
+              "text": "Métrica ODS"
             }
           ],
           "modal": "",
@@ -284,6 +291,13 @@
               "icon": "flag3",
               "href": "#indicador_generico?vw_mods",
               "text": "Creación de Indicadores ODS"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "chart",
+              "href": "#ods_config",
+              "text": "Métrica ODS"
             }
           ],
           "modal": "",

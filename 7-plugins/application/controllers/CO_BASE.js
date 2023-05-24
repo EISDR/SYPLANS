@@ -1496,7 +1496,10 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             } else {
                 new SESSION().ifLogoffRedirec();
             }
-        }, 1000);
+            MENU.setActive();
+            MENU.setActive();
+
+        }, 500);
     };
     begin();
 

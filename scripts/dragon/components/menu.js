@@ -67,6 +67,7 @@ MENU = {
         if (a.length > 0) {
             MENU.setLast(a);
             MENU.expand(a);
+
         }
         MENU.reversal();
     },

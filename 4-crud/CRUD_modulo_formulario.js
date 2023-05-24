@@ -53,43 +53,9 @@ DSON.keepmerge(CRUD_modulo_formulario, {
                 label: "Condición",
                 format: function (row) {
                     try {
-                        if (!row.indicador) {
-                            return "Sin indicador";
-                        }
                         let configuration = JSON.parse(row.config);
                         let respuestas = modulo_formulario.registros.filter(d => d.modulo_formulario == row.id).map(d => JSON.parse(d.respuestas));
-                        let total = respuestas.length;
-                        let filtrados = respuestas.filter(d => {
-                            let filtro = (row.indicador + "").toLowerCase();
-                            filtro = filtro.replaceAll(" y ", "&&").replaceAll(" o ", "||");
-                            Object.keys(d).forEach(field => {
-                                if (typeof d[field] === 'string')
-                                    d[field] = d[field].toLowerCase();
-                                filtro = filtro.replaceAll(`@${field.toLowerCase()}@`, `d["${field}"]`);
-                            });
-                            try {
-                                return eval(filtro);
-                            } catch (e) {
-                                return false;
-                            }
-                        }).length;
-                        let formuled = eval(row.formula);
-                        let ponderation = undefined;
-                        if (configuration.indicadores)
-                            if (configuration.indicadores.length) {
-                                for (const indicador of configuration.indicadores) {
-                                    if (formuled >= indicador.desde && formuled <= indicador.hasta) {
-                                        ponderation = indicador;
-                                        break;
-                                    }
-                                }
-                            }
-                        if (ponderation) {
-                            $(`.Unique`).css('background', ponderation.color);
-                            return `<div title="${ponderation.nombre}" class='Unique shape_element'></div><div class="text-center">${(Number(formuled).toFixed(2) + "") + row.sufijo}</div>`;
-                        } else {
-                            return (Number(formuled).toFixed(2) + "") + row.sufijo;
-                        }
+                        return modulo_formulario.calculate(row, configuration, respuestas);
                     } catch (e) {
                         return "Error en indicador";
                     }

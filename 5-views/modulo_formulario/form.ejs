@@ -5,6 +5,11 @@
         icon: "icon-list3"
     },
     {
+        id: "filtros",
+        text: "Filtros",
+        icon: "icon-list"
+    },
+    {
         id: "indicadores",
         text: "Indicadores",
         icon: "icon-html5"
@@ -88,8 +93,11 @@
                                                 <th style="padding: 2px;" ng-if="['desición'].indexOf(item.tipo)!==-1">
                                                     Opción Positiva
                                                 </th>
-                                                <th style="padding: 2px;" ng-if="['desición'].indexOf(item.tipo)!==-1">Opción Negativa</th>
-                                                <th style="padding: 2px;" ng-if="['lista','lista múltiple'].indexOf(item.tipo)!==-1">Opciones
+                                                <th style="padding: 2px;" ng-if="['desición'].indexOf(item.tipo)!==-1">
+                                                    Opción Negativa
+                                                </th>
+                                                <th style="padding: 2px;"
+                                                    ng-if="['lista','lista múltiple'].indexOf(item.tipo)!==-1">Opciones
                                                     separadas por coma(,)
                                                 </th>
                                             </tr>
@@ -98,7 +106,8 @@
                                                     <input type="checkbox" class="form-control"
                                                            ng-model="item.config.required">
                                                 </td>
-                                                <td style="padding: 2px;" ng-if="['alfanumérico'].indexOf(item.tipo)!==-1">
+                                                <td style="padding: 2px;"
+                                                    ng-if="['alfanumérico'].indexOf(item.tipo)!==-1">
                                                     <input type="number" class="form-control"
                                                            ng-model="item.config.max">
                                                 </td>
@@ -118,7 +127,8 @@
                                                     <input type="text" class="form-control"
                                                            ng-model="item.config.badoption">
                                                 </td>
-                                                <td style="padding: 2px;" ng-if="['lista','lista múltiple'].indexOf(item.tipo)!==-1">
+                                                <td style="padding: 2px;"
+                                                    ng-if="['lista','lista múltiple'].indexOf(item.tipo)!==-1">
                                                     <input type="text" class="form-control"
                                                            ng-model="item.config.options">
                                                 </td>
@@ -154,21 +164,112 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane" id="filtros">
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <table class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                            <thead class="bg-<%= COLOR.secundary %>">
+                            <tr>
+                                <th>Nombre de Campo</th>
+                                <th>Operador</th>
+                                <th>Valor</th>
+                                <th>Unión</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(ix,item) in modulo_formulario.config.filters track by item.id">
+                                <td style="width: 15%;padding: 2px;" title="{{item.field}}">
+                                    <select ng-model="item.field" class="form-control"
+                                            ng-options="opt.id as opt.field for opt in modulo_formulario.config.fields">
+                                    </select>
+                                </td>
+                                <td style="width: 10%;padding: 2px;">
+                                    <select ng-model="item.operator" class="form-control"
+                                            ng-if="item.field"
+                                            ng-options="opt as opt for opt in modulo_formulario.getOperator(item.field)">
+                                    </select>
+                                </td>
+                                <td style="width: 30%;padding: 2px;">
+                                    <input type="text"
+                                           ng-if="modulo_formulario.getField(item.field).tipo==='alfanumérico' && item.operator.indexOf('-')===-1"
+                                           class="form-control" ng-model="item.value">
+
+                                    <input type="number"
+                                           ng-if="modulo_formulario.getField(item.field).tipo==='numérico' && item.operator.indexOf('-')===-1"
+                                           class="form-control" ng-model="item.value">
+
+                                    <input type="date"
+                                           ng-if="modulo_formulario.getField(item.field).tipo==='fecha' && item.operator.indexOf('-')===-1"
+                                           class="form-control" ng-model="item.value">
+                                    <input type="datetime-local"
+                                           ng-if="modulo_formulario.getField(item.field).tipo==='fecha y hora' && item.operator.indexOf('-')===-1"
+                                           class="form-control" ng-model="item.value">
+
+                                    <select ng-model="item.union" class="form-control"
+                                            ng-if="['desición'].indexOf(modulo_formulario.getField(item.field).tipo)!==-1 && item.operator.indexOf('-')===-1"
+                                            ng-options="opt as opt for opt in modulo_formulario.getOpciones(item.field)">
+                                    </select>
+                                    <select3 ng-model="item.union" class="form-control" multiple
+                                             ng-if="['lista','lista multiple'].indexOf(modulo_formulario.getField(item.field).tipo)!==-1 && item.operator.indexOf('-')===-1"
+                                             s2-options="opt as opt for opt in modulo_formulario.getOpciones(item.field)">
+                                    </select3>
+                                </td>
+                                <td style="width: 5%;padding: 20px;">
+                                    <select ng-model="item.union" class="form-control"
+                                            ng-if="item.operator && ix<modulo_formulario.config.filters.length-1"
+                                            ng-options="opt as opt for opt in ['Y','O']">
+                                    </select>
+                                </td>
+                                <td style="width: 10%">
+                                    <button title="Eliminar"
+                                            ng-click="<%= scope %>.deleteField(ix,modulo_formulario.config.filters);"
+                                            type="button"
+                                            class="btn bg-danger btn-xs">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                    <button title="Subir" style="width: 23px;padding: 4px;margin: 0;"
+                                            ng-click="<%= scope %>.movecode(ix,modulo_formulario.config.filters)"
+                                            type="button" class="btn bg-info btn-xs">
+                                        <i class="icon-arrow-up7"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100%" class="text-right">
+                                    <button ng-click="<%= scope %>.addField(modulo_formulario.config.filters);"
+                                            type="button"
+                                            class="btn bg-success btn-xs">
+                                        Agregar nuevo filtro
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane" id="indicadores">
                 <div class="row">
-                    <div class='col-sm-5 col-md-5'>
-                        <%- FORM.textarea('indicador', scope, {
-                            trueplaceholder: "Filtro",
-                            helptext: "Ejemplo: NombredelCampo>=50000"
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.input('prefijo', scope, {
+                            trueplaceholder: "Prefijo",
+                            helptext: "Ejemplo: RD$, este texto aparecerá detrás del resultado de la fórmula"
                         }) %>
                     </div>
-                    <div class='col-sm-5 col-md-5'>
-                        <%- FORM.textarea('formula', scope, {
-                            trueplaceholder: "Fórmula",
-                            helptext: "Ejemplo: filtrados/total, donde filtrados=Los registros filtrados por el indicador y total=El total de registros guardados con este formulario."
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.selectsimple("formula", scope, {
+                            label: "Fórmula",
+                            value: "code",
+                            data: [
+                                {"code": "total", "name": "Total de resultados"},
+                                {"code": "filtros", "name": "Total de resultados que cumplen con los filtros"},
+                                {"code": "average", "name": "Porcentaje de resultaods que cumplen con los filtros"}
+                            ],
+                            icon: {class: "sphere3"}
                         }) %>
                     </div>
-                    <div class='col-sm-2 col-md-2'>
+                    <div class='col-sm-4 col-md-4'>
                         <%- FORM.input('sufijo', scope, {
                             trueplaceholder: "Sufijo",
                             helptext: "Ejemplo: %, este texto aparecerá delante del resultado de la fórmula"

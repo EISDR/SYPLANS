@@ -338,13 +338,7 @@
         },
         {
           "menus": [
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "chart",
-              "href": "#ods_config",
-              "text": "Métrica ODS"
-            },
+
             {
               "menus": "",
               "modal": "",
@@ -852,13 +846,6 @@
         },
         {
           "menus": [
-            {
-              "menus": "",
-              "modal": "",
-              "icon": "chart",
-              "href": "#ods_config",
-              "text": "Métrica ODS"
-            },
             {
               "menus": "",
               "modal": "",

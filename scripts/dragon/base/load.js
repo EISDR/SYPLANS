@@ -105,7 +105,6 @@ LOAD = function () {
         if (view.indexOf("?") !== -1) {
             view = view.split("?")[0];
         }
-        MENU.setActive(view);
         this.loadContentView(view, $scope, $http, $compile);
     };
     this.loadContentView = function (view, $scope, $http, $compile) {

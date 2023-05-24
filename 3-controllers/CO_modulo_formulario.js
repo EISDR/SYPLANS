@@ -15,6 +15,17 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
             {nombre: "Muy Grande", value: 10},
             {nombre: "Línea Completa", value: 12}
         ];
+        modulo_formulario.operators = {
+            "alfanumérico": ['Contiene', 'No Contiene', 'Igual a', 'Diferente a', 'En Blanco-', 'Con Algún Valor-'],
+            "numérico": ['Igual a', 'Diferente a', 'Es Nulo-', 'Menor que', 'Menor o igual', 'Mayor que', 'Mayor o igual'],
+            "fecha": ['Fecha Exacta', 'Antes de', 'Después de', 'Fecha Exacta o Antes', 'Fecha Exacta o Después'],
+            "fecha y hora": ['Fecha Exacta', 'Antes de', 'Después de', 'Fecha Exacta o Antes', 'Fecha Exacta o Después'],
+            "booleano": ['Verdadero-', 'Falso-'],
+            "check": ['Marcado-', 'Sin Marcar-'],
+            "desición": ['Igual a'],
+            "lista": ['Contiene', 'No Contiene'],
+            "lista múltiple": ['Contiene', 'No Contiene']
+        };
         modulo_formulario.singular = "Formulario";
         modulo_formulario.plural = "Formularios";
         modulo_formulario.registros = await BASEAPI.listp('modulo_formulario_registro', {limit: 0});
@@ -23,7 +34,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         //modulo_formulario.destroyForm = false;
         //modulo_formulario.permissionTable = "tabletopermission";
         RUNCONTROLLER("modulo_formulario", modulo_formulario, $scope, $http, $compile);
-        modulo_formulario.field_types = ["alfanumérico", "numérico", "booleano", "fecha", "fecha y hora", "desición", "check", "lista", "lista múltiple"];
+        modulo_formulario.field_types = ["alfanumérico", "numérico", "booleano", "fecha", "fecha y hora", "check", "desición", "lista", "lista múltiple"];
         modulo_formulario.deleteField = (ix, obj) => {
             let final = obj || modulo_formulario.config.fields
             if (final)
@@ -43,7 +54,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         modulo_formulario.addField = (obj) => {
             if (modulo_formulario.config) {
                 let final = obj || modulo_formulario.config.fields
-                if (final)
+                if (final && !obj)
                     final.push({
                         id: new Date().getTime(),
                         field: "Campo " + (modulo_formulario.config.fields.length + 1),
@@ -51,7 +62,12 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                         config: {},
                         col: 3
                     });
-                else
+                else if (obj) {
+                    final.push({
+                        id: new Date().getTime(),
+                        union: "Y"
+                    });
+                } else
                     modulo_formulario.config = {fields: [], indicadores: []};
             } else
                 modulo_formulario.config = {fields: [], indicadores: []};
@@ -72,6 +88,28 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
             } else
                 modulo_formulario.config = {fields: [], indicadores: []};
         }
+        modulo_formulario.getField = (fieldid) => {
+            return (modulo_formulario?.config?.fields || []).filter(d => d.id === fieldid)[0] || {};
+        }
+        modulo_formulario.getOperator = (fieldid) => {
+            let field = modulo_formulario.getField(fieldid);
+            return modulo_formulario.operators[field.tipo];
+        }
+        modulo_formulario.cacheOptions = {};
+        modulo_formulario.getOpciones = (fieldid) => {
+            let field = modulo_formulario.getField(fieldid);
+            if (!modulo_formulario.cacheOptions[fieldid])
+                modulo_formulario.cacheOptions[fieldid] = [];
+
+            if (field.tipo === "desición") {
+                if (JSON.stringify([field.config.goodoption, field.config.badoption]) !== JSON.stringify(modulo_formulario.cacheOptions[fieldid]))
+                    modulo_formulario.cacheOptions[fieldid] = [field.config.goodoption, field.config.badoption];
+            }
+            if (field.config.options)
+                if (JSON.stringify(field.config.options.split(",")) !== JSON.stringify(modulo_formulario.cacheOptions[fieldid]))
+                    modulo_formulario.cacheOptions[fieldid] = field.config.options.split(",");
+            return modulo_formulario.cacheOptions[fieldid];
+        }
         modulo_formulario.formulary = function (data, mode, defaultData) {
             if (modulo_formulario !== undefined) {
                 RUN_B("modulo_formulario", modulo_formulario, $scope, $http, $compile);
@@ -85,17 +123,31 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                 modulo_formulario.createForm(data, mode, defaultData, undefined, (data) => {
                     try {
                         if (mode === "new") {
-                            modulo_formulario.config = {fields: [], indicadores: []};
+                            modulo_formulario.config = {fields: [], filters: [], indicadores: []};
                         } else {
                             let parse = (modulo_formulario.config || "{fields: [],indicadores:[]}");
                             modulo_formulario.config = JSON.parse(parse);
                             if (!modulo_formulario.config.indicadores)
                                 modulo_formulario.config.indicadores = [];
+                            if (modulo_formulario.config.filters) {
+                                if (modulo_formulario.config.filters.length) {
+                                    for (const d of modulo_formulario.config.filters) {
+                                        if (modulo_formulario.getField(d.field).tipo === "fecha") {
+                                            d.value = new Date(d.value);
+                                        }
+                                        if (modulo_formulario.getField(d.field).tipo === "fecha y hora") {
+                                            d.value = new Date(d.value);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     } catch (e) {
                         console.log(e);
-                        modulo_formulario.config = {fields: [], indicadores: []};
+                        modulo_formulario.config = {fields: [], filters: [], indicadores: []};
                     }
+                    if (modulo_formulario.config.filters === undefined)
+                        modulo_formulario.config.filters = [];
                 });
                 $scope.$watch("modulo_formulario.nombre", function (value) {
                     var rules = [];
@@ -143,6 +195,9 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         }
         RUNTABLE('modulo_formulario');
         modulo_formulario.refreshAngular();
+        modulo_formulario.calculate = (row, configuration, records) => {
+            return "Programando";
+        };
     }
     ready();
 });
