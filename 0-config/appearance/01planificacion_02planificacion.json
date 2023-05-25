@@ -338,7 +338,6 @@
         },
         {
           "menus": [
-
             {
               "menus": "",
               "modal": "",
@@ -490,6 +489,7 @@
           "modal": "",
           "icon": "design",
           "href": "#",
+          "condition": "CONFIGCOMPANY.instrumentos",
           "text": "Instrumentos de Planificación Nacional"
         },
         {

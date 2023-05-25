@@ -6,38 +6,67 @@
           "modal": "",
           "icon": "pyramid2",
           "href": "#sec_eje_sectorial",
-          "condition": "baseController.session.sector_id",
           "text": "Ejes"
         },
         {
           "modal": "",
           "icon": "racing",
           "href": "#sec_objetivo_sectorial",
-          "condition": "baseController.session.sector_id",
           "text": "Objetivos"
         },
         {
           "modal": "",
           "icon": "stats-dots",
           "href": "#sec_resultado_sectorial",
-          "condition": "baseController.session.sector_id",
           "text": "Resultados Esperados"
         },
         {
           "modal": "",
           "icon": "list2",
           "href": "#sec_programa_sectorial",
-          "condition": "baseController.session.sector_id",
           "text": "Programas"
         }
       ],
       "modal": "",
       "icon": "portfolio",
       "href": "#",
-      "condition": "baseController.session.sector_id",
+      "condition": "CONFIGCOMPANY.sectorial",
       "text": "Plan Estratégico Sectorial"
     }
   ],
   "menus_privado": [
+    {
+      "menus": [
+        {
+          "modal": "",
+          "icon": "pyramid2",
+          "href": "#sec_eje_sectorial",
+          "text": "Ejes"
+        },
+        {
+          "modal": "",
+          "icon": "racing",
+          "href": "#sec_objetivo_sectorial",
+          "text": "Objetivos"
+        },
+        {
+          "modal": "",
+          "icon": "stats-dots",
+          "href": "#sec_resultado_sectorial",
+          "text": "Resultados Esperados"
+        },
+        {
+          "modal": "",
+          "icon": "list2",
+          "href": "#sec_programa_sectorial",
+          "text": "Programas"
+        }
+      ],
+      "modal": "",
+      "icon": "portfolio",
+      "href": "#",
+      "condition": "CONFIGCOMPANY.sectorial && baseController.session.sector_id",
+      "text": "Plan Estratégico Sectorial"
+    }
   ]
 }
