@@ -53,3 +53,7 @@ body {
 .elreverse {
     filter: contrast(1.4);
 }
+
+#dragonmenu .active ul {
+    filter: contrast(1.3);
+}

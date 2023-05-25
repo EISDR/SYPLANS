@@ -1486,20 +1486,18 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         });
 
 
-        setTimeout(function () {
-            if (new SESSION().current()) {
-                if (document.location.href.indexOf('#') === -1 && new SESSION().current().homePage) {
-                    new HTTP().redirecttag(new SESSION().current().homePage.replace('#', ''));
-                } else if (document.location.href.indexOf('#') === -1) {
-                    new HTTP().redirecttag(CONFIG.home.replace('#', ''));
-                }
-            } else {
-                new SESSION().ifLogoffRedirec();
-            }
-            MENU.setActive();
-            MENU.setActive();
-
-        }, 500);
+        // setTimeout(function () {
+        //     if (new SESSION().current()) {
+        //         if (document.location.href.indexOf('#') === -1 && new SESSION().current().homePage) {
+        //             new HTTP().redirecttag(new SESSION().current().homePage.replace('#', ''));
+        //         } else if (document.location.href.indexOf('#') === -1) {
+        //             new HTTP().redirecttag(CONFIG.home.replace('#', ''));
+        //         }
+        //     } else {
+        //         new SESSION().ifLogoffRedirec();
+        //     }
+        //     MENU.setActive();
+        // }, 500);
     };
     begin();
 
