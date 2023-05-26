@@ -272,7 +272,11 @@
         //     }
         // });
         MESSAGE.run();
+
         MENU.setActive();
+        setTimeout(() => {
+            baseController.setSeparator(MENU.current.menu.mark);
+        }, 200);
         $(".remove-content").removeClass("has-ul");
         createfalse();
     });
@@ -288,6 +292,7 @@
         } else {
             new SESSION().ifLogoffRedirec();
         }
+
     }, 1000);
 
 
