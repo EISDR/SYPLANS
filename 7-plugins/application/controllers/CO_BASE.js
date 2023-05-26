@@ -416,6 +416,9 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 baseController.refreshAngular();
                 animation.stoploading(`#dragonmenu`);
                 MENU.setActive();
+                setTimeout(() => {
+                    baseController.setSeparator(MENU.current.menu.mark);
+                }, 500);
                 location.reload();
             }, 500);
         };
