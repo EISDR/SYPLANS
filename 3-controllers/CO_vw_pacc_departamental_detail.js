@@ -1,6 +1,11 @@
 app.controller("vw_pacc_departamental_detail", function ($scope, $http, $compile) {
     vw_pacc_departamental_detail = this;
-    //vw_pacc_departamental_detail.fixFilters = [];
+    vw_pacc_departamental_detail.fixFilters = [
+        {
+            field: "id",
+            value: -1
+        }
+    ];
     //vw_pacc_departamental_detail.singular = "singular";
     //vw_pacc_departamental_detail.plural = "plural";
     vw_pacc_departamental_detail.headertitle = "Evaluar PACC Departamentales";
