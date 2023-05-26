@@ -499,7 +499,7 @@
                                     class="form-control numbers"
                                     placeholder=""/>
                             <a ng-if="<%= scope %>.PACCROWS[key]['periodo_'+p+'_cantidad']!=<%= scope %>.PACCROWS[key]['periodo_'+p+''] && i%2===0 && <%= scope %>.PACCROWS[key]['periodo_'+p+'_cantidad']"
-                               title="Ver y agregar comentarios para el trimestre {{p}}"
+                               title="Trabajar y/o ver comentarios para el trimestre {{p}}"
                                ng-click="<%= scope %>.open_comment(key,p)" ng-class="u_pacc_dept.isRojo(p,key)"
                                style="float: right;">
                                 <i style="font-size: 23px" class="icon-comment"></i>
@@ -597,7 +597,7 @@
                                 </ul>
                             </li>
                             <li class="ng-scope">
-                                <a title="Ver y agregar comentarios"
+                                <a title="Trabajar y/o ver comentarios"
                                    ng-click="<%= scope %>.open_comment(key)">
                                     <i class=" icon-comment text-black-300"></i>
                                 </a>
