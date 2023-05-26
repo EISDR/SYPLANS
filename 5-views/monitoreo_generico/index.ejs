@@ -70,10 +70,15 @@
                             ng-if="monitoreo_generico.entidad_object.name==='Procesos'">
                             Macro Proceso
                         </td>
+
                         <td style="text-align: center;vertical-align: middle" rowspan="2">
                             {{monitoreo_generico.entidad_object.name}}
                         </td>
                         <td style="text-align: center;vertical-align: middle" rowspan="2">Indicador</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"
+                            ng-if="monitoreo_generico.entidad_object.name==='Procesos'">
+                            Departamento
+                        </td>
                         <td style="text-align: center;vertical-align: middle" rowspan="2">Fórmula Indicador</td>
                         <td style="text-align: center;vertical-align: middle" rowspan="2">Unidad de Medida</td>
                         <td style="text-align: center;vertical-align: middle" rowspan="2">Medio Verificación</td>
@@ -105,6 +110,7 @@
                             ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records) && monitoreo_generico.entidad_object.name==='Procesos'">
                             {{row.procesos_categoria_nombre}}
                         </td>
+
                         <td rowspan="{{<%= scope %>.rowspanme('actividad',row.actividad,item.records)}}"
                             ng-if="<%= scope %>.seeme('actividad',row.actividad,i,item.records)">
 
@@ -117,6 +123,7 @@
                                 </tr>
                             </table>
                         </td>
+
                         <td
 
                                 rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
@@ -151,6 +158,12 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                        <td
+                                rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
+                                ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                        >
+                            {{row.departamento_nombre}}
                         </td>
                         <td
                                 rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
