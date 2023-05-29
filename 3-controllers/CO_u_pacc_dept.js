@@ -803,7 +803,7 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
 
                 if (u_pacc_dept.masa_familia !== '[NULL]') {
                     let item = {
-                        "field": `$ SUBSTR(cbs FROM 1 FOR 4) `,
+                        "field": CONFIG.postgreactive ? `$ SUBSTR(cbs,1,4) ` : `$ SUBSTR(cbs FROM 1 FOR 4) `,
                         "operator": "=",
                         "connector": "AND",
                         "value": u_pacc_dept.masa_familia.substr(0, 4)
