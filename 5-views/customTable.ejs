@@ -118,7 +118,7 @@
                 </div>
             </div>
             <table class=" table table-togglable table-framed sindu-table" id="tb-custom2"
-                   style="width: {{(<%= scope %>.rawestatus >= 5 ? 2000 : 1200) + (<%= scope %>.periodopoas.length*100)}}px !important; margin-bottom: 260px">
+                   style="width: {{(<%= scope %>.rawestatus >= 5 ? 2500 : 1700) + (<%= scope %>.periodopoas.length*100)}}px !important; margin-bottom: 260px">
                 <thead class="">
                 <tr class="bg-secundary">
                     <th width="200px" style="text-align: center; vertical-align: middle" height="0" rowspan="2"
@@ -298,12 +298,18 @@
                                 Error al cargar la lista CBS, click para recargar
                             </button>
                             <label style="width: 85%;margin-top: 23px;cursor: pointer"
-                                   ng-show="<%= scope %>.list!==undefined"
+                                   ng-show="<%= scope %>.list!==undefined && <%= scope %>.allowedit"
                                    ng-click="<%= scope %>.cbslist(key)"
                                    title="{{<%= scope %>.dbsdesc(key)}}">
                                 {{<%= scope %>.dbsdesc(key)}}
                             </label>
-                            <a ng-show="<%= scope %>.list!==undefined" title="Clic para editar." class="dropdown-toggle"
+                            <label style="width: 85%;margin-top: 23px;cursor: pointer"
+                                   ng-show="<%= scope %>.list!==undefined && !<%= scope %>.allowedit"
+                                   title="{{<%= scope %>.dbsdesc(key)}}">
+                                {{<%= scope %>.dbsdesc(key)}}
+                            </label>
+                            <a ng-show="<%= scope %>.list!==undefined && <%= scope %>.allowedit"
+                               title="Clic para editar." class="dropdown-toggle"
                                ng-click="<%= scope %>.cbslist(key)"
                                style="float: right;margin: 25px 0 0 0;">
                                 <i class=" icon-pencil5 text-black-300"></i>
@@ -331,16 +337,14 @@
                         oncontextmenu="return false;"
                         ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
                         <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.validate_cbs(key)?<%= scope %>.PACCROWS[key].unidad?'success':'error':'error'}}  has-feedback-left">
-                            <select id="unidad_{{key}}" ng-model="<%= scope %>.PACCROWS[key].unidad"
-                                    ng-change="<%= scope %>.saveA(key)"
-                                    ng-disabled="!<%= scope %>.allowedit"
-                                    class="form-control"
-                                    title="{{<%= scope %>.getSelectedText('unidad', key)}}">
-                                <option value="">Seleccione</option>
-                                <option ng-repeat="(k,v) in <%= scope %>.unidad_medida"
-                                        value="{{v.id}}">{{v.nombre}}
-                                </option>
-                            </select>
+                            <select3 id="unidad_{{key}}" ng-model="<%= scope %>.PACCROWS[key].unidad"
+                                     ng-change="<%= scope %>.saveA(key)"
+                                     ng-disabled="!<%= scope %>.allowedit"
+                                     style="width: 100%"
+                                     title="{{<%= scope %>.getSelectedText('unidad', key)}}"
+                                     s2-options="opt.id as opt.nombre for opt in <%= scope %>.unidad_medida"
+                            >
+                            </select3>
                             <span ng-show="!<%= scope %>.validate_cbs(key)" class="help-block">
                                 <p class="text-error">
                                     <i class="icon-cancel-circle2 text-danger"></i> La unidad de medida debe de ser la misma
@@ -416,17 +420,15 @@
                         oncontextmenu="return false;"
                         ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
                         <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].procedimiento_seleccion?'success':''}}  has-feedback-left">
-                            <select id="procedimiento_seleccion_{{key}}"
-                                    ng-model="<%= scope %>.PACCROWS[key].procedimiento_seleccion"
-                                    ng-change="<%= scope %>.saveA(key)"
-                                    ng-disabled="!<%= scope %>.allowedit"
-                                    class="form-control"
-                                    title="{{<%= scope %>.getSelectedText('procedimiento_seleccion', key)}}">
-                                <option value="">Seleccione</option>
-                                <option ng-repeat="(k,v) in <%= scope %>.procedimiento_seleccion"
-                                        value="{{v.id}}">{{v.nombre}}
-                                </option>
-                            </select>
+                            <select3 id="procedimiento_seleccion_{{key}}"
+                                     ng-model="<%= scope %>.PACCROWS[key].procedimiento_seleccion"
+                                     ng-change="<%= scope %>.saveA(key)"
+                                     style="width: 100%"
+                                     ng-disabled="!<%= scope %>.allowedit"
+                                     title="{{<%= scope %>.getSelectedText('procedimiento_seleccion', key)}}"
+                                     s2-options="opt.id as opt.nombre for opt in <%= scope %>.procedimiento_seleccion"
+                            >
+                            </select3>
                         </div>
                     </td>
                     <td ng-show="<%= scope %>.rawestatus >= 5" style="min-width: 230px;"
@@ -435,17 +437,15 @@
                         oncontextmenu="return false;"
                         ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
                         <div class="remove-input-space form-group-material form-group has-feedback has-{{<%= scope %>.PACCROWS[key].fuente_financiamiento?'success':''}}  has-feedback-left">
-                            <select id="fuente_financiamiento_{{key}}"
-                                    ng-model="<%= scope %>.PACCROWS[key].fuente_financiamiento"
-                                    ng-change="<%= scope %>.saveA(key)"
-                                    ng-disabled="!<%= scope %>.allowedit"
-                                    class="form-control"
-                                    title="{{<%= scope %>.getSelectedText('fuente_financiamiento', key)}}">
-                                <option value="">Seleccione</option>
-                                <option ng-repeat="(k,v) in <%= scope %>.fuente_financiamiento"
-                                        value="{{v.id}}">{{v.nombre}}
-                                </option>
-                            </select>
+                            <select3 id="fuente_financiamiento_{{key}}"
+                                     ng-model="<%= scope %>.PACCROWS[key].fuente_financiamiento"
+                                     ng-change="<%= scope %>.saveA(key)"
+                                     style="width: 100%"
+                                     ng-disabled="!<%= scope %>.allowedit"
+                                     title="{{<%= scope %>.getSelectedText('fuente_financiamiento', key)}}"
+                                     s2-options="opt.id as opt.nombre for opt in <%= scope %>.fuente_financiamiento"
+                            >
+                            </select3>
                         </div>
                     </td>
                     <td class="context-control"

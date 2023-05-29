@@ -356,7 +356,7 @@
                                     ng-dblclick="<%= scope %>.cell.dblselect(row);<%= scope %>.cell.dblclick(key,value,row)">
                                     <div class="remove-input-space form-group-material form-group has-feedback has-{{u_pacc_dept.PACCROWS[key].cbs?'success':'error'}}  has-feedback-left">
                                         <select id="cbs_{{key}}" ng-model="u_pacc_dept.PACCROWS[key].cbs"
-                                               
+
                                                 ng-disabled="!u_pacc_dept.allowedit"
                                                 class="form-control"
                                                 title="{{u_pacc_dept.getSelectedText('cbs', key)}}">

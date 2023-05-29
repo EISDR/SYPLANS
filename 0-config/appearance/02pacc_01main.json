@@ -42,12 +42,14 @@
           "modal": "",
           "icon": "graph",
           "href": "#pacc_status",
+          "condition": "baseController.session.super",
           "text": "Estatus del PACC "
         },
         {
           "modal": "",
           "icon": "file-stats",
           "href": "#pacc_departamento_status",
+          "condition": "baseController.session.super",
           "text": "Estatus del PACC Departamental"
         },
         {

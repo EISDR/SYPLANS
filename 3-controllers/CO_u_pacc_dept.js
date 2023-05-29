@@ -166,8 +166,8 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
     u_pacc_dept.filtrar = function (row, filter, rr) {
         console.log(row, filter, rr);
         for (var i in row) {
-            if (["departamento", "descripcion", "cantidad_total", "fecha_necesidad", "unidad"].indexOf(i) !== -1) {
-                if (row[i].toLowerCase)
+            if (["departamento", "descripcion", "cantidad_total", "unidad"].indexOf(i) !== -1) {
+                if (row[i].toLowerCase) {
                     if (rr) {
                         if (row[i].toLowerCase().indexOf(filter.toLowerCase()) !== -1 && row[i].departamento.toLowerCase().indexOf(rr.toLowerCase()) !== -1) {
                             return true;
@@ -177,6 +177,11 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
                             return true;
                         }
                     }
+                } else {
+                    if ((row[i] + "").toLowerCase().indexOf(filter.toLowerCase()) !== -1) {
+                        return true;
+                    }
+                }
             }
         }
 
@@ -728,13 +733,13 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
         if (u_pacc_dept.masa_familia !== '[NULL]') {
             busquedade += ` y con la <b>familia</b> "${u_pacc_dept.masa_familia_object.familianombre}"`;
         }
-        if (u_pacc_dept.masa_biene !== '[NULL]') {
-            if (u_pacc_dept.masa_familia !== '[NULL]') {
-                busquedade += ` más el <b>CBS</b> "${u_pacc_dept.masa_biene_object.familianombre}"`;
-            } else {
-                busquedade += ` y con el <b>CBS</b> "${u_pacc_dept.masa_biene_object.familianombre}"`;
-            }
-        }
+        // if (u_pacc_dept.masa_biene !== '[NULL]') {
+        //     if (u_pacc_dept.masa_familia !== '[NULL]') {
+        //         busquedade += ` más el <b>CBS</b> "${u_pacc_dept.masa_biene_object.familianombre}"`;
+        //     } else {
+        //         busquedade += ` y con el <b>CBS</b> "${u_pacc_dept.masa_biene_object.familianombre}"`;
+        //     }
+        // }
 
         let aactualizar = [];
         if (u_pacc_dept.masa_biene !== '[NULL]') {
@@ -796,6 +801,15 @@ app.controller("u_pacc_dept", function ($scope, $http, $compile) {
                 if (u_pacc_dept.masa_precio_unitario_DragonClean)
                     datatoupdate.precio_unitario = u_pacc_dept.masa_precio_unitario_DragonClean;
 
+                if (u_pacc_dept.masa_familia !== '[NULL]') {
+                    let item = {
+                        "field": `$ SUBSTR(cbs FROM 1 FOR 4) `,
+                        "operator": "=",
+                        "connector": "AND",
+                        "value": u_pacc_dept.masa_familia.substr(0, 4)
+                    };
+                    datatoupdate.where.push(item);
+                }
 
                 ["descripcion", "cantidad_total", "unidad"].forEach((d, index) => {
                     let item = {
