@@ -1074,7 +1074,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             indicador_generico.tipos = indicador_generico.tipos.data;
             indicador_generico.plural = indicador_generico.entidadobj.name + ` `;
             if (indicador_generico.entidad == "vw_evento_indicador") {
-                indicador_generico.singular = indicador_generico.entidadobj.name + ' del evento: ' + indicador_generico2.form.selected('evento_indicador').nombre;
+                indicador_generico.singular = indicador_generico.entidadobj.name + ' del evento: ' + (indicador_generico2.form.selected('evento_indicador') ? indicador_generico2.form.selected('evento_indicador').nombre : "");
             } else {
                 indicador_generico.singular = indicador_generico.entidadobj.name + ` `;
             }
