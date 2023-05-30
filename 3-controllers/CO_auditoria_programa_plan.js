@@ -1003,6 +1003,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             });
             auditoria_programa_plan.auditores_responsables = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados_responsables', {
                 order: "asc",
+                limit: 0,
                 where: [
                     {
                         field: "programa_plan",
