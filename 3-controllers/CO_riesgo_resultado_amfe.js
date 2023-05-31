@@ -232,6 +232,12 @@ app.controller("riesgo_resultado_amfe", function ($scope, $http, $compile) {
                     edit: "Editar Detectabilidad",
                     view: "Ver Detectabilidad"
                 };
+            }else{
+                riesgo_resultado_amfe.form.titles = {
+                    new: "Nuevo Nivel de riesgo",
+                    edit: "Editar Nivel de riesgo",
+                    view: "Ver Nivel de riesgo"
+                };
             }
             if (riesgo_resultado_amfe.soyamfe) {
                 riesgo_resultado_amfe.form.readonly.mamfe = 1;
