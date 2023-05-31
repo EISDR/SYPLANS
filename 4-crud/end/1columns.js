@@ -43,6 +43,7 @@ DSON.keepmerge(CRUD_end, {
                 shorttext: 8000,
                 export: false,
                 exportExample: false,
+                sortable: false,
             },
             objetivos_end: {
                 label: "Objetivos",
@@ -50,7 +51,8 @@ DSON.keepmerge(CRUD_end, {
                 visible: false,
                 visibleDetail: false,
                 checkExport: true,
-                dead: true
+                dead: true,
+                sortable: false,
             },
             compania: {
                 visible: false,
