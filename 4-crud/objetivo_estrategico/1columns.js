@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_objetivo_estrategico, {
         method: "objetivo_estrategico",
         sort: "no_objetivo",
         order: "desc",
-        persist: false,
         width: "width:1500px;",
         columns: {
             id: {
