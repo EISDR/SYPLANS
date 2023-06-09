@@ -14,7 +14,6 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
     auditoria_programa.destroyForm = false;
     auditoria_programa.created = false;
     auditoria_programa.group_caracteristica = auditoria_programa.session.groups[0] ? auditoria_programa.session.groups[0].caracteristica : "";
-    //auditoria_programa.permissionTable = "tabletopermission";
     RUNCONTROLLER("auditoria_programa", auditoria_programa, $scope, $http, $compile);
     RUN_B("auditoria_programa", auditoria_programa, $scope, $http, $compile);
     auditoria_programa.auditoriaData = undefined;
@@ -97,7 +96,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
             if (typeof vw_auditoria_programa != "undefined") {
                 if (vw_auditoria_programa) {
                     if (typeof vw_auditoria_programa !== 'not defined') {
-                        if (vw_auditoria_programa.dataForView){
+                        if (vw_auditoria_programa.dataForView) {
                             $('.icon-plus-circle2 ').parent().hide();
                             auditoria_programa_plan.fixFilters = [{
                                 "field": "auditoria_programa",
@@ -120,22 +119,17 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
     };
     auditoria_programa.$scope.$watch("auditoria_programa.nombre", function (value) {
         var rules = [];
-        //rules here
         rules.push(VALIDATION.general.required(value));
         rules.push(VALIDATION.yariel.maliciousCode(value));
         VALIDATION.validate(auditoria_programa, 'nombre', rules);
     });
     auditoria_programa.$scope.$watch("auditoria_programa.descripcion", function (value) {
         var rules = [];
-        //rules here
-        //rules.push(VALIDATION.general.required(value));
         rules.push(VALIDATION.yariel.maliciousCode(value));
         VALIDATION.validate(auditoria_programa, 'descripcion', rules);
     });
     auditoria_programa.$scope.$watch("auditoria_programa.metodo_auditoria", function (value) {
         var rules = [];
-        //rules here
-        //rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(auditoria_programa, 'metodo_auditoria', rules);
     });
     auditoria_programa.$scope.$watch('auditoria_programa.fecha_inicio', function (value) {
@@ -143,81 +137,38 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
         rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(auditoria_programa, "fecha_inicio", rules)
     });
-    auditoria_programa.$scope.$watch('auditoria_programa.fecha_fin', function (value) {
-        // var rules = [];
-        // rules.push(VALIDATION.general.required(value));
-        // VALIDATION.validate(productos_poa, "fecha_fin", rules)
-    });
     auditoria_programa.$scope.$watch('auditoria_programa.range_date', function (value) {
         var rules = [];
         rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(auditoria_programa, "fecha_inicio", rules);
         VALIDATION.validate(auditoria_programa, "range_date", rules);
     });
-    auditoria_programa.triggers.table.after.control = function (data) {
-        // if (data == 'range_date') {
-        //     auditoria_programa.range_date = "";
-        //     var rango_minimo =  moment(("01-02-" + moment().format('YYYY'))).add(-1, 'day').format("YYYY-MM-DD");
-        //
-        //     // if (moment().format('YYYY') != elano) {
-        //     //     rango_minimo = moment(("01-02-" + elano)).add(-1, 'day').format("YYYY-MM-DD");
-        //     //     productos_poa.range_date_start(moment(("01-01-" + elano)));
-        //     //     productos_poa.range_date_end(moment(("01-01-" + elano)));
-        //     //     rango_maximo = moment(("01-01-" + (elano + 1))).add(-1, 'day').format("YYYY-MM-DD");
-        //     // }
-        //
-        //     auditoria_programa.range_date_min(rango_minimo);
-        //     auditoria_programa.refreshAngular();
-        // }
-    };
     auditoria_programa.formulary = function (data, mode, defaultData) {
         if (auditoria_programa !== undefined) {
             RUN_B("auditoria_programa", auditoria_programa, $scope, $http, $compile);
             auditoria_programa.form.modalWidth = ENUM.modal.width.full;
             auditoria_programa.form.readonly = {};
-            auditoria_programa.createForm(data, mode, defaultData);
+            auditoria_programa.createForm(data, mode, defaultData, "formperformance", (data) => {
+
+            });
             $scope.$watch("auditoria_programa.nombre", function (value) {
                 var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(auditoria_programa, 'nombre', rules);
             });
             $scope.$watch("auditoria_programa.descripcion", function (value) {
                 var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(auditoria_programa, 'descripcion', rules);
             });
-            //ms_product.selectQueries['compania'] = [
-            //    {
-            //    field: 'id',
-            //    operator: '!=',
-            //    value: -1
-            //    }
-            //];
             $scope.$watch("auditoria_programa.compania", function (value) {
                 var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(auditoria_programa, 'compania', rules);
             });
-            //ms_product.selectQueries['institucion'] = [
-            //    {
-            //    field: 'id',
-            //    operator: '!=',
-            //    value: -1
-            //    }
-            //];
             $scope.$watch("auditoria_programa.institucion", function (value) {
                 var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(auditoria_programa, 'institucion', rules);
             });
             $scope.$watch("auditoria_programa.estatus", function (value) {
                 var rules = [];
-                //rules here
-                //rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(auditoria_programa, 'estatus', rules);
             });
         }
@@ -271,7 +222,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
             where: [
                 {
                     field: "id",
-                    value:  auditoria_programa.id
+                    value: auditoria_programa.id
                 }
             ]
         });
@@ -375,50 +326,10 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
         }, 200);
     }
 
-    // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
-    //     resolve(true);
-    // });
-    //
-    // $scope.triggers.table.after.open = function (data) {
-    //     //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
-    // };
-    // $scope.triggers.table.before.open = () => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.open ${$scope.modelName}`);
-    //     resolve(true);
-    // });
-    //
-    // $scope.triggers.table.after.close = function (data) {
-    //     //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
-    // };
-    // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.close ${$scope.modelName}`);
-    //     resolve(true);
-    // });
-    //
-    // $scope.triggers.table.after.insert = function (data) {
-    //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-    //     return true;
-    // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
-    //
-    // $scope.triggers.table.after.update = function (data) {
-    //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
-    // };
-    // $scope.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
-    //     resolve(true);
-    // });
-    //
-    // $scope.triggers.table.before.control = function (data) {
-    //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
-    // };
-    //$scope.beforeDelete = function (data) {
-    //    return false;
-    //};
-    //$scope.afterDelete = function (data) {
-    //};
+    auditoria_programa.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        resolve(true);
+    });
+    auditoria_programa.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        resolve(true);
+    });
 });
