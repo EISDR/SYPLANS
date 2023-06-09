@@ -165,6 +165,7 @@ SESSION = function () {
         STORAGE.delete("depaM");
         STORAGE.delete("historico");
         STORAGE.delete("evento");
+        STORAGE.delete('depaP')
     };
     this.ifLogoffRedirec = function (view) {
         var href = view || location.href;

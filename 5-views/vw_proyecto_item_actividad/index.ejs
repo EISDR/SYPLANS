@@ -2,46 +2,49 @@
     <div class="panel panel-flat">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
-            <div class="row" id="hide-div">
-                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="!vw_proyecto_item_actividad.session.institucion">
-                    <%-
-                        FORM.select("departamentoPre", scope, {
-                            allownull: false,
-                            allownew: false,
-                            allowedit: false,
-                            allowlist: false,
-                            allowview: false,
-                            refresh: false,
-                            multiple: false,
-                            label: "Departamento",
-                            text: "item.nombre",
-                            table: "vw_departamento_filtro",
-                            field: "id",
-                            columns: ["departamento"],
-                            icon: {class:"archive"},
-                            condition: "(item.compania == vw_proyecto_item_actividad.session.compania_id && item.institucion == $null) && item.active",
-                        })
-                    %>
-                </div>
-                <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="vw_proyecto_item_actividad.session.institucion">
-                    <%-
-                        FORM.select("departamentoPre", scope, {
-                            allownull: false,
-                            allownew: false,
-                            allowedit: false,
-                            allowlist: false,
-                            allowview: false,
-                            refresh: false,
-                            multiple: false,
-                            label: "Departamento",
-                            text: "item.nombre",
-                            table: "vw_departamento_filtro",
-                            field: "id",
-                            columns: ["departamento"],
-                            icon: {class:"archive"},
-                            condition: "(item.institucion == vw_proyecto_item_actividad.session.institucion_id) && item.active",
-                        })
-                    %>
+            <div id="<%= 'vw_proyecto_item_actividad2' %>"
+                 ng-controller="<%= 'vw_proyecto_item_actividad2' %> as <%= 'vw_proyecto_item_actividad2' %>">
+                <div class="row" id="hide-div">
+                    <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="!vw_proyecto_item_actividad.session.institucion">
+                        <%-
+                            FORM.select("departamentoPre", "vw_proyecto_item_actividad2", {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowlist: false,
+                                allowview: false,
+                                refresh: false,
+                                multiple: false,
+                                label: "Departamento",
+                                text: "item.nombre",
+                                table: "vw_departamento_filtro",
+                                field: "id",
+                                columns: ["departamento"],
+                                icon: {class:"archive"},
+                                condition: "(item.compania == vw_proyecto_item_actividad.session.compania_id && item.institucion == $null) && item.active",
+                            })
+                        %>
+                    </div>
+                    <div class="col-sm-3 col-md-3" style="margin-top: 11px !important" ng-if="vw_proyecto_item_actividad.session.institucion">
+                        <%-
+                            FORM.select("departamentoPre", "vw_proyecto_item_actividad2", {
+                                allownull: false,
+                                allownew: false,
+                                allowedit: false,
+                                allowlist: false,
+                                allowview: false,
+                                refresh: false,
+                                multiple: false,
+                                label: "Departamento",
+                                text: "item.nombre",
+                                table: "vw_departamento_filtro",
+                                field: "id",
+                                columns: ["departamento"],
+                                icon: {class:"archive"},
+                                condition: "(item.institucion == vw_proyecto_item_actividad.session.institucion_id) && item.active",
+                            })
+                        %>
+                    </div>
                 </div>
             </div>
             <%- include('base',{scope:scope}); %>

@@ -205,7 +205,7 @@ DSON = {
             return obj.length === 0;
         }
         return (
-            obj === '[NULL]' || obj === undefined || typeof obj === "undefined" || typeof obj === "not defined" || obj === null || obj === "" || obj < 0 || obj === '0'
+            obj === '[NULL]' || obj === undefined || typeof obj === "undefined" || typeof obj === "not defined" || obj === null || obj === "" || obj < 0 || obj === '0' || obj === 'null'
         );
     },
     oseaX0: function (obj) {
