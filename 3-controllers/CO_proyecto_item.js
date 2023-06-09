@@ -292,6 +292,7 @@ app.controller("proyecto_item", function ($scope, $http, $compile) {
         proyecto_item.runMagicManyToMany('involucrado', "involucrados", "proyecto_item", "id", 'nombre_completo', "proyecto_item_involucrado", "involucrado", "id");
         proyecto_item.runMagicManyToMany('ods', "ods", "proyecto_item", "id", 'nombre', "proyecto_item_ods", "ods", "id");
         proyecto_item.runMagicOneToMany('actividades', 'proyecto_item_actividad', 'proyecto_item', 'nombre', 'id');
+        proyecto_item.refreshAngular();
         //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
     };
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
