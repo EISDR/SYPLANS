@@ -60,14 +60,10 @@ DSON.keepmerge(CRUD_proyecto_item, {
                     return "Institución"
                 }
             },
-            departamento_id: {
+            departamento: {
                 label: function () {
                     return "Departamento"
-                },
-                format: function (row) {
-                    return row.departamento;
-                },
-                link: {table: 'departamento', from: 'departamento'}
+                }
             },
             responsable: {},
             estatus: {},
