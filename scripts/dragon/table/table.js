@@ -57,6 +57,7 @@ TABLE = {
                         row.${column} = thistype[0].${description};
                 });
                 ${$scope.modelName}.refreshAngular();`);
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -78,6 +79,7 @@ TABLE = {
                 } else {
                     resolve("Not Exist");
                 }
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -112,7 +114,9 @@ TABLE = {
                                     row.${column} = DSON.ULALIA(resultB);
                         });
                         ${$scope.modelName}.refreshAngular();`);
+                        $scope.modelName.refreshAngular();
                     }
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -170,6 +174,7 @@ TABLE = {
                         row.${column} = "";
                 });
                 ${$scope.modelName}.refreshAngular();`);
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -201,6 +206,7 @@ TABLE = {
                         row.${column} = DSON.OLALIA(resultB);
                 });
                 ${$scope.modelName}.refreshAngular();`);
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -249,6 +255,7 @@ TABLE = {
                             row.${column} = DSON.ULALIA(resultB);
                 });
                 ${$scope.modelName}.refreshAngular();`);
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
@@ -296,6 +303,7 @@ TABLE = {
                         row.${column} = DSON.OLALIA(resultB);
                 });
                 ${$scope.modelName}.refreshAngular();`);
+                $scope.modelName.refreshAngular();
             } catch (e) {
 
             }
