@@ -602,31 +602,21 @@ FORM = {
                                                 var vi = relation.config.fieldsUpdate[i].replace('$id', DRAGONID);
                                                 eval(`relation.config.fieldsUpdate.${i} = vi`);
                                             }
-
-
-                                            let elpivot = Object.keys(relation.config.fields).filter(d => d !== relation.config.fieldsUpdate.field)[0];
-                                            var thefilter = [];
-                                            thefilter.push(relation.config.fieldsUpdate);
-                                            let yaexiste = await BASEAPI.listp(relation.config.toTable, {
-                                                limit: 0,
-                                                where: thefilter
-                                            });
-                                            yaexiste = yaexiste.data;
-
-                                            let toinsert = relation.data.filter(d => !yaexiste.filter(e => e[elpivot] == d[elpivot]).length);
-                                            toinsert = toinsert.filter(d => d[elpivot] && (d[elpivot] || "") !== "null");
-                                            let todelete = yaexiste.filter(d => !relation.data.filter(e => e[elpivot] == d[elpivot]).length);
-                                            todelete = todelete.filter(d => d[elpivot] && (d[elpivot] || "") !== "null");
-                                            let todeleteWhere = [];
-                                            todeleteWhere.push(relation.config.fieldsUpdate);
-                                            todeleteWhere.push({
-                                                field: elpivot,
-                                                value: todelete.map(d => d[elpivot])
-                                            });
-                                            if (todelete.length)
-                                                if ($scope[forme].multirepeat.indexOf(relation.config.toDeleteTable) === -1) {
-                                                    var ddata = await BASEAPI.deleteallp(relation.config.toDeleteTable, todeleteWhere);
+                                            var whereDelete = [];
+                                            whereDelete.push(relation.config.fieldsUpdate);
+                                            if(Array.isArray(relation.config.where_delete)){
+                                                for (var i of relation.config.where_delete){
+                                                    whereDelete.push(i)
                                                 }
+                                            }else{
+                                                if (relation.config.where_delete) {
+                                                    whereDelete.push(relation.config.where_delete);
+                                                }
+                                            }
+
+                                            if ($scope[forme].multirepeat.indexOf(relation.config.toDeleteTable) === -1) {
+                                                var ddata = await BASEAPI.deleteallp(relation.config.toDeleteTable, whereDelete);
+                                            }
                                             $scope[forme].multirepeat.push(relation.config.toDeleteTable);
                                             var nadaenblancus = true;
                                             // for (var i in relation.data) {
@@ -636,12 +626,11 @@ FORM = {
                                             //         }
                                             //     }
                                             // }
-                                            if (toinsert.length)
-                                                if (nadaenblancus) {
-                                                    if (!relation.config.dont_insert) {
-                                                        console.log(await BASEAPI.insertp(relation.config.toDeleteTable, toinsert));
-                                                    }
+                                            if (nadaenblancus) {
+                                                if (!relation.config.dont_insert) {
+                                                    console.log(await BASEAPI.insertp(relation.config.toDeleteTable, relation.data));
                                                 }
+                                            }
                                             if ($scope.triggers.table.after.update_relation)
                                                 $scope.triggers.table.after.update_relation({
                                                     updating: $scope[forme].inserting,
