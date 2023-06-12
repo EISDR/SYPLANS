@@ -263,6 +263,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             return (aacontroldemandog.calcs.sumArray(ponderadoSums) / ponderadoSums.length) || 0;
         },
         add: (entidad, title, generalPonderation, list, field, filter, parent, lists, boton, listCount, fieldCount, boton2, listCount2, fieldCount2, boton3) => {
+            debugger;
             aacontroldemandog.ui.backup();
             let ponderaciones = aacontroldemandog.api.ponderaciones.sort(GetSortOrder("orden"));
             // if (generalPonderation)
@@ -302,7 +303,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             }
             aacontroldemandog.aunnoexiste = "";
             table_ = table_.table_;
-            let listDistinct = [...new Set(aacontroldemandog.api[list].filter(d => ((d[filter] || parent) === parent) && d.table_ === table_).map(d => d[field]))];
+            let listDistinct = [...new Set(aacontroldemandog.api[list].filter(d => ((d[filter] || parent) === parent) && d.table_ === table_).filter(d => d[field]).map(d => d[field]))];
 
             let finalList = [];
             let index = 0;
