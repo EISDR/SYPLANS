@@ -350,8 +350,6 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             if (arr[ix].condition) {
                 let result = false;
                 try {
-                    if (arr[ix].condition.indexOf("pacc") !== -1)
-                        debugger;
                     result = eval(arr[ix].condition);
                 } catch (e) {
 

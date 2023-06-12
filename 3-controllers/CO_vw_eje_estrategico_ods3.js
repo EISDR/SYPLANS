@@ -426,8 +426,13 @@ app.controller("vw_eje_estrategico_ods3", function ($scope, $http, $compile) {
         if (vw_eje_estrategico_ods3.vw_eje_estrategico_ods3_list) {
             for (var item of vw_eje_estrategico_ods3.vw_eje_estrategico_ods3_list) {
                 if (!vw_eje_estrategico_ods3.companiaesje[`${item.compania_nombre}x${item.eje_estrategico}`]) {
+
                     vw_eje_estrategico_ods3.companiaeje.push({
+                        edt: item.edt,
+                        index: vw_eje_estrategico_ods3.companiaeje.filter(d => d.compania_nombre === item.compania_nombre).length,
+                        proyectos: [...new Set(vw_eje_estrategico_ods3.vw_eje_estrategico_ods3_list.filter(d => d.compania_nombre === item.compania_nombre).map(d => d.eje_estrategico))].length,
                         compania_nombre: item.compania_nombre,
+                        color: item.color,
                         eje_estrategico: item.eje_estrategico,
                         pnombre: item.pnombre,
                         pid: item.producto_id,
@@ -442,6 +447,7 @@ app.controller("vw_eje_estrategico_ods3", function ($scope, $http, $compile) {
 
             }
         }
+
         vw_eje_estrategico_ods3.setPorcentaje();
         animation1.stoploading(`.subcontent`);
 
@@ -458,6 +464,7 @@ app.controller("vw_eje_estrategico_ods3", function ($scope, $http, $compile) {
             })
         });
 
+        vw_eje_estrategico_ods3.companiaeje = vw_eje_estrategico_ods3.companiaeje.sort(GetSortOrder("edt"));
         vw_eje_estrategico_ods3.grafico_productos = [...new Set(vw_eje_estrategico_ods3.grafico_preproduct.map(d => {
             return `${d.resultado}____${d.compania_nombre}____${d.FP}`
         }))];
