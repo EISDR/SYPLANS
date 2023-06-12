@@ -243,6 +243,7 @@ app.controller("ser_salida", function ($scope, $http, $compile) {
             }
             return undefined;
         };
+
         ser_salida.triggers.table.after.load = async function (records) {
             ser_salida.niveles = await BASEAPI.listf("nivel_riesgo_salida", [
                 {
