@@ -7,7 +7,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
         //method: 'vw_documentos_asociados_pv2',
         //limits: [10, 50, 100, 0],
         //report: true,
-        piemessage: "Proceso",
+        sortmessage: "proceso",
         batch: false,
         sortable: false,
         fixheader: true,

@@ -518,6 +518,9 @@ TABLE = {
             } else {
                 $scope.table.orderby = eval(`CRUD_${$scope.modelName}`).table.sort || "id";
             }
+            if (eval(`CRUD_${$scope.modelName}`).table.sortmessage) {
+                $scope.table.sortmessage = eval(`CRUD_${$scope.modelName}`).table.sortmessage || "";
+            }
             if ($scope.hasModel("sortorder")) {
                 $scope.table.order = $scope.getModel("sortorder");
             }
