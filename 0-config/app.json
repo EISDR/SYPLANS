@@ -55,7 +55,8 @@
     "vw_report_indicadores_pei",
     "vw_report_indicadores_actividad",
     "drp_actividades_apoyo",
-    "vw_resumen_poa"
+    "vw_resumen_poa",
+    "vw_documentos_asociados_pv"
   ],
   "llaveappcomp": true,
   "appName": "Syplans",

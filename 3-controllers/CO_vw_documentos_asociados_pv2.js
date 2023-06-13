@@ -1,6 +1,5 @@
 app.controller("vw_documentos_asociados_pv2", function ($scope, $http, $compile) {
     vw_documentos_asociados_pv2 = this;
-    vw_documentos_asociados_pv2.sortmessage = "Datos del informe preliminar auditoría ordenado por Proceso";
     vw_documentos_asociados_pv2.session = new SESSION().current();
     //vw_documentos_asociados_pv2.fixFilters = [{
     //    field: "compania",
