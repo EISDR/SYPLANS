@@ -424,10 +424,6 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
             data.updating.tipo_inconformidad = "$null";
         }else if (auditoria_programa_plan_documentos_asociados_listaverificacion.from_where === 'no cumple'){
             data.updating.cumple = 0;
-            if (!auditoria_programa_plan_documentos_asociados_listaverificacion.listaverificacionfile_DragonCountFile) {
-                SWEETALERT.show({type: 'error', message: "Favor subir un documento para completar el proceso."});
-                resolve(false);
-            }
         }
         resolve(true);
     });
