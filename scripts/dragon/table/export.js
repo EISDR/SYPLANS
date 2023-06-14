@@ -273,14 +273,14 @@ EXPORT = {
                                                         }, 500)
                                                     },
                                                     end: function (data) {
-                                                        setTimeout(() => {
-                                                            if ($(".modal-footer").length < 2) {
-                                                                let footer = $('.modal-footer');
-                                                                if (footer.height() > $(window).height()) {
-                                                                    $('.modal-body').prepend($scope.returnBuild(footer.clone()));
-                                                                }
-                                                            }
-                                                        }, 1000);
+                                                        // setTimeout(() => {
+                                                        //     if ($(".modal-footer").length < 2) {
+                                                        //         let footer = $('.modal-footer');
+                                                        //         if (footer.height() > $(window).height()) {
+                                                        //             $('.modal-body').prepend($scope.returnBuild(footer.clone()));
+                                                        //         }
+                                                        //     }
+                                                        // }, 1000);
                                                     }
                                                 }
                                             }
@@ -317,14 +317,14 @@ EXPORT = {
                                                         }, 500)
                                                     },
                                                     end: function (data) {
-                                                        setTimeout(() => {
-                                                            if ($(".modal-footer").length < 2) {
-                                                                let footer = $('.modal-footer');
-                                                                if (footer.height() > $(window).height()) {
-                                                                    $('.modal-body').prepend($scope.returnBuild(footer.clone()));
-                                                                }
-                                                            }
-                                                        }, 1000);
+                                                        // setTimeout(() => {
+                                                        //     if ($(".modal-footer").length < 2) {
+                                                        //         let footer = $('.modal-footer');
+                                                        //         if (footer.height() > $(window).height()) {
+                                                        //             $('.modal-body').prepend($scope.returnBuild(footer.clone()));
+                                                        //         }
+                                                        //     }
+                                                        // }, 1000);
                                                     }
                                                 }
                                             }
@@ -401,14 +401,14 @@ EXPORT = {
                                                         }, 500)
                                                     },
                                                     end: function (data) {
-                                                        setTimeout(() => {
-                                                            if ($(".modal-footer").length < 2) {
-                                                                let footer = $('.modal-footer');
-                                                                if (footer.height() > $(window).height()) {
-                                                                    $('.modal-body').prepend($scope.returnBuild(footer.clone()));
-                                                                }
-                                                            }
-                                                        }, 1000);
+                                                        // setTimeout(() => {
+                                                        //     if ($(".modal-footer").length < 2) {
+                                                        //         let footer = $('.modal-footer');
+                                                        //         if (footer.height() > $(window).height()) {
+                                                        //             $('.modal-body').prepend($scope.returnBuild(footer.clone()));
+                                                        //         }
+                                                        //     }
+                                                        // }, 1000);
                                                     }
                                                 }
                                             }
@@ -449,14 +449,14 @@ EXPORT = {
                                                         }, 500)
                                                     },
                                                     end: function (data) {
-                                                        setTimeout(() => {
-                                                            if ($(".modal-footer").length < 2) {
-                                                                let footer = $('.modal-footer');
-                                                                if (footer.height() > $(window).height()) {
-                                                                    $('.modal-body').prepend($scope.returnBuild(footer.clone()));
-                                                                }
-                                                            }
-                                                        }, 1000);
+                                                        // setTimeout(() => {
+                                                        //     if ($(".modal-footer").length < 2) {
+                                                        //         let footer = $('.modal-footer');
+                                                        //         if (footer.height() > $(window).height()) {
+                                                        //             $('.modal-body').prepend($scope.returnBuild(footer.clone()));
+                                                        //         }
+                                                        //     }
+                                                        // }, 1000);
                                                     }
                                                 }
                                             }
@@ -508,14 +508,14 @@ EXPORT = {
                                                         }, 500)
                                                     },
                                                     end: function (data) {
-                                                        setTimeout(() => {
-                                                            if ($(".modal-footer").length < 2) {
-                                                                let footer = $('.modal-footer');
-                                                                if (footer.height() > $(window).height()) {
-                                                                    $('.modal-body').prepend($scope.returnBuild(footer.clone()));
-                                                                }
-                                                            }
-                                                        }, 1000);
+                                                        // setTimeout(() => {
+                                                        //     if ($(".modal-footer").length < 2) {
+                                                        //         let footer = $('.modal-footer');
+                                                        //         if (footer.height() > $(window).height()) {
+                                                        //             $('.modal-body').prepend($scope.returnBuild(footer.clone()));
+                                                        //         }
+                                                        //     }
+                                                        // }, 1000);
                                                     }
                                                 }
                                             }

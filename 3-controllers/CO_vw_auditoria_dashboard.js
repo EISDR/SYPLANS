@@ -496,6 +496,9 @@ app.controller("vw_auditoria_dashboard", function ($scope, $http, $compile) {
                 vw_auditoria_dashboard.area4_data = {
                     legend: vw_auditoria_dashboard.ejeX,
                     down: vw_auditoria_dashboard.ejeX,
+                    axisLabel: {
+                        interval: 0,
+                    },
                     data: [{
                         data: dashboard_proceso_listInd4.map(d => {
                             return {

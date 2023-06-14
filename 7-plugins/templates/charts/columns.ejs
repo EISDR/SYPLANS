@@ -33,8 +33,7 @@ var toclient = JSON.stringify(options);
     <%= model + "." %>charts<%= "." + name %>_chart = echarts.init(document.getElementById('<%= name %>'));
 
     <%= model + "." %>charts<%= "." + name %>.refresh = function () {
-        <%= model %>.
-        charts.<%= name %>_chart_options = {
+        <%= model %>.charts.<%= name %>_chart_options = {
             title: {text: "<%= options.label || "" %>", textStyle: {fontSize: 12}},
             grid: {
                 x: 80,
@@ -85,7 +84,6 @@ var toclient = JSON.stringify(options);
                 },
                 {
                     show: true,
-
                 },
                 {
                     type: 'inside',
@@ -102,35 +100,24 @@ var toclient = JSON.stringify(options);
                 }
             ],
             legend: {
-                padding: 35,
-                data: <%= model + "." %><%= name %>_data ? <%= model %>.<%= name %>_data.legend
-    :
-        []
-    },
-        xAxis:[
-            {
-                type: 'category',
-                data: <%= model + "." %><%= name %>_data ? <%= model %>.<%= name %>_data.down
-    :
-        []
-    }
-    ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-            calculable
-    :
-        true,
-            series
-    :
-        <%= model + "." %><%= name %>_data ? <%= model %>.
-        <%= name %>_data.data
-    :
-        [{}]
-    }
-        ;
+                padding: 5,
+                data: <%= model + "." %><%= name %>_data ? <%= model %>.<%= name %>_data.legend : []
+            },
+            xAxis:[
+                {
+                    type: 'category',
+                    axisLabel: <%= model + "." %><%= name %>_data ? <%= model + "." %><%= name %>_data.axisLabel ? <%= model %>.<%= name %>_data.axisLabel : {interval: 'auto'} : {interval: 'auto'},
+                    data: <%= model + "." %><%= name %>_data ? <%= model %>.<%= name %>_data.down : [],
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            calculable: true,
+            series: <%= model + "." %><%= name %>_data ? <%= model %>.<%= name %>_data.data : [{}]
+        };
         if (<%= model + "." %>charts<%= "." + name %>_chart) {
             <%= model + "." %>charts<%= "." + name %>_chart.setOption(<%= model + "." %>charts<%= "." + name %>_chart_options, true, true);
         }
