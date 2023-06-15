@@ -48,56 +48,56 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                 dead: true
             },
             nombre_mapa: {
-                label: function (){
+                label: function () {
                     return "Macroproceso"
                 }
             },
             nombre_proceso: {
-                label: function (){
+                label: function () {
                     return "Proceso"
                 }
             },
             codigo: {
-                label: function (){
+                label: function () {
                     return "Código"
                 }
             },
             nombre: {
-                label: function (){
+                label: function () {
                     return "Nombre del Documento"
                 }
             },
             tipo_documento: {
-                label: function (){
+                label: function () {
                     return "Tipo de Documento"
                 },
             },
             responsable_proceso_departamento: {
-                label: function (){
+                label: function () {
                     return "Área/Departamento"
                 }
             },
             estatus: {
-                label: function (){
+                label: function () {
                     return "Estatus"
                 }
             },
             responsable_proceso: {
-                label: function (){
+                label: function () {
                     return "Responsable del Proceso"
                 }
             },
             aprobado_en: {
-                label: function (){
+                label: function () {
                     return "Fecha de Autorización"
                 },
                 formattype: ENUM.FORMAT.datetime
             },
             folder: {
-                label: function (){
+                label: function () {
                     return "Ubicación"
                 },
-                format: function (row){
+                format: function (row) {
                     return row.folder ? `<a title="Click para ver documento">${row.folder}</a>` : ''
                 },
                 fileicon: true
@@ -218,7 +218,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                 },
                 {
                     key: 'responsable_proceso_departamento_id',
-                    label: function() {
+                    label: function () {
                         return 'Área/Departamento '
                     },
                     type: FILTER.types.relation,
@@ -294,7 +294,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                 },
                 {
                     key: 'aprobado_en',
-                    label: function() {
+                    label: function () {
                         return 'Fecha de Autorización'
                     },
                     type: FILTER.types.date,

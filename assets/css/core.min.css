@@ -7070,6 +7070,7 @@ h6.panel-title, .h6.panel-title {
     text-align: left
 }
 
+
 @media (min-width: 769px) {
     .modal-xs {
         width: 300px
@@ -7087,6 +7088,18 @@ h6.panel-title, .h6.panel-title {
         margin-left: 0px;
         margin-top: 0px;
         margin-right: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-full {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .modal-fullXL {
+        width: 100%;
+        margin: 0 !important;
     }
 }
 
