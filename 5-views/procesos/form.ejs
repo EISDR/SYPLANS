@@ -83,7 +83,7 @@
                     condition: "(item.mapa_proceso == procesos.mapa_proceso)"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-4 col-md-4' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('proceso_padre', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -95,7 +95,7 @@
                     condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-4 col-md-4' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('proceso_padre', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -107,7 +107,7 @@
                     condition: "(((item.compania == procesos.session.compania_id && item.institucion == $null) && (item.id != procesos.id && (item.active == 1 && item.estatus_id != 4))) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-4 col-md-4' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('proceso_padre', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -119,7 +119,7 @@
                     condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-4 col-md-4'ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('proceso_padre', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -250,7 +250,7 @@
         </div>
         <div class="row">
             <!--            procesos entrada-->
-            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -269,7 +269,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -288,7 +288,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -307,7 +307,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -327,7 +327,7 @@
                 }) %>
             </div>
             <!--            procesos salida-->
-            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -346,7 +346,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -365,7 +365,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -384,7 +384,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
