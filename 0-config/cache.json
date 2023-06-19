@@ -1,5 +1,5 @@
 {
- "dbnochace": [
+  "dbnochace": [
     "vw_productos_poa_resultado",
     "vw_catalogo_bienes_servicios",
     "get_date_activity_end",
@@ -55,7 +55,6 @@
     "vw_report_indicadores_pei",
     "vw_report_indicadores_actividad",
     "drp_actividades_apoyo",
-    "vw_resumen_poa",
-    "vw_documentos_asociados_pv"
-  ],
- }
+    "vw_resumen_poa"
+  ]
+}

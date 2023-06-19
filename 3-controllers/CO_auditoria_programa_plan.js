@@ -1827,7 +1827,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     if (result) {
                         auditoria_programa_plan.id = result.data.data[0].id
                         auditoria_programa_plan.form.mode = 'edit';
-                        auditoria_programa_plan.refreshAngular();
                         if (auditoria_programa_plan.id) {
                             BASEAPI.insert('auditoria_programa_plan_proceso', {
                                 programa_plan: auditoria_programa_plan.id,
@@ -1835,8 +1834,11 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                 usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null"
                             }, function (result) {
                                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                                auditoria_programa_plan.refreshAngular();
+
                             });
-                        }
+                        } else
+                            auditoria_programa_plan.refreshAngular();
                     }
                 })
             } else {
@@ -1877,6 +1879,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                         }
                                     ]
                                 })
+                                auditoria_programa_plan.refreshAngular();
+
                                 let documentos_id = [];
                                 if (documentos_asociados.data.length > 0) {
                                     for (var i of documentos_asociados.data) {
@@ -1922,6 +1926,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                                                 ]
                                                             })
                                                             auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                            auditoria_programa_plan.refreshAngular();
                                                         });
                                                     } else {
                                                         var documentos_list = await BASEAPI.listp('vw_auditoria_programa_plan_documentos_asociados', {
@@ -1938,12 +1943,16 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                                             ]
                                                         })
                                                         auditoria_programa_plan.documentos_list = documentos_list.data;
+                                                        auditoria_programa_plan.refreshAngular();
+
                                                     }
                                                 }
                                             })
                                         });
                                     }
-                                }
+                                } else
+                                    auditoria_programa_plan.refreshAngular()
+
                                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
                             });
                         } else {
@@ -1953,6 +1962,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                 usuario: auditoria_programa_plan.RESROWS[key].usuario ? auditoria_programa_plan.RESROWS[key].usuario : "$null"
                             }, async function (result) {
                                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_proceso');
+                                auditoria_programa_plan.refreshAngular();
+
                             });
                         }
                     })
