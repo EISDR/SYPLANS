@@ -1486,6 +1486,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     auditores_responsable.sort(function (a, b) {
                         return a - b
                     });
+                    debugger
                     for (var item of auditores_responsable) {
                         var somwerow = new ROLROW();
                         var auditor = auditoria_programa_plan.auditores.data.filter(d => {
@@ -1787,7 +1788,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                         value: result.id
                                     }
                                 ]
-                            }, function (result) {
+                            }, async function (result) {
+                                await auditoria_programa_plan.getRol();
                                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable');
                             });
                         } else {
@@ -1795,7 +1797,8 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                                 programa_plan: auditoria_programa_plan.id,
                                 usuario: row.id,
                                 esresponsable: auditoria_programa_plan.ROLROWS[key].rol ? auditoria_programa_plan.ROLROWS[key].rol : "$null"
-                            }, function (result) {
+                            }, async function (result) {
+                                await auditoria_programa_plan.getRol();
                                 // auditoria_programa_plan.form.loadDropDown('auditoria_plan_responsable');
                             });
                         }
