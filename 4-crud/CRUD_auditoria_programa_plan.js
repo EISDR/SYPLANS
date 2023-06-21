@@ -668,6 +668,40 @@ Los auditores que estarán participando serán :
                     },
                     {
                         text: (data) => {
+                            return "Editar"
+                        },
+                        icon: (data) => {
+                            return "pencil5";
+                        },
+                        permission: (data) => {
+                            return 'edit';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            if(baseController.currentModel.modelName == "vw_auditoria_programa")
+                                return false
+                            if (typeof auditoria_programa_plan !== "undefined")
+                                return auditoria_programa_plan.allowAction("Editar Autorizada", "auditoria_programa_plan", data.row.estatus);
+                        },
+                        click: function (data) {
+                            data.$scope.estatus_nombre = data.row.estatus_nombre;
+                            data.$scope.my_true_estatus = data.row.estatus;
+                            data.$scope.my_true_estatus_name = data.row.estatus_nombre;
+                            data.$scope.from_edit = true;
+                            data.$scope.formulary({
+                                where: [{
+                                    field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                                    value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                                }]
+                            }, FORM.modes.edit, {});
+
+                            return false;
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return "Comentar nivel satisfacción";
                         },
                         icon: (data) => {
