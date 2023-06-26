@@ -119,7 +119,7 @@ app.controller("auditoria_programa", function ($scope, $http, $compile) {
                                 ];
                             }
                             if (MODAL.history.length == 0) {
-                                if (auditoria_programa.estatus >= 3 && auditoria_programa.group_caracteristica != ENUM_2.Grupos.director_general) {
+                                if (auditoria_programa.estatus == 5) {
                                     $('.icon-plus-circle2 ').parent().hide();
                                     auditoria_programa.refreshAngular();
                                 } else {
