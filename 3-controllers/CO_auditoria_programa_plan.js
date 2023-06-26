@@ -2498,7 +2498,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                             return d.cantidad_responsables > 0 && d.documento_asociado === row.id;
                         });
                         return current_documento.length > 0;
-                    } else if (auditoria_programa_plan.my_true_estatus == 2) {
+                    } else if (auditoria_programa_plan.my_true_estatus == 2 || auditoria_programa_plan.my_true_estatus == 3) {
                         var current_documento = auditoria_programa_plan.documentos_list.filter(d => {
                             return (d.total_listas > 0 && d.cantidad_responsables > 0) && d.documento_asociado === row.id;
                         });
