@@ -156,6 +156,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
     };
     aacontroldemandog.calcs = {
         ficha: (list, field, id, pei) => {
+            debugger;
             let indicador = aacontroldemandog.calcs.indicador(aacontroldemandog.api[list].filter(d => d[field] === id), pei);
             let main = indicador[0];
             let fichaFinal = {};
@@ -254,7 +255,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         },
         general: () => {
             let ponderadoSums = [];
-            for (const list of [aacontroldemandog.api.indicadores, aacontroldemandog.api.indicadores_eventos, aacontroldemandog.api.indicadores_salidas, aacontroldemandog.api.indicadores_riesgo]) {
+            for (const list of [aacontroldemandog.api.indicadores]) {
                 let values = list.filter(d => d.props.valid).filter(d => d.sumas).filter(d => d.sumas.cumplimiento >= 0).map(d => d.sumas.cumplimiento);
                 let sum = (aacontroldemandog.calcs.sumArray(values) / values.length) || 0;
                 if (values.length)
@@ -263,7 +264,6 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             return (aacontroldemandog.calcs.sumArray(ponderadoSums) / ponderadoSums.length) || 0;
         },
         add: (entidad, title, generalPonderation, list, field, filter, parent, lists, boton, listCount, fieldCount, boton2, listCount2, fieldCount2, boton3) => {
-            debugger;
             aacontroldemandog.ui.backup();
             let ponderaciones = aacontroldemandog.api.ponderaciones.sort(GetSortOrder("orden"));
             // if (generalPonderation)
@@ -393,15 +393,6 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         buildAll: () => {
             for (const d of aacontroldemandog.api.indicadores) {
                 aacontroldemandog.calcs.build(d.indicador_generico_id, "indicadores", "indicador_generico_id");
-            }
-            for (const d of aacontroldemandog.api.indicadores_eventos) {
-                aacontroldemandog.calcs.build(d.indicador_generico_id, "indicadores_eventos", "indicador_generico_id");
-            }
-            for (const d of aacontroldemandog.api.indicadores_salidas) {
-                aacontroldemandog.calcs.build(d.indicador_generico_id, "indicadores_salidas", "indicador_generico_id");
-            }
-            for (const d of aacontroldemandog.api.indicadores_riesgo) {
-                aacontroldemandog.calcs.build(d.indicador_generico_id, "indicadores_riesgo", "indicador_generico_id");
             }
 
         },
@@ -615,27 +606,6 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         }
 
         aacontroldemandog.api.indicadores = await aacontroldemandog.listp("vw_report_indicadores_generico", aacontroldemandog.filtrosCompania);
-        let related1 = DSON.OSO(aacontroldemandog.filtrosCompania);
-        related1.push({
-            field: "related",
-            operator: "=",
-            value: 1
-        });
-        let related2 = DSON.OSO(aacontroldemandog.filtrosCompania);
-        related2.push({
-            field: "related",
-            operator: "=",
-            value: 2
-        });
-        let related3 = DSON.OSO(aacontroldemandog.filtrosCompania);
-        related3.push({
-            field: "related",
-            operator: "=",
-            value: 3
-        });
-        aacontroldemandog.api.indicadores_eventos = await aacontroldemandog.listp("vw_report_indicadores_generico", related1);
-        aacontroldemandog.api.indicadores_salidas = await aacontroldemandog.listp("vw_report_indicadores_generico", related2);
-        aacontroldemandog.api.indicadores_riesgo = await aacontroldemandog.listp("vw_report_indicadores_generico", related3);
         aacontroldemandog.calcs.buildAll();
 
         setTimeout(() => {

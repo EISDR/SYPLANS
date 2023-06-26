@@ -27,6 +27,39 @@
           "icon": "hammer-wrench",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#aacontroldemandog?-salida",
+              "text": "Cumplimiento de Salidas no Conforme"
+            },
+            {
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_generico?vw_evento_indicador_salida",
+              "text": "Creación de Indicadores"
+            },
+            {
+              "modal": "",
+              "icon": "file-upload",
+              "href": "#indicador_generico_poa?vw_evento_indicador_salida",
+              "text": "Evaluación y carga de evidencia"
+            },
+            {
+              "modal": "",
+              "icon": "spinner10",
+              "href": "#monitoreo_generico?vw_evento_indicador_salida",
+              "text": "Monitoreo y Seguimiento"
+            }
+          ],
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#",
+          "text": "Indicadores"
         }
       ],
       "modal": "",

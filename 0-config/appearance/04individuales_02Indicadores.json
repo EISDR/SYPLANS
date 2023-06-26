@@ -10,14 +10,14 @@
           "menus": "",
           "modal": "",
           "icon": "stats-bars2",
-          "href": "#aacontroldemandog",
+          "href": "#aacontroldemandog?-evento",
           "text": "Cumplimiento"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "stats-bars2",
-          "href": "#aacontroldemandog?modolista",
+          "href": "#aacontroldemandog?modolista-evento",
           "text": "Reporte de Cumplimiento"
         },
         {
@@ -31,7 +31,7 @@
           "menus": "",
           "modal": "",
           "icon": "medal",
-          "href": "#evento_indicador",
+          "href": "#evento_indicador?vw_evento_indicador",
           "text": "Creación de Eventos"
         },
         {
@@ -45,14 +45,14 @@
           "menus": "",
           "modal": "",
           "icon": "eye2",
-          "href": "#indicador_generico_poa",
+          "href": "#indicador_generico_poa?vw_evento_indicador",
           "text": "Evaluación y Carga de Evidencia"
         },
         {
           "menus": "",
           "modal": "",
           "icon": "eye2",
-          "href": "#monitoreo_generico",
+          "href": "#monitoreo_generico?vw_evento_indicador",
           "text": "Monitoreo de Indicadores"
         }
       ],

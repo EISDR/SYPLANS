@@ -678,6 +678,10 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
 
             // let lala = await BxASEAPI.listp('vw_aaadef', {limit: 0});
             baseController.WORKFLOW = adasession.WORKFLOW;
+            if (baseController.WORKFLOW === undefined) {
+                new SESSION().logoff();
+                return;
+            }
             baseController.WORKFLOW.forEach(d => {
                 ["acciones_estatus", "acciones_rol", "feature", "features_estatus"].forEach(e => {
                     try {

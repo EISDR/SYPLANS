@@ -161,7 +161,7 @@
                         </td>
                         <td
                                 rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
-                                ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records)"
+                                ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records) && monitoreo_generico.entidad_object.name==='Procesos'"
                         >
                             {{row.departamento_nombre}}
                         </td>
