@@ -1070,6 +1070,7 @@ FORM = {
                                     }
                                     eval(`$scope[forme].options.${name}.groupbydata = newData`);
                                 }
+
                                 eval(`$scope[forme].options.${name}.data = info.data`);
                                 eval(`$scope[forme].options.${name}.info = info`);
                                 eval(`${$scope.modelName}.${name}_object = item;`);
@@ -1101,7 +1102,13 @@ FORM = {
                                             eval(`${$scope.modelName}.${name}_object = null;`);
                                         }
                                     } else {
-
+                                        if (!$scope[forme].options[name].allownull) {
+                                            let eldaton = $scope[forme].options[name].data.filter(item => eval(decodeHTMLEntities($scope[forme].options[name].condition || "true")));
+                                            $scope[name] = eldaton
+                                                [
+                                                $scope[forme].options[name].takelast ? eldaton.length - 1 : 0
+                                                ][$scope[forme].options[name].value] + "";
+                                        }
                                         if ($scope.brothers[name]) {
                                             $scope[forme].options[name].data.push($scope.brothers[name]);
 

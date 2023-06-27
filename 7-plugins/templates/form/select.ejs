@@ -276,12 +276,13 @@ var toclient = JSON.stringify(options);
             </ul>
         </li>
     <% } %>
+
+
+
     <% if(options.search){ %>
         <script>
             <%= model + "." + options.forme %>.options
                 .<%= name %>.onsearch = async () => {
-
-
 
 
                 if (<%= model %>["<%= name %>_beforesearch"])
@@ -333,6 +334,7 @@ var toclient = JSON.stringify(options);
                     class="form-control bootstrap-select js-example-basic-single">
                 <% if(!options.allownull){ %>
                     <option></option>
+
                 <% }else{ %>
                     <% if(!options.multiple && !options.todos){ %>
                         <option value="[NULL]">{{<%= model %>.selectMessage}}</option>
@@ -502,6 +504,8 @@ var toclient = JSON.stringify(options);
             ;
             return false;
         });
+
+
     });
     MESSAGE.run();
 </script>

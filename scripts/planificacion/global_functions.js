@@ -1,3 +1,9 @@
+function decodeHTMLEntities(text) {
+    return $("<textarea/>")
+        .html(text)
+        .text();
+}
+
 function addZeroes(num) {
     var value = num + "";
     if (value.indexOf(".") !== -1)

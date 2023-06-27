@@ -83,59 +83,36 @@
                 <div class="col-md-12">
                     <div class="panel panel-<%= COLOR.secundary %>">
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6" ng-if="!indicador_generico_poa.entidadParams && !indicador_generico_poa.from_dash_procesos">
-                                    <%- FORM.select("entidad", scope, {
-                                        allownew: false,
-                                        allownull: false,
-                                        allowedit: false,
-                                        allowview: false,
-                                        allowlist: false,
-                                        refresh: false,
-                                        value: "table_",
-                                        text: "item.name",
-                                        table: "indicador_generico_entidad",
-                                        icon: {class: "archive"},
-                                        truelabel: "Tipo de Indicador"
-                                    }) %>
-                                </div>
-
-                                <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
-                                     ng-if="!indicador_generico_poa.entidadParams &&  indicador_generico_poa.entidad!=='vw_procesos'">
-                                    <%- FORM.select("indicador_generico", scope, {
-                                        allownew: false,
-                                        allowedit: false,
-                                        allowview: false,
-                                        allowlist: false,
-                                        refresh: false,
-                                        text: "item.nombre",
-                                        table: "vw_indicador_generico",
-                                        icon: {class: "archive"},
-                                        label: "Indicador pro",
-                                        condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
-                                    }) %>
-                                </div>
-
-                                <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
-                                     ng-if="!indicador_generico_poa.entidadParams &&  indicador_generico_poa.entidad==='vw_procesos'">
-                                    <%- FORM.select("indicador_generico", scope, {
-                                        allownew: false,
-                                        allowedit: false,
-                                        allowview: false,
-                                        allowlist: false,
-                                        refresh: false,
-                                        text: "item.nombre",
-                                        table: "vw_indicador_generico",
-                                        icon: {class: "archive"},
-                                        label: "Indicador",
-                                        condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
-                                    }) %>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_generico_poa.queries.id">
                                     <%- FORM.inputview("indicador_generico_object.nombre_indicador", scope, {placeholder: "Indicador"}) %>
+                                </div>
+                                <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id">
+                                    <%- FORM.select("year", scope, {
+                                        allownew: false,
+                                        allowedit: false,
+                                        allowview: false,
+                                        allowlist: false,
+                                        allownull: false,
+                                        takelast: true,
+                                        refresh: true,
+                                        text: "item.ano",
+                                        value: "ano",
+                                        table: "vw_indicador_generico",
+                                        icon: {class: "archive"},
+                                        label: "Año",
+                                        condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id",
+                                        query: {
+                                            limit: 0,
+                                            page: 1,
+                                            columns: ["compania", "table_", "ano"],
+                                            where: [{field: "ano", operator: " is ", value: "$ not null "}],
+                                            orderby: "ano",
+                                            order: "asc",
+                                            distinct: true
+                                        }
+                                    }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
                                      ng-if="indicador_generico_poa.entidadParams &&  indicador_generico_poa.entidad==='vw_procesos'">
@@ -174,7 +151,7 @@
                                                 }
                                             ],
                                         },
-                                        condition: "item.mapa_proceso_estatus!=4 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
+                                        condition: "item.ano==indicador_generico_poa.year && item.mapa_proceso_estatus!=4 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
@@ -208,7 +185,7 @@
                                                 },
                                             ],
                                         },
-                                        condition: "item.proyecto_item_estatus==2 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
+                                        condition: "item.ano==indicador_generico_poa.year && item.proyecto_item_estatus==2 && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id"
@@ -223,23 +200,10 @@
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador",
-                                        condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
+                                        condition: "item.ano==indicador_generico_poa.year && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
                                     }) %>
                                 </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <%- FORM.select("departamento_nombre", scope, {
-                                        allownew: false,
-                                        allowedit: false,
-                                        allowview: false,
-                                        allowlist: false,
-                                        refresh: false,
-                                        disabled: true,
-                                        text: "item.nombre",
-                                        table: "departamento",
-                                        icon: {class: "archive"},
-                                        label: "Departamento",
-                                    }) %>
-                                </div>
+
                             </div>
 
 
