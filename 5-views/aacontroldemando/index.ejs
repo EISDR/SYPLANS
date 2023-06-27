@@ -37,10 +37,11 @@
 
         <div class="subcontent text-center" id="tabsComment" style="    margin-top: 100px;" ng-if="aacontroldemandog.unicomenu">
             <div ng-if="!aacontroldemandog.aunnoexiste">
-            <button style="    width: 49%;"  class="controlContenedor" ng-click="<%= scope %>.filtrar('cerrar')">
+            <button style=" min-width: 700px; padding: 15px 15px 15px 15px; " class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('cerrar')">
                 <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos a la Fecha<i class="border-white  position-right"></i>
             </button>
-            <button style="    width: 49%; margin-top: 100px;"   class="controlContenedor" ng-click="<%= scope %>.filtrar('abrir')">
+            <br>
+            <button style=" min-width: 700px; padding: 15px 15px 15px 15px; margin-top: 100px;"   class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('abrir')">
                 <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos de Períodos Transcurridos (pasado)<i
                         class="border-white  position-right"></i>
             </button>
@@ -85,8 +86,8 @@
                          ng-style="{'margin-top': (key > 0)? '2rem' : ''}">
                         <div class="col-sm-{{data.col||3}}"
                              ng-repeat="(id,data) in value.row">
-                            <button class="controlContenedor" style="font-size: 20px;text-overflow: ellipsis;overflow: hidden;white-space: inherit;"
-                                    ng-click="<%= scope %>.execute(data.link)">{{data.title}}
+                            <button class="btn btn-primary btn-labeled btn-xs" style="padding: 15px 15px 15px 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; min-width: 240px; max-width: 240px"
+                                    ng-click="<%= scope %>.execute(data.link)">{{data.title}} lakjsdflkjasdflakjsfasdflkj
                             </button>
                         </div>
 
