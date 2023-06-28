@@ -83,7 +83,13 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             }
         });
     });
-
+    indicador_generico.lista_ano = [];
+    indicador_generico.current_year = moment().format('YYYY');
+    for (var a = 2018; a <= 3000; a++) {
+        if (a >= indicador_generico.current_year) {
+            indicador_generico.lista_ano.push(a);
+        }
+    }
     BASEAPI.list('tipoMeta', {}, function (rsm) {
         indicador_generico.list_tipo_meta = rsm.data;
     });
@@ -725,36 +731,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         if (indicador_generico2.form.options.indicador_generico_entidad)
                             indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
             } else if (indicador_generico.entidad == "vw_evento_indicador") {
-                indicador_generico.getRiesgo = async function (callback) {
-                    var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
-                        order: "desc",
-                        where: [
-                            {
-                                field: "compania",
-                                value: indicador_generico.session.compania_id
-                            },
-                            {
-                                "field": "institucion",
-                                "operator": indicador_generico.session.institucion_id ? "=" : "is",
-                                "value": indicador_generico.session.institucion_id ? indicador_generico.session.institucion_id : "$null"
-                            },
-                            {
-                                field: "estatus",
-                                operator: "!=",
-                                value: 4
-                            }
-                        ]
-                    });
-                    if (riesgoData) {
-                        indicador_generico.riesgo_id = riesgoData.id;
-                        indicador_generico.riesgo_ano = riesgoData.ano;
-                    }
-                    if (callback)
-                        callback();
-                };
-                indicador_generico.getRiesgo(function () {
-                    indicador_generico.refresh();
-                });
+
                 if (STORAGE.exist('evento')) {
                     indicador_generico2.evento_indicador = STORAGE.get('evento');
                     indicador_generico2.form.loadDropDown('evento_indicador');
@@ -949,6 +926,151 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     if (indicador_generico2.form.options)
                         if (indicador_generico2.form.options.indicador_generico_entidad)
                             indicador_generico2.form.options.indicador_generico_entidad.disabled = true;
+            } else if (indicador_generico.entidad == 'vw_evento_indicador_riesgo') {
+                indicador_generico.getRiesgo = async function (callback) {
+                    var riesgoData = await BASEAPI.firstp('vw_riesgo_historico', {
+                        order: "desc",
+                        where: [
+                            {
+                                field: "compania",
+                                value: indicador_generico.session.compania_id
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": indicador_generico.session.institucion_id ? "=" : "is",
+                                "value": indicador_generico.session.institucion_id ? indicador_generico.session.institucion_id : "$null"
+                            },
+                            {
+                                field: "estatus",
+                                operator: "!=",
+                                value: 4
+                            }
+                        ]
+                    });
+                    if (riesgoData) {
+                        indicador_generico.riesgo_id = riesgoData.id;
+                        indicador_generico.riesgo_ano = riesgoData.ano;
+                    }
+                    if (callback)
+                        callback();
+                };
+                indicador_generico.getRiesgo(function () {
+                    indicador_generico.refresh();
+                });
+                indicador_generico.fixFilters = [
+                    {
+                        "field": "compania",
+                        "value": user.compania_id
+                    },
+                    {
+                        "field": "table_",
+                        "value": indicador_generico.entidadobj.id
+                    },
+                ];
+                CRUD_indicador_generico.table.columns = columns = {
+                    id: {
+                        visible: false,
+                        visibleDetail: false,
+                        export: false,
+                        exportExample: false,
+                        dead: true
+                    },
+                    registro: {
+                        label: "Registro",
+                    },
+                    nombre_indicador: {
+                        // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        label: function () {
+                            return "Nombre del Indicador"
+                        },
+                        shorttext: 370
+                    },
+                    descripcion_indicador: {
+                        label: function () {
+                            return "Descripción del Indicador"
+                        },
+                        shorttext: 370
+                    },
+                    fuente: {
+                        label: function () {
+                            return "Fuente del Indicador"
+                        },
+                        shorttext: 370
+                    },
+                    metodo: {
+                        label: function () {
+                            return "Método de Cálculo"
+                        },
+                        shorttext: 370
+                    },
+                    desagregacion_demografica_geografia: {
+                        label: function () {
+                            return "Desagregación Demográfica Geográfica";
+                        },
+                        shorttext: 370
+                    },
+                    caracteristica: {
+                        label: function () {
+                            return "Características del Indicador";
+                        },
+                        shorttext: 370
+                    },
+                    tipo_meta: {
+                        label: function () {
+                            return "Tipo de dato de la Meta";
+                        }
+                    },
+                    direccion_meta: {
+                        label: function () {
+                            return "Dirección de la Meta"
+                        }
+                    },
+                    ano: {
+                        label: function () {
+                            return "Año a evaluar"
+                        }
+                    },
+                    ano_linea_base: {
+                        label: function () {
+                            return "Año Línea Base"
+                        }
+                    },
+                    linea: {
+                        label: function () {
+                            return "Línea Base";
+                        },
+                        shorttext: 370,
+                        format: function (row) {
+                            if (row.linea) {
+                                switch (row.tipo_meta) {
+                                    case 'Porcentaje':
+                                        return row.linea + '%';
+                                        break;
+                                    case 'Decimal':
+                                        return LAN.money(row.linea).format(false);
+                                        break;
+                                    case 'Dinero':
+                                        return `${LAN.money(row.linea).format(true)}`;
+                                        break;
+                                    default : {
+                                        return row.linea;
+                                    }
+                                }
+                            }
+                        },
+                    },
+                    medio_verificacion: {
+                        // label: "Medio de Verificación",
+                        label: function () {
+                            return "Medio de Verificación"
+                        },
+                        shorttext: 370
+                    },
+                    observacion: {
+                        label: "Observación",
+                        shorttext: 370
+                    }
+                };
             } else {
                 indicador_generico.fixFilters = [
                     {
@@ -1167,6 +1289,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
         //     }
         //     resolve(false);
         // } else {
+        if(DSON.oseaX(indicador_generico.ano_linea_base)){
+            delete data.inserting.ano_linea_base;
+        }
         resolve(true);
         // }
     });
@@ -1187,8 +1312,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 delete indicador_generico.validate[i];
             }
         }
-        if (indicador_generico.ano_linea_base)
-            data.updating.ano_linea_base = indicador_generico.ano_linea_base;
+        if(DSON.oseaX(indicador_generico.ano_linea_base)){
+                data.updating.ano_linea_base = "$null";
+        }else {
+            if (indicador_generico.ano_linea_base)
+                data.updating.ano_linea_base = indicador_generico.ano_linea_base;
+        }
         if (indicador_generico.linea_base)
             data.updating.linea_base = indicador_generico.linea_base;
         resolve(true);
@@ -1468,13 +1597,22 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     poa: indicador_generico.session.poa_id,
                     ano: indicador_generico.mapa_ano
                 };
-            } else {
+            } else if (indicador_generico.entidad == "vw_evento_indicador_riesgo") {
+                indicador_generico.form.readonly = {
+                    table_: indicador_generico.entidadobj.id,
+                    compania: indicador_generico.session.compania_id,
+                    institucion: indicador_generico.session.institucion_id,
+                    poa: indicador_generico.session.poa_id,
+                    ano: indicador_generico.riesgo_ano
+                };
+            }else {
                 indicador_generico.form.readonly = {
                     table_: indicador_generico.entidadobj.id,
                     compania: indicador_generico.session.compania_id,
                     institucion: indicador_generico.session.institucion_id,
                     poa: indicador_generico.session.poa_id,
                 };
+                indicador_generico.ano = "[NULL]";
             }
             if (indicador_generico.entidadobj) {
                 if (indicador_generico.entidad !== "vw_mods")
@@ -2024,6 +2162,12 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
 
             indicador_generico.$scope.$watch('indicador_generico.ano_linea_base', function (value) {
                 var rules = [];
+                if (indicador_generico.entidad == "vw_procesos")
+                    rules.push(VALIDATION.yariel.menorQue(value, indicador_generico.mapa_ano, "Año de la línea base", ` el año del mapa de procesos actual: ${indicador_generico.mapa_ano}`));
+                else if (indicador_generico.entidad == "vw_evento_indicador_riesgo")
+                    rules.push(VALIDATION.yariel.menorQue(value, indicador_generico.riesgo_ano, "Año de la línea base", `el año del periodo de gestión de riesgo actual: ${indicador_generico.riesgo_ano}`));
+                else
+                    rules.push(VALIDATION.yariel.menorQue(value, indicador_generico.current_year, "Año de la línea base", `el año actual: ${indicador_generico.current_year}`));
                 VALIDATION.validate(indicador_generico, "ano_linea_base", rules)
             });
             indicador_generico.$scope.$watch('indicador_generico.linea_base', function (value) {

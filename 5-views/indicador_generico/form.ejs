@@ -165,11 +165,34 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2 col-md-2">
+            <div class="col-sm-2 col-md-2" ng-if="<%= scope %>.entidad == 'vw_procesos' || <%= scope %>.entidad == 'vw_evento_indicador_riesgo'">
                 <%- FORM.integer("ano", scope, {
                     trueplaceholder: "Año a evaluar",
                     maxlength: 4
                 }) %>
+            </div>
+            <div class="col-sm-2 col-md-2 form-group-material form-group has-feedback  has-{{<%= scope %>.validate['ano'].type || <%= scope %>.defaultColor }}  has-feedback-left"
+                 ng-if="<%= scope %>.entidad != 'vw_procesos' && <%= scope %>.entidad != 'vw_evento_indicador_riesgo'">
+                <label class="control-label is-visible" style="color: black">Año</label>
+                <select ng-model="<%= scope %>.ano" name="ano" id="ano"
+                        class="form-control">
+                    <option value="[NULL]">Seleccione</option>
+                    <option ng-repeat="value in <%= scope %>.lista_ano"
+                            ng-show="value >= <%= scope %>.current_year "
+                            value="{{value}}">{{value}}
+                    </option>
+                </select>
+                <div class="form-control-feedback ng-scope" style="margin-left: 10px;">
+                    <i class="icon-archive text-secundary">
+                    </i>
+                </div>
+                <span ng-if="<%= scope %>.validate['ano'].messages.length > 0"
+                      class="help-block">
+                                                    <p class="text-{{validation.type}}"
+                                                       ng-repeat="(key,validation) in <%= scope %>.validate['ano'].messages track by key">
+                                                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                                                    </p>
+                                                </span>
             </div>
             <div class="col-sm-12 col-md-2">
                 <%- FORM.select("poa_monitoreo", scope, {
@@ -252,4 +275,19 @@
 <script>
     $('[name="indicador_generico_linea_base"]').css("margin-top", "-6px");
     $('[name="indicador_generico_fuente"]').css("margin-top", "-6px");
+    setTimeout(function () {
+        $('[name="ano"]').select2();
+    }, 100)
+    let select = $('.add-class select')[0];
+    let div = document.getElementsByClassName('add-class')[0];
+    if (!select.disabled) {
+        div.classList.add('focus-field-group')
+        div.classList.remove('add-class')
+    }
 </script>
+<style>
+    .select2-selection__rendered {
+        margin-left: 10px;
+        padding-left: 25px;
+    }
+</style>

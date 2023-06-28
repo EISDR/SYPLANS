@@ -47,7 +47,7 @@
   "titleAsignacionEspecialTrabajar": "Asignación Especial",
   "greaterThan": "${field} debe de ser menor o igual al ${field2}",
   "lesserThan": "${field} debe de ser mayor o igual al ${field2}",
-  "menorQue": "${field} no puede de ser mayor que ${field2}",
+  "menorQue": "${field} no puede ser mayor que ${field2}",
   "mayorQue": "${field} no puede ser menor que ${field2}",
   "Isnotavalidemail": "Correo inválido",
   "product": "Proyecto/Producto",
