@@ -64,6 +64,19 @@
               "icon": "spinner10",
               "href": "#monitoreo_generico?vw_procesos",
               "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?proceso",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ],
           "modal": "",
@@ -151,6 +164,19 @@
               "icon": "spinner10",
               "href": "#monitoreo_generico?vw_procesos",
               "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?proceso",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ],
           "modal": "",

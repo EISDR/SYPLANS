@@ -73,7 +73,7 @@
                                             // },
                                         })%>
                                     </div>
-                                    <div class="col-sm-12 col-md-8" ng-if="(!auditoria_programa_plan.session.institucion && !auditoria_programa_plan.hide_me) && auditoria_programa_plan.my_true_estatus < 3">
+                                    <div class="col-sm-12 col-md-8" ng-if="(!auditoria_programa_plan.session.institucion && !auditoria_programa_plan.hide_me) && auditoria_programa_plan.my_true_estatus <= 3">
                                         <%- FORM.select("documento_responsable", scope, {
                                             allowedit: false,
                                             allowlist: false,

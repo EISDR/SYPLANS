@@ -484,6 +484,19 @@
               "href": "#",
               "condition": "CONFIGCOMPANY.ipn",
               "text": "Indicadores IPN"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?ipn",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ],
           "modal": "",
@@ -917,6 +930,19 @@
               "icon": "pie-chart7",
               "href": "#indicador_generico?vw_mods",
               "text": "Creación Indicadores ODS"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?ipn",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ]
         },

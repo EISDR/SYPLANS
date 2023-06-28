@@ -110,6 +110,19 @@
               "icon": "spinner10",
               "href": "#monitoreo_generico?vw_evento_indicador_riesgo",
               "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?var",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ],
           "modal": "",
@@ -234,6 +247,19 @@
               "icon": "spinner10",
               "href": "#monitoreo_generico?vw_evento_indicador_riesgo?",
               "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?amfe",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
             }
           ],
           "modal": "",
@@ -333,6 +359,52 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#aacontroldemandog?-riesgo",
+              "text": "Cumplimiento de Riesgos"
+            },
+            {
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_generico?vw_evento_indicador_riesgo",
+              "text": "Creación de Indicadores"
+            },
+            {
+              "modal": "",
+              "icon": "file-upload",
+              "href": "#indicador_generico_poa?vw_evento_indicador_riesgo",
+              "text": "Evaluación y carga de evidencia"
+            },
+            {
+              "modal": "",
+              "icon": "spinner10",
+              "href": "#monitoreo_generico?vw_evento_indicador_riesgo",
+              "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?var",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
+            }
+          ],
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#",
+          "text": "Indicadores"
         }
       ],
       "modal": "",
@@ -424,6 +496,52 @@
           "icon": "cog2",
           "href": "#",
           "text": "Configuración"
+        },
+        {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#aacontroldemandog?-riesgo?",
+              "text": "Cumplimiento de Riesgos"
+            },
+            {
+              "modal": "",
+              "icon": "stats-bars3",
+              "href": "#indicador_generico?vw_evento_indicador_riesgo?",
+              "text": "Creación de Indicadores"
+            },
+            {
+              "modal": "",
+              "icon": "file-upload",
+              "href": "#indicador_generico_poa?vw_evento_indicador_riesgo?",
+              "text": "Evaluación y carga de evidencia"
+            },
+            {
+              "modal": "",
+              "icon": "spinner10",
+              "href": "#monitoreo_generico?vw_evento_indicador_riesgo?",
+              "text": "Monitoreo y Seguimiento"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?amfe",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
+            }
+          ],
+          "modal": "",
+          "icon": "stats-bars3",
+          "href": "#",
+          "text": "Indicadores"
         }
       ],
       "modal": "",

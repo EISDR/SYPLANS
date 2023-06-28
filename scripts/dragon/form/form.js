@@ -162,7 +162,7 @@ FORM = {
                     sequece.push(ref);
                 }
 
-                eval(`$scope[forme].options.${name} = ${properties.replaceAll("&#34;", '"').replaceAll("&#39;", "'")}`);
+                eval(`$scope[forme].options.${name} = ${properties.replaceAll("\n", " ").replaceAll("&#34;", '"').replaceAll("&#39;", "'")}`);
                 if ($scope[forme].mode === FORM.modes.new) {
                     eval(`$scope.${name} = ${alterval || 'null'};`);
                 } else {
