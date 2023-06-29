@@ -50,7 +50,7 @@
                                 <span>
                                     <h6 style="margin-bottom: 18px;border-bottom-width: 0px;border-bottom-style: solid;padding-bottom: 0px;margin-top: -15px;border-right-width: 0px;border-right-style: solid;border-top-width: 0px;border-top-style: solid;margin-right: 0px;">Filtrar por</h6>
                                 </span>
-                                <div class="col-sm-4 col-md-4"
+                                <div class="col-sm-6 col-md-6"
                                      ng-if="indicador_producto_poa.session.tipo_institucion == 1">
                                     <%- FORM.select("producto", scope, {
                                         allownew: false,
@@ -65,7 +65,7 @@
                                         condition: "item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3'"
                                     }) %>
                                 </div>
-                                <div class="col-sm-4 col-md-4"
+                                <div class="col-sm-6 col-md-6"
                                      ng-if="indicador_producto_poa.session.tipo_institucion == 2">
                                     <%- FORM.select("producto", scope, {
                                         allownew: false,
@@ -80,10 +80,7 @@
                                         condition: "item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3'"
                                     }) %>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
-                                    <%- FORM.inputview("departamento_nombre", scope, {placeholder: "Departamento"}) %>
-                                </div>
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-6 col-md-6">
                                     <%- FORM.inputview("range_date", scope, {
                                         label_custom: true,
                                         label: "Fecha Inicio / Fecha Fin",
@@ -105,32 +102,19 @@
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa.queries.id">
                                     <%- FORM.inputview("indicador_poa_object.nombre", scope, {placeholder: "Indicador"}) %>
                                 </div>
-                                <div class="col-sm-6 col-md-6" ng-show="!indicador_producto_poa.queries.id">
+                                <div class="col-sm-12 col-md-12" ng-show="!indicador_producto_poa.queries.id">
                                     <%- FORM.select("indicador_poa", scope, {
                                         allownew: false,
                                         allowedit: false,
                                         allowview: false,
                                         allowlist: false,
                                         refresh: false,
-                                        text: "item.nombre",
+                                        text: "item.nombre +' ('+ (item.departamento_name|| 'Sin departamento')+')'",
                                         table: "z_indicador_poa",
                                         icon: {class: "archive"},
                                         label: "Indicador",
-                                        condition: "(indicador_producto_poa.producto == item.producto || indicador_producto_poa.producto=='[NULL]') && (item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3')"
-                                    }) %>
-                                </div>
-                                <div class="col-sm-6 col-md-6"
-                                     ng-if="indicador_producto_poa.session.tipo_institucion == 1">
-                                    <%- FORM.inputview("departamentoX", scope, {
-                                        placeholder: "Proyecto/Producto-Departamento",
-                                        traduce: false
-                                    }) %>
-                                </div>
-                                <div class="col-sm-6 col-md-6"
-                                     ng-if="indicador_producto_poa.session.tipo_institucion == 2">
-                                    <%- FORM.inputview("departamentoX", scope, {
-                                        placeholder: "Proyecto/Plan de Acción-Departamento",
-                                        traduce: false
+                                        condition: "(indicador_producto_poa.producto == item.producto || indicador_producto_poa.producto=='[NULL]') && (item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3')",
+
                                     }) %>
                                 </div>
                             </div>
@@ -361,24 +345,24 @@
                                     </tr>
 
                                     </tbody>
-<!--                                    <tfoot id="totals">-->
-<!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
-<!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
-<!--                                        <td style="text-align: right;">-->
-<!--                                            {{indicador_producto_poa.meta_total_desc}}-->
-<!--                                        </td>-->
-<!--                                        <td style="text-align: right;">-->
-<!--                                            {{indicador_producto_poa.meta_total_alca}}-->
-<!--                                        </td>-->
-<!--                                        <td style="text-align: right;display: none" id="variacion">-->
-<!--                                            <i class="{{indicador_producto_poa.iconfinal}}"></i>-->
-<!--                                            {{indicador_producto_poa.getTotalVariacion()}}-->
-<!--                                        </td>-->
-<!--                                        <td colspan="1" style="vertical-align: middle">Cumplimiento <span title="{{(<%=scope%>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.cumplidor||{}).ponderacion.color}}">-->
-<!--		{{(<%=scope%>.cumplidor||{}).cumplimiento||0}}%-->
-<!--	</span></td>-->
-<!--                                    </tr>-->
-<!--                                    </tfoot>-->
+                                    <!--                                    <tfoot id="totals">-->
+                                    <!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
+                                    <!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
+                                    <!--                                        <td style="text-align: right;">-->
+                                    <!--                                            {{indicador_producto_poa.meta_total_desc}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td style="text-align: right;">-->
+                                    <!--                                            {{indicador_producto_poa.meta_total_alca}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td style="text-align: right;display: none" id="variacion">-->
+                                    <!--                                            <i class="{{indicador_producto_poa.iconfinal}}"></i>-->
+                                    <!--                                            {{indicador_producto_poa.getTotalVariacion()}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="1" style="vertical-align: middle">Cumplimiento <span title="{{(<%= scope %>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.cumplidor||{}).ponderacion.color}}">-->
+                                    <!--		{{(<%= scope %>.cumplidor||{}).cumplimiento||0}}%-->
+                                    <!--	</span></td>-->
+                                    <!--                                    </tr>-->
+                                    <!--                                    </tfoot>-->
                                 </table>
                             </div>
                         </div>

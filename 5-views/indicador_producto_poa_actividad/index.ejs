@@ -51,7 +51,8 @@
                                 <span>
                                     <h6 style="margin-bottom: 18px;border-bottom-width: 0px;border-bottom-style: solid;padding-bottom: 0px;margin-top: -15px;border-right-width: 0px;border-right-style: solid;border-top-width: 0px;border-top-style: solid;margin-right: 0px;">Filtrar por</h6>
                                 </span>
-                                <div class="col-sm-3 col-md-3" ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 1">
+                                <div class="col-sm-6 col-md-6"
+                                     ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 1">
                                     <%- FORM.select("producto", scope, {
                                         allownew: false,
                                         allowedit: false,
@@ -66,7 +67,8 @@
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3"
                                     }) %>
                                 </div>
-                                <div class="col-sm-3 col-md-3" ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 2">
+                                <div class="col-sm-6 col-md-6"
+                                     ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 2">
                                     <%- FORM.select("producto", scope, {
                                         allownew: false,
                                         allowedit: false,
@@ -81,7 +83,7 @@
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3"
                                     }) %>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                     <%- FORM.select("actividad", scope, {
                                         allownew: false,
                                         allowedit: false,
@@ -96,9 +98,7 @@
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id"
                                     }) %>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
-                                    <%- FORM.inputview("departamento_nombre", scope, {placeholder: "Departamento"}) %>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                             allowview: false,
                                             allowlist: false,
                                             refresh: false,
-                                            text: "item.Nombre",
+                                            text: "item.Nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                             table: "vw_indicador_actividad",
                                             icon: {class: "archive"},
                                             label: "Indicador de Actividad",
@@ -139,9 +139,12 @@
                                             condition: "(item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3) && (indicador_producto_poa_actividad.producto == (item.indicador_poa+'') || indicador_producto_poa_actividad.producto==='[NULL]') && ((indicador_producto_poa_actividad.actividad == (item.actividades_poa+'') || indicador_producto_poa_actividad.actividad==='[NULL]'))"
                                         }) %>
                                     </div>
-                                    <div class="col-sm-6 col-md-6" ng-if="indicador_producto_poa_actividad.form.selected('indicador_poa')">
+                                    <div class="col-sm-6 col-md-6"
+                                         ng-if="indicador_producto_poa_actividad.form.selected('indicador_poa')">
                                         <label class="control-label is-visible animate ng-binding">Departamento</label>
-                                        <input style="margin-bottom: 20px;overflow-x: hidden;overflow-wrap: break-word;height: 31.5px;text-align: left;" id="metodo_calculo" disabled="" class="form-control ng-binding" value="{{indicador_producto_poa_actividad.form.selected('indicador_poa').departamento_nombre}}">
+                                        <input style="margin-bottom: 20px;overflow-x: hidden;overflow-wrap: break-word;height: 31.5px;text-align: left;"
+                                               id="metodo_calculo" disabled="" class="form-control ng-binding"
+                                               value="{{indicador_producto_poa_actividad.form.selected('indicador_poa').departamento_nombre}}">
                                     </div>
                                 </div>
                             </div>
@@ -228,9 +231,9 @@
                                         <th style="text-align: center;width: 15%; vertical-align: middle" height="0">
                                             Meta Alcanzada
                                         </th>
-<!--                                        <th style="text-align: center; vertical-align: middle;width: 5%" height="0">-->
-<!--                                            Diferencia-->
-<!--                                        </th>-->
+                                        <!--                                        <th style="text-align: center; vertical-align: middle;width: 5%" height="0">-->
+                                        <!--                                            Diferencia-->
+                                        <!--                                        </th>-->
                                         <th ng-show="!indicador_producto_poa_actividad.queries.id"
                                             style="text-align: center;width: 60%; vertical-align: middle" height="0">
                                             Observaciones
@@ -281,18 +284,19 @@
                                                     </i>
                                                 </a>
                                             </div>
-                                            <a  data-history="indicador_producto_poa_actividad" data-type="indicador_producto_poa_actividad"
-                                                data-id="{{value.id}}" data-toggle="tooltip" data-formula="${row.cambio}"
-                                                data-label="Historial de cambios para el indicador {{indicador_producto_poa_actividad.indicador_poa_object.Nombre}}, Periodo {{value.periodo}}"
-                                                title="Historial"
-                                                style="cursor: pointer;font-size: 22px; color: #ccc !important;float: left;margin-top: 45px"
-                                                class="savepartialy">
+                                            <a data-history="indicador_producto_poa_actividad"
+                                               data-type="indicador_producto_poa_actividad"
+                                               data-id="{{value.id}}" data-toggle="tooltip" data-formula="${row.cambio}"
+                                               data-label="Historial de cambios para el indicador {{indicador_producto_poa_actividad.indicador_poa_object.Nombre}}, Periodo {{value.periodo}}"
+                                               title="Historial"
+                                               style="cursor: pointer;font-size: 22px; color: #ccc !important;float: left;margin-top: 45px"
+                                               class="savepartialy">
                                                 <i class="icon-sort-time-asc" style="font-size: 19px;"></i>
                                             </a>
                                         </td>
-<!--                                        <td style="text-align: right;vertical-align: middle;" class="variacion">-->
-<!--                                            {{indicador_producto_poa_actividad.restar(value.id,value.valor==null?0:value.valor)}}-->
-<!--                                        </td>-->
+                                        <!--                                        <td style="text-align: right;vertical-align: middle;" class="variacion">-->
+                                        <!--                                            {{indicador_producto_poa_actividad.restar(value.id,value.valor==null?0:value.valor)}}-->
+                                        <!--                                        </td>-->
                                         <td ng-show="!indicador_producto_poa_actividad.queries.id"
                                             style="vertical-align: middle;{{value.allow.condition?'border: red outset':''}}">
                                             <div>
@@ -366,24 +370,24 @@
                                     </tr>
 
                                     </tbody>
-<!--                                    <tfoot id="totals">-->
-<!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
-<!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
-<!--                                        <td style="text-align: right;">-->
-<!--                                            {{indicador_producto_poa_actividad.meta_total_desc}}-->
-<!--                                        </td>-->
-<!--                                        <td style="text-align: right;">-->
-<!--                                            {{indicador_producto_poa_actividad.meta_total_alca}}-->
-<!--                                        </td>-->
-<!--                                        <td style="text-align: right;display: none" id="variacion">-->
-<!--                                            <i class="{{indicador_producto_poa_actividad.iconfinal}}"></i>-->
-<!--                                            {{indicador_producto_poa_actividad.getTotalVariacion()}}-->
-<!--                                        </td>-->
-<!--                                        <td colspan="1" style="vertical-align: middle">Cumplimiento <span title="{{(<%=scope%>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.cumplidor||{}).ponderacion.color}}">-->
-<!--		{{(<%=scope%>.cumplidor||{}).cumplimiento||0}}%-->
-<!--	</span></td>-->
-<!--                                    </tr>-->
-<!--                                    </tfoot>-->
+                                    <!--                                    <tfoot id="totals">-->
+                                    <!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
+                                    <!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
+                                    <!--                                        <td style="text-align: right;">-->
+                                    <!--                                            {{indicador_producto_poa_actividad.meta_total_desc}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td style="text-align: right;">-->
+                                    <!--                                            {{indicador_producto_poa_actividad.meta_total_alca}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td style="text-align: right;display: none" id="variacion">-->
+                                    <!--                                            <i class="{{indicador_producto_poa_actividad.iconfinal}}"></i>-->
+                                    <!--                                            {{indicador_producto_poa_actividad.getTotalVariacion()}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="1" style="vertical-align: middle">Cumplimiento <span title="{{(<%= scope %>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.cumplidor||{}).ponderacion.color}}">-->
+                                    <!--		{{(<%= scope %>.cumplidor||{}).cumplimiento||0}}%-->
+                                    <!--	</span></td>-->
+                                    <!--                                    </tr>-->
+                                    <!--                                    </tfoot>-->
                                 </table>
                             </div>
                         </div>

@@ -125,7 +125,7 @@
                                         allowview: false,
                                         allowlist: false,
                                         refresh: false,
-                                        text: "item.nombre",
+                                        text: "item.nombre +' ('+ (item.departamento_name|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador de Proceso",
@@ -137,6 +137,13 @@
                                             // order: 'asc',
                                             // distinct: false,
                                             join: [
+                                                {
+                                                    join: "left",
+                                                    table: "departamento",
+                                                    base: "departamento",
+                                                    field: "id",
+                                                    columns: ["id", "nombre"]
+                                                },
                                                 {
                                                     table: "procesos",
                                                     base: "registro",
@@ -165,7 +172,7 @@
                                         allowview: false,
                                         allowlist: false,
                                         refresh: false,
-                                        text: "item.nombre",
+                                        text: "item.nombre +' ('+ (item.departamento_name|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador",
@@ -177,6 +184,13 @@
                                             // order: 'asc',
                                             // distinct: false,
                                             join: [
+                                                {
+                                                    join: "left",
+                                                    table: "departamento",
+                                                    base: "departamento",
+                                                    field: "id",
+                                                    columns: ["id", "nombre"]
+                                                },
                                                 {
                                                     table: "proyecto_item",
                                                     base: "registro",
@@ -196,11 +210,20 @@
                                         allowview: false,
                                         allowlist: false,
                                         refresh: false,
-                                        text: "item.nombre",
+                                        text: "item.nombre +' ('+ (item.departamento_name|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
                                         label: "Indicador",
-                                        condition: "item.ano==indicador_generico_poa.year && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id"
+                                        condition: "item.ano==indicador_generico_poa.year && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id",
+                                        join: [
+                                            {
+                                                join: "left",
+                                                table: "departamento",
+                                                base: "departamento",
+                                                field: "id",
+                                                columns: ["id", "nombre"]
+                                            }
+                                        ]
                                     }) %>
                                 </div>
 
