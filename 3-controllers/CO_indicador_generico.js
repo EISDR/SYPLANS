@@ -1292,6 +1292,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
         if(DSON.oseaX(indicador_generico.ano_linea_base)){
             delete data.inserting.ano_linea_base;
         }
+        if (indicador_generico.ano)
+            data.inserting.ano = indicador_generico.ano;
         resolve(true);
         // }
     });
@@ -1318,6 +1320,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             if (indicador_generico.ano_linea_base)
                 data.updating.ano_linea_base = indicador_generico.ano_linea_base;
         }
+        if (indicador_generico.ano)
+            data.updating.ano = indicador_generico.ano;
         if (indicador_generico.linea_base)
             data.updating.linea_base = indicador_generico.linea_base;
         resolve(true);
