@@ -2508,15 +2508,17 @@ createfalse = async () => {
                         value: `$${session.poa_id} OR poa=0)`
                     }
                 ]);
-            let periodos = result.filter(d => {
-                return d[indicadorField + "_id"] == indicadorID
-            });
-            let obj = aacontroldemandofalso.indicador(periodos, espei);
-            return {
-                cumplimiento: (Number(obj[0].sumas.cumplimiento) || 0.00).toFixed(2),
-                ponderacion: obj[0].sumas.ponderacion,
-                general: obj,
-                ficha: aacontroldemandofalso.ficha(obj)
+            if (result.length> 0) {
+                let periodos = result.filter(d => {
+                    return d[indicadorField + "_id"] == indicadorID
+                });
+                let obj = aacontroldemandofalso.indicador(periodos, espei);
+                return {
+                    cumplimiento: (Number(obj[0].sumas.cumplimiento) || 0.00).toFixed(2),
+                    ponderacion: obj[0].sumas.ponderacion,
+                    general: obj,
+                    ficha: aacontroldemandofalso.ficha(obj)
+                }
             }
         },
         existx: (arrayx, label, value) => {

@@ -1,0 +1,26 @@
+<div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="panel panel-flat">
+        <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
+        <div class="subcontent">
+            <div id="<%= 'indicador_generico2' %>"
+                 ng-controller="<%= 'indicador_generico2' %> as <%= 'indicador_generico2' %>">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 " id="">
+                        <%- FORM.select("indicador_generico_entidad", 'indicador_generico2', {
+                            allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            label: "Seleccione Tipo de Indicador",
+                            text: "item.name",
+                            value: "table_",
+                            table: "vw_indicador_generico_entidad",
+                            icon: {class: "list"}
+                        }) %>
+                    </div>
+                </div>
+            <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+</div><!--end-->
