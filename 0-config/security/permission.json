@@ -2383,6 +2383,20 @@
       "nivel_riesgo_salida": {
         "type": "full",
         "allow": {}
+      },
+      "reporte_indicadores": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "actions": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
       }
     }
   }
