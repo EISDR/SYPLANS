@@ -5,7 +5,6 @@
                  ng-if="objetivo_estrategico.session.tipo_institucion === objetivo_estrategico.publica">
                 <%-
                 FORM.select("eje_estrategico", scope, {
-                    allownull: false,
                     text: "item.nombre ",
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
@@ -28,7 +27,6 @@
                  ng-if="objetivo_estrategico.session.tipo_institucion !== objetivo_estrategico.publica">
                 <%-
                 FORM.select("eje_estrategico", scope, {
-                    allownull: false,
                     text: "item.nombre ",
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
