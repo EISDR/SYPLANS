@@ -5,7 +5,7 @@
             <div id="<%= 'indicador_generico2' %>"
                  ng-controller="<%= 'indicador_generico2' %> as <%= 'indicador_generico2' %>">
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 " id="">
+                    <div class="col-sm-5 col-md-5 " id="">
                         <%- FORM.select("indicador_generico_entidad", 'indicador_generico2', {
                             allownull: false,
                             allownew: false,
@@ -19,8 +19,44 @@
                             icon: {class: "list"}
                         }) %>
                     </div>
+                    <div class="col-sm-5 col-md-5">
+                        <%- FORM.select("year", 'indicador_generico2', {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            allownull: false,
+                            takelast: true,
+                            refresh: true,
+                            text: "item.ano",
+                            value: "ano",
+                            table: "reporte_indicadores",
+                            icon: {class: "archive"},
+                            label: "Año",
+                            condition: "item.tipo == indicador_generico2.indicador_generico_entidad",
+                            query: {
+                                limit: 0,
+                                page: 1,
+                                columns: ["compania", "table_", "ano", "tipo"],
+                                where: [{field: "ano", operator: " is ", value: "$ not null "}],
+                                orderby: "ano",
+                                order: "asc",
+                                distinct: true
+                            }
+                        }) %>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <button
+                                dragonlanguage="" title="Buscar"
+                                style="margin-top: 20px"
+                                type="button" class="btn btn-primary btn-labeled btn-xs pull-left"
+                                ng-click="indicador_generico2.search()">
+                            <b><i class="icon-search4"></i></b>
+                            <language>buscar</language>
+                        </button>
+                    </div>
                 </div>
+            </div>
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
         </div>
-    </div>
 </div><!--end-->

@@ -403,5 +403,7 @@
   "field_email_exc":"Variable que contiene la lista negra",
   "send_one":"¿Repetir Diario?",
   "nivel_riesgo_salida_plural":"Niveles de Riesgo",
-  "nivel_riesgo_salida":"Nivel de Riesgo"
+  "nivel_riesgo_salida":"Nivel de Riesgo",
+  "reporte_indicadores_plural":"Histórico de Indicadores",
+  "reporte_indicadores":"Histórico de Indicadores"
 }

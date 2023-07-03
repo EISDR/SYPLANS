@@ -2388,6 +2388,7 @@
         "type": "empty",
         "allow": {
           "menu": true,
+          "filter": true,
           "actions": true,
           "export": {
             "Clipboard": true,

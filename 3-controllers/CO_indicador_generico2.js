@@ -25,9 +25,9 @@ app.controller("indicador_generico2", function ($scope, $http, $compile) {
             STORAGE.add('evento', indicador_generico2.evento_indicador);
         }
         indicador_generico2.myfirsttime++
-        if (typeof riesgo != "undefined") {
-            if (riesgo) {
-                if (typeof riesgo !== 'not defined') {
+        if (typeof indicador_generico != "undefined") {
+            if (indicador_generico) {
+                if (typeof indicador_generico !== 'not defined') {
                     if (value.includes('r')) {
                         indicador_generico.fixFilters = [
                             {
@@ -117,25 +117,74 @@ app.controller("indicador_generico2", function ($scope, $http, $compile) {
         if (typeof reporte_indicadores != "undefined") {
             if (reporte_indicadores) {
                 if (typeof reporte_indicadores !== 'not defined') {
+                    indicador_generico2.year = null;
+                    if (indicador_generico2.indicador_generico_entidad == 'vw_mods'){
+                        indicador_generico2.selectQueries['year'] = []
+                    }else {
+                        indicador_generico2.selectQueries['year'] = [
+                            {
+                                field: "compania",
+                                value: reporte_indicadores.session.compania_id
+                            }
+                        ]
+
+                    }
+                    indicador_generico2.form.loadDropDown('year');
+                }
+            }
+        }
+    });
+    indicador_generico2.search = async function () {
+        if (typeof reporte_indicadores != "undefined") {
+            if (reporte_indicadores) {
+                if (typeof reporte_indicadores !== 'not defined') {
                     reporte_indicadores.entidadobj = await BASEAPI.firstp('vw_indicador_generico_entidad', {
                         where: [{
                             field: "table_",
                             value: indicador_generico2.indicador_generico_entidad
                         }]
                     });
-                    reporte_indicadores.fixFilters = [
-                        {
-                            "field": "table_",
-                            "value": reporte_indicadores.entidadobj ? reporte_indicadores.entidadobj.id : -1
-                        },
-                        {
-                            "field": "compania",
-                            "value": reporte_indicadores.session.compania_id
+                    if (indicador_generico2.indicador_generico_entidad == 'vw_mods') {
+                        reporte_indicadores.fixFilters = [
+                            {
+                                "field": "table_",
+                                "value": reporte_indicadores.entidadobj ? reporte_indicadores.entidadobj.id : -1
+                            }
+                        ];
+                        if (indicador_generico2.year){
+                            reporte_indicadores.fixFilters.push(
+                                {
+                                    field: "ano",
+                                    operator: "=",
+                                    value: indicador_generico2.year
+                                }
+                            )
                         }
-                    ];
+                    } else{
+                        reporte_indicadores.fixFilters = [
+                            {
+                                "field": "table_",
+                                "value": reporte_indicadores.entidadobj ? reporte_indicadores.entidadobj.id : -1
+                            },
+                            {
+                                "field": "compania",
+                                "value": reporte_indicadores.session.compania_id
+                            }
+                        ];
+                        if (indicador_generico2.year){
+                            reporte_indicadores.fixFilters.push(
+                                {
+                                    field: "ano",
+                                    operator: "=",
+                                    value: indicador_generico2.year
+                                }
+                            )
+                        }
+                    }
+                    reporte_indicadores.fixFlters = reporte_indicadores.where_filters;
                     reporte_indicadores.refresh();
                 }
             }
         }
-    });
+    }
 });

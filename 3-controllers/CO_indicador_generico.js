@@ -3,6 +3,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
     var user = new SESSION().current();
     indicador_generico.session = user;
     indicador_generico.destroyForm = false;
+    reporte_indicadores = null;
     indicador_generico.colspan = user.cantidad * 3;
     indicador_generico.working = false;
     indicador_generico.periodolist = [];

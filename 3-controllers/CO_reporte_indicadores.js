@@ -1,20 +1,23 @@
 app.controller("reporte_indicadores", function ($scope, $http, $compile) {
     reporte_indicadores = this;
     //reporte_indicadores.fixFilters = [];
-    reporte_indicadores.session = new SESSION().current();
-    //reporte_indicadores.fixFilters = [{
-    //    field: "compania",
-    //    value: reporte_indicadores.session.compania_id
-    //}];
+    var user = new SESSION().current();
+    reporte_indicadores.fixFilters = [{
+        field: "id",
+        value: -1
+    }];
+    reporte_indicadores.session = user;
+    indicador_generico = null;
     //reporte_indicadores.singular = "singular";
     //reporte_indicadores.plural = "plural";
     //reporte_indicadores.headertitle = "Hola Title";
     reporte_indicadores.destroyForm = false;
     //reporte_indicadores.permissionTable = "tabletopermission";
     RUNCONTROLLER("reporte_indicadores", reporte_indicadores, $scope, $http, $compile);
+    RUN_B("reporte_indicadores", reporte_indicadores, $scope, $http, $compile);
     reporte_indicadores.formulary = function (data, mode, defaultData) {
         if (reporte_indicadores !== undefined) {
-            RUN_B("reporte_indicadores", reporte_indicadores, $scope, $http, $compile);
+
             reporte_indicadores.form.modalWidth = ENUM.modal.width.full;
             reporte_indicadores.form.readonly = {compania: reporte_indicadores.session.compania_id};
             reporte_indicadores.form.titles = {
@@ -39,13 +42,14 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                 value: indicador_generico2.indicador_generico_entidad
             }]
         });
+
         if (indicador_generico2.indicador_generico_entidad == 'indicador_pei'){
             for (const d of reporte_indicadores.records.data) {
                 d.cumplidor = await aacontroldemandofalso.cumplimiento(
                     "vw_report_indicadores_pei",
                     baseController.session,
                     "indicador_pei",
-                    d.ID);
+                    CONFIG.mysqlactive ? d.ID : d.id);
             }
             CRUD_reporte_indicadores.table.columns = {
                 id: {
@@ -76,7 +80,11 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     },
                     shorttext: 370
                 },
-
+                departamento: {
+                    label: function () {
+                        return "Unidad Ejecutora"
+                    }
+                },
                 descripcion: {
                     label: function () {
                         return "Descripción del Indicador"
@@ -95,20 +103,9 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     },
                     shorttext: 370
                 },
-                departamento: {
-                    label: function () {
-                        return "Unidad Ejecutora"
-                    }
-                },
                 desagregacion_demografica_geografia: {
                     label: function () {
                         return "Desagregación Demográfica Geográfica";
-                    },
-                    shorttext: 370
-                },
-                caracteristica: {
-                    label: function () {
-                        return "Características del Indicador";
                     },
                     shorttext: 370
                 },
@@ -120,11 +117,6 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                 direccion_meta: {
                     label: function () {
                         return "Dirección de la Meta"
-                    }
-                },
-                ano: {
-                    label: function () {
-                        return "Año a evaluar"
                     }
                 },
                 ano_linea_base: {
@@ -168,13 +160,203 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     shorttext: 370
                 }
             };
+            CRUD_reporte_indicadores.table.filters = {
+                columns: [
+                    {
+                        key: 'id_eje_estrategico',
+                        label: 'Eje Estratégico',
+                        type: FILTER.types.relation,
+                        table: 'eje_estrategico',
+                        value: "id",
+                        text: "item.no_orden + ' ' + item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [{
+                                "field": "pei",
+                                "value": reporte_indicadores.session ? reporte_indicadores.session.pei_id : -1
+                            }],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'id_objetivo_estrategico',
+                        label: 'Objetivo Estratégico',
+                        type: FILTER.types.relation,
+                        table: 'vw_objetivo_estrategico',
+                        value: "id",
+                        text: "item.no_objetivo + ' ' + item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [{
+                                "field": "pei_id",
+                                "value": reporte_indicadores.session ? reporte_indicadores.session.pei_id : -1
+                            }],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'id_estrategia',
+                        label: 'Estrategia',
+                        type: FILTER.types.relation,
+                        table: 'vw_estrategia',
+                        value: "id",
+                        text: "item.no_estrategia + ' ' + item.estrategia",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [{
+                                "field": "pei",
+                                "value": reporte_indicadores.session ? reporte_indicadores.session.pei_id : -1
+                            }],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'id_resultado',
+                        label: 'Resultado esperado',
+                        type: FILTER.types.relation,
+                        table: 'vw_resultado',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [{
+                                "field": "pei",
+                                "value": reporte_indicadores.session ? reporte_indicadores.session.pei_id : -1
+                            }],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'nombre',
+                        label: function () {
+                            return MESSAGE.i('planificacion.titleTablaIndicadorPEI');
+                        },
+                        type: FILTER.types.string,
+                        placeholder: 'Estrategia'
+                    },
+                    {
+                        key: 'departamento',
+                        label: 'Unidad Ejecutora',
+                        placeholder: 'Unidad Ejecutora',
+                        type: FILTER.types.relation,
+                        value: "id",
+                        table: 'departamento',
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false,
+                            where: [
+                                {
+                                    "field": "compania",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.compania_id : -1
+                                },
+                                {
+                                    "field": "institucion",
+                                    "operator": reporte_indicadores.session.institucion_id ? "=" : "is",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.institucion_id ? reporte_indicadores.session.institucion_id : "$null" : -1
+                                }
+                            ],
+                        }
+                    },
+                    {
+                        key: 'descripcion',
+                        label: 'Descripción',
+                        type: FILTER.types.string,
+                        placeholder: 'Descripción'
+                    },
+                    {
+                        key: 'fuente',
+                        label: 'Fuente',
+                        type: FILTER.types.string,
+                        placeholder: 'Fuente'
+                    },
+                    {
+                        key: 'metodo_calculo',
+                        label: 'Método Cálculo',
+                        type: FILTER.types.string,
+                        placeholder: 'Método Cálculo'
+                    },
+                    {
+                        key: 'desagregacion_demografica_geografia',
+                        label: 'Desagregación Demográfica Geográfica',
+                        type: FILTER.types.string,
+                        placeholder: 'Desagregación Demográfica Geográfica'
+                    },
+                    {
+                        key: 'tipo_meta',
+                        label: 'Tipo de meta',
+                        type: FILTER.types.relation,
+                        table: 'tipoMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'direccion_meta',
+                        label: 'Dirección de la meta',
+                        type: FILTER.types.relation,
+                        table: 'direccionMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'linea_base',
+                        label: 'Línea Base',
+                        type: FILTER.types.integer,
+                        placeholder: 'Línea Base'
+                    },
+                    {
+                        key: 'medio_verificacion',
+                        label: 'Medio Verificación',
+                        type: FILTER.types.string,
+                        placeholder: 'Medio Verificación'
+                    },
+                    {
+                        key: 'observacion',
+                        label: 'Observación',
+                        type: FILTER.types.string,
+                        placeholder: 'Observación',
+                        maxlength: 255
+                    },
+                ]
+            }
         }else if (indicador_generico2.indicador_generico_entidad == 'productos_poa'){
             for (const d of reporte_indicadores.records.data) {
                 d.cumplidor = await aacontroldemandofalso.cumplimiento(
                     "vw_report_indicadores_producto",
                     baseController.session,
                     "indicador_producto",
-                    d.ID);
+                    CONFIG.mysqlactive ? d.ID : d.id);
             }
             CRUD_reporte_indicadores.table.columns = {
                 id: {
@@ -194,6 +376,11 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     },
                     shorttext: 370
                 },
+                departamento: {
+                    label: function () {
+                        return "Unidad Ejecutora"
+                    }
+                },
                 descripcion: {
                     label: function () {
                         return "Descripción del Indicador"
@@ -212,20 +399,9 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     },
                     shorttext: 370
                 },
-                departamento: {
-                    label: function () {
-                        return "Unidad Ejecutora"
-                    }
-                },
                 desagregacion_demografica_geografia: {
                     label: function () {
                         return "Desagregación Demográfica Geográfica";
-                    },
-                    shorttext: 370
-                },
-                caracteristica: {
-                    label: function () {
-                        return "Características del Indicador";
                     },
                     shorttext: 370
                 },
@@ -237,11 +413,6 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                 direccion_meta: {
                     label: function () {
                         return "Dirección de la Meta"
-                    }
-                },
-                ano: {
-                    label: function () {
-                        return "Año a evaluar"
                     }
                 },
                 ano_linea_base: {
@@ -285,13 +456,152 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     shorttext: 370
                 }
             };
+            CRUD_reporte_indicadores.table.filters = {
+                columns: [
+                    {
+                        key: 'id_producto',
+                        label: reporte_indicadores.session.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
+                        type: FILTER.types.relation,
+                        table: 'vw_productos_poa_detalles',
+                        value: "id",
+                        text: "item.no1 + ' ' + item.producto",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [
+                                {
+                                    "field": "poa_id",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.poa_id : -1
+                                }
+                            ],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'nombre',
+                        label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        type: FILTER.types.string,
+                        placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        maxlength: 255
+                    },
+                    {
+                        key: 'departamento',
+                        label: 'Departamento',
+                        placeholder: 'Departamento',
+                        type: FILTER.types.relation,
+                        value: "id",
+                        table: 'departamento',
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false,
+                            where: [
+                                {
+                                    "field": "compania",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.compania_id : -1
+                                },
+                                {
+                                    "field": "institucion",
+                                    "operator": reporte_indicadores.session.institucion_id ? "=" : "is",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.institucion_id ? reporte_indicadores.session.institucion_id : "$null" : -1
+                                }
+                            ],
+                        }
+                    },
+                    {
+                        key: 'descripcion',
+                        label: 'Descripción',
+                        type: FILTER.types.string,
+                        placeholder: 'Descripción',
+                        maxlength: 4000
+                    },
+                    {
+                        key: 'fuente',
+                        label: 'Fuente',
+                        type: FILTER.types.string,
+                        placeholder: 'Fuente',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'desagregacion_demografica_geografia',
+                        label: 'Desagregación Demográfica Geográfica',
+                        type: FILTER.types.string,
+                        placeholder: 'Desagregación Demográfica Geográfica'
+                    },
+                    {
+                        key: 'metodo_calculo',
+                        label: 'Método Cálculo',
+                        type: FILTER.types.string,
+                        placeholder: 'Método Cálculo',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'tipo_meta',
+                        label: 'Tipo de meta',
+                        type: FILTER.types.relation,
+                        table: 'tipoMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'direccion_meta',
+                        label: 'Dirección de la meta',
+                        type: FILTER.types.relation,
+                        table: 'direccionMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'linea_base',
+                        label: 'Línea Base',
+                        type: FILTER.types.integer,
+                        placeholder: 'Línea Base',
+                        maxlength: 30
+                    },
+                    {
+                        key: 'medio_verificacion',
+                        label: 'Medio de Verificación',
+                        type: FILTER.types.string,
+                        placeholder: 'Medio Verificación',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'observacion',
+                        label: 'Observación',
+                        type: FILTER.types.string,
+                        placeholder: 'Observación',
+                        maxlength: 255
+                    },
+                ]
+            }
         }else if (indicador_generico2.indicador_generico_entidad == 'actividades_poa'){
             for (const d of reporte_indicadores.records.data) {
                 d.cumplidor = await aacontroldemandofalso.cumplimiento(
                     "vw_report_indicadores_actividad",
                     baseController.session,
                     "indicador_actividad",
-                    d.ID);
+                    CONFIG.mysqlactive ? d.ID : d.id);
             }
             CRUD_reporte_indicadores.table.columns = {
                 id: {
@@ -356,11 +666,6 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                         return "Dirección de la Meta"
                     }
                 },
-                ano: {
-                    label: function () {
-                        return "Año a evaluar"
-                    }
-                },
                 ano_linea_base: {
                     label: function () {
                         return "Año Línea Base"
@@ -402,13 +707,152 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     shorttext: 370
                 }
             };
+            CRUD_reporte_indicadores.table.filters = {
+                columns: [
+                    {
+                        key: 'id_actividades_poa',
+                        label: 'Actividad',
+                        type: FILTER.types.relation,
+                        table: 'vw_actividades_poa',
+                        value: "id",
+                        text: "item.no2 + ' ' + item.actividad",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [
+                                {
+                                    "field": "poa",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.poa_id : -1
+                                }
+                            ],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'nombre',
+                        label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        type: FILTER.types.string,
+                        placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        maxlength: 255
+                    },
+                    {
+                        key: 'departamento',
+                        label: 'Departamento',
+                        placeholder: 'Departamento',
+                        type: FILTER.types.relation,
+                        value: "id",
+                        table: 'departamento',
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false,
+                            where: [
+                                {
+                                    "field": "compania",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.compania_id : -1
+                                },
+                                {
+                                    "field": "institucion",
+                                    "operator": reporte_indicadores.session.institucion_id ? "=" : "is",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.institucion_id ? reporte_indicadores.session.institucion_id : "$null" : -1
+                                }
+                            ],
+                        }
+                    },
+                    {
+                        key: 'descripcion',
+                        label: 'Descripción',
+                        type: FILTER.types.string,
+                        placeholder: 'Descripción',
+                        maxlength: 4000
+                    },
+                    {
+                        key: 'fuente',
+                        label: 'Fuente',
+                        type: FILTER.types.string,
+                        placeholder: 'Fuente',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'desagregacion_demografica_geografia',
+                        label: 'Desagregación Demográfica Geográfica',
+                        type: FILTER.types.string,
+                        placeholder: 'Desagregación Demográfica Geográfica'
+                    },
+                    {
+                        key: 'metodo_calculo',
+                        label: 'Método Cálculo',
+                        type: FILTER.types.string,
+                        placeholder: 'Método Cálculo',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'tipo_meta',
+                        label: 'Tipo de meta',
+                        type: FILTER.types.relation,
+                        table: 'tipoMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'direccion_meta',
+                        label: 'Dirección de la meta',
+                        type: FILTER.types.relation,
+                        table: 'direccionMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'linea_base',
+                        label: 'Línea Base',
+                        type: FILTER.types.integer,
+                        placeholder: 'Línea Base',
+                        maxlength: 30
+                    },
+                    {
+                        key: 'medio_verificacion',
+                        label: 'Medio de Verificación',
+                        type: FILTER.types.string,
+                        placeholder: 'Medio Verificación',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'observacion',
+                        label: 'Observación',
+                        type: FILTER.types.string,
+                        placeholder: 'Observación',
+                        maxlength: 255
+                    },
+                ]
+            }
         }else{
             for (const d of reporte_indicadores.records.data) {
                 d.cumplidor = await aacontroldemandofalso.cumplimiento(
                     "vw_report_indicadores_generico",
                     baseController.session,
                     "indicador_generico",
-                    d.ID);
+                    CONFIG.mysqlactive ? d.ID : d.id);
             }
             CRUD_reporte_indicadores.table.columns = {
                 id: {
@@ -430,7 +874,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                 },
                 departamento: {
                     label: function () {
-                        return "Unidad Ejecutora"
+                        return "Departamento"
                     }
                 },
                 descripcion: {
@@ -519,10 +963,149 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                     shorttext: 370
                 }
             };
+            CRUD_reporte_indicadores.table.filters = {
+                columns: [
+                    {
+                        key: 'registro',
+                        label: 'Registro',
+                        type: FILTER.types.relation,
+                        table: 'pnpsp',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'indicador',
+                        label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        type: FILTER.types.string,
+                        placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        maxlength: 255
+                    },
+                    {
+                        key: 'departamento',
+                        label: 'Departamento',
+                        placeholder: 'Departamento',
+                        type: FILTER.types.relation,
+                        value: "id",
+                        table: 'departamento',
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false,
+                            where: [
+                                {
+                                    "field": "compania",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.compania_id : -1
+                                },
+                                {
+                                    "field": "institucion",
+                                    "operator": reporte_indicadores.session.institucion_id ? "=" : "is",
+                                    "value": reporte_indicadores.session ? reporte_indicadores.session.institucion_id ? reporte_indicadores.session.institucion_id : "$null" : -1
+                                }
+                            ],
+                        }
+                    },
+                    {
+                        key: 'descripcion',
+                        label: 'Descripción',
+                        type: FILTER.types.string,
+                        placeholder: 'Descripción',
+                        maxlength: 4000
+                    },
+                    {
+                        key: 'fuente',
+                        label: 'Fuente',
+                        type: FILTER.types.string,
+                        placeholder: 'Fuente',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'metodo_calculo',
+                        label: 'Método Cálculo',
+                        type: FILTER.types.string,
+                        placeholder: 'Método Cálculo',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'desagregacion_demografica_geografia',
+                        label: 'Desagregación Demográfica Geográfica',
+                        type: FILTER.types.string,
+                        placeholder: 'Desagregación Demográfica Geográfica'
+                    },
+                    {
+                        key: 'tipo_meta',
+                        label: 'Tipo de meta',
+                        type: FILTER.types.relation,
+                        table: 'tipoMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'direccion_meta',
+                        label: 'Dirección de la meta',
+                        type: FILTER.types.relation,
+                        table: 'direccionMeta',
+                        value: "id",
+                        text: "item.nombre",
+                        query: {
+                            limit: 0,
+                            page: 1,
+                            where: [],
+                            orderby: "id",
+                            order: "asc",
+                            distinct: false
+                        },
+                    },
+                    {
+                        key: 'linea_base',
+                        label: 'Línea Base',
+                        type: FILTER.types.integer,
+                        placeholder: 'Línea Base',
+                        maxlength: 30
+                    },
+                    {
+                        key: 'medio_verificacion',
+                        label: 'Medio de Verificación',
+                        type: FILTER.types.string,
+                        placeholder: 'Medio Verificación',
+                        maxlength: 255
+                    },
+                    {
+                        key: 'observacion',
+                        label: 'Observación',
+                        type: FILTER.types.string,
+                        placeholder: 'Observación',
+                        maxlength: 255
+                    },
+                ]
+            }
+            CRUD_reporte_indicadores.table.filters.columns[0].label = reporte_indicadores.entidadobj.name;
+            CRUD_reporte_indicadores.table.filters.columns[0].table = reporte_indicadores.entidadobj.table_;
+            CRUD_reporte_indicadores.table.filters.columns[0].text = `item.${reporte_indicadores.entidadobj.label}`;
+            CRUD_reporte_indicadores.table.filters.columns[0].query.where = eval(reporte_indicadores.entidadobj.where);
             CRUD_reporte_indicadores.table.columns.registro.label = function () {
                 return reporte_indicadores.entidadobj.name;
             };
         }
+        FILTER.run(reporte_indicadores);
         // CRUD_reporte_indicadores.table.filters = {
         //     columns: [
         //         {
@@ -643,11 +1226,15 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
         //         },
         //     ]
         // }
+        // if (reporte_indicadores) {
+        //     indicador_generico.runMagicColum('registro', "evento_indicador_relacion", "id", indicador_generico.entidadobj.label);
+        // }
         reporte_indicadores.runMagicColum('registro', reporte_indicadores.entidadobj.table_, "id", reporte_indicadores.entidadobj.label);
         reporte_indicadores.runMagicColum('tipo_meta', 'tipoMeta', "id", "nombre");
         reporte_indicadores.runMagicColum('direccion_meta', 'direccionMeta', "id", "nombre");
 
     };
+
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
     //     resolve(true);
