@@ -31,7 +31,6 @@
         <div class="row">
             <div class="col-sm-3 col-md-3 " id="registrodiv">
                 <%- FORM.select("registro", scope, {
-                    allownull: false,
                     allownew: false,
                     allowedit: false,
                     allowview: false,
@@ -50,7 +49,6 @@
             </div>
             <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
                 <%- FORM.select("mamfe_elemento", scope, {
-                    allownull: false,
                     allownew: false,
                     allowedit: false,
                     allowlist: false,
@@ -65,7 +63,6 @@
             </div>
             <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
                 <%- FORM.select("mamfe_elemento", scope, {
-                    allownull: false,
                     allownew: false,
                     allowedit: false,
                     allowlist: false,
@@ -80,7 +77,6 @@
             </div>
             <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
                 <%- FORM.select("riesgo_a", scope, {
-                    allownull: false,
                     allowlist: false,
                     text: "item.nombre",
                     table: "vw_riesgo_a",
@@ -91,7 +87,6 @@
             </div>
             <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
                 <%- FORM.select("riesgo_a", scope, {
-                    allownull: false,
                     allowlist: false,
                     text: "item.nombre",
                     table: "vw_riesgo_a",
