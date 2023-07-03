@@ -591,10 +591,9 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         let cargosSeleccionados = auditoria_lista_correctiva.cargos !== "[NULL]" ?
             (auditoria_lista_correctiva.cargos || []) : [];
         cargosSeleccionados = cargosSeleccionados.map(d => parseInt(d) || 0);
-
-
-        let usuariosSeleccionados = auditoria_lista_correctiva.responsables !== "[NULL]" ?
-            (auditoria_lista_correctiva.responsables || []) : [];
+        
+        let usuariosSeleccionados = auditoria_lista_correctiva.responsable !== "[NULL]" ?
+            (auditoria_lista_correctiva.responsable || []) : [];
         usuariosSeleccionados = usuariosSeleccionados.map(d => parseInt(d) || 0);
 
         if (!cargosSeleccionados.length && !usuariosSeleccionados.length) {
