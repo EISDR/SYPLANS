@@ -16,7 +16,6 @@
             <div class="col-sm-6 col-md-6" ng-if="!asignacion_especial_poa.session.institucion">
                 <%-
                 FORM.select("departamento_solicitado", scope, {
-                    allownull: false,
                     allownew: false,
                     allowedit: false,
                     allowlist: false,
@@ -37,7 +36,6 @@
             <div class="col-sm-6 col-md-6" ng-if="asignacion_especial_poa.session.institucion">
                 <%-
                         FORM.select("departamento_solicitado", scope, {
-                            allownull: false,
                             allownew: false,
                             allowedit: false,
                             allowlist: false,
@@ -58,7 +56,6 @@
                    <div class="col-sm-6 col-md-6">
             <%-
             FORM.select("responsable", scope, {
-                allownull: false,
                 allownew: false,
                 allowedit: false,
                 allowlist: false,

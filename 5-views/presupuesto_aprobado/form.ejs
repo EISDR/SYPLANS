@@ -4,7 +4,6 @@
             <div class="col-sm-4 col-md-4" ng-if="!presupuesto_aprobado.session.institucion_id">
                 <%-
                 FORM.select("departamento", scope, {
-                    allownull: false,
                     allowview: false,
                     multiple: false,
                     disabled: false,
@@ -23,7 +22,6 @@
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.session.institucion_id">
                 <%-
                     FORM.select("departamento", scope, {
-                        allownull: false,
                         allowview: false,
                         multiple: false,
                         disabled: false,

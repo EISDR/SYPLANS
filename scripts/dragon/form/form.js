@@ -1162,9 +1162,10 @@ FORM = {
                                                     $scope.do_once[name] = true;
                                                     if (eval(`$scope.${name} === '[NULL]'`))
                                                         eval(`$scope.${name} = [];`);
-                                                    selectedy.data.forEach((item) => {
-                                                        eval(`$scope.${name}.push('${eval(`item.${options.get.field}`)}')`);
-                                                    });
+                                                    if (selectedy.data)
+                                                        selectedy.data.forEach((item) => {
+                                                            eval(`$scope.${name}.push('${eval(`item.${options.get.field}`)}')`);
+                                                        });
                                                 }
                                                 animation.stoploading(`#input${$scope.modelName}_${name}`, `#icon${name}`);
                                                 $scope[forme].callSelect2(name, options, select2);
