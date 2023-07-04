@@ -133,11 +133,6 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                 //deletekeys: ['id'],
                 columns: {
                     id: {
-                        visible: false,
-                        visibleDetail: false,
-                        export: false,
-                        exportExample: false,
-                        dead: true
                     },
                     registro: {
                         label: "Registro",
@@ -1223,11 +1218,6 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     //     }
                     // },
                     id: {
-                        visible: false,
-                        visibleDetail: false,
-                        export: false,
-                        exportExample: false,
-                        dead: true
                     },
                     riesgo_a_id: {
                         visible: false,

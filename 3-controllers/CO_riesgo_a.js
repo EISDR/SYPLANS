@@ -55,11 +55,6 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                     //     }
                     // },
                     id: {
-                        visible: false,
-                        visibleDetail: false,
-                        export: false,
-                        exportExample: false,
-                        dead: true
                     },
                     nombre: {
                         label: function () {
@@ -580,11 +575,6 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                     //     }
                     // },
                     id: {
-                        visible: false,
-                        visibleDetail: false,
-                        export: false,
-                        exportExample: false,
-                        dead: true
                     },
                     nombre: {},
                     descripcion: {shorttext: 360},
