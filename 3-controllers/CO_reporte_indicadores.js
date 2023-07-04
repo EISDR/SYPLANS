@@ -247,7 +247,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                         placeholder: 'Estrategia'
                     },
                     {
-                        key: 'departamento',
+                        key: 'id_departamento',
                         label: 'Unidad Ejecutora',
                         placeholder: 'Unidad Ejecutora',
                         type: FILTER.types.relation,
@@ -487,7 +487,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                         maxlength: 255
                     },
                     {
-                        key: 'departamento',
+                        key: 'id_departamento',
                         label: 'Departamento',
                         placeholder: 'Departamento',
                         type: FILTER.types.relation,
@@ -738,7 +738,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                         maxlength: 255
                     },
                     {
-                        key: 'departamento',
+                        key: 'id_departamento',
                         label: 'Departamento',
                         placeholder: 'Departamento',
                         type: FILTER.types.relation,
@@ -989,7 +989,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
                         maxlength: 255
                     },
                     {
-                        key: 'departamento',
+                        key: 'id_departamento',
                         label: 'Departamento',
                         placeholder: 'Departamento',
                         type: FILTER.types.relation,
