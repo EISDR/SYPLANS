@@ -506,6 +506,12 @@
           "text": "Instrumentos de Planificación Nacional"
         },
         {
+          "modal": "",
+          "icon": "package",
+          "href": "#reporte_indicadores?pei_poa",
+          "text": "Histórico de Indicadores"
+        },
+        {
           "menus": [
             {
               "menus": "",
@@ -945,6 +951,12 @@
               "text": "Configuración"
             }
           ]
+        },
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#reporte_indicadores?pei_poa",
+          "text": "Histórico de Indicadores"
         },
         {
           "menus": [

@@ -85,6 +85,12 @@
           "text": "Indicadores"
         },
         {
+          "modal": "",
+          "icon": "package",
+          "href": "#reporte_indicadores?proceso",
+          "text": "Histórico de Indicadores"
+        },
+        {
           "menus": "",
           "modal": "",
           "icon": "pie-chart7",
@@ -183,6 +189,12 @@
           "icon": "stats-bars3",
           "href": "#indicador_generico?vw_procesos",
           "text": "Indicadores"
+        },
+        {
+          "modal": "",
+          "icon": "package",
+          "href": "#reporte_indicadores?proceso",
+          "text": "Histórico de Indicadores"
         },
         {
           "menus": "",
