@@ -1,34 +1,18 @@
 {
   "menus": [
     {
-      "menus": [
-        {
-          "modal": "",
-          "icon": "package",
-          "href": "#reporte_indicadores",
-          "text": "Histórico de Indicadores"
-        }
-      ],
       "modal": "",
-      "icon": "drawer3",
-      "href": "#",
-      "text": "Reportes"
+      "icon": "package",
+      "href": "#reporte_indicadores",
+      "text": "Histórico de Indicadores"
     }
   ],
   "menus_privado": [
     {
-      "menus": [
-        {
-          "modal": "",
-          "icon": "package",
-          "href": "#reporte_indicadores",
-          "text": "Histórico de Indicadores"
-        }
-      ],
       "modal": "",
-      "icon": "drawer3",
-      "href": "#",
-      "text": "Reportes"
+      "icon": "package",
+      "href": "#reporte_indicadores",
+      "text": "Histórico de Indicadores"
     }
   ]
 }
