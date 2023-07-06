@@ -1234,7 +1234,30 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
         reporte_indicadores.runMagicColum('direccion_meta', 'direccionMeta', "id", "nombre");
 
     };
-
+    reporte_indicadores.validate_entidad = function (tipo) {
+        let IPN = ['vw_denominacion_pnpsp_gg','vw_mods', 'vw_linea_accion_gg','vw_ods'];
+        let PEI_POA = ['indicador_pei', 'productos_poa', 'actividades_poa']
+        let SECTORIAL = ['sec_resultado_sectorial', 'sec_programa_sectorial']
+        if (IPN.includes(tipo)) {
+            return CONFIGCOMPANY.ipn === 1;
+        } else if (PEI_POA.includes(tipo)) {
+            return CONFIGCOMPANY.planificacion === 1;
+        } else if (SECTORIAL.includes(tipo)) {
+            return CONFIGCOMPANY.sectorial === 1;
+        } else if (tipo === 'vw_evento_indicador_riesgo') {
+            return CONFIGCOMPANY.riesgo_var === 1 || CONFIGCOMPANY.riesgo_amfe === 1;
+        } else if (tipo === 'vw_procesos') {
+            return CONFIGCOMPANY.calidad === 1;
+        } else if (tipo === 'vw_proyecto_item') {
+            return CONFIGCOMPANY.proyectos_especiales === 1;
+        } else if (tipo === 'vw_evento_indicador_salida') {
+            return CONFIGCOMPANY.salidas === 1;
+        } else if (tipo === 'vw_evento_indicador') {
+            return CONFIGCOMPANY.gestion_indicadores === 1;
+        } else {
+            return false;
+        }
+    }
     // $scope.triggers.table.before.load = () => new Promise((resolve, reject) => {
     //     //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
     //     resolve(true);
