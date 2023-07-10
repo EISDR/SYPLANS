@@ -338,40 +338,68 @@ DSON.keepmerge(CRUD_resultado, {
                                 relations.push(' "Estrategia"');
                             }
                             var result_linea = await BASEAPI.firstp('resultado_linea_accion', {
-                                where: [{
-                                    field: "resultado",
-                                    value: data.row.id
-                                }]
+                                where: [
+                                    {
+                                        field: "resultado",
+                                        value: data.row.id
+                                    },
+                                    {
+                                        field: "linea_accion",
+                                        operator: "is not",
+                                        value: "$null"
+                                    }
+                                ]
                             })
                             if (result_linea) {
                                 relations.push(' "Línea de Acción"');
                                 delete_relations.push(' "Línea de Acción"');
                             }
                             var result_meta = await BASEAPI.firstp('resultado_mods', {
-                                where: [{
-                                    field: "resultado",
-                                    value: data.row.id
-                                }]
+                                where: [
+                                    {
+                                        field: "resultado",
+                                        value: data.row.id
+                                    },
+                                    {
+                                        field: "mods",
+                                        operator: "is not",
+                                        value: "$null"
+                                    }
+                                ]
                             })
                             if (result_meta) {
                                 relations.push(' "Metas Objetivo Desarrollo Sostenible"');
                                 delete_relations.push(' "Metas Objetivo Desarrollo Sostenible"');
                             }
                             var result_compromiso = await BASEAPI.firstp('resultado_compromiso', {
-                                where: [{
-                                    field: "resultado",
-                                    value: data.row.id
-                                }]
+                                where: [
+                                    {
+                                        field: "resultado",
+                                        value: data.row.id
+                                    },
+                                    {
+                                        field: "compromiso",
+                                        operator: "is not",
+                                        value: "$null"
+                                    }
+                                ]
                             })
                             if (result_compromiso) {
                                 relations.push(' "Compromisos Nacionales e Internacionales"');
                                 delete_relations.push(' "Compromisos Nacionales e Internacionales"');
                             }
                             var result_supuesto = await BASEAPI.firstp('resultado_supuesto', {
-                                where: [{
-                                    field: "resultado",
-                                    value: data.row.id
-                                }]
+                                where: [
+                                    {
+                                        field: "resultado",
+                                        value: data.row.id
+                                    },
+                                    {
+                                        field: "supuesto",
+                                        operator: "is not",
+                                        value: "$null"
+                                    }
+                                ]
                             })
                             if (result_supuesto) {
                                 relations.push(' "Supuestos"');
