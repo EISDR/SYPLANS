@@ -68,9 +68,7 @@ app.controller("mapa_proceso", function ($scope, $http, $compile) {
             mapa_proceso.current_estatus = 1;
             mapa_proceso.lista_ano = [];
             for (var a = 2018; a <= 3000; a++) {
-                if (a >= mapa_proceso.current_year) {
-                    mapa_proceso.lista_ano.push(a);
-                }
+                mapa_proceso.lista_ano.push(a);
             }
         }
         mapa_proceso.refreshAngular();

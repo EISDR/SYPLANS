@@ -101,7 +101,7 @@
       "modal": "",
       "icon": "map5",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.proceso",
       "text": "Gestión de Proceso"
     }
   ],
@@ -207,7 +207,7 @@
       "modal": "",
       "icon": "map5",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.proceso",
       "text": "Gestión de Proceso"
     }
   ]

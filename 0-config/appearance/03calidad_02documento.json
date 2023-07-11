@@ -44,7 +44,7 @@
       "modal": "",
       "icon": "bookmark",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.documento",
       "text": "Gestión de Documento"
     }
   ],
@@ -93,7 +93,7 @@
       "modal": "",
       "icon": "bookmark",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.documento",
       "text": "Gestión de Documento"
     }
   ]

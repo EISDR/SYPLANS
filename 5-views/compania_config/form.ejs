@@ -1,165 +1,221 @@
+<div class="row"></div>
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Syplans</h3>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('institucional', scope, {}, 'Permite Instituciones?') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('import_masivo', scope, {}, 'Import Masivo') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('historial_acceso', scope, {}, 'Historial de Acceso') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('mesa_ayuda', scope, {}, 'Mesa de Ayuda') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('repositorio_archivos', scope, {}, 'Repositorio de Archivos') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.color('color_principal', scope, {trueplaceholder: "Color Principal"}) %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.color('color_secundario', scope, {trueplaceholder: "Color Secundario"}) %>
-            </div>
-
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Planificación</h3>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('planificacion', scope, {}, 'Planificación Estratégica y Operativa') %>
-            </div>
-            <div class='col-sm-3 col-md-2'>
-                <%- FORM.checkbox('estatus_productoXactividades', scope, {}, 'Estatus por Actividades') %>
-            </div>
-            <div class='col-sm-3 col-md-2'>
-                <%- FORM.checkbox('asignaciones_especiales', scope, {}, 'Asignaciones Especiales') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('instrumentos', scope, {}, 'Instrumentos de Planificación Nacional') %>
-            </div>
-            <div class='col-sm-3 col-md-2'>
-                <%- FORM.checkbox('sectorial', scope, {}, 'Sectorial') %>
-            </div>
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Indicadores</h3>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('ipn', scope, {}, 'Instrumentos de Planificación Nacional') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('gestion_indicadores', scope, {}, 'Gestión de Indicadores Genéricos') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('carga_evidencia_abierta', scope, {}, 'Carga de Evidencias Periodos Abiertos.') %>
-            </div>
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Notificaciones</h3>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.integer('dias_de_gracia', scope, {
-                    placeholder: "Días de gracia para Notificaciones de vencimiento"
-                }) %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.hour('hora_notificacion', scope, {truetext: "Hora de las Notificaciones de vencimiento"}) %>
-            </div>
-            <div class='col-sm-12 col-md-12'></div>
-            <div class='col-sm-3 col-md-1'>
-                <%- FORM.checkbox('notificaciones_correo', scope, {}, 'Por Correo') %>
-            </div>
-            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.input('smtp_host', scope, {trueplaceholder: "Host SMTP"}) %>
-            </div>
-            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.input('smtp_port', scope, {trueplaceholder: "Puerto SMTP"}) %>
-            </div>
-            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.checkbox('smtp_ssl', scope, {}, 'SSL?') %>
-            </div>
-            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.input('smtp_email', scope, {trueplaceholder: "Correo que envía"}) %>
-            </div>
-            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.normalpassword('smtp_password', scope, {placeholder: "Contraseña del correo que envía"}) %>
-            </div>
-            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.input('smtp_sender', scope, {trueplaceholder: "Correo que se muestra al recibir"}) %>
-            </div>
-            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
-                <%- FORM.input('smtp_sender_name', scope, {trueplaceholder: "Nombre que se muestra al recibir"}) %>
-            </div>
-            <div class='col-sm-12 col-md-12'></div>
-            <div class='col-sm-3 col-md-1'>
-                <%- FORM.checkbox('notificaciones_push', scope, {}, '(Push)') %>
-            </div>
-            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
-                <%- FORM.input('onesignal_key', scope, {trueplaceholder: "Onesignal Key"}) %>
-            </div>
-            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
-                <%- FORM.input('onesignal_appauth', scope, {trueplaceholder: "Onesignal Auth"}) %>
-            </div>
-            <div class='col-sm-3 col-md-3' ng-show="compania_config.notificaciones_push">
-                <%- FORM.input('onesignal_appid', scope, {trueplaceholder: "Onesignal Appid"}) %>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">Generales</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('import_masivo', scope, {}, 'Import Masivo') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('historial_acceso', scope, {}, 'Historial de Acceso') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('mesa_ayuda', scope, {}, 'Mesa de Ayuda') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('repositorio_archivos', scope, {}, 'Repositorio de Archivos') %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'><br><br></div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.color('color_principal', scope, {trueplaceholder: "Color Principal"}) %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.color('color_secundario', scope, {trueplaceholder: "Color Secundario"}) %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('institucional', scope, {}, 'Permite Instituciones?') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('notificaciones', scope, {}, 'Notificaciones') %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'><br><br></div>
+                        <div  style="margin: unset" ng-show="<%= scope %>.notificaciones">
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.integer('dias_de_gracia', scope, {
+                                    placeholder: "Días de gracia para Notificaciones de vencimiento"
+                                }) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3'>
+                                <%- FORM.hour('hora_notificacion', scope, {truetext: "Hora de las Notificaciones de vencimiento"}) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'></div>
+                            <div class='col-sm-3 col-md-1'>
+                                <%- FORM.checkbox('notificaciones_correo', scope, {}, 'Por Correo') %>
+                            </div>
+                            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.input('smtp_host', scope, {trueplaceholder: "Host SMTP"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.input('smtp_port', scope, {trueplaceholder: "Puerto SMTP"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-1' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.checkbox('smtp_ssl', scope, {}, 'SSL?') %>
+                            </div>
+                            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.input('smtp_email', scope, {trueplaceholder: "Correo que envía"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.normalpassword('smtp_password', scope, {placeholder: "Contraseña del correo que envía"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.input('smtp_sender', scope, {trueplaceholder: "Correo que se muestra al recibir"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-2' ng-show="compania_config.notificaciones_correo">
+                                <%- FORM.input('smtp_sender_name', scope, {trueplaceholder: "Nombre que se muestra al recibir"}) %>
+                            </div>
+                            <div class='col-sm-12 col-md-12'></div>
+                            <div class='col-sm-3 col-md-1'>
+                                <%- FORM.checkbox('notificaciones_push', scope, {}, '(Push)') %>
+                            </div>
+                            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
+                                <%- FORM.input('onesignal_key', scope, {trueplaceholder: "Onesignal Key"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-4' ng-show="compania_config.notificaciones_push">
+                                <%- FORM.input('onesignal_appauth', scope, {trueplaceholder: "Onesignal Auth"}) %>
+                            </div>
+                            <div class='col-sm-3 col-md-3' ng-show="compania_config.notificaciones_push">
+                                <%- FORM.input('onesignal_appid', scope, {trueplaceholder: "Onesignal Appid"}) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Riesgo</h3>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">Planificación</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('planificacion', scope, {}, 'Planificación Estratégica y Operativa') %>
+                        </div>
+                        <div class='col-sm-3 col-md-2'>
+                            <%- FORM.checkbox('estatus_productoXactividades', scope, {}, 'Estatus por Actividades') %>
+                        </div>
+                        <div class='col-sm-3 col-md-2'>
+                            <%- FORM.checkbox('asignaciones_especiales', scope, {}, 'Asignaciones Especiales') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('instrumentos', scope, {}, 'Instrumentos de Planificación Nacional') %>
+                        </div>
+                        <div class='col-sm-3 col-md-2'>
+                            <%- FORM.checkbox('sectorial', scope, {}, 'Sectorial') %>
+                        </div>
+                    </div>
+                </div>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">PACC</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('pacc', scope, {}, 'Plan Anual de Compras y Contrataciones') %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('riesgo_var', scope, {}, 'Mtodología VAR') %>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">Calidad</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('proceso', scope, {}, 'Procesos') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('documento', scope, {}, 'Documentos') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('auditoria', scope, {}, 'Auditorías') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('norma_iso', scope, {}, 'Normas ISO') %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('riesgo_amfe', scope, {}, 'Mtodología AMFE') %>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">Indicadores</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('ipn', scope, {}, 'Instrumentos de Planificación Nacional') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('gestion_indicadores', scope, {}, 'Gestión de Indicadores Genéricos') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('carga_evidencia_abierta', scope, {}, 'Carga de Evidencias Periodos Abiertos.') %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">ODS</h3>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">Opciones Individuales</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('proyectos_especiales', scope, {}, 'Proyectos Especiales') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('riesgo_var', scope, {}, 'Riesgo - Metodología VAR') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('riesgo_amfe', scope, {}, 'Riesgo - Metodología AMFE') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('plan_accion', scope, {}, 'Plan de Acción') %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'><br><br></div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('salidas', scope, {}, 'Salidas no Conforme') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('servicio', scope, {}, 'Servicios') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('documentos_externos', scope, {}, 'Documentos Externos') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('formularios', scope, {}, 'Formularios') %>
+                        </div>
+                        <div class='col-sm-12 col-md-12'><br><br></div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('reporte_configurable', scope, {}, 'Reporte Configurable') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('interfaces', scope, {}, 'Módulo de Interfaces Externas') %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('ods', scope, {}, 'Módulo de ODS') %>
+            <div class="row" style="margin: unset">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <h3 class="text-primary">ODS</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('ods', scope, {}, 'Módulo de ODS') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('plantillas_ods', scope, {}, 'Plantillas para los ODS') %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('plantillas_ods', scope, {}, 'Plantillas para los ODS') %>
-            </div>
-            <div class='col-sm-12 col-md-12'>
-                <h3 class="text-primary">Otros Módulos</h3>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('calidad', scope, {}, 'Módulo de Calidad') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('pacc', scope, {}, 'Plan Anual de Compras y Contrataciones') %>
-            </div>
-
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('proyectos_especiales', scope, {}, 'Proyectos Especiales') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('plan_accion', scope, {}, 'Plan de Acción') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('salidas', scope, {}, 'Salidas no Conforme') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('servicio', scope, {}, 'Servicios') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('documentos_externos', scope, {}, 'Documentos Externos') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('formularios', scope, {}, 'Formularios') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('reporte_configurable', scope, {}, 'Reporte Configurable') %>
-            </div>
-            <div class='col-sm-3 col-md-3'>
-                <%- FORM.checkbox('interfaces', scope, {}, 'Módulo de Interfaces Externas') %>
-            </div>
-
-
         </div>
     </div>
 </div>

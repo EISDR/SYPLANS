@@ -12,7 +12,7 @@
       "modal": "",
       "icon": "drawer3",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.auditoria",
       "text": "Reportes"
     }
   ],
@@ -29,7 +29,7 @@
       "modal": "",
       "icon": "drawer3",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
+      "condition": "CONFIGCOMPANY.auditoria",
       "text": "Reportes"
     }
   ]

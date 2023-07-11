@@ -4,8 +4,8 @@
       "modal": "",
       "icon": "minus",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
       "text": "- CALIDAD -",
+      "condition": "CONFIGCOMPANY.proceso || CONFIGCOMPANY.documento || CONFIGCOMPANY.auditoria || CONFIGCOMPANY.norma_iso",
       "disable": true
     }
   ],
@@ -14,8 +14,8 @@
       "modal": "",
       "icon": "minus",
       "href": "#",
-      "condition": "CONFIGCOMPANY.calidad",
       "text": "- CALIDAD -",
+      "condition": "CONFIGCOMPANY.proceso || CONFIGCOMPANY.documento || CONFIGCOMPANY.auditoria || CONFIGCOMPANY.norma_iso",
       "disable": true
     }
   ]

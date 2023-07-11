@@ -73,24 +73,32 @@ DSON.keepmerge(CRUD_compania_config, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_compania_config.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_compania_config.table.options = [{
+    text: (data) => {
+        return "Editar Configuración";
+    },
+    title: (data) => {
+        return "Editar Configuración";
+    },
+    icon: (data) => {
+        return "cog2";
+    },
+    permission: (data) => {
+        return 'edit';
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        data.$scope.formulary({
+            where: [{
+                field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+            }]
+        }, FORM.modes.edit, {});
+        return false;
+    }
+}]
