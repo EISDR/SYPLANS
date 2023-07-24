@@ -12,7 +12,7 @@
           "modal": "",
           "icon": "office",
           "href": "#compania_config",
-          "condition": "baseController.session.super",
+          "condition": "baseController.session.super ",
           "text": "Configuración"
         },
         {
@@ -137,7 +137,7 @@
           "modal": "",
           "icon": "office",
           "href": "#compania_config",
-          "condition": "baseController.session.super",
+          "condition": "baseController.session.super ",
           "text": "Configuración"
         },
         {
