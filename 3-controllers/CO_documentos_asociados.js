@@ -909,7 +909,7 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
         documentos_asociados.runMagicManyToMany('documentos_relacionados', 'documentos_asociados',
             'documento_asociado', 'id', 'nombre', 'documentos_asociados_relacionado',
             'documento_asociado_relacionado', 'id');
-        documentos_asociados.runMagicManyToMany('roles_permitidos', 'group',
+        documentos_asociados.runMagicManyToMany('roles_permitidos', 'a_clone_group',
             'documento_asociado', 'id', 'name', 'documentos_asociados_roles',
             'rol', 'id');
         documentos_asociados.runMagicManyToMany('usuarios_permitidos', 'vw_usuario',
