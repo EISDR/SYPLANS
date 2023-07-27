@@ -220,24 +220,6 @@
                         }) %>
                     </div>
                 </div>
-                <div class="row"
-                     ng-if="indicador_generico.entidad == 'vw_procesos'">
-                    <div class="col-sm-6 col-md-6 " id="">
-                        <%- FORM.select("indicador_generico_entidad", 'indicador_generico2', {
-                            allownull: false,
-                            allownew: false,
-                            allowedit: false,
-                            allowview: false,
-                            allowlist: false,
-                            label: "Seleccione Tipo de Indicador",
-                            text: "item.name",
-                            value: "table_",
-                            table: "indicador_generico_entidad",
-                            icon: {class: "list"},
-                            truelabel: "Indicador de Proceso",
-                        }) %>
-                    </div>
-                </div>
                 <div class="row" ng-show="indicador_generico.entidad == 'vw_evento_indicador'">
                     <div class="col-sm-6 col-md-6 ">
                         <%- FORM.select("evento_indicador", 'indicador_generico2', {
