@@ -212,7 +212,7 @@
                                 rowspan="{{<%= scope %>.rowspanme('indicador',row.indicador,item.records)}}"
                                 ng-if="<%= scope %>.seeme('indicador',row.indicador,i,item.records) && ra.value!=='D' && ra.value!=='%'"
                                 colspan="{{ra.value==='Alerta'?3:1}}"
-                                class="{{(row.indicador||'').trim()?'':'noindicador'}}"
+                                class="{{(row.indicador||'').trim()?'':'noindicador'}} {{ka>row.indicador_data.monitoreo}}"
                                 ng-repeat="(ka,ra) in <%= scope %>.poa_valor"
                                 ng-disabled="!<%= scope %>.limitPeriod(row,ra.id)"
                                 ng-class="[!<%= scope %>.limitPeriod(row,ra.id)?'noindicador':'']"
