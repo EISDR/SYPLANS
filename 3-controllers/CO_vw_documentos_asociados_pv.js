@@ -113,12 +113,14 @@ app.controller("vw_documentos_asociados_pv", function ($scope, $http, $compile) 
                         value: vw_documentos_asociados_pv.mapa_id ? vw_documentos_asociados_pv.mapa_id : -1
                     },
                     {
+                        open:"(",
                         field: "es_confidencial",
                         operator: "is",
                         value: "$null",
                         connector: "OR"
                     },
                     {
+                        close:")",
                         field: CONFIG.mysqlactive ? "id" : "$BASE.id::text",
                         value: documentos_confidencialesIds,
                     }
