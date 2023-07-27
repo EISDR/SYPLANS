@@ -2473,6 +2473,7 @@ createfalse = async () => {
             direccionesMeta: baseController.session ? baseController.session.direccionMeta : [],
             periodicidad: baseController.poa_monitorieo
         },
+        preloaded: {},
         listp: async (api, where) => {
             let data = undefined;
             if (where)
@@ -2491,24 +2492,41 @@ createfalse = async () => {
             return data.data;
         },
         cumplimiento: async (view, session, indicadorField, indicadorID, espei) => {
-            let result = await aacontroldemandofalso.listp(view,
-                [
-                    {
-                        field: "compania",
-                        value: session.compania_id
-                    },
-                    {
-                        field: indicadorField + "_id",
-                        value: indicadorID
-                    },
-                    {
-                        open: "(",
-                        field: "poa",
-                        operator: "=",
-                        value: `$${session.poa_id} OR poa=0)`
-                    }
-                ]);
-            if (result.length> 0) {
+            if (aacontroldemandofalso.preloaded[view] === undefined) {
+                aacontroldemandofalso.preloaded[view] = await aacontroldemandofalso.listp(view,
+                    [
+                        {
+                            field: "compania",
+                            value: session.compania_id
+                        },
+                        {
+                            open: "(",
+                            field: "poa",
+                            operator: "=",
+                            value: `$${session.poa_id} OR poa=0)`
+                        }
+                    ]);
+            }
+            let result =aacontroldemandofalso.preloaded[view].filter(d=>d[indicadorField + "_id"]==indicadorID);
+
+            // await aacontroldemandofalso.listp(view,
+            // [
+            //     {
+            //         field: "compania",
+            //         value: session.compania_id
+            //     },
+            //     {
+            //         field: indicadorField + "_id",
+            //         value: indicadorID
+            //     },
+            //     {
+            //         open: "(",
+            //         field: "poa",
+            //         operator: "=",
+            //         value: `$${session.poa_id} OR poa=0)`
+            //     }
+            // ]);
+            if (result.length > 0) {
                 let periodos = result.filter(d => {
                     return d[indicadorField + "_id"] == indicadorID
                 });

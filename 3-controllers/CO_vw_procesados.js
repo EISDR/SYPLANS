@@ -44,7 +44,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
         }
         await vw_procesados.getMapaProceso();
         vw_procesados.vw_refresh = async function () {
-            animation1.loading(`.subcontent`, "", ``, '30');
+            SWEETALERT.loading({message: "Estructurando Reporte Completo"});
 
             var aymywhere = [
                 {
@@ -71,7 +71,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             });
             vw_procesados.list = vw_procesados.list.data;
             vw_procesados.ordered = await vw_procesados.categoria();
-            animation1.stoploading(`.subcontent`);
+            SWEETALERT.stop();
             vw_procesados.refreshAngular();
         };
 
@@ -234,12 +234,6 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                                 let indicador = {
                                     id: d.elemento_id,
                                     nombre: d.elemento,
-                                    direccion_meta: d.direccion_meta,
-                                    acumulado: d.acumulado,
-                                    alcanzado: d.alcanzado,
-                                    alcanzado2: d.alcanzado2,
-                                    tipo_meta: d.tipo_meta,
-                                    month_inicio: d.month_inicio,
                                     cumplidor: cumplidor
                                 };
                                 let texto = vw_procesados.indicador(indicador);
@@ -479,7 +473,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
         }
         setTimeout(function () {
             vw_procesados.vw_refresh();
-        }, 500);
+        }, 10);
     }
     ready();
 });

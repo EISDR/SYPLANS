@@ -50,7 +50,6 @@
     "vw_mega_resultado_esperado",
     "vw_reporte_prod_riesgo",
     "vw_reporte_act_riesgo",
-    "vw_procesados",
     "vw_report_indicadores_producto",
     "vw_report_indicadores_pei",
     "vw_report_indicadores_actividad",
