@@ -40,13 +40,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
             //         return row.id + "*";
             //     }
             // },
-            id: {
-                visible: false,
-                visibleDetail: false,
-                export: false,
-                exportExample: false,
-                dead: true
-            },
             nombre_mapa: {
                 label: function () {
                     return "Macroproceso"
@@ -57,9 +50,17 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                     return "Proceso"
                 }
             },
+            id: {
+                label: function () {
+                    return "Código Automático"
+                },
+                format: (row) => {
+                    return baseController.COD("Módulo de Calidad -> Documentos", row.id,row.aprobado_en);
+                },
+            },
             codigo: {
                 label: function () {
-                    return "Código"
+                    return "Código Manual"
                 }
             },
             nombre: {
@@ -176,9 +177,9 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                 },
                 {
                     key: 'codigo',
-                    label: 'Código',
+                    label: 'Código Manual',
                     type: FILTER.types.string,
-                    placeholder: 'Código'
+                    placeholder: 'Código Manual'
                 },
                 {
                     key: 'nombre',
