@@ -194,14 +194,6 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     placeholder: 'Versión del Documento'
                 },
                 {
-                    key: 'id',
-                    label: function () {
-                        return 'Código Automático'
-                    },
-                    type: FILTER.types.string,
-                    placeholder: 'Código Automático'
-                },
-                {
                     key: 'procesos_categoria',
                     label: function () {
                         return 'Macroproceso'
