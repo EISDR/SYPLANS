@@ -38,7 +38,7 @@
                     <tr ng-class="[documental.mode==1? 'bg-<%= COLOR.secundary %>':'bg-<%= COLOR.primary %>']">
                         <td>Nombre</td>
                         <td>{{documental.mode==1?'Creado':'Acción'}}</td>
-                        <td>{{documental.mode==1?'Actualizado':'Fecha'}}</td>
+                        <td ng-if="documental.mode!=1">Fecha</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,7 +71,7 @@
                         </td>
                         <td ng-if="(folder.type||1)==3">
                             <a ng-click="documental.documentoAsociado(folder.id)"> <i class="icon-folder3"></i>
-                                {{folder.nombre}} - {{folder.code}}  ({{folder.version}})</a>
+                                {{folder.nombre}} - {{folder.code}} ({{folder.version}})</a>
                         </td>
                         <td ng-if="(folder.type||1)==4">
                             <a ng-if="folder.version==1" ng-click="documental.documentoAsociado(folder.id)">
@@ -87,11 +87,11 @@
                                 {{folder.nombre}} - {{folder.code}} ({{folder.version}})
                             </a>
                         </td>
-<!--                        <td ng-if="(folder.type||1)==4 && folder.version==3">-->
-<!--                            <a ng-click="documental.documentoAsociado(folder.id)"> <i-->
-<!--                                        class="icon-folder3 text-danger"></i>-->
-<!--                                {{folder.nombre}} - {{folder.code}}</a>-->
-<!--                        </td>-->
+                        <!--                        <td ng-if="(folder.type||1)==4 && folder.version==3">-->
+                        <!--                            <a ng-click="documental.documentoAsociado(folder.id)"> <i-->
+                        <!--                                        class="icon-folder3 text-danger"></i>-->
+                        <!--                                {{folder.nombre}} - {{folder.code}}</a>-->
+                        <!--                        </td>-->
                         <td ng-if="(folder.type||1)==4">
                             <span ng-if="folder.version==1">Creado por {{folder.created_by_name}}</span>
                             <span ng-if="folder.version==2">Modificado por {{folder.created_by_name}}</span>
@@ -106,7 +106,7 @@
                         <td ng-if="(folder.type||1)==4">
                             <span>{{documental.lan.datetime(folder.created)}}<span>
                         </td>
-                        <td ng-if="(folder.type||1)!=4">
+                        <td ng-if="(folder.type||1)!=4 && documental.mode!=1">
                             <span ng-if="folder.updated_by_name">{{folder.updated_by_name}} - <span
                                         ng-show="folder.updated">{{documental.lan.datetime(folder.updated)}}</span></span>
                         </td>
