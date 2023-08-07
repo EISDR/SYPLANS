@@ -497,6 +497,13 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         },
                         shorttext: 370
                     },
+                    procesos_categoria_nombre: {
+                        // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
+                        label: function () {
+                            return "Macroproceso"
+                        },
+                        shorttext: 370
+                    },
                     registro: {
                         label: "Registro",
                     },
