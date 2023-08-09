@@ -70,8 +70,13 @@ equlizer_with_Style = function (Class_name, scope) {
 
 watchIndicadores = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
+        let periodo_id = name.split('metas').pop() || name.split('periodos').pop();
+        let periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
+        console.log(periodo, periodo_id, name, controllerName)
         value ? value.replace("$", "") : value;
         var rules = [];
+        if (periodo && periodo.valor_alcanzado)
+            rules.push(VALIDATION.yariel.customValidation(value, periodo.valor, "Esta meta no puede ser modificada debido a que tiene un valor alcanzado"))
         if (value == "" || value == null)
             rules.push(VALIDATION.general.required(value));
         VALIDATION.validate(controller, name, rules)
@@ -88,9 +93,13 @@ watchIndicadoresSoft = function (controller, controllerName, name) {
 
 watchIndicadoresValorAbsoluto = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
+        let periodo_id = name.split('metas').pop() || name.split('periodos').pop();
+        let periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
         value = value ? value.replace("$", "") : value;
         valueR = value < 0 ? value = "" : value;
         var rules = [];
+        if (periodo && periodo.valor_alcanzado)
+            rules.push(VALIDATION.yariel.customValidation(value, periodo.valor, "Esta meta no puede ser modificada debido a que tiene un valor alcanzado"))
         if (valueR == "" || valueR == null) {
             rules.push(VALIDATION.yariel.mayorCeroMeta(valueR, "La Meta"));
             rules.push(VALIDATION.general.required(valueR));

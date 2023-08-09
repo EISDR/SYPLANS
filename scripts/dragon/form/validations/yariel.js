@@ -42,11 +42,12 @@ VALIDATION = DSON.merge(VALIDATION, {
             }
 
         },
-        reglapropia: function (value) {
+        customValidation: function (value, value2, message) {
             value = value || "";
+            value2 = value2 || "";
             return {
-                valid: (value === "bueno"),
-                message: "Opps no es bueno",
+                valid: value === value2,
+                message: message,
                 type: VALIDATION.types.error
             };
         },
