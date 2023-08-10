@@ -70,9 +70,14 @@ equlizer_with_Style = function (Class_name, scope) {
 
 watchIndicadores = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
-        let periodo_id = name.split('metas').pop() || name.split('periodos').pop();
-        let periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
-        console.log(periodo, periodo_id, name, controllerName)
+        if (controller.modelName == 'indicador_pei'){
+            var periodo_id = name.split('metas').pop();
+            var periodo = eval(`${controller.modelName}.list_${controller.modelName}_anos`).find(d => d.id == periodo_id);
+        }else {
+            var periodo_id = name.split('periodos').pop();
+            var periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
+        }
+        console.log(periodo, periodo_id, name, controllerName, controller.modelName)
         value ? value.replace("$", "") : value;
         var rules = [];
         if (periodo && periodo.valor_alcanzado)
@@ -93,8 +98,13 @@ watchIndicadoresSoft = function (controller, controllerName, name) {
 
 watchIndicadoresValorAbsoluto = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
-        let periodo_id = name.split('metas').pop() || name.split('periodos').pop();
-        let periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
+        if (controller.modelName == 'indicador_pei'){
+            var periodo_id = name.split('metas').pop();
+            var periodo = eval(`${controller.modelName}.list_${controller.modelName}_anos`).find(d => d.id == periodo_id);
+        }else {
+            var periodo_id = name.split('periodos').pop();
+            var periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
+        }
         value = value ? value.replace("$", "") : value;
         valueR = value < 0 ? value = "" : value;
         var rules = [];
