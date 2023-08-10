@@ -245,6 +245,17 @@
                     condition: "(item.plan_status == solicitud_documento.my_true_estatus && item.entidad == 'solicitud_documento')"
                 }) %>
             </div>
+            <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 1% 5% 0 5%;" ng-show="solicitud_documento.tipo_accion == '2' && solicitud_documento.estatus == 3">
+                <%- FORM.file("sol_documento_asociadofile", scope, {
+                    title: 'Subir Documento',
+                    maxfiles: 999,
+                    columns: 4,
+                    truetext: 'Subir Documento',
+                    imagefloat: "right",
+                    // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
+                    // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
+                }) %>
+            </div>
         </div>
         <div class="row" ng-show="solicitud_documento.tipo_accion == '3' || solicitud_documento.tipo_accion == '2'">
             <div class='col-sm-12 col-md-6'>

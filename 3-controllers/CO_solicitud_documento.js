@@ -746,6 +746,7 @@ Gracias.`;
             var auditVar = solicitud_documento.form.getAudit();
             let old_Data = {}
             let updated_data = {}
+
             if (solicitud_documento.form.mode == 'new') {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                 BASEAPI.insertID('solicitud_documento', {
@@ -811,102 +812,113 @@ Gracias.`;
                 });
             } else {
                 if (solicitud_documento.estatus == 3) {
-                    SWEETALERT.confirm({
-                        message: "¿Autorizar la Modificación de este documento?",
-                        confirm: function () {
-                            console.log(solicitud_documento.edit_doc_proceso_categoria, "a ver");
-                            BASEAPI.updateall('solicitud_documento', {
-                                nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
-                                descripcion: solicitud_documento.edit_doc_descripcion ? solicitud_documento.edit_doc_descripcion : "$null",
-                                proceso_categoria: solicitud_documento.edit_doc_proceso_categoria != "[NULL]" && solicitud_documento.edit_doc_proceso_categoria != 'null' ? solicitud_documento.edit_doc_proceso_categoria : "$null",
-                                alcance: solicitud_documento.edit_doc_alcance ? solicitud_documento.edit_doc_alcance : "$null",
-                                objetivo: solicitud_documento.edit_doc_objetivo ? solicitud_documento.edit_doc_objetivo : "$null",
-                                resultado_esperado: solicitud_documento.edit_doc_resultado_esperado ? solicitud_documento.edit_doc_resultado_esperado : "$null",
-                                trabaja_marco_legal: solicitud_documento.edit_doc_trabaja_marco_legal ? 1 : "$null",
-                                marco_legal: solicitud_documento.edit_doc_marco_legal ? solicitud_documento.edit_doc_marco_legal : "$null",
-                                proceso: solicitud_documento.edit_doc_proceso != "[NULL]" && solicitud_documento.edit_doc_proceso != 'null' ? solicitud_documento.edit_doc_proceso : "$null",
-                                codigo_documento: solicitud_documento.edit_doc_codigo ? solicitud_documento.edit_doc_codigo : "$null",
-                                nombre_documento: solicitud_documento.edit_doc_nombre ? solicitud_documento.edit_doc_nombre : "$null",
-                                tipo_documento: solicitud_documento.edit_doc_tipo_documento != "[NULL]" && solicitud_documento.edit_doc_tipo_documento != 'null' ? solicitud_documento.edit_doc_tipo_documento : "$null",
-                                tipo_accion: solicitud_documento.tipo_accion != "[NULL]" && solicitud_documento.tipo_accion != 'null' ? solicitud_documento.tipo_accion : "$null",
-                                compania: solicitud_documento.session.compania_id,
-                                institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
-                                documentos_asociados: solicitud_documento.documentos_asociados != "[NULL]" && solicitud_documento.documentos_asociados != 'null' ? solicitud_documento.documentos_asociados : "$null",
-                                estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
-                                fecha_solicitud: moment().format("YYYY-MM-DD HH:mm:ss"),
-                                where: [
-                                    {
-                                        field: "id",
-                                        value: solicitud_documento.id
-                                    }
-                                ]
-                            }, function (result) {
-
-                                BASEAPI.updateall('documentos_asociados', {
-                                    proceso: solicitud_documento.edit_doc_proceso != "[NULL]" && solicitud_documento.edit_doc_proceso != 'null' ? solicitud_documento.edit_doc_proceso : undefined,
-                                    procesos_categoria: solicitud_documento.edit_doc_proceso_categoria != "[NULL]" && solicitud_documento.edit_doc_proceso_categoria != 'null' ? solicitud_documento.edit_doc_proceso_categoria : undefined,
-                                    codigo: solicitud_documento.edit_doc_codigo || undefined,
-                                    nombre: solicitud_documento.edit_doc_nombre || undefined,
-                                    descripcion: solicitud_documento.descripcion || undefined,
-                                    objetivo: solicitud_documento.edit_doc_objetivo || undefined,
-                                    alcance: solicitud_documento.edit_doc_alcance || undefined,
-                                    trabaja_marco_legal: solicitud_documento.edit_doc_trabaja_marco_legal ? 1 : undefined,
-                                    marco_legal: solicitud_documento.edit_doc_marco_legal || undefined,
-                                    resultado_esperado: solicitud_documento.edit_doc_resultado_esperado || undefined,
-                                    tipo_documento: solicitud_documento.edit_doc_tipo_documento != "[NULL]" && solicitud_documento.edit_doc_tipo_documento != 'null' ? solicitud_documento.edit_doc_tipo_documento : undefined,
-                                    aprobado_por: solicitud_documento.session.id || undefined,
-                                    aprobado_en: moment().format("YYYY-MM-DD HH:mm:ss"),
-                                    solicitud_documento: solicitud_documento.id || undefined,
-                                    version: solicitud_documento.mod_doc_version + 1 || undefined,
+                    if (!solicitud_documento.sol_documento_asociadofile_DragonCountFile) {
+                        SWEETALERT.show({type: 'error', message: "Antes de GUARDAR el registro debe subir la imagen del documento a ser modificado"});
+                        resolve(false);
+                    }else {
+                        SWEETALERT.confirm({
+                            message: "¿Autorizar la Modificación de este documento?",
+                            confirm: function () {
+                                console.log(solicitud_documento.edit_doc_proceso_categoria, "a ver");
+                                BASEAPI.updateall('solicitud_documento', {
+                                    nombre: solicitud_documento.nombre ? solicitud_documento.nombre : "$null",
+                                    descripcion: solicitud_documento.edit_doc_descripcion ? solicitud_documento.edit_doc_descripcion : "$null",
+                                    proceso_categoria: solicitud_documento.edit_doc_proceso_categoria != "[NULL]" && solicitud_documento.edit_doc_proceso_categoria != 'null' ? solicitud_documento.edit_doc_proceso_categoria : "$null",
+                                    alcance: solicitud_documento.edit_doc_alcance ? solicitud_documento.edit_doc_alcance : "$null",
+                                    objetivo: solicitud_documento.edit_doc_objetivo ? solicitud_documento.edit_doc_objetivo : "$null",
+                                    resultado_esperado: solicitud_documento.edit_doc_resultado_esperado ? solicitud_documento.edit_doc_resultado_esperado : "$null",
+                                    trabaja_marco_legal: solicitud_documento.edit_doc_trabaja_marco_legal ? 1 : "$null",
+                                    marco_legal: solicitud_documento.edit_doc_marco_legal ? solicitud_documento.edit_doc_marco_legal : "$null",
+                                    proceso: solicitud_documento.edit_doc_proceso != "[NULL]" && solicitud_documento.edit_doc_proceso != 'null' ? solicitud_documento.edit_doc_proceso : "$null",
+                                    codigo_documento: solicitud_documento.edit_doc_codigo ? solicitud_documento.edit_doc_codigo : "$null",
+                                    nombre_documento: solicitud_documento.edit_doc_nombre ? solicitud_documento.edit_doc_nombre : "$null",
+                                    tipo_documento: solicitud_documento.edit_doc_tipo_documento != "[NULL]" && solicitud_documento.edit_doc_tipo_documento != 'null' ? solicitud_documento.edit_doc_tipo_documento : "$null",
+                                    tipo_accion: solicitud_documento.tipo_accion != "[NULL]" && solicitud_documento.tipo_accion != 'null' ? solicitud_documento.tipo_accion : "$null",
+                                    compania: solicitud_documento.session.compania_id,
+                                    institucion: solicitud_documento.session.institucion_id ? solicitud_documento.session.institucion_id : "$null",
+                                    documentos_asociados: solicitud_documento.documentos_asociados != "[NULL]" && solicitud_documento.documentos_asociados != 'null' ? solicitud_documento.documentos_asociados : "$null",
+                                    estatus: solicitud_documento.estatus != "[NULL]" && solicitud_documento.estatus != 'null' ? solicitud_documento.estatus : "$null",
+                                    fecha_solicitud: moment().format("YYYY-MM-DD HH:mm:ss"),
                                     where: [
                                         {
                                             field: "id",
-                                            value: documento
+                                            value: solicitud_documento.id
                                         }
                                     ]
-                                }, async function (result) {
-                                    console.log(result)
-                                    SWEETALERT.stop()
-                                    titulo_push = `La solicitud  de modificación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`;
-                                    cuerpo_push = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Autorizada.`;
-                                    titulo = `La solicitud de modificación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`
-                                    cuerpo = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Autorizada.
+                                }, function (result) {
+
+                                    BASEAPI.updateall('documentos_asociados', {
+                                        proceso: solicitud_documento.edit_doc_proceso != "[NULL]" && solicitud_documento.edit_doc_proceso != 'null' ? solicitud_documento.edit_doc_proceso : undefined,
+                                        procesos_categoria: solicitud_documento.edit_doc_proceso_categoria != "[NULL]" && solicitud_documento.edit_doc_proceso_categoria != 'null' ? solicitud_documento.edit_doc_proceso_categoria : undefined,
+                                        codigo: solicitud_documento.edit_doc_codigo || undefined,
+                                        nombre: solicitud_documento.edit_doc_nombre || undefined,
+                                        descripcion: solicitud_documento.descripcion || undefined,
+                                        objetivo: solicitud_documento.edit_doc_objetivo || undefined,
+                                        alcance: solicitud_documento.edit_doc_alcance || undefined,
+                                        trabaja_marco_legal: solicitud_documento.edit_doc_trabaja_marco_legal ? 1 : undefined,
+                                        marco_legal: solicitud_documento.edit_doc_marco_legal || undefined,
+                                        resultado_esperado: solicitud_documento.edit_doc_resultado_esperado || undefined,
+                                        tipo_documento: solicitud_documento.edit_doc_tipo_documento != "[NULL]" && solicitud_documento.edit_doc_tipo_documento != 'null' ? solicitud_documento.edit_doc_tipo_documento : undefined,
+                                        aprobado_por: solicitud_documento.session.id || undefined,
+                                        aprobado_en: moment().format("YYYY-MM-DD HH:mm:ss"),
+                                        solicitud_documento: solicitud_documento.id || undefined,
+                                        version: solicitud_documento.mod_doc_version + 1 || undefined,
+                                        where: [
+                                            {
+                                                field: "id",
+                                                value: documento
+                                            }
+                                        ]
+                                    }, async function (result) {
+                                        console.log(result)
+                                        SWEETALERT.stop()
+                                        titulo_push = `La solicitud  de modificación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`;
+                                        cuerpo_push = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Autorizada.`;
+                                        titulo = `La solicitud de modificación de documento "${solicitud_documento.nombre}" ha sido Autorizada.`
+                                        cuerpo = `La solicitud de modificación del documento "${solicitud_documento.mod_doc_nombre}" ha sido Autorizada.
         
 Gracias.`;
-                                    function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
-                                    Object.keys(solicitud_documento.form.oldData).forEach(d => {
-                                        ["Mod_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)) {
-                                                if (d == "Nombre") {
-                                                    old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                } else if (d == "Descripción") {
-                                                    old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
-                                                } else {
-                                                    old_Data[d == "Estado" ? d : d.split("Mod_doc_")[1]] = solicitud_documento.form.oldData[d];
+                                        function_send_email_custom_group_res(titulo_push, cuerpo_push, titulo, cuerpo, solicitud_documento.session.compania_id, solicitud_documento.session.institucion_id, solicitud_documento.solicitante, [4, 18]);
+                                        Object.keys(solicitud_documento.form.oldData).forEach(d => {
+                                            ["Mod_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
+                                                if (v.startsWith(d, e)) {
+                                                    if (d == "Nombre") {
+                                                        old_Data["Nombre de la solicitud"] = solicitud_documento.form.oldData[d];
+                                                    } else if (d == "Descripción") {
+                                                        old_Data["Descripción de la solicitud"] = solicitud_documento.form.oldData[d];
+                                                    } else {
+                                                        old_Data[d == "Estado" ? d : d.split("Mod_doc_")[1]] = solicitud_documento.form.oldData[d];
+                                                    }
                                                 }
-                                            }
+                                            });
                                         });
-                                    });
-                                    Object.keys(auditVar).forEach(d => {
-                                        ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
-                                            if (v.startsWith(d, e)) {
-                                                if (d == "Nombre") {
-                                                    updated_data["Nombre de la solicitud"] = auditVar[d];
-                                                } else if (d == "Descripción") {
-                                                    updated_data["Descripción de la solicitud"] = auditVar[d];
-                                                } else {
-                                                    updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
+                                        Object.keys(auditVar).forEach(d => {
+                                            ["Edit_doc", "Estado", "Nombre", "Descripción"].forEach(e => {
+                                                if (v.startsWith(d, e)) {
+                                                    if (d == "Nombre") {
+                                                        updated_data["Nombre de la solicitud"] = auditVar[d];
+                                                    } else if (d == "Descripción") {
+                                                        updated_data["Descripción de la solicitud"] = auditVar[d];
+                                                    } else {
+                                                        updated_data[d == "Estado" ? d : d.split("Edit_doc_")[1]] = auditVar[d] != "" ? auditVar[d] : undefined;
+                                                    }
                                                 }
-                                            }
+                                            });
                                         });
+                                        await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, updated_data, old_Data);
+                                        await BASEAPI.ajax.postp(new HTTP().path(["files", "api", "copy"]), {
+                                            moves: [{
+                                                from: `${FOLDERS.files}/solicitud_documento/sol_documento_asociadofile/${solicitud_documento.id}`,
+                                                to: `${FOLDERS.files}/documentos_asociados/documento_asociadofile/${documento}`
+                                            }]
+                                        });
+                                        solicitud_documento.refresh();
+                                        MODAL.close();
                                     });
-                                    await AUDIT.LOG(AUDIT.ACTIONS.update, solicitud_documento.tableOrView ? solicitud_documento.tableOrView : solicitud_documento.modelName, updated_data, old_Data);
-                                    solicitud_documento.refresh();
-                                    MODAL.close();
                                 });
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
                 } else if (solicitud_documento.estatus == 2) {
                     if (solicitud_documento.my_true_estatus == 1) {
                         SWEETALERT.confirm({
