@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(keycolum, value) in <%= scope %>.list_indicador_generico_periodo track by keycolum" repeat-end="<%= scope %>.refreshAngular()">
+    <tr ng-repeat="(keycolum, value) in <%= scope %>.list_indicador_generico_periodo_view track by keycolum" repeat-end="<%= scope %>.refreshAngular()">
         <td class="">
             <span>{{value.monitoreo + ' ' + value.periodo}}</span>
         </td>

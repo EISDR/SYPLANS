@@ -401,12 +401,32 @@
         <div class="navbar-right" ng-show="baseController.isLogged">
             <ul class="nav navbar-nav">
 
-                <li>
-                    <a
-                            target="_blank" data-popup="tooltip"
-                            data-placement="bottom"
-                            href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
-                            data-container="body" title="Documentación en Línea"><i class="icon-info22"></i></a>
+                <li class="dropdown dropdown-poa">
+                    <a class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false" title="Documentación en Línea" style="padding-top: 11px;">
+                        <i class="icon-info22"></i>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right  bg-<%= COLOR.primary %>-700">
+                        <li ng-show="baseController.CONFIGCOMPANY.planificacion || baseController.CONFIGCOMPANY.asignaciones_especiales || baseController.CONFIGCOMPANY.estatus_productoXactividades || baseController.CONFIGCOMPANY.instrumentos || baseController.CONFIGCOMPANY.sectorial">
+                            <a  target="_blank" data-popup="tooltip"
+                                data-placement="bottom"
+                                href="/Syplans/docs/Syplans-Documentación-Funcional-online-version-Planificacion.html"
+                                data-container="body"> Planificación </a>
+                        </li>
+                        <li ng-show="baseController.CONFIGCOMPANY.proceso || baseController.CONFIGCOMPANY.documento || baseController.CONFIGCOMPANY.auditoria || baseController.CONFIGCOMPANY.norma_iso">
+                            <a  target="_blank" data-popup="tooltip"
+                                data-placement="bottom"
+                                href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
+                                data-container="body"> Calidad </a>
+                        </li>
+                        <li ng-show="baseController.CONFIGCOMPANY.proyectos_especiales || baseController.CONFIGCOMPANY.gestion_indicadores || baseController.CONFIGCOMPANY.riesgo_var || baseController.CONFIGCOMPANY.riesgo_amfe || baseController.CONFIGCOMPANY.plan_accion || baseController.CONFIGCOMPANY.salidas || baseController.CONFIGCOMPANY.servicio || baseController.CONFIGCOMPANY.reporte_configurable || baseController.CONFIGCOMPANY.formularios || baseController.CONFIGCOMPANY.documentos_externos">
+                            <a  target="_blank" data-popup="tooltip"
+                                data-placement="bottom"
+                                href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
+                                data-container="body"> Opciones individuales </a>
+                        </li>
+                    </ul>
+
                 </li>
                 <li ng-if="baseController.isSuper">
                     <a

@@ -8,7 +8,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-3 col-md-3 " ng-if="riesgo.session.institucion">
+                        <div class="col-sm-4 col-md-4 " ng-if="riesgo.session.institucion">
                             <%- FORM.select("mamfe_elemento", scope, {
                                 allownull: false,
                                 allownew: false,
@@ -24,7 +24,7 @@
                                 condition: "item.institucion == riesgo_a.session.institucion_id"
                             }) %>
                         </div>
-                        <div class="col-sm-3 col-md-3 " ng-if="!riesgo.session.institucion">
+                        <div class="col-sm-4 col-md-4 " ng-if="!riesgo.session.institucion">
                             <%- FORM.select("mamfe_elemento", scope, {
                                 allownull: false,
                                 allownew: false,
@@ -40,12 +40,14 @@
                                 condition: "item.compania == riesgo_a.session.compania_id && item.institucion == null"
                             }) %>
                         </div>
-                        <div class="col-sm-4 col-md-4 ">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 ">
                             <%- FORM.inputview("id", scope, {
-                                trueplaceholder: "ID Riesgo"
+                                trueplaceholder: "ID Matriz de riesgo"
                             }) %>
                         </div>
-                        <div class="col-sm-4 col-md-4 " id="registrodiv">
+                        <div class="col-sm-10 col-md-10 " id="registrodiv">
                             <%- FORM.inputview("view_registro", scope, {
                                 placeholder: "Nombre"
                             }) %>
