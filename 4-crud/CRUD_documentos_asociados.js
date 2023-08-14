@@ -264,7 +264,9 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'codigo',
-                    label: 'Código Manual',
+                    label: function(){
+                        return 'Código Manual'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Código Manual'
                 },
