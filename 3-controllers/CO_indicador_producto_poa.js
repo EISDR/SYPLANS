@@ -760,15 +760,15 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
             message: 'Desea guardar los cambios realizados ?',
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_producto_poa.indicador_poa_object.nombre});
+                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_producto_poa.form.selected('indicador_poa').nombre});
                 var cuerpo_push = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
-                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_producto_poa.indicador_poa_object.nombre});
+                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_producto_poa.form.selected('indicador_poa').nombre});
                 var cuerpo_email = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
                 switch (indicador_producto_poa.direccion_meta) {
                     case 1: {
                         if (LAN.money(indicador_producto_poa.meta_total).value > LAN.money(indicador_producto_poa.meta_total_alca).value) {
 
-                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.indicador_poa_object.departamento, {
+                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.form.selected('indicador_poa').departamento, {
                                 direccion_meta: indicador_producto_poa.direccion_meta_nombre,
                                 meta_proyectada_total: indicador_producto_poa.meta_total_desc,
                                 meta_alcanzada_total: indicador_producto_poa.meta_total_alca
@@ -779,7 +779,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
                     case 2: {
                         if (LAN.money(indicador_producto_poa.meta_total).value < LAN.money(indicador_producto_poa.meta_total_alca).value) {
 
-                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.indicador_poa_object.departamento, {
+                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.form.selected('indicador_poa').departamento, {
                                 direccion_meta: indicador_producto_poa.direccion_meta_nombre,
                                 meta_proyectada_total: indicador_producto_poa.meta_total_desc,
                                 meta_alcanzada_total: indicador_producto_poa.meta_total_alca
@@ -790,7 +790,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
                     case 3: {
                         if (LAN.money(indicador_producto_poa.meta_total).value != LAN.money(indicador_producto_poa.meta_total_alca).value) {
 
-                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.indicador_poa_object.departamento, {
+                            function_send_email_group_indicadores(titulo_push, cuerpo_push, titulo_email, cuerpo_email, user.compania_id, indicador_producto_poa.form.selected('indicador_poa').departamento, {
                                 direccion_meta: indicador_producto_poa.direccion_meta_nombre,
                                 meta_proyectada_total: indicador_producto_poa.meta_total_desc,
                                 meta_alcanzada_total: indicador_producto_poa.meta_total_alca
