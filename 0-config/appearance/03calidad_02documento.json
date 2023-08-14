@@ -27,6 +27,11 @@
           "text": "Repositorio de Documentos"
         },
         {
+          "icon": "file-text2",
+          "href": "#documento_externo",
+          "text": "Documentos Externos"
+        },
+        {
           "menus": [
             {
               "modal": "",
@@ -74,6 +79,11 @@
           "icon": "books",
           "href": "#documental",
           "text": "Repositorio de Documentos"
+        },
+        {
+          "icon": "file-text2",
+          "href": "#documento_externo",
+          "text": "Documentos Externos"
         },
         {
           "menus": [

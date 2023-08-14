@@ -5,7 +5,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- OPCIONES INDIVIDUALES -",
-      "condition": "CONFIGCOMPANY.proyectos_especiales || CONFIGCOMPANY.gestion_indicadores || CONFIGCOMPANY.riesgo_var || CONFIGCOMPANY.riesgo_amfe || CONFIGCOMPANY.plan_accion || CONFIGCOMPANY.salidas || CONFIGCOMPANY.servicio || CONFIGCOMPANY.reporte_configurable || CONFIGCOMPANY.formularios || CONFIGCOMPANY.documentos_externos",
+      "condition": "CONFIGCOMPANY.proyectos_especiales || CONFIGCOMPANY.gestion_indicadores || CONFIGCOMPANY.riesgo_var || CONFIGCOMPANY.riesgo_amfe || CONFIGCOMPANY.plan_accion || CONFIGCOMPANY.salidas || CONFIGCOMPANY.servicio || CONFIGCOMPANY.reporte_configurable || CONFIGCOMPANY.formularios",
       "disable": true
     }
   ],
@@ -15,7 +15,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- OPCIONES INDIVIDUALES -",
-      "condition": "CONFIGCOMPANY.proyectos_especiales || CONFIGCOMPANY.gestion_indicadores || CONFIGCOMPANY.riesgo_var || CONFIGCOMPANY.riesgo_amfe || CONFIGCOMPANY.plan_accion || CONFIGCOMPANY.salidas || CONFIGCOMPANY.servicio || CONFIGCOMPANY.reporte_configurable || CONFIGCOMPANY.formularios || CONFIGCOMPANY.documentos_externos",
+      "condition": "CONFIGCOMPANY.proyectos_especiales || CONFIGCOMPANY.gestion_indicadores || CONFIGCOMPANY.riesgo_var || CONFIGCOMPANY.riesgo_amfe || CONFIGCOMPANY.plan_accion || CONFIGCOMPANY.salidas || CONFIGCOMPANY.servicio || CONFIGCOMPANY.reporte_configurable || CONFIGCOMPANY.formularios",
       "disable": true
     }
   ]

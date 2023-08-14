@@ -7,12 +7,6 @@
       "condition": "CONFIGCOMPANY.servicio"
     },
     {
-      "icon": "file-text2",
-      "href": "#documento_externo",
-      "text": "Documentos Externos",
-      "condition": "CONFIGCOMPANY.documentos_externos"
-    },
-    {
       "menus": [
         {
           "modal": "",
@@ -49,12 +43,6 @@
       "href": "#ser_servicio",
       "text": "Creación de Servicio",
       "condition": "CONFIGCOMPANY.servicio"
-    },
-    {
-      "icon": "file-text2",
-      "href": "#documento_externo",
-      "text": "Documentos Externos",
-      "condition": "CONFIGCOMPANY.documentos_externos"
     },
     {
       "menus": [
