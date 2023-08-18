@@ -1247,7 +1247,7 @@ app.controller("reporte_indicadores", function ($scope, $http, $compile) {
         } else if (tipo === 'vw_evento_indicador_riesgo') {
             return CONFIGCOMPANY.riesgo_var === 1 || CONFIGCOMPANY.riesgo_amfe === 1;
         } else if (tipo === 'vw_procesos') {
-            return CONFIGCOMPANY.calidad === 1;
+            return CONFIGCOMPANY.proceso === 1;
         } else if (tipo === 'vw_proyecto_item') {
             return CONFIGCOMPANY.proyectos_especiales === 1;
         } else if (tipo === 'vw_evento_indicador_salida') {
