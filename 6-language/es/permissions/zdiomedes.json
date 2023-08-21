@@ -307,4 +307,12 @@
   "vw_auditoria_lista_correctiva":"Trabajar de Acciones de mejora (Auditoría)",
   "vw_auditoria_lista_correctivaSIGNALevaluate":"Seguimiento de Acciones de mejora",
   "riesgo_resultado_amfeSIGNALpei_poa":"Niveles de Riesgo (GOD)",
+  "reporte_indicador_config":"(Planificación) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALproceso":"(Proceso) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALipn":"(IPN) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALproyecto_item":"(Proyectos Especiales) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALevento":"(Eventos) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALvar":"(Riesgo Var) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALamfe":"(Riesgo Amfe) Configuración de cumplimiento",
+  "reporte_indicador_configSIGNALsalida":"(Salidas no conformes) Configuración de cumplimiento"
 }

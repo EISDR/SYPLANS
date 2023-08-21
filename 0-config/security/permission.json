@@ -1966,6 +1966,34 @@
         "type": "full",
         "allow": {}
       },
+      "reporte_indicador_configSIGNALproceso": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALipn": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALproyecto_item": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALevento": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALvar": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALamfe": {
+        "type": "full",
+        "allow": {}
+      },
+      "reporte_indicador_configSIGNALsalida": {
+        "type": "full",
+        "allow": {}
+      },
       "ods_compania": {
         "type": "full",
         "allow": {}

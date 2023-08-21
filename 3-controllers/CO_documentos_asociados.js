@@ -130,6 +130,12 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 },
                 shorttext: 360
             },
+            vigencia: {
+                label: function () {
+                    return "Vigencia del Documento"
+                },
+                formattype: ENUM.FORMAT.datetime,
+            },
             creado_en: {
                 shorttext: 360,
                 label: function () {
@@ -343,6 +349,12 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     return "Roles permitidos a ver el documento"
                 },
                 shorttext: 360
+            },
+            vigencia: {
+                label: function () {
+                    return "Vigencia del Documento"
+                },
+                formattype: ENUM.FORMAT.datetime,
             },
             usuarios_permitidos: {
                 label: function () {
