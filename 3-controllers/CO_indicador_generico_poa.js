@@ -760,9 +760,9 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
             message: 'Desea guardar los cambios realizados ?',
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre_indicador});
+                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.entidadobj.name, field2: indicador_generico_poa.indicador_generico_object.nombre});
                 var cuerpo_push = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
-                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_producto_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.indicador_generico_object.nombre_indicador});
+                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.entidadobj.name, field2: indicador_generico_poa.indicador_generico_object.nombre});
                 var cuerpo_email = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
                 switch (indicador_generico_poa.direccion_meta) {
                     case 1: {

@@ -116,6 +116,7 @@
   "modificar_actividad_email_cuerpo_trabajada_vencida": "La Actividad ${field} fue trabajada posterior a la fecha ${field2} ",
   "actializar_indicador_actividad_email_titulo_meta_no_cumplida": "Indicador de Actividad ${field1} no ha cumplido con la meta",
   "actializar_indicador_producto_email_titulo_meta_no_cumplida": "Indicador de Producto ${field1} no ha cumplido con la meta",
+  "actializar_indicador_generico_email_titulo_meta_no_cumplida": "Indicador de ${field1} ${field2} no ha cumplido con la meta",
   "actializar_indicador_pei_email_titulo_meta_no_cumplida": "Indicador PEI ${field1} no ha cumplido con la meta",
   "actializar_indicador_email_cuerpo_meta_no_cumplida": "Las metas alcanzadas del indicador ${field} no cumplen con la dirección y valor de las metas proyectadas, en caso de ser un error favor de revisar y corregir.",
   "view_details": "Ver",
