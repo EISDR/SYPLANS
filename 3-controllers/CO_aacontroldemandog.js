@@ -199,6 +199,8 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             aacontroldemandog.existx(fichaFinal.datos_indicador, "Medio de Verificación", main.medio_verificacion);
             fichaFinal.leyenda = `Este indicador trabaja con <b>${main.tipoMeta[0].nombre}</b> y debe tender a ser <b>${main.direccionMeta[0].nombre}</b>`;
             fichaFinal.periodos = [];
+            indicador = indicador.forEach(d => d.periodo = parseInt(d.periodo));
+            indicador = indicador.sort(GetSortOrder("periodo"));
             indicador.forEach(d => {
                 fichaFinal.periodos.push(
                     {
