@@ -17,7 +17,7 @@
         {
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles",
+          "href": "#riesgo?[NULL]",
           "text": "Matriz de Riesgos"
         },
         {
@@ -293,7 +293,7 @@
         {
           "modal": "",
           "icon": "chess",
-          "href": "#riesgo?vw_productos_poa_detalles",
+          "href": "#riesgo?[NULL]",
           "text": "Matriz de Riesgos"
         },
         {

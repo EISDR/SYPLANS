@@ -108,7 +108,7 @@ MENU = {
         $("ul.dragon-navbar:not(:has(li))").parent().remove();
     },
     hideMenus: function (controller) {
-        $("[href='#" + controller.replaceAll('SIGNAL', '?').replaceAll('EQUALS', '=').replaceAll('SLASH', '/').replaceAll('DASH', '-') + "']").parent().remove();
+        $("[href='#" + controller.replaceAll('SIGNAL', '?').replaceAll('EQUALS', '=').replaceAll('SLASH', '/').replaceAll('DASH', '-').replaceAll('LBRACKET', '[').replaceAll('RBRACKET', ']') + "']").parent().remove();
         $("ul.hidden-ul:not(:has(li))").parent().remove();
     },
     run: function ($scope) {

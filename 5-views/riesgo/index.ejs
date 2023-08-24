@@ -185,7 +185,6 @@
             <div class="row" ng-if="!riesgo.soyamfe">
                 <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad == 'vw_procesos'">
                     <%- FORM.select("riesgo_entidad", scope, {
-                        allownull: false,
                         allownew: false,
                         allowedit: false,
                         allowview: false,
@@ -200,7 +199,6 @@
                 </div>
                 <div class="col-sm-6 col-md-6 " id="" ng-if="riesgo.entidad != 'vw_procesos'">
                     <%- FORM.select("riesgo_entidad", scope, {
-                        allownull: false,
                         allownew: false,
                         allowedit: false,
                         allowview: false,

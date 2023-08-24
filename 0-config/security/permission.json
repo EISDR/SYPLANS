@@ -1275,6 +1275,10 @@
         "type": "full",
         "allow": {}
       },
+      "riesgoLBRACKETNULLRBRACKET": {
+        "type": "full",
+        "allow": {}
+      },
       "riesgo_a": {
         "type": "full",
         "allow": {}

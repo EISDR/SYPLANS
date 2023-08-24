@@ -259,7 +259,7 @@
   "indicador_producto":"Indicador de Proyectos Especiales",
   "riesgo_resultadoSLASHmatrizSIGNALpei_poa": "Mapa de Calor (VAR)",
   "riesgo_aSIGNALpei_poa": "Riesgo (VAR)",
-  "riesgoSIGNALvw_productos_poa_detalles": "Matriz de Riesgos (VAR)",
+  "riesgoLBRACKETNULLRBRACKET": "Matriz de Riesgos (VAR)",
   "riesgo_matriz_control":"Controles de riesgo",
   "vw_reporte_obj_riesgo":"Riesgos Asociados a los Objetivos Estratégicos Institucionales (VAR)",
   "vw_resultado_esperado_reporte":"Riesgos Asociados a los Resultados Esperados (VAR)",

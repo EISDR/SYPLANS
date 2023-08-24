@@ -5,6 +5,7 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     var user = new SESSION().current();
     riesgo.session = new SESSION().current();
     riesgo.domeOnce = false;
+    riesgo.domeOnce_entidad = false;
     riesgo.esplan = false;
     if (window.location.href.split('?').length > 3)
         riesgo.agrega_acciones = window.location.href.split('?')[4] === "create" ? true : window.location.href.split('?')[3] === "create" ? true : false;
@@ -2844,6 +2845,14 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                     riesgo.domeOnce = true;
                 }
             }
+        }
+        if (data == 'riesgo_entidad'){
+            setTimeout(function(){
+                if (!riesgo.domeOnce_entidad){
+                    riesgo.form.loadDropDown('riesgo_entidad')
+                    riesgo.domeOnce_entidad = true;
+                }
+            },100)
         }
         //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
     };
