@@ -265,12 +265,16 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
         send_email_indicador(sastifactoria, tipo_indicador, table_indicador, indicador, nombre_indicador, departamento, hash_url, 'indicador_generico_periodo', periodo, callback);
     };
     indicador_generico_poa.notificar = function (peri) {
+
+        let generico = indicador_generico_poa ? indicador_generico_poa?.indicador_generico_object?.nombre : undefined;
+        let generico2 = indicador_generico_poa ? indicador_generico_poa?.indicador_generico_object?.nombre_indicador : undefined;
+        let elrealname = generico || generico2;
         SWEETALERT.confirm({
-            message: `Está seguro que desea notificar el indicador ${indicador_generico_poa.indicador_generico_object.nombre_indicador}?`,
+            message: `Está seguro que desea notificar el indicador ${elrealname}?`,
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('actions.loading') + "..."});
                 indicador_generico_poa.send_email_indicador(false, 'indicador poa', 'indicador_generico', indicador_generico_poa.indicador_generico
-                    , indicador_generico_poa.indicador_generico_object.nombre_indicador, indicador_generico_poa.indicador_generico_object.departamento
+                    , elrealname, indicador_generico_poa.indicador_generico_object.departamento
                     , "#indicador_generico_poa", peri, async function () {
 
                     });
@@ -760,9 +764,15 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
             message: 'Desea guardar los cambios realizados ?',
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
-                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.entidadobj.name, field2: indicador_generico_poa.indicador_generico_object.nombre});
+                var titulo_push = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {
+                    field1: indicador_generico_poa.entidadobj.name,
+                    field2: indicador_generico_poa.indicador_generico_object.nombre
+                });
                 var cuerpo_push = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
-                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {field1: indicador_generico_poa.entidadobj.name, field2: indicador_generico_poa.indicador_generico_object.nombre});
+                var titulo_email = MESSAGE.ieval('planificacion.actializar_indicador_generico_email_titulo_meta_no_cumplida', {
+                    field1: indicador_generico_poa.entidadobj.name,
+                    field2: indicador_generico_poa.indicador_generico_object.nombre
+                });
                 var cuerpo_email = "El resultado de las metas alcanzadas no cumple con el resultado de las metas proyectadas.";
                 switch (indicador_generico_poa.direccion_meta) {
                     case 1: {
