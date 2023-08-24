@@ -590,7 +590,7 @@ select * from vw_auditoria_programa_plan where id=${auditoria_programa_plan.id};
 
 select null,null,auditoria_programa,null,null,null,null,1,null,null,null,null,null,1,null,null,null,null,null,null,0,0,${value} from auditoria_programa_plan where id=${value};
 
-set @auditorianext = (select id from auditoria_programa_plan where auditoria_relacionada=@auditoria_relacionada order by id desc limit 1);
+set @auditorianext = (select id from auditoria_programa_plan where auditoria_relacionada=${value} order by id desc limit 1);
 
 
 insert into  auditoria_programa_plan_proceso(programa_plan,proceso,revisado)
@@ -1486,7 +1486,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     auditores_responsable.sort(function (a, b) {
                         return a - b
                     });
-                    debugger
                     for (var item of auditores_responsable) {
                         var somwerow = new ROLROW();
                         var auditor = auditoria_programa_plan.auditores.data.filter(d => {
@@ -3087,7 +3086,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         message: `Todos los DOCUMENTOS seleccionados deben tener Auditores Responsables Asignados`,
                     });
                     resolve(false);
-                    return
                 } else if (!auditoria_programa_plan.allow_autorize_audit() && auditoria_programa_plan.estatus == 3) {
                     SWEETALERT.show({
                         type: 'error',
