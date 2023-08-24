@@ -3087,6 +3087,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         message: `Todos los DOCUMENTOS seleccionados deben tener Auditores Responsables Asignados`,
                     });
                     resolve(false);
+                    return
                 } else if (!auditoria_programa_plan.allow_autorize_audit() && auditoria_programa_plan.estatus == 3) {
                     SWEETALERT.show({
                         type: 'error',
