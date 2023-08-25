@@ -43,7 +43,9 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
             } else {
                 SWEETALERT.loading({message: MESSAGE.i('mono.procesing')});
                 actividades_poa_monitoreo.soloAnadirComentario();
-                comentarios_actividades_poa.refresh();
+                setTimeout(function (){
+                    comentarios_actividades_poa.refresh();
+                },100)
                 SWEETALERT.stop();
             }
             if (ShowCountactividadfile_comment !== undefined) {
@@ -1416,6 +1418,9 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
         data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto_consumido_ver).value;
         data.updating.presupuesto = LAN.money(data.updating.presupuesto).value;
         data.updating.avance_porcentaje = actividades_poa_monitoreo.estatus == 1 ? 100 : actividades_poa_monitoreo.avance_porcentaje;
+        if (DSON.oseaX(actividades_poa_monitoreo.avance_porcentaje)) {
+            delete data.updating.avance_porcentaje;
+        }
         if (actividades_poa_monitoreo.estatus == ENUM_2.actividad_poa_estatus.Trabajada) {
             if (actividades_poa_monitoreo.puede_completar == 'No') {
                 SWEETALERT.show({
@@ -1615,6 +1620,8 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
         for (var item of buttons) {
             item.disabled = false;
         }
+        actividades_poa_monitoreo.comentario_comment = "";
+        actividades_poa_monitoreo.refreshAngular();
         if (copy) {
             if (rs.data)
                 if (rs.data.data)
