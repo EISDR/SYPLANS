@@ -1017,49 +1017,8 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                 loadingContentText: MESSAGE.i('actions.Loading')
             },
             event: {
-                // show: {
-                //     end: function (data) {
-                //         if(indicador_generico_poa.edit){
-                //             $('.modal-content .modal-footer').html('<span class="label label-white text-<%= TAG.table %>-300 label-rounded label-icon">\n' +
-                //                 '                <i class="position-right"></i>\n' +
-                //                 '                </span>\n' +
-                //                 '            <button\n' +
-                //                 '                   id="btnC"  onclick="MODAL.close(indicador_generico_poa)"  dragonlanguage="" title="MESSAGE.ic(\'mono.cancel\')"\n' +
-                //                 '                    type="button" class="btn bg-warning btn-labeled btn-xs pull-right"\n' +
-                //                 '                    >\n' +
-                //                 '                <b><i class="icon-cross2"></i></b>\n' +
-                //                 '                <language>MESSAGE.ic(\'mono.cancel\')</language>\n' +
-                //                 '            </button>');
-                //
-                //             $('.modal-content .modal-footer').append('<button\n' +
-                //                 '                 id="btnS"   dragonlanguage="" title="MESSAGE.ic(\'mono.save\')"\n' +
-                //                 '                    type="button" role="button" class=" btn bg-success-800 btn-labeled btn-xs pull-right"\n' +
-                //                 '                   >\n' +
-                //                 '                <b><i class="icon-floppy-disk"></i></b>\n' +
-                //                 '                <language>MESSAGE.ic(\'mono.save\')</language>\n' +
-                //                 '            </button>');
-                //         }else{
-                //             $('.modal-content .modal-footer').html('<span class="label label-white text-<%= TAG.table %>-300 label-rounded label-icon">\n' +
-                //                 '                <i class="position-right"></i>\n' +
-                //                 '                </span>\n' +
-                //                 '            <button\n' +
-                //                 '                   id="btnC"  onclick="MODAL.close(indicador_generico_poa)"  dragonlanguage="" title="MESSAGE.ic(\'mono.close\')"\n' +
-                //                 '                    type="button" class="btn bg-secundary btn-labeled btn-xs pull-right"\n' +
-                //                 '                    >\n' +
-                //                 '                <b><i class="icon-cross2"></i></b>\n' +
-                //                 '                <language>MESSAGE.ic(\'mono.close\')</language>\n' +
-                //                 '            </button>');
-                //         }
-                //     }
-                // },
                 hide: {
-                    // begin: function (data) {
-                    //     if($(`[name=${indicador_generico_poa.commentName}]`).val().length >= 85){
-                    //         $(`.${indicador_generico_poa.commentName}`).show();
-                    //     }else{
-                    //         $(`.${indicador_generico_poa.commentName}`).hide();
-                    //     }
-                    // },
+
                     end: function (data) {
                         indicador_generico_poa.ids = 0;
                     }

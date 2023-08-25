@@ -17,6 +17,22 @@ app.controller("monitoreo_actividad", function ($scope, $http, $compile) {
     monitoreo_actividad.modover = location.href.indexOf('?ver') !== -1;
     var animation1 = new ANIMATION();
 
+    monitoreo_actividad.nuevaFicha = (row) => {
+        monitoreo_actividad.FICHA = monitoreo_actividad.pequenoHistorial[row.indicador_id].ficha.FICHA;
+        monitoreo_actividad.modal.modalView("aacontroldemando/fichaindicador", {
+            header: {
+                title: row.indicador,
+            },
+            footer: {
+                cancelButton: true
+            },
+            content: {
+                loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+            },
+        });
+    };
+
+
     monitoreo_actividad.rowspanme = function (field, value, ally) {
         var r = 0;
         let list = ally.filter(row => ((monitoreo_actividad.institucion != '[NULL]' ? monitoreo_actividad.institucion == (row.institucion || row.compania) : true)
@@ -143,7 +159,7 @@ app.controller("monitoreo_actividad", function ($scope, $http, $compile) {
             allowver = true;
         }
         var permi = await monitoreo_actividad.permission(indicador, periodo);
-        if (1== 1) {
+        if (1 == 1) {
             open_comments_indicador(type, indicador, true, periodo);
         } else {
             // SWEETALERT.show({

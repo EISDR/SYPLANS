@@ -242,6 +242,21 @@ app.controller("monitoreo_producto", function ($scope, $http, $compile) {
         }
     };
 
+    monitoreo_producto.nuevaFicha = (row) => {
+        monitoreo_producto.FICHA = monitoreo_producto.pequenoHistorial[row.indicador_id].ficha.FICHA;
+        monitoreo_producto.modal.modalView("aacontroldemando/fichaindicador", {
+            header: {
+                title: row.indicador,
+            },
+            footer: {
+                cancelButton: true
+            },
+            content: {
+                loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+            },
+        });
+    };
+
     monitoreo_producto.monitoreo_producto_get = async function () {
 
 

@@ -18,12 +18,21 @@
         allowedit: false,
         allowview: false,
         allowlist: false,
+        value: "indicador_id",
         refresh: false,
-        text: "item.no_indicador+ ' ' +item.nombre_indicador",
-        table: "vw_indicador_poa",
+        text: "item.indicador+ ' (' +item.departamento +')'",
+        table: "vw_monitoreo_producto",
         icon: {class: "archive"},
         truelabel: "Indicador de Producto",
-        condition: "item.poa==" + scope + ".session.poa_id"
+        condition: "item.poa==" + scope + ".session.poa_id",
+        query: {
+            limit: 0,
+            page: 1,
+            where: [],
+            orderby: "indicador_id",
+            order: "asc",
+            distinct: false
+        }
     }) %>
 </div>
 <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='actividad'">
@@ -33,11 +42,20 @@
         allowview: false,
         allowlist: false,
         refresh: false,
-        text: "item.no_indicador+ ' ' +item.nombre_indicador",
-        table: "vw_indicador_actividad",
+        value: "indicador_id",
+        text: "item.indicador+ ' (' +item.departamento +')'",
+        table: "vw_monitoreo_actividad",
         icon: {class: "archive"},
         truelabel: "Indicador de Actividad",
-        condition: "item.poa==" + scope + ".session.poa_id"
+        condition: "item.poa==" + scope + ".session.poa_id",
+        query: {
+            limit: 0,
+            page: 1,
+            where: [],
+            orderby: "indicador_id",
+            order: "asc",
+            distinct: false
+        }
     }) %>
 </div>
 <div class="col-sm-6 col-md-6" ng-if="<%= scope %>.indicadores==='proceso'">

@@ -120,7 +120,7 @@ app.controller("vw_comentarios_indicadores", function ($scope, $http, $compile) 
                     },
                     {
                         field: "type",
-                        value: periodo ? 23 : ["19"]
+                        value: ["23", "19"]
                     }
                 ];
                 var periodo_info = await BASEAPI.listp('indicador_generico_periodo', {

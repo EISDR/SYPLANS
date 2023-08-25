@@ -17,6 +17,21 @@ app.controller("monitoreo_generico", function ($scope, $http, $compile) {
     monitoreo_generico.modover = location.href.indexOf('?ver') !== -1;
     var animation1 = new ANIMATION();
 
+    monitoreo_generico.nuevaFicha = (row) => {
+        monitoreo_generico.FICHA = monitoreo_generico.pequenoHistorial[row.indicador_id].ficha.FICHA;
+        monitoreo_generico.modal.modalView("aacontroldemando/fichaindicador", {
+            header: {
+                title: row.indicador,
+            },
+            footer: {
+                cancelButton: true
+            },
+            content: {
+                loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+            },
+        });
+    };
+
     monitoreo_generico.rowspanme = function (field, value, list) {
         var r = 0;
         r = list.filter(d => {

@@ -1257,7 +1257,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     columns: 4,
                 };
 
-                inside.modal.modalView("templates/components/gallery", {
+                inside.modal.modalView("templates/components/filemanagerlite", {
                     width: 'modal-full',
                     header: {
                         title: MESSAGE.ic("mono.files"),

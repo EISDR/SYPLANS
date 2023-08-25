@@ -9,8 +9,6 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
     vw_comentarios.session = new SESSION().current();
     vw_comentarios.group_caracteristica = vw_comentarios.session.groups[0] ? vw_comentarios.session.groups[0].caracteristica : "";
     RUNCONTROLLER("vw_comentarios", vw_comentarios, $scope, $http, $compile);
-
-
     if (typeof indicador_producto_poa_producto !== 'undefined') {
         if (typeof indicador_producto_poa_producto !== 'not defined') {
             if (indicador_producto_poa_producto && indicador_producto_poa_producto.ids) {
@@ -31,7 +29,6 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
             }
         }
     }
-
     if (typeof indicador_producto_poa_proceso !== 'undefined') {
         if (typeof indicador_producto_poa_proceso !== 'not defined') {
             if (indicador_producto_poa_proceso && indicador_producto_poa_proceso.ids) {
@@ -52,7 +49,6 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
             }
         }
     }
-
     if (typeof indicador_resultado_pei !== 'undefined') {
         if (typeof indicador_resultado_pei !== 'not defined') {
             if (indicador_resultado_pei && indicador_resultado_pei.ids) {
@@ -115,11 +111,18 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
                 vw_comentarios.fixFilters = [
                     {
                         "field": "type",
-                        "value": ENUM_2.tipo_comentario.Actualizacion_indicadores_poa_generico
+                        "value": [
+                            ENUM_2.tipo_comentario.Actualizacion_indicadores_poa_generico,
+                            ENUM_2.tipo_comentario.Actualizacion_indicadores_poa_proceso
+                        ]
                     },
                     {
                         "field": "value",
-                        "value": indicador_generico_poa.ids
+                        "value": indicador_generico_poa.edit
+                    },
+                    {
+                        "field": "value2",
+                        "value": indicador_generico_poa.indicador_generico_object.id
                     }
                 ];
             }
@@ -342,7 +345,6 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
             }
         }
     }
-
     vw_comentarios.formulary = function (data, mode, defaultData) {
         if (vw_comentarios !== undefined) {
             RUN_B("vw_comentarios", vw_comentarios, $scope, $http, $compile);

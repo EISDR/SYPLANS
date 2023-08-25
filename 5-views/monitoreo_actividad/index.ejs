@@ -197,15 +197,6 @@
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <a title="Ver ficha de indicador"
-                                           ng-click="monitoreo_actividad.openIndicador('indicador actividad',row.indicador_id)"
-                                           style="float: right;margin-bottom: 20px"><i class="icon-eye "></i>
-                                        </a>
-
-                                    </td>
-                                </tr>
                             </table>
                         </td>
                         <td class="{{(row.indicador||'').trim()?'':'noindicador'}}">
@@ -227,7 +218,9 @@
                             {{row.linea_base}}
                         </td>
                         <td>
-	<span title="{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}">
+	<span ng-click="<%=scope%>.nuevaFicha(row.indicador_data)"
+          title="{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.titulo}}"
+          style="cursor: pointer;padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).ponderacion.color}}">
 		{{(<%=scope%>.pequenoHistorial[row.indicador_data.indicador_id]||{}).cumplimiento||0}}%
 	</span>
                         </td>

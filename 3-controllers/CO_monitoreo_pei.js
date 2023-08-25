@@ -17,6 +17,24 @@ app.controller("monitoreo_pei", function ($scope, $http, $compile) {
     monitoreo_pei.yearactual = new Date().getFullYear();
     monitoreo_pei.modover = location.href.indexOf('?ver') !== -1;
     var animation1 = new ANIMATION();
+
+
+    monitoreo_pei.nuevaFicha = (row) => {
+        monitoreo_pei.FICHA = monitoreo_pei.pequenoHistorial[row.indicador_id].ficha.FICHA;
+        monitoreo_pei.modal.modalView("aacontroldemando/fichaindicador", {
+            header: {
+                title: row.indicador,
+            },
+            footer: {
+                cancelButton: true
+            },
+            content: {
+                loadingContentText: `${MESSAGE.i('actions.Loading')}...`
+            },
+        });
+    };
+
+
     monitoreo_pei.rowspanme = function (field, value, list) {
         var r = 0;
         r = list.filter(d => {
