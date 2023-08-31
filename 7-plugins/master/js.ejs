@@ -45,9 +45,11 @@
 <!--<script type="text/javascript" src="assets/js/plugins/onesignal/index.js"></script>-->
 <script type="text/javascript" src="assets/js/plugins/extensions/session_timeout.min.js"></script>
 
-<% localjs.forEach(function(item){ %>
-    <script src="<%= FOLDERS.scripts %>/<%= item %>?ver=<%= CONFIG.version.app %>"></script>
-<% }); %>
+<script>
+    <% localjs.forEach(function(item){ %>
+    <%- include('../../'+FOLDERS.scripts+'/'+item,{}); %>
+    <% }); %>
+</script>
 <script>
     CONFIGCOMPANY = {};
 </script>

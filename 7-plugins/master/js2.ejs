@@ -8,17 +8,24 @@
 <script type="text/javascript" src="assets/js/plugins/sorttable/js/jquery.mjs.nestedSortable.js"></script>
 <script type="text/javascript" src="assets/js/plugins/sorttable/js/jquery-sortable.js"></script>
 <link href="assets/js/plugins/sorttable/css/jquery-ui.css" rel="stylesheet" type="text/css">
-<% crudjs.forEach(function(item){ %>
-    <script src="<%= item %>?ver=<%= CONFIG.version.app %>"></script>
-<% }); %>
+
+<script>
+    <% crudjs.forEach(function(item){ %>
+    <%- include('../../'+item,{}); %>
+    <% }); %>
+</script>
+
 <script>
     <% silentsmodels.forEach(function(item){ %>
     <%- include('../../7-plugins/templates/system/crud',{scope:item}); %>
     <% }); %>
 </script>
-<% controllersjs.forEach(function(item){ if(item != undefined){ %>
-    <script src="<%= item %>?ver=<%= CONFIG.version.app %>"></script>
-<% }}); %>
+
+<script>
+    <% controllersjs.forEach(function(item){ %>
+    <%- include('../../'+item,{}); %>
+    <% }); %>
+</script>
 <script>
     <% silentsmodels.forEach(function(item){ %>
     <%- include('../../7-plugins/templates/system/controller',{scope:item}); %>
