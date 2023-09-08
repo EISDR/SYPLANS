@@ -2430,6 +2430,10 @@
             "DOC": true
           }
         }
+      },
+      "lote_clonacion": {
+        "type": "full",
+        "allow": {}
       }
     }
   }
