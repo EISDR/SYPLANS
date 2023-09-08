@@ -116,6 +116,13 @@
               "icon": "checkmark3",
               "href": "#departamento_poa",
               "text": "Autorizar POA-Liberar Presupuesto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "checkmark3",
+              "href": "#lote_clonacion",
+              "text": "Clonar POA"
             }
           ],
           "modal": "",
@@ -679,6 +686,13 @@
               "icon": "lifebuoy",
               "href": "#departamento_poa",
               "text": "Autorizar Gestión Presupuestaria-Liberar Presupuesto"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "checkmark3",
+              "href": "#lote_clonacion",
+              "text": "Clonar Gestión Presupuestaria"
             }
           ],
           "modal": "",
