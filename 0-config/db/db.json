@@ -1,9 +1,9 @@
 {
-  "mysqlactive": false,
-  "postgreactive": true,
+  "mysqlactive": true,
+  "postgreactive": false,
   "postgreschema": "public",
   "users": {
-    "engine": "postgre"
+    "engine": "mysql"
   },
   "mysql": {
     "host": "qa.syplans.com",
