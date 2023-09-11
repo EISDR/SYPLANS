@@ -1,0 +1,46 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('departamento', scope, {
+                    // allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    label: "Departamento",
+                    text: "item.nombre +' - '+ item.estatus_nombre",
+                    // text: "item.nombre + ' ' + item.apellido",
+                    table: "vw_presupuesto_departamento_auth",
+                    field: "id",
+                    columns: ["departamento"],
+                    icon: {class:"archive"},
+                    condition: "((item.id > 0) && (item.poa == lote_clonacion.condiction) && (item.count_productos > 0))"
+                }) %>
+            </div>
+            <div class='col-sm-4 col-md-4'>
+                <%- FORM.select('poa_desde', scope, {
+                    // allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    label: "POA a copiar",
+                    text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
+                    // text: "item.nombre + ' ' + item.apellido",
+                    table: "poa",
+                    field: "id",
+                    icon: {class:"archive"},
+                    condition: "item.compania == lote_clonacion.session.compania_id"
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+
