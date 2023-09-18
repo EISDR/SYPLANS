@@ -452,6 +452,11 @@ TABLE = {
             $scope.width();
             MESSAGE.run();
             $scope.triggers.table.after.load($scope.records);
+            setTimeout(() => {
+                $(".icon-plus-circle2").parent().remove();
+                $(".icon-pencil5").parent().remove();
+                $(".icon-trash").parent().remove();
+            }, 1000);
             $(".icon-plus-circle2").parent().remove();
             $(".icon-pencil5").parent().remove();
             $(".icon-trash").parent().remove();
