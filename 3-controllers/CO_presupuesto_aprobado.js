@@ -336,9 +336,11 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
                     }]
 
                 }, function (result) {
-                    if ((DSON.cleanNumber(presupuesto_aprobado.presupuesto_institucional_p) >= result.presupuesto_x_departamento) && (DSON.cleanNumber(presupuesto_aprobado.presupuesto_institucional_p) >= result.presupuesto_x_departamento)) {
+                    let pi = parseFloat(DSON.cleanNumber(presupuesto_aprobado.presupuesto_institucional_p));
+                    let pxd = parseFloat(result.presupuesto_x_departamento);
+                    if (pi > pxd) {
                         BASEAPI.updateall('poa', {
-                            "presupuesto_institucional": DSON.cleanNumber(presupuesto_aprobado.presupuesto_institucional_p),
+                            "presupuesto_institucional": pi,
                             "updated_at": moment().format('YYYY-MM-DD H:mm:ss'),
                             "where": [{
                                 "field": "id",
