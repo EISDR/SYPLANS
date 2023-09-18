@@ -452,6 +452,7 @@ TABLE = {
             $scope.width();
             MESSAGE.run();
             $scope.triggers.table.after.load($scope.records);
+            $(".icon-plus-circle2").parent().remove();
         };
         $scope.fixFiltersApply = function () {
             if ($scope.fixFilters !== undefined)
