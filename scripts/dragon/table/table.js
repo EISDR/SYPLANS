@@ -453,6 +453,8 @@ TABLE = {
             MESSAGE.run();
             $scope.triggers.table.after.load($scope.records);
             $(".icon-plus-circle2").parent().remove();
+            $(".icon-pencil5").parent().remove();
+            $(".icon-trash").parent().remove();
         };
         $scope.fixFiltersApply = function () {
             if ($scope.fixFilters !== undefined)
