@@ -452,10 +452,10 @@ TABLE = {
             $scope.width();
             MESSAGE.run();
             $scope.triggers.table.after.load($scope.records);
-            setTimeout(() => {
-                $(".icon-plus-circle2").parent().remove();
-            }, 1000);
-            $(".icon-plus-circle2").parent().remove();
+            // setTimeout(() => {
+            //     $(".icon-plus-circle2").parent().remove();
+            // }, 1000);
+            // $(".icon-plus-circle2").parent().remove();
         };
         $scope.fixFiltersApply = function () {
             if ($scope.fixFilters !== undefined)

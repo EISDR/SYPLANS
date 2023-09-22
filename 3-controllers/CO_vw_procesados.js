@@ -73,12 +73,14 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             vw_procesados.ordered = await vw_procesados.categoria();
             SWEETALERT.stop();
             vw_procesados.refreshAngular();
+            await vw_procesados.categoria(true);
         };
 
         vw_procesados.mypathfile = '/documentos_asociados/documento_asociadofile/';
         vw_procesados.getfile = (id) => new Promise(async (resolve, reject) => {
             BASEAPI.ajax.get(new HTTP().path(["files", "api"]), {folder: vw_procesados.mypathfile + id}, function (result) {
-                resolve(result.data.count > 0);
+                if (result.data.count > 0)
+                    $('#documento_' + id).show();
             }, $('#invisible'));
         });
 
@@ -164,7 +166,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             }
         };
 
-        vw_procesados.categoria = async function () {
+        vw_procesados.categoria = async function (toloadfile) {
             let categorias = [];
             vw_procesados.list.forEach(d => {
                 if (!categorias.filter(e => {
@@ -201,7 +203,6 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                             return f.id === d.documento_id
                         }).length)
                             if (d.documento_id && !d.documento_general && d.estatus_documento != 4) {
-                                let tienefile = await vw_procesados.getfile(d.documento_id);
                                 p.documentos.push({
                                     id: d.documento_id,
                                     nombre: d.documento,
@@ -209,8 +210,10 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                                     fecha: d.fecha,
                                     usuario: d.usuario,
                                     tipo: d.tipo_documento,
-                                    isfile: tienefile
+                                    isfile: true
                                 });
+                                if (toloadfile)
+                                    await vw_procesados.getfile(d.documento_id);
                             }
 
                         if (!p.elementos.filter(f => {
