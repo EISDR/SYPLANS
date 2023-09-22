@@ -73,7 +73,17 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             vw_procesados.ordered = await vw_procesados.categoria();
             SWEETALERT.stop();
             vw_procesados.refreshAngular();
-            await vw_procesados.categoria(true);
+            setTimeout(async () => {
+
+                for (const categoria of vw_procesados.ordered) {
+                    for (const proceso of categoria.procesos) {
+                        for (const docunento of proceso.documentos) {
+                            await vw_procesados.getfile(docunento.id);
+                        }
+                    }
+                }
+            }, 1000);
+
         };
 
         vw_procesados.mypathfile = '/documentos_asociados/documento_asociadofile/';
@@ -81,6 +91,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             BASEAPI.ajax.get(new HTTP().path(["files", "api"]), {folder: vw_procesados.mypathfile + id}, function (result) {
                 if (result.data.count > 0)
                     $('#documento_' + id).show();
+                resolve(result.data.count > 0);
             }, $('#invisible'));
         });
 
@@ -166,7 +177,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
             }
         };
 
-        vw_procesados.categoria = async function (toloadfile) {
+        vw_procesados.categoria = async function () {
             let categorias = [];
             vw_procesados.list.forEach(d => {
                 if (!categorias.filter(e => {
@@ -212,8 +223,6 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                                     tipo: d.tipo_documento,
                                     isfile: true
                                 });
-                                if (toloadfile)
-                                    await vw_procesados.getfile(d.documento_id);
                             }
 
                         if (!p.elementos.filter(f => {
