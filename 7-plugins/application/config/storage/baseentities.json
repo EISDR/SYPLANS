@@ -183,9 +183,6 @@
         "user_updated"
       ]
     },
-    "dragon_audit": {
-      "type": "deep"
-    },
     "audit_action": {
       "key": "id",
       "type": "one",

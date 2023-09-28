@@ -1,27 +1,22 @@
 AUDIT = {
     LOG: (action, modelName, data, prev) => new Promise(async (resolve, reject) => {
         var user = new SESSION().current();
-        // data.compania = new SESSION().current().compania_id;
-        // var view = eval(`CRUD_${modelName}`);
-        // if (view)
-        //     view = eval(`CRUD_${modelName}`).table.view;
         var obj = {
             modelname: modelName,
             varname: modelName,
             action: action,
             username: user.fullName(),
-            dataJson: data,
-            date: new Date(),
+            dataJson: JSON.stringify(data),
             version: CONFIG.version.data,
             ip: user.ip,
             compania: user.compania_id || "",
             pei: user.pei_id || "",
-            poa: user.poa_id ||"",
+            poa: user.poa_id || "",
             user_id: user.usuario_id
         };
         if (prev) {
-            obj.updatedJson = data;
-            obj.dataJson = prev;
+            obj.updatedJson = JSON.stringify(data);
+            obj.dataJson = JSON.stringify(prev);
         }
         await BASEAPI.insertp('dragon_audit', obj);
         resolve(true);
@@ -58,18 +53,17 @@ AUDIT = {
             varname: modelName,
             action: action,
             username: user.fullName(),
-            dataJson: data,
-            date: new Date(),
+            dataJson: JSON.stringify(data),
             version: CONFIG.version.data,
             ip: user.ip,
             compania: user.compania_id,
             pei: user.pei_id,
-            poa: user.poa_id||"",
+            poa: user.poa_id || "",
             custom_sub_action: custom_sub_action
         };
         if (prev) {
-            obj.updatedJson = data;
-            obj.dataJson = prev;
+            obj.updatedJson = JSON.stringify(data);
+            obj.dataJson = JSON.stringify(prev);
         }
         await BASEAPI.insertp('dragon_audit', obj);
         resolve(true);
@@ -80,7 +74,6 @@ AUDIT = {
         delete: 'delete'
     },
     OPEN: (modelName, controllerName) => {
-
         let modal = {
             width: 'modal-full',
             storageModel: modelName,

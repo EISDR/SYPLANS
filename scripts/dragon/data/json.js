@@ -8,6 +8,18 @@ function has_scrollbar(name) {
 }
 
 DSON = {
+    stringToObject: (obj) => {
+        if (typeof obj === "object")
+            return obj;
+        if (typeof obj === "string") {
+            try {
+                return eval("(" + obj + ")");
+            } catch (e) {
+                return {};
+            }
+        }
+        return obj;
+    },
     isNumberKey: function (evt, val) {
         // console.log(val.value);
         var charCode = (evt.which) ? evt.which : evt.keyCode;

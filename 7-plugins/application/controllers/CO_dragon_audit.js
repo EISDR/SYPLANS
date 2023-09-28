@@ -26,7 +26,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
     dragon_audit.filter_click = async function () {
         var accion = dragon_audit.form.selected('audit_action');
         if (accion) {
-            if(dragon_audit.session.super){
+            if (dragon_audit.session.super) {
                 dragon_audit.fixFilters = [
                     {
                         "open": "(",
@@ -37,15 +37,15 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         "field": "action",
                         "value": accion.nombre,
                         "close": ")",
-                        "connector": " && "
+                        "connector": " AND "
                     },
                     {
                         "field": "compania",
                         "connector": "=",
                         "value": ""
                     },
-                    ]
-            }else {
+                ]
+            } else {
                 dragon_audit.fixFilters = [
                     {
                         "open": "(",
@@ -56,7 +56,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         "field": "action",
                         "value": accion.nombre,
                         "close": ")",
-                        "connector": " && "
+                        "connector": " AND "
                     },
                     {
                         "field": "compania",
@@ -67,7 +67,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
             dragon_audit.refresh();
         }
     };
-    if(dragon_audit.session.super){
+    if (dragon_audit.session.super) {
         dragon_audit.fixFilters = [
             {
                 "open": "(",
@@ -78,7 +78,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                 "field": "action",
                 "value": "insert",
                 "close": ")",
-                "connector": " && "
+                "connector": " AND "
             },
             {
                 "field": "compania",
@@ -86,7 +86,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                 "value": ""
             },
         ]
-    }else {
+    } else {
         dragon_audit.fixFilters = [
             {
                 "open": "(",
@@ -97,7 +97,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                 "field": "action",
                 "value": "insert",
                 "close": ")",
-                "connector": " && "
+                "connector": " AND "
             },
             {
                 "field": "compania",
@@ -120,7 +120,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
 
     dragon_audit.showfields = false;
     dragon_audit.openTab = async function (action) {
-        if(dragon_audit.session.super){
+        if (dragon_audit.session.super) {
             dragon_audit.fixFilters = [
                 {
                     "open": "(",
@@ -131,7 +131,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                     "field": "action",
                     "value": action,
                     "close": ")",
-                    "connector": " && "
+                    "connector": " AND "
                 },
                 {
                     "field": "compania",
@@ -139,7 +139,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                     "value": ""
                 },
             ]
-        }else {
+        } else {
             dragon_audit.fixFilters = [
                 {
                     "open": "(",
@@ -150,7 +150,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                     "field": "action",
                     "value": action,
                     "close": ")",
-                    "connector": " && "
+                    "connector": " AND "
                 },
                 {
                     "field": "compania",
@@ -160,7 +160,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
         }
 
         if (action == 'app') {
-            if(dragon_audit.session.super){
+            if (dragon_audit.session.super) {
                 dragon_audit.fixFilters = [
                     {
                         "open": "(",
@@ -182,7 +182,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         "operator": "!=",
                         "value": "update",
                         "close": ")",
-                        "connector": " && "
+                        "connector": " AND "
                     },
                     {
                         "field": "compania",
@@ -190,7 +190,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         "value": ""
                     },
                 ]
-            }else {
+            } else {
                 dragon_audit.fixFilters = [
                     {
                         "open": "(",
@@ -212,7 +212,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         "operator": "!=",
                         "value": "update",
                         "close": ")",
-                        "connector": " && "
+                        "connector": " AND "
                     },
                     {
                         "field": "compania",
@@ -226,7 +226,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
         }
 
         if (action == 'update' || action == 'app') {
-            if(dragon_audit.session.super){
+            if (dragon_audit.session.super) {
                 dragon_audit.arrays = await BASEAPI.listp('dragon_audit', {
                     "where": [
                         {
@@ -240,7 +240,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                             "operator": "=",
                             "value": action,
                             "close": ")",
-                            "connector": " && "
+                            "connector": " AND "
                         },
                         {
                             "field": "compania",
@@ -248,7 +248,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                         }
                     ]
                 });
-            }else {
+            } else {
                 dragon_audit.arrays = await BASEAPI.listp('dragon_audit', {
                     "where": [
                         {
@@ -262,7 +262,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
                             "operator": "=",
                             "value": action,
                             "close": ")",
-                            "connector": " && "
+                            "connector": " AND "
                         },
                         {
                             "field": "compania",
@@ -333,7 +333,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
     if (baseController.currentModel.modelName == "poa_admin" || baseController.currentModel.modelName == "indicador_pei" || baseController.currentModel.modelName == "indicador_poa"
         || baseController.currentModel.modelName == "indicador_actividad" || baseController.currentModel.modelName == "presupuesto_aprobado" || baseController.currentModel.modelName == "compania") {
         dragon_audit.show_aplication_tab = true;
-    } else{
+    } else {
         dragon_audit.show_aplication_tab = false;
     }
 

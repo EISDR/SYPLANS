@@ -227,7 +227,7 @@ DSON.keepmerge(CRUD_dragon_audit, {
                         'email',
                     ];
                     var add = [];
-
+                    data.dataJson = DSON.stringToObject(data.dataJson);
 
                     if (data.dataJson) {
                         var key, keys = Object.keys(data.dataJson);
@@ -248,8 +248,8 @@ DSON.keepmerge(CRUD_dragon_audit, {
                             for (var pos of posiblos) {
                                 if (add.length === 2)
                                     break;
-                                if (newobj[pos] !== undefined){
-                                    if (typeof newobj[pos] === 'string'){
+                                if (newobj[pos] !== undefined) {
+                                    if (typeof newobj[pos] === 'string') {
                                         if (!newobj[pos].match(/^\d/)) {
                                             add.push(newobj[pos]);
                                         }
@@ -287,6 +287,8 @@ DSON.keepmerge(CRUD_dragon_audit, {
                     var blacklist = ["where", "compania", "created_at", "created_by", "deleted_at", "deleted_by", "updated_at", "updated_by"];
                     var columns = ["Campo", "Nuevo", "Viejo"];
                     var rows = [];
+                    data.dataJson = DSON.stringToObject(data.dataJson);
+                    data.updatedJson = DSON.stringToObject(data.updatedJson);
                     if (data) {
                         if (data.updatedJson) {
                             for (var i in data.updatedJson) {
