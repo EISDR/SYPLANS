@@ -1,5 +1,6 @@
 AUDIT = {
     LOG: (action, modelName, data, prev) => new Promise(async (resolve, reject) => {
+
         var user = new SESSION().current();
         var obj = {
             modelname: modelName,

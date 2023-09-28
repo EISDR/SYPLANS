@@ -13,7 +13,7 @@ DSON.keepmerge(CRUD_dragon_audit, {
         //sortable: false,
         //dragrow: 'num',
         //rowStyle: function (row, $scope) {
-        //    return "color:red;";
+        //     return "color:red;";
         //},
         //rowClass: function (row, $scope) {
         //    return row.name === 'whatever' ? "bg-" + COLOR.danger + "-300" : "";

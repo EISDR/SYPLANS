@@ -9,6 +9,7 @@ app.controller("dragon_audit", function ($scope, $http, $compile) {
     //dragon_audit.headertitle = "Hola Title";
     //dragon_audit.destroyForm = false;
     //dragon_audit.permissionTable = "tabletopermission";
+    //comentario placebo
 
     dragon_audit.tab = "active";
 

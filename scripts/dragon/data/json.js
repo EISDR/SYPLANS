@@ -1,4 +1,5 @@
 String.prototype.lines = function () {
+
     return this.split(/\r*\n/);
 };
 
