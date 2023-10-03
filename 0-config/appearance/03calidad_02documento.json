@@ -22,6 +22,12 @@
         },
         {
           "modal": "",
+          "icon": "bookmark4",
+          "href": "#documentos_obsoletos",
+          "text": "Documentos Obsoletos"
+        },
+        {
+          "modal": "",
           "icon": "books",
           "href": "#documental",
           "text": "Repositorio de Documentos"
@@ -73,6 +79,12 @@
           "icon": "bookmark4",
           "href": "#vw_documentos_asociados_pv",
           "text": "Lista Maestra de Documentos"
+        },
+        {
+          "modal": "",
+          "icon": "bookmark4",
+          "href": "#documentos_obsoletos",
+          "text": "Documentos Obsoletos"
         },
         {
           "modal": "",

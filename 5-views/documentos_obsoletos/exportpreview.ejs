@@ -1,0 +1,67 @@
+<div class="subcontent">
+    <div style="overflow: scroll visible; position: static; zoom: 1;">
+        <div class="subcontent" >
+            <div dragonlanguage=""
+                 class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
+                <h5>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor "Personalizado" = a 60% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</h5>
+            </div>
+            <button style="margin: 20px;width: 25em;"
+                    dragonlanguage="" title="Descargar - Formato de impresión"
+                    ng-click="documentos_obsoletos.exportPDF();"
+                    type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                <i class="icon-printer2"></i> Descargar - Formato de impresión
+            </button>
+            <br>
+            <div id="PDF">
+                <table ng-show="<%= scope %>.documentos_list.data.length>0"
+                       class="table table-bordered">
+                    <thead id="<%= scope %>head">
+                    <tr>
+                        <th colspan="9" style="background-color: white; color: black; font-size: 18px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center ">
+                            Lista maestra de Documentos de {{<%= scope %>.session.institucion ? <%= scope %>.session.institucion : <%= scope %>.session.compania}}
+                        </th>
+                        <th style="background-color: white; color: black; font-size: 16px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center;">
+                            Ultima Actualización:
+                        </th>
+                        <th style="background-color: white; color: black; font-size: 16px; font-family: 'Outfit', Helvetica Neue, Helvetica, Arial ,sans-serif; text-align: center ">
+                            {{<%= scope %>.get_date()}}
+                        </th>
+                    </tr>
+                    <tr style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
+                        <th>Macroproceso</th>
+                        <th>Subroceso</th>
+                        <th>Código</th>
+                        <th>Nombre del Documento</th>
+                        <th>Tipo del Documento</th>
+                        <th>Versión</th>
+                        <th>Área/Departamento</th>
+                        <th>Estatus</th>
+                        <th>Responsable del Proceso</th>
+                        <th>Fecha de Autorización</th>
+                        <th>Ubicación</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="(key,value) in <%= scope %>.documentos_list.data">
+                    <tr>
+                        <td style="text-align: left">{{value.nombre_mapa}}</td>
+                        <td style="text-align: left">{{value.nombre_proceso}}</td>
+                        <td style="text-align: left">{{value.codigo}}</td>
+                        <td style="text-align: left">{{value.nombre}}</td>
+                        <td style="text-align: left">{{value.tipo_documento}}</td>
+                        <td style="text-align: left">{{value.version}}</td>
+                        <td style="text-align: left">{{value.responsable_proceso_departamento}}</td>
+                        <td style="text-align: left">{{value.estatus}}</td>
+                        <td style="text-align: left">{{value.responsable_proceso}}</td>
+                        <td style="text-align: left">{{documentos_obsoletos.get_date(value.aprobado_en)}}</td>
+                        <td style="text-align: left">{{value.folder}}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    documentos_obsoletos.refreshAngular();
+</script>

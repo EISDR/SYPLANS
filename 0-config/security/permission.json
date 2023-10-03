@@ -1850,6 +1850,20 @@
           }
         }
       },
+      "documentos_obsoletos": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "filter": true,
+          "export": {
+            "Clipboard": true,
+            "PDF": true,
+            "CSV": true,
+            "XLS": true,
+            "DOC": true
+          }
+        }
+      },
       "proyecto_actividad_apoyo": {
         "type": "full",
         "allow": {}
