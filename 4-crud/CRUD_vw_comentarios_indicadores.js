@@ -48,9 +48,16 @@ DSON.keepmerge(CRUD_vw_comentarios_indicadores, {
                 exportExample: false,
                 dead: true
             },
-            comentario: {sortable: false,shorttext: 360},
+            comentario: {
+                sortable: false,
+
+                shorttext: 360
+            },
             responsable: {sortable: false,},
-            created_at: {sortable: false},
+            created_at: {
+                sortable: false,
+                formattype: ENUM.FORMAT.datetime,
+            },
         }
     }
 });
