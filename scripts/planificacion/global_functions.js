@@ -881,6 +881,11 @@ check_active_PEI = function (pei_ID) {
 };
 
 check_active_POA = function (poa_ID) {
+    var session = new SESSION().current();
+    if (session.est_poa == 5){
+        $('.icon-plus-circle2 ').parent().hide();
+        return
+    }
     BASEAPI.list('vw_poa', {
         where: [
             {
@@ -897,7 +902,8 @@ check_active_POA = function (poa_ID) {
             if (res.data.length == 0) {
                 $('.icon-plus-circle2 ').parent().hide();
             } else {
-                $('.icon-plus-circle2 ').parent().show();
+                console.log("como quiera entre al poa del diablo", res.data)
+               $('.icon-plus-circle2 ').parent().show();
             }
         }
     });

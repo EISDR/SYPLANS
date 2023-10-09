@@ -785,6 +785,10 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
         productos_poa.refreshAngular();
     };
     productos_poa.check_poa = function () {
+        if (session.est_poa == 5 ){
+            $('#productos_poa .icon-plus-circle2 ').parent().hide();
+            return;
+        }
         BASEAPI.list("vw_poa", {
             where: [
                 {

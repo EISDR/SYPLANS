@@ -87,6 +87,10 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
         indicador_actividad.list_direccion_meta = rsd.data;
     });
     indicador_actividad.check_poa = function () {
+        if (indicador_actividad.session.est_poa == 5 ){
+            $('.icon-plus-circle2 ').parent().hide();
+            return;
+        }
         BASEAPI.list("vw_poa", {
             where: [
                 {

@@ -1035,6 +1035,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             $('.icon-plus-circle2 ').parent().hide();
                         } else {
                             actividades_poa.dont_show_productos = true;
+                            console.log("entre load")
                             $('.icon-plus-circle2 ').parent().show();
                         }
                     }
@@ -2216,6 +2217,10 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     }
     actividades_poa.filtros.loadDropDown("departamentoPre");
     actividades_poa.check_poa = function () {
+        if (actividades_poa.session.est_poa == 5 ){
+            $('.icon-plus-circle2 ').parent().hide();
+            return;
+        }
         BASEAPI.list("vw_poa", {
             limit: 0,
             where: [
@@ -2258,6 +2263,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                     $('.icon-plus-circle2 ').parent().hide();
                                 } else {
                                     actividades_poa.dont_show_productos = true;
+                                    console.log("entre condicion dept modal")
                                     $('.icon-plus-circle2 ').parent().show();
                                 }
                             }
@@ -2265,6 +2271,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                     }
                 } else {
                     if (actividades_poa.dpto_usuario != actividades_poa.dpto_usuario_autorizado) {
+                        console.log("entre condicion dept no modal")
                         $('.icon-plus-circle2 ').parent().show();
                         actividades_poa.setPermission("edit", true);
                         actividades_poa.setPermission("remove", true);
@@ -2326,6 +2333,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                         $('.icon-plus-circle2 ').parent().hide();
                                     } else {
                                         actividades_poa.dont_show_productos = true;
+                                        console.log("entre condicion plani modal")
                                         $('.icon-plus-circle2 ').parent().show();
                                     }
                                 }
@@ -2335,6 +2343,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                         if (actividades_poa.total_departamentos == actividades_poa.departamentos_autorizados) {
                             $('.icon-plus-circle2 ').parent().hide();
                         } else {
+                            console.log("entre condicion plani no modal")
                             $('.icon-plus-circle2 ').parent().show();
                         }
                     }
