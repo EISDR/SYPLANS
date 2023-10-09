@@ -971,7 +971,7 @@ app.controller("indicador_generico_poa", function ($scope, $http, $compile) {
                         value: indicador_generico_poa.indicador_generico
                     }]
                 }).then(function (result) {
-
+                    vw_comentarios.refresh();
                     // indicador_generico_poa.list_indicador_generico_poa = result.data;
                     // for (var key in result.data) {
                     //     eval(`indicador_generico_poa.meta${result.data[key].id} = result.data[key].valor_alcanzado`);

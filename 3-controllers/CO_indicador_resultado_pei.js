@@ -985,6 +985,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
                         value: indicador_resultado_pei.indicador_pei
                     }]
                 }).then(function (result) {
+                    vw_comentarios.refresh();
                     // indicador_resultado_pei.list_indicador_resultado_pei = result.data;
                     // for (var key in result.data) {
                     //     eval(`indicador_resultado_pei.meta${result.data[key].id} = result.data[key].valor_alcanzado`);

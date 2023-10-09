@@ -986,7 +986,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
                         value: indicador_producto_poa.indicador_poa
                     }]
                 }).then(function (result) {
-
+                    vw_comentarios.refresh();
                     // indicador_producto_poa.list_indicador_producto_poa = result.data;
                     // for (var key in result.data) {
                     //     eval(`indicador_producto_poa.meta${result.data[key].id} = result.data[key].valor_alcanzado`);

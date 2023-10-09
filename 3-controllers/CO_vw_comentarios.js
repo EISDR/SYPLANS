@@ -118,7 +118,7 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
                     },
                     {
                         "field": "value",
-                        "value": indicador_generico_poa.edit
+                        "value": indicador_generico_poa.ids
                     },
                     {
                         "field": "value2",
