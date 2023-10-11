@@ -94,6 +94,12 @@ DSON.keepmerge(CRUD_documentos_obsoletos, {
                 },
                 formattype: ENUM.FORMAT.datetime
             },
+            vigencia: {
+                label: function () {
+                    return "Vigencia del documento"
+                },
+                formattype: ENUM.FORMAT.datetime
+            },
             folder: {
                 label: function () {
                     return "Ubicación"
