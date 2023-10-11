@@ -3146,6 +3146,10 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                 }
                 if (mode === 'edit' && data == 'presupuesto') {
                     actividades_poa.presupuesto = LAN.money(actividades_poa.presupuesto).format(false);
+                    if (actividades_poa.session.est_poa == 5){
+                        $('.icon-plus-circle2 ').parent().hide();
+                        return
+                    }
                 }
                 if (data === "show_prod") {
                     if (typeof productos_poa !== 'undefined') {

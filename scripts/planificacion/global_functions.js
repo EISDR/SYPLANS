@@ -902,7 +902,6 @@ check_active_POA = function (poa_ID) {
             if (res.data.length == 0) {
                 $('.icon-plus-circle2 ').parent().hide();
             } else {
-                console.log("como quiera entre al poa del diablo", res.data)
                $('.icon-plus-circle2 ').parent().show();
             }
         }
