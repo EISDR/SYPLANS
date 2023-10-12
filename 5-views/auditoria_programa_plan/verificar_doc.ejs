@@ -25,36 +25,105 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-4" ng-show="false">
                             <%- FORM.select("documento_responsable", scope, {
-                                        allowedit: false,
-                                        allowlist: false,
-                                        allownew: false,
-                                        allowview: false,
-                                        multiple: true,
-                                        disabled: true,
-                                        text: "item.nombre + ' ' + item.apellido",
-                                        value: "id",
-                                        table: "usuario",
-                                        icon: {class: "archive"},
-                                        truelabel: "Agregar Auditores",
-                                        condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
-                                        get: {
-                                            table: 'auditoria_programa_plan_documentos_asociados_responsables',
-                                            fieldFrom: 'id',
-                                            fieldTo: 'programa_plan_documentos_asociados',
-                                            field: 'usuario'
-                                        },
-                                    // parent: {
+                                allowedit: false,
+                                allowlist: false,
+                                allownew: false,
+                                allowview: false,
+                                multiple: true,
+                                disabled: true,
+                                text: "item.nombre + ' ' + item.apellido",
+                                value: "id",
+                                table: "usuario",
+                                icon: {class: "archive"},
+                                truelabel: "Agregar Auditores",
+                                condition: "(item.compania == auditoria_programa_plan.session.compania_id && item.institucion == $null) && (item.active)",
+                                get: {
+                                    table: 'auditoria_programa_plan_documentos_asociados_responsables',
+                                    fieldFrom: 'id',
+                                    fieldTo: 'programa_plan_documentos_asociados',
+                                    field: 'usuario'
+                                },
+                            // parent: {
                             //     model: 'eje_estrategico',
                             //     myfield: 'id',
                             //     sufield: 'id'
                             // },
                             })%>
                         </div>
-                        <div id="auditoria_programa_plan_documentos_asociados_listaverificacion" ng-controller="auditoria_programa_plan_documentos_asociados_listaverificacion as auditoria_programa_plan_documentos_asociados_listaverificacion">
-                            <div class="panel panel-flat">
-                                <%- include('../../7-plugins/templates/table/header',{scope:'auditoria_programa_plan_documentos_asociados_listaverificacion'}); %>
-                                <div class="subcontent">
-                                    <%- include('../../5-views/auditoria_programa_plan_documentos_asociados_listaverificacion/base',{scope:'auditoria_programa_plan_documentos_asociados_listaverificacion'}); %>
+                        <div class="panel panel-flat">
+                            <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                                <!--Breadcrumb and Table Options-->
+                                <div class="breadcrumb-line">
+                                    <ul class="breadcrumb visible-lg visible-md" dragonlanguage="" style="z-index: 1000">
+                                        <li class="active">
+                                            <a data-function="menu" href="javascript:void(0)">
+                                                <i class="icon-clipboard3 position-left"></i>
+                                                Listas de Verificación
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--Breadcrumb and Table Options-->
+                            </div>
+                            <div class="subcontent">
+                                <div style="overflow-x: scroll; border-radius: 15px">
+                                    <table class=" table table-togglable table-framed sindu-table">
+                                        <thead class="">
+                                        <tr class="bg-secundary">
+                                            <th>Punto de Verificación</th>
+                                            <th>¿Cumple?</th>
+                                            <th>Observaciones</th>
+                                            <th>Tipo de no conformidad</th>
+                                            <th>Documento Adjunto</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="(key,row) in auditoria_programa_plan.lista_verificacion_list">
+                                            <td>{{row.descripcion}}
+                                            </td>
+                                            <td>{{row.cumple == 1 ? "Sí" : row.cumple == 0 ?  "No" : ""}}</td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                       ng-model="row.observaciones">
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <select3 class="form-control" ng-model="row.tipo_inconformidad"
+                                                             s2-options="opt.id as opt.nombre for opt in auditoria_programa_plan.tipo_inconformidad_list"
+                                                    >
+                                                    </select3>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a title='Subir archivo' style="color: black" ng-show="!row.archivosubido" ng-click="auditoria_programa_plan.verFile_lista(row)">
+                                                    <i class='icon-folder-plus'></i>
+                                                </a>
+                                                <a title='Ver o subir archivos' ng-show="row.archivosubido" ng-click="auditoria_programa_plan.verFile_lista(row)">
+                                                    <i class='icon-files-empty'></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-left context-control"
+                                                oncontextmenu="return false;">
+                                                <ul class="icons-list dragon-action"
+                                                    style="z-index: 99999; text-align: center;">
+                                                    <li class="ng-scope">
+                                                        <a title="Cumple"
+                                                           ng-click="auditoria_programa_plan.cumple_lista(row, 'si')">
+                                                            <i class="icon-checkmark3 text-black-300"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="ng-scope">
+                                                        <a title="No Cumple"
+                                                           ng-click="auditoria_programa_plan.cumple_lista(row, 'no')">
+                                                            <i class="icon-cross2 text-black-300"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -104,16 +173,6 @@
 </div>
 <script>
     $(function(){
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("add", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("edit", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("remove", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("export", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("check", true);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("view", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("audit", false);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.setPermission("actions", true);
-        auditoria_programa_plan_documentos_asociados_listaverificacion.accionesname = "Acciones (Cumple/No cumple)";
-        auditoria_programa_plan_documentos_asociados_listaverificacion.nombre_documento_asoc = auditoria_programa_plan.documento_asoc_nombre;
         auditoria_programa_plan.fromWhere = 'from_work';
         auditoria_programa_plan.observaciones = auditoria_programa_plan.documento.observaciones;
         auditoria_programa_plan.refreshAngular();

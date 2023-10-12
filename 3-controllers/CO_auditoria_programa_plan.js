@@ -18,6 +18,8 @@ app.controller("auditoria_programa_plan", function ($scope, $http, $compile) {
         auditoria_programa_plan.paso = false;
         auditoria_programa_plan.send_noti = false;
         auditoria_programa_plan.fileSI = [];
+        auditoria_programa_plan.Lista_fileSI = [];
+        auditoria_programa_plan.find_me_once = false;
         auditoria_programa_plan.lista_procesos_creados = [];
         auditoria_programa_plan.lista_documentos_creados = [];
         auditoria_programa_plan.canStatus = "";
@@ -2097,6 +2099,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
             })
             auditoria_programa_plan.documento_asoc_nombre = row.nombre;
             auditoria_programa_plan.observaciones = auditoria_programa_plan.documento.observaciones;
+            auditoria_programa_plan.find_me_once = false;
             auditoria_programa_plan.modal.modalView("auditoria_programa_plan/verificar_doc", {
                 width: 'modal-full',
                 header: {
@@ -2112,18 +2115,184 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 },
                 event: {
                     show: {
-                        end: function (data) {
+                        end: async function (data) {
+                            if (!auditoria_programa_plan.find_me_once) {
+                                console.log("entre porque esta false")
+                                var lista_verificacion_list = await BASEAPI.listp('auditoria_programa_plan_documentos_asociados_listaverificacion', {
+                                    limit: 0, where: [
+                                        {
+                                            field: "programa_plan_documentos_asociados",
+                                            value: auditoria_programa_plan.documento.id
+                                        }
+                                    ]
+                                })
+                                auditoria_programa_plan.lista_verificacion_list = lista_verificacion_list.data;
+                                var tipo_inconformidad_list = await BASEAPI.listp('tipo_inconformidad', {
+                                    limit: 0, where: [
+                                        {
+                                            field: "compania",
+                                            value: auditoria_programa_plan.session.compania_id
+                                        }
+                                    ]
+                                })
+                                auditoria_programa_plan.tipo_inconformidad_list = tipo_inconformidad_list.data;
+                                auditoria_programa_plan.find_me_once = true;
+                            }
+                            await auditoria_programa_plan.check_lista_veri_documento();
                             auditoria_programa_plan.refreshAngular()
                         }
                     },
                     hide: {
-                        end: function (data) {
+                        end: async function (data) {
+                            await auditoria_programa_plan.check_lista_veri_documento();
                             auditoria_programa_plan.refreshAngular()
                         }
                     }
                 },
             });
         }
+        auditoria_programa_plan.cumple_lista = async function (row, cumple){
+            if (cumple == "si"){
+                row.cumple = 1;
+                row.tipo_inconformidad = null;
+                auditoria_programa_plan.refreshAngular();
+            }else{
+                if(!row.archivosubido){
+                    SWEETALERT.show({
+                        type: "error",
+                        message: 'Debe almenos subir un archivo'
+                    });
+                    let buttons = document.getElementsByClassName("btn btn-labeled");
+                    for (var item of buttons) {
+                        item.disabled = false;
+                    }
+                    return;
+                }
+                if(!row.observaciones){
+                    SWEETALERT.show({
+                        type: "error",
+                        message: 'Debe de completar el campo "Observaciones"'
+                    });
+                    let buttons = document.getElementsByClassName("btn btn-labeled");
+                    for (var item of buttons) {
+                        item.disabled = false;
+                    }
+                    return;
+                }
+                if(!row.tipo_inconformidad ){
+                    SWEETALERT.show({
+                        type: "error",
+                        message: 'Debe de completar el campo "Tipo de no conformidad"'
+                    });
+                    let buttons = document.getElementsByClassName("btn btn-labeled");
+                    for (var item of buttons) {
+                        item.disabled = false;
+                    }
+                    return;
+                }
+                row.cumple = 0;
+                auditoria_programa_plan.refreshAngular();
+            }
+        }
+        auditoria_programa_plan.check_lista_veri_documento = async function() {
+            auditoria_programa_plan.Lista_fileSI = [];
+            for (var registro of auditoria_programa_plan.lista_verificacion_list) {
+                auditoria_programa_plan.files_lv = () => new Promise(async (resolve, reject) => {
+                    BASEAPI.ajax.get(new HTTP().path(["files", "api"]), {folder: '/auditoria_programa_plan_documentos_asociados_listaverificacion/listaverificacionfile/' + registro.id}, function (result) {
+                        if (result.data.count > 0) {
+                            registro.archivosubido = true;
+                            resolve(true);
+                        } else {
+                            var buttons = document.getElementsByClassName("btn btn-labeled");
+                            for (var item of buttons) {
+                                item.disabled = false;
+                            }
+                            resolve(false);
+                        }
+                    }, $('#invisible'));
+                });
+                await auditoria_programa_plan.files_lv();
+                auditoria_programa_plan.refreshAngular();
+            }
+        }
+        auditoria_programa_plan.verFile_lista = function (row) {
+            auditoria_programa_plan.setPermission("file.upload", true);
+            auditoria_programa_plan.setPermission("file.remove", true);
+            var root = DSON.template("/auditoria_programa_plan_documentos_asociados_listaverificacion/listaverificacionfile/" + row.id, row);
+            auditoria_programa_plan.showfiletypes = function () {
+                var modal = {
+                    width: "modal-full",
+                    header: {
+                        title: "Ver tipos de archivos permitidos a ser cargados",
+                        icon: "file-eye"
+                    },
+                    footer: {
+                        cancelButton: false,
+                        buttons: [
+                            {
+                                color: "btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-rightm",
+                                title: "<b><i class='icon-arrow-right8'></i></b>Continuar",
+                                action: function () {
+                                    MODAL.close();
+                                }
+                            }
+                        ]
+                    },
+                    content: {
+                        loadingContentText: MESSAGE.i('actions.Loading')
+                    },
+                    event: {
+                        show: {
+                            begin: function (data) {
+                                data.permitted_files = [];
+                                for (var i in CONFIG.fileType_general) {
+                                    for (var j in CONFIG.fileType_general[i]) {
+                                        if (typeof data.permitted_files[j] == "undefined") {
+                                            data.permitted_files[j] = {};
+                                        }
+                                        data.permitted_files[j][i] = CONFIG.fileType_general[i][j];
+                                    }
+                                }
+                            }
+                        },
+                        hide: {
+                            begin: function (data) {
+
+                            }
+                        }
+                    }
+                };
+                auditoria_programa_plan.modal.modalView("templates/components/filetype", modal);
+            }
+            baseController.viewData = {
+                root: root,
+                scope: 'auditoria_programa_plan',
+                maxsize: 20,
+                upload: true,
+                acceptedFiles: null,
+                columns: 4,
+                maxfiles: 1000,
+                botonsubir: "Subir Archivo",
+                options: {
+                    upload: true,
+                    remove: true
+                }
+            };
+
+            auditoria_programa_plan.modal.modalView("templates/components/filemanagerlite", {
+                width: 'modal-full',
+                header: {
+                    title: MESSAGE.ic("mono.files"),
+                    icon: "file-eye"
+                },
+                footer: {
+                    cancelButton: false
+                },
+                content: {
+                    loadingContentText: MESSAGE.i('actions.Loading')
+                },
+            });
+        };
         auditoria_programa_plan.add_work_list = async function (row, from_view) {
             auditoria_programa_plan.selected_row = row;
             if (from_view) {
@@ -2712,6 +2881,28 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                         }
                     ]
                 }, function (result) {
+                    let queryTopas = '';
+                    for(var registro of auditoria_programa_plan.lista_verificacion_list){
+                        // BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_listaverificacion', {
+                        //     cumple: registro.cumple == '1' || registro.cumple == '0' ? registro.cumple : "$null",
+                        //     tipo_inconformidad: registro.tipo_inconformidad  ? registro.cumple == '0' ? registro.tipo_inconformidad : "$null" : "$null",
+                        //     observaciones: registro.observaciones ? registro.observaciones : "$null",
+                        //     where: [
+                        //         {
+                        //             field: "id",
+                        //             value: registro.id
+                        //         }
+                        //     ]
+                        // }, function (result) {
+                        // });
+
+                        queryTopas += `update auditoria_programa_plan_documentos_asociados_listaverificacion set cumple = ${registro.cumple == '1' || registro.cumple == '0' ? registro.cumple : null }, tipo_inconformidad = ${registro.tipo_inconformidad  ? registro.cumple == '0' ? registro.tipo_inconformidad : null : null}, observaciones = '${registro.observaciones ? registro.observaciones : null}' where id = ${registro.id};
+`;
+                    }
+                    console.log(queryTopas);
+                    SERVICE.base_db.directQuery({query: queryTopas}, async (result) => {
+                       console.log("me ejecute")
+                    });
                     SWEETALERT.stop();
                     MODAL.close();
                 });
