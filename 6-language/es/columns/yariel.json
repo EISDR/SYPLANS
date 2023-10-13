@@ -405,5 +405,7 @@
   "nivel_riesgo_salida_plural":"Niveles de Riesgo",
   "nivel_riesgo_salida":"Nivel de Riesgo",
   "reporte_indicadores_plural":"Histórico de Indicadores",
-  "reporte_indicadores":"Histórico de Indicadores"
+  "reporte_indicadores":"Histórico de Indicadores",
+  "documentos_obsoletos_plural":"Documentos Obsoletos",
+  "documentos_obsoletos":"Documentos Obsoletos"
 }
