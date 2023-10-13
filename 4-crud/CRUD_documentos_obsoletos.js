@@ -307,6 +307,14 @@ DSON.keepmerge(CRUD_documentos_obsoletos, {
                     type: FILTER.types.date,
                     placeholder: 'Fecha de Autorización'
                 },
+                {
+                    key: 'vigencia_lm',
+                    label: function () {
+                        return 'Vigencia del documento'
+                    },
+                    type: FILTER.types.date,
+                    placeholder: 'Vigencia del documento'
+                },
             ]
         },
     }

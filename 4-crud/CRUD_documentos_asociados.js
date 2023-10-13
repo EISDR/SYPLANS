@@ -436,6 +436,14 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                     type: FILTER.types.date,
                     placeholder: 'Aprobado En'
                 },
+                {
+                    key: 'vigencia',
+                    label: function () {
+                        return 'Vigencia del documento'
+                    },
+                    type: FILTER.types.date,
+                    placeholder: 'Vigencia del documento'
+                },
             ]
         },
         options: [
