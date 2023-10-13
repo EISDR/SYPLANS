@@ -94,6 +94,12 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                 },
                 formattype: ENUM.FORMAT.datetime
             },
+            vigencia_lm: {
+                label: function () {
+                    return "Vigencia del Documento"
+                },
+                formattype: ENUM.FORMAT.datetime
+            },
             folder: {
                 label: function () {
                     return "Ubicación"
@@ -300,6 +306,14 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv, {
                     },
                     type: FILTER.types.date,
                     placeholder: 'Fecha de Autorización'
+                },
+                {
+                    key: 'vigencia_lm',
+                    label: function () {
+                        return 'Vigencia del Documento'
+                    },
+                    type: FILTER.types.date,
+                    placeholder: 'Vigencia del Documento'
                 },
             ]
         },
