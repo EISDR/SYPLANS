@@ -407,5 +407,7 @@
   "reporte_indicadores_plural":"Histórico de Indicadores",
   "reporte_indicadores":"Histórico de Indicadores",
   "documentos_obsoletos_plural":"Documentos Obsoletos",
-  "documentos_obsoletos":"Documentos Obsoletos"
+  "documentos_obsoletos":"Documentos Obsoletos",
+  "vw_reporte_francis_plural":"Reporte de Departamento x Productos y Presupuestos",
+  "vw_reporte_francis":"Reporte de Departamento x Productos y Presupuestos"
 }

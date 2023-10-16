@@ -1,3 +1,5 @@
+lachechon = new SESSION().current();
+lachechon = lachechon || {};
 CRUD_vw_reporte_francis = {};
 DSON.keepmerge(CRUD_vw_reporte_francis, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_vw_reporte_francis, {
@@ -155,7 +157,206 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
             }
         },
         filters: {
-            columns: true
+            columns: [
+                {
+                    key: 'ano',
+                    label: function(){
+                        return 'Año'
+                    },
+                    type: FILTER.types.relation,
+                    table: 'vw_poa_ddl',
+                    value: "periodo_poa",
+                    text: "item.periodo_poa",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                        orderby: "periodo_poa",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'departamento',
+                    label: function(){
+                        return 'Departamento'
+                    },
+                    placeholder: 'Departamento',
+                    type: FILTER.types.relation,
+                    value: "nombre",
+                    table:'departamento',
+                    text: "item.nombre",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false,
+                        where: [
+                            {
+                                "field": "compania",
+                                "value": lachechon ? lachechon.compania_id : -1
+                            },
+                            {
+                                "field": "institucion",
+                                "operator": lachechon.institucion_id ? "=" : "is",
+                                "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
+                            }
+                        ],
+                    }
+                },
+                {
+                    key: 'presupuesto_departamento',
+                    label: function(){
+                        return 'Presupuesto del departamento'
+                    },
+                    type: FILTER.types.decimal,
+                    placeholder: 'Presupuesto del departamento',
+                    maxlength: 20
+                },
+                {
+                    key: 'producto',
+                    label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
+                    type: FILTER.types.relation,
+                    table: 'vw_productos_poa_detalles',
+                    value: "producto",
+                    text: "item.no1 + ' ' + item.producto",
+                    query: {
+                        limit: 0,
+                        page: 1,
+                        where: [{
+                            "field": "poa_id",
+                            "value": lachechon ? lachechon.poa_id : -1
+                        }],
+                        orderby: "id",
+                        order: "asc",
+                        distinct: false
+                    },
+                },
+                {
+                    key: 'presupuesto_producto',
+                    label: function(){
+                        return 'Presupuesto del producto'
+                    },
+                    type: FILTER.types.decimal,
+                    placeholder: 'Presupuesto del producto',
+                    maxlength: 20
+                },
+                {
+                    key: 'fecha_inicio',
+                    label: 'Fecha Inicio',
+                    type: FILTER.types.date,
+                    placeholder: 'Fecha Inicio'
+                },
+                {
+                    key: 'fecha_fin',
+                    label: 'Fecha Fin',
+                    type: FILTER.types.date,
+                    placeholder: 'Fecha Fin'
+                },
+                {
+                    key: 'indicador',
+                    label: function(){
+                        return 'Indicador del producto'
+                    },
+                    type: FILTER.types.string,
+                    placeholder: function(){
+                        return 'Indicador del producto'
+                    },
+                },
+                {
+                    key: 'medio_verificacion',
+                    label: function(){
+                        return 'Medio de verificación'
+                    },
+                    type: FILTER.types.string,
+                    placeholder: function(){
+                        return 'Medio de verificación'
+                    },
+                },
+                {
+                    key: 'meta_trimestre_1',
+                    label: function(){
+                        return 'Meta - Primer Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta - Primer Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'meta_trimestre_2',
+                    label: function(){
+                        return 'Meta - Segundo Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta - Segundo Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'meta_trimestre_3',
+                    label: function(){
+                        return 'Meta - Tercer Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta - Tercer Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'meta_trimestre_4',
+                    label: function(){
+                        return 'Meta - Cuarto Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta - Cuarto Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'alcanzada_trimestre_1',
+                    label: function(){
+                        return 'Meta Alcanzada - Primer Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta Alcanzada - Primer Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'alcanzada_trimestre_2',
+                    label: function(){
+                        return 'Meta Alcanzada - Segundo Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta Alcanzada - Segundo Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'alcanzada_trimestre_3',
+                    label: function(){
+                        return 'Meta Alcanzada - Tercer Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta Alcanzada - Tercer Trimestre',
+                    maxlength: 20
+                },
+                {
+                    key: 'alcanzada_trimestre_4',
+                    label: function(){
+                        return 'Meta Alcanzada - Cuarto Trimestre'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: 'Meta Alcanzada - Cuarto Trimestre',
+                    maxlength: 20
+                },
+            ]
         }
     }
 });
