@@ -419,6 +419,8 @@ cacheobjects = undefined;
 console.log(CONFIG.appName.pxz + " Server Engine's:".pxz);
 lacone = undefined;
 var PARAMS = eval("(" + allparams + ")");
+
+
 if (CONFIG.mongo !== undefined) {
     fs.readdir("./" + folders.models + "/mongo", function (err, files) {
         for (var i in files) {
@@ -504,6 +506,13 @@ if (CONFIG.mysqlactive !== false) {
     });
 } else loadedMotors++;
 if (CONFIG.postgreactive !== false) {
+
+    var types = PARAMS.postgre.types;
+    types.setTypeParser(1114, function (stringValue) {
+        var temp = new Date(stringValue);
+        return new Date(Date.UTC(temp.getFullYear(), temp.getMonth(), temp.getDate(), temp.getHours()+4, temp.getMinutes(), temp.getSeconds()));
+    });
+
     modelpostgre = [];
     modules.postgre.lacone = new PARAMS.postgre.Pool(PARAMS.CONFIG.postgre);
     modules.postgre.data(`select * from viewcache`, PARAMS, false).then(y => {
