@@ -249,7 +249,7 @@ app.controller("vw_procesados", function ($scope, $http, $compile) {
                                     cumplidor: cumplidor
                                 };
                                 let texto = vw_procesados.indicador(indicador);
-                                colored = `<span class="${clase} cumplidor" title="${texto.tooltip}${ponderacion}">${cumplidor.cumplimiento}%</span>`;
+                                colored = `<span class="${clase} cumplidor" title="${texto.tooltip}${ponderacion}">${cumplidor?.cumplimiento || 0}%</span>`;
                                 indicador.colored = colored;
                                 p.elementos.push(indicador);
                             }
