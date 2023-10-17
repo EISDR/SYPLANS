@@ -510,7 +510,7 @@ if (CONFIG.postgreactive !== false) {
     var types = PARAMS.postgre.types;
     types.setTypeParser(1114, function (stringValue) {
         var temp = new Date(stringValue);
-        return new Date(Date.UTC(temp.getFullYear(), temp.getMonth(), temp.getDate(), temp.getHours()+4, temp.getMinutes(), temp.getSeconds()));
+        return new Date(Date.UTC(temp.getFullYear(), temp.getMonth(), temp.getDate(), temp.getHours() + (CONFIG.postgre.timezone), temp.getMinutes(), temp.getSeconds()));
     });
 
     modelpostgre = [];
