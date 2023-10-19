@@ -2531,7 +2531,12 @@ app.controller("riesgo", function ($scope, $http, $compile) {
     };
     riesgo.eltipo = false;
     riesgo.changeIndicador = function (table) {
-        location.href = location.href.split('?')[0] + '?' + table + (riesgo.esplan ? '?plan' : "");
+        if (riesgo.agrega_acciones){
+            location.href = location.href.split('?')[0] + '?' + table + (riesgo.esplan ? '?plan?create' : "");
+        }else{
+            location.href = location.href.split('?')[0] + '?' + table + (riesgo.esplan ? '?plan' : "");
+        }
+       
     };
     riesgo.triggers.table.after.load = async function (records) {
         if (!riesgo.eltipo) {
