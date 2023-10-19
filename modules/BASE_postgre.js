@@ -114,6 +114,7 @@ exports.insertQuery = async function (table, data, params, get, getvalue) {
         var columns = [];
         var values = [];
         for (var property in row) {
+            if( row[property] === null || row[property] === undefined ) continue;
             var value = row[property].toString();
             if (property[0] === "$")
                 columns.push(property.replace('$', ''));
