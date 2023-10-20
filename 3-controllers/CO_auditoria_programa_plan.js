@@ -2157,17 +2157,6 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 row.tipo_inconformidad = null;
                 auditoria_programa_plan.refreshAngular();
             }else{
-                if(!row.archivosubido){
-                    SWEETALERT.show({
-                        type: "error",
-                        message: 'Debe almenos subir un archivo'
-                    });
-                    let buttons = document.getElementsByClassName("btn btn-labeled");
-                    for (var item of buttons) {
-                        item.disabled = false;
-                    }
-                    return;
-                }
                 if(!row.observaciones){
                     SWEETALERT.show({
                         type: "error",
@@ -2183,6 +2172,17 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     SWEETALERT.show({
                         type: "error",
                         message: 'Debe de completar el campo "Tipo de no conformidad"'
+                    });
+                    let buttons = document.getElementsByClassName("btn btn-labeled");
+                    for (var item of buttons) {
+                        item.disabled = false;
+                    }
+                    return;
+                }
+                if(!row.archivosubido){
+                    SWEETALERT.show({
+                        type: "error",
+                        message: 'Debe almenos subir un archivo'
                     });
                     let buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {
@@ -3589,7 +3589,16 @@ Gracias`;
             }]);
             auditoria_programa_plan.pages.form.save(pre, post, close)
         }
-
+        auditoria_programa_plan.substring_custom = function(value, limit){
+            var shorttext = value;
+            if (shorttext.length > limit) {
+                shorttext = String.format(
+                    `<a title="${shorttext.replace(/(<([^>]+)>)/ig, '\r')}">{0}</a>`,
+                    shorttext.substring(0, limit) + "..."
+                );
+            }
+            return shorttext;
+        };
         auditoria_programa_plan.setPermission("add", true);
         auditoria_programa_plan.setPermission("edit", true);
         auditoria_programa_plan.setPermission("remove", true);

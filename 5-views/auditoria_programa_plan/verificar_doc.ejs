@@ -65,22 +65,22 @@
                                 </div>
                                 <!--Breadcrumb and Table Options-->
                             </div>
-                            <div class="subcontent">
-                                <div style="overflow-x: scroll; border-radius: 15px">
-                                    <table class=" table table-togglable table-framed sindu-table">
+                            <div class="subcontent" style="overflow-x: scroll;">
+                                <div style="border-radius: 15px">
+                                    <table class="table table-togglable table-framed sindu-table">
                                         <thead class="">
                                         <tr class="bg-secundary">
-                                            <th>Punto de Verificación</th>
-                                            <th>¿Cumple?</th>
-                                            <th>Observaciones</th>
-                                            <th>Tipo de no conformidad</th>
-                                            <th>Documento Adjunto</th>
-                                            <th>Acciones</th>
+                                            <th style="width: 15%">Punto de Verificación</th>
+                                            <th style="width: 5%">¿Cumple?</th>
+                                            <th style="width: 50%">Observaciones</th>
+                                            <th style="width: 20%">Tipo de no conformidad</th>
+                                            <th style="width: 5%">Documento Adjunto</th>
+                                            <th style="width: 5%">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr ng-repeat="(key,row) in auditoria_programa_plan.lista_verificacion_list">
-                                            <td>{{row.descripcion}}
+                                            <td ng-bind-html="auditoria_programa_plan.substring_custom(row.descripcion, 80)">
                                             </td>
                                             <td>{{row.cumple == 1 ? "Sí" : row.cumple == 0 ?  "No" : ""}}</td>
                                             <td>
