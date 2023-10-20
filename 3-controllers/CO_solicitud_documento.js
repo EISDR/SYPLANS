@@ -238,12 +238,14 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
                 var rules = [];
                 //rules here
                 //rules.push(VALIDATION.general.required(value));
-                let result = solicitud_documento.documentos_creados.filter(d=> {
-                    return d.codigo == value;
-                })[0];
-                console.log(result)
+                if (value) {
+                    let result = solicitud_documento.documentos_creados.filter(d => {
+                        return d.codigo == value;
+                    })[0];
+                    rules.push(VALIDATION.yariel.duplicateCode(value, result ? result.codigo : ""));
+                    console.log(result)
+                }
                 rules.push(VALIDATION.yariel.maliciousCode(value));
-                rules.push(VALIDATION.yariel.duplicateCode(value, result ? result.codigo : ""));
                 VALIDATION.validate(solicitud_documento, 'codigo_documento', rules);
             });
             if (solicitud_documento.caracteristica == ENUM_2.Grupos.analista_de_calidad || solicitud_documento.caracteristica == ENUM_2.Grupos.supervisor_de_calidad || (solicitud_documento.caracteristica == ENUM_2.Grupos.director_general && solicitud_documento.my_true_estatus == 2)) {
