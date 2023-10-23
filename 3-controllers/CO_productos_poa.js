@@ -79,7 +79,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
             }
         }
     } else {
-        productos_poa.insert_readonly = {poa: session.poa_id};
+        productos_poa.insert_readonly = {poa: session.poa_id, active: 1};
         if (!new SESSION().current().intersectorial) {
             productos_poa.fixFilters = [{
                 "field": "poa_id",

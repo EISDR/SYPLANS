@@ -791,7 +791,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 indicador_actividad.form.oldData['Tipo de dato de la meta'] = indicador_actividad.oldData_forAudit['Tipo de dato de la meta']
             };
 
-            indicador_actividad.form.readonly = {};
+            indicador_actividad.form.readonly = {active: 1};
 
             indicador_actividad.createForm(data, mode, defaultData, undefined, function(){
                 indicador_actividad.tipo_meta_old = indicador_actividad.tipo_meta;

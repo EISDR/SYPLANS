@@ -546,6 +546,28 @@ DSON.keepmerge(CRUD_actividades_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 1).then(function () {
+                                        BASEAPI.updateall('actividades_apoyo', {
+                                            active: 1,
+                                            where: [
+                                                {
+                                                    field: 'actividades_poa',
+                                                    value: data.row.id
+                                                }
+                                            ]
+                                        }, function (result) {
+                                            console.log(result.data)
+                                        })
+                                        BASEAPI.updateall('indicador_actividad', {
+                                            active: 1,
+                                            where: [
+                                                {
+                                                    field: 'actividades_poa',
+                                                    value: data.row.id
+                                                }
+                                            ]
+                                        }, function (result) {
+                                            console.log(result.data)
+                                        })
                                         SWEETALERT.stop();
                                     });
                                 }
@@ -575,6 +597,28 @@ DSON.keepmerge(CRUD_actividades_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 0).then(function () {
+                                        BASEAPI.updateall('actividades_apoyo', {
+                                            active: 0,
+                                            where: [
+                                                {
+                                                    field: 'actividades_poa',
+                                                    value: data.row.id
+                                                }
+                                            ]
+                                        }, function (result) {
+                                            console.log(result.data)
+                                        })
+                                        BASEAPI.updateall('indicador_actividad', {
+                                            active: 0,
+                                            where: [
+                                                {
+                                                    field: 'actividades_poa',
+                                                    value: data.row.id
+                                                }
+                                            ]
+                                        }, function (result) {
+                                            console.log(result.data)
+                                        })
                                         SWEETALERT.stop();
                                     });
                                 }

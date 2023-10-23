@@ -839,7 +839,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 indicador_poa.form.oldData['Tipo de dato de la meta'] = indicador_poa.oldData_forAudit['Tipo de dato de la meta']
             };
 
-            indicador_poa.form.readonly = {};
+            indicador_poa.form.readonly = {active:1};
 
             indicador_poa.createForm(data, mode, defaultData,undefined, function(){
                 indicador_poa.tipo_meta_old = indicador_poa.tipo_meta;

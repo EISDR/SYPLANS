@@ -1751,6 +1751,28 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                                 confirm: function () {
                                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                                     data.$scope.activeRow(data.row, 1).then(function () {
+                                                        BASEAPI.updateall('actividades_apoyo', {
+                                                            active: 1,
+                                                            where: [
+                                                                {
+                                                                    field: 'actividades_poa',
+                                                                    value: data.row.id
+                                                                }
+                                                            ]
+                                                        }, function (result) {
+                                                            console.log(result.data)
+                                                        })
+                                                        BASEAPI.updateall('indicador_actividad', {
+                                                            active: 1,
+                                                            where: [
+                                                                {
+                                                                    field: 'actividades_poa',
+                                                                    value: data.row.id
+                                                                }
+                                                            ]
+                                                        }, function (result) {
+                                                            console.log(result.data)
+                                                        })
                                                         SWEETALERT.stop();
                                                     });
                                                 }
@@ -1780,6 +1802,28 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                                 confirm: function () {
                                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                                     data.$scope.activeRow(data.row, 0).then(function () {
+                                                        BASEAPI.updateall('actividades_apoyo', {
+                                                            active: 0,
+                                                            where: [
+                                                                {
+                                                                    field: 'actividades_poa',
+                                                                    value: data.row.id
+                                                                }
+                                                            ]
+                                                        }, function (result) {
+                                                            console.log(result.data)
+                                                        })
+                                                        BASEAPI.updateall('indicador_actividad', {
+                                                            active: 0,
+                                                            where: [
+                                                                {
+                                                                    field: 'actividades_poa',
+                                                                    value: data.row.id
+                                                                }
+                                                            ]
+                                                        }, function (result) {
+                                                            console.log(result.data)
+                                                        })
                                                         SWEETALERT.stop();
                                                     });
                                                 }
@@ -2651,7 +2695,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                 view: "Ver ALL - " + ` ${MESSAGE.i('planificacion.titleActividadPOA')}`
             };
 
-            actividades_poa.form.readonly = {poa: actividades_poa.poa_id, estatus: 2};
+            actividades_poa.form.readonly = {poa: actividades_poa.poa_id, estatus: 2, active: 1};
             actividades_poa.poa = actividades_poa.poa_id;
 
             // actividades_poa.form.schemas.insert.departamento = FORM.schemasType.calculated;

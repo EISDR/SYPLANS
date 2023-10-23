@@ -69,6 +69,7 @@
       "actividades_apoyo": {
         "type": "full",
         "allow": {
+          "active": true,
           "comment": true
         }
       },
@@ -102,6 +103,7 @@
       "actividades_poa": {
         "type": "full",
         "allow": {
+          "active": true,
           "comment_activities": true
         }
       },
@@ -235,6 +237,7 @@
       "indicador_poa": {
         "type": "full",
         "allow": {
+          "active": true,
           "fuente": true
         }
       },
@@ -247,6 +250,7 @@
       "indicador_actividad": {
         "type": "full",
         "allow": {
+          "active": true,
           "fuente": true
         }
       },
@@ -347,6 +351,7 @@
         "type": "full",
         "allow": {
           "comment_product": true,
+          "active": true,
           "work": true
         }
       },
@@ -772,6 +777,7 @@
         "type": "empty",
         "allow": {
           "audit": false,
+          "active": true,
           "export": {
             "Clipboard": true,
             "PDF": true,
@@ -787,6 +793,7 @@
         "type": "empty",
         "allow": {
           "audit": false,
+          "active": true,
           "export": {
             "Clipboard": true,
             "PDF": true,

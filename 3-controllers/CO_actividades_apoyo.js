@@ -753,7 +753,8 @@ app.controller("actividades_apoyo", function ($scope, $http, $compile) {
             };
             // end
             actividades_apoyo.form.readonly = {
-                departamento_solicitante: user.departamento
+                departamento_solicitante: user.departamento,
+                active: 1
             };
             actividades_apoyo.createForm(data, mode, defaultData);
             actividades_apoyo.form.schemas.insert.presupuesto_pro = FORM.schemasType.calculated;
