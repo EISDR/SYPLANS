@@ -882,7 +882,7 @@ check_active_PEI = function (pei_ID) {
 
 check_active_POA = function (poa_ID) {
     var session = new SESSION().current();
-    if (session.est_poa == 5){
+    if (session.est_poa == 5 || session.poa_habilitado == 0){
         $('.icon-plus-circle2 ').parent().hide();
         return
     }

@@ -631,6 +631,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                         }
                     }
                     baseController.poaFullName = poa.nombre + ' - ' + poa.periodo_poa;
+                    console.log(poa)
                     new SESSION().update(
                         {
                             poa_id: poa.id,
@@ -644,7 +645,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                             est_poa: poa.estado,
                             periodo_poa_msj: `POA ${poa.periodo_poa}`,
                             cantidad: poa.cantidad,
-                            monitoreo_nombre: poa.nombre_mostrar
+                            monitoreo_nombre: poa.nombre_mostrar,
+                            poa_habilitado: poa.poa_habilitado
                         });
                     location.reload();
                 }

@@ -95,7 +95,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         indicador_poa.list_direccion_meta = rsd.data;
     });
     indicador_poa.check_poa = function () {
-        if (indicador_poa.session.est_poa == 5 ){
+        if (indicador_poa.session.est_poa == 5 || session.poa_habilitado == 0){
             $('.icon-plus-circle2 ').parent().hide();
             return;
         }

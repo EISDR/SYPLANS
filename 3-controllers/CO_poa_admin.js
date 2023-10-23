@@ -601,7 +601,7 @@ app.controller("poa_admin", function ($scope, $http, $compile) {
             poa_admin.form.schemas.insert = {};
             poa_admin.form.schemas.select = {};
 
-            poa_admin.form.readonly = {pei: poa_admin.pei, periodo_poa: poa_admin.periodo_poa, estado: 4};
+            poa_admin.form.readonly = {pei: poa_admin.pei, periodo_poa: poa_admin.periodo_poa, estado: 4, active: 1};
             poa_admin.createForm(data, mode, defaultData);
 
             poa_admin.refrescar();

@@ -337,6 +337,7 @@
       "poa": {
         "type": "full",
         "allow": {
+          "active": true,
           "actions": true,
           "transfer": true
         }

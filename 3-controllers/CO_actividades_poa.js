@@ -2261,7 +2261,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     }
     actividades_poa.filtros.loadDropDown("departamentoPre");
     actividades_poa.check_poa = function () {
-        if (actividades_poa.session.est_poa == 5 ){
+        if (actividades_poa.session.est_poa == 5 || session.poa_habilitado == 0 ){
             $('.icon-plus-circle2 ').parent().hide();
             return;
         }
@@ -3190,7 +3190,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                 }
                 if (mode === 'edit' && data == 'presupuesto') {
                     actividades_poa.presupuesto = LAN.money(actividades_poa.presupuesto).format(false);
-                    if (actividades_poa.session.est_poa == 5){
+                    if (actividades_poa.session.est_poa == 5 || session.poa_habilitado == 0){
                         $('.icon-plus-circle2 ').parent().hide();
                         return
                     }

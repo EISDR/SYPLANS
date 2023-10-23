@@ -406,7 +406,7 @@ app.controller("poa", function ($scope, $http, $compile) {
         if (poa !== undefined) {
             RUN_B("poa", poa, $scope, $http, $compile);
 
-            poa.form.readonly = {pei: poa.pei, periodo_poa: poa.periodo_poa, estado: 4};
+            poa.form.readonly = {pei: poa.pei, periodo_poa: poa.periodo_poa, estado: 4, active: 1};
             if (typeof institucion !== "undefined")
                 if (institucion)
                     if (institucion.form) {
@@ -664,7 +664,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                                         est_poa: baseController.poaFirt[0].estado,
                                         periodo_poa_msj: `POA ${baseController.poaFirt[0].periodo_poa}`,
                                         cantidad: baseController.poaFirt[0].cantidad,
-                                        monitoreo_nombre: baseController.poaFirt[0].nombre_mostrar
+                                        monitoreo_nombre: baseController.poaFirt[0].nombre_mostrar,
+                                        poa_habilitado: baseController.poaFirt[0].poa_habilitado
                                     });
                                 } else {
                                     baseController.poaFirt = [baseController.poaList[0]];
@@ -688,7 +689,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                                         est_poa: baseController.poaFirt[0].estado,
                                         periodo_poa_msj: `POA ${baseController.poaFirt[0].periodo_poa}`,
                                         cantidad: baseController.poaFirt[0].cantidad,
-                                        monitoreo_nombre: baseController.poaFirt[0].nombre_mostrar
+                                        monitoreo_nombre: baseController.poaFirt[0].nombre_mostrar,
+                                        poa_habilitado: baseController.poaFirt[0].poa_habilitado
                                     });
                                 }
                             } else {
@@ -736,7 +738,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                             est_poa: data.updating.estado,
                             periodo_poa_msj: `POA ${data.updating.periodo_poa}`,
                             cantidad: poa.form.selected('monitoreo').cantidad,
-                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar
+                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar,
+                            poa_habilitado: poa.active
                         };
                         setTimeout(function () {
                             new SESSION().update(
@@ -763,7 +766,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                             est_poa: data.updating.estado,
                             periodo_poa_msj: `POA ${data.updating.periodo_poa}`,
                             cantidad: poa.form.selected('monitoreo').cantidad,
-                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar
+                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar,
+                            poa_habilitado: poa.active
                         };
                         setTimeout(function () {
                             new SESSION().update(
@@ -797,7 +801,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                             est_poa: data.updating.estado,
                             periodo_poa_msj: `POA ${data.updating.periodo_poa}`,
                             cantidad: poa.form.selected('monitoreo').cantidad,
-                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar
+                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar,
+                            poa_habilitado: poa.active
                         };
                         setTimeout(function () {
                             new SESSION().update(
@@ -824,7 +829,8 @@ app.controller("poa", function ($scope, $http, $compile) {
                             est_poa: data.updating.estado,
                             periodo_poa_msj: `POA ${data.updating.periodo_poa}`,
                             cantidad: poa.form.selected('monitoreo').cantidad,
-                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar
+                            monitoreo_nombre: poa.form.selected('monitoreo').nombre_mostrar,
+                            poa_habilitado: poa.active
                         };
                         setTimeout(function () {
                             new SESSION().update(

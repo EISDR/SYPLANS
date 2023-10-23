@@ -574,7 +574,7 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
         if (presupuesto_aprobado.myPei.estatus == ENUM_2.pei_estatus.Pendiente_a_autorizar) {
             $('.icon-plus-circle2 ').parent().hide();
         } else {
-            if (presupuesto_aprobado.session.est_poa == 5 ){
+            if (presupuesto_aprobado.session.est_poa == 5 || session.poa_habilitado == 0){
                 $('.icon-plus-circle2 ').parent().hide();
                 return;
             }
