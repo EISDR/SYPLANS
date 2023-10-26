@@ -78,12 +78,12 @@ DSON.keepmerge(CRUD_mega_producto, {
             },
             fecha_inicio: {
                 label: "Fecha Inicio",
-                type: FILTER.types.string,
+                formattype: ENUM.FORMAT.date,
                 placeholder: 'Fecha Inicio'
             },
             fecha_fin: {
                 label: "Fecha Fin",
-                type: FILTER.types.string,
+                formattype: ENUM.FORMAT.date,
                 placeholder: 'Fecha Fin'
             },
             involucrado: {
