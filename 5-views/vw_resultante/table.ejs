@@ -202,8 +202,8 @@
         {{row.residual2}}
     </td>
 
-    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.elemento+d.id',i,vw_resultante.report)}}"
-        ng-if="<%= scope %>.sm_('d.elemento+d.id',i,vw_resultante.report)">
+    <td style="vertical-align: middle" rowspan="{{<%= scope %>.sp_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)}}"
+        ng-if="<%= scope %>.sm_('d.factor + d.tablex + (d.departamento||`No Asignado`)+d.rid',i,vw_resultante.report)">
         {{row.observacion}}
     </td>
 
