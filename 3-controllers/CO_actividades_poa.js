@@ -2293,81 +2293,12 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                     }
                 ]
             }, function (res) {
-                actividades_poa.dpto_usuario = res.data.length;
-                actividades_poa.dpto_usuario_autorizado = res.data.filter(d => {
-                    return d.id_estatus === ENUM_2.presupuesto_estatus.Completo || d.id_estatus === ENUM_2.presupuesto_estatus.Trabajado
-                }).length;
-                actividades_poa.refreshAngular();
-                if (MODAL.history.length > 0) {
-                    $('.icon-plus-circle2 ').parent().hide();
-                    if (typeof productos_poa !== 'undefined') {
-                        if (typeof productos_poa !== 'not defined') {
-                            if (productos_poa) {
-                                if (productos_poa.modo_view_trabajar) {
-                                    $('.icon-plus-circle2 ').parent().hide();
-                                } else {
-                                    actividades_poa.dont_show_productos = true;
-                                    console.log("entre condicion dept modal")
-                                    $('.icon-plus-circle2 ').parent().show();
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if (actividades_poa.dpto_usuario != actividades_poa.dpto_usuario_autorizado) {
-                        console.log("entre condicion dept no modal")
-                        $('.icon-plus-circle2 ').parent().show();
-                        actividades_poa.setPermission("edit", true);
-                        actividades_poa.setPermission("remove", true);
-                    } else {
-                        $('.icon-plus-circle2 ').parent().hide();
-                        actividades_poa.setPermission("edit", false);
-                        actividades_poa.setPermission("remove", false);
-                    }
-                }
-                // if (CRUD_vw_actividades_poa.table.options[0].menus.length === 0){
-                //     $('#actividades_poa .icon-plus-circle2 ').parent().hide();
-                // } else {
-                //     $('#actividades_poa .icon-plus-circle2 ').parent().show();
-                // }
-                if (actividades_poa.total_departamentos === 0) {
-                    actividades_poa.valor = LAN.money(0).format(false);
-                    actividades_poa.presupuesto_restantePre = LAN.money(0).format(false);
-                    actividades_poa.presupuesto_actividades = LAN.money(0).format(false);
-                    actividades_poa.presupuesto_liberado = LAN.money(0).format(false);
+                if (res.data.length) {
+                    actividades_poa.dpto_usuario = res.data.length;
+                    actividades_poa.dpto_usuario_autorizado = res.data.filter(d => {
+                        return d.id_estatus === ENUM_2.presupuesto_estatus.Completo || d.id_estatus === ENUM_2.presupuesto_estatus.Trabajado
+                    }).length;
                     actividades_poa.refreshAngular();
-                }
-
-            });
-        } else {
-            BASEAPI.list("vw_presupuesto_aprobado", {
-                limit: 0,
-                where: [
-                    {
-                        field: "poa",
-                        value: session.poa_id
-                    }
-                ]
-            }, function (res) {
-                if (res.data.length)
-                    actividades_poa.total_departamentos = res.data.length;
-
-                BASEAPI.list("vw_presupuesto_departamento", {
-                    limit: 0,
-                    where: [
-                        {
-                            field: "poa",
-                            value: session.poa_id
-                        },
-                        {
-                            field: 'estatus',
-                            value: ENUM_2.presupuesto_estatus.Completo
-                        }
-                    ]
-                }, function (res) {
-                    actividades_poa.departamentos_autorizados = res.data.length;
-
-                    // actividades_poa.refreshAngular();
                     if (MODAL.history.length > 0) {
                         $('.icon-plus-circle2 ').parent().hide();
                         if (typeof productos_poa !== 'undefined') {
@@ -2377,18 +2308,22 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                                         $('.icon-plus-circle2 ').parent().hide();
                                     } else {
                                         actividades_poa.dont_show_productos = true;
-                                        console.log("entre condicion plani modal")
+                                        console.log("entre condicion dept modal")
                                         $('.icon-plus-circle2 ').parent().show();
                                     }
                                 }
                             }
                         }
                     } else {
-                        if (actividades_poa.total_departamentos == actividades_poa.departamentos_autorizados) {
-                            $('.icon-plus-circle2 ').parent().hide();
-                        } else {
-                            console.log("entre condicion plani no modal")
+                        if (actividades_poa.dpto_usuario != actividades_poa.dpto_usuario_autorizado) {
+                            console.log("entre condicion dept no modal")
                             $('.icon-plus-circle2 ').parent().show();
+                            actividades_poa.setPermission("edit", true);
+                            actividades_poa.setPermission("remove", true);
+                        } else {
+                            $('.icon-plus-circle2 ').parent().hide();
+                            actividades_poa.setPermission("edit", false);
+                            actividades_poa.setPermission("remove", false);
                         }
                     }
                     // if (CRUD_vw_actividades_poa.table.options[0].menus.length === 0){
@@ -2402,11 +2337,81 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                         actividades_poa.presupuesto_actividades = LAN.money(0).format(false);
                         actividades_poa.presupuesto_liberado = LAN.money(0).format(false);
                         actividades_poa.refreshAngular();
-                    } else {
-                        actividades_poa.refreshAngular();
-
                     }
-                });
+                }else{
+                    $('.icon-plus-circle2 ').parent().hide();
+                }
+            });
+        } else {
+            BASEAPI.list("vw_presupuesto_aprobado", {
+                limit: 0,
+                where: [
+                    {
+                        field: "poa",
+                        value: session.poa_id
+                    }
+                ]
+            }, function (res) {
+                if (res.data.length) {
+                    actividades_poa.total_departamentos = res.data.length;
+                    BASEAPI.list("vw_presupuesto_departamento", {
+                        limit: 0,
+                        where: [
+                            {
+                                field: "poa",
+                                value: session.poa_id
+                            },
+                            {
+                                field: 'estatus',
+                                value: ENUM_2.presupuesto_estatus.Completo
+                            }
+                        ]
+                    }, function (res) {
+                        actividades_poa.departamentos_autorizados = res.data.length;
+
+                        // actividades_poa.refreshAngular();
+                        if (MODAL.history.length > 0) {
+                            $('.icon-plus-circle2 ').parent().hide();
+                            if (typeof productos_poa !== 'undefined') {
+                                if (typeof productos_poa !== 'not defined') {
+                                    if (productos_poa) {
+                                        if (productos_poa.modo_view_trabajar) {
+                                            $('.icon-plus-circle2 ').parent().hide();
+                                        } else {
+                                            actividades_poa.dont_show_productos = true;
+                                            console.log("entre condicion plani modal")
+                                            $('.icon-plus-circle2 ').parent().show();
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            if (actividades_poa.total_departamentos == actividades_poa.departamentos_autorizados) {
+                                $('.icon-plus-circle2 ').parent().hide();
+                            } else {
+                                console.log("entre condicion plani no modal")
+                                $('.icon-plus-circle2 ').parent().show();
+                            }
+                        }
+                        // if (CRUD_vw_actividades_poa.table.options[0].menus.length === 0){
+                        //     $('#actividades_poa .icon-plus-circle2 ').parent().hide();
+                        // } else {
+                        //     $('#actividades_poa .icon-plus-circle2 ').parent().show();
+                        // }
+                        if (actividades_poa.total_departamentos === 0) {
+                            actividades_poa.valor = LAN.money(0).format(false);
+                            actividades_poa.presupuesto_restantePre = LAN.money(0).format(false);
+                            actividades_poa.presupuesto_actividades = LAN.money(0).format(false);
+                            actividades_poa.presupuesto_liberado = LAN.money(0).format(false);
+                            actividades_poa.refreshAngular();
+                        } else {
+                            actividades_poa.refreshAngular();
+
+                        }
+                    });
+                }else{
+                    $('.icon-plus-circle2 ').parent().hide();
+                }
             });
         }
     };

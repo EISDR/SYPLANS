@@ -31,10 +31,218 @@
                     table: "poa",
                     field: "id",
                     icon: {class:"archive"},
-                    condition: "item.compania == lote_clonacion.session.compania_id"
+                    condition: "item.pei == lote_clonacion.session.pei_id"
                 }) %>
             </div>
+            <div class='col-sm-2 col-md-2' style="margin-top: 20px;">
+                <button
+                        dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                        type="button" role="button"
+                        class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-left"
+                        ng-click="<%= scope %>.getData(lote_clonacion.poa_desde, lote_clonacion.departamento)">
+                    <b><i class="icon-search4"></i></b>
+                    <language>Buscar</language>
+                </button>
+            </div>
+
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'productos'">
+
+                <div style="overflow-x: scroll">
+                    <table class=" table table-togglable table-framed sindu-table">
+                        <thead class="">
+                        <tr class="bg-secundary">
+                            <th>Resultado Esperado</th>
+                            <th>nombre</th>
+                            <th>Fecha Inicio/Fecha Fin</th>
+                            <th>Departamento</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in lote_clonacion.repeatProductos">
+                            <td>{{row.resultado}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
+                            <td>{{row.departamento}}</td>
+                            <td>{{row.descripcion}}</td>
+                            <td class="context-control"
+                                oncontextmenu="return false;">
+                                <ul class="icons-list dragon-action" ng-show="row.mis_actividades || row.mis_indicadores"
+                                    style="z-index: 99999; text-align: center;">
+                                    <li class="ng-scope" ng-show="row.mis_actividades">
+                                        <a title="Mostrar las actividades del producto"
+                                           ng-click="lote_clonacion.irActividades(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ng-scope" ng-show="row.mis_indicadores">
+                                        <a title="Mostrar los indicadores del producto"
+                                           ng-click="lote_clonacion.irIndicadoresP(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades'">
+
+                <div style="overflow-x: scroll">
+                    <table class=" table table-togglable table-framed sindu-table">
+                        <thead class="">
+                        <tr class="bg-secundary">
+                            <th>Producto</th>
+                            <th>nombre</th>
+                            <th>Fecha Inicio/Fecha Fin</th>
+                            <th>Departamento</th>
+                            <th>Descripción</th>
+                            <th>Presupuesto</th>
+                            <th>Responsable</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in lote_clonacion.repeatActividades">
+                            <td>{{row.producto}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
+                            <td>{{row.departamento}}</td>
+                            <td>{{row.descripcion}}</td>
+                            <td>{{row.presupuesto}}</td>
+                            <td>{{row.responsable}}</td>
+                            <td class="context-control"
+                                oncontextmenu="return false;">
+                                <ul class="icons-list dragon-action" ng-show="row.mis_actividades_apoyo || row.mis_indicadores"
+                                    style="z-index: 99999; text-align: center;">
+                                    <li class="ng-scope" ng-show="row.mis_actividades_apoyo">
+                                        <a title="Mostrar las actividades de apoyo de la actividad"
+                                           ng-click="lote_clonacion.irActividades_apoyo(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ng-scope" ng-show="row.mis_indicadores">
+                                        <a title="Mostrar los indicadores de la actividad"
+                                           ng-click="lote_clonacion.irIndicadoresA(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresP'">
+
+                <div style="overflow-x: scroll">
+                    <table class=" table table-togglable table-framed sindu-table">
+                        <thead class="">
+                        <tr class="bg-secundary">
+                            <th>Producto</th>
+                            <th>nombre</th>
+                            <th>Año línea base</th>
+                            <th>Medio de verificación</th>
+                            <th>Método de cálculo</th>
+                            <th>Fuente</th>
+                            <th>Descripcion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in lote_clonacion.repeatIndicadoresP">
+                            <td>{{row.producto}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.ano_linea_base}}</td>
+                            <td>{{row.medio_verificacion}}</td>
+                            <td>{{row.metodo_calculo}}</td>
+                            <td>{{row.fuente}}</td>
+                            <td>{{row.descripcion}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
         </div>
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades_apoyo'">
+
+                <div style="overflow-x: scroll">
+                    <table class=" table table-togglable table-framed sindu-table">
+                        <thead class="">
+                        <tr class="bg-secundary">
+                            <th>Actividad</th>
+                            <th>nombre</th>
+                            <th>Fecha Inicio/Fecha Fin</th>
+                            <th>Departamento</th>
+                            <th>Descripción</th>
+                            <th>Presupuesto</th>
+                            <th>Responsable</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in lote_clonacion.repeatActividades_apoyo">
+                            <td>{{row.actividades_poa}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
+                            <td>{{row.departamento}}</td>
+                            <td>{{row.descripcion}}</td>
+                            <td>{{row.presupuesto}}</td>
+                            <td>{{row.responsable}}</td>
+                            <td class="context-control"
+                                oncontextmenu="return false;">
+                                <ul class="icons-list dragon-action" ng-show="row.mis_actividades_apoyo || row.mis_indicadores"
+                                    style="z-index: 99999; text-align: center;">
+                                    <li class="ng-scope" ng-show="row.mis_actividades">
+                                        <a title="Mostrar las actividades de apoyo de la actividad"
+                                           ng-click="lote_clonacion.irActividades(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ng-scope" ng-show="row.mis_indicadores">
+                                        <a title="Mostrar los indicadores de la actividad"
+                                           ng-click="lote_clonacion.irActividades(row)">
+                                            <i class="icon-gear"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresA'">
+
+                <div style="overflow-x: scroll">
+                    <table class=" table table-togglable table-framed sindu-table">
+                        <thead class="">
+                        <tr class="bg-secundary">
+                            <th>Actividad</th>
+                            <th>nombre</th>
+                            <th>Año línea base</th>
+                            <th>Medio de verificación</th>
+                            <th>Método de cálculo</th>
+                            <th>Fuente</th>
+                            <th>Descripcion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,row) in lote_clonacion.repeatIndicadoresA">
+                            <td>{{row.actividades_poa}}</td>
+                            <td>{{row.nombre}}</td>
+                            <td>{{row.ano_linea_base}}</td>
+                            <td>{{row.medio_verificacion}}</td>
+                            <td>{{row.metodo_calculo}}</td>
+                            <td>{{row.fuente}}</td>
+                            <td>{{row.descripcion}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
     </div>
 </div>
 

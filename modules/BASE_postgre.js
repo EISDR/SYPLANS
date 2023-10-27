@@ -148,6 +148,7 @@ exports.update = async function (table, data, params) {
         var where = "";
         for (var property in data) {
             if (property !== "where") {
+                if( data[property] === null || data[property] === undefined ) continue;
                 var value = data[property];
                 if (property[0] === "$")
                     columns = (property.replace('$', ''));
@@ -206,6 +207,7 @@ exports.delete = function (table, data, params) {
         var columns = [];
         var values = [];
         for (var property in data) {
+            if( data[property] === null || data[property] === undefined ) continue;
             var value = data[property];
             if (property[0] === "$")
                 columns.push(property.replace('$', ''));

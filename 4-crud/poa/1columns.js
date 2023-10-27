@@ -249,7 +249,7 @@ DSON.keepmerge(CRUD_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 1).then(function () {
-                                        if (data.row.id == new SESSION().current().id){
+                                        if (data.row.id == new SESSION().current().poa_id){
                                             new SESSION().update({poa_habilitado: 1});
                                         }
                                         SWEETALERT.stop();
@@ -281,7 +281,7 @@ DSON.keepmerge(CRUD_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 0).then(function () {
-                                        if (data.row.id == new SESSION().current().id){
+                                        if (data.row.id == new SESSION().current().poa_id){
                                             new SESSION().update({poa_habilitado: 0});
                                         }
                                         SWEETALERT.stop();
