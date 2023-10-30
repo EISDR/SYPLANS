@@ -200,6 +200,16 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                             type: FILTER.types.string,
                             placeholder: 'Consecuencia'
                         },
+                        {
+                            key: 'active',
+                            label: function(){
+                                return 'Habilitado'
+                            },
+                            type: FILTER.types.bool,
+                            placeholder: function(){
+                                return 'Habilitado'
+                            },
+                        },
                     ]
                 },
                 options: [
@@ -687,10 +697,14 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                             placeholder: 'Factor de Riesgo'
                         },
                         {
-                            key: 'consecuencia',
-                            label: 'Consecuencia',
-                            type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
+                            key: 'active',
+                            label: function(){
+                                return 'Habilitado'
+                            },
+                            type: FILTER.types.bool,
+                            placeholder: function(){
+                                return 'Habilitado'
+                            },
                         },
                     ]
                 },
