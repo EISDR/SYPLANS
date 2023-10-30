@@ -189,16 +189,30 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                             },
                         },
                         {
+                            key: 'mamfe_efecto',
+                            label: function(){
+                                return 'Efecto'
+                            },
+                            type: FILTER.types.string,
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
+                        },
+                        {
+                            key: 'mamfe_causa',
+                            label: function(){
+                                return 'Causa'
+                            },
+                            type: FILTER.types.string,
+                            placeholder: function(){
+                                return 'Causa'
+                            },
+                        },
+                        {
                             key: 'factor_riesgo',
                             label: 'Factor de Riesgo',
                             type: FILTER.types.decimal,
                             placeholder: 'Factor de Riesgo'
-                        },
-                        {
-                            key: 'consecuencia',
-                            label: 'Consecuencia',
-                            type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
                         },
                         {
                             key: 'active',
@@ -688,6 +702,26 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
                                 orderby: "id",
                                 order: "asc",
                                 distinct: false
+                            },
+                        },
+                        {
+                            key: 'consecuencia',
+                            label: function(){
+                                return 'Efecto'
+                            },
+                            type: FILTER.types.string,
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
+                        },
+                        {
+                            key: 'causa_debilidad',
+                            label: function(){
+                                return 'Causa o Debilidad'
+                            },
+                            type: FILTER.types.string,
+                            placeholder: function(){
+                                return 'Causa o Debilidad'
                             },
                         },
                         {
