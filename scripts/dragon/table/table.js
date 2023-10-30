@@ -149,12 +149,14 @@ TABLE = {
 
 
                 eval(`${$scope.modelName}.records.data.forEach(row => {
+                    debugger
                     row.${mykey} = row.${mykey} || undefined;
                     var mylist = [];
                     result.data.forEach(d => {
                         if (row.${mykey} !== undefined)
                             if (d.${idMAM}.toString() === row.${mykey}.toString())
-                                mylist.push(d.${idADY}.toString());
+                                if (d.${idADY})
+                                    mylist.push(d.${idADY}.toString());
                     });
                     var mydescs = [];
                     descriptions.data.forEach(d => {
