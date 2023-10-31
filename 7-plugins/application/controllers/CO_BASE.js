@@ -433,6 +433,14 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     {field: "compania_id", value: intersession.compania_id},
                 ]
             });
+            var poa_selected = await BASEAPI.firstp("vw_poa", {
+                where: [
+                    {field: "id", value: intersession.poa_id},
+                ]
+            });
+            if (poa_selected){
+                new SESSION().update({poa_habilitado: poa_selected.active});
+            }
             if (!CONFIGCOMPANY) {
                 CONFIGCOMPANY = {};
                 if (intersession)
