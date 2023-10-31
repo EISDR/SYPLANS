@@ -246,18 +246,22 @@ app.controller("compania", function ($scope, $http, $compile) {
 
                     });
                 } else {
+                    let queryTopas = `INSERT INTO compania_config
+select  ${data.inserted.id},pacc,institucional,sectorial,ods,estatus_productoXactividades,notificaciones_correo,notificaciones_push,planificacion,asignaciones_especiales,ipn,proceso,proyectos_especiales,gestion_indicadores,riesgo_var,riesgo_amfe,plan_accion,salidas,servicio,documentos_externos,formularios,reporte_configurable,plantillas_ods,import_masivo,historial_acceso,mesa_ayuda,repositorio_archivos,interfaces,color_principal,color_secundario,dias_de_gracia,hora_notificacion,onesignal_key,onesignal_appauth,onesignal_appid,carga_evidencia_abierta,smtp_host,smtp_port,smtp_ssl,smtp_email,smtp_password,smtp_sender,smtp_sender_name,instrumentos,documento,auditoria,norma_iso,notificaciones from compania_config limit 1`;
 
+                    SERVICE.base_db.directQuery({query: queryTopas}, async (result) => {
 
-                    setTimeout(() => {
+                        setTimeout(() => {
 
-                        compania.formulary({
-                            where: [{
-                                field: CRUD_compania.table.key,
-                                value: data.inserted.id
-                            }]
-                        }, FORM.modes.edit, {});
+                            compania.formulary({
+                                where: [{
+                                    field: CRUD_compania.table.key,
+                                    value: data.inserted.id
+                                }]
+                            }, FORM.modes.edit, {});
 
-                    }, 1500);
+                        }, 1500);
+                    });
                 }
                 return false;
             };
