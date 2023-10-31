@@ -543,7 +543,7 @@ DSON.keepmerge(CRUD_productos_poa, {
                         },
                         click: function (data) {
                             SWEETALERT.confirm({
-                                message: MESSAGE.i('alerts.AYSDisable'),
+                                message: `<p>Al deshabilitar este producto/proyecto estará deshabilitando todas las actividades e indicadores que esten asociados al producto.</p> <p>¿Está seguro de tomar la acción?</p>`,
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 0).then(function () {
