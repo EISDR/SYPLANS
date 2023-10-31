@@ -67,6 +67,13 @@
               "text": "Impactos"
             },
             {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#perspectiva?var",
+              "text": "Perspectiva"
+            },
+            {
               "modal": "",
               "icon": "file-stats",
               "href": "#riesgo_resultado?pei_poa",
@@ -202,6 +209,13 @@
               "icon": "file-stats",
               "href": "#riesgo_resultado?proceso?mamfe",
               "text": "Detectabilidad"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#perspectiva?mamfe",
+              "text": "Perspectiva"
             },
             {
               "modal": "",
@@ -343,6 +357,13 @@
               "text": "Impactos"
             },
             {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#perspectiva?var",
+              "text": "Perspectiva"
+            },
+            {
               "modal": "",
               "icon": "file-stats",
               "href": "#riesgo_resultado?pei_poa",
@@ -478,6 +499,13 @@
               "icon": "file-stats",
               "href": "#riesgo_resultado?proceso?mamfe",
               "text": "Detectabilidad"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#perspectiva?mamfe",
+              "text": "Perspectiva"
             },
             {
               "modal": "",

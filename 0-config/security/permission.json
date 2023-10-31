@@ -310,6 +310,14 @@
         "type": "full",
         "allow": {}
       },
+      "perspectivaSIGNALvar": {
+        "type": "full",
+        "allow": {}
+      },
+      "perspectivaSIGNALmamfe": {
+        "type": "full",
+        "allow": {}
+      },
       "perspectiva": {
         "type": "full",
         "allow": {}
