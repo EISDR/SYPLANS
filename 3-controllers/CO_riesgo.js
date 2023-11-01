@@ -333,9 +333,13 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'consecuencia',
-                            label: 'Consecuencia',
+                            label: function(){
+                                return 'Efecto'
+                            },
                             type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
                         },
                         {
                             key: 'departamento',
@@ -1441,9 +1445,13 @@ app.controller("riesgo", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'consecuencia',
-                            label: 'Consecuencia',
+                            label: function(){
+                                return 'Efecto'
+                            },
                             type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
                         },
                         {
                             key: 'departamento',
