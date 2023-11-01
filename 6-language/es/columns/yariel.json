@@ -409,5 +409,12 @@
   "documentos_obsoletos_plural":"Documentos Obsoletos",
   "documentos_obsoletos":"Documentos Obsoletos",
   "vw_reporte_francis_plural":"Reporte de Departamento x Productos y Presupuestos",
-  "vw_reporte_francis":"Reporte de Departamento x Productos y Presupuestos"
+  "vw_reporte_francis":"Reporte de Departamento x Productos y Presupuestos",
+  "productos_poa_plural":"Proyectos/Productos",
+  "productos_poa":"Proyecto/Producto",
+  "resultado":"Resultado",
+  "producto":"Proyecto/Producto",
+  "estado_producto":"Estado",
+  "actividades":"Actividades del Proyecto/Producto",
+  "indicadores":"Indicadores del Proyecto/Producto"
 }
