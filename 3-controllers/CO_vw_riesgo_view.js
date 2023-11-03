@@ -219,9 +219,13 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'consecuencia',
-                            label: 'Consecuencia',
+                            label: function(){
+                                return 'Efecto'
+                            },
                             type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
                         },
                         {
                             key: 'departamento',
@@ -1080,9 +1084,13 @@ app.controller("vw_riesgo_view", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'consecuencia',
-                            label: 'Consecuencia',
+                            label: function(){
+                                return 'Efecto'
+                            },
                             type: FILTER.types.string,
-                            placeholder: 'Consecuencia'
+                            placeholder: function(){
+                                return 'Efecto'
+                            },
                         },
                         {
                             key: 'departamento',

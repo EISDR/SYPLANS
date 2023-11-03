@@ -2452,7 +2452,9 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                     }
                 } else {
                     if (actividades_poa.total_departamentos != 0) {
-                        actividades_poa.departamentoPre = session.departamento + "";
+                        if (actividades_poa.group_caracteristica == ENUM_2.Grupos.director_departamental || actividades_poa.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
+                            actividades_poa.departamentoPre = session.departamento + "";
+                        }
                         actividades_poa.cargar = false;
                         actividades_poa.filtros.loadDropDown('departamentoPre');
                         $(".subcontent").show();
@@ -2603,7 +2605,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     actividades_poa.plural = MESSAGE.i('planificacion.titleActividades');
 
     var hasDashboard = false, hasDashboardConfig = false, hasDashboardotro = false;
-    ;
+
     if (typeof dashboard != "undefined") {
         if (dashboard) {
             if (typeof dashboard !== 'not defined') {

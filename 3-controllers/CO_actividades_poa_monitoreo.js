@@ -506,15 +506,10 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                         actividades_poa_monitoreo.filtros.options.departamentoPre.disabled = true;
                         quierorefrescar = true;
                     }
-                    if (false) {
+                    if (STORAGE.get('depaM') !== null) {
                         actividades_poa_monitoreo.departamentoPre = STORAGE.get('depaM');
                         actividades_poa_monitoreo.cargar = false;
                         actividades_poa_monitoreo.filtros.loadDropDown('departamentoPre');
-                    } else {
-                        actividades_poa_monitoreo.departamentoPre = session.departamento + "";
-                        actividades_poa_monitoreo.cargar = false;
-                        actividades_poa_monitoreo.filtros.loadDropDown('departamentoPre');
-                        actividades_poa_monitoreo.refresh();
                     }
                     if (actividades_poa_monitoreo.filtros.selected('departamentoPre') !== null) {
                         if (actividades_poa_monitoreo.filtros.selected('departamentoPre').id < 0) {
