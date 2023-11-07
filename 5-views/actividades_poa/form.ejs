@@ -23,13 +23,12 @@
         %>
     </div>
     <div class="col-sm-4 col-md-4" ng-if="actividades_poa.session.tipo_institucion == 1" ng-show="!actividades_poa.dont_show_productos">
-        <%-
-        FORM.select("producto", scope, {
-            // allownew: false,
-            // allowedit: false,
-            // allowview: false,
-            // allowlist: false,
-            // refresh: false,
+        <%- FORM.select("producto", scope, {
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: false,
             multiple: false,
             truelabel: "Proyecto/Producto",
             permission: "productos_poa",
@@ -45,11 +44,11 @@
     <div class="col-sm-4 col-md-4" ng-if="actividades_poa.session.tipo_institucion == 2" ng-show="!actividades_poa.dont_show_productos">
         <%-
         FORM.select("producto", scope, {
-            // allownew: false,
-            // allowedit: false,
-            // allowview: false,
-            // allowlist: false,
-            // refresh: false,
+            allownew: false,
+            allowedit: false,
+            allowview: false,
+            allowlist: false,
+            refresh: false,
             multiple: false,
             label: "Proyecto/Plan de Acción",
             permission: "productos_poa",
@@ -161,7 +160,10 @@
     <div class="col-sm-3 col-md-3">
         <%-
         FORM.select("responsable", scope, {
+            allownew: false,
+            allowedit: false,
             allowview: false,
+            allowlist: false,
             refresh: true,
             multiple: false,
             disabled: false,
