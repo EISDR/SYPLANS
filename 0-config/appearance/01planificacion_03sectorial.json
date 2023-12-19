@@ -30,7 +30,7 @@
       "modal": "",
       "icon": "portfolio",
       "href": "#",
-      "condition": "CONFIGCOMPANY.sectorial ==1 && baseController.session.sector_id",
+      "condition": "CONFIGCOMPANY.sectorial ==1",
       "text": "Plan Estratégico Sectorial"
     }
   ],
@@ -65,7 +65,7 @@
       "modal": "",
       "icon": "portfolio",
       "href": "#",
-      "condition": "CONFIGCOMPANY.sectorial==1 && baseController.session.sector_id",
+      "condition": "CONFIGCOMPANY.sectorial==1",
       "text": "Plan Estratégico Sectorial"
     }
   ]
