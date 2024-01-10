@@ -42,7 +42,7 @@
                     to: "fecha_fin"
                 }) %>
             </div>
-            <div ng-if="productos_poa.modo_view_trabajar == false" class="col-sm-4 col-md-4">
+            <div ng-show="productos_poa.modo_view_trabajar == false" class="col-sm-4 col-md-4">
                 <%- FORM.select("departamento", scope, {
                     allownew: false,
                     allowedit: false,
