@@ -544,6 +544,100 @@ DSON.keepmerge(CRUD_resultado, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 1).then(function () {
+                                        BASEAPI.updateall('productos_poa', {
+                                            "active": 1,
+                                            where: [
+                                                {
+                                                    "field": "resultado",
+                                                    "value": data.row.id
+                                                },
+                                                {
+                                                    field: "poa",
+                                                    value: new SESSION().current().poa_id
+                                                }
+                                            ]
+                                        }, function (result_update_P) {
+                                            BASEAPI.list('productos_poa', {
+                                                limit: 0,
+                                                where: [
+                                                    {
+                                                        "field": "resultado",
+                                                        "value": data.row.id
+                                                    },
+                                                    {
+                                                        field: "poa",
+                                                        value: new SESSION().current().poa_id
+                                                    }
+                                                ]
+                                            }, function (result_producto) {
+                                                var listproductos = [];
+                                                for (var i of result_producto.data) {
+                                                    listproductos.push(i.id)
+                                                }
+                                                if (listproductos.length > 0) {
+                                                    BASEAPI.updateall('actividades_poa', {
+                                                        active: 1,
+                                                        where: [
+                                                            {
+                                                                field: 'producto',
+                                                                value: listproductos
+                                                            }
+                                                        ]
+                                                    }, function (result_update_A) {
+                                                        BASEAPI.list('actividades_poa', {
+                                                            limit: 0,
+                                                            where: [
+                                                                {
+                                                                    "field": "producto",
+                                                                    "value": listproductos
+                                                                },
+                                                            ]
+                                                        }, function (result_actividades) {
+                                                            var listactividades = [];
+                                                            for (var i of result_actividades.data) {
+                                                                listactividades.push(i.id)
+                                                            }
+                                                            if (listactividades.length > 0) {
+                                                                BASEAPI.updateall('actividades_apoyo', {
+                                                                    active: 1,
+                                                                    where: [
+                                                                        {
+                                                                            field: 'actividades_poa',
+                                                                            value: listactividades
+                                                                        }
+                                                                    ]
+                                                                }, function (result) {
+                                                                    console.log(result.data)
+                                                                })
+                                                                BASEAPI.updateall('indicador_actividad', {
+                                                                    active: 1,
+                                                                    where: [
+                                                                        {
+                                                                            field: 'actividades_poa',
+                                                                            value: listactividades
+                                                                        }
+                                                                    ]
+                                                                }, function (result) {
+                                                                    console.log(result.data)
+                                                                })
+                                                            }
+                                                        });
+                                                        console.log(result_update_A.data)
+                                                    })
+                                                    BASEAPI.updateall('indicador_poa', {
+                                                        "active": 1,
+                                                        where: [
+                                                            {
+                                                                "field": "producto",
+                                                                "value": listproductos
+                                                            }
+                                                        ]
+                                                    }, function (result_update_I) {
+
+                                                    })
+                                                }
+                                            });
+                                        });
                                         SWEETALERT.stop();
                                     });
                                 }
@@ -573,6 +667,100 @@ DSON.keepmerge(CRUD_resultado, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 0).then(function () {
+                                        BASEAPI.updateall('productos_poa', {
+                                            "active": 0,
+                                            where: [
+                                                {
+                                                    "field": "resultado",
+                                                    "value": data.row.id
+                                                },
+                                                {
+                                                    field: "poa",
+                                                    value: new SESSION().current().poa_id
+                                                }
+                                            ]
+                                        }, function (result_update_P) {
+                                            BASEAPI.list('productos_poa', {
+                                                limit: 0,
+                                                where: [
+                                                    {
+                                                        "field": "resultado",
+                                                        "value": data.row.id
+                                                    },
+                                                    {
+                                                        field:"poa",
+                                                        value: new SESSION().current().poa_id
+                                                    }
+                                                ]
+                                            }, function (result_producto) {
+                                                var listproductos = [];
+                                                for (var i of result_producto.data) {
+                                                    listproductos.push(i.id)
+                                                }
+                                                if (listproductos.length > 0) {
+                                                    BASEAPI.updateall('actividades_poa', {
+                                                        active: 0,
+                                                        where: [
+                                                            {
+                                                                field: 'producto',
+                                                                value: listproductos
+                                                            }
+                                                        ]
+                                                    }, function (result_update_A) {
+                                                        BASEAPI.list('actividades_poa', {
+                                                            limit: 0,
+                                                            where: [
+                                                                {
+                                                                    "field": "producto",
+                                                                    "value": listproductos
+                                                                },
+                                                            ]
+                                                        }, function (result_actividades) {
+                                                            var listactividades = [];
+                                                            for (var i of result_actividades.data) {
+                                                                listactividades.push(i.id)
+                                                            }
+                                                            if (listactividades.length > 0) {
+                                                                BASEAPI.updateall('actividades_apoyo', {
+                                                                    active: 0,
+                                                                    where: [
+                                                                        {
+                                                                            field: 'actividades_poa',
+                                                                            value: listactividades
+                                                                        }
+                                                                    ]
+                                                                }, function (result) {
+                                                                    console.log(result.data)
+                                                                })
+                                                                BASEAPI.updateall('indicador_actividad', {
+                                                                    active: 0,
+                                                                    where: [
+                                                                        {
+                                                                            field: 'actividades_poa',
+                                                                            value: listactividades
+                                                                        }
+                                                                    ]
+                                                                }, function (result) {
+                                                                    console.log(result.data)
+                                                                })
+                                                            }
+                                                        });
+                                                        console.log(result_update_A.data)
+                                                    })
+                                                    BASEAPI.updateall('indicador_poa', {
+                                                        "active": 0,
+                                                        where: [
+                                                            {
+                                                                "field": "producto",
+                                                                "value": listproductos
+                                                            }
+                                                        ]
+                                                    }, function (result_update_I) {
+
+                                                    })
+                                                }
+                                            });
+                                        });
                                         SWEETALERT.stop();
                                     });
                                 }

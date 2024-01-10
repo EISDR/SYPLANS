@@ -367,7 +367,8 @@
       "resultado": {
         "type": "full",
         "allow": {
-          "menu": false
+          "menu": false,
+          "active": true
         }
       },
       "resultado_view": {
