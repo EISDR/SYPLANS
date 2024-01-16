@@ -124,7 +124,9 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
             columns: [
                 {
                     key: 'proceso',
-                    label: 'Proceso',
+                    label: function(){
+                        return 'Proceso'
+                    },
                     type: FILTER.types.relation,
                     table: 'vw_procesos',
                     value: "id",
@@ -155,13 +157,17 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 {
                     key: 'nombre',
-                    label: 'Nombre del Documento',
+                    label: function(){
+                        return 'Nombre del Documento'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Nombre del Documento'
                 },
                 {
                     key: 'responsable',
-                    label: 'Auditor Responsable del Documento',
+                    label: function(){
+                        return 'Auditor Responsable del Documento';
+                    },
                     type: FILTER.types.relation,
                     table: 'usuario',
                     value: "id",
@@ -187,13 +193,17 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 {
                     key: 'punto_verificacion',
-                    label: 'Punto de Verificación',
+                    label: function(){
+                        return 'Punto de Verificación'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Punto de Verificación'
                 },
                 {
                     key: 'id_tipo_inconformidad',
-                    label: 'Tipo de Inconformidad',
+                    label: function(){
+                        return 'Tipo de Inconformidad'
+                    },
                     type: FILTER.types.relation,
                     table: 'tipo_inconformidad',
                     value: "id",
@@ -219,13 +229,17 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 },
                 {
                     key: 'observaciones',
-                    label: 'Observación',
+                    label: function() {
+                        return 'Observación'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Observación'
                 },
                 {
                     key: 'comentfinal',
-                    label: 'Comentario final de la auditoría',
+                    label: function(){
+                        return 'Comentario final de la auditoría'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Comentario final de la auditoría'
                 },
