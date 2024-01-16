@@ -1403,10 +1403,17 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 });
             }, ['nuevo_documento']);
         }
-        auditoria_programa_plan.permitir_crear_eliminar = function (documento) {
+        auditoria_programa_plan.permitir_eliminar = function (documento) {
             if (auditoria_programa_plan.lista_documentos_creados && auditoria_programa_plan.lista_documentos_creados.length > 0) {
                 var documentos_creados = [...new Set(auditoria_programa_plan.lista_documentos_creados)];
                 return documentos_creados.some(d => d.documento_asociado === documento && d.from_recoleccion === 1);
+            }
+            return false;
+        }
+        auditoria_programa_plan.permitir_crear = function (documento) {
+            if (auditoria_programa_plan.lista_documentos_creados && auditoria_programa_plan.lista_documentos_creados.length > 0) {
+                var documentos_creados = [...new Set(auditoria_programa_plan.lista_documentos_creados)];
+                return documentos_creados.some(d => d.documento_asociado === documento );
             }
             return false;
         }

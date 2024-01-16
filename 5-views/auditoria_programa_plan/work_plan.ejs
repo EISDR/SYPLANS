@@ -273,16 +273,14 @@
                                                     {{'Abierto'}}
                                                 </td>
                                                 <td ng-show="auditoria_programa_plan.my_true_estatus > 3">
-                                                    {{ !auditoria_programa_plan.hide_work_documento(row.id) ? 'Abierto'
-                                                    :
-                                                    'Trabajado' }}
+                                                    {{ !auditoria_programa_plan.hide_work_documento(row.id) ? 'Abierto' : 'Trabajado' }}
                                                 </td>
                                                 <td class="context-control"
                                                     oncontextmenu="return false;">
                                                     <ul class="icons-list dragon-action"
                                                         style="z-index: 99999; text-align: center;">
                                                         <li class="ng-scope"
-                                                            ng-show="!auditoria_programa_plan.done_documento(row.id) && <%= scope %>.permitir_crear_eliminar(row.id)">
+                                                            ng-show="!auditoria_programa_plan.hide_work_documento(row.id) && <%= scope %>.permitir_crear(row.id)">
                                                             <a title="Agregar lista de verificación"
                                                                ng-click="<%= scope %>.add_work_list(row)">
                                                                 <i class="icon-file-plus2"></i>
@@ -325,7 +323,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="ng-scope"
-                                                            ng-show="<%= scope %>.permitir_crear_eliminar(row.id)">
+                                                            ng-show="<%= scope %>.permitir_eliminar(row.id)">
                                                             <a title="Eliminar este proceso"
                                                                ng-click="<%= scope %>.eliminar_documento(row)">
                                                                 <i class="icon-bin"></i>
