@@ -143,11 +143,6 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                                 "value": lachechon ? lachechon.institucion_id ? lachechon.institucion_id : "$null" : -1
                             },
                             {
-                                field: "estatus_mapa",
-                                operator: "!=",
-                                value: 4
-                            },
-                            {
                                 field: "estatus_id",
                                 operator: "!=",
                                 value: 4

@@ -23,6 +23,26 @@ app.controller("vw_documentos_asociados_pv2", function ($scope, $http, $compile)
                 value: vw_documentos_asociados_pv2.plan,
             }
         ];
+        CRUD_vw_documentos_asociados_pv2.table.filters.columns[0].query.where = [
+            {
+                "field": "compania",
+                "value": vw_documentos_asociados_pv2.session ? vw_documentos_asociados_pv2.session.compania_id : -1
+            },
+            {
+                "field": "institucion",
+                "operator": lachechon.institucion_id ? "=" : "is",
+                "value": vw_documentos_asociados_pv2.session ? lachechon.institucion_id ? vw_documentos_asociados_pv2.session.institucion_id : "$null" : -1
+            },
+            {
+                field: "mapa_proceso",
+                value: vw_documentos_asociados_pv2.form.selected('plan') ? vw_documentos_asociados_pv2.form.selected('plan').mapa_proceso : -1
+            },
+            {
+                field: "estatus_id",
+                operator: "!=",
+                value: 4
+            },
+        ];
         vw_documentos_asociados_pv2.refresh(async () => {
             SWEETALERT.stop();
             vw_documentos_asociados_pv2.refreshAngular();

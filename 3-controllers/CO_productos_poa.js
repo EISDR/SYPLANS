@@ -29,7 +29,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
     if (productos_poa.group_caracteristica == ENUM_2.Grupos.director_departamental || productos_poa.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
         productos_poa.departamento_list = eval(session.departamentos_y_secundarios);
         productos_poa.validar_departamento = false;
-        productos_poa.insert_readonly = {poa: session.poa_id};
+        productos_poa.insert_readonly = {poa: session.poa_id, active: 1};
         productos_poa.fixFilters = [
             {
                 "field": "poa_id",

@@ -2286,7 +2286,16 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     icon: "file-eye"
                 },
                 footer: {
-                    cancelButton: false
+                    cancelButton: false,
+                    buttons: [
+                        {
+                            color: "btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-rightm",
+                            title: "<b><i class='icon-arrow-right8'></i></b>Continuar",
+                            action: function () {
+                                MODAL.close();
+                            }
+                        }
+                    ]
                 },
                 content: {
                     loadingContentText: MESSAGE.i('actions.Loading')
