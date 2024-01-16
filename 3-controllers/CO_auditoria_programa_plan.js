@@ -2178,7 +2178,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 if(!row.tipo_inconformidad ){
                     SWEETALERT.show({
                         type: "error",
-                        message: 'Debe de completar el campo "Tipo de no conformidad"'
+                        message: 'Debe de completar el campo "Tipo de hallazgo"'
                     });
                     let buttons = document.getElementsByClassName("btn btn-labeled");
                     for (var item of buttons) {

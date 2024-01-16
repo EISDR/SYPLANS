@@ -77,7 +77,7 @@ DSON.keepmerge(CRUD_vw_correctiva, {
             },
             tipo_inconformidad_nombre: {
                 label: () => {
-                    return "Tipo de no Conformidad"
+                    return "Tipo de hallazgo"
                 },
                 shorttext: 360
             },

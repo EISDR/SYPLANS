@@ -65,7 +65,7 @@ DSON.keepmerge(CRUD_auditoria_programa_plan_documentos_asociados_listaverificaci
             observaciones: {},
             tipo_inconformidad_nombre: {
                 label: function (){
-                    return "Tipo de no Conformidad"
+                    return "Tipo de hallazgo"
                 }
             },
             archivo: {

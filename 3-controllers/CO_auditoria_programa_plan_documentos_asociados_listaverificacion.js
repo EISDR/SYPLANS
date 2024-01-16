@@ -43,7 +43,7 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
                         observaciones: {},
                         tipo_inconformidad_nombre: {
                             label: function (){
-                                return "Tipo de no Conformidad"
+                                return "Tipo de hallazgo"
                             }
                         },
                         archivo: {

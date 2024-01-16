@@ -93,7 +93,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
             },
             tipo_inconformidad: {
                 label: function () {
-                    return "Tipo de No Conformidad"
+                    return "Tipo de hallazgo"
                 },
                 rowspan: function (index, list, category, fromreport) {
                     return (category === "span") ? vw_documentos_asociados_pv2.sp_('d.nombre_proceso + d.nombre + d.punto_verificacion ', index, list)

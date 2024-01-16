@@ -80,7 +80,7 @@ DSON.keepmerge(CRUD_vw_auditoria_programa_plan_documentos_asociados_lv, {
             observaciones: {},
             tipo_inconformidad_nombre: {
                 label: function () {
-                    return "Tipo de no Conformidad"
+                    return "Tipo de hallazgo"
                 }
             },
             archivo: {
