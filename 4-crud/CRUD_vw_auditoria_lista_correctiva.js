@@ -207,7 +207,7 @@ DSON.keepmerge(CRUD_vw_auditoria_lista_correctiva, {
                             data.$scope.my_true_estatus = data.row.estatus_id;
                             data.$scope.ver = false;
                             data.$scope.form.titles = {
-                                edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                             };
                             data.$scope.formulary({
                                 where: [{
@@ -239,7 +239,7 @@ DSON.keepmerge(CRUD_vw_auditoria_lista_correctiva, {
                             data.$scope.my_true_estatus = data.row.estatus_id;
                             data.$scope.ver = false;
                             data.$scope.form.titles = {
-                                edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                             };
                             data.$scope.formulary({
                                 where: [{
@@ -271,7 +271,7 @@ DSON.keepmerge(CRUD_vw_auditoria_lista_correctiva, {
                             data.$scope.my_true_estatus = data.row.estatus_id;
                             data.$scope.ver = false;
                             data.$scope.form.titles = {
-                                edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                             };
                             data.$scope.formulary({
                                 where: [{

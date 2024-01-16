@@ -130,7 +130,7 @@
   "tipo_auditores":"Tipo de Auditor",
   "tipo_rol_auditores_plural":"Roles de Auditores",
   "tipo_rol_auditores":"Rol de Auditor",
-  "tipo_inconformidad_plural":"Tipos de no Conformidad",
+  "tipo_inconformidad_plural":"Tipos de hallazgos",
   "tipo_inconformidad":"Tipo de hallazgo",
   "tipo_auditoria":"tipo_auditoria",
   "auditoria_plan_departamento":"Departamentos Auditados",

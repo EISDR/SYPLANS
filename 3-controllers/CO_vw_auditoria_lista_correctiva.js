@@ -216,7 +216,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -248,7 +248,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -280,7 +280,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -766,7 +766,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -798,7 +798,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -830,7 +830,7 @@ app.controller("vw_auditoria_lista_correctiva", function ($scope, $http, $compil
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -1417,7 +1417,7 @@ Gracias por su colaboración.`
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -1449,7 +1449,7 @@ Gracias por su colaboración.`
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{
@@ -1481,7 +1481,7 @@ Gracias por su colaboración.`
                                     data.$scope.my_true_estatus = data.row.estatus_id;
                                     data.$scope.ver = false;
                                     data.$scope.form.titles = {
-                                        edit: `Trabajar Acción de Mejora a la NO Conformidad "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
+                                        edit: `Trabajar Acción de Mejora al hallazgo "${data.row.elemento_nombre}" de la auditoria "${data.row.programa_plan_name}"`
                                     };
                                     data.$scope.formulary({
                                         where: [{

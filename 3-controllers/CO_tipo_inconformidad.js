@@ -14,7 +14,7 @@ app.controller("tipo_inconformidad", function ($scope, $http, $compile) {
     ];
     //tipo_inconformidad.singular = "singular";
     //tipo_inconformidad.plural = "plural";
-    tipo_inconformidad.headertitle = "Tipos de no Conformidad";
+    tipo_inconformidad.headertitle = "Tipos de hallazgos";
     //tipo_inconformidad.destroyForm = false;
     //tipo_inconformidad.permissionTable = "tabletopermission";
     RUNCONTROLLER("tipo_inconformidad", tipo_inconformidad, $scope, $http, $compile);

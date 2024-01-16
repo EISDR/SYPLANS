@@ -156,8 +156,8 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
                 if (vw_correctiva) {
                     if (typeof vw_correctiva != "not defined") {
                         auditoria_lista_correctiva.form.titles = {
-                            new: `Agregar nueva Acción de Mejora a la NO Conformidad "${auditoria_programa_plan_documentos_asociados_listaverificacion.descripcion}" de la auditoria "${vw_correctiva.auditoria_nombre}"`,
-                            edit: `Editar nueva Acción de Mejora a la NO Conformidad "${auditoria_programa_plan_documentos_asociados_listaverificacion.descripcion}" de la auditoria "${vw_correctiva.auditoria_nombre}"`
+                            new: `Agregar nueva Acción de Mejora al hallazgo "${auditoria_programa_plan_documentos_asociados_listaverificacion.descripcion}" de la auditoria "${vw_correctiva.auditoria_nombre}"`,
+                            edit: `Editar nueva Acción de Mejora al hallazgo "${auditoria_programa_plan_documentos_asociados_listaverificacion.descripcion}" de la auditoria "${vw_correctiva.auditoria_nombre}"`
                         };
                     }
                 }

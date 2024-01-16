@@ -89,7 +89,7 @@
                                     </ol>
                                 </div>
                                 <div class="col-sm-12 col-md-4" style="margin-top: 16px">
-                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Cantidad de no Comformidad por Tipo  </label>
+                                    <label style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;"> Cantidad de hallazgo por Tipo  </label>
                                     <ul ng-show="vw_correctiva.auditoria_tipo_inconformidad.data.length > 0" style="">
                                         <li ng-repeat="(key,row) in vw_correctiva.auditoria_tipo_inconformidad.data" class="" style="font-family: 'Outfit',Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 15px;">
                                             {{row.nombre}}: {{row.registros_malos }}
@@ -108,7 +108,7 @@
                         <ul class="breadcrumb visible-lg visible-md" dragonlanguage="">
                             <li class="active">
                                 <a data-function="menu" href="javascript:void(0)">
-                                    Puntos Auditados con observaciones de No Conformidad
+                                    Puntos Auditados con observaciones del hallazgo
                                 </a>
 
                             </li>

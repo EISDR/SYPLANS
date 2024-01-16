@@ -51,7 +51,7 @@ DSON.keepmerge(CRUD_tipo_auditorias, {
             descripcion: {},
             seguimiento: {
                 label: function (){
-                    return "¿Seguimiento NO Conformidad?"
+                    return "¿Seguimiento al hallazgo?"
                 },
                 format: function (row){
                     if (row.seguimiento){
