@@ -49,6 +49,14 @@ DSON.keepmerge(CRUD_tipo_inconformidad, {
             },
             nombre: {},
             descripcion: {shorttext: 360},
+            plan_accion: {
+                label: function (){
+                    return "¿No conformidad?";
+                },
+                format: function (row) {
+                    return row.plan_accion == 1 ? "Sí" : "No";
+                }
+            },
         },
         filters: {
             columns: true

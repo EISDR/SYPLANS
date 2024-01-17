@@ -345,6 +345,22 @@ app.controller("vw_comentarios", function ($scope, $http, $compile) {
             }
         }
     }
+    if (typeof vw_correctiva !== 'undefined') {
+        if (typeof vw_correctiva !== 'not defined') {
+            if (vw_correctiva && vw_correctiva.ids) {
+                vw_comentarios.fixFilters = [
+                    {
+                        "field": "type",
+                        "value": ENUM_2.tipo_comentario.trabajar_puntos_de_verificación
+                    },
+                    {
+                        "field": "value",
+                        "value": vw_correctiva.ids
+                    }
+                ];
+            }
+        }
+    }
     vw_comentarios.formulary = function (data, mode, defaultData) {
         if (vw_comentarios !== undefined) {
             RUN_B("vw_comentarios", vw_comentarios, $scope, $http, $compile);

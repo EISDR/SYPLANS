@@ -118,6 +118,9 @@
                 </div>
                 <div class="" >
                     <br>
+                    <div style="text-align: center;float: right; max-height: 120px" class="col-sm-2 col-md-2">
+                        <%- FORM.checkbox("omitir_registros", scope, {text: "¿No mostrar omitidos?"}) %>
+                    </div>
                     <ul id="leyendas" class="list-group" style="padding: 24px 0;">
                         <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
                             <label class="labelRedondo"> Pendiente a Trabajar </label></li>
@@ -131,6 +134,8 @@
                         <li><label class="ponerRedondo" style="background-color: #548235;"></label>
                             <label class="labelRedondo"> Finalizado </label></li>
                     </ul>
+                    <br>
+                    <br>
                 </div>
                 <%- include('base',{scope:scope}); %>
             </div>
@@ -147,3 +152,8 @@
         });
     })
 </script>
+<style>
+    .checkbox.checkbox-switchery {
+        margin: 0 !important;
+    }
+</style>

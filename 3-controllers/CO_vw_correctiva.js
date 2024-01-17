@@ -18,18 +18,33 @@ app.controller("vw_correctiva", function ($scope, $http, $compile) {
     //vw_correctiva.permissionTable = "tabletopermission";
     RUNCONTROLLER("vw_correctiva", vw_correctiva, $scope, $http, $compile);
     RUN_B("vw_correctiva", vw_correctiva, $scope, $http, $compile);
+    var animation = new ANIMATION();
     $scope.$watch("vw_correctiva.plan", async function (value) {
         var rules = [];
         //rules here
         $("#showtble").hide();
         $("#showInfo").hide();
         SWEETALERT.loading({message: "Listando Acciones Correctivas"});
-        vw_correctiva.fixFilters = [
-            {
-                field: 'plan_id',
-                value: vw_correctiva.plan,
-            }
-        ];
+        if (vw_correctiva.omitir_registros) {
+            vw_correctiva.fixFilters = [
+                {
+                    field: 'plan_id',
+                    value: vw_correctiva.plan,
+                },
+                {
+                    field: 'omitido',
+                    operator: "is",
+                    value: "$null"
+                }
+            ];
+        }else{
+            vw_correctiva.fixFilters = [
+                {
+                    field: 'plan_id',
+                    value: vw_correctiva.plan,
+                }
+            ];
+        }
         vw_correctiva.refresh(async () => {
             vw_correctiva.selectQueries['estatus'] = [
                 {
@@ -83,6 +98,35 @@ app.controller("vw_correctiva", function ($scope, $http, $compile) {
             }
         });
         VALIDATION.validate(vw_correctiva, 'programa_id', rules);
+    });
+    $scope.$watch('vw_correctiva.comentario', function (value) {
+        var rules = [];
+        rules.push(VALIDATION.yariel.maliciousCode(value));
+        VALIDATION.validate(vw_correctiva, "comentario", rules);
+    });
+    $scope.$watch('vw_correctiva.omitir_registros', async function (value) {
+        if (value){
+            vw_correctiva.fixFilters = [
+                {
+                    field: 'plan_id',
+                    value: vw_correctiva.plan,
+                },
+                {
+                    field: 'omitido',
+                    operator: "is",
+                    value: "$null"
+                }
+            ];
+            vw_correctiva.refresh();
+        }else{
+            vw_correctiva.fixFilters = [
+                {
+                    field: 'plan_id',
+                    value: vw_correctiva.plan,
+                }
+            ];
+            vw_correctiva.refresh();
+        }
     });
     vw_correctiva.formulary = function (data, mode, defaultData) {
         if (vw_correctiva !== undefined) {
@@ -346,5 +390,116 @@ app.controller("vw_correctiva", function ($scope, $http, $compile) {
     vw_correctiva.allow_estatus = function (estatus){
         let permitidos = [5,8];
         return permitidos.includes(estatus);
+    }
+    vw_correctiva.add_comentario = (data) => new Promise((resolve, reject) => {
+        if (vw_correctiva.comentario == "") {
+            SWEETALERT.show({message: `Debe agregar un comentario.`});
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for (var item of buttons) {
+                item.disabled = false;
+            }
+            resolve(false);
+        } else {
+            var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
+            for (var item of buttons) {
+                item.disabled = true;
+            }
+            BASEAPI.insertp('comentarios',
+                {
+                    "comentario": vw_correctiva.comentario,
+                    "type": ENUM_2.tipo_comentario.trabajar_puntos_de_verificación,
+                    "created_by": vw_correctiva.session.usuario_id,
+                    "value": vw_correctiva.ids
+                }).then(function (rs) {
+                vw_comentarios.refresh();
+                vw_correctiva.comentario = "";
+                vw_correctiva.refreshAngular();
+                animation.loading(`#tb-custom2`, "", ``, '30');
+                animation.stoploading(`#tb-custom2`);
+                SWEETALERT.stop();
+                SWEETALERT.show({
+                    message: "Ha sido guardado su comentario",
+                    confirm: function () {
+                        var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
+                        for (var item of buttons) {
+                            item.disabled = false;
+                        }
+                        MODAL.closeAll();
+                    }
+                });
+                resolve(true);
+            });
+        }
+        resolve(true);
+    });
+    vw_correctiva.openmodalField = function (edit, id) {
+        // indicador_producto_poa.commentName = 'metacomment' + name;
+        // indicador_producto_poa.commentValue = $(`[name=${indicador_producto_poa.commentName}]`).val();
+        vw_correctiva.edit = edit;
+        vw_correctiva.ids = id;
+        vw_correctiva.comentario = "";
+        vw_correctiva.modal.modalView("vw_correctiva/addcomment", {
+            width: 'modal-full',
+            header: {
+                title: vw_correctiva.edit ? `Agregar comentario` : `Ver comentario`,
+                icon: "ICON.classes.file_excel"
+            },
+            footer: {
+                cancelButton: true
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading')
+            },
+            event: {
+                // show: {
+                //     end: function (data) {
+                //         if(indicador_producto_poa.edit){
+                //             $('.modal-content .modal-footer').html('<span class="label label-white text-<%= TAG.table %>-300 label-rounded label-icon">\n' +
+                //                 '                <i class="position-right"></i>\n' +
+                //                 '                </span>\n' +
+                //                 '            <button\n' +
+                //                 '                   id="btnC"  onclick="MODAL.close(indicador_producto_poa)"  dragonlanguage="" title="MESSAGE.ic(\'mono.cancel\')"\n' +
+                //                 '                    type="button" class="btn bg-warning btn-labeled btn-xs pull-right"\n' +
+                //                 '                    >\n' +
+                //                 '                <b><i class="icon-cross2"></i></b>\n' +
+                //                 '                <language>MESSAGE.ic(\'mono.cancel\')</language>\n' +
+                //                 '            </button>');
+                //
+                //             $('.modal-content .modal-footer').append('<button\n' +
+                //                 '                 id="btnS"   dragonlanguage="" title="MESSAGE.ic(\'mono.save\')"\n' +
+                //                 '                    type="button" role="button" class=" btn bg-success-800 btn-labeled btn-xs pull-right"\n' +
+                //                 '                   >\n' +
+                //                 '                <b><i class="icon-floppy-disk"></i></b>\n' +
+                //                 '                <language>MESSAGE.ic(\'mono.save\')</language>\n' +
+                //                 '            </button>');
+                //         }else{
+                //             $('.modal-content .modal-footer').html('<span class="label label-white text-<%= TAG.table %>-300 label-rounded label-icon">\n' +
+                //                 '                <i class="position-right"></i>\n' +
+                //                 '                </span>\n' +
+                //                 '            <button\n' +
+                //                 '                   id="btnC"  onclick="MODAL.close(indicador_producto_poa)"  dragonlanguage="" title="MESSAGE.ic(\'mono.close\')"\n' +
+                //                 '                    type="button" class="btn bg-secundary btn-labeled btn-xs pull-right"\n' +
+                //                 '                    >\n' +
+                //                 '                <b><i class="icon-cross2"></i></b>\n' +
+                //                 '                <language>MESSAGE.ic(\'mono.close\')</language>\n' +
+                //                 '            </button>');
+                //         }
+                //     }
+                // },
+                hide: {
+                    // begin: function (data) {
+                    //     if($(`[name=${indicador_producto_poa.commentName}]`).val().length >= 85){
+                    //         $(`.${indicador_producto_poa.commentName}`).show();
+                    //     }else{
+                    //         $(`.${indicador_producto_poa.commentName}`).hide();
+                    //     }
+                    // },
+                    end: function (data) {
+                        vw_correctiva.refresh();
+                        vw_correctiva.ids = 0;
+                    }
+                }
+            },
+        });
     }
 });

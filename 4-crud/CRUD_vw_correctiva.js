@@ -93,7 +93,13 @@ DSON.keepmerge(CRUD_vw_correctiva, {
                     return `<div title="${row.condition.replaceAll('Ninguno', 'Ninguna Condición')}" class='${nom.replaceAll(' ', '').replaceAll('ó', 'o')} shape_element'> </div>`;
                 }
             },
-
+            omitido: {
+                label: function () {
+                    return "¿Omitido?"
+                },
+                formattype: ENUM.FORMAT.bool,
+                sorttype: ENUM.FORMATFILTER.bool,
+            },
             archivo: {
                 label: function () {
                     return "Evidencia"
@@ -175,63 +181,132 @@ DSON.keepmerge(CRUD_vw_correctiva, {
     }
 });
 //modify methods that existing option
-CRUD_vw_correctiva.table.options = [{
-    text: (data) => {
-        return "Trabajar";
-    },
-    title: (data) => {
-        return "Asignar acciones preventivas y correctivas.";
-    },
-    icon: (data) => {
-        return "cog2";
-    },
-    permission: (data) => {
-        return 'edit';
-    },
-    characterist: (data) => {
-        return "";
-    },
-    show: function (data) {
-        return true;
-    },
-    click: function (data) {
-        console.log(data);
+CRUD_vw_correctiva.table.options = [
+    {
+        text: (data) => {
+            return "Trabajar";
+        },
+        title: (data) => {
+            return "Asignar acciones preventivas y correctivas.";
+        },
+        icon: (data) => {
+            return "cog2";
+        },
+        permission: (data) => {
+            return 'edit';
+        },
+        characterist: (data) => {
+            return "";
+        },
+        show: function (data) {
+            return true;
+        },
+        click: function (data) {
+            console.log(data);
 
-        if (data.row) {
-            if (data.row.id) {
-                SWEETALERT.loading({message: "Cargando Acciones Correctivas"});
-                auditoria_programa_plan = {
-                    documento: {
-                        id: data.row.doc_id
-                    }
-                };
+            if (data.row) {
+                if (data.row.id) {
+                    SWEETALERT.loading({message: "Cargando Acciones Correctivas"});
+                    auditoria_programa_plan = {
+                        documento: {
+                            id: data.row.doc_id
+                        }
+                    };
 
-                auditoria_programa_plan_documentos_asociados_listaverificacion.alterform = "correctiva";
-                auditoria_programa_plan_documentos_asociados_listaverificacion.doc_nombre = data.row.doc_nombre;
-                auditoria_programa_plan_documentos_asociados_listaverificacion.proceso_nombre = data.row.proceso_nombre;
-                auditoria_programa_plan_documentos_asociados_listaverificacion.refresh = () => {
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.alterform = "correctiva";
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.doc_nombre = data.row.doc_nombre;
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.proceso_nombre = data.row.proceso_nombre;
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.refresh = () => {
 
-                };
-                auditoria_programa_plan_documentos_asociados_listaverificacion.formulary({
-                    where: [{
-                        field: "id",
-                        value: data.row.id
-                    }]
-                }, FORM.modes.edit, {});
-                auditoria_programa_plan_documentos_asociados_listaverificacion.form.titles = {
-                    new: "Nueva - Lista de Verificación",
-                    edit: `Asignar Acciones de Mejora a la auditoría "${data.row.plan_nombre}"`,
-                    view: "Ver ALL - Lista de Verificación"
-                };
-                auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.update = function (data) {
-                    vw_correctiva.refresh();
-                };
-                SWEETALERT.stop();
+                    };
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.formulary({
+                        where: [{
+                            field: "id",
+                            value: data.row.id
+                        }]
+                    }, FORM.modes.edit, {});
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.form.titles = {
+                        new: "Nueva - Lista de Verificación",
+                        edit: `Asignar Acciones de Mejora a la auditoría "${data.row.plan_nombre}"`,
+                        view: "Ver ALL - Lista de Verificación"
+                    };
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.triggers.table.after.update = function (data) {
+                        vw_correctiva.refresh();
+                    };
+                    SWEETALERT.stop();
+                }
             }
+            return false;
         }
-        return false;
+    },
+    {
+        text: (data) => {
+            return "Omitir";
+        },
+        title: (data) => {
+            return "Omitir este punto de verificación";
+        },
+        icon: (data) => {
+            return "cancel-circle2";
+        },
+        permission: (data) => {
+            return 'edit';
+        },
+        characterist: (data) => {
+            return "";
+        },
+        show: function (data) {
+            return !data.row.omitido && !data.row.plan_accion;
+        },
+        click: function (data) {
+            console.log(data);
+
+            SWEETALERT.confirm({
+                message: "¿Está seguro que desea omitir este punto de verificación?",
+                confirm: function () {
+                    BASEAPI.updateall('auditoria_programa_plan_documentos_asociados_listaverificacion', {
+                        omitido: 1,
+                        where: [
+                            {
+                                field: "id",
+                                value: data.row.id
+                            }
+                        ]
+                    }, async function (result) {
+                        vw_correctiva.openmodalField(true, data.row.id);
+                    });
+                }
+            });
+            return false;
+        }
+    },
+    {
+        text: (data) => {
+            return "Ver comentarios";
+        },
+        title: (data) => {
+            return "Ver comentarios";
+        },
+        icon: (data) => {
+            return "comment";
+        },
+        permission: (data) => {
+            return 'edit';
+        },
+        characterist: (data) => {
+            return "";
+        },
+        show: function (data) {
+            return data.row.comentarios == "si";
+        },
+        click: function (data) {
+            console.log(data);
+
+            vw_correctiva.openmodalField(false, data.row.id);
+            return false;
+        }
     }
-}];
+];
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
 // CRUD_vw_correctiva.table.options[0].menus.push({
 //     text: (data) => {

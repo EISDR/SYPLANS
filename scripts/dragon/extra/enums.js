@@ -97,7 +97,8 @@ ENUM_2 = {
         Pacc_departamental: 14,
         Riesgo: 21,
         Proyecto_actividad_apoyo: 25,
-        proyecto_actividad: 26
+        proyecto_actividad: 26,
+        trabajar_puntos_de_verificación: 29
     },
     Grupos: {
         director_general: "DG",
