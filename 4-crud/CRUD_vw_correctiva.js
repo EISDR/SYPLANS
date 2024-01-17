@@ -199,7 +199,7 @@ CRUD_vw_correctiva.table.options = [
             return "";
         },
         show: function (data) {
-            return true;
+            return !data.row.omitido;
         },
         click: function (data) {
             console.log(data);
