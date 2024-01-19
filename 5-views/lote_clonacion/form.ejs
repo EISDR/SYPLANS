@@ -44,27 +44,55 @@
                     <language>Buscar</language>
                 </button>
             </div>
-
+            <div class='col-sm-2 col-md-2' style="margin-top: 20px;" ng-show="lote_clonacion.currentRepeat && lote_clonacion.currentRepeat != 'productos'">
+                <button
+                        dragonlanguage="" title="Ir atrás"
+                        style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
+                        type="button" role="button"
+                        class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
+                        ng-click="<%= scope %>.irAtras(lote_clonacion.currentRepeat)">
+                    <b><i class="icon-arrow-left8"></i></b>
+                    <language>Ir Atrás</language>
+                </button>
+            </div>
             <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'productos'">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th>Resultado Esperado</th>
-                            <th>nombre</th>
+                            <th style="max-width: 10% !important">Resultado Esperado</th>
+                            <th>Nombre</th>
                             <th>Fecha Inicio/Fecha Fin</th>
-                            <th>Departamento</th>
+                            <th style="width: 20%">Departamento</th>
                             <th>Descripción</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="(key,row) in lote_clonacion.repeatProductos">
-                            <td>{{row.resultado}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.resultado"
+                                             s2-options="opt.id as opt.resultado_esperado for opt in lote_clonacion.resultado_list"
+                                             style="max-width: 300px"
+                                             title="{{lote_clonacion.get_value_name(row.resultado, 'resultado')}}"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.nombre}}</td>
-                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
-                            <td>{{row.departamento}}</td>
+                            <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.departamento"
+                                             s2-options="opt.id as opt.nombre for opt in lote_clonacion.departamentos_list"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.descripcion}}</td>
                             <td class="context-control"
                                 oncontextmenu="return false;">
@@ -95,25 +123,52 @@
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th>Producto</th>
-                            <th>nombre</th>
+                            <th style="width: 15%">Producto</th>
+                            <th>Nombre</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
                             <th>Descripción</th>
                             <th>Presupuesto</th>
-                            <th>Responsable</th>
+                            <th style="width: 20%">Responsable</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="(key,row) in lote_clonacion.repeatActividades">
-                            <td>{{row.producto}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.producto"
+                                             s2-options="opt.id as opt.nombre for opt in lote_clonacion.producto_list"
+                                             style="max-width: 300px"
+                                             title="{{lote_clonacion.get_value_name(row.producto, 'producto')}}"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.nombre}}</td>
-                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
-                            <td>{{row.departamento}}</td>
+                            <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.departamento"
+                                             s2-options="opt.id as opt.nombre for opt in lote_clonacion.departamentos_list"
+                                             style="max-width: 300px"
+                                             title="{{lote_clonacion.get_value_name(row.departamento, 'departamento')}}"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.descripcion}}</td>
-                            <td>{{row.presupuesto}}</td>
-                            <td>{{row.responsable}}</td>
+                            <td>{{lote_clonacion.format_money(row.presupuesto)}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.responsable"
+                                             s2-options="opt.id as opt.completo for opt in lote_clonacion.usuarios_list"
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td class="context-control"
                                 oncontextmenu="return false;">
                                 <ul class="icons-list dragon-action" ng-show="row.mis_actividades_apoyo || row.mis_indicadores"
@@ -143,8 +198,8 @@
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th>Producto</th>
-                            <th>nombre</th>
+                            <th style="width: 15%">Producto</th>
+                            <th>Nombre</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
                             <th>Método de cálculo</th>
@@ -154,7 +209,17 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="(key,row) in lote_clonacion.repeatIndicadoresP">
-                            <td>{{row.producto}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.producto"
+                                             s2-options="opt.id as opt.nombre for opt in lote_clonacion.producto_list"
+                                             style="max-width: 300px"
+                                             title="{{lote_clonacion.get_value_name(row.producto, 'producto')}}"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.nombre}}</td>
                             <td>{{row.ano_linea_base}}</td>
                             <td>{{row.medio_verificacion}}</td>
@@ -173,24 +238,49 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
-                            <th>nombre</th>
+                            <th>Nombre</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
                             <th>Descripción</th>
                             <th>Presupuesto</th>
-                            <th>Responsable</th>
+                            <th style="width: 20%">Responsable</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="(key,row) in lote_clonacion.repeatActividades_apoyo">
-                            <td>{{row.actividades_poa}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.actividades_poa"
+                                             s2-options="opt.id as opt.nombre for opt in lote_clonacion.actividades_list"
+                                             style="max-width: 300px"
+                                             title="{{lote_clonacion.get_value_name(row.actividades_poa, 'actividades')}}"
+                                             disabled
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td>{{row.nombre}}</td>
-                            <td>{{row.fecha_inicio + ' - ' + row.fecha_fin}}</td>
-                            <td>{{row.departamento}}</td>
+                            <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
+                            <td>
+                                <select3 class="form-control" ng-model="row.departamento"
+                                         s2-options="opt.id as opt.nombre for opt in lote_clonacion.departamentos_list"
+                                         style="max-width: 300px"
+                                         title="{{lote_clonacion.get_value_name(row.departamento, 'departamento')}}"
+                                         disabled
+                                >
+                                </select3>
+                            </td>
                             <td>{{row.descripcion}}</td>
-                            <td>{{row.presupuesto}}</td>
-                            <td>{{row.responsable}}</td>
+                            <td>{{lote_clonacion.format_money(row.presupuesto)}}</td>
+                            <td>
+                                <div>
+                                    <select3 class="form-control" ng-model="row.responsable"
+                                             s2-options="opt.id as opt.completo for opt in lote_clonacion.usuarios_list"
+                                    >
+                                    </select3>
+                                </div>
+                            </td>
                             <td class="context-control"
                                 oncontextmenu="return false;">
                                 <ul class="icons-list dragon-action" ng-show="row.mis_actividades_apoyo || row.mis_indicadores"
@@ -221,7 +311,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
-                            <th>nombre</th>
+                            <th>Nombre</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
                             <th>Método de cálculo</th>
@@ -246,6 +336,17 @@
     </div>
 </div>
 
+<div class='col-sm-2 col-md-2' style="margin-top: 20px;">
+    <button
+            dragonlanguage="" title="clonar"
+            style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
+            type="button" role="button"
+            class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.emigrar_poa()">
+        <b><i class="icon-arrow-left8"></i></b>
+        <language>clonar</language>
+    </button>
+</div>
 <%- FORM.footer(scope) %>
 
 

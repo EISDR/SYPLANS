@@ -47,12 +47,11 @@ DSON.keepmerge(CRUD_lote_clonacion, {
                 export: false,
                 exportExample: false
             },
-            departamento_name: {link: {table: 'departamento',from: 'departamento'}},
-            autor: {formattype: ENUM.FORMAT.numeric},
-            estatus: {formattype: ENUM.FORMAT.numeric},
-            config: {shorttext: 360},
-            poa_desde: {formattype: ENUM.FORMAT.numeric},
-            poa_destino: {formattype: ENUM.FORMAT.numeric}
+            departamento_nombre: {},
+            autor: {},
+            estatus: {},
+            poa_desde: {},
+            poa_destino: {}
         },
         filters: {
             columns: true
@@ -62,7 +61,7 @@ DSON.keepmerge(CRUD_lote_clonacion, {
                 'table': 'departamento',
                 'base': 'departamento',
                 'field': 'id',
-                'columns': ['id', 'name']
+                'columns': ['id', 'nombre']
             }]
     }
 });
