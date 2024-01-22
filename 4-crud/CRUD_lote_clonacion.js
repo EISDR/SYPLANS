@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_lote_clonacion, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_lote_clonacion, {
     table: {
         //width: "width:3000px;",
-        //view: 'vw_lote_clonacion',
+        view: 'vw_lote_clonacion',
         //method: 'lote_clonacion',
         //limits: [10, 50, 100, 0],
         //report: true,
@@ -47,22 +47,35 @@ DSON.keepmerge(CRUD_lote_clonacion, {
                 export: false,
                 exportExample: false
             },
-            departamento_nombre: {},
-            autor: {},
-            estatus: {},
-            poa_desde: {},
-            poa_destino: {}
+            departamento_nombre: {
+                label: function (){
+                    return "Departamento";
+                }
+            },
+            autor_nombre: {
+                label: function (){
+                    return "Autor";
+                }
+            },
+            estatus: {
+                label: function (){
+                    return "Estatus";
+                }
+            },
+            poa_desde_nombre: {
+                label: function (){
+                    return "POA a copiar";
+                }
+            },
+            poa_destino_nombre: {
+                label: function (){
+                    return "POA destino";
+                }
+            }
         },
         filters: {
             columns: true
-        },
-        single: [
-            {
-                'table': 'departamento',
-                'base': 'departamento',
-                'field': 'id',
-                'columns': ['id', 'nombre']
-            }]
+        }
     }
 });
 //modify methods that existing option

@@ -3,10 +3,10 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         lote_clonacion = this;
         //lote_clonacion.fixFilters = [];
         lote_clonacion.session = new SESSION().current();
-        //lote_clonacion.fixFilters = [{
-        //    field: "compania",
-        //    value: lote_clonacion.session.compania_id
-        //}];
+        lote_clonacion.fixFilters = [{
+           field: "compania",
+           value: lote_clonacion.session.compania_id
+        }];
         //lote_clonacion.singular = "singular";
         //lote_clonacion.plural = "plural";
         //lote_clonacion.headertitle = "Hola Title";

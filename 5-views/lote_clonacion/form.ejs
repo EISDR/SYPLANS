@@ -44,6 +44,14 @@
                     <language>Buscar</language>
                 </button>
             </div>
+        </div>
+        <div class="row">
+            <div dragonlanguage="" id="info-box" class="alert alert-info alert-styled-left alert-bordered">
+                <p>Este lote estará preparado para transferir los productos seleccionados del departamento <strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong> desde el <strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}}</strong> al <strong style="text-transform: uppercase">{{lote_clonacion.session.poa}}</strong></p>
+            </div>
+        </div>
+        <div class="row">
+
             <div class='col-sm-2 col-md-2' style="margin-top: 20px;" ng-show="lote_clonacion.currentRepeat && lote_clonacion.currentRepeat != 'productos'">
                 <button
                         dragonlanguage="" title="Ir atrás"
@@ -333,21 +341,64 @@
                     </table>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 
-<div class='col-sm-2 col-md-2' style="margin-top: 20px;">
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter">
+    <div class='col-sm-2 col-md-2'>
+        <button
+                dragonlanguage="" title="clonar"
+                style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
+                type="button" role="button"
+                class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-left"
+                ng-click="<%= scope %>.emigrar_poa()">
+            <b><i class="icon-database-arrow"></i></b>
+            <language>clonar</language>
+        </button>
+    </div>
+ <span class="label label-white text-<%= COLOR.secundary %>-300 label-rounded label-icon">
+        <i class="position-right"></i>
+    </span>
+
     <button
-            dragonlanguage="" title="clonar"
-            style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
-            type="button" role="button"
-            class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
-            ng-click="<%= scope %>.emigrar_poa()">
-        <b><i class="icon-arrow-left8"></i></b>
-        <language>clonar</language>
+
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.close()">
+        <b><i class="icon-cross2"></i></b>
+        <language>MESSAGE.ic('mono.cancel')</language>
     </button>
+    <button ng-show="<%= scope %>.form.mode!=='new'"
+            dragonlanguage="" title="MESSAGE.ic('mono.save')"
+            type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.pages.form.save()">
+        <b><i class="icon-floppy-disk"></i></b>
+        <language>MESSAGE.ic('mono.save')</language>
+    </button>
+    <div class="btn-group dropup " ng-show="<%= scope %>.form.mode==='new'">
+        <button
+                style="margin-right: 1px !important;"
+                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs"
+                ng-click="<%= scope %>.pages.form.save()">
+            <b><i class="icon-floppy-disk"></i></b>
+            <language>MESSAGE.ic('mono.save')</language>
+        </button>
+        <button  style="height: 34px;" type="button" class="btn bg-<%= COLOR.success %>-600 dropdown-toggle btn-xs"
+                 data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a ng-click="<%= scope %>.pages.form.save(undefined,undefined,false)" dragonlanguage="">
+                    <i class="icon-floppy-disks"></i>
+                    <language>MESSAGE.ic('mono.saveAndContinue')</language>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
-<%- FORM.footer(scope) %>
 
 
 
