@@ -339,60 +339,77 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     }]
                 });
                 lote_clonacion.prespuesto_aprobado = lote_clonacion.prespuesto_aprobado.data;
-                if (lote_clonacion.config.productos) {
-                    for (let producto of lote_clonacion.config.productos) {
-                        let new_producto = DSON.OSO(producto);
-                        delete new_producto.mis_actividades
-                        delete new_producto.mis_indicadores
-                        delete new_producto.id
-                        new_producto.poa = lote_clonacion.session.poa_id;
-                        new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
-                        lote_clonacion.fixDates(new_producto)
-                        var result_producto = await BASEAPI.insertIDp('productos_poa', new_producto, '', '')
-                        result_producto = result_producto.data;
-                        if (result_producto) {
-                            if (result_producto.data.length > 0) {
-                                if (result_producto.data[0].id) {
-                                    if (producto.mis_actividades) {
-                                        for (let actividad of producto.mis_actividades) {
-                                            let new_actividad = DSON.OSO(actividad);
-                                            delete new_actividad.mis_actividades_apoyo
-                                            delete new_actividad.mis_indicadores
-                                            delete new_actividad.id
-                                            new_actividad.poa = lote_clonacion.session.poa_id;
-                                            new_actividad.producto = result_producto.data[0].id;
-                                            lote_clonacion.fixDates(new_actividad)
-                                            var result_actividad = await BASEAPI.insertIDp('actividades_poa', new_actividad, '', '')
-                                            result_actividad = result_actividad.data;
-                                            if (result_actividad) {
-                                                if (result_actividad.data.length > 0) {
-                                                    if (result_actividad.data[0].id) {
-                                                        if (actividad.mis_actividades_apoyo) {
-                                                            for (let actividad_apoyo of actividad.mis_actividades_apoyo) {
-                                                                let new_actividad_apoyo = DSON.OSO(actividad_apoyo);
-                                                                delete new_actividad_apoyo.id
-                                                                new_actividad_apoyo.actividades_poa = result_actividad.data[0].id;
-                                                                lote_clonacion.fixDates(new_actividad_apoyo)
-                                                                await BASEAPI.insertIDp('actividades_apoyo', new_actividad_apoyo, '', '');
+                lote_clonacion.prespuesto_aprobado_viejo = await BASEAPI.listp("vw_presupuesto_aprobado", {limit: 0,
+                    where: [{field: "poa", value: lote_clonacion.poa_desde}, {
+                        field: "departamento_id",
+                        value: lote_clonacion.departamento
+                    }]
+                });
+                lote_clonacion.prespuesto_aprobado_viejo = lote_clonacion.prespuesto_aprobado_viejo.data
+                console.log(lote_clonacion.prespuesto_aprobado_viejo, lote_clonacion.prespuesto_aprobado)
+
+                if (lote_clonacion.prespuesto_aprobado[0].valor < lote_clonacion.prespuesto_aprobado_viejo[0].presupuesto_asignado){
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `<p>No se puede llevar a cabo el proceso de clonación debido a que el departamento <strong style="text-transform: uppercase">${lote_clonacion.prespuesto_aprobado_viejo[0].departamento}</strong> no cuenta con presupuesto suficiente.</p>
+                        <p>El departamento cuenta con un presupuesto de: ${LAN.money(lote_clonacion.prespuesto_aprobado[0].valor).format(true)} y la cantidad total de presupuesto que necesita debe ser mayor a: ${LAN.money(lote_clonacion.prespuesto_aprobado_viejo[0].presupuesto_asignado).format(true)}.</p>`
+                    });
+                }else{
+                    if (lote_clonacion.config.productos) {
+                        for (let producto of lote_clonacion.config.productos) {
+                            let new_producto = DSON.OSO(producto);
+                            delete new_producto.mis_actividades
+                            delete new_producto.mis_indicadores
+                            delete new_producto.id
+                            new_producto.poa = lote_clonacion.session.poa_id;
+                            new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
+                            lote_clonacion.fixDates(new_producto)
+                            var result_producto = await BASEAPI.insertIDp('productos_poa', new_producto, '', '')
+                            result_producto = result_producto.data;
+                            if (result_producto) {
+                                if (result_producto.data.length > 0) {
+                                    if (result_producto.data[0].id) {
+                                        if (producto.mis_actividades) {
+                                            for (let actividad of producto.mis_actividades) {
+                                                let new_actividad = DSON.OSO(actividad);
+                                                delete new_actividad.mis_actividades_apoyo
+                                                delete new_actividad.mis_indicadores
+                                                delete new_actividad.id
+                                                new_actividad.poa = lote_clonacion.session.poa_id;
+                                                new_actividad.producto = result_producto.data[0].id;
+                                                lote_clonacion.fixDates(new_actividad)
+                                                var result_actividad = await BASEAPI.insertIDp('actividades_poa', new_actividad, '', '')
+                                                result_actividad = result_actividad.data;
+                                                if (result_actividad) {
+                                                    if (result_actividad.data.length > 0) {
+                                                        if (result_actividad.data[0].id) {
+                                                            if (actividad.mis_actividades_apoyo) {
+                                                                for (let actividad_apoyo of actividad.mis_actividades_apoyo) {
+                                                                    let new_actividad_apoyo = DSON.OSO(actividad_apoyo);
+                                                                    delete new_actividad_apoyo.id
+                                                                    new_actividad_apoyo.actividades_poa = result_actividad.data[0].id;
+                                                                    lote_clonacion.fixDates(new_actividad_apoyo)
+                                                                    await BASEAPI.insertIDp('actividades_apoyo', new_actividad_apoyo, '', '');
+                                                                }
                                                             }
-                                                        }
-                                                        if (actividad.mis_indicadores) {
-                                                            for (let indicador_actividad of actividad.mis_indicadores) {
-                                                                let new_indicador_actividad = DSON.OSO(indicador_actividad);
-                                                                delete new_indicador_actividad.id
-                                                                delete new_indicador_actividad.mis_metas
-                                                                new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
-                                                                var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
-                                                                result_indicador_actividad = result_indicador_actividad.data;
-                                                                if (result_indicador_actividad) {
-                                                                    if (result_indicador_actividad.data.length > 0) {
-                                                                        if (result_indicador_actividad.data[0].id) {
-                                                                            if (indicador_actividad.mis_metas) {
-                                                                                for (let meta of indicador_actividad.mis_metas) {
-                                                                                    let new_meta = DSON.OSO(meta);
-                                                                                    delete new_meta.id
-                                                                                    new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
-                                                                                    await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
+                                                            if (actividad.mis_indicadores) {
+                                                                for (let indicador_actividad of actividad.mis_indicadores) {
+                                                                    let new_indicador_actividad = DSON.OSO(indicador_actividad);
+                                                                    delete new_indicador_actividad.id
+                                                                    delete new_indicador_actividad.mis_metas
+                                                                    new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
+                                                                    var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
+                                                                    result_indicador_actividad = result_indicador_actividad.data;
+                                                                    if (result_indicador_actividad) {
+                                                                        if (result_indicador_actividad.data.length > 0) {
+                                                                            if (result_indicador_actividad.data[0].id) {
+                                                                                if (indicador_actividad.mis_metas) {
+                                                                                    for (let meta of indicador_actividad.mis_metas) {
+                                                                                        let new_meta = DSON.OSO(meta);
+                                                                                        delete new_meta.id
+                                                                                        new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
+                                                                                        await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
@@ -402,48 +419,48 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                         }
                                                     }
                                                 }
+                                                console.log(result_actividad)
                                             }
-                                            console.log(result_actividad)
                                         }
-                                    }
-                                    if (producto.mis_indicadores) {
-                                        debugger
-                                        for (let indicador_producto of producto.mis_indicadores) {
-                                            let new_indicador_producto = DSON.OSO(indicador_producto);
-                                            delete new_indicador_producto.id
-                                            delete new_indicador_producto.mis_metas
-                                            new_indicador_producto.producto = result_producto.data[0].id;
-                                            var result_indicador_producto = await BASEAPI.insertIDp('indicador_poa', new_indicador_producto, '', '');
-                                            result_indicador_producto = result_indicador_producto.data;
-                                            if (result_indicador_producto) {
-                                                if (result_indicador_producto.data.length > 0) {
-                                                    if (result_indicador_producto.data[0].id) {
-                                                        if (indicador_producto.mis_metas) {
-                                                            for (let meta of indicador_producto.mis_metas) {
-                                                                let new_meta = DSON.OSO(meta);
-                                                                delete new_meta.id
-                                                                new_meta.indicador_poa = result_indicador_producto.data[0].id;
-                                                                await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
+                                        if (producto.mis_indicadores) {
+                                            for (let indicador_producto of producto.mis_indicadores) {
+                                                let new_indicador_producto = DSON.OSO(indicador_producto);
+                                                delete new_indicador_producto.id
+                                                delete new_indicador_producto.mis_metas
+                                                new_indicador_producto.producto = result_producto.data[0].id;
+                                                var result_indicador_producto = await BASEAPI.insertIDp('indicador_poa', new_indicador_producto, '', '');
+                                                result_indicador_producto = result_indicador_producto.data;
+                                                if (result_indicador_producto) {
+                                                    if (result_indicador_producto.data.length > 0) {
+                                                        if (result_indicador_producto.data[0].id) {
+                                                            if (indicador_producto.mis_metas) {
+                                                                for (let meta of indicador_producto.mis_metas) {
+                                                                    let new_meta = DSON.OSO(meta);
+                                                                    delete new_meta.id
+                                                                    new_meta.indicador_poa = result_indicador_producto.data[0].id;
+                                                                    await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
+                                                                }
                                                             }
                                                         }
                                                     }
+                                                    console.log(result_indicador_producto);
                                                 }
-                                                console.log(result_indicador_producto);
                                             }
                                         }
                                     }
                                 }
                             }
+                            console.log(result_producto)
                         }
-                        console.log(result_producto)
+                        SWEETALERT.stop();
+                    } else {
+                        SWEETALERT.show({
+                            type: 'error',
+                            message: "No existen datos obtenidos desde la busqueda"
+                        })
                     }
-                    SWEETALERT.stop();
-                } else {
-                    SWEETALERT.show({
-                        type: 'error',
-                        message: "No existen datos obtenidos desde la busqueda"
-                    })
                 }
+
             }
         }
 
