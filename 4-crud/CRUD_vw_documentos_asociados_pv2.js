@@ -202,7 +202,7 @@ DSON.keepmerge(CRUD_vw_documentos_asociados_pv2, {
                 {
                     key: 'id_tipo_inconformidad',
                     label: function(){
-                        return 'Tipo de Inconformidad'
+                        return 'Tipo de Hallazgo'
                     },
                     type: FILTER.types.relation,
                     table: 'tipo_inconformidad',
