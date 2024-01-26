@@ -1,6 +1,5 @@
 app.controller("import_actions", function ($scope, $http, $compile) {
 
-
     BASEAPI.listp('usuario', {
         limit: 0,
         where: [{
@@ -11,13 +10,22 @@ app.controller("import_actions", function ($scope, $http, $compile) {
         import_actions = this;
         import_actions.usuarios = usuarios.data;
         import_actions.session = new SESSION().current();
-        import_actions.templates = {
-            create: "drop table if EXISTS `aaa_@NAME`;create table `aaa_@NAME`(@FIELS);",
-            insert: "insert into `aaa_@NAME` VALUES(@VALUES);",
-            field: "`@FIELD` TEXT",
-            value: "'@VALUE'",
-            required: `"@FIELD" es un campo requerido revisar en la hoja "@HOJA" fila "@FILA"`
-        };
+        if (CONFIG.mysqlactive)
+            import_actions.templates = {
+                create: "drop table if EXISTS `aaa_@NAME`;create table `aaa_@NAME`(@FIELS);",
+                insert: "insert into `aaa_@NAME` VALUES(@VALUES);",
+                field: "`@FIELD` TEXT",
+                value: "'@VALUE'",
+                required: `"@FIELD" es un campo requerido revisar en la hoja "@HOJA" fila "@FILA"`
+            };
+        else
+            import_actions.templates = {
+                create: `drop table if EXISTS "aaa_@NAME";create table "aaa_@NAME" (@FIELS);`,
+                insert: `insert into "aaa_@NAME" VALUES(@VALUES);`,
+                field: `"@FIELD" TEXT`,
+                value: `'@VALUE'`,
+                required: `"@FIELD" es un campo requerido revisar en la hoja "@HOJA" fila "@FILA"`
+            };
         import_actions.executeFile = async (id) => {
             SWEETALERT.loading({message: "Analizando Archivo"});
             let files = await FILE.serverp(`import_actions/import/${id}`, undefined, "notLoad");
@@ -48,7 +56,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                             let columns = columnsReal.map(c => {
                                                 return import_actions.templates.field.replaceAll("@FIELD", c);
                                             });
-                                            createTablesScript.push(import_actions.templates.create.replaceAll("@NAME", tablename.trim()).replaceAll("@FIELS", columns.join(", ")));
+                                            createTablesScript.push(import_actions.templates.create.replaceAll("@NAME", tablename.trim().toLowerCase()).replaceAll("@FIELS", columns.join(", ")));
                                             records.forEach((i, fila) => {
                                                 if (i) {
                                                     let values = [];
@@ -62,7 +70,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                         }
                                                         values.push(import_actions.templates.value.replaceAll("@VALUE", (((i[cr] || "") + "") || "").replaceAll("'", "''")));
                                                     });
-                                                    insertScript.push(import_actions.templates.insert.replaceAll("@NAME", tablename.trim()).replaceAll("@VALUES", values.join(", ")));
+                                                    insertScript.push(import_actions.templates.insert.replaceAll("@NAME", tablename.trim().toLowerCase()).replaceAll("@VALUES", values.join(", ")));
                                                 }
                                             });
                                             tablesRunned.push(tablesRunned);
@@ -85,12 +93,20 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                             type: 'warning',
                                             message: `Insertando los datos correspondientes`
                                         });
-                                        SERVICE.base_db.directQuery({query: `call importCOmpania(${import_actions.compania})`}, async (doto) => {
-                                            SWEETALERT.show({
-                                                type: 'warning',
-                                                message: `Data verificada e insertada`
+                                        if (CONFIG.mysqlactive)
+                                            SERVICE.base_db.directQuery({query: `call importCOmpania(${import_actions.compania})`}, async (doto) => {
+                                                SWEETALERT.show({
+                                                    type: 'warning',
+                                                    message: `Data verificada e insertada`
+                                                });
                                             });
-                                        });
+                                        else
+                                            SERVICE.base_db.directQuery({query: `select ImportCompania(${import_actions.compania})`}, async (doto) => {
+                                                SWEETALERT.show({
+                                                    type: 'warning',
+                                                    message: `Data verificada e insertada`
+                                                });
+                                            });
                                     });
                                 });
                             } else {
@@ -201,6 +217,4 @@ app.controller("import_actions", function ($scope, $http, $compile) {
         //};
         RUNTABLE('import_actions');
     });
-
-
 });
