@@ -97,14 +97,20 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                             SERVICE.base_db.directQuery({query: `call importCOmpania(${import_actions.compania})`}, async (doto) => {
                                                 SWEETALERT.show({
                                                     type: 'warning',
-                                                    message: `Data verificada e insertada`
+                                                    message: `Data verificada e insertada`,
+                                                    confirm: function () {
+                                                        import_actions.pages.form.save();
+                                                    }
                                                 });
                                             });
                                         else
                                             SERVICE.base_db.directQuery({query: `select ImportCompania(${import_actions.compania})`}, async (doto) => {
                                                 SWEETALERT.show({
                                                     type: 'warning',
-                                                    message: `Data verificada e insertada`
+                                                    message: `Data verificada e insertada`,
+                                                    confirm: function () {
+                                                        import_actions.pages.form.save();
+                                                    }
                                                 });
                                             });
                                     });
