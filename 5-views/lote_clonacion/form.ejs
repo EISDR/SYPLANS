@@ -352,6 +352,7 @@
                 style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
                 type="button" role="button"
                 class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-left"
+                ng-show="lote_clonacion.config.productos.length > 0"
                 ng-click="<%= scope %>.emigrar_poa()">
             <b><i class="icon-database-arrow"></i></b>
             <language>clonar</language>

@@ -3,22 +3,36 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         lote_clonacion = this;
         //lote_clonacion.fixFilters = [];
         lote_clonacion.session = new SESSION().current();
-        lote_clonacion.fixFilters = [{
-           field: "compania",
-           value: lote_clonacion.session.compania_id
-        }];
         //lote_clonacion.singular = "singular";
         //lote_clonacion.plural = "plural";
         //lote_clonacion.headertitle = "Hola Title";
         //lote_clonacion.destroyForm = false;
         //lote_clonacion.permissionTable = "tabletopermission";
         lote_clonacion.condiction = lote_clonacion.session.poa_id ? lote_clonacion.session.poa_id : 0;
+        lote_clonacion.group_caracteristica = lote_clonacion.session.groups[0] ? lote_clonacion.session.groups[0].caracteristica : "";
+        if (lote_clonacion.group_caracteristica == ENUM_2.Grupos.director_departamental || lote_clonacion.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
+            lote_clonacion.fixFilters = [
+                {
+                    field: "compania",
+                    value: lote_clonacion.session.compania_id
+                },
+                {
+                    field: "departamento",
+                    value: lote_clonacion.session.departamento
+                }
+            ];
+        }else{
+            lote_clonacion.fixFilters = [{
+                field: "compania",
+                value: lote_clonacion.session.compania_id
+            }];
+        }
         RUNCONTROLLER("lote_clonacion", lote_clonacion, $scope, $http, $compile);
         lote_clonacion.formulary = function (data, mode, defaultData) {
             if (lote_clonacion !== undefined) {
                 RUN_B("lote_clonacion", lote_clonacion, $scope, $http, $compile);
                 lote_clonacion.form.modalWidth = ENUM.modal.width.full;
-                lote_clonacion.form.readonly = {poa_destino: lote_clonacion.session.poa_id, autor:lote_clonacion.session.usuario_id};
+                lote_clonacion.form.readonly = {poa_destino: lote_clonacion.session.poa_id, autor:lote_clonacion.session.usuario_id, compania: lote_clonacion.session.compania_id};
                 lote_clonacion.form.titles = {
                     new: "Agregar configuración de clonación",
                     edit: "Editar configuración de clonación",
@@ -26,6 +40,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 };
                 lote_clonacion.createForm(data, mode, defaultData, undefined, (data)=>{
                     let pordefecto  ={productos: [],complete:false};
+                    lote_clonacion.load_drp = false;
                     try {
                         if (mode === "new") {
                             lote_clonacion.config = pordefecto;
@@ -506,9 +521,19 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         //     resolve(true);
         // });
         //
-        // $scope.triggers.table.after.control = function (data) {
-        //     //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
-        // };
+        lote_clonacion.triggers.table.after.control = function (data) {
+            if (lote_clonacion.group_caracteristica == ENUM_2.Grupos.director_departamental || lote_clonacion.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
+                if (!lote_clonacion.load_drp) {
+                    if (lote_clonacion.form.mode == 'new') {
+                        lote_clonacion.departamento = lote_clonacion.session.departamento + "";
+                    }
+                    lote_clonacion.form.options.departamento.disabled = true;
+                    lote_clonacion.load_drp = true;
+                    lote_clonacion.refreshAngular();
+                }
+            }
+            //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
+        };
         // $scope.triggers.table.before.control = function (data) {
         //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);
         // };
