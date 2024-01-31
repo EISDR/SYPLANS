@@ -60,6 +60,12 @@ DSON.keepmerge(CRUD_lote_clonacion, {
             estatus: {
                 label: function (){
                     return "Estatus";
+                },
+                format: function (row){
+                    if (row.estatus == 1)
+                        return "Pendiente a ejecutarse"
+                    else
+                        return "Ejecutado"
                 }
             },
             poa_desde_nombre: {

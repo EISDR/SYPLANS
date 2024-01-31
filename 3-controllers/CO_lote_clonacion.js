@@ -148,6 +148,57 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 //ng-class="NNNNNNNNN.productoStyle(producto)"
 
         lote_clonacion.getData = async function (poa, departamento) {
+            //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
+            if(lote_clonacion.form.mode == 'new'){
+                let last_clone = await BASEAPI.firstp("lote_clonacion",{
+                    where: [
+                        {field: "poa_desde", value: poa},
+                        {field: "departamento", value: departamento},
+                        {field: "poa_destino", value: lote_clonacion.session.poa_id}
+                    ]
+                })
+                if (last_clone) {
+                    if (last_clone.estatus == 1) {
+                        SWEETALERT.show({
+                            type: "error",
+                            message: `Ya existe un lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                        })
+                        return;
+                    } else if (last_clone.estatus == 2) {
+                        SWEETALERT.show({
+                            type: "error",
+                            message: `Ya se ha ejecutado el lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                        })
+                        return;
+                    }
+                }
+            }else{
+                let last_clone = await BASEAPI.firstp("lote_clonacion",{
+                    where: [
+                        {field: "poa_desde", value: poa},
+                        {field: "departamento", value: departamento},
+                        {field: "poa_destino", value: lote_clonacion.session.poa_id},
+                        {field: "id", operator: "!=", value: lote_clonacion.id}
+                    ]
+                })
+                if (last_clone) {
+                    if (last_clone.estatus == 1) {
+                        SWEETALERT.show({
+                            type: "error",
+                            message: `Ya existe un lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                        })
+                        return;
+                    } else if (last_clone.estatus == 2) {
+                        SWEETALERT.show({
+                            type: "error",
+                            message: `Ya se ha ejecutado el lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                        })
+                        return;
+                    }
+                }
+            }
+
+
             let productos = await BASEAPI.listp("productos_poa", {
                 limit: 0,
                 where: [{field: "poa", value: poa}, {field: "departamento", value: departamento}]
@@ -283,7 +334,31 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             }
         }
 
-        lote_clonacion.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+        lote_clonacion.triggers.table.before.insert =  (data) => new Promise(async (resolve, reject) => {
+            //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
+            let last_clone = await BASEAPI.firstp("lote_clonacion",{
+                where: [
+                    {field: "poa_desde", value: lote_clonacion.poa_desde},
+                    {field: "departamento", value: lote_clonacion.departamento},
+                    {field: "poa_destino", value: lote_clonacion.session.poa_id}
+                ]
+            })
+            if (last_clone) {
+                if (last_clone.estatus == 1) {
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `Ya existe un lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                    })
+                    resolve(false);
+                } else if (last_clone.estatus == 2) {
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `Ya se ha ejecutado el lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                    })
+                    resolve(false);
+                }
+            }
+
             data.inserting.config = JSON.stringify(lote_clonacion.config);
             data.inserting.config = data.inserting.config.replaceAll(`\\"`, ``);
             data.inserting.config = data.inserting.config.replaceAll(`\n\r`, ` `);
@@ -291,10 +366,36 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             data.inserting.config = data.inserting.config.replaceAll(`\r`, ` `);
             data.inserting.config = data.inserting.config.replaceAll(`\t`, ``);
             data.inserting.config = data.inserting.config.replaceAll(`'`, ``);
+            data.inserting.estatus = lote_clonacion.estatus ? lote_clonacion.estatus : 1;
             resolve(true);
         });
 
-        lote_clonacion.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        lote_clonacion.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
+            //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
+            let last_clone = await BASEAPI.firstp("lote_clonacion",{
+                where: [
+                    {field: "poa_desde", value: lote_clonacion.poa_desde},
+                    {field: "departamento", value: lote_clonacion.departamento},
+                    {field: "poa_destino", value: lote_clonacion.session.poa_id},
+                    {field: "id", operator: "!=", value: lote_clonacion.id}
+                ]
+            })
+            if (last_clone) {
+                if (last_clone.estatus == 1) {
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `Ya existe un lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                    })
+                    resolve(false);
+                } else if (last_clone.estatus == 2) {
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `Ya se ha ejecutado el lote de clonación con la combinación del departamento "${lote_clonacion.departamento_object.nombre}" y el POA general "${lote_clonacion.poa_desde_object.nombre}"`
+                    })
+                    resolve(false);
+                }
+            }
+
             var tab = RegExp("\\t", "g");
             data.updating.config = JSON.stringify(lote_clonacion.config);
             data.updating.config = data.updating.config.replaceAll(`\\"`, ``);
