@@ -170,7 +170,12 @@ app.controller("auditoria_programa_plan_documentos_asociados_listaverificacion",
                 auditoria_programa_plan_documentos_asociados_listaverificacion.refreshAngular();
             }
             auditoria_programa_plan_documentos_asociados_listaverificacion.form.readonly = {programa_plan_documentos_asociados: auditoria_programa_plan.documento.id};
-            auditoria_programa_plan_documentos_asociados_listaverificacion.createForm(data, mode, defaultData);
+            auditoria_programa_plan_documentos_asociados_listaverificacion.createForm(data, mode, defaultData, undefined, (data) => {
+                if (mode === 'new'){
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.observaciones = "";
+                    auditoria_programa_plan_documentos_asociados_listaverificacion.refreshAngular();
+                }
+            });
             $scope.$watch("auditoria_programa_plan_documentos_asociados_listaverificacion.programa_plan_documentos_asociados", function (value) {
                 var rules = [];
                 //rules here
