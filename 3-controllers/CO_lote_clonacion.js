@@ -46,6 +46,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                             lote_clonacion.config = pordefecto;
                             lote_clonacion.repeatProductos = [];
                             lote_clonacion.config.productos = [];
+                            lote_clonacion.currentRepeat = undefined;
                         } else {
                             let parse = (lote_clonacion.config || JSON.stringify(pordefecto));
                             console.log(parse)
@@ -149,6 +150,14 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 
         lote_clonacion.getData = async function (poa, departamento) {
             //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
+            if (poa == "[NULL]" || departamento == "[NULL]"){
+                SWEETALERT.show({
+                    type: "error",
+                    message: `Los campos "Departamento" y "POA a copiar" deben de tener un registro seleccionado para proceder con el proceso de busqueda`
+                })
+                return;
+            }
+
             if(lote_clonacion.form.mode == 'new'){
                 let last_clone = await BASEAPI.firstp("lote_clonacion",{
                     where: [
@@ -462,7 +471,6 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     }]
                 });
                 lote_clonacion.prespuesto_aprobado_viejo = lote_clonacion.prespuesto_aprobado_viejo.data
-                console.log(lote_clonacion.prespuesto_aprobado_viejo, lote_clonacion.prespuesto_aprobado)
 
                 if (lote_clonacion.prespuesto_aprobado[0].valor < lote_clonacion.prespuesto_aprobado_viejo[0].presupuesto_asignado){
                     SWEETALERT.show({
@@ -479,59 +487,63 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                         });
                     }else{
                         if (lote_clonacion.config.productos) {
-                            for (let producto of lote_clonacion.config.productos) {
-                                let new_producto = DSON.OSO(producto);
-                                delete new_producto.mis_actividades
-                                delete new_producto.mis_indicadores
-                                delete new_producto.id
-                                new_producto.poa = lote_clonacion.session.poa_id;
-                                new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
-                                lote_clonacion.fixDates(new_producto)
-                                var result_producto = await BASEAPI.insertIDp('productos_poa', new_producto, '', '')
-                                result_producto = result_producto.data;
-                                if (result_producto) {
-                                    if (result_producto.data.length > 0) {
-                                        if (result_producto.data[0].id) {
-                                            if (producto.mis_actividades) {
-                                                for (let actividad of producto.mis_actividades) {
-                                                    let new_actividad = DSON.OSO(actividad);
-                                                    delete new_actividad.mis_actividades_apoyo
-                                                    delete new_actividad.mis_indicadores
-                                                    delete new_actividad.id
-                                                    new_actividad.poa = lote_clonacion.session.poa_id;
-                                                    new_actividad.producto = result_producto.data[0].id;
-                                                    lote_clonacion.fixDates(new_actividad)
-                                                    var result_actividad = await BASEAPI.insertIDp('actividades_poa', new_actividad, '', '')
-                                                    result_actividad = result_actividad.data;
-                                                    if (result_actividad) {
-                                                        if (result_actividad.data.length > 0) {
-                                                            if (result_actividad.data[0].id) {
-                                                                if (actividad.mis_actividades_apoyo) {
-                                                                    for (let actividad_apoyo of actividad.mis_actividades_apoyo) {
-                                                                        let new_actividad_apoyo = DSON.OSO(actividad_apoyo);
-                                                                        delete new_actividad_apoyo.id
-                                                                        new_actividad_apoyo.actividades_poa = result_actividad.data[0].id;
-                                                                        lote_clonacion.fixDates(new_actividad_apoyo)
-                                                                        await BASEAPI.insertIDp('actividades_apoyo', new_actividad_apoyo, '', '');
-                                                                    }
-                                                                }
-                                                                if (actividad.mis_indicadores) {
-                                                                    for (let indicador_actividad of actividad.mis_indicadores) {
-                                                                        let new_indicador_actividad = DSON.OSO(indicador_actividad);
-                                                                        delete new_indicador_actividad.id
-                                                                        delete new_indicador_actividad.mis_metas
-                                                                        new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
-                                                                        var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
-                                                                        result_indicador_actividad = result_indicador_actividad.data;
-                                                                        if (result_indicador_actividad) {
-                                                                            if (result_indicador_actividad.data.length > 0) {
-                                                                                if (result_indicador_actividad.data[0].id) {
-                                                                                    if (indicador_actividad.mis_metas) {
-                                                                                        for (let meta of indicador_actividad.mis_metas) {
-                                                                                            let new_meta = DSON.OSO(meta);
-                                                                                            delete new_meta.id
-                                                                                            new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
-                                                                                            await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
+                            lote_clonacion.check_missing_res(async function(result){
+                                if (result){
+                                    for (let producto of lote_clonacion.config.productos) {
+                                        let new_producto = DSON.OSO(producto);
+                                        delete new_producto.mis_actividades
+                                        delete new_producto.mis_indicadores
+                                        delete new_producto.id
+                                        new_producto.poa = lote_clonacion.session.poa_id;
+                                        new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
+                                        lote_clonacion.fixDates(new_producto)
+                                        var result_producto = await BASEAPI.insertIDp('productos_poa', new_producto, '', '')
+                                        result_producto = result_producto.data;
+                                        if (result_producto) {
+                                            if (result_producto.data.length > 0) {
+                                                if (result_producto.data[0].id) {
+                                                    if (producto.mis_actividades) {
+                                                        for (let actividad of producto.mis_actividades) {
+                                                            let new_actividad = DSON.OSO(actividad);
+                                                            delete new_actividad.mis_actividades_apoyo
+                                                            delete new_actividad.mis_indicadores
+                                                            delete new_actividad.id
+                                                            new_actividad.poa = lote_clonacion.session.poa_id;
+                                                            new_actividad.producto = result_producto.data[0].id;
+                                                            lote_clonacion.fixDates(new_actividad)
+                                                            var result_actividad = await BASEAPI.insertIDp('actividades_poa', new_actividad, '', '')
+                                                            result_actividad = result_actividad.data;
+                                                            if (result_actividad) {
+                                                                if (result_actividad.data.length > 0) {
+                                                                    if (result_actividad.data[0].id) {
+                                                                        if (actividad.mis_actividades_apoyo) {
+                                                                            for (let actividad_apoyo of actividad.mis_actividades_apoyo) {
+                                                                                let new_actividad_apoyo = DSON.OSO(actividad_apoyo);
+                                                                                delete new_actividad_apoyo.id
+                                                                                new_actividad_apoyo.actividades_poa = result_actividad.data[0].id;
+                                                                                lote_clonacion.fixDates(new_actividad_apoyo)
+                                                                                await BASEAPI.insertIDp('actividades_apoyo', new_actividad_apoyo, '', '');
+                                                                            }
+                                                                        }
+                                                                        if (actividad.mis_indicadores) {
+                                                                            for (let indicador_actividad of actividad.mis_indicadores) {
+                                                                                let new_indicador_actividad = DSON.OSO(indicador_actividad);
+                                                                                delete new_indicador_actividad.id
+                                                                                delete new_indicador_actividad.mis_metas
+                                                                                new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
+                                                                                var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
+                                                                                result_indicador_actividad = result_indicador_actividad.data;
+                                                                                if (result_indicador_actividad) {
+                                                                                    if (result_indicador_actividad.data.length > 0) {
+                                                                                        if (result_indicador_actividad.data[0].id) {
+                                                                                            if (indicador_actividad.mis_metas) {
+                                                                                                for (let meta of indicador_actividad.mis_metas) {
+                                                                                                    let new_meta = DSON.OSO(meta);
+                                                                                                    delete new_meta.id
+                                                                                                    new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
+                                                                                                    await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
+                                                                                                }
+                                                                                            }
                                                                                         }
                                                                                     }
                                                                                 }
@@ -540,42 +552,42 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                     }
                                                                 }
                                                             }
+                                                            console.log(result_actividad)
                                                         }
                                                     }
-                                                    console.log(result_actividad)
-                                                }
-                                            }
-                                            if (producto.mis_indicadores) {
-                                                for (let indicador_producto of producto.mis_indicadores) {
-                                                    let new_indicador_producto = DSON.OSO(indicador_producto);
-                                                    delete new_indicador_producto.id
-                                                    delete new_indicador_producto.mis_metas
-                                                    new_indicador_producto.producto = result_producto.data[0].id;
-                                                    var result_indicador_producto = await BASEAPI.insertIDp('indicador_poa', new_indicador_producto, '', '');
-                                                    result_indicador_producto = result_indicador_producto.data;
-                                                    if (result_indicador_producto) {
-                                                        if (result_indicador_producto.data.length > 0) {
-                                                            if (result_indicador_producto.data[0].id) {
-                                                                if (indicador_producto.mis_metas) {
-                                                                    for (let meta of indicador_producto.mis_metas) {
-                                                                        let new_meta = DSON.OSO(meta);
-                                                                        delete new_meta.id
-                                                                        new_meta.indicador_poa = result_indicador_producto.data[0].id;
-                                                                        await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
+                                                    if (producto.mis_indicadores) {
+                                                        for (let indicador_producto of producto.mis_indicadores) {
+                                                            let new_indicador_producto = DSON.OSO(indicador_producto);
+                                                            delete new_indicador_producto.id
+                                                            delete new_indicador_producto.mis_metas
+                                                            new_indicador_producto.producto = result_producto.data[0].id;
+                                                            var result_indicador_producto = await BASEAPI.insertIDp('indicador_poa', new_indicador_producto, '', '');
+                                                            result_indicador_producto = result_indicador_producto.data;
+                                                            if (result_indicador_producto) {
+                                                                if (result_indicador_producto.data.length > 0) {
+                                                                    if (result_indicador_producto.data[0].id) {
+                                                                        if (indicador_producto.mis_metas) {
+                                                                            for (let meta of indicador_producto.mis_metas) {
+                                                                                let new_meta = DSON.OSO(meta);
+                                                                                delete new_meta.id
+                                                                                new_meta.indicador_poa = result_indicador_producto.data[0].id;
+                                                                                await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
+                                                                console.log(result_indicador_producto);
                                                             }
                                                         }
-                                                        console.log(result_indicador_producto);
                                                     }
                                                 }
                                             }
                                         }
+                                        console.log(result_producto)
                                     }
+                                    SWEETALERT.stop();
                                 }
-                                console.log(result_producto)
-                            }
-                            SWEETALERT.stop();
+                            })
                         } else {
                             SWEETALERT.show({
                                 type: 'error',
@@ -586,6 +598,46 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 }
 
             }
+        }
+
+
+        lote_clonacion.check_missing_res = async function (callback) {
+            var registros_sin_responsables = {actividades: [], actividades_apoyo: []};
+            var success = true;
+            if (lote_clonacion.config.productos) {
+                for (let producto of lote_clonacion.config.productos) {
+                    if (producto.mis_actividades){
+                        for (let actividad of producto.mis_actividades) {
+                            let responsable = lote_clonacion.usuarios_list.filter(d => {
+                                return d.id == actividad.responsable;
+                            });
+                            if (responsable.length === 0){
+                                registros_sin_responsables.actividades.push(actividad.nombre);
+                            }
+                            if (actividad.mis_actividades_apoyo){
+                                for (let actividad_apoyo of actividad.mis_actividades_apoyo) {
+                                    let responsable_apoyo = lote_clonacion.usuarios_list.filter(d => {
+                                        return d.id == actividad_apoyo.responsable;
+                                    });
+                                    if (responsable_apoyo.length === 0) {
+                                        registros_sin_responsables.actividades_apoyo.push(actividad_apoyo.nombre);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (registros_sin_responsables.actividades.length> 0 || registros_sin_responsables.actividades_apoyo.length > 0){
+                SWEETALERT.show({
+                    type:"error",
+                    message: `<p>Existen registros sin responsables por favor revisar y corregir</p><p>Los siguientes registros son: </p>${registros_sin_responsables.actividades.length > 0 ? "<strong>Actividades: </strong>" : ""} ${"<p>" + registros_sin_responsables.actividades + "</p>"} ${registros_sin_responsables.actividades_apoyo.length > 0 ? "<strong>Actividades de apoyo: </strong>" : ""} ${"<p>" + registros_sin_responsables.actividades_apoyo + "</p>"}`
+                })
+                success = false;
+            }
+
+            if (callback)
+                callback(success)
         }
 
 

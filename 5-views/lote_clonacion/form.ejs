@@ -31,7 +31,7 @@
                     table: "poa",
                     field: "id",
                     icon: {class:"archive"},
-                    condition: "item.pei == lote_clonacion.session.pei_id"
+                    condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.session.poa_id"
                 }) %>
             </div>
             <div class='col-sm-2 col-md-2' style="margin-top: 20px;">
@@ -47,12 +47,12 @@
         </div>
         <div class="row">
             <div dragonlanguage="" id="info-box" class="alert alert-info alert-styled-left alert-bordered">
-                <p>Este lote estará preparado para transferir los productos seleccionados del departamento <strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong> desde el <strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}}</strong> al <strong style="text-transform: uppercase">{{lote_clonacion.session.poa}}</strong></p>
+                <p>Este lote estará preparado para transferir los productos y todas sus dependencias del departamento: "<strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong>" desde el POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}}</strong>" al POA: "<strong style="text-transform: uppercase">{{lote_clonacion.session.poa}}</strong>"</p>
             </div>
         </div>
         <div class="row">
-
-            <div class='col-sm-2 col-md-2' style="margin-top: 20px;" ng-show="lote_clonacion.currentRepeat && lote_clonacion.currentRepeat != 'productos'">
+            <br>
+            <div class='col-sm-12 col-md-12' style="margin-bottom: 10px;" ng-show="lote_clonacion.currentRepeat && lote_clonacion.currentRepeat != 'productos'">
                 <button
                         dragonlanguage="" title="Ir atrás"
                         style="background-color: #37b8c3 !important; border-color: #37b8c3 !important;"
