@@ -508,9 +508,10 @@ if (CONFIG.mysqlactive !== false) {
 if (CONFIG.postgreactive !== false) {
 
     var types = PARAMS.postgre.types;
+    console.log(PARAMS.postgre)
     types.setTypeParser(1114, function (stringValue) {
         var temp = new Date(stringValue);
-        return new Date(Date.UTC(temp.getFullYear(), temp.getMonth(), temp.getDate(), temp.getHours() + (CONFIG.postgre.timezone), temp.getMinutes(), temp.getSeconds()));
+        return new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
     });
 
     modelpostgre = [];
