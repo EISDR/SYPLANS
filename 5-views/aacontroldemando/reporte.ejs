@@ -20,7 +20,33 @@
             <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
                 Búsqueda </h6>
         </div>
-        <div class="panel-body panelContainer" style="padding: 15px; display: flex; flex-direction: column;">
+        <div class="panel-body panelContainer" style="padding: 15px; display: flex; flex-direction: column;"
+             ng-show="<%= scope %>.unicomenu">
+            <div class="row">
+
+                <div class='col-sm-9 col-md-9'>
+                    <label>Escriba aquí su criterio de búsqueda</label>
+                    <input type="search"
+                           class="form-control busquedaInput"
+                           placeholder="Escriba aquí su criterio de búsqueda"
+                           ng-model="<%= scope %>.inputBuscado"
+                           ng-model-onblur>
+                </div>
+                <div class='col-sm-3 col-md-3 '>
+                    <label>Filtrar por el año del indicador</label>
+                    <input type="number"
+                           class="form-control busquedaInput"
+                           placeholder="Año a filtrar"
+                           ng-model="<%= scope %>.inputYear"
+                           ng-model-onblur>
+                </div>
+            </div>
+            <div style="margin-top: 5px; margin-left: 5px;">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+        <div class="panel-body panelContainer" style="padding: 15px; display: flex; flex-direction: column;"
+             ng-show="!<%= scope %>.unicomenu">
             <div class='col-sm-12 col-md-12'>
                 <input type="search"
                        class="form-control busquedaInput"
@@ -81,15 +107,16 @@
         </button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div  class="col-xs-12 col-sm-3 col-md-3" style="margin-top: 10px; padding: 0;"
+        <div class="col-xs-12 col-sm-3 col-md-3" style="margin-top: 10px; padding: 0;"
              ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-              ng-show="(<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))">
+             ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)">
             <div class="panel panel-default">
                 <div class="panel-heading text-center"
                      style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                     <h5 title="{{value.nombre}}"
                         style=" height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         <b>{{value.nombre}}</b>
+                        <b ng-show="<%= scope %>.unicomenu"> ({{value.year}})</b>
                     </h5>
                 </div>
                 <div class="panel-body text-center">
@@ -152,7 +179,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-                ng-show="(<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))"
+                ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)"
             >
                 <td>{{value.nombre}}</td>
                 <td ng-if="<%= scope %>.REPORTING.entidad==='Producto'">{{value.estrategico}}</td>
@@ -162,7 +189,9 @@
                 <td ng-if="value.boton2">
                     <a title="Dar clic para ver detalle" ng-click="<%= scope %>.execute(value.link2)">{{value.boton2.split("(")[1].split(")")[0]}}</a>
                 </td>
-                <td style="background-color: {{value.color}};color:{{value.porcentaje===''?'black':'white'}};font-weight: bold">{{value.porcentaje}}{{value.porcentaje===''?'Pendiente':'%'}}</td>
+                <td style="background-color: {{value.color}};color:{{value.porcentaje===''?'black':'white'}};font-weight: bold">
+                    {{value.porcentaje}}{{value.porcentaje===''?'Pendiente':'%'}}
+                </td>
                 <td ng-if="value.boton3">
                     <button class="btn btn-primary"
                             ng-click="<%= scope %>.calcs.ficha(value.boton3.list,value.boton3.field,value.boton3.id,value.boton3.pei)"
@@ -196,7 +225,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-                ng-show="<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )"
+                ng-if="(<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)"
             >
                 <td>{{value.nombre}}</td>
                 <td ng-if="<%= scope %>.REPORTING.entidad==='Producto'">{{value.estrategico}}</td>
@@ -216,16 +245,23 @@
 <script>
     setTimeout(() => {
         <%= scope %>.
-        loadAllThis(<%= scope %>.REPORTING.elementos);
-        if (<%= scope %>.HISTORY.length > 0)
+        loadAllThis(<%= scope %>.REPORTING.elementos
+    )
+        ;
+        if (<%= scope %>.
+        HISTORY.length > 0
+    )
         {
             let last = <%= scope %>.
-            HISTORY[<%= scope %>.HISTORY.length - 1];
+            HISTORY[<%= scope %>.HISTORY.length - 1
+        ]
+            ;
             document.getElementById("closeModal").innerHTML = `<i class='icon-arrow-left8'></i> ${last.titulo}`;
             document.getElementById("closeModal").title = last.titulo;
         }
         document.getElementById("closeModal").onclick = function () {
-            <%= scope %>.ui.restore();
+            <%= scope %>.
+            ui.restore();
         };
     }, 100);
     <%= scope %>.inputBuscado = "";

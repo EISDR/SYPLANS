@@ -317,7 +317,8 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
                 let elemento = {
                     nombre: d,
                     id: idlogico,
-                    estrategico: detallex.tipo_resultado
+                    estrategico: detallex.tipo_resultado,
+                    year: detallex.ano
                 };
                 let elponderisto = aacontroldemandog.calcs.elementPonderado(lists, field, d);
                 elemento.porcentaje = elponderisto === undefined ? "" : Number(aacontroldemandog.calcs.elementPonderado(lists, field, d)).toFixed(2);
