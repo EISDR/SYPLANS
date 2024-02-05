@@ -109,7 +109,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="col-xs-12 col-sm-3 col-md-3" style="margin-top: 10px; padding: 0;"
              ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-             ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)">
+             ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && ((<%= scope %>.inputYear !==null && <%= scope %>.inputYear !==undefined) ? value.year===<%= scope %>.inputYear:true)">
             <div class="panel panel-default">
                 <div class="panel-heading text-center"
                      style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
@@ -179,7 +179,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-                ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)"
+                ng-show="((<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (!<%= scope %>.mostrarnull?true:(value.porcentaje===''?false:true))) && ((<%= scope %>.inputYear !==null && <%= scope %>.inputYear !==undefined) ? value.year===<%= scope %>.inputYear:true)"
             >
                 <td>{{value.nombre}}</td>
                 <td ng-if="<%= scope %>.REPORTING.entidad==='Producto'">{{value.estrategico}}</td>
@@ -225,7 +225,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="(index,value) in <%= scope %>.REPORTING.elementos"
-                ng-if="(<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && (<%= scope %>.inputYear ? value.year===<%= scope %>.inputYear:true)"
+                ng-if="(<%= scope %>.inputBuscado === undefined || (value.nombre.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) || value.porcentaje.toString().includes(<%= scope %>.inputBuscado) || value.titulo_ponderacion.toLowerCase().includes(<%= scope %>.inputBuscado.toLowerCase()) )) && ((<%= scope %>.inputYear !==null && <%= scope %>.inputYear !==undefined) ? value.year===<%= scope %>.inputYear:true)"
             >
                 <td>{{value.nombre}}</td>
                 <td ng-if="<%= scope %>.REPORTING.entidad==='Producto'">{{value.estrategico}}</td>

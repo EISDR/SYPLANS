@@ -565,6 +565,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         }
     };
     aacontroldemandog.filtrar = async (accion) => {
+        aacontroldemandog.inputYear = undefined;
         aacontroldemandog.abierto = accion === "abrir" ? false : true;
         aacontroldemandog.refresh();
     };
