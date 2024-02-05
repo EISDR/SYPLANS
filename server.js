@@ -508,14 +508,31 @@ if (CONFIG.mysqlactive !== false) {
 if (CONFIG.postgreactive !== false) {
 
     var types = PARAMS.postgre.types;
-    console.log(PARAMS.postgre)
-    types.setTypeParser(1114, function (stringValue) {
+    //console.log(PARAMS.postgre);
+
+    types.setTypeParser(1114,  (stringValue)=> {
         var temp = new Date(stringValue);
-        return new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
+        let convertida =new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
+        console.log("datetime",stringValue,convertida);
+        return convertida;
     });
+    types.setTypeParser(1082,  (stringValue)=> {
+        var temp = new Date(stringValue);
+        let convertida = new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), 0, 0, 0));
+        console.log("date",stringValue,convertida);
+        return convertida;
+    });
+    types.setTypeParser(1184,  (stringValue)=> {
+        var temp = new Date(stringValue);
+        let convertida =new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
+        console.log("datetimez",stringValue,convertida);
+        return convertida;
+    });
+
 
     modelpostgre = [];
     modules.postgre.lacone = new PARAMS.postgre.Pool(PARAMS.CONFIG.postgre);
+    console.log( PARAMS.postgre.types);
     modules.postgre.data(`select * from viewcache`, PARAMS, false).then(y => {
         cacheobjects = y.data;
         PARAMS.cacheobjects = cacheobjects;
