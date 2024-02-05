@@ -508,7 +508,7 @@ if (CONFIG.mysqlactive !== false) {
 if (CONFIG.postgreactive !== false) {
 
     var types = PARAMS.postgre.types;
-    //console.log(PARAMS.postgre);
+    console.log(PARAMS.postgre);
 
     types.setTypeParser(1114,  (stringValue)=> {
         var temp = new Date(stringValue);
@@ -518,7 +518,7 @@ if (CONFIG.postgreactive !== false) {
     });
     types.setTypeParser(1082,  (stringValue)=> {
         var temp = new Date(stringValue);
-        let convertida = new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), 0, 0, 0));
+        let convertida = new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), 0+ (CONFIG.postgre.timezone), 0, 0));
         console.log("date",stringValue,convertida);
         return convertida;
     });
