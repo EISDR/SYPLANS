@@ -94,9 +94,6 @@ app.controller("indicador_pei", function ($scope, $http, $compile) {
             indicador_pei.setPermission("add", false);
         }
         check_PEI("indicador_pei", user.pei_id);
-        indicador_pei.columns().metas = {label: "metas", shorttext: 370, sorted: false, order: "asc", sortable: false};
-        $('.has-colspan').attr('rowspan', 3);
-        $('.has-colspan').css('vertical-align', 'middle');
         BASEAPI.listp('vw_indicador_pei_ano', {
             limit: 0,
             where: [{

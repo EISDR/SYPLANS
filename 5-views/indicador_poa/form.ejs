@@ -63,25 +63,24 @@
 
             <div ng-show="!indicador_poa.dont_show_productos">
                 <div class="col-sm-2 col-md-2">
-                    <%-
-                            FORM.select("departamento", scope, {
-                                allownew: false,
-                                allowedit: false,
-                                allowview: false,
-                                allowlist: false,
-                                refresh: false,
-                                multiple: false,
-                                truelabel: "Departamento",
-                                text: "item.nombre",
-                                table: "vw_presupuesto_departamento",
-                                columns: ["nombre"],
-                                icon: {class: "archive"},
-                                condition: "(item.compania == indicador_poa.conditionPoa.compania_id && item.estatus == 1 && item.poa==indicador_poa.conditionPoa.poa_id) && item.active == 1",
-                                popover: {
-                                    title: "Departamento",
-                                    content: "Captura el departamento"
-                                }
-                            })
+                    <%- FORM.select("departamento", scope, {
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            refresh: false,
+                            multiple: false,
+                            truelabel: "Departamento",
+                            text: "item.nombre",
+                            table: "vw_presupuesto_departamento",
+                            columns: ["nombre"],
+                            icon: {class: "archive"},
+                            condition: "(item.compania == indicador_poa.conditionPoa.compania_id && item.estatus == 1 && item.poa==indicador_poa.conditionPoa.poa_id) && item.active == 1",
+                            popover: {
+                                title: "Departamento",
+                                content: "Captura el departamento"
+                            }
+                        })
                     %>
                 </div>
                 <div ng-if="indicador_poa.departamento == '0' && indicador_poa.session.tipo_institucion == 1" class="col-sm-12 col-md-4  remove-input-space">

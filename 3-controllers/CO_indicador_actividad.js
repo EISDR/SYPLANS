@@ -206,15 +206,6 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
             order: "asc"
         });
         indicador_actividad.direccion_meta_list = indicador_actividad.direccion_meta_list.data;
-        indicador_actividad.columns().metas = {
-            label: "metas",
-            shorttext: 370,
-            sorted: false,
-            order: "asc",
-            sortable: false
-        };
-        $('.has-colspan').attr('rowspan', 3);
-        $('.has-colspan').css('vertical-align', 'middle');
         BASEAPI.listp('vw_indicador_actividad_periodo', {
             limit: 0,
             where: [{

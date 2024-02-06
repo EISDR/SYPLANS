@@ -95,7 +95,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         indicador_poa.list_direccion_meta = rsd.data;
     });
     indicador_poa.check_poa = function () {
-        if (indicador_poa.session.est_poa == 5 || session.poa_habilitado == 0){
+        if (indicador_poa.session.est_poa == 5 || indicador_poa.session.poa_habilitado == 0){
             $('.icon-plus-circle2 ').parent().hide();
             return;
         }
@@ -209,9 +209,6 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         indicador_poa.runMagicManyToMany('caracteristica', "caracteristica_indicador", "indicador_poa", "id", 'nombre', "caracteristica_indicador_poa", "caracteristica", "id");
         indicador_poa.check_poa();
         check_poa_close(indicador_poa, user);
-        indicador_poa.columns().metas = {
-            label: "metas", shorttext: 370, sorted: false, order: "asc", sortable: false, export: false
-        };
         indicador_poa.tipo_meta_list = await BASEAPI.listp('tipoMeta', {
             limit: 0,
             orderby: "id",
@@ -224,8 +221,6 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
             order: "asc"
         });
         indicador_poa.direccion_meta_list = indicador_poa.direccion_meta_list.data;
-        $('.has-colspan').attr('rowspan', 3);
-        $('.has-colspan').css('vertical-align', 'middle');
         BASEAPI.listp('vw_indicador_poa_periodo', {
             limit: 0,
             where: [{
@@ -446,7 +441,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                     if (indicador_poa.paso) {
                         if (mode == 'edit') {
                             if (indicador_poa.form.selected('producto') != null) {
-                                indicador_poa.departamento = indicador_poa.form.selected('producto').departamento;
+                                indicador_poa.departamento = indicador_poa.form.selected('producto').departamento + "";
                             }
                             indicador_poa.form.loadDropDown('departamento');
                             indicador_poa.paso = false;

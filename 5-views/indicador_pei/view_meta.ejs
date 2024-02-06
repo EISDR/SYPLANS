@@ -1,0 +1,37 @@
+<table class="table table-bordered"style="width: 70%; margin-left: 10%">
+    <thead>
+        <tr style="background-color: <%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%> !important; color: white; ">
+            <th class="">
+                <span> Año </span>
+            </th>
+            <th class="" style="width: 20%">
+                <span> Proyectado </span>
+            </th>
+            <th class="" style="width: 20%">
+                <span> Alcanzado</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(keycolum, value) in <%= scope %>.list_indicador_pei_ano_view track by keycolum" repeat-end="<%= scope %>.refreshAngular()">
+        <td class="">
+            <span>{{value.monitoreo + ' ' + value.ano}}</span>
+        </td>
+        <td>
+            <span>{{value.valor}}</span>
+        </td>
+        <td>
+            <span>{{value.valor_alcanzado}}</span>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<!--Table List-->
+<script>
+    <%= scope %>.refreshAngular();
+    setTimeout(function () {
+        <%= scope %>.refreshAngular();
+    },100);
+
+</script>

@@ -502,7 +502,84 @@ DSON.keepmerge(CRUD_indicador_actividad, {
                         }
                     }
                 ]
-            }
+            },
+            {
+                title: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                text: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                icon: (data) => {
+                    return "list3";
+                },
+                permission: (data) => {
+                    return 'view';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                click: function (data) {
+                    // if (!DSON.oseaX(data.row)) {
+                    //     data.$scope.dataForView = data.row;
+                    //     data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
+                    //         header: {
+                    //             title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                    //             icon: "user"
+                    //         },
+                    //         footer: {
+                    //             cancelButton: true
+                    //         },
+                    //         content: {
+                    //             loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                    //             sameController: true
+                    //         },
+                    //     });
+                    // }
+                    indicador_actividad.list_indicador_poa_periodo_view = [];
+                    indicador_actividad.detalleapd = [];
+                    var contador = 1;
+                    BASEAPI.listp('vw_indicador_actividad_periodo', {
+                        limit: 0,
+                        orderby: "periodo",
+                        order: "asc",
+                        where: [{
+                            field: "indicador_actividad",
+                            value: data.row.id
+                        }]
+                    }).then(function (result) {
+                        indicador_actividad.list_indicador_actividad_periodo_view = result.data;
+                        for (var key of indicador_actividad.list_indicador_actividad_periodo_view) {
+                            indicador_actividad.detalleapd.push({
+                                column: 'Proyectado ' + periodo + ' ' + contador,
+                                row: key.valor
+                            });
+                            indicador_actividad.detalleapd.push({
+                                column: 'Alcanzado ' + periodo + ' ' + contador,
+                                row: key.valor_alcanzado
+                            });
+                            contador++;
+                        }
+                        if (!DSON.oseaX(data.row)) {
+                            data.$scope.dataForView = data.row;
+                            data.$scope.modal.modalView(String.format("{0}/view_meta", data.$scope.modelName), {
+                                header: {
+                                    title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                                    icon: "user"
+                                },
+                                footer: {
+                                    cancelButton: true
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: true
+                                },
+                            });
+                            // indicador_generico.refreshAngular();
+                        }
+                    });
+                }
+            },
         ]
     }
 });

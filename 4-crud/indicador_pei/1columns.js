@@ -533,7 +533,84 @@ DSON.keepmerge(CRUD_indicador_pei, {
                         }
                     }
                 ]
-            }
+            },
+            {
+                title: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                text: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                icon: (data) => {
+                    return "list3";
+                },
+                permission: (data) => {
+                    return 'view';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                click: function (data) {
+                    // if (!DSON.oseaX(data.row)) {
+                    //     data.$scope.dataForView = data.row;
+                    //     data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
+                    //         header: {
+                    //             title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                    //             icon: "user"
+                    //         },
+                    //         footer: {
+                    //             cancelButton: true
+                    //         },
+                    //         content: {
+                    //             loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                    //             sameController: true
+                    //         },
+                    //     });
+                    // }
+                    indicador_pei.list_indicador_pei_ano_view = [];
+                    indicador_pei.detalleapd = [];
+                    var contador = 1;
+                    BASEAPI.listp('vw_indicador_pei_ano', {
+                        limit: 0,
+                        orderby: "ano",
+                        order: "asc",
+                        where: [{
+                            field: "indicador_pei",
+                            value: data.row.id
+                        }]
+                    }).then(function (result) {
+                        indicador_pei.list_indicador_pei_ano_view = result.data;
+                        for (var key of indicador_pei.list_indicador_pei_ano_view) {
+                            indicador_pei.detalleapd.push({
+                                column: 'Proyectado ' + periodo + ' ' + contador,
+                                row: key.valor
+                            });
+                            indicador_pei.detalleapd.push({
+                                column: 'Alcanzado ' + periodo + ' ' + contador,
+                                row: key.valor_alcanzado
+                            });
+                            contador++;
+                        }
+                        if (!DSON.oseaX(data.row)) {
+                            data.$scope.dataForView = data.row;
+                            data.$scope.modal.modalView(String.format("{0}/view_meta", data.$scope.modelName), {
+                                header: {
+                                    title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                                    icon: "user"
+                                },
+                                footer: {
+                                    cancelButton: true
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: true
+                                },
+                            });
+                            // indicador_generico.refreshAngular();
+                        }
+                    });
+                }
+            },
         ],
     }
 });

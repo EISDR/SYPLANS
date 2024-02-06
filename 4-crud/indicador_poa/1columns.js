@@ -131,14 +131,6 @@ DSON.keepmerge(CRUD_indicador_poa, {
             observacion: {
                 label: "Observación",
                 shorttext: 370
-            },
-            metasocultas: {
-                label: function () {
-                    return "Metas"
-                },
-                visible: false,
-                visibleDetail: false,
-                export: true
             }
         },
         options: [
@@ -553,7 +545,84 @@ DSON.keepmerge(CRUD_indicador_poa, {
                         }
                     }
                 ]
-            }
+            },
+            {
+                title: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                text: (data) => {
+                    return "Ver periodos del indicador";
+                },
+                icon: (data) => {
+                    return "list3";
+                },
+                permission: (data) => {
+                    return 'view';
+                },
+                characterist: (data) => {
+                    return "";
+                },
+                click: function (data) {
+                    // if (!DSON.oseaX(data.row)) {
+                    //     data.$scope.dataForView = data.row;
+                    //     data.$scope.modal.modalView(String.format("{0}/view", data.$scope.modelName), {
+                    //         header: {
+                    //             title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                    //             icon: "user"
+                    //         },
+                    //         footer: {
+                    //             cancelButton: true
+                    //         },
+                    //         content: {
+                    //             loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                    //             sameController: true
+                    //         },
+                    //     });
+                    // }
+                    indicador_poa.list_indicador_poa_periodo_view = [];
+                    indicador_poa.detalleapd = [];
+                    var contador = 1;
+                    BASEAPI.listp('vw_indicador_poa_periodo', {
+                        limit: 0,
+                        orderby: "periodo",
+                        order: "asc",
+                        where: [{
+                            field: "indicador_poa",
+                            value: data.row.id
+                        }]
+                    }).then(function (result) {
+                        indicador_poa.list_indicador_poa_periodo_view = result.data;
+                        for (var key of indicador_poa.list_indicador_poa_periodo) {
+                            indicador_poa.detalleapd.push({
+                                column: 'Proyectado ' + periodo + ' ' + contador,
+                                row: key.valor
+                            });
+                            indicador_poa.detalleapd.push({
+                                column: 'Alcanzado ' + periodo + ' ' + contador,
+                                row: key.valor_alcanzado
+                            });
+                            contador++;
+                        }
+                        if (!DSON.oseaX(data.row)) {
+                            data.$scope.dataForView = data.row;
+                            data.$scope.modal.modalView(String.format("{0}/view_meta", data.$scope.modelName), {
+                                header: {
+                                    title: MESSAGE.i('mono.Viewof') + " " + data.$scope.plural,
+                                    icon: "user"
+                                },
+                                footer: {
+                                    cancelButton: true
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: true
+                                },
+                            });
+                            // indicador_generico.refreshAngular();
+                        }
+                    });
+                }
+            },
         ],
     }
 });
