@@ -229,6 +229,14 @@ DSON = {
             obj === '[NULL]' || obj === undefined || obj === null || obj === "" || obj < 0
         );
     },
+    NewoseaX0: function (obj) {
+        if (Array.isArray(obj)) {
+            return obj.length === 0;
+        }
+        return (
+            obj === '[NULL]' || obj === undefined || obj === null || obj === ""
+        );
+    },
     ifundefined: function (variable, result) {
         return variable === undefined ? result : variable;
     },

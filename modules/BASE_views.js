@@ -1343,7 +1343,6 @@ exports.init = function (params) {
                     var col = z.substring(0, tt);
                     var row = parseInt(z.substring(tt));
                     var value = worksheet[z].v;
-
                     //store header names
                     if (row == 1 && value) {
                         headers[col] = value;
@@ -1352,7 +1351,7 @@ exports.init = function (params) {
 
                     if (!data[row])
                         data[row] = {};
-                    data[row][headers[col]] = value || "";
+                    data[row][headers[col]] = (value === 0 ? 0 : value || "");
                 }
                 //drop those first two rows which are empty
                 data.shift();
