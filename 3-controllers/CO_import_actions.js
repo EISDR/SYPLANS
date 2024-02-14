@@ -326,7 +326,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                 await BASEAPI.updateallp('import_actions', {
                                     "user_id": import_actions.session.id,
                                     "fecha": "$now()",
-                                    "mensaje": requiredErrors.join("</br>"),
+                                    "mensaje": "<ol><li>" + requiredErrors.join("</li><li>") + "</li></ol>",
                                     where: [{
                                         "field": "id",
                                         "value": id
