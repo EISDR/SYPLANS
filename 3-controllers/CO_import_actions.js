@@ -166,14 +166,14 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                                     problem = true;
                                                                 }
                                                             }else if (tipodemeta === "Decimal") {
-                                                                const regexMoney = /^-?(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
+                                                                const regexMoney = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
                                                                 if (!regexMoney.test(campo)) {
                                                                     values.push("''");
                                                                     requiredErrors.push(import_actions.templates.meta_decimal.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
                                                                     problem = true;
                                                                 }
                                                             }else if (tipodemeta === "Dinero") {
-                                                                const regexMoney = /^-?(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
+                                                                const regexMoney = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
                                                                 if (!regexMoney.test(campo)) {
                                                                     values.push("''");
                                                                     requiredErrors.push(import_actions.templates.meta_dinero.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
@@ -187,7 +187,6 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                                     problem = true;
                                                                 }
                                                             }else if (tipodemeta === "Porcentaje") {
-                                                                debugger
                                                                 const regexEntero = /^\d+$/;
                                                                 campo = campo * 100;
                                                                 if ((!regexEntero.test(campo)) || (campo > 100 || campo < 0)) {
@@ -223,7 +222,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                                 problem = true;
                                                             }
                                                         }else if (cr.indexOf("(m)") !== -1) {
-                                                            const regexMoney = /^-?(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
+                                                            const regexMoney = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$/;
                                                             let ledinero = i[cr];
                                                             if (!regexMoney.test(ledinero)) {
                                                                 values.push("''");
@@ -239,8 +238,8 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                                 problem = true;
                                                             }
                                                         }else if (cr.indexOf("(b)") !== -1) {
-                                                            let lebooleana = i[cr].toLowerCase();
-                                                            if (lebooleana != "si" && lebooleana != "no" ) {
+                                                            let lebooleana = (i[cr]||"").toLowerCase();
+                                                            if (lebooleana != "si" && lebooleana != "no") {
                                                                 values.push("''");
                                                                 requiredErrors.push(import_actions.templates.valid_bool.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
                                                                 problem = true;
