@@ -83,9 +83,9 @@
                                 <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
                                     <label style="font-family: 'Arial Narrow'; font-size: 18px;">Lista de Procesos a
                                         Auditar</label>
-                                    <ul class="breadcrumb-elements visible-elements">
+                                    <ul class="breadcrumb-elements visible-elements" ng-show="baseController.CONFIGCOMPANY.auditoria_procesos == 1">
                                         <li>
-                                            <a id="add-proceso" ng-click="auditoria_programa_plan.add_proceso()"
+                                            <a id="add-proceso"  ng-click="auditoria_programa_plan.add_proceso()"
                                                class="legitRipple" style="margin-top: -5px;">
                                                 <i title="Añadir" class="icon-plus-circle2"></i>&nbsp;
                                             </a>
@@ -203,7 +203,7 @@
                                 <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
                                     <label style="font-family: 'Arial Narrow'; font-size: 18px;">Documentos a
                                         Auditar</label>
-                                    <ul class="breadcrumb-elements visible-elements">
+                                    <ul class="breadcrumb-elements visible-elements" ng-show="baseController.CONFIGCOMPANY.auditoria_documentos == 1">
                                         <li>
                                             <a ng-click="auditoria_programa_plan.add_documento()" class="legitRipple"
                                                style="margin-top: -5px;">
@@ -279,12 +279,13 @@
                                                     oncontextmenu="return false;">
                                                     <ul class="icons-list dragon-action"
                                                         style="z-index: 99999; text-align: center;">
-                                                        <li class="ng-scope"
-                                                            ng-show="!auditoria_programa_plan.hide_work_documento(row.id) && <%= scope %>.permitir_crear(row.id)">
-                                                            <a title="Agregar lista de verificación"
-                                                               ng-click="<%= scope %>.add_work_list(row)">
-                                                                <i class="icon-file-plus2"></i>
-                                                            </a>
+                                                        <li class="ng-scope" ng-show="baseController.CONFIGCOMPANY.auditoria_lista == 1">
+                                                           <span ng-show="!auditoria_programa_plan.hide_work_documento(row.id) && <%= scope %>.permitir_crear(row.id)">
+                                                                <a title="Agregar lista de verificación" style="color: black"
+                                                                   ng-click="<%= scope %>.add_work_list(row)">
+                                                                    <i class="icon-file-plus2"></i>
+                                                                </a>
+                                                           </span>
                                                         </li>
                                                         <li class="ng-scope"
                                                             ng-show="auditoria_programa_plan.check_responsable_documento(row) && auditoria_programa_plan.tiene_listaverificacion(row.id)">
