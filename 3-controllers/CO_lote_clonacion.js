@@ -19,13 +19,23 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 {
                     field: "departamento",
                     value: lote_clonacion.session.departamento
+                },
+                {
+                    field: "poa_destino",
+                    value: lote_clonacion.session.poa_id
                 }
             ];
         }else{
-            lote_clonacion.fixFilters = [{
-                field: "compania",
-                value: lote_clonacion.session.compania_id
-            }];
+            lote_clonacion.fixFilters = [
+                {
+                    field: "compania",
+                    value: lote_clonacion.session.compania_id
+                },
+                {
+                    field: "poa_destino",
+                    value: lote_clonacion.session.poa_id
+                }
+            ];
         }
         RUNCONTROLLER("lote_clonacion", lote_clonacion, $scope, $http, $compile);
         lote_clonacion.formulary = function (data, mode, defaultData) {
