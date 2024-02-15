@@ -69,6 +69,12 @@ DSON.keepmerge(CRUD_vw_correctiva, {
                 },
                 shorttext: 360
             },
+            cumple: {
+                label: () => {
+                    return "¿Cumple?"
+                },
+                formattype: ENUM.FORMAT.bool
+            },
             observaciones: {
                 label: () => {
                     return "Observación"
