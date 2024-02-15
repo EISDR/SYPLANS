@@ -2104,6 +2104,22 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                     }
                 ]
             })
+            auditoria_programa_plan.tipo_hallazgos = await BASEAPI.listp('tipo_inconformidad', {
+                order: "asc",
+                limit: 0,
+                where: [
+                    {
+                        "field": "compania",
+                        "value": auditoria_programa_plan.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": auditoria_programa_plan.session.institucion_id ? "=" : "is",
+                        "value": auditoria_programa_plan.session.institucion_id ? auditoria_programa_plan.session.institucion_id : "$null"
+                    },
+                ]
+            });
+            auditoria_programa_plan.tipo_hallazgos = auditoria_programa_plan.tipo_hallazgos.data;
             auditoria_programa_plan.documento_asoc_nombre = row.nombre;
             auditoria_programa_plan.observaciones = auditoria_programa_plan.documento.observaciones;
             auditoria_programa_plan.find_me_once = false;
@@ -2158,11 +2174,37 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 },
             });
         }
-        auditoria_programa_plan.cumple_lista = async function (row, cumple, callback){
+        auditoria_programa_plan.cumple_lista = async function (row, cumple, global, callback){
             var success;
             if (cumple == "si"){
                 row.cumple = 1;
-                row.tipo_inconformidad = null;
+                if(row.tipo_inconformidad){
+                    let no_conformidad = [];
+                    no_conformidad = auditoria_programa_plan.tipo_hallazgos.filter(d => {
+                        return d.id == row.tipo_inconformidad;
+                    });
+                    if (no_conformidad.length > 0 && no_conformidad[0].plan_accion === 1){
+                        if (global) {
+                            SWEETALERT.show({
+                                type: "error",
+                                message: 'El tipo de hallazgo de los puntos de verificación que cumplen no puede ser una no conformidad. Por favor revisar'
+                            });
+                        }else{
+                            SWEETALERT.show({
+                                type: "error",
+                                message: 'El tipo de hallazgo no puede ser una no conformidad'
+                            });
+                        }
+                        let buttons = document.getElementsByClassName("btn btn-labeled");
+                        for (var item of buttons) {
+                            item.disabled = false;
+                        }
+                        success = false;
+                        if (callback)
+                            callback(success)
+                        return;
+                    }
+                }
                 success = true;
                 auditoria_programa_plan.refreshAngular();
                 if (callback)
@@ -2904,7 +2946,11 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                 var validate_values = true;
                 for(var registro of auditoria_programa_plan.lista_verificacion_list){
                     if (registro.cumple == 0) {
-                        auditoria_programa_plan.cumple_lista(registro, "no", function (result) {
+                        auditoria_programa_plan.cumple_lista(registro, "no", false,function (result) {
+                            validate_values = !!result;
+                        })
+                    }else if (registro.cumple == 1){
+                        auditoria_programa_plan.cumple_lista(registro, "si", true, function (result) {
                             validate_values = !!result;
                         })
                     }
@@ -2933,7 +2979,7 @@ select * from vw_auditoria_programa_plan where id=@auditorianext;`;
                             //     ]
                             // }, function (result) {
                             // });
-                            queryTopas += `update auditoria_programa_plan_documentos_asociados_listaverificacion set cumple = ${registro.cumple == '1' || registro.cumple == '0' ? registro.cumple : null }, tipo_inconformidad = ${registro.tipo_inconformidad  ? registro.cumple == '0' ? registro.tipo_inconformidad : null : null}, observaciones = '${registro.observaciones ? registro.observaciones : "" }' where id = ${registro.id};
+                            queryTopas += `update auditoria_programa_plan_documentos_asociados_listaverificacion set cumple = ${registro.cumple == '1' || registro.cumple == '0' ? registro.cumple : null }, tipo_inconformidad = ${registro.tipo_inconformidad}, observaciones = '${registro.observaciones ? registro.observaciones : "" }' where id = ${registro.id};
 `;
                         }
                         console.log(queryTopas);
