@@ -252,7 +252,6 @@
                             <th>Descripción</th>
                             <th>Presupuesto</th>
                             <th style="width: 20%">Responsable</th>
-                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -288,24 +287,6 @@
                                     >
                                     </select3>
                                 </div>
-                            </td>
-                            <td class="context-control"
-                                oncontextmenu="return false;">
-                                <ul class="icons-list dragon-action" ng-show="row.mis_actividades_apoyo || row.mis_indicadores"
-                                    style="z-index: 99999; text-align: center;">
-                                    <li class="ng-scope" ng-show="row.mis_actividades">
-                                        <a title="Mostrar las actividades de apoyo de la actividad"
-                                           ng-click="lote_clonacion.irActividades(row)">
-                                            <i class="icon-gear"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ng-scope" ng-show="row.mis_indicadores">
-                                        <a title="Mostrar los indicadores de la actividad"
-                                           ng-click="lote_clonacion.irActividades(row)">
-                                            <i class="icon-gear"></i>
-                                        </a>
-                                    </li>
-                                </ul>
                             </td>
                         </tr>
                         </tbody>

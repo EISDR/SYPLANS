@@ -506,6 +506,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         delete new_producto.id
                                         new_producto.poa = lote_clonacion.session.poa_id;
                                         new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
+                                        new_producto.estado = 1;
                                         lote_clonacion.fixDates(new_producto)
                                         var result_producto = await BASEAPI.insertIDp('productos_poa', new_producto, '', '')
                                         result_producto = result_producto.data;
@@ -520,6 +521,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                             delete new_actividad.id
                                                             new_actividad.poa = lote_clonacion.session.poa_id;
                                                             new_actividad.producto = result_producto.data[0].id;
+                                                            new_actividad.estatus = 2;
                                                             lote_clonacion.fixDates(new_actividad)
                                                             var result_actividad = await BASEAPI.insertIDp('actividades_poa', new_actividad, '', '')
                                                             result_actividad = result_actividad.data;
@@ -531,6 +533,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                 let new_actividad_apoyo = DSON.OSO(actividad_apoyo);
                                                                                 delete new_actividad_apoyo.id
                                                                                 new_actividad_apoyo.actividades_poa = result_actividad.data[0].id;
+                                                                                new_actividad_apoyo.estatus = 1;
                                                                                 lote_clonacion.fixDates(new_actividad_apoyo)
                                                                                 await BASEAPI.insertIDp('actividades_apoyo', new_actividad_apoyo, '', '');
                                                                             }
@@ -596,6 +599,33 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         console.log(result_producto)
                                     }
                                     SWEETALERT.stop();
+                                    SWEETALERT.show({
+                                        message: "El proceso de transferencia a sido ejecutado con exito",
+                                        confirm: async function (){
+                                            if (lote_clonacion.form.mode == 'new'){
+                                                await BASEAPI.insertIDp('lote_clonacion',{
+                                                    "departamento": lote_clonacion.departamento,
+                                                    "poa_desde": lote_clonacion.poa_desde,
+                                                    "poa_destino": lote_clonacion.session.poa_id,
+                                                    "autor": lote_clonacion.session.usuarios_id,
+                                                    "compania": lote_clonacion.session.compania_id,
+                                                    "institucion": lote_clonacion.session.institucion_id,
+                                                    "config":  lote_clonacion.config,
+                                                    "estatus": 2
+                                                })
+                                            }else{
+                                                await BASEAPI.updateall('lote_clonacion',{
+                                                    "estatus": 2,
+                                                    where: [{
+                                                        "field": "id",
+                                                        "value": lote_clonacion.id
+                                                    }]
+                                                })
+                                            }
+                                            MODAL.close();
+                                            lote_clonacion.refresh();
+                                        }
+                                    })
                                 }
                             })
                         } else {
