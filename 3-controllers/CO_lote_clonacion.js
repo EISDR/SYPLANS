@@ -159,6 +159,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 //ng-class="NNNNNNNNN.productoStyle(producto)"
 
         lote_clonacion.getData = async function (poa, departamento) {
+            SWEETALERT.loading({message: "Obteniendo datos para la clonación. Por favor espere" + "..."})
             //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
             if (poa == "[NULL]" || departamento == "[NULL]"){
                 SWEETALERT.show({
@@ -300,6 +301,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             lote_clonacion.currentRepeat = "productos";
 //ng-show="NNNNNNNNN.currentRepeat==='productos'"
             lote_clonacion.repeatProductos = lote_clonacion.config.productos;
+            SWEETALERT.stop();
             lote_clonacion.refreshAngular();
         }
 
@@ -308,24 +310,40 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             lote_clonacion.currentRepeat = "actividades";
             lote_clonacion.repeatActividades = producto.mis_actividades;
             lote_clonacion.last_repeat = "productos";
+            setTimeout(function(){
+                $('[name="actPOA_responsable"]').select2();
+                $('[name="apoyo_responsable"]').select2();
+            },100)
             lote_clonacion.refreshAngular();
         }
         lote_clonacion.irIndicadoresP = (producto) => {
             lote_clonacion.currentRepeat = "indicadoresP";
             lote_clonacion.repeatIndicadoresP = producto.mis_indicadores;
             lote_clonacion.last_repeat = "productos";
+            setTimeout(function(){
+                $('[name="actPOA_responsable"]').select2();
+                $('[name="apoyo_responsable"]').select2();
+            },100)
             lote_clonacion.refreshAngular();
         }
         lote_clonacion.irActividades_apoyo = (actividad) => {
             lote_clonacion.currentRepeat = "actividades_apoyo";
             lote_clonacion.repeatActividades_apoyo = actividad.mis_actividades_apoyo;
             lote_clonacion.last_repeat = "actividades";
+            setTimeout(function(){
+                $('[name="actPOA_responsable"]').select2();
+                $('[name="apoyo_responsable"]').select2();
+            },100)
             lote_clonacion.refreshAngular();
         }
         lote_clonacion.irIndicadoresA = (actividad) => {
             lote_clonacion.currentRepeat = "indicadoresA";
             lote_clonacion.repeatIndicadoresA = actividad.mis_indicadores;
             lote_clonacion.last_repeat = "actividades";
+            setTimeout(function(){
+                $('[name="actPOA_responsable"]').select2();
+                $('[name="apoyo_responsable"]').select2();
+            },100)
             lote_clonacion.refreshAngular();
         }
 
@@ -743,6 +761,10 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         //};
         //$scope.afterDelete = function (data) {
         //};
+
+        lote_clonacion.myfuncion = function (departamento) {
+            console.log(departamento)
+        }
     }
     ready();
 });

@@ -468,6 +468,64 @@ DSON.keepmerge(CRUD_indicador_actividad, {
                     },
                     {
                         text: (data) => {
+                            return MESSAGE.i('actions.Enable');
+                        },
+                        icon: (data) => {
+                            return "checkmark-circle";
+                        },
+                        permission: (data) => {
+                            return 'active';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSEnable'),
+                                confirm: function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                                    data.$scope.activeRow(data.row, 1).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        },
+                        show: function (data) {
+                            return data.$scope.activeColumn();
+                        }
+                    },
+                    {
+                        text: (data) => {
+                            return MESSAGE.i('actions.Disable');
+                        },
+                        icon: (data) => {
+                            return "circle";
+                        },
+                        permission: (data) => {
+                            return 'active';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: function (data) {
+                            SWEETALERT.confirm({
+                                message: MESSAGE.i('alerts.AYSDisable'),
+                                confirm: function () {
+                                    SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
+                                    data.$scope.activeRow(data.row, 0).then(function () {
+                                        SWEETALERT.stop();
+                                    });
+                                }
+                            });
+                            return false;
+                        },
+                        show: function (data) {
+                            return data.$scope.activeColumn();
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return MESSAGE.i('actions.audit');
                         },
                         title: (data) => {
