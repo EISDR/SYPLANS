@@ -616,30 +616,31 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         }
                                         console.log(result_producto)
                                     }
+                                    if (lote_clonacion.form.mode == 'new'){
+                                        await BASEAPI.insertIDp('lote_clonacion',{
+                                            "departamento": lote_clonacion.departamento,
+                                            "poa_desde": lote_clonacion.poa_desde,
+                                            "poa_destino": lote_clonacion.session.poa_id,
+                                            "autor": lote_clonacion.session.usuario_id,
+                                            "compania": lote_clonacion.session.compania_id,
+                                            "institucion": lote_clonacion.session.institucion_id,
+                                            "config":  lote_clonacion.config,
+                                            "estatus": 2
+                                        },"","");
+                                    }else{
+                                        await BASEAPI.updateall('lote_clonacion',{
+                                            "estatus": 2,
+                                            where: [{
+                                                "field": "id",
+                                                "value": lote_clonacion.id
+                                            }]
+                                        })
+                                    }
                                     SWEETALERT.stop();
                                     SWEETALERT.show({
                                         message: "El proceso de transferencia a sido ejecutado con exito",
                                         confirm: async function (){
-                                            if (lote_clonacion.form.mode == 'new'){
-                                                await BASEAPI.insertIDp('lote_clonacion',{
-                                                    "departamento": lote_clonacion.departamento,
-                                                    "poa_desde": lote_clonacion.poa_desde,
-                                                    "poa_destino": lote_clonacion.session.poa_id,
-                                                    "autor": lote_clonacion.session.usuarios_id,
-                                                    "compania": lote_clonacion.session.compania_id,
-                                                    "institucion": lote_clonacion.session.institucion_id,
-                                                    "config":  lote_clonacion.config,
-                                                    "estatus": 2
-                                                })
-                                            }else{
-                                                await BASEAPI.updateall('lote_clonacion',{
-                                                    "estatus": 2,
-                                                    where: [{
-                                                        "field": "id",
-                                                        "value": lote_clonacion.id
-                                                    }]
-                                                })
-                                            }
+
                                             MODAL.close();
                                             lote_clonacion.refresh();
                                         }
