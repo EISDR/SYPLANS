@@ -527,6 +527,60 @@ MODAL = {
             id = $scope.modal.add(merge);
             $scope.modal.open(id, up);
         };
+        $scope.modal.simpleImportModal = function (html, options, up) {
+            var id = "simple";
+            var properties = {
+                id: id,
+                animation: "",
+                width: ENUM.modal.width.large,
+                backMode: true,
+                header: {
+                    title: "",
+                    icon: "",
+                    bg: COLOR.primary + "-600",
+                    closeButton: true,
+                    h: "h6"
+                },
+                footer: {
+                    cancelButton: true,
+                    buttons: [
+                        {
+                            color: "btn bg-<%= COLOR.primary %> btn-labeled btn-xs pull-rightm",
+                            title: "<b><i class='icon-file-pdf'></i></b>Importar",
+                            action: function () {
+                                $("#modalcontent" + id).printThis({
+                                    importCSS: false,                // import parent page css
+                                    loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                                    printDelay: 333,
+                                });
+                            }
+                        }
+                    ]
+                },
+                content: {
+                    data: html,
+                    loadingContentText: MESSAGE.i('actions.Loading')
+
+                },
+                event: {
+                    show: {
+                        begin: function (data) {
+                        },
+                        end: function (data) {
+                        }
+                    },
+                    hide: {
+                        begin: function (data) {
+                        },
+                        end: function (data) {
+                        }
+                    }
+                }
+            };
+            var merge = DSON.merge(properties, options);
+            id = $scope.modal.add(merge);
+            $scope.modal.open(id, up);
+        };
         $scope.modal.map = function (location, content, options) {
             $scope.modal.simpleModal('<div id="mapdiv" class="map-container"></div>', options);
             var maper = new MAP();

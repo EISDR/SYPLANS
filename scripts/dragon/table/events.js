@@ -110,9 +110,15 @@ TABLEEVENT = {
                 if (!DSON.oseaX(shorttext))
                     if (shorttext.length > data.column.shorttext || data.column.showtext) {
                         var txt = typeof data.column.label === "function" ? data.column.label() : data.column.label;
-                        $scope.modal.simpleModal(data.value, {
-                            header: {title: `${MESSAGE.ic('mono.completetext')} ${MESSAGE.i('mono.of')} ` + txt}
-                        });
+                        if (data.column.importBtn) {
+                            $scope.modal.simpleImportModal(data.value, {
+                                header: {title: `${MESSAGE.ic('mono.completetext')} ${MESSAGE.i('mono.of')} ` + txt}
+                            });
+                        }else{
+                            $scope.modal.simpleModal(data.value, {
+                                header: {title: `${MESSAGE.ic('mono.completetext')} ${MESSAGE.i('mono.of')} ` + txt}
+                            });
+                        }
                     }
             } else {
                 var load = new LOAD();
