@@ -144,7 +144,21 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                         if (cr.indexOf("(r)") !== -1) {
                                                             let refMap = diccionario[cr];
                                                             if(refMap){
-                                                                let exist = sheets[refMap.sheet].filter(e=>e[refMap.column]===i[cr]).length;
+                                                                let lassheets = sheets[refMap.sheet].filter(Boolean)
+                                                                // Recorre cada objeto en el array
+                                                                lassheets.forEach(object => {
+                                                                    // Recorre cada propiedad del objeto
+                                                                    Object.keys(object).forEach(key => {
+                                                                        // Si la propiedad es "undefined", elimínala
+                                                                        if (key === "undefined") {
+                                                                            delete object[key];
+                                                                        }
+                                                                    });
+                                                                });
+                                                                // Filtra los objetos vacíos
+                                                                lassheets = lassheets.filter(object => Object.keys(object).length > 0);
+
+                                                                let exist = lassheets.filter(e=>e[refMap.column]===i[cr]).length;
                                                                 if(!exist){
                                                                     requiredErrors.push(import_actions.templates.valid_relation.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
                                                                 }
@@ -247,7 +261,21 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                         }else if (cr.indexOf("(r)") !== -1) {
                                                             let refMap = diccionario[cr];
                                                             if(refMap){
-                                                                let exist = sheets[refMap.sheet].filter(e=>e[refMap.column]===i[cr]).length;
+                                                                let lassheets = sheets[refMap.sheet].filter(Boolean)
+                                                                // Recorre cada objeto en el array
+                                                                lassheets.forEach(object => {
+                                                                    // Recorre cada propiedad del objeto
+                                                                    Object.keys(object).forEach(key => {
+                                                                        // Si la propiedad es "undefined", elimínala
+                                                                        if (key === "undefined") {
+                                                                            delete object[key];
+                                                                        }
+                                                                    });
+                                                                });
+                                                                // Filtra los objetos vacíos
+                                                                lassheets = lassheets.filter(object => Object.keys(object).length > 0);
+
+                                                                let exist = lassheets.filter(e=>e[refMap.column]===i[cr]).length;
                                                                 if(!exist){
                                                                     requiredErrors.push(import_actions.templates.valid_relation.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
                                                                 }
@@ -331,7 +359,14 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                         "value": id
                                     }]
                                 });
-                                SWEETALERT.show({type: 'warning', message: `Verificación Completada Con Errores`});
+                                SWEETALERT.show({
+                                    type: 'warning',
+                                    message: `Verificación Completada Con Errores`,
+                                    confirm: function(){
+                                        MODAL.close();
+                                        import_actions.refresh();
+                                    }
+                                });
                             }
                         }
                     }
