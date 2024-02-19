@@ -337,7 +337,7 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
 
                 }, function (result) {
                     let pi = parseFloat(DSON.cleanNumber(presupuesto_aprobado.presupuesto_institucional_p));
-                    let pxd = parseFloat(result.presupuesto_x_departamento);
+                    let pxd = parseFloat(result.presupuesto_x_departamento || 0);
                     if (pi > pxd) {
                         BASEAPI.updateall('poa', {
                             "presupuesto_institucional": pi,
