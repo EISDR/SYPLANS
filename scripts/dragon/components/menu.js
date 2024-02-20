@@ -57,9 +57,12 @@ MENU = {
         }
     },
     setActive: function (link) {
+        let links_var = ['riesgo?vw_productos_poa_detalles', 'riesgo?vw_resultado', 'riesgo?vw_objetivo_estrategico_e','riesgo?vw_actividades_poa','riesgo?vw_proyecto_item' ]
         var rurl = location.href.split('#');
         rurl = rurl.length > 1 ? rurl[1] : "";
         link = link || rurl;
+        if (links_var.indexOf(link) !== -1)
+            link = 'riesgo?[NULL]';
         $(".dragon-menu li").removeClass('active');
         var a = $('.dragon-menu a[href="#' + link + '"]:eq(0)');
         document.title = `${CONFIG.appName} - ${MENU.language(a.find('span:eq(0)').html()) || capitalize(link)}`;
@@ -67,7 +70,6 @@ MENU = {
         if (a.length > 0) {
             MENU.setLast(a);
             MENU.expand(a);
-
         }
         MENU.reversal();
     },
