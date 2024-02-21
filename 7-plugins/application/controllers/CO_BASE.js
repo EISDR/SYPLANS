@@ -486,7 +486,18 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             //         arr.splice(ix, 1);
             //     }
             // }
-
+            let dump_profiles = [10,12,13,14,15,19];
+            if (dump_profiles.indexOf(intersession.profile) !== -1){
+                CONFIGCOMPANY.proyectos_especiales = 0;
+                CONFIGCOMPANY.gestion_indicadores = 0;
+                CONFIGCOMPANY.riesgo_var = 0;
+                CONFIGCOMPANY.riesgo_amfe = 0;
+                CONFIGCOMPANY.plan_accion = 0;
+                CONFIGCOMPANY.salidas = 0;
+                CONFIGCOMPANY.servicio = 0;
+                CONFIGCOMPANY.reporte_configurable = 0;
+                CONFIGCOMPANY.formularios = 0;
+            }
             var predicado = menu => {
                 if (menu.condition) {
                     let result = false;
@@ -499,6 +510,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 }
                 return true;
             };
+
+
 
             baseController.elelemenu = baseController.elelemenu.filter(predicado);
 
