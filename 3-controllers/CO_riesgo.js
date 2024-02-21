@@ -97,6 +97,8 @@ app.controller("riesgo", function ($scope, $http, $compile) {
             ];
         }
         riesgo.refreshAngular();
+        riesgo.riesgo_entidad = window.location.href.split('?')[1].replaceAll('RF', '');
+        riesgo.form.loadDropDown('riesgo_entidad');
     };
     riesgo.getRiesgo();
     if (riesgo.soyamfe) {
