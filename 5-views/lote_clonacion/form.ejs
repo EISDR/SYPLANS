@@ -1,53 +1,83 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
-        <div class="row">
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.select('departamento', scope, {
-                    // allownull: false,
-                    allownew: false,
-                    allowedit: false,
-                    allowview: false,
-                    allowlist: false,
-                    label: "Departamento",
-                    text: "item.nombre +' - '+ item.estatus_nombre",
-                    // text: "item.nombre + ' ' + item.apellido",
-                    table: "vw_presupuesto_departamento_auth",
-                    field: "id",
-                    columns: ["departamento"],
-                    icon: {class:"archive"},
-                    condition: "((item.id > 0) && (item.poa == lote_clonacion.condiction) && (item.count_productos > 0))"
-                }) %>
+        <div class="row"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading panel-dashboard" style="background-color: #ededed;">
+                <h6 class="panel-title">Filtros de búsqueda</h6>
             </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.select('poa_desde', scope, {
-                    // allownull: false,
-                    allownew: false,
-                    allowedit: false,
-                    allowview: false,
-                    allowlist: false,
-                    label: "POA a copiar",
-                    text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
-                    // text: "item.nombre + ' ' + item.apellido",
-                    table: "poa",
-                    field: "id",
-                    icon: {class:"archive"},
-                    condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.session.poa_id"
-                }) %>
-            </div>
-            <div class='col-sm-2 col-md-2' style="margin-top: 20px;">
-                <button
-                        dragonlanguage="" title="MESSAGE.ic('mono.save')"
-                        type="button" role="button"
-                        class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-left"
-                        ng-click="<%= scope %>.getData(lote_clonacion.poa_desde, lote_clonacion.departamento)">
-                    <b><i class="icon-search4"></i></b>
-                    <language>Buscar</language>
-                </button>
+            <div class="panel-body">
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('departamento', scope, {
+                            // allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            truelabel: "Departamento a copiar",
+                            text: "item.nombre +' - '+ item.estatus_nombre",
+                            // text: "item.nombre + ' ' + item.apellido",
+                            table: "vw_presupuesto_departamento_auth",
+                            field: "id",
+                            columns: ["departamento"],
+                            icon: {class:"archive"},
+                            condition: "((item.id > 0) && (item.poa == lote_clonacion.condiction) && (item.count_productos > 0))"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('poa_desde', scope, {
+                            // allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            label: "POA de origen",
+                            text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
+                            // text: "item.nombre + ' ' + item.apellido",
+                            table: "poa",
+                            field: "id",
+                            icon: {class:"archive"},
+                            condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_destino"
+                        }) %>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('poa_destino', scope, {
+                            // allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            label: "POA destino",
+                            text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
+                            // text: "item.nombre + ' ' + item.apellido",
+                            table: "poa",
+                            field: "id",
+                            icon: {class:"archive"},
+                            condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_desde"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'></div>
+                    <div class='col-sm-2 col-md-2'></div>
+                    <div class='col-sm-2 col-md-2' style="margin-top: 20px;">
+                        <button
+                                dragonlanguage="" title="MESSAGE.ic('mono.save')"
+                                type="button" role="button"
+                                class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
+                                ng-click="<%= scope %>.getData(lote_clonacion.poa_desde, lote_clonacion.departamento)">
+                            <b><i class="icon-search4"></i></b>
+                            <language>Buscar</language>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="row">
             <div dragonlanguage="" id="info-box" class="alert alert-info alert-styled-left alert-bordered">
-                <p>Este lote estará preparado para transferir los productos y todas sus dependencias del departamento: "<strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong>" desde el POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}}</strong>" al POA: "<strong style="text-transform: uppercase">{{lote_clonacion.session.poa}}</strong>"</p>
+                <p>Este lote estará preparado para transferir los productos/proyectos y todas sus dependencias del departamento: "<strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong>" desde el POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}}</strong>" al POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_destino_object.nombre}}</strong>. Tener presente que esta opción copia los datos de un lugar a otro, dejando la posibilidad de duplicar los registros. Por favor revisar antes de ejecutar esta acción."</p>
             </div>
         </div>
         <div class="row">
@@ -70,10 +100,10 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th style="max-width: 10% !important">Resultado Esperado</th>
-                            <th>Nombre</th>
+                            <th>Nombre del producto/proyecto</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th style="width: 20%">Departamento</th>
-                            <th>Descripción</th>
+                            <th>Descripción del producto/proyecto</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -110,13 +140,13 @@
                                     <li class="ng-scope" ng-show="row.mis_actividades">
                                         <a title="Mostrar las actividades del producto"
                                            ng-click="lote_clonacion.irActividades(row)">
-                                            <i class="icon-gear"></i>
+                                            <i class="icon-spell-check2"></i>
                                         </a>
                                     </li>
                                     <li class="ng-scope" ng-show="row.mis_indicadores">
                                         <a title="Mostrar los indicadores del producto"
                                            ng-click="lote_clonacion.irIndicadoresP(row)">
-                                            <i class="icon-gear"></i>
+                                            <i class="icon-meter-fast"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -132,11 +162,11 @@
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th style="width: 15%">Producto</th>
-                            <th>Nombre</th>
+                            <th style="width: 15%">Producto/Proyecto</th>
+                            <th>Nombre de la actividad</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
-                            <th>Descripción</th>
+                            <th>Descripción de la actividad</th>
                             <th>Presupuesto</th>
                             <th style="width: 20%">Responsable</th>
                             <th>Acciones</th>
@@ -185,13 +215,13 @@
                                     <li class="ng-scope" ng-show="row.mis_actividades_apoyo">
                                         <a title="Mostrar las actividades de apoyo de la actividad"
                                            ng-click="lote_clonacion.irActividades_apoyo(row)">
-                                            <i class="icon-gear"></i>
+                                            <i class="icon-superscript2"></i>
                                         </a>
                                     </li>
                                     <li class="ng-scope" ng-show="row.mis_indicadores">
                                         <a title="Mostrar los indicadores de la actividad"
                                            ng-click="lote_clonacion.irIndicadoresA(row)">
-                                            <i class="icon-gear"></i>
+                                            <i class="icon-meter-slow"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -207,13 +237,13 @@
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th style="width: 15%">Producto</th>
-                            <th>Nombre</th>
+                            <th style="width: 15%">Producto/Proyecto</th>
+                            <th>Nombre del indicador</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
                             <th>Método de cálculo</th>
                             <th>Fuente</th>
-                            <th>Descripcion</th>
+                            <th>Descripcion del indicador</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -247,10 +277,10 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
-                            <th>Nombre</th>
+                            <th>Nombre de la actividad de apoyo</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
-                            <th>Descripción</th>
+                            <th>Descripción de la actividad de apoyo</th>
                             <th>Presupuesto</th>
                             <th style="width: 20%">Responsable</th>
                         </tr>
@@ -301,12 +331,12 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
-                            <th>Nombre</th>
+                            <th>Nombre del indicador</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
                             <th>Método de cálculo</th>
                             <th>Fuente</th>
-                            <th>Descripcion</th>
+                            <th>Descripcion del indicador</th>
                         </tr>
                         </thead>
                         <tbody>
