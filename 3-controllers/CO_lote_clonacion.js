@@ -8,7 +8,6 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         //lote_clonacion.headertitle = "Hola Title";
         //lote_clonacion.destroyForm = false;
         //lote_clonacion.permissionTable = "tabletopermission";
-        lote_clonacion.condiction = lote_clonacion.session.poa_id ? lote_clonacion.session.poa_id : 0;
         lote_clonacion.group_caracteristica = lote_clonacion.session.groups[0] ? lote_clonacion.session.groups[0].caracteristica : "";
         if (lote_clonacion.group_caracteristica == ENUM_2.Grupos.director_departamental || lote_clonacion.group_caracteristica == ENUM_2.Grupos.analista_departamental) {
             lote_clonacion.fixFilters = [
@@ -19,10 +18,6 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 {
                     field: "departamento",
                     value: lote_clonacion.session.departamento
-                },
-                {
-                    field: "poa_destino",
-                    value: lote_clonacion.session.poa_id
                 }
             ];
         }else{
@@ -30,10 +25,6 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 {
                     field: "compania",
                     value: lote_clonacion.session.compania_id
-                },
-                {
-                    field: "poa_destino",
-                    value: lote_clonacion.session.poa_id
                 }
             ];
         }
@@ -42,7 +33,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             if (lote_clonacion !== undefined) {
                 RUN_B("lote_clonacion", lote_clonacion, $scope, $http, $compile);
                 lote_clonacion.form.modalWidth = ENUM.modal.width.full;
-                lote_clonacion.form.readonly = {poa_destino: lote_clonacion.session.poa_id, autor:lote_clonacion.session.usuario_id, compania: lote_clonacion.session.compania_id};
+                lote_clonacion.form.readonly = {autor:lote_clonacion.session.usuario_id, compania: lote_clonacion.session.compania_id};
                 lote_clonacion.form.titles = {
                     new: "Agregar configuración de clonación",
                     edit: "Editar configuración de clonación",
@@ -161,7 +152,14 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         lote_clonacion.getData = async function (poa, departamento) {
             SWEETALERT.loading({message: "Obteniendo datos para la clonación. Por favor espere" + "..."})
             //Hay que refactorizar este código para ponerlo en una función y no tener que usarlo en varios lados con to' eso
-            if (poa == "[NULL]" || departamento == "[NULL]"){
+            if (DSON.oseaX(lote_clonacion.poa_destino)){
+                SWEETALERT.show({
+                    type: "error",
+                    message: `Debe de seleccionar un POA destino para el proceso de clonación.`
+                })
+                return;
+            }
+            if (DSON.oseaX(lote_clonacion.poa_desde)|| DSON.oseaX(lote_clonacion.departamento)){
                 SWEETALERT.show({
                     type: "error",
                     message: `Los campos "Departamento" y "POA a copiar" deben de tener un registro seleccionado para proceder con el proceso de busqueda`
@@ -174,7 +172,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     where: [
                         {field: "poa_desde", value: poa},
                         {field: "departamento", value: departamento},
-                        {field: "poa_destino", value: lote_clonacion.session.poa_id}
+                        {field: "poa_destino", value: lote_clonacion.poa_destino}
                     ]
                 })
                 if (last_clone) {
@@ -197,7 +195,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     where: [
                         {field: "poa_desde", value: poa},
                         {field: "departamento", value: departamento},
-                        {field: "poa_destino", value: lote_clonacion.session.poa_id},
+                        {field: "poa_destino", value: lote_clonacion.poa_destino},
                         {field: "id", operator: "!=", value: lote_clonacion.id}
                     ]
                 })
@@ -377,7 +375,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 where: [
                     {field: "poa_desde", value: lote_clonacion.poa_desde},
                     {field: "departamento", value: lote_clonacion.departamento},
-                    {field: "poa_destino", value: lote_clonacion.session.poa_id}
+                    {field: "poa_destino", value: lote_clonacion.poa_destino}
                 ]
             })
             if (last_clone) {
@@ -413,7 +411,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 where: [
                     {field: "poa_desde", value: lote_clonacion.poa_desde},
                     {field: "departamento", value: lote_clonacion.departamento},
-                    {field: "poa_destino", value: lote_clonacion.session.poa_id},
+                    {field: "poa_destino", value: lote_clonacion.poa_destino},
                     {field: "id", operator: "!=", value: lote_clonacion.id}
                 ]
             })
@@ -481,12 +479,27 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 //NNNNNNNNN.irAtras("productos")
 
         lote_clonacion.emigrar_poa = async function () {
-            if (lote_clonacion.session.est_poa === ENUM_2.poa_estatus.Cerrado){
+            if (DSON.oseaX(lote_clonacion.poa_destino)){
+                SWEETALERT.show({
+                    type: "error",
+                    message: `Debe de seleccionar un POA destino para el proceso de clonación.`
+                })
+                return;
+            }
+            if (DSON.oseaX(lote_clonacion.poa_desde)|| DSON.oseaX(lote_clonacion.departamento)){
+                SWEETALERT.show({
+                    type: "error",
+                    message: `Los campos "Departamento" y "POA a copiar" deben de tener un registro seleccionado para proceder con el proceso de busqueda`
+                })
+                return;
+            }
+
+            if (lote_clonacion.poa_destino_object === ENUM_2.poa_estatus.Cerrado){
                 SWEETALERT.show({type: "error", message: "El POA destino está cerrado, no se puede proceder con el proceso de clonación"})
             }else {
-                SWEETALERT.loading({message: "Por favor espere mientras se insertan los registros al nuevo POA seleccionado" + "..."})
+                SWEETALERT.loading({message: "Por favor espere mientras se insertan los registros" + "..."})
                 lote_clonacion.prespuesto_aprobado = await BASEAPI.listp("vw_presupuesto_aprobado", {limit: 0,
-                    where: [{field: "poa", value: lote_clonacion.session.poa_id}, {
+                    where: [{field: "poa", value: lote_clonacion.poa_destino}, {
                         field: "departamento_id",
                         value: lote_clonacion.departamento
                     }]
@@ -522,7 +535,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         delete new_producto.mis_actividades
                                         delete new_producto.mis_indicadores
                                         delete new_producto.id
-                                        new_producto.poa = lote_clonacion.session.poa_id;
+                                        new_producto.poa = lote_clonacion.poa_destino;
                                         new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
                                         new_producto.estado = 1;
                                         lote_clonacion.fixDates(new_producto)
@@ -537,7 +550,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                             delete new_actividad.mis_actividades_apoyo
                                                             delete new_actividad.mis_indicadores
                                                             delete new_actividad.id
-                                                            new_actividad.poa = lote_clonacion.session.poa_id;
+                                                            new_actividad.poa = lote_clonacion.poa_destino;
                                                             new_actividad.producto = result_producto.data[0].id;
                                                             new_actividad.estatus = 2;
                                                             lote_clonacion.fixDates(new_actividad)
@@ -562,6 +575,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                 delete new_indicador_actividad.id
                                                                                 delete new_indicador_actividad.mis_metas
                                                                                 new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
+                                                                                new_indicador_actividad.producto = result_producto.data[0].id;
                                                                                 var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
                                                                                 result_indicador_actividad = result_indicador_actividad.data;
                                                                                 if (result_indicador_actividad) {
@@ -620,7 +634,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         await BASEAPI.insertIDp('lote_clonacion',{
                                             "departamento": lote_clonacion.departamento,
                                             "poa_desde": lote_clonacion.poa_desde,
-                                            "poa_destino": lote_clonacion.session.poa_id,
+                                            "poa_destino": lote_clonacion.poa_destino,
                                             "autor": lote_clonacion.session.usuario_id,
                                             "compania": lote_clonacion.session.compania_id,
                                             "institucion": lote_clonacion.session.institucion_id,
@@ -638,7 +652,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                     }
                                     SWEETALERT.stop();
                                     SWEETALERT.show({
-                                        message: "El proceso de transferencia a sido ejecutado con exito",
+                                        message: "El proceso de clonación a sido ejecutado con éxito",
                                         confirm: async function (){
 
                                             MODAL.close();
