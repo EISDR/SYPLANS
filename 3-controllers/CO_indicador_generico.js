@@ -1552,16 +1552,16 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.refreshAngular();
                 }
             };
-            indicador_generico.form.titles = {
-                new: "Nuevo Indicador - " + indicador_generico.entidadobj.name,
-                edit: "Editar Indicador - " + indicador_generico.entidadobj.name,
-                view: "Ver ALL Indicador - " + indicador_generico.entidadobj.name
-            };
             indicador_generico.triggers.table.after.close = function () {
                 indicador_generico.paso = true;
                 RUN_B("indicador_generico", indicador_generico, $scope, $http, $compile);
             };
             RUN_B("indicador_generico", indicador_generico, $scope, $http, $compile);
+            indicador_generico.form.titles = {
+                new: "Nuevo Indicador - " + indicador_generico.entidadobj.name,
+                edit: "Editar Indicador - " + indicador_generico.entidadobj.name,
+                view: "Ver ALL Indicador - " + indicador_generico.entidadobj.name
+            };
             if (indicador_generico.entidad == "vw_evento_indicador") {
                 if (indicador_generico2.evento_indicador.includes('r')) {
                     indicador_generico.form.readonly = {
