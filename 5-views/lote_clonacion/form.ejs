@@ -8,23 +8,6 @@
             <div class="panel-body">
                 <div class="row">
                     <div class='col-sm-4 col-md-4'>
-                        <%- FORM.select('departamento', scope, {
-                            // allownull: false,
-                            allownew: false,
-                            allowedit: false,
-                            allowview: false,
-                            allowlist: false,
-                            truelabel: "Departamento a copiar",
-                            text: "item.nombre +' - '+ item.estatus_nombre",
-                            // text: "item.nombre + ' ' + item.apellido",
-                            table: "vw_presupuesto_departamento_auth",
-                            field: "id",
-                            columns: ["departamento"],
-                            icon: {class:"archive"},
-                            condition: "((item.id > 0) && (item.poa == lote_clonacion.condiction) && (item.count_productos > 0))"
-                        }) %>
-                    </div>
-                    <div class='col-sm-4 col-md-4'>
                         <%- FORM.select('poa_desde', scope, {
                             // allownull: false,
                             allownew: false,
@@ -38,6 +21,23 @@
                             field: "id",
                             icon: {class:"archive"},
                             condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_destino"
+                        }) %>
+                    </div>
+                    <div class='col-sm-4 col-md-4'>
+                        <%- FORM.select('departamento', scope, {
+                            // allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
+                            truelabel: "Departamento a copiar",
+                            text: "item.nombre +' - '+ item.estatus_nombre",
+                            // text: "item.nombre + ' ' + item.apellido",
+                            table: "vw_presupuesto_departamento_auth",
+                            field: "id",
+                            columns: ["departamento"],
+                            icon: {class:"archive"},
+                            condition: "((item.id > 0) && (item.poa == lote_clonacion.poa_desde) && (item.count_productos > 0))"
                         }) %>
                     </div>
                 </div>
