@@ -290,6 +290,12 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             });
             metasIndiProductos = metasIndiProductos.data;
 
+            let caractIndiProductos = await BASEAPI.listp("caracteristica_indicador_poa", {
+                limit: 0,
+                where: [{field: "indicador_poa", value: indiProductosIDS}]
+            });
+            caractIndiProductos = caractIndiProductos.data;
+
             let indiActividades = await BASEAPI.listp("indicador_actividad", {
                 limit: 0,
                 where: [{field: "actividades_poa", value: activadaesIDS}]
@@ -303,6 +309,12 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             });
             metasIndiActividades = metasIndiActividades.data;
 
+            let caractIndiActividades = await BASEAPI.listp("caracteristica_indicador_actividad", {
+                limit: 0,
+                where: [{field: "indicador_actividad", value: indiActividadesIDS}]
+            });
+            caractIndiActividades = caractIndiActividades.data;
+
             let apoyo = await BASEAPI.listp("actividades_apoyo", {
                 limit: 0,
                 where: [{field: "actividades_poa", value: activadaesIDS}]
@@ -312,9 +324,11 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             let relations =
                 [
                     {child: apoyo, parent: activadaes, field: "actividades_poa", name: "mis_actividades_apoyo"},
+                    {child: caractIndiActividades, parent: indiActividades, field: "indicador_actividad", name: "mis_caracteristicas"},
                     {child: metasIndiActividades, parent: indiActividades, field: "indicador_actividad", name: "mis_metas"},
                     {child: indiActividades, parent: activadaes, field: "actividades_poa", name: "mis_indicadores"},
                     {child: involucrados_act, parent: activadaes, field: "actividad", name: "mis_involucrados"},
+                    {child: caractIndiProductos, parent: indiProductos, field: "indicador_poa", name: "mis_caracteristicas"},
                     {child: metasIndiProductos, parent: indiProductos, field: "indicador_poa", name: "mis_metas"},
                     {child: indiProductos, parent: productos, field: "producto", name: "mis_indicadores"},
                     {child: involucrados_prod, parent: productos, field: "producto", name: "mis_involucrados"},
@@ -323,7 +337,6 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 
             relations.forEach(relation => {
                 relation.child.forEach(item => {
-                    debugger
                     let current = relation.parent.filter(d => item[relation.field] == d.id)[0];
                     if (!current[relation.name])
                         current[relation.name] = [];
@@ -633,8 +646,9 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                         if (actividad.mis_indicadores) {
                                                                             for (let indicador_actividad of actividad.mis_indicadores) {
                                                                                 let new_indicador_actividad = DSON.OSO(indicador_actividad);
-                                                                                delete new_indicador_actividad.id
-                                                                                delete new_indicador_actividad.mis_metas
+                                                                                delete new_indicador_actividad.id;
+                                                                                delete new_indicador_actividad.mis_metas;
+                                                                                delete new_indicador_actividad.mis_caracteristicas;
                                                                                 new_indicador_actividad.actividades_poa = result_actividad.data[0].id;
                                                                                 new_indicador_actividad.producto = result_producto.data[0].id;
                                                                                 var result_indicador_actividad = await BASEAPI.insertIDp('indicador_actividad', new_indicador_actividad, '', '');
@@ -648,6 +662,14 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                                     delete new_meta.id
                                                                                                     new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
                                                                                                     await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
+                                                                                                }
+                                                                                            }
+                                                                                            if (indicador_actividad.mis_caracteristicas) {
+                                                                                                for (let caracteristica of indicador_actividad.mis_caracteristicas) {
+                                                                                                    let new_caracteristica = DSON.OSO(caracteristica);
+                                                                                                    delete new_caracteristica.id
+                                                                                                    new_caracteristica.indicador_actividad = result_indicador_actividad.data[0].id;
+                                                                                                    await BASEAPI.insertIDp('caracteristica_indicador_actividad', new_caracteristica, '', '');
                                                                                                 }
                                                                                             }
                                                                                         }
@@ -675,8 +697,9 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                     if (producto.mis_indicadores) {
                                                         for (let indicador_producto of producto.mis_indicadores) {
                                                             let new_indicador_producto = DSON.OSO(indicador_producto);
-                                                            delete new_indicador_producto.id
-                                                            delete new_indicador_producto.mis_metas
+                                                            delete new_indicador_producto.id;
+                                                            delete new_indicador_producto.mis_metas;
+                                                            delete new_indicador_producto.mis_caracteristicas;
                                                             new_indicador_producto.producto = result_producto.data[0].id;
                                                             var result_indicador_producto = await BASEAPI.insertIDp('indicador_poa', new_indicador_producto, '', '');
                                                             result_indicador_producto = result_indicador_producto.data;
@@ -689,6 +712,14 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                 delete new_meta.id
                                                                                 new_meta.indicador_poa = result_indicador_producto.data[0].id;
                                                                                 await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
+                                                                            }
+                                                                        }
+                                                                        if (indicador_producto.mis_caracteristicas) {
+                                                                            for (let caracteristica of indicador_producto.mis_caracteristicas) {
+                                                                                let new_caracteristica = DSON.OSO(caracteristica);
+                                                                                delete new_caracteristica.id
+                                                                                new_caracteristica.indicador_poa = result_indicador_producto.data[0].id;
+                                                                                await BASEAPI.insertIDp('caracteristica_indicador_poa', new_caracteristica, '', '');
                                                                             }
                                                                         }
                                                                     }
