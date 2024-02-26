@@ -593,6 +593,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                         let new_producto = DSON.OSO(producto);
                                         delete new_producto.mis_actividades
                                         delete new_producto.mis_indicadores
+                                        delete new_producto.mis_involucrados
                                         delete new_producto.id
                                         new_producto.poa = lote_clonacion.poa_destino;
                                         new_producto.presupuesto_aprobado = lote_clonacion.prespuesto_aprobado.id;
@@ -608,6 +609,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                             let new_actividad = DSON.OSO(actividad);
                                                             delete new_actividad.mis_actividades_apoyo
                                                             delete new_actividad.mis_indicadores
+                                                            delete new_actividad.mis_involucrados
                                                             delete new_actividad.id
                                                             new_actividad.poa = lote_clonacion.poa_destino;
                                                             new_actividad.producto = result_producto.data[0].id;
@@ -729,7 +731,9 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                 "field": "id",
                                                 "value": lote_clonacion.id
                                             }]
-                                        })
+                                        }, function(result){
+
+                                        });
                                     }
                                     SWEETALERT.stop();
                                     SWEETALERT.show({
