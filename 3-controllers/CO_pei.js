@@ -381,7 +381,7 @@ app.controller("pei", function ($scope, $http, $compile) {
                     } else if (pei.selected_periodo.length > 0) {
                         SWEETALERT.show({message: `Ya existe un periodo PEI dentro del rango especificado nombre: ` + pei.selected_periodo[0].nombre + ", periodo desde: " + pei.selected_periodo[0].periodo_desde + ", periodo hasta: " + pei.selected_periodo[0].periodo_hasta});
                         pei.res = false;
-                    } else if ((pei.old_periodo_desde != pei.periodo_desde || pei.old_periodo_hasta != pei.periodo_hasta) && pei.haspoa) {
+                    } else if ((pei.periodo_desde > pei.old_periodo_desde  || pei.periodo_hasta < pei.old_periodo_hasta ) && pei.haspoa) {
                         pei.periodo_desde = pei.old_periodo_desde;
                         pei.periodo_hasta = pei.old_periodo_hasta;
                         $('[name="periodo_desde"]').trigger('change');
@@ -436,6 +436,26 @@ app.controller("pei", function ($scope, $http, $compile) {
             });
 
 
+            pei.checkPOA = async function (){
+                //esta funcion no se usa en ningun lado
+                let avaliable_poas = 1;
+                let poa_between = await BASEAPI.listp('poa',{
+                    limit: 0,
+                    where: [
+                        {
+                            field: "periodo_poa",
+                            operator: "BETWEEN",
+                            value: `$ ${pei.periodo_desde} and ${pei.periodo_hasta}`
+                        }
+                    ]
+                });
+                poa_between = poa_between.data;
+
+                for (let i = pei.periodo_desde; i < pei.periodo_hasta; i++) {
+                    avaliable_poas++;
+                }
+               return !!(poa_between && poa_between.length == avaliable_poas);
+            }
         }
     };
 });
