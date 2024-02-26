@@ -653,6 +653,17 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                 }
                                                                             }
                                                                         }
+                                                                        if (actividad.mis_involucrados) {
+                                                                            for (let involucrado of actividad.mis_involucrados) {
+                                                                                let new_involucrado = DSON.OSO(involucrado);
+                                                                                delete new_involucrado.id
+                                                                                delete new_involucrado.actividad
+                                                                                new_involucrado.actividad = result_actividad.data[0].id;
+                                                                                var result_involucrado_actividad = await BASEAPI.insertIDp('actividades_poa_involucrado', new_involucrado, '', '');
+                                                                                result_involucrado_actividad = result_involucrado_actividad.data;
+                                                                                console.log(result_involucrado_actividad);
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -682,6 +693,17 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                 }
                                                                 console.log(result_indicador_producto);
                                                             }
+                                                        }
+                                                    }
+                                                    if (producto.mis_involucrados) {
+                                                        for (let involucrado of producto.mis_involucrados) {
+                                                            let new_involucrado = DSON.OSO(involucrado);
+                                                            delete new_involucrado.id
+                                                            delete new_involucrado.producto
+                                                            new_involucrado.producto = result_producto.data[0].id;
+                                                            var result_involucrado_producto = await BASEAPI.insertIDp('prudcto_involucrado', new_indicador_producto, '', '');
+                                                            result_involucrado_producto = result_involucrado_producto.data;
+                                                            console.log(result_involucrado_producto);
                                                         }
                                                     }
                                                 }
