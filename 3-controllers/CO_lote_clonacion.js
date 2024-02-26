@@ -701,7 +701,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                             delete new_involucrado.id
                                                             delete new_involucrado.producto
                                                             new_involucrado.producto = result_producto.data[0].id;
-                                                            var result_involucrado_producto = await BASEAPI.insertIDp('prudcto_involucrado', new_indicador_producto, '', '');
+                                                            var result_involucrado_producto = await BASEAPI.insertIDp('prudcto_involucrado', new_involucrado, '', '');
                                                             result_involucrado_producto = result_involucrado_producto.data;
                                                             console.log(result_involucrado_producto);
                                                         }
