@@ -118,6 +118,40 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
         lote_clonacion.producto_list = lote_clonacion.producto_list.data;
         lote_clonacion.actividades_list = await BASEAPI.listp("vw_actividades_poa_slim_compania", {limit: 0, where: [{field: "compania", value: lote_clonacion.session.compania_id}]});
         lote_clonacion.actividades_list = lote_clonacion.actividades_list.data;
+        if (CONFIG.mysqlactive){
+            lote_clonacion.edt_registros = await BASEAPI.listp("vw_actividades_edt_nombre", {
+                limit: 0,
+                where: [
+                    {
+                        field: "compania",
+                        value: lote_clonacion.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": lote_clonacion.session.institucion_id ? "=" : "is",
+                        "value":  lote_clonacion.session.institucion_id ?  lote_clonacion.session.institucion_id : "$null"
+                    }
+                ]
+            });
+            lote_clonacion.edt_registros = lote_clonacion.edt_registros.data;
+        }else{
+            lote_clonacion.edt_registros = await BASEAPI.listp("vw_actividades_edt_nombre_parareport", {
+                limit: 0,
+                where: [
+                    {
+                        field: "compania",
+                        value: lote_clonacion.session.compania_id
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": lote_clonacion.session.institucion_id ? "=" : "is",
+                        "value":  lote_clonacion.session.institucion_id ?  lote_clonacion.session.institucion_id : "$null"
+                    }
+                ]
+            });
+            lote_clonacion.edt_registros = lote_clonacion.edt_registros.data;
+        }
+
 
         lote_clonacion.fixDates = (item) => {
             item.fecha_fin = moment(lote_clonacion.session.periodo_poa + "-12-31").format('YYYY-MM-DD');
@@ -224,12 +258,24 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
             productos = productos.data;
             let productosIDS = productos.map(d => d.id);
 
+            let involucrados_prod = await BASEAPI.listp("prudcto_involucrado", {
+                limit: 0,
+                where: [{field: "producto", value: productosIDS}, { field: "involucrado", operator: "is", value: "$not null"}]
+            });
+            involucrados_prod = involucrados_prod.data;
+
             let activadaes = await BASEAPI.listp("actividades_poa", {
                 limit: 0,
                 where: [{field: "producto", value: productosIDS}]
             });
             activadaes = activadaes.data;
             let activadaesIDS = activadaes.map(d => d.id);
+
+            let involucrados_act = await BASEAPI.listp("actividades_poa_involucrado", {
+                limit: 0,
+                where: [{field: "actividad", value: activadaesIDS}, { field: "involucrado", operator: "is", value: "$not null"}]
+            });
+            involucrados_act = involucrados_act.data;
 
             let indiProductos = await BASEAPI.listp("indicador_poa", {
                 limit: 0,
@@ -268,13 +314,16 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     {child: apoyo, parent: activadaes, field: "actividades_poa", name: "mis_actividades_apoyo"},
                     {child: metasIndiActividades, parent: indiActividades, field: "indicador_actividad", name: "mis_metas"},
                     {child: indiActividades, parent: activadaes, field: "actividades_poa", name: "mis_indicadores"},
+                    {child: involucrados_act, parent: activadaes, field: "actividad", name: "mis_involucrados"},
                     {child: metasIndiProductos, parent: indiProductos, field: "indicador_poa", name: "mis_metas"},
                     {child: indiProductos, parent: productos, field: "producto", name: "mis_indicadores"},
+                    {child: involucrados_prod, parent: productos, field: "producto", name: "mis_involucrados"},
                     {child: activadaes, parent: productos, field: "producto", name: "mis_actividades"},
                 ];
 
             relations.forEach(relation => {
                 relation.child.forEach(item => {
+                    debugger
                     let current = relation.parent.filter(d => item[relation.field] == d.id)[0];
                     if (!current[relation.name])
                         current[relation.name] = [];
@@ -494,6 +543,8 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 return;
             }
 
+
+
             if (lote_clonacion.poa_destino_object === ENUM_2.poa_estatus.Cerrado){
                 SWEETALERT.show({type: "error", message: "El POA destino está cerrado, no se puede proceder con el proceso de clonación"})
             }else {
@@ -512,6 +563,14 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                     }]
                 });
                 lote_clonacion.prespuesto_aprobado_viejo = lote_clonacion.prespuesto_aprobado_viejo.data
+
+                if (lote_clonacion.prespuesto_aprobado.length === 0) {
+                    SWEETALERT.show({
+                        type: "error",
+                        message: `<p>No se puede llevar a cabo el proceso de clonación debido a que el departamento: <strong style="text-transform: uppercase">"${lote_clonacion.departamento_object.nombre}"</strong> no tiene un presupuesto asignado para el año POA: <strong>"${lote_clonacion.poa_destino_object.nombre}"</strong></p>`
+                    });
+                    return;
+                }
 
                 if (lote_clonacion.prespuesto_aprobado[0].valor < lote_clonacion.prespuesto_aprobado_viejo[0].presupuesto_asignado){
                     SWEETALERT.show({
@@ -779,6 +838,37 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
 
         lote_clonacion.myfuncion = function (departamento) {
             console.log(departamento)
+        }
+
+        lote_clonacion.show_edt = function (row, type, key) {
+            if(lote_clonacion.edt_registros && lote_clonacion.edt_registros.length > 0){
+                if (type == 'producto'){
+                    let this_edt =  lote_clonacion.edt_registros.filter(d => {
+                        return d.producto == row.id;
+                    })
+                    return this_edt[0].no_productos_poa;
+                }else if (type == 'actividad'){
+                    let this_edt =  lote_clonacion.edt_registros.filter(d => {
+                        return d.id == row.id;
+                    })
+                    return this_edt[0].no_actividades_poa;
+                }else if (type == 'actividad_apoyo'){
+                    let this_edt =  lote_clonacion.edt_registros.filter(d => {
+                        return d.id == row.actividades_poa;
+                    })
+                    return this_edt[0].no_actividades_poa + '.' + (key+1);
+                }else if (type == 'indicador_producto'){
+                    let this_edt =  lote_clonacion.edt_registros.filter(d => {
+                        return d.producto == row.producto;
+                    })
+                    return this_edt[0].no_productos_poa + '.' + (key+1);
+                }else if (type == 'indicador_actividad'){
+                    let this_edt =  lote_clonacion.edt_registros.filter(d => {
+                        return d.id == row.actividades_poa;
+                    })
+                    return this_edt[0].no_actividades_poa + '.' + (key+1);
+                }
+            }
         }
     }
     ready();
