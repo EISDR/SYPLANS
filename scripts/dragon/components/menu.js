@@ -58,11 +58,18 @@ MENU = {
     },
     setActive: function (link) {
         let links_var = ['riesgo?vw_productos_poa_detalles', 'riesgo?vw_resultado', 'riesgo?vw_objetivo_estrategico_e','riesgo?vw_actividades_poa','riesgo?vw_proyecto_item' ]
+        let links_plan_var = ['riesgo?[NULL]?plan?create', 'riesgo?vw_resultado?plan?create', 'riesgo?vw_objetivo_estrategico_e?plan?create','riesgo?vw_actividades_poa?plan?create','riesgo?vw_proyecto_item?plan?create' ]
+        let links_work_plan_var = ['riesgo?[NULL]?plan', 'riesgo?vw_resultado?plan', 'riesgo?vw_objetivo_estrategico_e?plan','riesgo?vw_actividades_poa?plan','riesgo?vw_proyecto_item?plan' ]
         var rurl = location.href.split('#');
         rurl = rurl.length > 1 ? rurl[1] : "";
         link = link || rurl;
         if (links_var.indexOf(link) !== -1)
             link = 'riesgo?[NULL]';
+        else if(links_plan_var.indexOf(link) !== -1)
+            link = 'riesgo?vw_productos_poa_detalles?plan?create';
+        else if(links_work_plan_var.indexOf(link) !== -1)
+            link = 'riesgo?vw_productos_poa_detalles?plan';
+
         $(".dragon-menu li").removeClass('active');
         var a = $('.dragon-menu a[href="#' + link + '"]:eq(0)');
         document.title = `${CONFIG.appName} - ${MENU.language(a.find('span:eq(0)').html()) || capitalize(link)}`;
