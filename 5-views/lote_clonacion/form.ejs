@@ -100,6 +100,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th style="max-width: 10% !important">Resultado Esperado</th>
+                            <th>No. del producto/proyecto</th>
                             <th>Nombre del producto/proyecto</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th style="width: 20%">Departamento</th>
@@ -120,6 +121,7 @@
                                     </select>
                                 </div>
                             </td>
+                            <td>{{lote_clonacion.show_edt(row,'producto')}}</td>
                             <td>{{row.nombre}}</td>
                             <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
                             <td>
@@ -163,6 +165,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th style="width: 15%">Producto/Proyecto</th>
+                            <th>No. de la actividad</th>
                             <th>Nombre de la actividad</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
@@ -185,6 +188,7 @@
                                     </select>
                                 </div>
                             </td>
+                            <td>{{lote_clonacion.show_edt(row,'actividad');}}</td>
                             <td>{{row.nombre}}</td>
                             <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
                             <td>
@@ -238,6 +242,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th style="width: 15%">Producto/Proyecto</th>
+                            <th>No. del indicador</th>
                             <th>Nombre del indicador</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
@@ -259,6 +264,7 @@
                                     </select>
                                 </div>
                             </td>
+                            <td>{{lote_clonacion.show_edt(row,'indicador_producto', key)}}</td>
                             <td>{{row.nombre}}</td>
                             <td>{{row.ano_linea_base}}</td>
                             <td>{{row.medio_verificacion}}</td>
@@ -277,6 +283,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
+                            <th>No. de la actividad de apoyo</th>
                             <th>Nombre de la actividad de apoyo</th>
                             <th>Fecha Inicio/Fecha Fin</th>
                             <th>Departamento</th>
@@ -298,6 +305,7 @@
                                     </select>
                                 </div>
                             </td>
+                            <td>{{lote_clonacion.show_edt(row,'actividad_apoyo', key)}}</td>
                             <td>{{row.nombre}}</td>
                             <td>{{lote_clonacion.format_date(row.fecha_inicio) + ' - ' + lote_clonacion.format_date(row.fecha_fin)}}</td>
                             <td>
@@ -331,6 +339,7 @@
                         <thead class="">
                         <tr class="bg-secundary">
                             <th>Actividad</th>
+                            <th>No. del indicador</th>
                             <th>Nombre del indicador</th>
                             <th>Año línea base</th>
                             <th>Medio de verificación</th>
@@ -342,6 +351,7 @@
                         <tbody>
                         <tr ng-repeat="(key,row) in lote_clonacion.repeatIndicadoresA">
                             <td>{{row.actividades_poa}}</td>
+                            <td>{{lote_clonacion.show_edt(row,'indicador_actividad', key)}}</td>
                             <td>{{row.nombre}}</td>
                             <td>{{row.ano_linea_base}}</td>
                             <td>{{row.medio_verificacion}}</td>
@@ -412,6 +422,5 @@
         </ul>
     </div>
 </div>
-
 
 
