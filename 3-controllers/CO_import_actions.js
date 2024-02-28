@@ -116,6 +116,17 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                 let tablename = d;
                                 if (tablesRunned.indexOf(tablename) == -1) {
                                     let records = sheets[d];
+                                    records = records.filter(Boolean)
+                                    records.forEach(object => {
+                                        // Recorre cada propiedad del objeto
+                                        Object.keys(object).forEach(key => {
+                                            // Si la propiedad es "undefined", elimínala
+                                            if (key === "undefined") {
+                                                delete object[key];
+                                            }
+                                        });
+                                    });
+                                    records = records.filter(object => Object.keys(object).length > 0);
                                     if (records)
                                         if (records.length) {
                                             let columnsReal = mapping[d];
