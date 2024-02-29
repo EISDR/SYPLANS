@@ -50,6 +50,7 @@
           "modal": "",
           "icon": "list3",
           "href": "#",
+          "condition": "CONFIGCOMPANY.ods",
           "text": "Cuadro de Mando ODS"
         },
         {
@@ -224,6 +225,7 @@
           "modal": "",
           "icon": "list3",
           "href": "#",
+          "condition": "CONFIGCOMPANY.ods",
           "text": "Cuadro de Mando ODS"
         },
         {

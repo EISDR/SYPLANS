@@ -514,6 +514,42 @@
         },
         {
           "modal": "",
+          "icon": "flag3",
+          "href": "#",
+          "condition": "CONFIGCOMPANY.opcion_ods",
+          "text": "Objetivos de Desarrollo Sostenible",
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "lifebuoy",
+              "href": "#ods",
+              "text": "Creación Objetivos de Desarrollo Sostenible"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#indicador_generico?vw_mods",
+              "text": "Creación Indicadores ODS"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?ipn",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
+            }
+          ]
+        },
+        {
+          "modal": "",
           "icon": "package",
           "href": "#reporte_indicadores?pei_poa",
           "text": "Histórico de Indicadores"
@@ -939,9 +975,104 @@
           "text": "Configuración"
         },
         {
+          "menus": [
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "fan",
+              "href": "#end",
+              "text": "Estrategia Nacional de Desarrollo 2030"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "flag3",
+              "href": "#ods",
+              "text": "Objetivos de Desarrollo Sostenible"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "calendar3",
+              "href": "#pnpsp",
+              "text": "Plan Nacional Plurianual del Sector Público"
+            },
+            {
+              "menus": "",
+              "modal": "",
+              "icon": "balance",
+              "href": "#politica_gobierno",
+              "text": "Política de Gobierno"
+            },
+            {
+              "menus": [
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#aacontroldemandog?-pnpsp",
+                  "text": "Cumplimiento IPN"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#indicador_generico?vw_denominacion_pnpsp_gg",
+                  "text": "Crear Indicador IPN"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#monitoreo_generico?vw_denominacion_pnpsp_gg",
+                  "text": "Monitoreo y Seguimiento"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#indicador_generico_poa?vw_denominacion_pnpsp_gg",
+                  "text": "Evaluación y carga de evidencias"
+                },
+                {
+                  "menus": "",
+                  "modal": "",
+                  "icon": "pie-chart7",
+                  "href": "#aacontroldemandog?modolista-pnpsp",
+                  "text": "Reporte Cumplimiento IPN"
+                }
+              ],
+              "modal": "",
+              "icon": "pie-chart7",
+              "href": "#",
+              "condition": "CONFIGCOMPANY.ipn",
+              "text": "Indicadores IPN"
+            },
+            {
+              "menus": [
+                {
+                  "icon": "meter2",
+                  "href": "#reporte_indicador_config?ipn",
+                  "text": "Configurar Cumplimiento Indicadores"
+                }
+              ],
+              "modal": "",
+              "icon": "graduation2",
+              "href": "#",
+              "text": "Configuración"
+            }
+          ],
+          "modal": "",
+          "icon": "design",
+          "href": "#",
+          "condition": "CONFIGCOMPANY.instrumentos",
+          "text": "Instrumentos de Planificación Nacional"
+        },
+        {
           "modal": "",
           "icon": "flag3",
           "href": "#",
+          "condition": "CONFIGCOMPANY.opcion_ods",
           "text": "Objetivos de Desarrollo Sostenible",
           "menus": [
             {

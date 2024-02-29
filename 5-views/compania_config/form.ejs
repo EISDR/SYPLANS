@@ -31,9 +31,12 @@
                             <%- FORM.checkbox('institucional', scope, {}, 'Permite Instituciones?') %>
                         </div>
                         <div class='col-sm-3 col-md-3'>
-                            <%- FORM.checkbox('notificaciones', scope, {}, 'Notificaciones') %>
+                            <%- FORM.checkbox('carga_evidencia_abierta', scope, {}, 'Carga de Evidencias Periodos Abiertos.') %>
                         </div>
                         <div class='col-sm-12 col-md-12'><br><br></div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('notificaciones', scope, {}, 'Notificaciones') %>
+                        </div>
                         <div  style="margin: unset" ng-show="<%= scope %>.notificaciones">
                             <div class='col-sm-3 col-md-3'>
                                 <%- FORM.integer('dias_de_gracia', scope, {
@@ -101,9 +104,6 @@
                         <div class='col-sm-3 col-md-2'>
                             <%- FORM.checkbox('asignaciones_especiales', scope, {}, 'Asignaciones Especiales') %>
                         </div>
-                        <div class='col-sm-3 col-md-3'>
-                            <%- FORM.checkbox('instrumentos', scope, {}, 'Instrumentos de Planificación Nacional') %>
-                        </div>
                         <div class='col-sm-3 col-md-2'>
                             <%- FORM.checkbox('sectorial', scope, {}, 'Sectorial') %>
                         </div>
@@ -155,17 +155,14 @@
             <div class="row" style="margin: unset">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
-                        <h3 class="text-primary">Indicadores</h3>
+                        <h3 class="text-primary">Instrumentos de Planificación Nacional</h3>
                     </div>
                     <div class="panel-body">
                         <div class='col-sm-3 col-md-3'>
-                            <%- FORM.checkbox('ipn', scope, {}, 'Instrumentos de Planificación Nacional') %>
+                            <%- FORM.checkbox('instrumentos', scope, {}, 'Opción Instrumentos de Planificación Nacional') %>
                         </div>
                         <div class='col-sm-3 col-md-3'>
-                            <%- FORM.checkbox('gestion_indicadores', scope, {}, 'Gestión de Indicadores Genéricos') %>
-                        </div>
-                        <div class='col-sm-3 col-md-3'>
-                            <%- FORM.checkbox('carga_evidencia_abierta', scope, {}, 'Carga de Evidencias Periodos Abiertos.') %>
+                            <%- FORM.checkbox('ipn', scope, {}, 'Indicadores Instrumentos de Planificación Nacional') %>
                         </div>
                     </div>
                 </div>
@@ -198,6 +195,9 @@
                         <div class='col-sm-3 col-md-3'>
                             <%- FORM.checkbox('formularios', scope, {}, 'Formularios') %>
                         </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('gestion_indicadores', scope, {}, 'Gestión de Indicadores Genéricos') %>
+                        </div>
                         <div class='col-sm-12 col-md-12'><br><br></div>
                         <div class='col-sm-3 col-md-3'>
                             <%- FORM.checkbox('reporte_configurable', scope, {}, 'Reporte Configurable') %>
@@ -211,7 +211,7 @@
             <div class="row" style="margin: unset">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
-                        <h3 class="text-primary">ODS</h3>
+                        <h3 class="text-primary">Objetivo de Desarrollo Sostenible</h3>
                     </div>
                     <div class="panel-body">
                         <div class='col-sm-3 col-md-3'>
@@ -219,6 +219,9 @@
                         </div>
                         <div class='col-sm-3 col-md-3'>
                             <%- FORM.checkbox('plantillas_ods', scope, {}, 'Plantillas para los ODS') %>
+                        </div>
+                        <div class='col-sm-3 col-md-3'>
+                            <%- FORM.checkbox('opcion_ods', scope, {}, 'Opción Objetivo de Desarrollo Sostenible') %>
                         </div>
                     </div>
                 </div>
