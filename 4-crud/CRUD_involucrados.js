@@ -53,7 +53,7 @@ DSON.keepmerge(CRUD_involucrados, {
                 }
             },
             correo: {},
-            Involucrados_tipo_nombre: {
+            involucrados_tipo_nombre: {
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 exportKey: 'tipo',
