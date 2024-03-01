@@ -130,6 +130,7 @@
           "modal": "",
           "icon": "flag3",
           "href": "#",
+          "condition": "CONFIGCOMPANY.ods",
           "text": "Objetivos de Desarrollo Sostenible"
         },
         {
@@ -305,6 +306,7 @@
           "modal": "",
           "icon": "flag3",
           "href": "#",
+          "condition": "CONFIGCOMPANY.ods",
           "text": "Objetivos de Desarrollo Sostenible"
         },
         {
