@@ -281,8 +281,25 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         }
         modulo_formulario.get_head_value = (head_key, value) => {
             if (modulo_formulario.respuestas_data && modulo_formulario.respuestas_data.length > 0) {
-                const valorAretornar = modulo_formulario.respuestas_data[head_key][value];
-                return Array.isArray(valorAretornar) ? valorAretornar.join(', ') : valorAretornar;
+                const rawValue = modulo_formulario.respuestas_data[head_key][value];
+                debugger
+                if (Array.isArray(rawValue)) {
+                    return rawValue.join(', ');
+                } else if (moment(rawValue, moment.ISO_8601, true).isValid()) {
+                    // Si es una fecha en formato ISO 8601, devolverla formateada
+                    return moment(rawValue).format('DD/MM/YYYY');
+                } else if (typeof rawValue === 'number') {
+                    // Formatear número como valor monetario (ej. $123.45)
+                    return `$${rawValue.toFixed(2)}`;
+                } else if (typeof rawValue === 'boolean') {
+                    // Devolver 'Sí' o 'No' para valores booleanos
+                    return rawValue ? 'Sí' : 'No';
+                } else if (Number.isInteger(rawValue)) {
+                    // Devolver número entero sin cambios
+                    return rawValue.toString();
+                } else {
+                    return rawValue;
+                }
             } else {
                 return '';
             }
