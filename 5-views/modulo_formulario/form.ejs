@@ -327,14 +327,86 @@
                 </div>
             </div>
             <div class="tab-pane" id="respuestas">
-                <div class='col-sm-12 col-md-12'>
-                    <%- FORM.relation("respuestas", scope, {
-                        table: "modulo_formulario_registro",
-                        field: "modulo_formulario",
-                        master: null,
-                        icon: {class: "archive"}
-                    }) %>
+                <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                    <!--Breadcrumb and Table Options-->
+                    <div class="breadcrumb-line">
+                        <ul class="breadcrumb visible-lg visible-md" dragonlanguage="" style="z-index: 1000">
+                            <li class="active">
+                                <a data-function="menu" href="javascript:void(0)">
+                                    <i class="{{<%= scope %>.MENU.menu.icon}} position-left"></i>
+                                    Respuestas
+                                </a>
+
+                            </li>
+                        </ul>
+
+                        <ul class="breadcrumb-elements visible-elements" style="margin-right: -20px;">
+                            <li class="dropdown"
+                                dragonlanguage="">
+                                <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <i dragonlanguage="" title="MESSAGE.i('mono.Exportas')" class=" icon-database-export "></i>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a ng-click="modulo_formulario.exportPDF()"> <i class="icon-file-pdf"></i>PDF</a></li>
+                                    <li><a ng-click="modulo_formulario.exportXLS()"><i class="icon-file-excel"></i>XLS</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a ng-click="modulo_formulario.refresh_resuestas()" class="legitRipple" id="refreshBtn">
+                                    <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')" class="icon-rotate-cw3 loadingButton"></i> 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Breadcrumb and Table Options-->
                 </div>
+
+                <table id="datashow" class="table-responsive table table-striped  table-togglable table-framed sindu-table dragon-table">
+                    <thead class="bg-<%= COLOR.secundary %>">
+                    <tr>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white " ng-repeat="(key,value) in modulo_formulario.respuestas_data_head">{{value}}</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Fecha</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">IP</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Usuario</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Origen</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Navegador</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in modulo_formulario.respuestas_cabeza">
+                        <td rowspan="" ng-repeat="(body_key,body_row) in modulo_formulario.respuestas_data_head">{{modulo_formulario.get_head_value(key,body_row)}}</td>
+                        <td rowspan="">{{modulo_formulario.format_date(row.fecha)}}</td>
+                        <td rowspan="">{{row.ip}}</td>
+                        <td rowspan="">{{modulo_formulario.return_userName(row.usuario)}}</td>
+                        <td rowspan="">{{row.origen}}</td>
+                        <td rowspan="">{{row.browser}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="dataexport" class="table table-bordered" style="display: none">
+                    <thead class="bg-<%= COLOR.secundary %>">
+                    <tr>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white " ng-repeat="(key,value) in modulo_formulario.respuestas_data_head">{{value}}</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Fecha</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">IP</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Usuario</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Origen</th>
+                        <th style="background-color: #<%= CONFIG.ui.theme.secundary %>; border-color: #<%= CONFIG.ui.theme.secundary %>; color: white ">Navegador</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,row) in modulo_formulario.respuestas_cabeza">
+                        <td rowspan="" ng-repeat="(body_key,body_row) in modulo_formulario.respuestas_data_head">{{modulo_formulario.get_head_value(key,body_row)}}</td>
+                        <td rowspan="">{{modulo_formulario.format_date(row.fecha)}}</td>
+                        <td rowspan="">{{row.ip}}</td>
+                        <td rowspan="">{{modulo_formulario.return_userName(row.usuario)}}</td>
+                        <td rowspan="">{{row.origen}}</td>
+                        <td rowspan="">{{row.browser}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="tab-pane" id="enviar">
             </div>

@@ -120,7 +120,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                     edit: "Editar Formulario",
                     view: "Ver Formulario"
                 };
-                modulo_formulario.createForm(data, mode, defaultData, undefined, (data) => {
+                modulo_formulario.createForm(data, mode, defaultData, undefined, async (data) => {
                     try {
                         if (mode === "new") {
                             modulo_formulario.config = {fields: [], filters: [], indicadores: []};
@@ -142,6 +142,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                                 }
                             }
                         }
+                        await modulo_formulario.refresh_resuestas();
                     } catch (e) {
                         console.log(e);
                         modulo_formulario.config = {fields: [], filters: [], indicadores: []};
@@ -197,6 +198,94 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         modulo_formulario.refreshAngular();
         modulo_formulario.calculate = (row, configuration, records) => {
             return "Programando";
+        };
+        modulo_formulario.refresh_resuestas = async function () {
+            new ANIMATION().loading(
+                "#respuestas",
+                MESSAGE.ic('mono.refresing'),
+                ".loadingButton", 140
+            );
+            modulo_formulario.usuarios_list = await BASEAPI.listp('vw_usuario', {
+                limit: 0,
+                where: [
+                    {
+                        "field": "compania",
+                        "value": modulo_formulario.session ? modulo_formulario.session.compania_id : -1
+                    },
+                    {
+                        "field": "institucion",
+                        "operator": modulo_formulario.session.institucion_id ? "=" : "is",
+                        "value": modulo_formulario.session ? modulo_formulario.session.institucion_id ? modulo_formulario.session.institucion_id : "$null" : -1
+                    }
+                ]
+            });
+            modulo_formulario.usuarios_list =  modulo_formulario.usuarios_list.data;
+            modulo_formulario.respuestas_cabeza = (await BASEAPI.listp('modulo_formulario_registro', {
+                limit: 0,
+                where: [
+                    {
+                        field: "modulo_formulario",
+                        value: modulo_formulario.id
+                    }
+                ]
+            })).data;
+
+            if (modulo_formulario.respuestas_cabeza && modulo_formulario.respuestas_cabeza.length > 0) {
+                modulo_formulario.respuestas_data = modulo_formulario.respuestas_cabeza.map(i => JSON.parse(i.respuestas));
+
+                if (modulo_formulario.respuestas_data.length > 0) {
+                    let allKeys = modulo_formulario.respuestas_data.reduce((acc, obj) => {
+                        Object.keys(obj).forEach(key => {
+                            if (!acc.includes(key)) {
+                                acc.push(key);
+                            }
+                        });
+                        return acc;
+                    }, []);
+                    modulo_formulario.respuestas_data_head = allKeys.filter(item => item !== '$$hashKey');
+                }
+            }
+            new ANIMATION().stoploading(
+                "#respuestas",
+                ".loadingButton"
+            );
+        }
+        modulo_formulario.exportXLS = function () {
+            var url = $("#dataexport").excelexportjs({
+                containerid: "dataexport",
+                datatype: 'table',
+                worksheetName: `Respuestas del Formulario: ${modulo_formulario.nombre}`,
+                returnUri: true
+            });
+            DOWNLOAD.excel(`Respuestas del Formulario  ${modulo_formulario.nombre}`, url);
+        };
+
+        modulo_formulario.exportPDF = function () {
+            $("#datashow").printThis({
+                importCSS: false,                // import parent page css
+                loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                printDelay: 333,
+            });
+        }
+        modulo_formulario.format_date = function (value){
+            return LAN.datetime(value);
+        }
+        modulo_formulario.return_userName = function (value){
+            if (modulo_formulario.usuarios_list && modulo_formulario.usuarios_list.length > 0) {
+                let usuario = modulo_formulario.usuarios_list.filter(d => {
+                    return d.id === value
+                })[0];
+                return usuario ? usuario.completo : 'Anonimo';
+            }
+            return '';
+        }
+        modulo_formulario.get_head_value = (head_key, value) => {
+            if (modulo_formulario.respuestas_data && modulo_formulario.respuestas_data.length > 0) {
+                const valorAretornar = modulo_formulario.respuestas_data[head_key][value];
+                return Array.isArray(valorAretornar) ? valorAretornar.join(', ') : valorAretornar;
+            } else {
+                return '';
+            }
         };
     }
     ready();

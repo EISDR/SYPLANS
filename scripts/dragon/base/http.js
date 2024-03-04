@@ -15,6 +15,24 @@ HTTP = function () {
         }
         return newobj;
     };
+    this.hrefToMulObj = function () {
+        var newobj = {};
+        var url = location.href.split("?");
+        if (url) {
+            for (var j in url) {
+                var queries = url[j].split("&");
+                for (var i in queries) {
+                    var values = queries[i].split("=");
+                    if (values.length > 1) {
+                        var key = values[0];
+                        var value = values[1];
+                        eval(`newobj.${key} = value`);
+                    }
+                }
+            }
+        }
+        return newobj;
+    };
     this.objToQuery = function (obj) {
         var str = [];
         for (var p in obj)
