@@ -4,6 +4,7 @@ app.controller("auth", function ($scope, $http, $compile) {
     RUN_B("auth", auth, $scope, $http, $compile);
     var http = new HTTP();
     auth.queries = http.hrefToObj();
+    auth.isView = http.hrefToMulObj();
     auth.IP = "0";
     // $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
     //     auth.IP = data.ip;
@@ -66,6 +67,36 @@ app.controller("auth", function ($scope, $http, $compile) {
                     {field: "modulo_formulario", value: formID}
                 ]
             });
+            if (auth.isView.view == "true"){
+                if (formID) {
+                    baseController.formulario = await BASEAPI.firstp('modulo_formulario', {
+                        where: [{value: formID}]
+                    });
+                    baseController.formulario.registro = {};
+                    try {
+                        baseController.formulario.config = JSON.parse(baseController.formulario.config);
+                    } catch (e) {
+                        baseController.formulario.config = {fields: []};
+                    }
+                    if (baseController.formulario)
+                        if (baseController.formulario.config)
+                            if (baseController.formulario.config.fields)
+                                if (baseController.formulario.config.fields.length) {
+                                    baseController.formulario.config.fields.forEach(d => {
+                                        if (d.tipo === "lista" || d.tipo === "lista múltiple") {
+                                            d.realOptions = [...new Set((d.config.options || '').split(','))];
+                                        }
+                                    });
+                                }
+                } else {
+                    baseController.formulario.registro = {};
+                    baseController.formulario.nombre = "404: Este formulario no existe o fue eliminado.";
+                }
+                baseController.formulario.en_view = true;
+                baseController.refreshAngular();
+                SWEETALERT.stop();
+                return;
+            }
             if (yalolleno) {
                 baseController.formulario.registro = {};
                 baseController.formulario.nombre = `Hola ${baseController.session.fullName()}, gracias por haber llenado este formulario, estaremos trabajando en tus opiniones.`;
