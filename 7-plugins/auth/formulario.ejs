@@ -191,6 +191,16 @@ FORM = {
 };
 %>
 <div id="<%= scope %>" ng-controller="<%= scope %> as <%= scope %>">
+    <div class="col-lg-12 text-right" ng-show="baseController.formulario.en_view" style="margin-top: 20px; z-index: 999999">
+        <button title="Atrás"
+                ng-click="<%= scope %>.goHome_formulario();"
+                type="button"
+                class="btn bg-info btn-xs"
+                id="backBTN">
+            <i class="icon-arrow-left7"></i>
+            Atrás
+        </button>
+    </div>
     <div class="panel panel-default" ng-show="baseController.formulario.en_view">
         <div class="panel-body">
             <div class="row">
@@ -231,6 +241,9 @@ FORM = {
                     <input ng-if="field.tipo==='fecha'" type="date" class="form-control"
                            ng-model="baseController.formulario.registro[field.field]"
                            placeholder="Seleccione {{field.field}}" disabled>
+<!--                    <input ng-if="field.tipo==='fecha y hora'" type="datetime-local" class="form-control"-->
+<!--                           ng-model="baseController.formulario.registro[field.field]"-->
+<!--                           placeholder="Seleccione {{field.field}}">-->
                     <input ng-if="field.tipo==='check'" type="checkbox" class="form-control"
                            ng-model="baseController.formulario.registro[field.field]" disabled>
                     <select ng-if="field.tipo==='booleano'" class="form-control"
@@ -308,6 +321,9 @@ FORM = {
                     <input ng-if="field.tipo==='fecha'" type="date" class="form-control"
                            ng-model="baseController.formulario.registro[field.field]"
                            placeholder="Seleccione {{field.field}}">
+<!--                    <input ng-if="field.tipo==='fecha y hora'" type="datetime-local" class="form-control"-->
+<!--                           ng-model="baseController.formulario.registro[field.field]"-->
+<!--                           placeholder="Seleccione {{field.field}}">-->
                     <input ng-if="field.tipo==='check'" type="checkbox" class="form-control"
                            ng-model="baseController.formulario.registro[field.field]">
                     <select ng-if="field.tipo==='booleano'" class="form-control"

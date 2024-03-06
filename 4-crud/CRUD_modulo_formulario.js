@@ -64,7 +64,7 @@ DSON.keepmerge(CRUD_modulo_formulario, {
             link: {
                 format: (row) => {
                     let link = `${CONFIG.ssl === true ? 'https://' : 'http://'}${CONFIG.subdomain !== '' ? CONFIG.subdomain + '.' : ''}${CONFIG.domain}${(CONFIG.port === 80 || CONFIG.port === 443 || CONFIG.port === 443) ? '' : (":" + CONFIG.port)}${CONFIG.folderslash}/home#auth/formulario?id=${row.id}?view=true`;
-                    return `<a href="${link}" target="_blank">Vizualizar</a>`
+                    return `<a href="${link}">Vizualizar</a>`
                 }
             }
         },

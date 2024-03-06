@@ -16,7 +16,10 @@ app.controller("auth", function ($scope, $http, $compile) {
             http.folderredirect('');
         }
     }
-
+    auth.goHome_formulario = function () {
+        let link = `${CONFIG.ssl === true ? 'https://' : 'http://'}${CONFIG.subdomain !== '' ? CONFIG.subdomain + '.' : ''}${CONFIG.domain}${(CONFIG.port === 80 || CONFIG.port === 443 || CONFIG.port === 443) ? '' : (":" + CONFIG.port)}${CONFIG.folderslash}/#modulo_formulario`;
+        window.location = link;
+    }
     auth.enviarFormulario = async () => {
         let toinsert = {
             modulo_formulario: auth.queries.id || 0,
