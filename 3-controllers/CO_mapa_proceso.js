@@ -292,7 +292,7 @@ select nombre, descripcion, (select id from procesos where herencia=procesos_ele
 
 insert into indicador_generico(table_, registro, nombre, descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion,periodo,indicador_pei,ano_linea_base,caracteristica,desagregacion_demografica_geografia,observacion,compania,institucion,poa,indicador_generico_entidad,poa_monitoreo,edt,ano,departamento,herencia)
 
-select table_, (select id from procesos where herencia=indicador_generico.registro limit 1),nombre,descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion,periodo,indicador_pei,ano_linea_base,caracteristica,desagregacion_demografica_geografia,observacion,compania,institucion,poa,indicador_generico_entidad,poa_monitoreo,edt,ano,departamento,id from indicador_generico where registro in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and table_=10;
+select table_, (select id from procesos where herencia=indicador_generico.registro limit 1),nombre,descripcion,fuente,metodo_calculo,tipo_meta,direccion_meta,linea_base,medio_verificacion,periodo,indicador_pei,ano_linea_base,caracteristica,desagregacion_demografica_geografia,observacion,compania,institucion,poa,indicador_generico_entidad,poa_monitoreo,edt,${mapa_proceso.ano},departamento,id from indicador_generico where registro in (select id from procesos where mapa_proceso=${mapa_proceso.id}) and table_=10;
 
 insert into indicador_generico_periodo(periodo, valor,indicador_generico)
 

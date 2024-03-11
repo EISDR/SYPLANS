@@ -1239,8 +1239,6 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             CRUD_indicador_generico.table.filters.columns[0].query.where = eval(indicador_generico.entidadobj.where);
             indicador_generico.runMagicManyToMany('caracteristica', "caracteristica_indicador", "indicador_generico", "id", 'nombre', "caracteristica_indicador_generico", "caracteristica", "id");
             check_poa_close(indicador_generico, user);
-            $('.has-colspan').attr('rowspan', 3);
-            $('.has-colspan').css('vertical-align', 'middle');
             BASEAPI.listp('vw_indicador_generico_periodo', {
                 limit: 0
             }).then(function (rs) {
@@ -1506,6 +1504,15 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             var do_once_tp = false;
             var do_once_dp = false;
             indicador_generico.triggers.table.after.control = function (data) {
+                if (data == "tipo_meta" && mode != "new" && indicador_generico.entidad == "vw_procesos") {
+                    indicador_generico.form.options.ano.disabled = true;
+                }
+
+                if (data == "tipo_meta" && mode != "new" && indicador_generico.initiation) {
+                    $(".subcontainer2").html('');
+                    indicador_generico.getIDedit();
+                    indicador_generico.initiation = false;
+                }
 
                 if (data == "tipo_meta" && mode != "new" && indicador_generico.initiation) {
                     $(".subcontainer2").html('');
@@ -1602,13 +1609,24 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     };
                 }
             } else if (indicador_generico.entidad == "vw_procesos") {
-                indicador_generico.form.readonly = {
-                    table_: indicador_generico.entidadobj.id,
-                    compania: indicador_generico.session.compania_id,
-                    institucion: indicador_generico.session.institucion_id,
-                    poa: indicador_generico.session.poa_id,
-                    ano: indicador_generico.mapa_ano
-                };
+                if (mode === 'new') {
+                    console.log('entre en new')
+                    indicador_generico.form.readonly = {
+                        table_: indicador_generico.entidadobj.id,
+                        compania: indicador_generico.session.compania_id,
+                        institucion: indicador_generico.session.institucion_id,
+                        poa: indicador_generico.session.poa_id,
+                        ano: indicador_generico.mapa_ano
+                    };
+                }else {
+                    indicador_generico.form.readonly = {
+                        table_: indicador_generico.entidadobj.id,
+                        compania: indicador_generico.session.compania_id,
+                        institucion: indicador_generico.session.institucion_id,
+                        poa: indicador_generico.session.poa_id
+                    };
+
+                }
             } else if (indicador_generico.entidad == "vw_evento_indicador_riesgo") {
                 indicador_generico.form.readonly = {
                     table_: indicador_generico.entidadobj.id,
@@ -1632,6 +1650,8 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
             }
             indicador_generico.form.mode = mode;
             indicador_generico.createForm(data, mode, defaultData, undefined, function () {
+                if (mode === 'new')
+                   delete indicador_generico.id;
                 indicador_generico.tipo_meta_old = indicador_generico.tipo_meta;
                 indicador_generico.direccion_meta_old = indicador_generico.direccion_meta;
                 indicador_generico.poa_monitoreo_old = indicador_generico.poa_monitoreo;
@@ -2065,21 +2085,23 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                 indicador_generico.refreshAngular();
                 indicador_generico.working = false;
                 delete indicador_generico.yadata;
-                indicador_generico.form.oldData['Nombre'] = indicador_generico.oldData_forAudit['Nombre'];
-                indicador_generico.form.oldData['Año'] = indicador_generico.oldData_forAudit['Año'];
-                indicador_generico.form.oldData['Año Línea Base'] = indicador_generico.oldData_forAudit['Año Línea Base'];
-                indicador_generico.form.oldData['Característica de indicador '] = indicador_generico.oldData_forAudit['Característica de indicador '];
-                indicador_generico.form.oldData['Departamentos'] = indicador_generico.oldData_forAudit['Departamentos'];
-                indicador_generico.form.oldData['Desagregacion_demografica_geografia'] = indicador_generico.oldData_forAudit['Desagregacion_demografica_geografia'];
-                indicador_generico.form.oldData['Descripción'] = indicador_generico.oldData_forAudit['Descripción'];
-                indicador_generico.form.oldData['Dirección de la meta'] = indicador_generico.oldData_forAudit['Dirección de la meta'];
-                indicador_generico.form.oldData['Fuente'] = indicador_generico.oldData_forAudit['Fuente'];
-                indicador_generico.form.oldData['Medio de verificación'] = indicador_generico.oldData_forAudit['Medio de verificación'];
-                indicador_generico.form.oldData['Método cálculo'] = indicador_generico.oldData_forAudit['Método cálculo'];
-                indicador_generico.form.oldData['Observación'] = indicador_generico.oldData_forAudit['Observación'];
-                indicador_generico.form.oldData.Periodicidad = indicador_generico.poa_monitoreo_old_audit;
-                indicador_generico.form.oldData['Dirección de la meta'] = indicador_generico.oldData_forAudit['Dirección de la meta']
-                indicador_generico.form.oldData['Tipo de dato de la meta'] = indicador_generico.oldData_forAudit['Tipo de dato de la meta']
+                if (indicador_generico.oldData_forAudit) {
+                    indicador_generico.form.oldData['Nombre'] = indicador_generico.oldData_forAudit['Nombre'];
+                    indicador_generico.form.oldData['Año'] = indicador_generico.oldData_forAudit['Año'];
+                    indicador_generico.form.oldData['Año Línea Base'] = indicador_generico.oldData_forAudit['Año Línea Base'];
+                    indicador_generico.form.oldData['Característica de indicador '] = indicador_generico.oldData_forAudit['Característica de indicador '];
+                    indicador_generico.form.oldData['Departamentos'] = indicador_generico.oldData_forAudit['Departamentos'];
+                    indicador_generico.form.oldData['Desagregacion_demografica_geografia'] = indicador_generico.oldData_forAudit['Desagregacion_demografica_geografia'];
+                    indicador_generico.form.oldData['Descripción'] = indicador_generico.oldData_forAudit['Descripción'];
+                    indicador_generico.form.oldData['Dirección de la meta'] = indicador_generico.oldData_forAudit['Dirección de la meta'];
+                    indicador_generico.form.oldData['Fuente'] = indicador_generico.oldData_forAudit['Fuente'];
+                    indicador_generico.form.oldData['Medio de verificación'] = indicador_generico.oldData_forAudit['Medio de verificación'];
+                    indicador_generico.form.oldData['Método cálculo'] = indicador_generico.oldData_forAudit['Método cálculo'];
+                    indicador_generico.form.oldData['Observación'] = indicador_generico.oldData_forAudit['Observación'];
+                    indicador_generico.form.oldData.Periodicidad = indicador_generico.poa_monitoreo_old_audit;
+                    indicador_generico.form.oldData['Dirección de la meta'] = indicador_generico.oldData_forAudit['Dirección de la meta']
+                    indicador_generico.form.oldData['Tipo de dato de la meta'] = indicador_generico.oldData_forAudit['Tipo de dato de la meta']
+                }
             };
 
             indicador_generico.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;

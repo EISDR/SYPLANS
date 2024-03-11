@@ -186,11 +186,11 @@
                 </div>
                 <span ng-if="<%= scope %>.validate['ano'].messages.length > 0"
                       class="help-block">
-                                                    <p class="text-{{validation.type}}"
-                                                       ng-repeat="(key,validation) in <%= scope %>.validate['ano'].messages track by key">
-                                                           <i class="{{validation.icon}}"></i> {{validation.message}}
-                                                    </p>
-                                                </span>
+                    <p class="text-{{validation.type}}"
+                       ng-repeat="(key,validation) in <%= scope %>.validate['ano'].messages track by key">
+                           <i class="{{validation.icon}}"></i> {{validation.message}}
+                    </p>
+                </span>
             </div>
             <div class="col-sm-12 col-md-2">
                 <%- FORM.select("poa_monitoreo", scope, {
