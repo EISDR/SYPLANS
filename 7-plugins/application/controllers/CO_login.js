@@ -482,7 +482,7 @@ app.controller("auth", function ($scope, $http, $compile) {
                                                 user.poaList[poa].selected = false;
                                             }
                                         }
-                                        user.poaFullName = user.poaFirt[0].nombre + ' - ' + user.poaFirt[0].periodo_poa;
+                                        user.poaFullName = user.poaFirt[0].drp_nombre;
                                     } else {
                                         user.poaFullName = "Seleccione un POA";
                                     }
@@ -500,7 +500,7 @@ app.controller("auth", function ($scope, $http, $compile) {
                                                 user.poaList[poa].selected = false;
                                             }
                                         }
-                                        user.poaFullName = user.poaFirt[0].nombre + ' - ' + user.poaFirt[0].periodo_poa;
+                                        user.poaFullName = user.poaFirt[0].drp_nombre;
 
                                     } else {
                                         user.poaFullName = "Seleccione un poa";
