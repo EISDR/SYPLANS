@@ -911,7 +911,14 @@ check_active_POA = function (poa_ID) {
 title_header_table_pei = function ($scope, msj) {
     var session = new SESSION().current();
     if (session.pei_id) {
-        $scope.headertitle = msj + " / " + session.periodo_pei_msj;
+        if (session.poa_id) {
+            if (session.tipo_institucion == 1)
+                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
+            else
+                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
+        }else {
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
+        }
     } else {
         $scope.headertitle = msj + " / PEI ";
     }
@@ -921,11 +928,11 @@ title_header_table_poa = function ($scope, msj) {
     var session = new SESSION().current();
     if (session.poa_id) {
         if (session.tipo_institucion == 1)
-            $scope.headertitle = msj + " / " + session.periodo_pei_msj + " / POA " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
         else
-            $scope.headertitle = msj + " / " + session.periodo_pei_msj + " / Gestión Presupuestaria " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
     } else if (session.pei_id) {
-        $scope.headertitle = msj + " / " + session.periodo_pei_msj;
+        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
     } else {
         $scope.headertitle = msj + " / PEI ";
     }
@@ -935,11 +942,11 @@ title_header_dashboard_table_poa = function ($scope, msj, poa) {
     var session = new SESSION().current();
     if (session.poa_id) {
         if (session.tipo_institucion == 1)
-            $scope.headertitle = msj + " / " + session.periodo_pei_msj + " / POA " + poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
         else
-            $scope.headertitle = msj + " / " + session.periodo_pei_msj + " / Gestión Presupuestaria " + poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
     } else if (session.pei_id) {
-        $scope.headertitle = msj + " / " + session.periodo_pei_msj;
+        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
     } else {
         $scope.headertitle = msj + " / PEI ";
     }
