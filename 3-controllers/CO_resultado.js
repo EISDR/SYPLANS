@@ -22,7 +22,6 @@ app.controller("resultado", function ($scope, $http, $compile) {
         resultado.alt = [];
         resultado.eje_estrategico = estrategia.eje_estrategico;
         resultado.objetivo_estrategico = estrategia.objetivo_estrategico;
-        resultado.form.readonly = {active: 1};
         if (resultado !== undefined) {
             delete resultado.id;
             RUN_B("resultado", resultado, $scope, $http, $compile);
@@ -46,7 +45,7 @@ app.controller("resultado", function ($scope, $http, $compile) {
             };
 
             resultado.createForm(data, mode, defaultData);
-
+            resultado.form.readonly = {active: 1};
             resultado.$scope.$watch('resultado.nombre', function (value) {
                 var rules = [];
                 rules.push(VALIDATION.general.required(value));
