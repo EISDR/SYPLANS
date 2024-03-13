@@ -1,4 +1,25 @@
-<%- include('../../7-plugins/templates/table/view',{scope:scope}); %>
+<table class="table table-togglable table-framed">
+    <tbody>
+
+
+    <tr ng-repeat="(keycolum, value) in <%= scope %>.columns() track by keycolum"
+        ng-show="<%= scope %>.showallview || value.visibleDetail!=false">
+        <td class="text-white bg-<%= COLOR.secundary %>" style="width: 30%">
+            <span ng-bind-html="<%= scope %>.columnLabel(value,keycolum)"></span>
+        </td>
+        <td style="width: 70%">
+        <span class="break"
+              ng-bind-html="<%= scope %>.cellValue(keycolum,value,<%= scope %>.dataForView)"
+              ng-click="<%= scope %>.verFile(keycolum,value,<%= scope %>.dataForView)"
+        >
+
+        </span>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<!--Table List-->
 <script>
     vw_documentos_asociados.fixFilters = [{
         "field": "proceso",
@@ -12,6 +33,7 @@
         "field": "registro",
         "value": vw_procesos_v2.dataForView.id
     }];
+    <%= scope %>.refreshAngular();
 </script>
 <div><br></div>
 <div class="panel panel-flat" id="tabsViews">
