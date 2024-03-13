@@ -242,7 +242,7 @@ FORM = {
                            ng-model="baseController.formulario.registro[field.field]"
                            placeholder="Seleccione {{field.field}}" disabled>
                     <input ng-if="field.tipo==='fecha y hora'" type="datetime-local" class="form-control"
-                           ng-model="baseController.formulario.registro[field.field]"
+                           ng-model="baseController.formulario.registro[field.field]" disabled
                            placeholder="Seleccione {{field.field}}">
                     <input ng-if="field.tipo==='check'" type="checkbox" class="form-control"
                            ng-model="baseController.formulario.registro[field.field]" disabled>
