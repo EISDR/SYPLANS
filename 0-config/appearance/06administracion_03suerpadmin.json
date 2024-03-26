@@ -109,6 +109,12 @@
               "icon": "book",
               "href": "#import_actions",
               "text": "Importar"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_actions_procesos",
+              "text": "Importar (Procesos - Documentos)"
             }
           ],
           "modal": "",
@@ -228,6 +234,12 @@
               "icon": "book",
               "href": "#import_actions",
               "text": "Importar"
+            },
+            {
+              "modal": "",
+              "icon": "book",
+              "href": "#import_actions_procesos",
+              "text": "Importar (Procesos - Documentos)"
             }
           ],
           "modal": "",

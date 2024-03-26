@@ -1993,6 +1993,10 @@
         "type": "full",
         "allow": {}
       },
+      "import_actions_procesos": {
+        "type": "full",
+        "allow": {}
+      },
       "ods_config": {
         "type": "full",
         "allow": {}
