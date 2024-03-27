@@ -467,5 +467,6 @@
   "compania_config":"Configuración de la compañía",
   "nivel_riesgo_salida":"Niveles de Riesgo (Salidas no conformes)",
   "reporte_indicadores":"Histórico de indicadores",
-  "lote_clonacion":"Clonar poa"
+  "lote_clonacion":"Clonar poa",
+  "code_generator": "Nomeclarutas"
 }

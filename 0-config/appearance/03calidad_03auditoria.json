@@ -17,6 +17,7 @@
           "modal": "",
           "icon": "clipboard3",
           "href": "#auditoria_programa",
+          "condition": "CONFIGCOMPANY.only_plan",
           "text": "Creación de Planes de Auditoría"
         },
         {

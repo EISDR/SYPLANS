@@ -498,6 +498,43 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 CONFIGCOMPANY.reporte_configurable = 0;
                 CONFIGCOMPANY.formularios = 0;
             }
+            let dump_profile_notificacion = [1,4,5,6,7,17,18,19];
+            if (dump_profile_notificacion.indexOf(intersession.profile) !== -1){
+                CONFIGCOMPANY.only_noti = 1;
+            }
+            let dump_profile_riesgo_config = [1,4,5,17,18];
+            if (dump_profile_riesgo_config.indexOf(intersession.profile) !== -1){
+                CONFIGCOMPANY.only_config = 1;
+                if (intersession.profile !== 1){
+                    CONFIGCOMPANY.only_salida = 1;
+                }
+            }
+            let dump_profile_norma = [1,6,7,8,9,10,12,13,14,15,19];
+            if (dump_profile_norma.indexOf(intersession.profile) !== -1){
+                CONFIGCOMPANY.norma_iso = 0;
+                CONFIGCOMPANY.plan_accion = 0;
+            }
+            let dump_profile_administracion = [5,6,7,8,9,10,12,13,14,15,17,18,19];
+            if  (dump_profile_administracion.indexOf(intersession.profile) !== -1){
+                CONFIGCOMPANY.interfaces = 0;
+                CONFIGCOMPANY.historial_acceso = 0;
+                CONFIGCOMPANY.import_masivo = 0;
+                if (intersession.profile !== 5){
+                    CONFIGCOMPANY.instrumentos = 0;
+                    CONFIGCOMPANY.opcion_ods = 0;
+                }else{
+                    CONFIGCOMPANY.only_plani = 1;
+                }
+            }
+            if (intersession.profile == 4){
+                CONFIGCOMPANY.only_lote = 1;
+                CONFIGCOMPANY.only_plani = 1;
+            }
+            if (intersession.profile == 1){
+                CONFIGCOMPANY.instrumentos = 0;
+                CONFIGCOMPANY.opcion_ods = 0;
+                CONFIGCOMPANY.compy_admin = 1;
+            }
             var predicado = menu => {
                 if (menu.condition) {
                     let result = false;

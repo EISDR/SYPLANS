@@ -89,6 +89,7 @@
           "modal": "",
           "icon": "cog2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_config",
           "text": "Configuración"
         },
         {
@@ -233,6 +234,7 @@
           "modal": "",
           "icon": "cog2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_config",
           "text": "Configuración"
         },
         {
@@ -379,6 +381,7 @@
           "modal": "",
           "icon": "cog2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_config",
           "text": "Configuración"
         },
         {
@@ -523,6 +526,7 @@
           "modal": "",
           "icon": "cog2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_config",
           "text": "Configuración"
         },
         {

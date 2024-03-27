@@ -71,6 +71,7 @@
           "modal": "",
           "icon": "file-stats",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_plani",
           "text": "Plan Estratégico Institucional"
         },
         {
@@ -193,6 +194,7 @@
           "modal": "",
           "icon": "eye",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_plani",
           "text": "Monitoreo y Segumiento"
         },
         {
@@ -343,6 +345,7 @@
               "modal": "",
               "icon": "stack-check",
               "href": "#razon",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Condiciones de Cierre"
             },
             {
@@ -350,6 +353,7 @@
               "modal": "",
               "icon": "notebook",
               "href": "#catalogo_bienes_servicios",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Catálogo de Bienes y Servicios"
             },
             {
@@ -357,6 +361,7 @@
               "modal": "",
               "icon": "lifebuoy",
               "href": "#perspectiva",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Perspectivas BSC"
             },
             {
@@ -364,11 +369,13 @@
               "modal": "",
               "icon": "seven-segment-4",
               "href": "#caracteristica_indicador",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Características del Indicador"
             },
             {
               "icon": "meter2",
               "href": "#reporte_indicador_config",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Configurar Cumplimiento Indicadores"
             },
             {
@@ -382,6 +389,7 @@
               "modal": "",
               "icon": "airplane2",
               "href": "#vw_compromiso",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Compromisos Nacionales e Internacionales"
             },
             {
@@ -389,6 +397,7 @@
               "modal": "",
               "icon": "users4",
               "href": "#involucrados?pei_poa",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Involucrados"
             },
             {
@@ -396,6 +405,7 @@
               "modal": "",
               "icon": "exclamation",
               "href": "#notificacion",
+              "condition": "CONFIGCOMPANY.only_noti",
               "text": "Notificaciones"
             },
             {
@@ -403,6 +413,7 @@
               "modal": "",
               "icon": "alarm",
               "href": "#ws_periods",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
               "text": "Frecuencia Automática"
             },
             {
@@ -410,12 +421,14 @@
               "modal": "",
               "icon": "checkmark3",
               "href": "#lote_clonacion",
+              "condition": "CONFIGCOMPANY.only_lote",
               "text": "Clonar POA "
             }
           ],
           "modal": "",
           "icon": "hammer-wrench",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_noti || CONFIGCOMPANY.only_lote || CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
           "text": "Configuración"
         },
         {
@@ -677,6 +690,7 @@
           "modal": "",
           "icon": "graduation2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_plani",
           "text": "Plan Estratégico Institucional"
         },
         {
@@ -806,6 +820,7 @@
           "modal": "",
           "icon": "graduation2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.only_plani",
           "text": "Monitoreo y Segumiento"
         },
         {
@@ -972,6 +987,7 @@
           "modal": "",
           "icon": "graduation2",
           "href": "#",
+          "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
           "text": "Configuración"
         },
         {

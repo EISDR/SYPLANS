@@ -5,6 +5,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- ADMINISTRACIÓN -",
+      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
       "disable": true
     }
   ],
@@ -14,6 +15,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- ADMINISTRACIÓN -",
+      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
       "disable": true
     }
   ]
