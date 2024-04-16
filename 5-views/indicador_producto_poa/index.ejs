@@ -345,24 +345,26 @@
                                     </tr>
 
                                     </tbody>
-                                    <!--                                    <tfoot id="totals">-->
-                                    <!--                                    <tr class="dragon-columns" style="font-weight: bold">-->
-                                    <!--                                        <td colspan="1" style="vertical-align: middle">Total</td>-->
-                                    <!--                                        <td style="text-align: right;">-->
-                                    <!--                                            {{indicador_producto_poa.meta_total_desc}}-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td style="text-align: right;">-->
-                                    <!--                                            {{indicador_producto_poa.meta_total_alca}}-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td style="text-align: right;display: none" id="variacion">-->
-                                    <!--                                            <i class="{{indicador_producto_poa.iconfinal}}"></i>-->
-                                    <!--                                            {{indicador_producto_poa.getTotalVariacion()}}-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td colspan="1" style="vertical-align: middle">Cumplimiento <span title="{{(<%= scope %>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.cumplidor||{}).ponderacion.color}}">-->
-                                    <!--		{{(<%= scope %>.cumplidor||{}).cumplimiento||0}}%-->
-                                    <!--	</span></td>-->
-                                    <!--                                    </tr>-->
-                                    <!--                                    </tfoot>-->
+                                        <tfoot id="totals" ng-show="false">
+                                            <tr class="dragon-columns" style="font-weight: bold">
+                                                <td colspan="1" style="vertical-align: middle">Total</td>
+                                                <td style="text-align: right;">
+                                                    {{indicador_producto_poa.meta_total_desc}}
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    {{indicador_producto_poa.meta_total_alca}}
+                                                </td>
+                                                <td style="text-align: right;display: none" id="variacion">
+                                                    <i class="{{indicador_producto_poa.iconfinal}}"></i>
+                                                    {{indicador_producto_poa.getTotalVariacion()}}
+                                                </td>
+                                                <td colspan="1" style="vertical-align: middle">Cumplimiento
+                                                    <span title="{{(<%= scope %>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.cumplidor||{}).ponderacion.color}}">
+                                                        {{(<%= scope %>.cumplidor||{}).cumplimiento||0}}%
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
                                 </table>
                             </div>
                         </div>

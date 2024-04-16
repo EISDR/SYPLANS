@@ -477,6 +477,11 @@ function_send_email_group_indicadores = function (titulo_push, cuerpo_push, titu
                     "field": "institucion",
                     "operator": institucion ? "=" : "is",
                     "value": institucion ? institucion : "$null"
+                },
+                {
+                    "field": "active",
+                    "operator": "=",
+                    "value": 1
                 }
             ]
         }).then(function (result) {
