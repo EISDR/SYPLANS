@@ -832,7 +832,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 //         }
                 // });
                 baseController.poaFirt = adasession.poaFirt;
-                baseController.poaFullName = adasession.poaFullName;
+                baseController.poaFullName = adasession.poaFullName ? adasession.poaFullName : `${adasession.poa} - ${adasession.periodo_poa}`;
             } else {
                 baseController.poaFullName = "Seleccione un poa";
             }
