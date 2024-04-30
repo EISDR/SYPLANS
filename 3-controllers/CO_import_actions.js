@@ -49,7 +49,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                 valid_money: `El campo "@FIELD" es un campo tipo dinero debe ser un monto valido en el formato correcto (Ej. 100.50) revisar en la hoja "@HOJA" fila "@FILA"`,
                 valid_bool: `El campo "@FIELD" es un campo tipo booleano seleccione una opción válida. Este campo debe ser marcado como 'Sí' o 'No' por favor revisar en la hoja "@HOJA" fila "@FILA"`,
                 valid_relation: `El campo "@FIELD" es un campo tipo relación y el contenido no existe en la tabla padre. Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
-                meta_porcentaje: `El campo "@FIELD" no cumple con el tipo de meta "Porcentaje" este debe ser un valor entre 0 y 100 sin puntos decimales (Ej. 70). Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
+                meta_porcentaje: `El campo "@FIELD" no cumple con el tipo de meta "Porcentaje" este debe ser un valor entre 0 y 100 (Ej. 70). Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
                 meta_indice: `El campo "@FIELD" no cumple con el tipo de meta "Indice" el valor de este debe ser 0 o 1. Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
                 meta_valor_absoluto: `El campo "@FIELD" no cumple con el tipo de meta "Valor absoluto" este debe ser un valor entero positivo (Ej. 300). Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
                 meta_decimal: `El campo "@FIELD" no cumple con el tipo de meta "Decimal" este debe ser un valor positivo con dos puntos decimales (Ej. 350.50). Por favor revisar y corregir el contenido en la hoja "@HOJA" fila "@FILA"`,
@@ -176,7 +176,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                             }
                                                         }
 
-                                                        if (cr.toLowerCase().indexOf("meta 20xx") !== -1 || cr.toLowerCase().indexOf("trimestre") !== -1) {
+                                                        if (cr.toLowerCase().indexOf("meta 20xx") !== -1 || cr.toLowerCase().indexOf("trimestre") !== -1 || (cr.toLowerCase() === "línea base (*)")) {
                                                             // || cr.toLowerCase().indexOf("línea base") !== -1
                                                             if (tipodemeta === "Indice" || tipodemeta === "Índice") {
                                                                 if (campo > 1 || campo < 0) {
@@ -212,9 +212,8 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                                     problem = true;
                                                                 }
                                                             }else if (tipodemeta === "Porcentaje") {
-                                                                const regexEntero = /^\d+$/;
-                                                                campo = campo * 100;
-                                                                if ((!regexEntero.test(campo)) || (campo > 100 || campo < 0)) {
+                                                                campo = (campo * 100).toFixed(2);
+                                                                if (campo > 100 || campo < 0) {
                                                                     values.push("''");
                                                                     requiredErrors.push(import_actions.templates.meta_porcentaje.replaceAll("@FIELD", cr).replaceAll("@HOJA", tablename).replaceAll("@FILA", fila + 1));
                                                                     problem = true;
