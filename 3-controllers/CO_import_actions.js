@@ -295,7 +295,7 @@ app.controller("import_actions", function ($scope, $http, $compile) {
                                                         //si tuvo problemas ya sea requerido o de valudación entonces return
                                                         if (problem)
                                                             return
-                                                        values.push(import_actions.templates.value.replaceAll("@VALUE", (((i[cr] || "") + "") || "").replaceAll("'", "''")));
+                                                        values.push(import_actions.templates.value.replaceAll("@VALUE", (((!DSON.oseaX0(i[cr]) ? i[cr] : "") + "") || "").replaceAll("'", "''")));
 
                                                     });
                                                     insertScript.push(import_actions.templates.insert.replaceAll("@NAME", tablename.trim().toLowerCase()).replaceAll("@VALUES", values.join(", ")));

@@ -520,7 +520,7 @@ if (CONFIG.postgreactive !== false) {
         var temp = new Date(stringValue);
         let convertida = new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), 0+ (CONFIG.postgre.timezone), 0, 0));
         console.log("date",stringValue,convertida);
-        return convertida;
+        return stringValue;
     });
     types.setTypeParser(1184,  (stringValue)=> {
         var temp = new Date(stringValue);
