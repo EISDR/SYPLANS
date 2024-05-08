@@ -1189,7 +1189,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
     };
     if (typeof productos_poa != "undefined") {
         if (productos_poa) {
-            if (typeof productos_poa !== 'not defined') {
+            if (typeof productos_poa !== 'not defined' && baseController.currentModel.modelName != "information") {
                 var Bien_servicio = "";
                 var Bien_servicio_nombre = "";
                 var Presupuestario = "";
