@@ -1,11 +1,13 @@
 app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $compile) {
     vw_asignacion_especial_dashboard = this;
+    vw_asignacion_especial_dashboard.session = new SESSION().current().estado;
+    vw_asignacion_especial_dashboard.departamentos_y_secundarios = eval(vw_asignacion_especial_dashboard.session.departamentos_y_secundarios);
     vw_asignacion_especial_dashboard.currentdate = moment().format("YYYY-MM-DD");
     vw_asignacion_especial_dashboard.paso = false;
     vw_asignacion_especial_dashboard.fixFilters = [
         {
             "field": "poa",
-            "value": new SESSION().current().estado ? new SESSION().current().poa_id : 0
+            "value": vw_asignacion_especial_dashboard.session.estado ? vw_asignacion_especial_dashboard.session.poa_id : 0
         }
     ];
     $('.icon-plus-circle2 ').parent().hide();
@@ -63,10 +65,10 @@ app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $com
                                 "value": vw_asignacion_especial_dashboard.currentdate
                             }
                         ];
-                        if (dashboard_cofiguration.departamento_mostrar_id > 0) {
+                        if (vw_asignacion_especial_dashboard.departamentos_y_secundarios.length > 0) {
                             vw_asignacion_especial_dashboard.base.push({
                                 "field": "departamento_solicitado",
-                                "value": dashboard_cofiguration.departamento_mostrar_id
+                                "value": vw_asignacion_especial_dashboard.departamentos_y_secundarios
                             });
                         }
                         vw_asignacion_especial_dashboard.fixFilters = vw_asignacion_especial_dashboard.base.concat(dashboard_cofiguration.global_template);
@@ -88,10 +90,10 @@ app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $com
                                 "value": `$ not in (${ENUM_2.asignacion_especial_estatus.Completado}, ${ENUM_2.asignacion_especial_estatus.Rechazado})`
                             }
                         ];
-                        if (dashboard_cofiguration.departamento_mostrar_id > 0) {
+                        if (vw_asignacion_especial_dashboard.departamentos_y_secundarios.length > 0) {
                             vw_asignacion_especial_dashboard.base.push({
                                 "field": "departamento_solicitado",
-                                "value": dashboard_cofiguration.departamento_mostrar_id
+                                "value": vw_asignacion_especial_dashboard.departamentos_y_secundarios
                             });
                         }
                         vw_asignacion_especial_dashboard.fixFilters = vw_asignacion_especial_dashboard.base.concat(dashboard_cofiguration.global_template);
@@ -113,10 +115,10 @@ app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $com
                                 "value": `$ not in (${ENUM_2.asignacion_especial_estatus.Completado}, ${ENUM_2.asignacion_especial_estatus.Rechazado})`
                             }
                         ];
-                        if (dashboard_cofiguration.departamento_mostrar_id > 0) {
+                        if (vw_asignacion_especial_dashboard.departamentos_y_secundarios.length > 0) {
                             vw_asignacion_especial_dashboard.base.push({
                                 "field": "departamento_solicitado",
-                                "value": dashboard_cofiguration.departamento_mostrar_id
+                                "value": vw_asignacion_especial_dashboard.departamentos_y_secundarios
                             });
                         }
                         vw_asignacion_especial_dashboard.fixFilters = vw_asignacion_especial_dashboard.base.concat(dashboard_cofiguration.global_template);
@@ -134,10 +136,10 @@ app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $com
                                 "value": `$ in (${ENUM_2.asignacion_especial_estatus.Rechazado})`
                             }
                         ];
-                        if (dashboard_cofiguration.departamento_mostrar_id > 0) {
+                        if (vw_asignacion_especial_dashboard.departamentos_y_secundarios.length > 0) {
                             vw_asignacion_especial_dashboard.base.push({
                                 "field": "departamento_solicitado",
-                                "value": dashboard_cofiguration.departamento_mostrar_id
+                                "value": vw_asignacion_especial_dashboard.departamentos_y_secundarios
                             });
                         }
                         vw_asignacion_especial_dashboard.fixFilters = vw_asignacion_especial_dashboard.base.concat(dashboard_cofiguration.global_template);
@@ -154,10 +156,10 @@ app.controller("vw_asignacion_especial_dashboard", function ($scope, $http, $com
                                 "value": `$ in (${ENUM_2.asignacion_especial_estatus.Completado})`
                             }
                         ];
-                        if (dashboard_cofiguration.departamento_mostrar_id > 0) {
+                        if (vw_asignacion_especial_dashboard.departamentos_y_secundarios.length > 0) {
                             vw_asignacion_especial_dashboard.base.push({
                                 "field": "departamento_solicitado",
-                                "value": dashboard_cofiguration.departamento_mostrar_id
+                                "value": vw_asignacion_especial_dashboard.departamentos_y_secundarios
                             });
                         }
                         vw_asignacion_especial_dashboard.fixFilters = vw_asignacion_especial_dashboard.base.concat(dashboard_cofiguration.global_template);

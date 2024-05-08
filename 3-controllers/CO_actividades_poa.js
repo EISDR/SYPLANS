@@ -61,7 +61,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "fecha_inicio",
@@ -86,7 +86,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "fecha_inicio",
@@ -116,7 +116,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "estatus_actividad",
@@ -136,7 +136,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "estatus_actividad",
@@ -161,7 +161,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "fecha_fin",
@@ -191,7 +191,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "estatus_actividad",
@@ -216,7 +216,7 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                             },
                             {
                                 "field": "departamento",
-                                "value": session.departamento
+                                "value": eval(session.departamentos_y_secundarios)
                             },
                             {
                                 "field": "estatus_actividad",

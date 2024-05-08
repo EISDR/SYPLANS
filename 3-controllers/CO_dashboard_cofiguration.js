@@ -8,16 +8,6 @@ app.controller("dashboard_cofiguration", function ($scope, $http, $compile) {
     dashboard_cofiguration.compania = user.compania_id;
     dashboard_cofiguration.pei_id = user.pei_id;
 
-    BASEAPI.firstp('departamento', {
-        where: [{
-            field: "id",
-            value: user.departamento
-        }]
-    }).then(function (result) {
-        dashboard_cofiguration.departamento_mostrar = result.nombre;
-        dashboard_cofiguration.departamento_mostrar_id = result.id;
-    });
-
 
     function createArray(len, itm) {
         var arr1 = [itm],
@@ -36,7 +26,7 @@ app.controller("dashboard_cofiguration", function ($scope, $http, $compile) {
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     ];
 
-    $scope.$watch('dashboard_cofiguration.vw_dashboard_poas', function (value) {
+    $scope.$watch('dashboard_cofiguration.vw_dashboard_poas', function (value)  {
         if (value === '[NULL]')
             return;
         BASEAPI.firstp('vw_dashboard_meses', {where: [{value: value}]}).then(function (result) {
@@ -92,7 +82,7 @@ app.controller("dashboard_cofiguration", function ($scope, $http, $compile) {
                 },
                 {
                     field: 'departamento',
-                    value: user.departamento,
+                    value: eval(user.departamentos_y_secundarios),
                     close: ")"
                 }
             ];
@@ -204,7 +194,7 @@ app.controller("dashboard_cofiguration", function ($scope, $http, $compile) {
                 },
                 {
                     field: 'departamento',
-                    value: user.departamento,
+                    value: eval(user.departamentos_y_secundarios),
                     close: ")"
                 }
             ];

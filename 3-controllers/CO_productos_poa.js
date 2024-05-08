@@ -146,7 +146,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "fecha inicio",
@@ -166,7 +166,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "fecha inicio",
@@ -191,7 +191,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "estado_producto_id",
@@ -211,7 +211,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "fecha fin",
@@ -236,7 +236,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "estado_producto_id",
@@ -256,7 +256,7 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
                                 },
                                 {
                                     "field": "id_departamento",
-                                    "value": session.departamento
+                                    "value": eval(session.departamentos_y_secundarios)
                                 },
                                 {
                                     "field": "estado_producto_id",
