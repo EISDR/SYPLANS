@@ -29,10 +29,9 @@
             </a>
         </li>
     </ul>
-    <div class="row" ng-show="<%= scope + ".showfields" %>">
+    <div class="row" ng-show="<%= scope + ".showfields" %>" >
         <div class='col-sm-3 col-md-3'>
             <%- FORM.select("audit_action", scope, {
-                allownull: false,
                 allownew: false,
                 allowedit: false,
                 allowview: false,

@@ -2,7 +2,7 @@ app.controller("pei", function ($scope, $http, $compile) {
     pei = this;
 
     pei.headertitle = "PEI";
-
+    pei.auditModel = 'pei_admin';
     pei.permissionsAdd = function () {
         if (compania) {
             if (!compania.form.options.pei)
