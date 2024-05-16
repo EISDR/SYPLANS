@@ -129,7 +129,7 @@ app.controller("pei", function ($scope, $http, $compile) {
                 });
             location.reload();
         } else {
-            if (session.pei_id == pei.id) {
+            if (new SESSION().current().pei_id == pei.id) {
                 SWEETALERT.loading({message: `Desactivando pei  ${data.updating.nombre} ${data.updating.periodo_desde} - ${data.updating.periodo_hasta}...`});
                 new SESSION().update(
                     {
