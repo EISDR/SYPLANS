@@ -462,8 +462,8 @@ exports.Model = function (tableName, params) {
     this.find = async function (id) {
         return await this.search({where: [{value: id}]});
     };
-    this.where = async function (where) {
-        return await this.search({where: where});
+    this.where = async function (where,orderby, order) {
+        return await this.search({orderby:orderby,order: order, where: where});
     };
     //update
     this.update = async function (data) {

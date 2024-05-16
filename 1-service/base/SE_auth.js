@@ -57,7 +57,7 @@ exports.api = {
                     }
                 ];
 
-            return users.where(elwheresito).then(async data => {
+            return users.where(elwheresito,'estatus','desc').then(async data => {
                 data.query = "[HIDE]";
                 //console.log('vino query =' + JSON.stringify(data) );
                 if (data.count[0] > 0) {
