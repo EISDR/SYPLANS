@@ -17,6 +17,12 @@
         },
         {
           "modal": "",
+          "icon": "office",
+          "href": "#backup_config",
+          "text": "Configuración del Backup"
+        },
+        {
+          "modal": "",
           "icon": "list2",
           "href": "#code_generator",
           "text": "Nomenclaturas"
