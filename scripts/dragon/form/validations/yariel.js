@@ -214,7 +214,13 @@ VALIDATION = DSON.merge(VALIDATION, {
                 message: "El proyecto está finalizado y no puede ser seleccionado para este indicador",
                 type: VALIDATION.types.error
             };
+        },
+        ValidHour: function (time){
+            return {
+                valid: moment(time, 'HH:mm', true).isValid(),
+                message: "El valor de la hora no es correcto",
+                type: VALIDATION.types.error
+            };
         }
-
     }
 });

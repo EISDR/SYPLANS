@@ -162,11 +162,27 @@ app.controller("departamento_poa", function ($scope, $http, $compile) {
                         titulo_push = MESSAGE.ieval("planificacion.subject_autorizar", {field: departamento_poa.form.selected('departamento').nombre});
                         cuerpo_push = MESSAGE.ieval("planificacion.message", {field: departamento_poa.form.selected('estatus').nombre});
                         if (departamento_poa.estatus == ENUM_2.presupuesto_estatus.Pendiente.toString()){
-                            message_body = MESSAGE.i("planificacion.message_body_pendiente");
-                            function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
+                            BASEAPI.insert('modulo_notificacion_task', {
+                                accion: "PDCEP",
+                                record_id: departamento_poa.departamento_object.id_presupuesto,
+                                date: moment().format("YYYY-MM-DD")
+                            }, function(result){
+                                if (result)
+                                    SWEETALERT.stop();
+                            })
+                            // message_body = MESSAGE.i("planificacion.message_body_pendiente");
+                            // function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
                         } else if (departamento_poa.estatus == ENUM_2.presupuesto_estatus.Trabajado.toString()){
-                            message_body = MESSAGE.ieval("planificacion.message_body_trabajado",{field: departamento_poa.form.selected('departamento').nombre});
-                            function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
+                            BASEAPI.insert('modulo_notificacion_task', {
+                                accion: "PDCET",
+                                record_id: departamento_poa.departamento_object.id_presupuesto,
+                                date: moment().format("YYYY-MM-DD")
+                            }, function(result){
+                                if (result)
+                                    SWEETALERT.stop();
+                            })
+                            // message_body = MESSAGE.ieval("planificacion.message_body_trabajado",{field: departamento_poa.form.selected('departamento').nombre});
+                            // function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
                         } else if (departamento_poa.estatus == ENUM_2.presupuesto_estatus.Completo.toString()){
                             message_body = MESSAGE.i("planificacion.message_body_autorizado");
                             function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);

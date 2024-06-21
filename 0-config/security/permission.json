@@ -2435,6 +2435,30 @@
           }
         }
       },
+      "backup_config": {
+        "type": "empty",
+        "allow": {
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          },
+          "actions": true,
+          "view": false,
+          "audit": false,
+          "remove": false,
+          "menu": true,
+          "edit": true,
+          "add": false,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          }
+        }
+      },
       "riesgo_probabilidad": {
         "type": "full",
         "allow": {}
