@@ -2,18 +2,18 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                    <%- FORM.selectsimple("frecuencia", scope, {
-                        label: "Frecuencia",
-                        value: "frecuencia",
-                        data: [
-                            {"frecuencia": "Diario"},
-                            {"frecuencia": "Semanal"},
-                            {"frecuencia": "Quincenal"},
-                            {"frecuencia": "Mensual"}
-                        ],
-                        text: "item.frecuencia",
-                        icon: {class: "archive"}
-                    }) %>
+                <%- FORM.selectsimple("frecuencia", scope, {
+                    label: "Frecuencia",
+                    value: "frecuencia",
+                    data: [
+                        {"frecuencia": "Diario"},
+                        {"frecuencia": "Semanal"},
+                        {"frecuencia": "Quincenal"},
+                        {"frecuencia": "Mensual"}
+                    ],
+                    text: "item.frecuencia",
+                    icon: {class: "archive"}
+                }) %>
             </div>
             <div class="col-sm-4 col-md-4">
                 <%- FORM.hour('hora',scope,{}) %>
@@ -32,6 +32,16 @@
                     icon: {class: "archive"},
                     label: "Compañía"
                 }) %>
+            </div>
+        </div>
+        <div id="backup_ejecucion" ng-controller="backup_ejecucion as backup_ejecucion">
+            <div class="row">
+                <div class="panel panel-flat">
+                    <%- include('../../7-plugins/templates/table/header',{scope:'backup_ejecucion'}); %>
+                    <div class="subcontent">
+                        <%- include('../../7-plugins/templates/table/base',{scope:'backup_ejecucion'}); %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

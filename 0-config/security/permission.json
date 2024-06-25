@@ -2459,6 +2459,30 @@
           }
         }
       },
+      "backup_ejecucion": {
+        "type": "empty",
+        "allow": {
+          "file": {
+            "download": true,
+            "remove": true,
+            "upload": true
+          },
+          "actions": false,
+          "view": false,
+          "audit": false,
+          "remove": false,
+          "menu": true,
+          "edit": false,
+          "add": false,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          }
+        }
+      },
       "riesgo_probabilidad": {
         "type": "full",
         "allow": {}

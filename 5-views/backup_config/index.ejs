@@ -2,6 +2,16 @@
     <div class="panel panel-flat">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
+            <div class="row">
+                <button
+                        dragonlanguage="" title="Generar Backup"
+                        type="button" class="btn bg-<%= COLOR.info %> btn-labeled btn-xs pull-right"
+                        style="margin-bottom: 10px;"
+                        ng-click="<%= scope %>.make_backup()">
+                    <b><i class="icon-database-add"></i></b>
+                    Generar Backup
+                </button>
+            </div>
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
         </div>
     </div>

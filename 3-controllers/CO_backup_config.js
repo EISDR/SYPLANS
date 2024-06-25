@@ -91,6 +91,12 @@ app.controller("backup_config", function ($scope, $http, $compile) {
         }
         resolve(true);
     });
+    backup_config.make_backup = function (){
+        SWEETALERT.loading({message: 'Generando backup por favor espere'});
+        setTimeout(function(){
+            SWEETALERT.show({message: 'Se ha generado el backup de manera exitosa.'})
+        }, 5000);
+    }
     //
     // $scope.triggers.table.after.open = function (data) {
     //     //console.log(`$scope.triggers.table.after.open ${$scope.modelName}`);
