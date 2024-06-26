@@ -93,9 +93,14 @@ app.controller("backup_config", function ($scope, $http, $compile) {
     });
     backup_config.make_backup = function (){
         SWEETALERT.loading({message: 'Generando backup por favor espere'});
-        setTimeout(function(){
-            SWEETALERT.show({message: 'Se ha generado el backup de manera exitosa.'})
-        }, 5000);
+        BASEAPI.insert('backup_ejecucion',
+            {
+                "inmediato": 1,
+                "fecha": moment().format('YYYY-MM-DD'),
+                "compania": backup_config.session.compania_id
+            }, function (result) {
+                SWEETALERT.show({message: 'Se ha generado el archivo backup con exito, por favor revisar en la carpeta Backup luego de unos minutos.'});
+            });
     }
     //
     // $scope.triggers.table.after.open = function (data) {
