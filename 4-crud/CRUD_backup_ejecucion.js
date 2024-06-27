@@ -51,9 +51,7 @@ DSON.keepmerge(CRUD_backup_ejecucion, {
             ruta_archivo: {
                 label: "Ruta del archivo",
                 format: function(row) {
-                    if(!row.ruta_archivo){
-                        return "Ejecutando backup..."
-                    }
+                    return !row.ruta_archivo ? "Ejecutando backup..." : row.ruta_archivo;
                 }
             },
             fecha: {
