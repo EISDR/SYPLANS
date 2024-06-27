@@ -210,6 +210,7 @@ buclex = (ladataDB, PARAMS, CONFIG) => new Promise(async (resolve, reject) => {
         let rows = await ladataDB.data(`select * from backup_ejecucion where ruta_archivo is null`, PARAMS);
         let total = rows.data.length;
         let conn = PARAMS.CONFIG.postgre;
+        let source = PARAMS.CONFIG.postgrebackup;
         if (total > 0) {
             for (const ROW of rows.data) {
                 if ((isDay && isHour) || ROW.inmediato == 1) {
@@ -222,7 +223,7 @@ buclex = (ladataDB, PARAMS, CONFIG) => new Promise(async (resolve, reject) => {
                     try {
                         ruta = `backups/${ROW.id}-${lafecha}-${PARAMS.CONFIG.appName}(${conn.database})${prefix}.sql`;
                         var exec = require('child_process').execSync;
-                        child = exec(`SET "PGPASSWORD=${conn.password}" && "${PARAMS.CONFIG.postgre.binpath}\\pg_dump" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${conn.database} > ${ruta}`);
+                        child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_dump" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${source.database} > ${ruta}`);
                     } catch (err) {
                         console.log(err.message.error);
                         ruta = antiQuery(err.message);
