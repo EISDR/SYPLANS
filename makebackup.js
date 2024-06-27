@@ -221,7 +221,7 @@ buclex = (ladataDB, PARAMS, CONFIG) => new Promise(async (resolve, reject) => {
                     let lafecha = `${ROW.fecha.getFullYear()}-${ROW.fecha.getMonth()}-${ROW.fecha.getDate()}`;
                     console.log(`ejecutando backup(${ROW.id}) ${lafecha}`);
                     try {
-                        ruta = `backups/${ROW.id}-${lafecha}-${PARAMS.CONFIG.appName}(${conn.database})${prefix}.sql`;
+                        ruta = `backups/${ROW.id}-${lafecha}-${PARAMS.CONFIG.appName}(${source.database})${prefix}.sql`;
                         var exec = require('child_process').execSync;
                         child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_dump" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${source.database} > ${ruta}`);
                     } catch (err) {
