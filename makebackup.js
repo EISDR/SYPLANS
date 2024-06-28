@@ -189,7 +189,7 @@ async function execute() {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 antiQuery = (str) => {
-    return (str || "").split(`'`).join(`''`);
+    return (str || "").split(`'`).join(`''`).split(`\n`).join(` `).split(`\r`).join(` `);
 }
 buclex = (ladataDB, PARAMS, CONFIG) => new Promise(async (resolve, reject) => {
         console.log('Check: ' + new Date());
