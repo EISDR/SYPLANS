@@ -756,16 +756,32 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                 } else {
                     if (actividades_poa_monitoreo.estatus != actividades_poa_monitoreo.estatus_old) {
                         if (actividades_poa_monitoreo.estatus === ENUM_2.actividad_poa_estatus.Detenida.toString()) {
-                            nombre_estatus_titulo = `Actividad "${nombre_actividad}" ha sido detenida`;
-                            nombre_estatus_cuerpo = `Se ha detenido la actividad: "${nombre_actividad}"`;
-                            titulo_push = nombre_estatus_titulo;
-                            cuerpo_push = nombre_estatus_cuerpo;
-                            titulo = nombre_estatus_titulo;
-                            cuerpo = nombre_estatus_cuerpo;
-                            function_send_email_group(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, actividades_poa_monitoreo.departamento_old_, actividades_poa_monitoreo.form.selected('responsable').correo, session.institucion_id);
+                            BASEAPI.insert('modulo_notificacion_task', {
+                                accion: "APCED",
+                                record_id: actividades_poa_monitoreo.id,
+                                date: moment().format("YYYY-MM-DD")
+                            }, function(result){
+                                if (result)
+                                    SWEETALERT.stop();
+                            })
+                            // nombre_estatus_titulo = `Actividad "${nombre_actividad}" ha sido detenida`;
+                            // nombre_estatus_cuerpo = `Se ha detenido la actividad: "${nombre_actividad}"`;
+                            // titulo_push = nombre_estatus_titulo;
+                            // cuerpo_push = nombre_estatus_cuerpo;
+                            // titulo = nombre_estatus_titulo;
+                            // cuerpo = nombre_estatus_cuerpo;
+                            // function_send_email_group(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, actividades_poa_monitoreo.departamento_old_, actividades_poa_monitoreo.form.selected('responsable').correo, session.institucion_id);
                         } else if (actividades_poa_monitoreo.estatus === ENUM_2.actividad_poa_estatus.Cancelada.toString()) {
-                            nombre_estatus_titulo = `Actividad "${nombre_actividad}" ha sido cancelada`;
-                            nombre_estatus_cuerpo = `Se ha cancelado la actividad: "${nombre_actividad}"`;
+                            // nombre_estatus_titulo = `Actividad "${nombre_actividad}" ha sido cancelada`;
+                            // nombre_estatus_cuerpo = `Se ha cancelado la actividad: "${nombre_actividad}"`;
+                            BASEAPI.insert('modulo_notificacion_task', {
+                                accion: "APCEC",
+                                record_id: actividades_poa_monitoreo.id,
+                                date: moment().format("YYYY-MM-DD")
+                            }, function(result){
+                                if (result)
+                                    SWEETALERT.stop();
+                            })
                             BASEAPI.updateall('actividades_apoyo', {
                                 estatus: ENUM_2.actividad_apoyo_estatus.Cancelada,
                                 where: [
@@ -779,11 +795,11 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                                     }
                                 ]
                             });
-                            titulo_push = nombre_estatus_titulo;
-                            cuerpo_push = nombre_estatus_cuerpo;
-                            titulo = nombre_estatus_titulo;
-                            cuerpo = nombre_estatus_cuerpo;
-                            function_send_email_group_user(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, actividades_poa_monitoreo.departamento_old_, actividades_poa_monitoreo.form.selected('responsable').correo, session.institucion_id);
+                            // titulo_push = nombre_estatus_titulo;
+                            // cuerpo_push = nombre_estatus_cuerpo;
+                            // titulo = nombre_estatus_titulo;
+                            // cuerpo = nombre_estatus_cuerpo;
+                            // function_send_email_group_user(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, actividades_poa_monitoreo.departamento_old_, actividades_poa_monitoreo.form.selected('responsable').correo, session.institucion_id);
                         } else if (actividades_poa_monitoreo.estatus === ENUM_2.actividad_poa_estatus.Abierta.toString()) {
                             nombre_estatus_titulo = `Actividad "${nombre_actividad}" ha sido abierta`;
                             nombre_estatus_cuerpo = `Se ha abierto la actividad ${nombre_actividad}`;

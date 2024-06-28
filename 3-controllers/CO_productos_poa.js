@@ -1480,13 +1480,21 @@ app.controller("productos_poa", function ($scope, $http, $compile) {
 
                 if (data.updating.estado != productos_poa.old_estado) {
                     if (productos_poa.estado === ENUM_2.productos_estatus.Detenido.toString()) {
-                        titulo_push = `Producto "${data.updating.nombre}"  ha sido detenido `;
-                        cuerpo_push = `Se ha detenido el producto "${data.updating.nombre}"`;
-
-                        titulo = `Producto "${data.updating.nombre}"  ha sido detenido `;
-                        cuerpo = `Se ha detenido el producto "${data.updating.nombre}"`;
-
-                        function_send_email_group(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, productos_poa.departamento, null, session.institucion_id);
+                        BASEAPI.insert('modulo_notificacion_task', {
+                            accion: "PPCED",
+                            record_id: productos_poa.id,
+                            date: moment().format("YYYY-MM-DD")
+                        }, function(result){
+                            if (result)
+                                SWEETALERT.stop();
+                        })
+                        // titulo_push = `Producto "${data.updating.nombre}"  ha sido detenido `;
+                        // cuerpo_push = `Se ha detenido el producto "${data.updating.nombre}"`;
+                        //
+                        // titulo = `Producto "${data.updating.nombre}"  ha sido detenido `;
+                        // cuerpo = `Se ha detenido el producto "${data.updating.nombre}"`;
+                        //
+                        // function_send_email_group(titulo_push, cuerpo_push, titulo, cuerpo, session.compania_id, productos_poa.departamento, null, session.institucion_id);
                     }
                 }
             };

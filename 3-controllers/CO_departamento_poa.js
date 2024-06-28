@@ -184,8 +184,16 @@ app.controller("departamento_poa", function ($scope, $http, $compile) {
                             // message_body = MESSAGE.ieval("planificacion.message_body_trabajado",{field: departamento_poa.form.selected('departamento').nombre});
                             // function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
                         } else if (departamento_poa.estatus == ENUM_2.presupuesto_estatus.Completo.toString()){
-                            message_body = MESSAGE.i("planificacion.message_body_autorizado");
-                            function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
+                            BASEAPI.insert('modulo_notificacion_task', {
+                                accion: "PDCEA",
+                                record_id: departamento_poa.departamento_object.id_presupuesto,
+                                date: moment().format("YYYY-MM-DD")
+                            }, function(result){
+                                if (result)
+                                    SWEETALERT.stop();
+                            })
+                            // message_body = MESSAGE.i("planificacion.message_body_autorizado");
+                            // function_send_email_group_poa(titulo_push,cuerpo_push,titulo_push,cuerpo_push,message_body,user_info.compania_id,departamento_poa.departamento,departamento_poa.estatus, user_info.institucion_id);
                         }
                         var buttons = document.getElementsByClassName("btn btn-labeled");
                         for(var item of buttons){
