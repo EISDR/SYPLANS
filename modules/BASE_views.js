@@ -999,6 +999,46 @@ exports.init = function (params) {
         }).catch(function () {
         });
     });
+    params.app.get("/files/restore/", function (req, res) {
+        params.secure.check(req, res).then(async function (token) {
+            if (!token.apptoken) {
+                res.json(token);
+                return;
+            }
+            var fs = params.fs || require("fs");
+            var configFolder = params.folders.config;
+            var backupfile = req.query.backupfile;
+            var nowDate = new Date();
+            var restoreID = req.query.restoreID + `_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDate()}_${nowDate.getMinutes()}`;
+            let conn = params.CONFIG.postgre;
+            let source = params.CONFIG.postgrebackup;
+            var module = params.CONFIG.mysqlactive ? params.modules.mysql : params.modules.postgre;
+            var olddata = await module.data(`select * from backup_ejecucion`, params);
+            await module.executeNonQuery(`ALTER DATABASE ${source.database} RENAME TO ${source.database}_${restoreID};`, params);
+            await module.executeNonQuery(`create database ${source.database};`, params);
+            var exec = params.child_process.execSync;
+            child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_restore" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${source.database}  ${backupfile}`);
+            await module.executeNonQuery(`truncate table backup_ejecucion;`, params);
+            for (const ROW of olddata.data) {
+                let insertQuery = await module.insertQuery('backup_ejecucion', {
+                    "fecha": ROW.fecha,
+                    "ruta_archivo": ROW.ruta_archivo,
+                    "compania": ROW.compania,
+                    "inmediato": ROW.inmediato,
+                    "restore": ROW.restore
+                }, params, "", "");
+                await module.executeNonQuery(insertQuery, params);
+            }
+            var file = __dirname + '/../' + configFolder + '/' + 'z_restart.json';
+            fs.writeFile(file, "{\"restart\":" + new Date().getTime() + "}", function (res, data) {
+                if (res) {
+                    res.json({error: err});
+                }
+            });
+            res.json({error: false, saved: true});
+        }).catch(function () {
+        });
+    });
     params.app.get("/files/api/", function (req, res) {
         params.secure.check(req, res).then(function (token) {
             if (!token.apptoken) {
@@ -1219,7 +1259,6 @@ exports.init = function (params) {
             errorNoControl(res.statusCode, globalToke ? (globalToke.user || 'N/A') : 'N/A', globalToke ? (globalToke.getURL || 'N/A') : 'N/A');
         });
     });
-
     params.app.post("/files/api/copy", async function (req, res) {
         params.secure.check(req, res).then(function (token) {
             if (!token.apptoken) {
@@ -1456,7 +1495,6 @@ exports.init = function (params) {
             //errorNoControl(res.statusCode, globalToke ? (globalToke.user || 'N/A') : 'N/A', globalToke ? (globalToke.getURL || 'N/A') : 'N/A');
         });
     });
-
     params.app.post('/email/sendfree', function (req, res) {
         try {
             var transporter = params.mail.createTransport(params.CONFIG.smtp);
@@ -1547,7 +1585,6 @@ exports.init = function (params) {
         }
         return result;
     }
-
     params.app.post("/dragon/api/saveConfigSuper", async function (req, res) {
         params.secure.check(req, res).then(async function (token) {
             if (!token.apptoken) {

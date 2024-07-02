@@ -10,6 +10,7 @@ DSON.keepmerge(CRUD_backup_ejecucion, {
         batch: false,
         //persist: false,
         //sortable: false,
+        order: 'desc',
         //dragrow: 'num',
         //rowStyle: function (row, $scope) {
         //    return "color:red;";
@@ -50,16 +51,13 @@ DSON.keepmerge(CRUD_backup_ejecucion, {
             },
             ruta_archivo: {
                 label: "Ruta del archivo",
-                format: function(row) {
+                format: function (row) {
                     return !row.ruta_archivo ? "Ejecutando backup..." : row.ruta_archivo;
                 }
             },
             fecha: {
                 formattype: ENUM.FORMAT.date,
                 sorttype: ENUM.FORMATFILTER.date,
-            },
-            compania_nombre: {
-                label: "Compañía"
             }
         },
         filters: {
@@ -100,15 +98,26 @@ CRUD_backup_ejecucion.table.options[0].menus.push({
             message: "¿Está seguro que desea restaurar a esta versión?",
             confirm: async function () {
                 SWEETALERT.loading({message: "Restaurando base de datos..."});
-                BASEAPI.insert('backup_ejecucion',{
+                let result = await BASEAPI.insertIDp('backup_ejecucion', {
                     fecha: moment().format('YYYY-MM-DD'),
                     ruta_archivo: `Restore del backup: "${data.row.ruta_archivo}"`,
                     compania: data.row.compania,
                     restore: 1
-                }, function(result){
-                    if (result)
-                    SWEETALERT.show({message:"El proceso de restore iniciará en unos segundos, por favor espere."});
-                })
+                }, "", "");
+                result = result.data.data[0];
+                console.log(result, "registro");
+                if (result) {
+                    SWEETALERT.loading({message: "El proceso de restore se está ejecutando, por favor espere."});
+                    BASEAPI.ajax.get("/files/restore/", {
+                        backupfile: data.row.ruta_archivo,
+                        restoreID: result.id,
+                    }, function (result2) {
+                        console.log(result, "registro2");
+                        setTimeout(() => {
+                            location.reload();
+                        }, 10000);
+                    }, $('#diomede'));
+                }
             }
         });
         //extra function

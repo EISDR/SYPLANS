@@ -373,7 +373,7 @@ exports.api = {
                 console.log(err);
                 return {success: false};
             });
-        },
+        }
     },
     puts: {},
     deletes: {},

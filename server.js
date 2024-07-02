@@ -329,6 +329,7 @@ hints = [];
     allparams += "      secure:secure,";
     allparams += "      themes:themes,";
     allparams += "      fs:fs,";
+    allparams += "      child_process:child_process,";
     allparams += "      jwt:jwt,";
     allparams += "      rimraf:rimraf,";
     allparams += "      localjs:localjs,";
