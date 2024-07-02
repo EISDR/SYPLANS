@@ -515,7 +515,7 @@ if (CONFIG.postgreactive !== false) {
         var temp = new Date(stringValue);
         let convertida =new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
         console.log("datetime",stringValue,convertida);
-        return convertida;
+        return stringValue;
     });
     types.setTypeParser(1082,  (stringValue)=> {
         var temp = new Date(stringValue);
@@ -527,7 +527,7 @@ if (CONFIG.postgreactive !== false) {
         var temp = new Date(stringValue);
         let convertida =new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(), temp.getUTCHours() + (CONFIG.postgre.timezone), temp.getUTCMinutes(), temp.getUTCSeconds()));
         console.log("datetimez",stringValue,convertida);
-        return convertida;
+        return stringValue;
     });
 
 
