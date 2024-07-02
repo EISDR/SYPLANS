@@ -112,7 +112,7 @@ CRUDDEFAULTS = {
                     return "cog2";
                 },
                 permission: (data) => {
-                    return ['edit', 'remove', 'active', 'view', 'copy', 'audit'];
+                    return ['edit', 'remove', 'active', 'view', 'copy', 'audit', 'extra'];
                 },
                 characterist: (data) => {
                     return '';

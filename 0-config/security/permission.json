@@ -2467,13 +2467,14 @@
             "remove": true,
             "upload": true
           },
-          "actions": false,
+          "actions": true,
           "view": false,
           "audit": false,
           "remove": false,
           "menu": true,
           "edit": false,
           "add": false,
+          "extra": true,
           "export": {
             "Clipboard": false,
             "PDF": false,

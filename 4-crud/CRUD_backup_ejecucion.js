@@ -79,24 +79,39 @@ DSON.keepmerge(CRUD_backup_ejecucion, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_backup_ejecucion.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_backup_ejecucion.table.options[0].menus.push({
+    text: (data) => {
+        return "Restaurar a esta versión"
+    },
+    icon: (data) => {
+        return "list";
+    },
+    permission: (data) => {
+        return 'extra';
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        SWEETALERT.confirm({
+            message: "¿Está seguro que desea restaurar a esta versión?",
+            confirm: async function () {
+                SWEETALERT.loading({message: "Restaurando base de datos..."});
+                BASEAPI.insert('backup_ejecucion',{
+                    fecha: moment().format('YYYY-MM-DD'),
+                    ruta_archivo: `Restore del backup: "${data.row.ruta_archivo}"`,
+                    compania: data.row.compania,
+                    restore: 1
+                }, function(result){
+                    if (result)
+                    SWEETALERT.show({message:"El proceso de restore iniciará en unos segundos, por favor espere."});
+                })
+            }
+        });
+        //extra function
+        return false;
+    }
+});
