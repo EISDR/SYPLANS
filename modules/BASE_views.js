@@ -1014,8 +1014,8 @@ exports.init = function (params) {
             let source = params.CONFIG.postgrebackup;
             var module = params.CONFIG.mysqlactive ? params.modules.mysql : params.modules.postgre;
             var olddata = await module.data(`select * from backup_ejecucion`, params);
-            await module.executeNonQuery(`ALTER DATABASE ${source.database} RENAME TO ${source.database}_${restoreID};`, params);
-            await module.executeNonQuery(`create database ${source.database};`, params);
+            // await module.executeNonQuery(`ALTER DATABASE ${source.database} RENAME TO ${source.database}_${restoreID};`, params);
+            // await module.executeNonQuery(`create database ${source.database};`, params);
             var exec = params.child_process.execSync;
             child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_restore" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${source.database}  ${backupfile}`);
             await module.executeNonQuery(`truncate table backup_ejecucion;`, params);
