@@ -1006,7 +1006,7 @@ exports.init = function (params) {
                 return;
             }
             var fs = params.fs || require("fs");
-            var configFolder = params.folders.config;
+            var configFolder = params.folders.eviroments + "/" + params.mode;
             var backupfile = req.query.backupfile;
             var nowDate = new Date();
             var restoreID = req.query.restoreID + `_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDate()}_${nowDate.getMinutes()}`;
