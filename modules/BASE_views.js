@@ -1014,10 +1014,13 @@ exports.init = function (params) {
             let source = params.CONFIG.postgrebackup;
             var module = params.CONFIG.mysqlactive ? params.modules.mysql : params.modules.postgre;
             var olddata = await module.data(`select * from backup_ejecucion`, params);
+            var new_database = `${source.database}_${req.query.restoreID}` + `_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDate()}_${nowDate.getMinutes()}`;
             // await module.executeNonQuery(`ALTER DATABASE ${source.database} RENAME TO ${source.database}_${restoreID};`, params);
-            // await module.executeNonQuery(`create database ${source.database};`, params);
+            await module.executeNonQuery(`create database ${new_database };`, params);
             var exec = params.child_process.execSync;
-            child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_restore" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${source.database}  ${backupfile}`);
+            child = exec(`SET "PGPASSWORD=${conn.password}" && "${source.binpath}\\pg_restore" -h ${conn.host} -p ${conn.port} -U ${conn.user}  -d ${new_database} --role "postgres" --verbose ${backupfile}`);
+            params.CONFIG.postgre.database = new_database;
+            params.modules.postgre.lacone = new params.postgre.Pool(params.CONFIG.postgre);
             await module.executeNonQuery(`truncate table backup_ejecucion;`, params);
             for (const ROW of olddata.data) {
                 let insertQuery = await module.insertQuery('backup_ejecucion', {
@@ -1030,7 +1033,7 @@ exports.init = function (params) {
                 await module.executeNonQuery(insertQuery, params);
             }
             var file = __dirname + '/../' + configFolder + '/' + 'z_restart.json';
-            fs.writeFile(file, "{\"restart\":" + new Date().getTime() + "}", function (res, data) {
+            fs.writeFile(file, "{\"restart\":" + new Date().getTime() + `, "postgre": {"database": "${new_database}" }}`, function (res, data) {
                 if (res) {
                     res.json({error: err});
                 }

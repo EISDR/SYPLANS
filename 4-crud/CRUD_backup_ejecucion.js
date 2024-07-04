@@ -91,7 +91,7 @@ CRUD_backup_ejecucion.table.options[0].menus.push({
         return "";
     },
     show: function (data) {
-        return true;
+        return !data.row.restore;
     },
     click: function (data) {
         SWEETALERT.confirm({
@@ -110,6 +110,7 @@ CRUD_backup_ejecucion.table.options[0].menus.push({
                     SWEETALERT.loading({message: "El proceso de restore se está ejecutando, por favor espere."});
                     BASEAPI.ajax.get("/files/restore/", {
                         backupfile: data.row.ruta_archivo,
+                        backupfile_data: data.row.ruta_archivo_data,
                         restoreID: result.id,
                     }, function (result2) {
                         console.log(result, "registro2");
