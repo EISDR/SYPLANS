@@ -1006,7 +1006,7 @@ exports.init = function (params) {
                 return;
             }
             var fs = params.fs || require("fs");
-            var configFolder = params.folders.eviroments + "/" + params.mode;
+            var configFolder = params.folders.eviroments + "/QA";
             var backupfile = req.query.backupfile;
             var nowDate = new Date();
             var restoreID = req.query.restoreID + `_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDate()}_${nowDate.getMinutes()}`;
@@ -1033,6 +1033,7 @@ exports.init = function (params) {
                 await module.executeNonQuery(insertQuery, params);
             }
             var file = __dirname + '/../' + configFolder + '/' + 'z_restart.json';
+            console.log(file, "el file")
             fs.writeFile(file, "{\"restart\":" + new Date().getTime() + `, "postgre": {"database": "${new_database}" }}`, function (res, data) {
                 if (res) {
                     res.json({error: err});
