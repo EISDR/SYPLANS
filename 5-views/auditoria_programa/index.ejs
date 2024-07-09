@@ -87,9 +87,218 @@
                             <div class="tab-content" id="auditoria_programa_plan"
                                  ng-controller="auditoria_programa_plan as auditoria_programa_plan">
                                 <div class="panel panel-flat">
-                                    <%-
-                                    include('../../7-plugins/templates/table/header',{scope:'auditoria_programa_plan'});
-                                    %>
+                                    <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.secundary %>">
+                                        <!--Breadcrumb and Table Options-->
+                                        <div class="breadcrumb-line">
+
+                                            <%- include('../../7-plugins/templates/header/rastro',{scope:'auditoria_programa_plan'}); %>
+                                            <ul class="breadcrumb-elements visible-elements" style="margin-right: -20px;">
+                                                <li class="visible-lg visible-md">
+                                                    <a ng-click="auditoria_programa_plan.restoreStorage()"
+                                                       ng-show="auditoria_programa_plan.characterist('persist')"
+                                                       class="legitRipple">
+                                                        <i dragonlanguage="" title="MESSAGE.i('restore.Restoreconfigurationforthistable')"
+                                                           class="icon-loop"></i> 
+                                                    </a>
+                                                </li>
+                                                <li class="visible-lg visible-md" ng-show="auditoria_programa_plan.allow('audit') && !auditoria_programa_plan.table.noaudit">
+                                                    <a ng-click="auditoria_programa_plan.auditRecords()"
+                                                       class="legitRipple">
+                                                        <i dragonlanguage="" title="MESSAGE.i('mono.audit')"
+                                                           class="icon-stack-text"></i> 
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown visible-lg visible-md" dragonlanguage=""
+                                                    ng-show="auditoria_programa_plan.hideColumnsCount() && !auditoria_programa_plan.buttonhidecolumns">
+                                                    <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.i('navbar.HideColumns')" class=" icon-list3 "></i>
+                                                        <span class="label bg-<%= COLOR.secundary %>-400">{{auditoria_programa_plan.hideColumns().length}}</span>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li ng-repeat="(keyblock,item) in auditoria_programa_plan.columns() track by keyblock"
+                                                            ng-show="item.visible===false&&item.dead!==true">
+                                                            <a class="legitRipple" title="Column" ng-click="auditoria_programa_plan.showColumn(keyblock);">
+                                                                {{auditoria_programa_plan.columnLabel(item,keyblock,false)}}
+                                                                <i dragonlanguage="" title="MESSAGE.i('navbar.ShowColumns')" class="icon-eye-plus"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="auditoria_programa_plan.showallColumn();" class="legitRipple">
+                                                                <language>MESSAGE.i('mono.ShowAll')</language>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown visible-lg visible-md" ng-show="auditoria_programa_plan.records.data.length>1">
+                                                    <a dragonlanguage title="MESSAGE.i('navbar.RecordsPerPage')" href="#"
+                                                       class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false" dragonlanguage="">
+                                                        <i dragonlanguage="" title="MESSAGE.i('navbar.RecordsPerPage')" class="icon-list"></i>
+                                                        ({{auditoria_programa_plan.table.currentLimit===0?'All':auditoria_programa_plan.table.currentLimit}})
+                                                        <span ng-show="auditoria_programa_plan.getLimits().length>1" class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right" ng-show="auditoria_programa_plan.getLimits().length>1">
+                                                        <li class="{{auditoria_programa_plan.limitActive(row)}}"
+                                                            ng-repeat="(key, row) in auditoria_programa_plan.getLimits() track by key">
+                                                            <a ng-click="auditoria_programa_plan.goLimit(row)">{{row==0? '*' :row}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown" ng-if="auditoria_programa_plan.allow('filter') && auditoria_programa_plan.filters!==undefined">
+                                                    <a href="#"
+                                                       ng-show="auditoria_programa_plan.filters.blocks.length"
+                                                       class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.ic('mono.filters')" class=" icon-filter4 "></i>
+                                                        <span ng-show="auditoria_programa_plan.filters.blocks.length"
+                                                              class="label bg-<%= COLOR.secundary %>-400">
+                        {{auditoria_programa_plan.filters.blocks.length}}
+                    </span>
+                                                         
+                                                        <span class="caret" ng-show="auditoria_programa_plan.filters.blocks.length"></span>
+                                                    </a>
+                                                    <a href="#"
+                                                       ng-show="!auditoria_programa_plan.filters.blocks.length"
+                                                       ng-click="auditoria_programa_plan.openFilters();"
+                                                       class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.ic('mono.filters')" class=" icon-filter4 "></i>
+                                                        <span ng-show="auditoria_programa_plan.filters.blocks.length"
+                                                              class="label bg-<%= COLOR.secundary %>-400">
+                        {{auditoria_programa_plan.filters.blocks.length}}
+                    </span>
+                                                         
+                                                        <span class="caret" ng-show="auditoria_programa_plan.filters.blocks.length"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right" dragonlanguage
+                                                        ng-show="auditoria_programa_plan.filters.blocks.length">
+                                                        <li>
+                                                            <a ng-click="auditoria_programa_plan.openFilters();" class="legitRipple">
+                                                                <language>MESSAGE.ic('mono.open')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-repeat="(keyblock,item) in auditoria_programa_plan.filters.blocksDescription() track by keyblock">
+                                                            <a dragonlanguage="" class="legitRipple"
+                                                               ng-click="auditoria_programa_plan.filters.removeApply(keyblock,item);">
+                                                                <b>{{auditoria_programa_plan.filters.label(item.column)}}</b> {{item.operator.text}}
+                                                                <b ng-if="!Array.isArray(item.showvalue)">{{item.showvalue}}</b>
+                                                                <span ng-if="Array.isArray(item.showvalue)"
+                                                                      class="label bg-<%= COLOR.secundary %> label-rounded"
+                                                                      ng-repeat="(id,sub) in item.showvalue track by id">
+                                {{sub}}
+                            </span>
+                                                                [
+                                                                <language>MESSAGE.ic('mono.remove')</language>
+                                                                ]
+                                                            </a>
+                                                        </li>
+                                                        <li ng-if="auditoria_programa_plan.filters.blocksDescription().length>0">
+                                                            <a dragonlanguage="" ng-click="auditoria_programa_plan.filters.clearApply(true);" class="legitRipple"
+                                                               title="Filter">
+                                                                <language>MESSAGE.i('mono.ClearAll')</language>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown"
+                                                    ng-show="auditoria_programa_plan.allow(['export.PDF','export.CSV','export.XLS','export.DOC','export.Clipboard'])"
+                                                    dragonlanguage="">
+                                                    <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.i('mono.Exportas')" class=" icon-database-export "></i>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li ng-show="auditoria_programa_plan.allow('export.Clipboard')">
+                                                            <a ng-click="auditoria_programa_plan.export.go('Clipboard')"><i class="icon-copy3"></i>
+                                                                <language>MESSAGE.ic('mono.Clipboard')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-show="auditoria_programa_plan.allow('export.PDF')">
+                                                            <a ng-click="auditoria_programa_plan.export.go('PDF')"> <i class="icon-file-pdf"></i>PDF</a></li>
+                                                        <li ng-show="auditoria_programa_plan.allow('export.CSV')">
+                                                            <a ng-click="auditoria_programa_plan.export.go('CSV')"> <i class="icon-libreoffice"></i>CSV</a></li>
+                                                        <li ng-show="auditoria_programa_plan.allow('export.XLS')">
+                                                            <a ng-click="auditoria_programa_plan.export.go('XLS')"><i class="icon-file-excel"></i>XLS</a></li>
+                                                        <li ng-show="auditoria_programa_plan.allow('export.DOC')">
+                                                            <a ng-click="auditoria_programa_plan.export.go('DOC')"> <i class="icon-file-word"></i>DOC</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown visible-lg visible-md" dragonlanguage=""
+                                                    ng-show="!auditoria_programa_plan.report && auditoria_programa_plan.allow('import')  && auditoria_programa_plan.allow('add')">
+                                                    <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.ic('mono.import')" class="icon-database-upload"></i>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li>
+                                                            <a ng-click="auditoria_programa_plan.export.downloadExample()"><i class="icon-file-download"></i>
+                                                                <language>MESSAGE.i('navbar.DonwloadExample')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="auditoria_programa_plan.export.importModal()"> <i class="icon-import"></i>
+                                                                <language>MESSAGE.ic('mono.import')</language>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown" dragonlanguage=""
+                                                    ng-show="!auditoria_programa_plan.report && auditoria_programa_plan.characterist('batch') && auditoria_programa_plan.records.data.length>1 && auditoria_programa_plan.allow(['remove','active','copy'])">
+                                                    <a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <i dragonlanguage="" title="MESSAGE.i('mono.Actions')" class="icon-cog2 "></i>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li ng-show="auditoria_programa_plan.allow('remove')">
+                                                            <a ng-click="auditoria_programa_plan.deleteSelected()"><i
+                                                                        class="icon-trash"></i>
+                                                                <language>MESSAGE.ic('mono.remove')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-show="auditoria_programa_plan.activeColumn() && auditoria_programa_plan.allow('active')">
+                                                            <a ng-click="auditoria_programa_plan.activeSelected(1)">
+                                                                <i class="icon-checkmark-circle"></i>
+                                                                <language>MESSAGE.ic('mono.enable')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-show="auditoria_programa_plan.activeColumn() && auditoria_programa_plan.allow('active')">
+                                                            <a ng-click="auditoria_programa_plan.activeSelected(0)"><i class="icon-circle"></i>
+                                                                <language>MESSAGE.ic('mono.disable')</language>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-show="auditoria_programa_plan.allow('copy') && !auditoria_programa_plan.dragrow">
+                                                            <a ng-click="auditoria_programa_plan.copyMultiple()"><i class="icon-copy"></i>
+                                                                <language>MESSAGE.i('mono.CopySelected')</language>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="auditoria_programa_plan.diagram()" class="legitRipple text-primary">
+                                                        <i dragonlanguage="" title="Ver Flujo de trabajo" class="icon-repo-forked"></i> 
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="auditoria_programa_plan.refresh()" class="legitRipple" id="refreshBtn">
+                                                        <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')" class="icon-rotate-cw3 loadingButton"></i> 
+                                                    </a>
+                                                </li>
+                                                <li ng-show="!auditoria_programa_plan.report && auditoria_programa_plan.allow('add')">
+                                                    <a ng-click="auditoria_programa_plan.formulary(null,'new')" class="legitRipple">
+                                                        <i dragonlanguage="" title="MESSAGE.ic('mono.add')" class="icon-plus-circle2 "></i> 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--Breadcrumb and Table Options-->
+                                    </div>
+
                                     <div class="subcontent">
                                         <%- include('../../5-views/auditoria_programa_plan/base',{scope:'auditoria_programa_plan'}); %>
                                     </div>

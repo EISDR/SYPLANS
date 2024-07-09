@@ -60,24 +60,22 @@ DSON.keepmerge(CRUD_auditoria_entidad_flujo, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_auditoria_entidad_flujo.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_auditoria_entidad_flujo.table.options.push({
+    text: (data) => {
+        return MESSAGE.i('actions.Extra');
+    },
+    icon: (data) => {
+        return "list";
+    },
+    characterist: (data) => {
+        return "";
+    },
+    show: function (data) {
+        return true;
+    },
+    click: function (data) {
+        //extra function
+        auditoria_entidad_flujo.diagram(data.row.nombre)
+        return false;
+    }
+});

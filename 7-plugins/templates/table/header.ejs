@@ -191,6 +191,12 @@
                 </ul>
             </li>
             <li>
+                <a ng-show="<%= scope %>.show_diagram"
+                   ng-click="<%= scope %>.diagram()" class="legitRipple text-primary">
+                    <i dragonlanguage="" title="Ver Flujo de trabajo" class="icon-repo-forked"></i> 
+                </a>
+            </li>
+            <li>
                 <a ng-click="<%= scope %>.refresh()" class="legitRipple" id="refreshBtn">
                     <i dragonlanguage="" title="MESSAGE.ic('mono.refresh')" class="icon-rotate-cw3 loadingButton"></i> 
                 </a>
