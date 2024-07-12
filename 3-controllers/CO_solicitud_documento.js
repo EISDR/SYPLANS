@@ -591,7 +591,12 @@ app.controller("solicitud_documento", function ($scope, $http, $compile) {
     //     resolve(true);
     // });
     //
-    // $scope.triggers.table.after.close = function (data) {
+    // solicitud_documento.triggers.table.after.open = function (data) {
+    //     if(solicitud_documento.form.mode === 'new'){
+    //         setTimeout(function(){
+    //             solicitud_documento.getDocumento();
+    //         },500);
+    //     }
     //     //console.log(`$scope.triggers.table.after.close ${$scope.modelName}`);
     // };
     // $scope.triggers.table.before.close = () => new Promise((resolve, reject) => {
@@ -649,6 +654,7 @@ Gracias.`;
         let titulo = "";
         let cuerpo = "";
         let cuerpo2 = "";
+        console.log(data.updating,"viene el id?")
         if (data.updating.estatus == 3 && data.updating.tipo_accion == 1) {
             titulo_push = `La solicitud de creación de documento "${data.updating.nombre}" ha sido Autorizada.`;
             cuerpo_push = `Ha sido Autorizada por ${solicitud_documento.session.fullName()}.`;
@@ -674,7 +680,13 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
                 active: 1,
                 creado_en: moment().format('YYYY-MM-DD hh:mm:ss'),
                 creado_por: solicitud_documento.session.id
-            }, '', '', function (result) {
+            }, '', '', async function (result) {
+                await BASEAPI.ajax.postp(new HTTP().path(["files", "api", "copy"]), {
+                    moves: [{
+                        from: `${FOLDERS.files}/solicitud_documento/solicitud_documentofile/${data.updating.where[0].value}`,
+                        to: `${FOLDERS.files}/documentos_asociados/documento_asociadofile/${result.data.data[0].id}`
+                    }]
+                });
                 BASEAPI.updateall('solicitud_documento_actividades', {
                     documento_asociado: result.data.data[0].id,
                     where: [
@@ -1314,6 +1326,22 @@ Gracias.`;
         resolve(true)
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
     });
+    solicitud_documento.getDocumento = function () {
+        if (solicitud_documento.galleryFiles.rootFolder) {
+            var http = new HTTP();
+            BASEAPI.ajax.get(http.path(["files", "api"]), {folder: `${solicitud_documento.galleryFiles.rootFolder}`}, async function (data) {
+                if (data)
+                    if (data.data) {
+                        if (data.data.files) {
+                            let url = `${data.data.root}/${data.data.files[0]}`;
+                            baseController.scanImageFromURL(url, "Documentos", true);
+                        } else {
+                            SWEETALERT.show({type: 'error', message: `Archivo inválido`});
+                        }
+                    }
+            });
+        }
+    }
     //
     // $scope.triggers.table.before.control = function (data) {
     //     //console.log(`$scope.triggers.table.before.control ${$scope.modelName} ${data}`);

@@ -195,6 +195,41 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             }
         };
 
+        baseController.scanImageFromURL = async (imageURL, entity, simple) => {
+            let entityValue = baseController.dynamicDocuments.filter(d => {
+                return d.nombre === entity;
+            })[0];
+            if (entityValue) {
+                let crude = [];
+                let informe = [];
+                SWEETALERT.loading({message: "Procesando Documento"});
+                Tesseract.recognize(imageURL, 'eng').then(async ({data: {text}}) => {
+                    if (text) {
+                        text.split("\n").forEach((line, ix) => {
+                            crude.push({
+                                id: ix + 1,
+                                text: line.replaceAll('"', "'")
+                            });
+                        });
+                    }
+                    if (entityValue.config.fields)
+                        if (entityValue.config.fields.length) {
+                            IA.readFile(entityValue.config.fields, crude, informe, simple);
+                            informe.forEach(info => {
+                                baseController.currentModel[info.field] = info.result;
+                            });
+                            baseController.currentModel.refreshAngular();
+                        }
+                    SWEETALERT.stop();
+                });
+            } else {
+                SWEETALERT.show({
+                    type: 'error',
+                    message: `La entidad ${entity.nombre} no está configurada para esta empresa`
+                });
+            }
+        };
+
         if (!baseController.ponderaciones)
             BASEAPI.listp("reporte_indicador_config", {
                 limit: 0,

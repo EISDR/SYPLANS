@@ -491,6 +491,12 @@ var toclient = JSON.stringify(options);
                                     console.log($(this).html(title));
                                 });
 
+                                if(typeof solicitud_documento !== "undefined"){
+                                    setTimeout(function(){
+                                        solicitud_documento.getDocumento();
+                                    },500);
+                                }
+
                                 if (typeof indicador_producto_poa !== "undefined")
                                     for (var j = 1; j <= 5; j++) {
                                         setTimeout(function () {

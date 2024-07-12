@@ -43,14 +43,17 @@
                     //},
                 }) %>
             </div>
-            <div class='col-sm-3 col-md-3' ng-if="solicitud_documento.tipo_accion=='1'">
-                <div class="row" ng-if="<%= scope %>.mode==='new'">
+            <div class='col-sm-3 col-md-3' ng-show="solicitud_documento.tipo_accion=='1'">
+                <div class="row" ng-show="<%= scope %>.mode==='new'">
                     <div class='col-sm-12 col-md-12 text-left'>
-                        <button ng-click="baseController.scanImage('Documentos',true);" type="button"
-                                class="btn bg-primary btn-xs"
-                                title="Dar clic para completar el formulario de la solicitud a través de un documento existente.">
-                            Cargar Documento
-                        </button>
+                        <div class="col-sm-12 col-md-12 custom-upload" style="float: right">
+                            <%- FORM.file("solicitud_documentofile", scope, {
+                                title: 'Dar clic para completar el formulario de la solicitud a través de un documento existente.',
+                                truetext: 'Cargar Documento',
+                                maxfiles: 1,
+                                acceptedFiles: 'image/*'
+                            }) %>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -337,11 +340,11 @@
                             text: 'item.nombre',
                             condition: "(item.compania == solicitud_documento.session.compania_id && item.institucion == $null)",
                             //self: true,
-                            //allownull: true,
-                            //allownew: true,
-                            //allowedit: true,
-                            //allowview: true,
-                            //allowlist: true,
+                            // allownull: false,
+                            allownew: false,
+                            allowedit: false,
+                            allowview: false,
+                            allowlist: false,
                             //refresh: true,
                             //condition: 'true',
                             //multiple: false,get: {table: "tipo_documento_linked", fieldFrom: "id", fieldTo: "myid(tipo_documento)", field: "theirid"},
