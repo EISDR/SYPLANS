@@ -5,6 +5,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
     actividades_poa_monitoreo.fileSI = [];
     actividades_poa_monitoreo.alert = false;
     actividades_poa_monitoreo.auditModel = "vw_actividades_poa_grid";
+    actividades_poa_monitoreo.show_diagram = true;
     var session = new SESSION().current();
     actividades_poa_monitoreo.compania_idid = session.compania_id;
     actividades_poa_monitoreo.institucion_idid = session.institucion_id;
@@ -1853,4 +1854,182 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
         comentarios_actividades_poa.refresh();
         comentarios_actividad_apoyo.refresh();
     };
+    actividades_poa_monitoreo.downloadDiagram = () => {
+        let image = actividades_poa_monitoreo.myDiagram.makeImage({
+            scale: 1
+        });
+        var a = document.createElement("a"); //Create <a>
+        a.href = image.src; //Image Base64 Goes here
+        a.download = "Flujo de Trabajo - Actividades POA.png";
+        a.click();
+    };
+    actividades_poa_monitoreo.diagram = () => {
+        actividades_poa_monitoreo.modal.modalView("actividades_poa_monitoreo/diagram", {
+            width: 'modal-full',
+            header: {
+                title: "Vista del Flujo de Trabajo",
+                icon: "icon-repo-forked"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'actividades_poa_monitoreo',
+            },
+            event: {
+                show: {
+                    end: async function (data) {
+                        SWEETALERT.loading({message: "Cargando Diagrama"});
+                        actividades_poa_monitoreo.statusList = await BASEAPI.listp('vw_modulo_estatus', {
+                            limit: 0,
+                            orderby: "entidad",
+                            order: "asc",
+                            where: [
+                                {
+                                    "field": "entidad",
+                                    "value": "Actividades POA"
+                                }
+                            ]
+                        });
+                        actividades_poa_monitoreo.statusList = actividades_poa_monitoreo.statusList.data;
+                        setTimeout(async function () {
+                            const $$$ = go.GraphObject.make;
+                            let statusList = actividades_poa_monitoreo.statusList;
+                            let thejson = {
+                                class: "go.GraphLinksModel",
+                                "nodeKeyProperty": "id",
+                                "nodeDataArray": [],
+                                "linkDataArray": []
+                            };
+
+                            statusList.forEach((d) => {
+                                let item = {
+                                    "id": d.id,
+                                    "text": d.nombre
+                                };
+                                thejson.nodeDataArray.push(item);
+                            });
+
+                            statusList?.forEach((d) => {
+                                let uniq = a => [...new Set(a)];
+                                let posteriores = uniq(eval(d.estatus_posterior));
+
+                                posteriores?.forEach((e) => {
+                                    let posterior = statusList.filter(f => f.id === e)[0];
+                                    if (posterior) {
+                                        let isprogress = true;
+                                        let item = {
+                                            "from": d.id,
+                                            "to": e,
+                                            "progress": isprogress,
+                                            "text": posterior.action
+                                        };
+                                        thejson.linkDataArray.push(item);
+                                    }
+                                });
+                            });
+
+                            actividades_poa_monitoreo.myDiagram = new go.Diagram(
+                                'myDiagramDiv', // must name or refer to the DIV HTML element
+                                {
+                                    'animationManager.initialAnimationStyle': go.AnimationStyle.None,
+                                    InitialAnimationStarting: (e) => {
+                                        var animation = e.subject.defaultAnimation;
+                                        animation.easing = go.Animation.EaseOutExpo;
+                                        animation.duration = 800;
+                                        animation.add(e.diagram, 'scale', 0.3, 1);
+                                        animation.add(e.diagram, 'opacity', 0, 1);
+                                    },
+
+                                    // have mouse wheel events zoom in and out instead of scroll up and down
+                                    'toolManager.mouseWheelBehavior': go.WheelMode.Zoom,
+                                    // support double-click in background creating a new node
+                                    'clickCreatingTool.archetypeNodeData': {text: 'new node'},
+                                    // enable undo & redo
+                                    'undoManager.isEnabled': true,
+                                    layout: new go.LayeredDigraphLayout({
+                                        layerSpacing: 100,
+                                        columnSpacing: 100,
+                                        direction: 90,
+                                        setsPortSpot: false,
+                                        setsChildPortSpot: false,
+                                        arrangement: go.TreeArrangement.Horizontal,
+                                    }),
+                                }
+                            );
+                            const colors = {
+                                pink: '#facbcb',
+                                blue: '#b7d8f7',
+                                green: '#b9e1c8',
+                                yellow: '#faeb98',
+                                background: '#e8e8e8',
+                            };
+                            actividades_poa_monitoreo.myDiagram.div.style.backgroundColor = colors.background;
+                            actividades_poa_monitoreo.myDiagram.nodeTemplate = new go.Node('Auto', {
+                                isShadowed: true,
+                                shadowBlur: 0,
+                                shadowOffset: new go.Point(5, 5),
+                                shadowColor: 'black',
+                            }).bindTwoWay('location', 'loc', go.Point.parse, go.Point.stringify).add(
+                                new go.Shape('RoundedRectangle', {
+                                    strokeWidth: 1.5,
+                                    fill: colors.blue,
+                                }).bind('fill', 'type', (type) => {
+                                    if (type === 'Start') return colors.green;
+                                    if (type === 'End') return colors.pink;
+                                    return colors.blue;
+                                }).bind('figure', 'type', (type) => {
+                                    return 'RoundedRectangle';
+                                }),
+                                new go.TextBlock({
+                                    shadowVisible: false,
+                                    margin: 8,
+                                    font: 'bold 14px sans-serif',
+                                    stroke: '#333',
+                                }).bind('text')
+                            );
+
+                            // replace the default Link template in the linkTemplateMap
+                            actividades_poa_monitoreo.myDiagram.linkTemplate = new go.Link(
+                                {
+                                    isShadowed: true,
+                                    shadowBlur: 0,
+                                    shadowColor: 'black',
+                                    shadowOffset: new go.Point(2.5, 2.5),
+                                    curve: go.Curve.Bezier,
+                                    curviness: 40,
+                                    adjusting: go.LinkAdjusting.Stretch,
+                                    reshapable: true,
+                                    relinkableFrom: true,
+                                    relinkableTo: true,
+                                    fromShortLength: 8,
+                                    toShortLength: 10,
+                                }).bindTwoWay('points').bind('curviness').add(
+                                new go.Shape({strokeWidth: 2, shadowVisible: false, stroke: 'black'})
+                                    .bind('strokeDashArray', 'progress', (progress) => (progress ? [] : [5, 6]))
+                                    .bind('opacity', 'progress', (progress) => (progress ? 1 : 0.5)),
+                                new go.Shape({
+                                    fromArrow: 'circle',
+                                    strokeWidth: 1.5,
+                                    fill: 'white'
+                                }).bind('opacity', 'progress', (progress) => (progress ? 1 : 0.5)),
+                                new go.Shape({
+                                    toArrow: 'standard',
+                                    stroke: null,
+                                    scale: 1.5,
+                                    fill: 'black'
+                                }).bind('opacity', 'progress', (progress) => (progress ? 1 : 0.5))
+                            );
+
+
+                            // read in the JSON data from the "mySavedModel" element
+                            actividades_poa_monitoreo.myDiagram.model = go.Model.fromJson(JSON.stringify(thejson));
+                            SWEETALERT.stop();
+                        }, 1000)
+                    }
+                }
+            }
+        });
+    }
 });

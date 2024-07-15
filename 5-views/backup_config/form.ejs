@@ -15,7 +15,9 @@
                 }) %>
             </div>
             <div class="col-sm-4 col-md-4">
-                <%- FORM.hour('hora',scope,{}) %>
+                <%- FORM.hour('hora',scope,{
+                    placeholder: "Hora (24hrs)"
+                }) %>
             </div>
             <div class="col-sm-12 col-md-12">
                 <%- FORM.select("compania", scope, {
