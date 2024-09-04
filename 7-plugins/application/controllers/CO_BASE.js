@@ -240,6 +240,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     value: adasession.compania_id
                 }]
             }).then((data) => {
+                console.log("me ejecute desde el base");
                 baseController.ponderaciones = data.data
                 if (!baseController.ponderaciones)
                     return;
@@ -554,6 +555,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 CONFIGCOMPANY.interfaces = 0;
                 CONFIGCOMPANY.historial_acceso = 0;
                 CONFIGCOMPANY.import_masivo = 0;
+                CONFIGCOMPANY.backup_config = 0;
                 if (intersession.profile !== 5){
                     CONFIGCOMPANY.instrumentos = 0;
                     CONFIGCOMPANY.opcion_ods = 0;

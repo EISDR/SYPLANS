@@ -5,7 +5,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- ADMINISTRACIÓN -",
-      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
+      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.backup_config || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
       "disable": true
     }
   ],
@@ -15,7 +15,7 @@
       "icon": "minus",
       "href": "#",
       "text": "- ADMINISTRACIÓN -",
-      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
+      "condition": "CONFIGCOMPANY.interfaces || CONFIGCOMPANY.backup_config || CONFIGCOMPANY.import_masivo || CONFIGCOMPANY.historial_acceso || baseController.session.super",
       "disable": true
     }
   ]

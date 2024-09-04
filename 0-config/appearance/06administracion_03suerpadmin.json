@@ -19,7 +19,8 @@
           "modal": "",
           "icon": "office",
           "href": "#backup_config",
-          "text": "Configuración del Backup"
+          "text": "Configuración del Backup",
+          "condition": "CONFIGCOMPANY.backup_config"
         },
         {
           "modal": "",
@@ -151,6 +152,13 @@
           "href": "#compania_config",
           "condition": "baseController.session.super ",
           "text": "Configuración"
+        },
+        {
+          "modal": "",
+          "icon": "office",
+          "href": "#backup_config",
+          "text": "Configuración del Backup",
+          "condition": "CONFIGCOMPANY.backup_config"
         },
         {
           "modal": "",
