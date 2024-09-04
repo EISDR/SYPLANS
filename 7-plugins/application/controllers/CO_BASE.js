@@ -566,6 +566,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             if (intersession.profile == 4){
                 CONFIGCOMPANY.only_lote = 1;
                 CONFIGCOMPANY.only_plani = 1;
+                CONFIGCOMPANY.backup_config = 0;
+                CONFIGCOMPANY.import_masivo = 0;
             }
             if (intersession.profile == 1){
                 CONFIGCOMPANY.instrumentos = 0;
