@@ -2744,7 +2744,15 @@ app.controller("actividades_poa", function ($scope, $http, $compile) {
                 titulo = `Se le ha asignado la actividad "${data.inserted.nombre}"`;
                 correo = `${actividades_poa.form.selected('responsable').correo}`;
                 cuerpo = `${actividades_poa.form.selected('responsable').nombre + ' ' + actividades_poa.form.selected('responsable').apellido}, se le ha asignado la actividad: "${data.inserted.nombre}". La misma deberá trabajarse durante el rango de fecha de ${actividades_poa.fecha_inicio} hasta ${actividades_poa.fecha_fin}`;
-                function_send_email_director_user(titulo_push, cuerpo_push, titulo, cuerpo, actividades_poa.session.compania_id, actividades_poa.departamento, correo, session.institucion_id);
+                BASEAPI.insert('modulo_notificacion_task', {
+                    accion: "APCA",
+                    record_id: actividades_poa.id,
+                    date: moment().format("YYYY-MM-DD")
+                }, function(result){
+                    if (result)
+                        SWEETALERT.stop();
+                })
+                // function_send_email_director_user(titulo_push, cuerpo_push, titulo, cuerpo, actividades_poa.session.compania_id, actividades_poa.departamento, correo, session.institucion_id);
 
 
                 // Envios de correo actividades de apoyo
