@@ -22,13 +22,14 @@ var options = {
     sufix: '',
     prefix: '',
     posttype: "text",
-    isNumber: true,
+    isNumber: false,
     mask: null,
     restrict: null,
     repeat: null,
     clean: null,
     validate: null,
     limit: null,
+    regex: false,
     //maxlength: 10,
 
 };
@@ -44,6 +45,9 @@ var toclient = JSON.stringify(options);
 <script>
     <%= model %>.triggers.table.before.control("<%= nameclean %>");
     <%= model %>.form.registerField("<%= name %>", "<%= toclient %>");
+    <% if(options.format || options.isNumber){ %>
+    <%= model %>.form.registerField("<%= name %>_DragonClean", "<%= toclient %>");
+    <% } %>
     if (MESSAGE.exist('columns.<%= nameclean %>')) {
         <%= model %>.
         form.options.<%= name %>.placeholder = MESSAGE.ic('columns.<%= nameclean %>');
@@ -66,6 +70,7 @@ var toclient = JSON.stringify(options);
             ng-disabled="<%= model %>.form.options.<%= name %>.disabled"
             maxlength="{{<%= model %>.form.options.<%= name %>.maxlength}}"
             type="text"
+            onkeypress="return <%= model %>.form.options.<%= name %>.isNumber ? <%= model %>.form.options.<%= name %>.regex ? DSON.isNumberKey(event,this) : DSON.isNumberKeyNegative(event,this) : ''"
             autocomplete="off"
             ng-model-onblur
             mask="<%= options.mask %>"

@@ -2522,6 +2522,14 @@
       "backup_config": {
         "type": "full",
         "allow": {}
+      },
+      "recursos": {
+        "type": "full",
+        "allow": {}
+      },
+      "tipo_recurso": {
+        "type": "full",
+        "allow": {}
       }
     }
   }

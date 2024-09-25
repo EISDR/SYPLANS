@@ -201,15 +201,9 @@
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-6 col-md-6'>
+            <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('objetivo', scope, {
                     trueplaceholder: "Objetivo"
-                    //maxlength: 200,
-                }) %>
-            </div>
-            <div class='col-sm-6 col-md-6'>
-                <%- FORM.textarea('recursos', scope, {
-                    trueplaceholder: "Recursos (Humanos, Tecnológicos, etc) "
                     //maxlength: 200,
                 }) %>
             </div>
@@ -269,7 +263,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -288,7 +282,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -307,7 +301,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_entrada', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -327,7 +321,7 @@
                 }) %>
             </div>
             <!--            procesos salida-->
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -346,7 +340,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-if="!procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -365,7 +359,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='new'">
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -384,7 +378,7 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-show="false" ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
+            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,
                     allowlist: false,
@@ -402,6 +396,49 @@
                         field: 'proceso_salida',
                     },
                 }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                        <p style="margin: 5px 0; font-size: 16px;">Tiempo de ejecución de proceso</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class='col-sm-4 col-md-4'>
+                                <%- FORM.select('unidad_tiempo', scope, {
+                                    text: "item.nombre",
+                                    table: 'procesos_unidad_tiempo',
+                                    label: "Unidad de tiempo",
+                                    icon: {class: "archive"},
+                                    allownew: false,
+                                    allowedit: false,
+                                    allowview: false,
+                                    allowlist: false,
+                                    refresh: false
+                                }) %>
+                            </div>
+                            <div class='col-sm-1 col-md-1' ng-if="procesos.unidad_tiempo == 1">
+                                <%- FORM.ngmask('tiempo_ejecucion', scope, {
+                                    placeholder: 'Tiempo Estimado',
+                                    label_custom: true,
+                                    mask: "99:99",
+                                    maxlength: 5,
+                                    isNumber: true,
+                                    icon: {
+                                        class: "watch2"
+                                    }
+                                }) %>
+                            </div>
+                            <div class='col-sm-1 col-md-1' ng-if="procesos.unidad_tiempo != 1" ng-show="procesos.unidad_tiempo == 2 || procesos.unidad_tiempo == 3">
+                                <%- FORM.integer("tiempo_ejecucion", scope, {
+                                    placeholder: "Tiempo Estimado"
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -425,6 +462,14 @@
                 <li>
                     <a href="#tabB" data-toggle="tab" id="tabidB" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
+                        <language>Recursos del proceso</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#tabB" data-toggle="tab" id="tabidC" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
                         <language>Documentos Asociado al Proceso</language>
                         <i class="border-white  position-right"></i>
                     </a>
@@ -446,6 +491,19 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="tabB">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <%- FORM.relation("recursos", scope, {
+                                text: "item.nombre",
+                                table: "recursos",
+                                field: "proceso",
+                                master: null,
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tabC">
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <%- FORM.relation("documentos_asociados", scope, {

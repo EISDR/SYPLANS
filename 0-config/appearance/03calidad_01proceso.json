@@ -96,6 +96,20 @@
           "icon": "pie-chart7",
           "href": "#aacontroldemandog?modolista-proceso",
           "text": "Reporte Cumplimiento de Procesos"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "bookmarks",
+              "href": "#tipo_recurso",
+              "text": "Tipos de Recursos"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
         }
       ],
       "modal": "",
@@ -202,6 +216,20 @@
           "icon": "pie-chart7",
           "href": "#aacontroldemandog?modolista-proceso",
           "text": "Reporte Cumplimiento de Procesos"
+        },
+        {
+          "menus": [
+            {
+              "modal": "",
+              "icon": "bookmarks",
+              "href": "#tipo_recurso",
+              "text": "Tipos de Recursos"
+            }
+          ],
+          "modal": "",
+          "icon": "cog2",
+          "href": "#",
+          "text": "Configuración"
         }
       ],
       "modal": "",

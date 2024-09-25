@@ -209,7 +209,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     },
                     shorttext: 360
                 },
-                recursos: {
+                recursos_n: {
                     label: function () {
                         return "Recursos (Humanos, Tecnológicos, etc)"
                     },
@@ -221,18 +221,18 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 //     },
                 //     shorttext: 360
                 // },
-                // proceso_entrada: {
-                //     label: function () {
-                //         return "Procesos de Entrada"
-                //     },
-                //     shorttext: 360
-                // },
-                // proceso_salida: {
-                //     label: function () {
-                //         return "Proceso de Salida"
-                //     },
-                //     shorttext: 360
-                // },
+                proceso_entrada: {
+                    label: function () {
+                        return "Procesos de Entrada"
+                    },
+                    shorttext: 360
+                },
+                proceso_salida: {
+                    label: function () {
+                        return "Proceso de Salida"
+                    },
+                    shorttext: 360
+                },
                 archivo: {
                     label: function () {
                         return "Imagen Adjunta"
@@ -407,7 +407,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                         return "Responsable"
                     }
                 },
-                recursos: {
+                recursos_n: {
                     label: function () {
                         return "Recursos (Humanos, Tecnológicos, etc)"
                     },
@@ -419,18 +419,18 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 //     },
                 //     shorttext: 360
                 // },
-                // proceso_entrada: {
-                //     label: function () {
-                //         return "Procesos de Entrada"
-                //     },
-                //     shorttext: 360
-                // },
-                // proceso_salida: {
-                //     label: function () {
-                //         return "Proceso de Salida"
-                //     },
-                //     shorttext: 360
-                // },
+                proceso_entrada: {
+                    label: function () {
+                        return "Procesos de Entrada"
+                    },
+                    shorttext: 360
+                },
+                proceso_salida: {
+                    label: function () {
+                        return "Proceso de Salida"
+                    },
+                    shorttext: 360
+                },
                 archivo: {
                     label: function () {
                         return "Imagen Adjunta"
@@ -573,6 +573,18 @@ app.controller("procesos", function ($scope, $http, $compile) {
                     // rules.push(VALIDATION.general.required(value));
                     VALIDATION.validate(procesos, 'alcance', rules);
                 });
+                $scope.$watch("procesos.unidad_tiempo", function (value) {
+                    var rules = [];
+                    //rules here
+                    // rules.push(VALIDATION.general.required(value));
+                    if(procesos.form.selected('unidad_tiempo')){
+                        setTimeout(function (){
+                            procesos.tiempo_ejecucion = "";
+                            procesos.refreshAngular();
+                        },10)
+                    }
+                    VALIDATION.validate(procesos, 'unidad_tiempo', rules);
+                });
                 $scope.$watch("procesos.responsable", function (value) {
                     var rules = [];
                     //rules here
@@ -620,12 +632,13 @@ app.controller("procesos", function ($scope, $http, $compile) {
             //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
             procesos.fileSI = [];
             procesos.runMagicOneToMany('doc_asoc', 'vw_documentos_asociados_mp', 'proceso', 'nombre', 'id');
-            // procesos.runMagicManyToMany('proceso_entrada', 'procesos',
-            //     'proceso', 'id', 'nombre', 'procesos_entrada',
-            //     'proceso_entrada', 'id');
-            // procesos.runMagicManyToMany('proceso_salida', 'procesos',
-            //     'proceso', 'id', 'nombre', 'procesos_salida',
-            //     'proceso_salida', 'id');
+            procesos.runMagicOneToMany('recursos_n', 'vw_recursos', 'proceso', 'tipo_descripcion', 'id');
+            procesos.runMagicManyToMany('proceso_entrada', 'procesos',
+                'proceso', 'id', 'nombre', 'procesos_entrada',
+                'proceso_entrada', 'id');
+            procesos.runMagicManyToMany('proceso_salida', 'procesos',
+                'proceso', 'id', 'nombre', 'procesos_salida',
+                'proceso_salida', 'id');
             procesos.setPermission("add", false);
             for (var items of records.data) {
                 procesos.files = () => new Promise(async (resolve, reject) => {
