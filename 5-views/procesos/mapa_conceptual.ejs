@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="margin-top: 20px">
+        <button
+                dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+                type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+                onclick="MODAL.close()">
+            <b><i class="icon-cross2"></i></b>
+            Cerrar
+        </button>
+        <button title="Descargar"
+                type="button" role="button"
+                class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.saveMapa()">
+            <b><i class="icon-floppy-disk"></i></b>
+            Guardar
+        </button>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 0px;padding-top: 5px; background-color: #f4f4f4;">
+                    <h3 style="margin-top: 15px;">Herramientas de creación</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class=" text-primary">
+                                    <th colspan="100%">
+                                        <div id="info-box" class="alert alert-info alert-styled-left alert-bordered" style="padding: 5px">
+                                            <ol style="margin: 0px;">
+                                                <li>
+                                                    <strong><i>Modificar el texto de un ítem: </i></strong>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <i>Haz doble clic en el ítem.</i>
+                                                    </li>
+                                                </ul>
+                                                <li>
+                                                    <strong><i>Eliminar un ítem: </i></strong>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <i>Haz clic en el ítem que deseas eliminar y presiona las teclas “Backspace” o “Delete”.</i>
+                                                    </li>
+                                                </ul>
+                                                <li>
+                                                    <strong><i>Hacer Zoom: </i></strong>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <i>Presionando la tecla "Ctrl" y moviendo la rueda de desplazamiento del ratón</i>
+                                                    </li>
+                                                </ul>
+                                            </ol>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Grupos y Líneas</th>
+                                    <td width="70%" class="ng-binding">
+                                        <button
+                                                dragonlanguage="" title="Agregar un grupo"
+                                                type="button" class="btn bg-<%= COLOR.secundary %>"
+                                                ng-click="<%= scope %>.addNewPool(<%= scope %>.myDiagram, 'Nuevo Grupo')">
+                                            Agregar un grupo
+                                        </button>
+                                        <button
+                                                dragonlanguage="" title="Agregar una Línea"
+                                                type="button" class="btn bg-<%= COLOR.secundary %>"
+                                                ng-click="<%= scope %>.addNewLane(<%= scope %>.myDiagram, 'Nueva línea')">
+                                            Agregar una línea
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Nodos</th>
+                                    <td class="ng-binding">
+                                        <button
+                                                dragonlanguage="" title="Agregar un Círculo"
+                                                type="button" class="btn bg-<%= COLOR.secundary %> btn-labeled btn-xs "
+                                                ng-click="<%= scope %>.addNode(<%= scope %>.myDiagram, 'Nuevo nodo', 'Circle')">
+                                            <b><i class="icon-circle"></i></b>
+                                            Círculo
+                                        </button>
+                                        <button
+                                                dragonlanguage="" title="Agregar un Óvalo"
+                                                type="button" class="btn bg-<%= COLOR.secundary %> btn-labeled btn-xs "
+                                                ng-click="<%= scope %>.addNode(<%= scope %>.myDiagram, 'Nuevo nodo', 'Ellipse')">
+                                            <b><i class="icon-circle-code"></i></b>
+                                            Óvalo
+                                        </button>
+                                        <button
+                                                dragonlanguage="" title="Agregar un Rectángulo"
+                                                type="button" class="btn bg-<%= COLOR.secundary %> btn-labeled btn-xs "
+                                                ng-click="<%= scope %>.addNode(<%= scope %>.myDiagram, 'Nuevo nodo', 'Rectangle')">
+                                            <b><i class="icon-width"></i></b>
+                                            Rectángulo
+                                        </button>
+                                        <button
+                                                dragonlanguage="" title="Agregar un Rombo"
+                                                type="button" class="btn bg-<%= COLOR.secundary %> btn-labeled btn-xs "
+                                                ng-click="<%= scope %>.addNode(<%= scope %>.myDiagram, 'Nuevo nodo', 'Diamond')">
+                                            <b><i class="icon-diamond3"></i></b>
+                                            Rombo
+                                        </button>
+                                        <button
+                                                dragonlanguage="" title="Agregar un Rectángulo Redondeado"
+                                                type="button" class="btn bg-<%= COLOR.secundary %> btn-labeled btn-xs "
+                                                ng-click="<%= scope %>.addNode(<%= scope %>.myDiagram, 'Nuevo nodo', 'RoundedRectangle')">
+                                            <b><i class="icon-ipad"></i></b>
+                                            Rectángulo Redondeado
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12' style="height: 700px">
+                <div name="myDiagramDiv" id="myDiagramDiv" style="height: 700px">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="margin-top: 20px">
+    <button
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            onclick="MODAL.close()">
+        <b><i class="icon-cross2"></i></b>
+        Cerrar
+    </button>
+    <button title="Descargar"
+            type="button" role="button"
+            class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.saveMapa()">
+        <b><i class="icon-floppy-disk"></i></b>
+        Guardar
+    </button>
+</div>
+
+<script>
+    $(function () {
+
+    });
+</script>
+
+
+
+
+

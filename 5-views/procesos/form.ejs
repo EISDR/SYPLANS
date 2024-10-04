@@ -199,7 +199,14 @@
                     // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                 }) %>
             </div>
-        </div>
+            <div class="col-sm-2 col-md-2 center-profile-image countFile" style="padding: 1% 3% 0 3%;">
+                <button ng-show="<%= scope %>.form.mode!=='new'"
+                        dragonlanguage="" title="Mapa conceptual"
+                        type="button" role="button" class="btn bg-secundary-600 btn-block"
+                        ng-click="<%= scope %>.mapa_conceptual()">
+                    <language>Mapa Conceptual</language>
+                </button>
+            </div>
         <div class="row">
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('objetivo', scope, {
@@ -493,7 +500,7 @@
                 <div class="tab-pane" id="tabB">
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                            <%- FORM.relation("recursos", scope, {
+                            <%- FORM.relation("recursos_R", scope, {
                                 text: "item.nombre",
                                 table: "recursos",
                                 field: "proceso",
