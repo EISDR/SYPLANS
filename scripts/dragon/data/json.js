@@ -27,6 +27,12 @@ DSON = {
         return !(charCode !== 46 && charCode > 31
             && (charCode < 48 || charCode > 57));
     },
+    isNumberIntegerKey: function (evt, val) {
+        // console.log(val.value);
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        return !(charCode > 31
+            && (charCode < 48 || charCode > 57));
+    },
     removeOther: function (obj, props) {
         var newObj = {};
         for (var i in obj) {

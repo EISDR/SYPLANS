@@ -149,7 +149,6 @@ TABLE = {
 
 
                 eval(`${$scope.modelName}.records.data.forEach(row => {
-                    debugger
                     row.${mykey} = row.${mykey} || undefined;
                     var mylist = [];
                     result.data.forEach(d => {

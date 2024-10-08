@@ -871,8 +871,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                 const MINBREADTH = 20; // this controls the minimum breadth of any non-collapsed swimlane
 
                                 // some shared functions
-
-                                // this may be called to force the lanes to be laid out again
+                                        // this may be called to force the lanes to be laid out again
                                 function relayoutLanes() {
                                     procesos.myDiagram.nodes.each((lane) => {
                                         if (!(lane instanceof go.Group)) return;
@@ -1066,6 +1065,17 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                     'undoManager.isEnabled': true
                                 });
 
+
+                                // Configuración del modelo para que incluya la posición de los nodos
+                                procesos.myDiagram.model = new go.GraphLinksModel({
+                                    linkKeyProperty: 'key',  // especifica que la propiedad 'key' será la clave de los enlaces
+                                    nodeDataArray: [
+                                        // tus datos de nodos aquí
+                                    ],
+                                    linkDataArray: [
+                                        // tus datos de enlaces aquí
+                                    ]
+                                });
                                 // this is a Part.dragComputation function for limiting where a Node may be dragged
                                 // use GRIDPT instead of PT if DraggingTool.isGridSnapEnabled and movement should snap to grid
                                 function stayInGroup(part, pt, gridpt) {
@@ -1091,6 +1101,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                 }
 
                                 procesos.myDiagram.nodeTemplate = new go.Node('Auto', {
+
                                     // limit dragging of Nodes to stay within the containing Group, defined above
                                     dragComputation: stayInGroup
                                 })
@@ -1105,10 +1116,34 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                         }).bind('figure', 'figure').bind('fill', 'fill'),
 
                                         new go.TextBlock({
+                                            name: "TEXTBLOCK", // Nombre para el TextBlock
                                             margin: 5,
-                                            editable: true, // Habilitar la edición del texto
+                                            editable: true, // Habilitar la edición del texto,
+                                            textAlign: 'center',  // Centralizar el texto
+                                            verticalAlignment: go.Spot.Center
                                          }).bind('text', 'text').bindTwoWay('text'),
+                                        // Puertos
+                                        makePort('T', go.Spot.Top, true, true),
+                                        makePort('L', go.Spot.Left, true, true),
+                                        makePort('R', go.Spot.Right, true, true),
+                                        makePort('B', go.Spot.Bottom, true, true)
                                     );
+
+                                function makePort(name, spot, output, input) {
+                                    return new go.Shape('Circle', {
+                                        fill: 'transparent',
+                                        stroke: null,
+                                        desiredSize: new go.Size(8, 8),
+                                        alignment: spot,
+                                        alignmentFocus: spot,  // Desplazamiento desde el borde del nodo
+                                        portId: name,  // Identificador del puerto
+                                        fromSpot: spot,  // Lado del nodo desde donde puede salir el enlace
+                                        toSpot: spot,  // Lado del nodo en donde puede llegar el enlace
+                                        fromLinkable: output,  // Si los enlaces pueden salir de este puerto
+                                        toLinkable: input,  // Si los enlaces pueden llegar a este puerto
+                                        cursor: 'pointer'  // Indicar que es un puerto interactivo
+                                    });
+                                }
 
                                 function groupStyle(obj) {
                                     // common settings for both Lane and Pool Groups
@@ -1299,7 +1334,9 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                         if (tb !== null) procesos.myDiagram.commandHandler.editTextBlock(tb);
                                         procesos.myDiagram.commitTransaction("edit text");
                                     }
-                                }).add(
+                                }).bind(
+                                    new go.Binding("points").makeTwoWay()
+                                ).add(
                                         new go.Shape(),
                                         new go.Shape({ toArrow: 'Standard' }),
                                         new go.Panel("Auto").add(
@@ -1315,14 +1352,15 @@ app.controller("procesos", function ($scope, $http, $compile) {
                                     );
 
 
+
                                 try {
-                                    procesos.myDiagram.model = go.Model.fromJson(procesos.recursos);
+                                    procesos.loadMapa(procesos.recursos);
                                 } catch (e) {
 
                                 }
 
-                                // force all lanes' layouts to be performed
-                                relayoutLanes();
+
+
 
                                 const colors = {
                                     pink: '#facbcb',
@@ -1353,7 +1391,24 @@ app.controller("procesos", function ($scope, $http, $compile) {
 
         procesos.saveMapa = function (){
             SWEETALERT.loading({message: MESSAGE.i('mono.procesing')})
+
+            procesos.myDiagram.nodes.each(function(node) {
+                var textBlock = node.findObject("TEXTBLOCK"); // Asegúrate de que este nombre coincide con el nombre del TextBlock
+                if (textBlock !== null) {
+                    node.data.text = encodeURIComponent(textBlock.text);
+                }
+            });
+
+            procesos.myDiagram.links.each(function(link) {
+                if (link.points !== null) {
+                    // Convertir la lista de puntos en un array de números
+                    var pointsArray = link.points.toArray().flatMap(point => [point.x, point.y]);
+                    link.data.points = pointsArray;
+                }
+            });
+
             procesos.recursos = procesos.myDiagram.model.toJson();
+
             BASEAPI.updateall('procesos', {
                 recursos: procesos.recursos,
                 where: [
@@ -1366,8 +1421,23 @@ app.controller("procesos", function ($scope, $http, $compile) {
                 if (result) {
                     SWEETALERT.stop();
                     SWEETALERT.show({
-                        message: "Se ha guardado el mapa conceptual correctamente"
+                        message: "Se ha guardado el mapa conceptual correctamente",
+                        confirm: function(){
+                            MODAL.close();
+                        }
                     });
+                }
+            });
+        }
+
+        // Luego, decodificar el texto cuando cargues el diagrama
+        procesos.loadMapa = function (json) {
+            procesos.myDiagram.model = go.Model.fromJson(json);
+
+            procesos.myDiagram.nodes.each(function(node) {
+                var textBlock = node.findObject("TEXTBLOCK");
+                if (textBlock !== null && node.data.text) {
+                    textBlock.text = decodeURIComponent(node.data.text);
                 }
             });
         }

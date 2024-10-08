@@ -190,21 +190,21 @@
             </div>
             <div class="col-sm-3 col-md-3 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
                 <%- FORM.file("procesofile", scope, {
-                    title: 'Subir Imagen',
+                    title: 'subir diagrama de proceso',
                     maxfiles: 999,
                     columns: 4,
-                    truetext: 'Subir Imagen',
+                    truetext: 'subir diagrama de proceso',
                     imagefloat: "right",
                     // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                     // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                 }) %>
             </div>
-            <div class="col-sm-2 col-md-2 center-profile-image countFile" style="padding: 1% 3% 0 3%;">
+            <div class="col-sm-2 col-md-2 center-profile-image countFile" style="padding: 1% 1% 0 1%;">
                 <button ng-show="<%= scope %>.form.mode!=='new'"
                         dragonlanguage="" title="Mapa conceptual"
                         type="button" role="button" class="btn bg-secundary-600 btn-block"
                         ng-click="<%= scope %>.mapa_conceptual()">
-                    <language>Mapa Conceptual</language>
+                    <language>trabajar diagrama de proceso</language>
                 </button>
             </div>
         <div class="row">
@@ -426,9 +426,9 @@
                                     refresh: false
                                 }) %>
                             </div>
-                            <div class='col-sm-1 col-md-1' ng-if="procesos.unidad_tiempo == 1">
+                            <div class='col-sm-2 col-md-2' ng-if="procesos.unidad_tiempo == 1">
                                 <%- FORM.ngmask('tiempo_ejecucion', scope, {
-                                    placeholder: 'Tiempo Estimado',
+                                    placeholder: 'Tiempo Estimado (HH:mm)',
                                     label_custom: true,
                                     mask: "99:99",
                                     maxlength: 5,
@@ -440,7 +440,9 @@
                             </div>
                             <div class='col-sm-1 col-md-1' ng-if="procesos.unidad_tiempo != 1" ng-show="procesos.unidad_tiempo == 2 || procesos.unidad_tiempo == 3">
                                 <%- FORM.integer("tiempo_ejecucion", scope, {
-                                    placeholder: "Tiempo Estimado"
+                                    placeholder: "Tiempo Estimado",
+                                    regex: true,
+                                    maxlength: 15
                                 }) %>
                             </div>
                         </div>
