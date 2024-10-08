@@ -9,6 +9,13 @@
         </button>
         <button title="Descargar"
                 type="button" role="button"
+                class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
+                ng-click="<%= scope %>.downloadMapa()">
+            <b><i class="icon-file-download2"></i></b>
+            Descargar
+        </button>
+        <button title="Guardar"
+                type="button" role="button"
                 class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
                 ng-click="<%= scope %>.saveMapa()">
             <b><i class="icon-floppy-disk"></i></b>
@@ -142,6 +149,13 @@
         Cerrar
     </button>
     <button title="Descargar"
+            type="button" role="button"
+            class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.downloadDiagram()">
+        <b><i class="icon-file-download2"></i></b>
+        Descargar
+    </button>
+    <button title="Guardar"
             type="button" role="button"
             class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
             ng-click="<%= scope %>.saveMapa()">
