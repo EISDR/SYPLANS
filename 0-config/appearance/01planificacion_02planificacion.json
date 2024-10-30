@@ -373,6 +373,12 @@
               "text": "Características del Indicador"
             },
             {
+              "icon": "lifebuoy",
+              "href": "#tipoMeta",
+              "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
+              "text": "Tipo de meta de indicadores"
+            },
+            {
               "icon": "meter2",
               "href": "#reporte_indicador_config",
               "condition": "CONFIGCOMPANY.compy_admin || CONFIGCOMPANY.only_plani",
@@ -511,6 +517,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?ipn",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta?ipn",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",
@@ -552,6 +563,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?ipn",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",
@@ -952,6 +968,11 @@
               "text": "Características del Indicador"
             },
             {
+              "icon": "lifebuoy",
+              "href": "#tipoMeta",
+              "text": "Tipo de meta de indicadores"
+            },
+            {
               "icon": "meter2",
               "href": "#reporte_indicador_config",
               "text": "Configurar Cumplimiento Indicadores"
@@ -1070,6 +1091,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?ipn",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta?ipn",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",
@@ -1111,6 +1137,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?ipn",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta?ipn",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",

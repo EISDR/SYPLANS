@@ -366,25 +366,6 @@
                     },
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='new'">
-                <%- FORM.select('procesos_salida', scope, {
-                    allowedit: false,
-                    allowlist: false,
-                    allownew: false,
-                    allowview: false,
-                    multiple: true,
-                    text: "item.nombre",
-                    table: 'vw_procesos',
-                    truelabel: "Procesos de Salida",
-                    condition: "(((item.institucion == procesos.session.institucion_id) && (item.active == 1 && item.estatus_id != 4)) && (item.mapa_proceso == procesos.mapa_id && item.proceso_general == 0))",
-                    get: {
-                        table: 'procesos_salida',
-                        fieldFrom: 'id',
-                        fieldTo: 'proceso',
-                        field: 'proceso_salida',
-                    },
-                }) %>
-            </div>
             <div class='col-sm-12 col-md-6' ng-if="procesos.session.institucion && procesos.form.mode==='edit'">
                 <%- FORM.select('procesos_salida', scope, {
                     allowedit: false,

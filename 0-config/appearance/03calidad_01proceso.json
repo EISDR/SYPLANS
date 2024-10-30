@@ -71,6 +71,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?proceso",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta?proceso",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",
@@ -191,6 +196,11 @@
                   "icon": "meter2",
                   "href": "#reporte_indicador_config?proceso",
                   "text": "Configurar Cumplimiento Indicadores"
+                },
+                {
+                  "icon": "lifebuoy",
+                  "href": "#tipoMeta?proceso",
+                  "text": "Tipo de meta de indicadores"
                 }
               ],
               "modal": "",

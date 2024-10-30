@@ -24,24 +24,17 @@ DSON.keepmerge(CRUD_tipoMeta, {
                 shorttext: 370
             },
             valor: {
-                label: "Valor",
+                label: function(){
+                    return "Valor"
+                },
             },
-            created_at: {
-                visible: false,
-                visibleDetail: false,
-                export: false,
-                exportExample: false,
-                sorttype: "datetime",
-                formattype:"datetime"
-            },
-            updated_at: {
-                visible: false,
-                visibleDetail: false,
-                export: false,
-                exportExample: false,
-                sorttype: "datetime",
-                formattype:"datetime"
-            },
+            comentario_obligatorio: {
+                label: function(){
+                    return "¿Comentario Obligatorio?"
+                },
+                formattype: ENUM.FORMAT.bool,
+                sorttype: ENUM.FORMATFILTER.bool,
+            }
         },
         allow: {
             menu: true,

@@ -14,8 +14,7 @@ CRUD_tipoMeta = DSON.merge(CRUD_tipoMeta,
                         label: 'Nombre',
                         type: FILTER.types.string,
                         placeholder: 'Nombre'
-                    }
-                    ,
+                    },
                     {
                         key: 'descripcion',
                         label: 'Descripción',
@@ -23,10 +22,10 @@ CRUD_tipoMeta = DSON.merge(CRUD_tipoMeta,
                         placeholder: 'Descripción'
                     },
                     {
-                        key: 'valor',
-                        label: 'Valor',
-                        type: FILTER.types.string,
-                        placeholder: 'Valor'
+                        key: 'comentario_obligatorio',
+                        label: '¿Comentario Obligatorio?',
+                        type: FILTER.types.bool,
+                        placeholder: '¿Comentario Obligatorio?'
                     }
                 ]
             }

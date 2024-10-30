@@ -160,6 +160,11 @@
               "icon": "meter2",
               "href": "#reporte_indicador_config?proyecto_item",
               "text": "Configurar Cumplimiento Indicadores"
+            },
+            {
+              "icon": "lifebuoy",
+              "href": "#tipoMeta?proyecto_item",
+              "text": "Tipo de meta de indicadores"
             }
           ],
           "modal": "",
@@ -329,6 +334,11 @@
               "icon": "meter2",
               "href": "#reporte_indicador_config?proyecto_item",
               "text": "Configurar Cumplimiento Indicadores"
+            },
+            {
+              "icon": "lifebuoy",
+              "href": "#tipoMeta?proyecto_item",
+              "text": "Tipo de meta de indicadores"
             }
           ],
           "modal": "",

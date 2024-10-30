@@ -2530,6 +2530,15 @@
       "tipo_recurso": {
         "type": "full",
         "allow": {}
+      },
+      "tipoMeta": {
+        "type": "empty",
+        "allow": {
+          "menu": true,
+          "edit": true,
+          "filter": true,
+          "actions": true
+        }
       }
     }
   }
