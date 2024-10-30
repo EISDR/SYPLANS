@@ -140,9 +140,10 @@ DSON.keepmerge(CRUD_poa, {
                             return '';
                         },
                         show: (data) => {
-                            if (data.row) {
-                                return ((data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo));
-                            }
+                            // if (data.row) {
+                            //     return ((data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo));
+                            // }
+                            return false
                         },
                         click: function (data) {
                             poa.openmodalField(data.row.id, data.row);
@@ -412,9 +413,10 @@ DSON.keepmerge(CRUD_poa, {
                     return '';
                 },
                 show:(data)=> {
-                    if(data.row){
-                        return ( (data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo) );
-                    }
+                    // if(data.row){
+                    //     return ( (data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo) );
+                    // }
+                    return false
                 },
                 click: function (data) {
                     Row_id = data.row.id;

@@ -375,9 +375,10 @@ DSON.keepmerge(CRUD_poa_admin, {
                     return '';
                 },
                 show:(data)=> {
-                    if(data.row){
-                        return ( (data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo) );
-                    }
+                    // if(data.row){
+                    //     return ( (data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo) );
+                    // }
+                    return false
                 },
                 click: function (data) {
                     poa_admin.openmodalField(data.row.id,data.row);
