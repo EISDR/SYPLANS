@@ -194,6 +194,40 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 });
             }
         };
+        baseController.scanImageFromURL = async (imageURL, entity, simple) => {
+            let entityValue = baseController.dynamicDocuments.filter(d => {
+                return d.nombre === entity;
+            })[0];
+            if (entityValue) {
+                let crude = [];
+                let informe = [];
+                SWEETALERT.loading({message: "Procesando Documento"});
+                Tesseract.recognize(imageURL, 'eng').then(async ({data: {text}}) => {
+                    if (text) {
+                        text.split("\n").forEach((line, ix) => {
+                            crude.push({
+                                id: ix + 1,
+                                text: line.replaceAll('"', "'")
+                            });
+                        });
+                    }
+                    if (entityValue.config.fields)
+                        if (entityValue.config.fields.length) {
+                            IA.readFile(entityValue.config.fields, crude, informe, simple);
+                            informe.forEach(info => {
+                                baseController.currentModel[info.field] = info.result;
+                            });
+                            baseController.currentModel.refreshAngular();
+                        }
+                    SWEETALERT.stop();
+                });
+            } else {
+                SWEETALERT.show({
+                    type: 'error',
+                    message: `La entidad ${entity.nombre} no está configurada para esta empresa`
+                });
+            }
+        };
 
         baseController.scanImageFromURL = async (imageURL, entity, simple) => {
             let entityValue = baseController.dynamicDocuments.filter(d => {
@@ -230,60 +264,66 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             }
         };
 
-        if (!baseController.ponderaciones)
-            BASEAPI.listp("reporte_indicador_config", {
-                limit: 0,
-                orderby: "id",
-                order: "asc",
-                where: [{
-                    field: "compania",
-                    value: adasession.compania_id
-                }]
-            }).then((data) => {
-                console.log("me ejecute desde el base");
-                baseController.ponderaciones = data.data
-                if (!baseController.ponderaciones)
-                    return;
-                let ponderaciones = baseController.ponderaciones.sort(GetSortOrder("orden"));
-                let finalPonderaciones = [];
-                let distinctPonderations = [...new Set(baseController.ponderaciones.map(d => d.tipo_meta))];
-                for (const tipo_meta_index of distinctPonderations) {
-                    // if (generalPonderation && tipo_meta_index !== 0)
-                    //     continue;
-                    let nombre = (baseController.session.tipoMenta.filter(d => d.id === tipo_meta_index)[0] || {nombre: "General"}).nombre;
-                    let liston = ponderaciones.filter(d => d.tipo_meta === tipo_meta_index).map(d => {
-                        return {id: d.id, color: d.color, nombre: d.titulo, titulo: `Progreso de ${d.from} a ${d.to}`}
-                    });
-                    finalPonderaciones.push({
-                        nombre: nombre,
-                        list: liston
-                    });
-                }
-                baseController.ponderaciones = finalPonderaciones;
-                let css = ``;
+        if (new SESSION().current())
+            if (!baseController.ponderaciones)
+                BASEAPI.listp("reporte_indicador_config", {
+                    limit: 0,
+                    orderby: "id",
+                    order: "asc",
+                    where: [{
+                        field: "compania",
+                        value: adasession.compania_id
+                    }]
+                }).then((data) => {
+                    console.log("me ejecute desde el base");
+                    baseController.ponderaciones = data.data
+                    if (!baseController.ponderaciones)
+                        return;
+                    let ponderaciones = baseController.ponderaciones.sort(GetSortOrder("orden"));
+                    let finalPonderaciones = [];
+                    let distinctPonderations = [...new Set(baseController.ponderaciones.map(d => d.tipo_meta))];
+                    for (const tipo_meta_index of distinctPonderations) {
+                        // if (generalPonderation && tipo_meta_index !== 0)
+                        //     continue;
+                        let nombre = (baseController.session.tipoMenta.filter(d => d.id === tipo_meta_index)[0] || {nombre: "General"}).nombre;
+                        let liston = ponderaciones.filter(d => d.tipo_meta === tipo_meta_index).map(d => {
+                            return {
+                                id: d.id,
+                                color: d.color,
+                                nombre: d.titulo,
+                                titulo: `Progreso de ${d.from} a ${d.to}`
+                            }
+                        });
+                        finalPonderaciones.push({
+                            nombre: nombre,
+                            list: liston
+                        });
+                    }
+                    baseController.ponderaciones = finalPonderaciones;
+                    let css = ``;
 
-                baseController.ponderaciones.forEach(pon => {
-                    pon.list.forEach(l => {
-                        css += `
+                    baseController.ponderaciones.forEach(pon => {
+                        pon.list.forEach(l => {
+                            css += `
                          .text_${l.id}{
                              color: ${l.color} !important;
                              font-weight: bold;
                          }
                     `;
-                    })
+                        })
 
+                    });
+
+                    let head = document.head || document.getElementsByTagName('head')[0];
+                    let style = document.createElement('style');
+                    head.appendChild(style);
+                    style.type = 'text/css';
+                    if (style.styleSheet) {
+                        style.styleSheet.cssText = css;
+                    } else {
+                        style.appendChild(document.createTextNode(css));
+                    }
                 });
-
-                let head = document.head || document.getElementsByTagName('head')[0];
-                let style = document.createElement('style');
-                head.appendChild(style);
-                style.type = 'text/css';
-                if (style.styleSheet) {
-                    style.styleSheet.cssText = css;
-                } else {
-                    style.appendChild(document.createTextNode(css));
-                }
-            });
         baseController.abrirPonderaciones = () => {
             baseController.modal.modalView("a_interinstitucion/ponderacion", {
                 header: {
@@ -474,7 +514,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     {field: "id", value: intersession.poa_id},
                 ]
             });
-            if (poa_selected){
+            if (poa_selected) {
                 new SESSION().update({poa_habilitado: poa_selected.active});
             }
             if (!CONFIGCOMPANY) {
@@ -522,8 +562,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
             //         arr.splice(ix, 1);
             //     }
             // }
-            let dump_profiles = [10,12,13,14,15,19];
-            if (dump_profiles.indexOf(intersession.profile) !== -1){
+            let dump_profiles = [10, 12, 13, 14, 15, 19];
+            if (dump_profiles.indexOf(intersession.profile) !== -1) {
                 CONFIGCOMPANY.proyectos_especiales = 0;
                 CONFIGCOMPANY.gestion_indicadores = 0;
                 CONFIGCOMPANY.riesgo_var = 0;
@@ -534,42 +574,42 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 CONFIGCOMPANY.reporte_configurable = 0;
                 CONFIGCOMPANY.formularios = 0;
             }
-            let dump_profile_notificacion = [1,4,5,6,7,17,18,19];
-            if (dump_profile_notificacion.indexOf(intersession.profile) !== -1){
+            let dump_profile_notificacion = [1, 4, 5, 6, 7, 17, 18, 19];
+            if (dump_profile_notificacion.indexOf(intersession.profile) !== -1) {
                 CONFIGCOMPANY.only_noti = 1;
             }
-            let dump_profile_riesgo_config = [1,4,5,17,18];
-            if (dump_profile_riesgo_config.indexOf(intersession.profile) !== -1){
+            let dump_profile_riesgo_config = [1, 4, 5, 17, 18];
+            if (dump_profile_riesgo_config.indexOf(intersession.profile) !== -1) {
                 CONFIGCOMPANY.only_config = 1;
-                if (intersession.profile !== 1){
+                if (intersession.profile !== 1) {
                     CONFIGCOMPANY.only_salida = 1;
                 }
             }
-            let dump_profile_norma = [1,6,7,8,9,10,12,13,14,15,19];
-            if (dump_profile_norma.indexOf(intersession.profile) !== -1){
+            let dump_profile_norma = [1, 6, 7, 8, 9, 10, 12, 13, 14, 15, 19];
+            if (dump_profile_norma.indexOf(intersession.profile) !== -1) {
                 CONFIGCOMPANY.norma_iso = 0;
                 CONFIGCOMPANY.plan_accion = 0;
             }
-            let dump_profile_administracion = [5,6,7,8,9,10,12,13,14,15,17,18,19];
-            if  (dump_profile_administracion.indexOf(intersession.profile) !== -1){
+            let dump_profile_administracion = [5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19];
+            if (dump_profile_administracion.indexOf(intersession.profile) !== -1) {
                 CONFIGCOMPANY.interfaces = 0;
                 CONFIGCOMPANY.historial_acceso = 0;
                 CONFIGCOMPANY.import_masivo = 0;
                 CONFIGCOMPANY.backup_config = 0;
-                if (intersession.profile !== 5){
+                if (intersession.profile !== 5) {
                     CONFIGCOMPANY.instrumentos = 0;
                     CONFIGCOMPANY.opcion_ods = 0;
-                }else{
+                } else {
                     CONFIGCOMPANY.only_plani = 1;
                 }
             }
-            if (intersession.profile == 4){
+            if (intersession.profile == 4) {
                 CONFIGCOMPANY.only_lote = 1;
                 CONFIGCOMPANY.only_plani = 1;
                 CONFIGCOMPANY.backup_config = 0;
                 CONFIGCOMPANY.import_masivo = 0;
             }
-            if (intersession.profile == 1){
+            if (intersession.profile == 1) {
                 CONFIGCOMPANY.instrumentos = 0;
                 CONFIGCOMPANY.opcion_ods = 0;
                 CONFIGCOMPANY.compy_admin = 1;
@@ -586,7 +626,6 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 }
                 return true;
             };
-
 
 
             baseController.elelemenu = baseController.elelemenu.filter(predicado);
