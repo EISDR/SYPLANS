@@ -274,6 +274,35 @@ DSON.keepmerge(CRUD_presupuesto_aprobado, {
                     },
                     {
                         text: (data) => {
+                            return "Bloquear carga de evidencia"
+                        },
+                        icon: (data) => {
+                            return "shield-notice";
+                        },
+                        permission: (data) => {
+                            return 'edit';
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        show: function (data) {
+                            return new SESSION().current.groups[0].id == 4;
+                        },
+                        click: function (data) {
+                            data.$scope.formulary({
+                                where: [{
+                                    field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                                    value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+                                }]
+                            }, FORM.modes.edit, {}, "form_bloquear");
+                            data.$scope.form.titles = {
+                                edit: "Bloquear carga de evidencia",
+                            };
+                            return false;
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return MESSAGE.i('actions.View');
                         },
                         icon: (data) => {

@@ -38,7 +38,7 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
     presupuesto_aprobado.objecto = presupuesto_aprobado.form.options;
     // end
 
-    presupuesto_aprobado.formulary = function (data, mode, defaultData) {
+    presupuesto_aprobado.formulary = function (data, mode, defaultData, view) {
         if (presupuesto_aprobado !== undefined) {
             RUN_B("presupuesto_aprobado", presupuesto_aprobado, $scope, $http, $compile);
 
@@ -91,10 +91,18 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
 
             presupuesto_aprobado.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
                 //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+                if (presupuesto_aprobado.roles_bloqueados){
+                    resolve(true);
+                    return true;
+                }
                 delete data.updating.comentario;
                 console.log(data.updating);
                 if ((parseFloat(DSON.cleanNumber(presupuesto_aprobado.valor)) - parseFloat(DSON.cleanNumber(presupuesto_aprobado.valor_antes))).toFixed(2) > parseFloat(DSON.cleanNumber(presupuesto_aprobado.restante))) {
                     SWEETALERT.show({message: "Este presupuesto no puede exceder el limite definido"});
+                    var buttons = document.getElementsByClassName("btn btn-labeled");
+                    for (var item of buttons) {
+                        item.disabled = false;
+                    }
                     return true;
                 }
                 data.updating.valor = LAN.money(presupuesto_aprobado.valor).value;
@@ -146,7 +154,7 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
 
             // presupuesto_aprobado.form.readonly = {poa: presupuesto_aprobado.poa_id};
 
-            presupuesto_aprobado.createForm(data, mode, defaultData);
+            presupuesto_aprobado.createForm(data, mode, defaultData, view);
             presupuesto_aprobado.form.schemas.insert.presupuesto_consumido_departamento = FORM.schemasType.calculated;
             presupuesto_aprobado.form.schemas.insert.restante_departamento = FORM.schemasType.calculated;
             presupuesto_aprobado.form.schemas.insert.restante_modi = FORM.schemasType.calculated;

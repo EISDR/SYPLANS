@@ -1,0 +1,66 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class="col-sm-4 col-md-4" ng-if="!presupuesto_aprobado.session.institucion_id">
+                <%-
+                FORM.select("departamento", scope, {
+                    allowview: false,
+                    multiple: false,
+                    disabled: false,
+                    truelabel: "Departamento",
+                    text: "item.nombre",
+                    disabled: true,
+                    table: "vw_departamento_not_exists_presupuesto",
+                    field: "id",
+                    columns: ["nombre"],
+                    icon: {class:"archive"},
+                    self: true,
+                    condition: "(item.valor == $NULL || item.id == presupuesto_aprobado.departamento) && (item.compania == presupuesto_aprobado.session.compania_id && item.institucion == null) && item.active == 1"
+                    // condition: "(item.compania == presupuesto_aprobado.compania && presupuesto_aprobado.departamento == item.id) || (item.compania == presupuesto_aprobado.compania && item.valor == null)"
+                })
+                %>
+            </div>
+            <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.session.institucion_id">
+                <%- FORM.select("departamento", scope, {
+                        allowview: false,
+                        multiple: false,
+                        disabled: false,
+                        label: "Departamento",
+                        text: "item.nombre",
+                        disabled: true,
+                        table: "vw_departamento_not_exists_presupuesto",
+                        field: "id",
+                        columns: ["nombre"],
+                        icon: {class:"archive"},
+                        self: true,
+                        condition: "(item.valor == $NULL || item.id == presupuesto_aprobado.departamento) && (item.institucion == presupuesto_aprobado.session.institucion_id) && item.active == 1"
+                                // condition: "(item.compania == presupuesto_aprobado.compania && presupuesto_aprobado.departamento == item.id) || (item.compania == presupuesto_aprobado.compania && item.valor == null)"
+                })
+                %>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <%- FORM.select("roles_bloqueados", scope, {
+                    allownew: false,
+                    allowlist: false,
+                    refresh: false,
+                    allowedit: false,
+                    allowview: false,
+                    multiple: true,
+                    column: "name",
+                    table: "a_clone_group",
+                    label: 'Rol',
+                    traduce: false,
+                    placeholder: "Seleccione un Rol",
+                    icon: {class: "users4"},
+                    get: {
+                        table: 'presupuesto_aprobado_roles_bloqueados',
+                        fieldFrom: 'id',
+                        fieldTo: 'presupuesto_aprobado_id',
+                        field: 'rol_id'
+                    },
+                }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- FORM.footer(scope) %>

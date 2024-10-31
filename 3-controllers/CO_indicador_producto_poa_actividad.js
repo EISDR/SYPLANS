@@ -1,4 +1,5 @@
 app.controller("indicador_producto_poa_actividad", function ($scope, $http, $compile) {
+    ready = async () => {
         indicador_producto_poa_actividad = this;
         indicador_producto_poa_actividad.destroyForm = false;
         indicador_producto_poa_actividad.textModal = '';
@@ -181,6 +182,23 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
 
         BASEAPI.list('direccionMeta', {}, function (result) {
             indicador_producto_poa_actividad.list_direccion_meta = result.data;
+        });
+
+        indicador_producto_poa_actividad.rol_bloqueado = await BASEAPI.firstp('vw_presupuesto_aprobado_roles_bloqueados', {
+            where: [
+                {
+                    field: "rol_id",
+                    value: indicador_producto_poa_actividad.session.groups[0].id
+                },
+                {
+                    field: "departamento",
+                    value: indicador_producto_poa_actividad.session.departamento
+                },
+                {
+                    field: "poa",
+                    value: indicador_producto_poa_actividad.session.poa_id
+                }
+            ]
         });
 
         indicador_producto_poa_actividad.selectQueries['producto'] = [
@@ -469,6 +487,10 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
 
             if (indicador_producto_poa_actividad.queries.id) {
                 eval(`indicador_producto_poa_actividad.form.options.meta${indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].id}.disabled = true`);
+            }
+            if (indicador_producto_poa_actividad.rol_bloqueado) {
+                eval(`indicador_producto_poa_actividad.form.options.meta${indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].id}.disabled = true`);
+                indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow.allow = false;
             }
         };
         indicador_producto_poa_actividad.applyMasks = async function () {
@@ -1199,4 +1221,5 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
             });
         }
     }
-);
+    ready();
+});

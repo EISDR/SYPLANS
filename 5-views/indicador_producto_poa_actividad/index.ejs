@@ -213,7 +213,8 @@
                     <div class="panel panel-<%= COLOR.secundary %>">
                         <div class="panel-heading" style="border-bottom-color: #dedede">
                             <h6 class="panel-title" dragonlanguage>
-                                Evaluación y Carga de Evidencias / Indicador Actividad
+                                <span>Evaluación y Carga de Evidencias / Indicador Actividad</span>
+                                <span class="pull-right" style="color: red" ng-show="<%= scope %>.rol_bloqueado">Usted tiene deshabilitada la opción para evaluar o subir evidencias.</span>
                             </h6>
                         </div>
                         <div class="panel-body">
@@ -309,7 +310,7 @@
                                                         type="button"
                                                         class="btn bg-warning btn-xs mr-0"
                                                         style="margin-top: 6px;"
-                                                        ng-if="value.allow.condition==1 || value.allow.allow===1"
+                                                        ng-if="(value.allow.condition==1 || value.allow.allow===1) && !<%= scope %>.rol_bloqueado"
                                                         ng-click="indicador_producto_poa_actividad.notificar(value.periodo)">
                                                     <b><i class="icon-warning"></i></b>
                                                 </button>
