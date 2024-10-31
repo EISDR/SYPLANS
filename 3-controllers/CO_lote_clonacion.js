@@ -336,7 +336,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                 ];
 
             relations.forEach(relation => {
-                relation.child.forEach(item => {
+                relation.child?.forEach(item => {
                     let current = relation.parent.filter(d => item[relation.field] == d.id)[0];
                     if (!current[relation.name])
                         current[relation.name] = [];

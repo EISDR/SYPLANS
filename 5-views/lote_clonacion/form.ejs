@@ -56,7 +56,7 @@
                             table: "poa",
                             field: "id",
                             icon: {class:"archive"},
-                            condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_desde"
+                            condition: "(item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_desde) && item.periodo_poa > lote_clonacion.poa_desde_object.periodo_poa"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4'></div>
