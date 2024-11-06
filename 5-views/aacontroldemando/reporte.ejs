@@ -65,7 +65,7 @@
                            ng-model-onblur>
                 </div>
             </div>
-            <div style="margin-top: 5px; margin-left: 5px;">
+            <div style="margin-top: 5px; margin-left: 5px;" ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
                 <button class="btn btn-primary">Buscar</button>
             </div>
         </div>
@@ -140,7 +140,8 @@
                     <h5 title="{{value.nombre}}"
                         style=" height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         <b>{{value.nombre}}</b>
-                        <b ng-show="<%= scope %>.unicomenu && <%= scope %>.REPORTING.entidad!=='Eventos'" > ({{value.year}})</b>
+                        <b ng-show="<%= scope %>.unicomenu && <%= scope %>.REPORTING.entidad!=='Eventos'">
+                            ({{value.year}})</b>
                     </h5>
                 </div>
                 <div class="panel-body text-center">
