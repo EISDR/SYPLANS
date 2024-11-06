@@ -349,6 +349,8 @@ BASEAPI = {
 
 function call_myswal() {
     var sesion = new SESSION().current();
+    if (!sesion)
+        return;
     var urlError = new HTTP().tagpath("#" + (baseController.currentModel || {}).modelName);
     myswal = swal.mixin({
         confirmButtonClass: "btn btn-" + COLOR.success,
