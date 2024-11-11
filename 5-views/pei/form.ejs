@@ -6,8 +6,8 @@
             <div class="col-sm-4 col-md-4">
                 <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
             </div>
-            <div class="col-sm-8 col-md-8 remove-input-space">
-                <%- FORM.textarea("descripcion", scope, {maxlength: 4000, placeholder: "Descripción"}) %>
+            <div class="col-sm-12 col-md-2">
+                <%- FORM.checkbox("evaluacion_abierta", scope, {text: '¿Evaluacion Abierta?'}) %>
             </div>
         </div>
         <div class="row">
@@ -63,6 +63,11 @@
             </div>
             <div class="col-sm-3 col-md-2">
                 <%- FORM.checkbox("activo", scope, {text: 'Activo?'}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 remove-input-space">
+                <%- FORM.textarea("descripcion", scope, {maxlength: 4000, placeholder: "Descripción"}) %>
             </div>
         </div>
     </div>

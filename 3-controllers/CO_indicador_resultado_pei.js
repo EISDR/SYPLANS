@@ -357,6 +357,10 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         if (indicador_resultado_pei.queries.id) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = true`);
         }
+        if (indicador_resultado_pei.evaluacion_abierta){
+            eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = false`);
+            indicador_resultado_pei.list_indicador_resultado_pei[key].allow.allow = 1;
+        }
     };
     indicador_resultado_pei.applyMasks = async function () {
         indicador_resultado_pei.permissions = await BASEAPI.listp('vw_permission_pei', {

@@ -24,6 +24,7 @@ getPEIstatus = async function ($scope, pei_id) {
         if ($scope.pei.data.length > 0) {
             $scope.estatus_pei = $scope.pei.data[0].estatus;
             $scope.condicion_pei = $scope.pei.data[0].activo;
+            $scope.evaluacion_abierta = $scope.pei.data[0].evaluacion_abierta;
         }
     }
 };
