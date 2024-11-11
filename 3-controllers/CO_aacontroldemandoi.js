@@ -3,7 +3,36 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
     RUNCONTROLLER("aacontroldemando", aacontroldemando, $scope, $http, $compile);
     aacontroldemando.session = new SESSION().current();
     aacontroldemando.DPTO = new SESSION().definitivo();
+    aacontroldemando.monthNames = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+    aacontroldemando.elpoa = baseController.poaList.filter(d => d.id === baseController.poaActual)[0];
+    aacontroldemando.elmonitoreo = baseController.poa_monitorieo.filter(d => d.id === aacontroldemando?.elpoa?.monitoreo)[0];
 
+    aacontroldemando.incrementar = (12 / aacontroldemando.elmonitoreo.cantidad);
+    aacontroldemando.filters = [];
+    aacontroldemando.perix = 1;
+    for (i = 1; i <= 12; i += aacontroldemando.incrementar) {
+        if (aacontroldemando.incrementar > 1) {
+            aacontroldemando.filters.push({
+                id: aacontroldemando.perix,
+                name: `${aacontroldemando.monthNames[i - 1]} - ${aacontroldemando.monthNames[(i - 1) + (aacontroldemando.incrementar - 1)]}`
+            });
+        } else {
+            aacontroldemando.filters.push({
+                id: aacontroldemando.perix,
+                name: `${aacontroldemando.monthNames[i - 1]}`
+            });
+        }
+        aacontroldemando.perix++;
+    }
+    aacontroldemando.filtrofecha = STORAGE.get("cumplifilterpoa") || aacontroldemando.filters.map(d => d.id);
+    aacontroldemando.setFiltro = () => {
+        SWEETALERT.loading({message: "Filtrando Cumplimiento"});
+        STORAGE.add("cumplifilterpoa", aacontroldemando.filtrofecha);
+        location.reload();
+    }
 
     aacontroldemando.modolista = location.href.indexOf('modolista') !== -1;
     aacontroldemando.filtrosSoloCompania = [
@@ -24,6 +53,13 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
             value: `$${aacontroldemando.session.poa_id} OR poa=0)`
         },
     ];
+    if (aacontroldemando.filtrofecha) {
+        aacontroldemando.filtrosCompania.push({
+            field: "periodo",
+            operator: "in",
+            value: aacontroldemando.filtrofecha
+        });
+    }
     aacontroldemando.builded = false;
     aacontroldemando.abierto = true;
     aacontroldemando.donfocusnah = true;

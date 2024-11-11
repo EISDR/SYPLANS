@@ -3,6 +3,19 @@ app.controller("aacontroldemando_pei", function ($scope, $http, $compile) {
     RUNCONTROLLER("aacontroldemando_pei", aacontroldemando_pei, $scope, $http, $compile);
     aacontroldemando_pei.session = new SESSION().current();
     aacontroldemando_pei.modolista = location.href.indexOf('modolista') !== -1;
+    aacontroldemando_pei.elpoa = baseController.poaList.filter(d => d.id === baseController.poaActual)[0];
+    aacontroldemando_pei.filters = baseController.poaList.filter(d => d.pei === aacontroldemando_pei.elpoa.pei)
+        .map(d => {
+            return {id: d.periodo_poa, name: `Año ${d.periodo_poa}`}
+        });
+
+    aacontroldemando_pei.filtrofecha = STORAGE.get("cumplifilterpei") || aacontroldemando_pei.filters.map(d => d.id);
+    aacontroldemando_pei.setFiltro = () => {
+        SWEETALERT.loading({message: "Filtrando Cumplimiento"});
+        STORAGE.add("cumplifilterpei", aacontroldemando_pei.filtrofecha);
+        location.reload();
+    }
+
     aacontroldemando_pei.filtrosSoloCompania = [
         {
             field: "compania",
@@ -21,6 +34,14 @@ app.controller("aacontroldemando_pei", function ($scope, $http, $compile) {
             value: `$${aacontroldemando_pei.session.poa_id} OR poa=0)`
         },
     ];
+
+    if (aacontroldemando_pei.filtrofecha) {
+        aacontroldemando_pei.filtrosCompania.push({
+            field: "ano",
+            operator: "in",
+            value: aacontroldemando_pei.filtrofecha
+        });
+    }
     aacontroldemando_pei.builded = false;
     aacontroldemando_pei.abierto = true;
     aacontroldemando_pei.donfocusnah = true;
