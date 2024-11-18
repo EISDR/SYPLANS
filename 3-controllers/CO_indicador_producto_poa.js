@@ -715,6 +715,7 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
 
                                 indicador_producto_poa.tipo_meta = selected1[0].id;
                                 indicador_producto_poa.tipo_meta_nombre = selected1[0].nombre;
+                                indicador_producto_poa.tipo_meta_comentario_obligatorio = selected1[0].comentario_obligatorio == 1;
                             }
 
                             if (indicador_producto_poa.list_direccion_meta.length > 0) {
@@ -759,6 +760,14 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
         });
 
         indicador_producto_poa.save_pei_ano = function (indicado, limpi) {
+            let indicador = indicador_producto_poa.list_indicador_producto_poa.find(d=> d.id === indicado);
+            if (indicador_producto_poa.tipo_meta_comentario_obligatorio && indicador.count_comment == 0){
+                SWEETALERT.show({
+                    type: 'warning',
+                    message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,
+                });
+                return;
+            }
             var buttons = document.getElementsByClassName("btn btn-labeled pull-right");
             for (var item of buttons) {
                 item.disabled = true;

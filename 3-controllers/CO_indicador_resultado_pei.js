@@ -315,8 +315,6 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         if (!disabled) {
             $(`[name=${names}]`).focus();
         }
-        ids.push(indicador_resultado_pei.list_indicador_resultado_pei[key].id);
-        $(`[name=${names}]`).addClass("meta_alcanzada");
 
         if (!CONFIGCOMPANY.carga_evidencia_abierta) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = disabled`);
@@ -658,6 +656,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
 
                             indicador_resultado_pei.tipo_meta = selected1[0].id;
                             indicador_resultado_pei.tipo_meta_nombre = selected1[0].nombre;
+                            indicador_resultado_pei.tipo_meta_comentario_obligatorio = selected1[0].comentario_obligatorio == 1;
                         }
 
                         if (indicador_resultado_pei.list_direccion_meta.length > 0) {
@@ -734,6 +733,14 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
     };
 
     indicador_resultado_pei.save_pei_ano = function (indicado, limpi) {
+        let indicador = indicador_resultado_pei.list_indicador_resultado_pei.find(d=> d.id === indicado);
+        if (indicador_resultado_pei.tipo_meta_comentario_obligatorio && indicador.count_comment == 0){
+            SWEETALERT.show({
+                type: 'warning',
+                message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,
+            });
+            return;
+        }
         var updates = false;
         $('.meta_alcanzada').each(function () {
             var id = $(this).attr('name').replace("indicador_resultado_pei_meta", "");
@@ -753,7 +760,6 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
             return;
         }
         SWEETALERT.confirm({
-
             message: 'Desea guardar los cambios realizados ?',
             confirm: async function () {
                 SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
