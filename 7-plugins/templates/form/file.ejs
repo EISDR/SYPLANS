@@ -585,7 +585,7 @@ var toclient = JSON.stringify(options);
 
             };
 
-            let isVer = options.title.toLowerCase().indexOf("ver ")!==-1;
+            let isVer = $(this).html().toLowerCase().indexOf("ver ")!==-1;
             if (typeof indicador_resultado_pei !== "undefined"){
                 let id = $(this).attr('name').replace("indicador_resultado_pei_IndicadorPEI", "");
                 let indicador = indicador_resultado_pei.list_indicador_resultado_pei.find(d=> d.id == id);
