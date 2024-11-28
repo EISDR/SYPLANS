@@ -1,20 +1,27 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-3">
                 <%- FORM.input("nombre", scope, {maxlength: 64, disabled: true}) %>
             </div>
-            <div class="col-sm-12 col-md-2">
-                <%- FORM.input("valor", scope, {maxlength: 20, trueplaceholder:"Valor", disabled: true}) %>
+            <div class="col-sm-12 col-md-3">
+                <%- FORM.input("valor", scope, {maxlength: 20, trueplaceholder: "Valor", disabled: true}) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.checkbox('comentario_obligatorio', scope, {text:"¿Comentario obligatorio?",}) %>
+            <div class='col-sm-4 col-md-3'>
+                <%- FORM.checkbox('comentario_obligatorio', scope, {text: "¿Comentario obligatorio?",}) %>
+            </div>
+            <div class='col-sm-2 col-md-3'>
+                <%- FORM.checkbox('ocultar', scope, {text: "¿Ocultar?",}) %>
             </div>
         </div>
         <div class="row">
 
             <div class="col-sm-6 col-md-12 remove-input-space">
-                <%- FORM.textarea("descripcion", scope, {placeholder:"Descripción",maxlength: 4000, disabled: true}) %>
+                <%- FORM.textarea("descripcion", scope, {
+                    placeholder: "Descripción",
+                    maxlength: 4000,
+                    disabled: true
+                }) %>
             </div>
         </div>
         <div class="row">
