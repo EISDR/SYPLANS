@@ -17,10 +17,10 @@
                             label: "POA de origen",
                             text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
                             // text: "item.nombre + ' ' + item.apellido",
-                            table: "poa",
+                            table: "vw_poa_ddl",
                             field: "id",
                             icon: {class:"archive"},
-                            condition: "item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_destino"
+                            condition: "item.compania == lote_clonacion.session.compania_id && item.id != lote_clonacion.poa_destino"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4'>
@@ -53,10 +53,10 @@
                             label: "POA destino",
                             text: "item.nombre + ' ( ' + item.periodo_poa + ' )'",
                             // text: "item.nombre + ' ' + item.apellido",
-                            table: "poa",
+                            table: "vw_poa_ddl",
                             field: "id",
                             icon: {class:"archive"},
-                            condition: "(item.pei == lote_clonacion.session.pei_id && item.id != lote_clonacion.poa_desde) && item.periodo_poa > lote_clonacion.poa_desde_object.periodo_poa"
+                            condition: "(item.compania == lote_clonacion.session.compania_id && item.id != lote_clonacion.poa_desde) && item.periodo_poa > lote_clonacion.poa_desde_object.periodo_poa"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4'></div>

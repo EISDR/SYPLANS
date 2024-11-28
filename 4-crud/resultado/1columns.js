@@ -505,9 +505,9 @@ DSON.keepmerge(CRUD_resultado, {
                                         message: `<p>Registro está relacionado a la entidad/es ${relations}.</p> Desea Eliminar este registro?`,
                                         confirm: function () {
                                             SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                            // data.$scope.deleteRow(data.row).then(function () {
-                                            //     SWEETALERT.stop();
-                                            // });
+                                            data.$scope.deleteRow(data.row).then(function () {
+                                                SWEETALERT.stop();
+                                            });
                                         }
                                     });
                                 }
