@@ -584,10 +584,12 @@ var toclient = JSON.stringify(options);
                 }
 
             };
+
+            let isVer = $(this).html().toLowerCase().indexOf("ver ")!==-1;
             if (typeof indicador_resultado_pei !== "undefined"){
                 let id = $(this).attr('name').replace("indicador_resultado_pei_IndicadorPEI", "");
                 let indicador = indicador_resultado_pei.list_indicador_resultado_pei.find(d=> d.id == id);
-                if (indicador_resultado_pei.tipo_meta_comentario_obligatorio && indicador.count_comment == "0"){
+                if ((indicador_resultado_pei.tipo_meta_comentario_obligatorio && indicador.count_comment == "0") && !isVer){
                     SWEETALERT.show({
                         type: 'warning',
                         message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,
@@ -599,7 +601,7 @@ var toclient = JSON.stringify(options);
             }else if (typeof indicador_producto_poa !== "undefined"){
                 let id = $(this).attr('name').replace("indicador_producto_poa_IndicadorPOA", "");
                 let indicador = indicador_producto_poa.list_indicador_producto_poa.find(d=> d.id == id);
-                if (indicador_producto_poa.tipo_meta_comentario_obligatorio && indicador.count_comment == "0"){
+                if ((indicador_producto_poa.tipo_meta_comentario_obligatorio && indicador.count_comment == "0") && !isVer){
                     SWEETALERT.show({
                         type: 'warning',
                         message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,
@@ -611,7 +613,7 @@ var toclient = JSON.stringify(options);
             } else if (typeof indicador_producto_poa_actividad !== "undefined"){
                 let id = $(this).attr('name').replace("indicador_producto_poa_actividad_IndicadorPOA", "");
                 let indicador = indicador_producto_poa_actividad.list_indicador_producto_poa_actividad.find(d=> d.id == id);
-                if (indicador_producto_poa_actividad.tipo_meta_comentario_obligatorio && indicador.count_comment == "0"){
+                if ((indicador_producto_poa_actividad.tipo_meta_comentario_obligatorio && indicador.count_comment == "0") && !isVer){
                     SWEETALERT.show({
                         type: 'warning',
                         message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,
