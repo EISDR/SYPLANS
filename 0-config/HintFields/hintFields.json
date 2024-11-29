@@ -191,6 +191,11 @@
       "displayName": "(Tab de comentarios) Comentario"
     },
     {
+      "entity": "actividades_poa_monitoreo",
+      "fieldName": "responsable",
+      "displayName": "Responsable"
+    },
+    {
       "entity": "actividades_apoyo",
       "fieldName": "nombre",
       "displayName": "Nombre"
