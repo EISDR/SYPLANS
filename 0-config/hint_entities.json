@@ -386,6 +386,16 @@
       "displayName": "(Módulo Prevención de Riesgos – Planificación Estratégica) Estrategias de Tratamientos"
     },
     {
+      "id": "94",
+      "controllerName": "mapa_proceso",
+      "displayName": "(Gestión de Procesos) Creación de Mapa de Proceso"
+    },
+    {
+      "id": "95",
+      "controllerName": "procesos_categoria",
+      "displayName": "(Gestión de Procesos) Creación de Macroproceso"
+    },
+    {
       "id": "88",
       "controllerName": "solicitud_proceso",
       "displayName": "(Gestión de Procesos) Solicitud de Procesos"
@@ -394,6 +404,11 @@
       "id": "89",
       "controllerName": "procesos",
       "displayName": "(Gestión de Procesos) Creación de Procesos"
+    },
+    {
+      "id": "96",
+      "controllerName": "recursos",
+      "displayName": "(Gestión de Procesos) Recursos de Procesos"
     },
     {
       "id": "90",
