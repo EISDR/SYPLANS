@@ -224,9 +224,12 @@ FORM = {
     </script>
     <div class="row" style="overflow: hidden">
         <div class="col-lg-9 hidden-xs hidden-sm text-center" style="padding: 50px;">
-            <img alt="splash" width="944" height="531" id="coverlogin"
+            <img alt="splash" width="944" height="531" id="coverlogin" ng-if="<%= scope %>.isprivate==='_private'"
                  style="border:0px !important;margin: 10% 0 0 10%;"
-                 src="files/configuration/splash/splash{{<%= scope %>.isprivate}}.webp">
+                 src="files/configuration/splash/splash_private.webp">
+            <img alt="splash" width="944" height="531" id="coverlogin" ng-if="<%= scope %>.isprivate!=='_private'"
+                 style="border:0px !important;margin: 10% 0 0 10%;"
+                 src="files/configuration/splash/splash.webp">
         </div>
         <div class="col-lg-3 col-xs-12" style="background: url('files/configuration/splash/repeat.png');">
             <div class="panel panel-body" id="logincontent"
