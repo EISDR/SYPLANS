@@ -665,11 +665,14 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                             $("#eluniquex").html(plantilla);
                             if (data.row.estatus !== 'Autorizado')
                                 $("#eluniquex").attr('data-before', data.row.estatus);
-                            $("#eluniquex").printThis({
-                                printDelay: 333,
-                                loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
-                            });
-                            SWEETALERT.stop();
+
+                            setTimeout(() => {
+                                $("#eluniquex").printThis({
+                                    printDelay: 500,
+                                    loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                                });
+                                SWEETALERT.stop();
+                            }, 1000)
                             return false;
                         }
                     },
