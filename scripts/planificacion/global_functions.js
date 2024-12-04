@@ -71,10 +71,10 @@ equlizer_with_Style = function (Class_name, scope) {
 
 watchIndicadores = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
-        if (controller.modelName == 'indicador_pei'){
+        if (controller.modelName == 'indicador_pei') {
             var periodo_id = name.split('metas').pop();
             var periodo = eval(`${controller.modelName}.list_${controller.modelName}_anos`).find(d => d.id == periodo_id);
-        }else {
+        } else {
             var periodo_id = name.split('periodos').pop();
             var periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
         }
@@ -99,10 +99,10 @@ watchIndicadoresSoft = function (controller, controllerName, name) {
 
 watchIndicadoresValorAbsoluto = function (controller, controllerName, name) {
     controller.$scope.$watch(controllerName, function (value) {
-        if (controller.modelName == 'indicador_pei'){
+        if (controller.modelName == 'indicador_pei') {
             var periodo_id = name.split('metas').pop();
             var periodo = eval(`${controller.modelName}.list_${controller.modelName}_anos`).find(d => d.id == periodo_id);
-        }else {
+        } else {
             var periodo_id = name.split('periodos').pop();
             var periodo = eval(`${controller.modelName}.list_${controller.modelName}_periodo`).find(d => d.id == periodo_id);
         }
@@ -888,7 +888,7 @@ check_active_PEI = function (pei_ID) {
 
 check_active_POA = function (poa_ID) {
     var session = new SESSION().current();
-    if (session.est_poa == 5 || session.poa_habilitado == 0){
+    if (session.est_poa == 5 || session.poa_habilitado == 0) {
         $('.icon-plus-circle2 ').parent().hide();
         return
     }
@@ -908,7 +908,7 @@ check_active_POA = function (poa_ID) {
             if (res.data.length == 0) {
                 $('.icon-plus-circle2 ').parent().hide();
             } else {
-               $('.icon-plus-circle2 ').parent().show();
+                $('.icon-plus-circle2 ').parent().show();
             }
         }
     });
@@ -919,11 +919,11 @@ title_header_table_pei = function ($scope, msj) {
     if (session.pei_id) {
         if (session.poa_id) {
             if (session.tipo_institucion == 1)
-                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
+                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") POA - " + session.periodo_poa;
             else
-                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
-        }else {
-            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
+                $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
+        } else {
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ")";
         }
     } else {
         $scope.headertitle = msj + " / PEI ";
@@ -934,11 +934,11 @@ title_header_table_poa = function ($scope, msj) {
     var session = new SESSION().current();
     if (session.poa_id) {
         if (session.tipo_institucion == 1)
-            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") POA - " + session.periodo_poa;
         else
-            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
     } else if (session.pei_id) {
-        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
+        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ")";
     } else {
         $scope.headertitle = msj + " / PEI ";
     }
@@ -948,11 +948,11 @@ title_header_dashboard_table_poa = function ($scope, msj, poa) {
     var session = new SESSION().current();
     if (session.poa_id) {
         if (session.tipo_institucion == 1)
-            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") POA - " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") POA - " + session.periodo_poa;
         else
-            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
+            $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ") Gestión Presupuestaria - " + session.periodo_poa;
     } else if (session.pei_id) {
-        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' +  session.periodo_hasta + ")";
+        $scope.headertitle = msj + " / PEI (" + session.periodo_desde + ' - ' + session.periodo_hasta + ")";
     } else {
         $scope.headertitle = msj + " / PEI ";
     }
@@ -2544,7 +2544,7 @@ createfalse = async () => {
                         }
                     ]);
             }
-            let result =aacontroldemandofalso.preloaded[view].filter(d=>d[indicadorField + "_id"]==indicadorID);
+            let result = aacontroldemandofalso.preloaded[view].filter(d => d[indicadorField + "_id"] == indicadorID);
 
             // await aacontroldemandofalso.listp(view,
             // [
@@ -2825,6 +2825,8 @@ createfalse = async () => {
             field: "compania",
             value: baseController.session ? baseController.session.compania_id : "0"
         });
+
+    console.log("createfalse");
     if (!aacontroldemandofalso.api.formulas)
         aacontroldemandofalso.api.formulas = await aacontroldemandofalso.listp("reporte_tipometa_formula");
 

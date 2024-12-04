@@ -515,7 +515,7 @@ app.controller("aacontroldemando_pei", function ($scope, $http, $compile) {
     aacontroldemando_pei.refresh = async () => {
         if (new SESSION().current()) {
             SWEETALERT.loading({message: "Estructurando Reporte Completo"});
-
+            console.log("aacontroldemando_pei.refresh");
             if (!aacontroldemando_pei.api.ponderaciones)
                 aacontroldemando_pei.api.ponderaciones = await aacontroldemando_pei.listp("reporte_indicador_config", aacontroldemando_pei.filtrosSoloCompania);
             if (!aacontroldemando_pei.api.formulas)

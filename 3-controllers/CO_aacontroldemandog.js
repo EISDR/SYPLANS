@@ -570,61 +570,63 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         aacontroldemandog.refresh();
     };
     aacontroldemandog.refresh = async () => {
-        SWEETALERT.loading({message: "Estructurando Reporte Completo"});
+        if (new SESSION().current()) {
+            SWEETALERT.loading({message: "Estructurando Reporte Completo"});
 
-        aacontroldemandog.api.currentMapa = await aacontroldemandog.listp("mapa_proceso", [
-            {
-                field: "compania",
-                value: aacontroldemandog.session.compania_id
-            },
-            {
-                field: "estatus",
-                operator: "!=",
-                value: 4
-            }
-        ]);
-        aacontroldemandog.api.currentMapa = aacontroldemandog.api.currentMapa[0];
-        if (!aacontroldemandog.api.ponderaciones)
-            aacontroldemandog.api.ponderaciones = await aacontroldemandog.listp("reporte_indicador_config", aacontroldemandog.filtrosSoloCompania);
-        if (!aacontroldemandog.api.formulas)
-            aacontroldemandog.api.formulas = await aacontroldemandog.listp("reporte_tipometa_formula");
-        if (!aacontroldemandog.api.entidades) {
-            aacontroldemandog.api.entidades = await aacontroldemandog.listp("indicador_generico_entidad");
-
-            aacontroldemandog.api.entidades = aacontroldemandog.api.entidades.sort(GetSortOrder('orden'));
-            let indexito = 0;
-            aacontroldemandog.api.entidades.forEach(entidad => {
-                if (entidad.dashboard && entidad.variable) {
-                    if (aacontroldemandog.mainMenu[indexito].row.length > 3) {
-                        aacontroldemandog.mainMenu.push({
-                            row: []
-                        });
-                        indexito++;
-                    }
-                    aacontroldemandog.templateFunctions[entidad.variable] = entidad.dashboard;
-                    aacontroldemandog.mainMenu[indexito].row.push({
-                        title: entidad.name,
-                        link: aacontroldemandog.getFunction(entidad.variable)
-                    });
+            aacontroldemandog.api.currentMapa = await aacontroldemandog.listp("mapa_proceso", [
+                {
+                    field: "compania",
+                    value: aacontroldemandog.session.compania_id
+                },
+                {
+                    field: "estatus",
+                    operator: "!=",
+                    value: 4
                 }
-            });
-        }
+            ]);
+            console.log("aacontroldemandog.refresh");
+            aacontroldemandog.api.currentMapa = aacontroldemandog.api.currentMapa[0];
+            if (!aacontroldemandog.api.ponderaciones)
+                aacontroldemandog.api.ponderaciones = await aacontroldemandog.listp("reporte_indicador_config", aacontroldemandog.filtrosSoloCompania);
+            if (!aacontroldemandog.api.formulas)
+                aacontroldemandog.api.formulas = await aacontroldemandog.listp("reporte_tipometa_formula");
+            if (!aacontroldemandog.api.entidades) {
+                aacontroldemandog.api.entidades = await aacontroldemandog.listp("indicador_generico_entidad");
 
-        aacontroldemandog.api.indicadores = await aacontroldemandog.listp("vw_report_indicadores_generico", aacontroldemandog.filtrosCompania);
-        aacontroldemandog.calcs.buildAll();
-
-        setTimeout(() => {
-            $("#graficoGeneral").html("");
-            let general = aacontroldemandog.calcs.general();
-            aacontroldemandog.generalPonderacion = aacontroldemandog.calcs.ponderacion(general);
-            aacontroldemandog.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemandog.generalPonderacion.color, 300, 200);
-            SWEETALERT.stop();
-            aacontroldemandog.refreshAngular();
-            if (aacontroldemandog.unicomenu) {
-                aacontroldemandog.execute(aacontroldemandog.getFunction(aacontroldemandog.unicomenu));
+                aacontroldemandog.api.entidades = aacontroldemandog.api.entidades.sort(GetSortOrder('orden'));
+                let indexito = 0;
+                aacontroldemandog.api.entidades.forEach(entidad => {
+                    if (entidad.dashboard && entidad.variable) {
+                        if (aacontroldemandog.mainMenu[indexito].row.length > 3) {
+                            aacontroldemandog.mainMenu.push({
+                                row: []
+                            });
+                            indexito++;
+                        }
+                        aacontroldemandog.templateFunctions[entidad.variable] = entidad.dashboard;
+                        aacontroldemandog.mainMenu[indexito].row.push({
+                            title: entidad.name,
+                            link: aacontroldemandog.getFunction(entidad.variable)
+                        });
+                    }
+                });
             }
-        }, 200);
 
+            aacontroldemandog.api.indicadores = await aacontroldemandog.listp("vw_report_indicadores_generico", aacontroldemandog.filtrosCompania);
+            aacontroldemandog.calcs.buildAll();
+
+            setTimeout(() => {
+                $("#graficoGeneral").html("");
+                let general = aacontroldemandog.calcs.general();
+                aacontroldemandog.generalPonderacion = aacontroldemandog.calcs.ponderacion(general);
+                aacontroldemandog.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemandog.generalPonderacion.color, 300, 200);
+                SWEETALERT.stop();
+                aacontroldemandog.refreshAngular();
+                if (aacontroldemandog.unicomenu) {
+                    aacontroldemandog.execute(aacontroldemandog.getFunction(aacontroldemandog.unicomenu));
+                }
+            }, 200);
+        }
     };
     aacontroldemandog.listp = async (api, where) => {
         let data = undefined;
