@@ -1625,7 +1625,9 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
 
             MESSAGE.run();
             $(".remove-content").removeClass("has-ul");
-            createfalse();
+            if (new SESSION().current()) {
+                createfalse();
+            }
         });
 
 

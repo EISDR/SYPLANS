@@ -513,25 +513,26 @@ app.controller("aacontroldemando_pei", function ($scope, $http, $compile) {
         aacontroldemando_pei.refresh();
     };
     aacontroldemando_pei.refresh = async () => {
-        SWEETALERT.loading({message: "Estructurando Reporte Completo"});
+        if (new SESSION().current()) {
+            SWEETALERT.loading({message: "Estructurando Reporte Completo"});
 
-        if (!aacontroldemando_pei.api.ponderaciones)
-            aacontroldemando_pei.api.ponderaciones = await aacontroldemando_pei.listp("reporte_indicador_config", aacontroldemando_pei.filtrosSoloCompania);
-        if (!aacontroldemando_pei.api.formulas)
-            aacontroldemando_pei.api.formulas = await aacontroldemando_pei.listp("reporte_tipometa_formula");
+            if (!aacontroldemando_pei.api.ponderaciones)
+                aacontroldemando_pei.api.ponderaciones = await aacontroldemando_pei.listp("reporte_indicador_config", aacontroldemando_pei.filtrosSoloCompania);
+            if (!aacontroldemando_pei.api.formulas)
+                aacontroldemando_pei.api.formulas = await aacontroldemando_pei.listp("reporte_tipometa_formula");
 
-        aacontroldemando_pei.api.pei = await aacontroldemando_pei.listp("vw_report_indicadores_pei", aacontroldemando_pei.filtrosCompania);
-        aacontroldemando_pei.calcs.buildAll();
-        setTimeout(() => {
-            $("#graficoGeneral").html("");
-            let general = aacontroldemando_pei.calcs.general();
-            aacontroldemando_pei.generalPonderacion = aacontroldemando_pei.calcs.ponderacion(general);
-            aacontroldemando_pei.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemando_pei.generalPonderacion.color, 300, 200);
+            aacontroldemando_pei.api.pei = await aacontroldemando_pei.listp("vw_report_indicadores_pei", aacontroldemando_pei.filtrosCompania);
+            aacontroldemando_pei.calcs.buildAll();
+            setTimeout(() => {
+                $("#graficoGeneral").html("");
+                let general = aacontroldemando_pei.calcs.general();
+                aacontroldemando_pei.generalPonderacion = aacontroldemando_pei.calcs.ponderacion(general);
+                aacontroldemando_pei.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemando_pei.generalPonderacion.color, 300, 200);
 
-            SWEETALERT.stop();
-            aacontroldemando_pei.refreshAngular();
-        }, 200);
-
+                SWEETALERT.stop();
+                aacontroldemando_pei.refreshAngular();
+            }, 200);
+        }
     };
     aacontroldemando_pei.listp = async (api, where) => {
         let data = undefined;
