@@ -1,13 +1,5 @@
 <script>
-    var mite = setInterval(() => {
-        if (!$("#content:visible").length) {
-            $("#content").show();
-            console.log("intento de show");
-        }
-        if ($("#content:visible").length) {
-            clearInterval(mite);
-        }
-    }, 1000);
+
     auth;
     var input = document.getElementsByName("auth_username")[0];
     var alert_container_1 = document.getElementById("alert_container_1");

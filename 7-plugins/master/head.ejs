@@ -1,4 +1,5 @@
 <head>
+
     <% include server %>
     <% var root = '../../'; %>
     <meta charset="utf-8">
@@ -22,6 +23,15 @@
 
     <% include functions %>
     <script>
+        var mite = setInterval(() => {
+            if (!$("#content:visible").length) {
+                $("#content").show();
+                console.log("intento de show");
+            }
+            if ($("#content:visible").length) {
+                clearInterval(mite);
+            }
+        }, 1000);
         if (location.href.indexOf('/home') === -1) {
             if (!STORAGE.get("APPSESSION")) {
                 var http = new HTTP();
