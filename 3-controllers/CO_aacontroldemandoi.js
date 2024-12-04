@@ -574,27 +574,28 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
         aacontroldemando.refresh();
     };
     aacontroldemando.refresh = async () => {
-        SWEETALERT.loading({message: "Estructurando Reporte Completo"});
+        if (new SESSION().current()) {
+            SWEETALERT.loading({message: "Estructurando Reporte Completo"});
 
-        if (!aacontroldemando.api.ponderaciones)
-            aacontroldemando.api.ponderaciones = await aacontroldemando.listp("reporte_indicador_config", aacontroldemando.filtrosSoloCompania);
-        if (!aacontroldemando.api.formulas)
-            aacontroldemando.api.formulas = await aacontroldemando.listp("reporte_tipometa_formula");
+            if (!aacontroldemando.api.ponderaciones)
+                aacontroldemando.api.ponderaciones = await aacontroldemando.listp("reporte_indicador_config", aacontroldemando.filtrosSoloCompania);
+            if (!aacontroldemando.api.formulas)
+                aacontroldemando.api.formulas = await aacontroldemando.listp("reporte_tipometa_formula");
 
-        aacontroldemando.api.pei = [];
-        aacontroldemando.api.productos = await aacontroldemando.listp("vw_report_indicadores_producto", aacontroldemando.filtrosCompania);
-        aacontroldemando.api.actividades = await aacontroldemando.listp("vw_report_indicadores_actividad", aacontroldemando.filtrosCompania);
-        aacontroldemando.calcs.buildAll();
-        setTimeout(() => {
-            $("#graficoGeneral").html("");
-            let general = aacontroldemando.calcs.general();
-            aacontroldemando.generalPonderacion = aacontroldemando.calcs.ponderacion(general);
-            aacontroldemando.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemando.generalPonderacion.color, 300, 200);
+            aacontroldemando.api.pei = [];
+            aacontroldemando.api.productos = await aacontroldemando.listp("vw_report_indicadores_producto", aacontroldemando.filtrosCompania);
+            aacontroldemando.api.actividades = await aacontroldemando.listp("vw_report_indicadores_actividad", aacontroldemando.filtrosCompania);
+            aacontroldemando.calcs.buildAll();
+            setTimeout(() => {
+                $("#graficoGeneral").html("");
+                let general = aacontroldemando.calcs.general();
+                aacontroldemando.generalPonderacion = aacontroldemando.calcs.ponderacion(general);
+                aacontroldemando.dibujaGracfico("graficoGeneral", Number(general).toFixed(2), aacontroldemando.generalPonderacion.color, 300, 200);
 
-            SWEETALERT.stop();
-            aacontroldemando.refreshAngular();
-        }, 200);
-
+                SWEETALERT.stop();
+                aacontroldemando.refreshAngular();
+            }, 200);
+        }
     };
     aacontroldemando.listp = async (api, where) => {
         let data = undefined;
