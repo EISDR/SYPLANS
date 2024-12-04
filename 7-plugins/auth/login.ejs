@@ -337,9 +337,12 @@ FORM = {
             document.getElementById("logincontent").style.height = `114vh`;
     }
 
-    setTimeout(() => {
-        $("#content").show();
-    }, 2000);
+    var mite = setInterval(() => {
+        if (!$("#content:visible").length) {
+            $("#content").show();
+            clearInterval(mite);
+        }
+    }, 1000);
 </script>
 <style>
     .page-container {
