@@ -278,7 +278,9 @@
             baseController.setSeparator(MENU.current.menu.mark);
         }, 1000);
         $(".remove-content").removeClass("has-ul");
-        createfalse();
+        if (new SESSION().current()) {
+            createfalse();
+        }
     });
 
 
