@@ -264,7 +264,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                 },
                 {
                     key: 'codigo',
-                    label: function(){
+                    label: function () {
                         return 'Código Manual'
                     },
                     type: FILTER.types.string,
@@ -656,7 +656,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                             let plantilla = "";
 
                             if (!DSON.oseaX(data.row)) {
-                                plantilla = data.row.plantilla||"";
+                                plantilla = data.row.plantilla || "";
 
                                 Object.keys(data.row).forEach(d => {
                                     plantilla = plantilla.replaceAll(`@${d}@`, data.row[d] || "");
@@ -667,7 +667,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 $("#eluniquex").attr('data-before', data.row.estatus);
                             $("#eluniquex").printThis({
                                 printDelay: 333,
-                                loadCSS: "styles/zfrola/mathquill.css",
+                                loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
                             });
                             SWEETALERT.stop();
                             return false;
