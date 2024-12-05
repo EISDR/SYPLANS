@@ -41,6 +41,13 @@ popopme = function (entity, field) {
         options.mess = prueba.sort(function (a, b) {
             return b.id - a.id
         });
+        const fragmentos = options.mess[0]?.text.split('\n') || [];
+        if (fragmentos.length > 0){
+            const contenidoHTML = fragmentos.map(fragmento => {
+                return `<p>${fragmento}</p>`;
+            }).join('');
+            options.mess[0].text = contenidoHTML;
+        }
     }
 
     sortArray();
@@ -59,28 +66,28 @@ var toclient = JSON.stringify(options);
         form.options.<%= name %>.placeholder = MESSAGE.ic('columns.<%= nameclean %>');
     }
     if (new SESSION().isLogged()) {
-        <%= model %>.
-        form.options.<%= name %>.mess = <%= model %>.
-        form.options.<%= name %>.mess.filter(d => {
+        <%= model %>.form.options.<%= name %>.mess = <%= model %>.form.options.<%= name %>.mess.filter(d => {
             return d.company == new SESSION().current().compania_id;
         })
-        if (<%= model %>.
-        form.options.<%= name %>.mess.length == 0
-    )
-        {
-            delete <%= model %>.
-            form.options.<%= name %>.mess
+        if (<%= model %>.form.options.<%= name %>.mess.length == 0 ) {
+            delete <%= model %>.form.options.<%= name %>.mess
         }
-        if (<%= model %>.
-        form.options.<%= name %>.mess
-    )
-        {
-            <%= model %>.
-            form.options.<%= name %>.popover = {
+        if (<%= model %>.form.options.<%= name %>.mess){
+            // El texto con entidades HTML
+            const textoConEntidadesHTML = <%= model %>.form.options.<%= name %>.mess[0].text;
+            // Función para convertir entidades HTML a etiquetas HTML
+            function convertirEntidadesAHTML(texto) {
+                const textarea = document.createElement('textarea');
+                textarea.innerHTML = texto;
+                return textarea.value;
+            }
+            // Convertir el texto
+            const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
+            console.log(textoConvertido)
+            <%= model %>.form.options.<%= name %>.popover = {
                 title: <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder,
-                content:
-                <%= model %>.form.options.<%= name %>.mess[0].text,
-            label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder
+                content: textoConvertido,
+                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder
             }
         }
     }
@@ -172,8 +179,9 @@ var toclient = JSON.stringify(options);
                 container: 'body',
                 title: eval("`" +<%= model %>.form.options.<%= name %>.popover.label + "`"),
                 content: eval("`" +<%= model %>.form.options.<%= name %>.popover.content + "`"),
-            trigger: 'manual'
-        });
+                html: true,
+                trigger: 'manual'
+            });
             // Obtén el elemento que deseas observar
             const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 

@@ -87,7 +87,8 @@
         "field_names",
         "field_show_names",
         "text",
-        "cousin"
+        "cousin",
+        "trueEntity"
       ]
     },
     "audit_action": {
