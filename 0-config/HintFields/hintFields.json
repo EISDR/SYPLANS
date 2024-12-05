@@ -652,6 +652,11 @@
     },
     {
       "entity": "resultado",
+      "fieldName": "tipo_resultado",
+      "displayName": "Tipo de Resultado Esperado"
+    },
+    {
+      "entity": "resultado",
       "fieldName": "perspectiva",
       "displayName": "Perspectiva"
     },
@@ -2404,6 +2409,21 @@
       "displayName": "Normativas ISO 9001"
     },
     {
+      "entity": "procesos",
+      "fieldName": "procesos_entrada",
+      "displayName": "Procesos de entrada"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "procesos_salida",
+      "displayName": "Procesos de Salida"
+    },
+    {
+      "entity": "procesos",
+      "fieldName": "unidad_tiempo",
+      "displayName": "Unidad de tiempo"
+    },
+    {
       "entity": "solicitud_documento",
       "fieldName": "tipo_accion",
       "displayName": "Tipo de Acción"
@@ -3107,6 +3127,76 @@
       "entity": "modulo_notificacion",
       "fieldName": "send_one",
       "displayName": "¿Repetir Diario?"
+    },
+    {
+      "entity": "mapa_proceso",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "mapa_proceso",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "mapa_proceso",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "procesos_categoria",
+      "fieldName": "nombre",
+      "displayName": "Nombre"
+    },
+    {
+      "entity": "procesos_categoria",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "recursos",
+      "fieldName": "tipo",
+      "displayName": "Tipo de Recurso"
+    },
+    {
+      "entity": "recursos",
+      "fieldName": "descripcion",
+      "displayName": "Descripción"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "procesos_categoria",
+      "displayName": "Macroproceso"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "proceso",
+      "displayName": "Proceso"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "tipo_documento",
+      "displayName": "Tipo de Documento"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "estatus",
+      "displayName": "Estatus"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "roles_permitidos",
+      "displayName": "Roles Permitidos"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "usuarios_permitidos",
+      "displayName": "Usuarios permitidos"
+    },
+    {
+      "entity": "documentos_asociados",
+      "fieldName": "documentos_relacionados",
+      "displayName": "Documentos Asociados"
     }
   ]
 }

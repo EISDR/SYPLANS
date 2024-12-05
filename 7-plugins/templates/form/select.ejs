@@ -87,6 +87,13 @@ popopme = function (entity, field) {
         options.mess = prueba.sort(function (a, b) {
             return b.id - a.id
         });
+        const fragmentos = options.mess[0]?.text.split('\n') || [];
+        if (fragmentos.length > 0){
+            const contenidoHTML = fragmentos.map(fragmento => {
+                return `<p>${fragmento}</p>`;
+            }).join('');
+            options.mess[0].text = contenidoHTML;
+        }
     }
 
     sortArray();
@@ -131,41 +138,28 @@ var toclient = JSON.stringify(options);
             = `${MESSAGE.ic('mono.youselect')}`;
     }
     if (new SESSION().isLogged()) {
-        <%= model + "." + options.forme %>.
-        options
-            .<%= name %>.mess = <%= model + "." + options.forme %>.
-        options
-            .<%= name %>.mess.filter(d => {
+        <%= model + "." + options.forme %>.options.<%= name %>.mess = <%= model + "." + options.forme %>.options.<%= name %>.mess.filter(d => {
             return d.company == new SESSION().current().compania_id;
         })
-        if (<%= model + "." + options.forme %>.
-        options
-            .<%= name %>.mess.length == 0
-    )
-        {
-            delete <%= model + "." + options.forme %>.
-            options
-                .<%= name %>.mess
+        if (<%= model + "." + options.forme %>.options.<%= name %>.mess.length == 0) {
+            delete <%= model + "." + options.forme %>.options.<%= name %>.mess
         }
-        if (<%= model + "." + options.forme %>.
-        options
-            .<%= name %>.mess
-    )
-        {
-            <%= model + "." + options.forme %>.
-            options
-                .<%= name %>.popover = {
-                title:
-                <%= model + "." + options.forme %>.options
-                    .<%= name %>.mess[0].field_names,
-                content:
-                <%= model + "." + options.forme %>.options
-                    .<%= name %>.mess[0].text,
-                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
-                <%= model + "." + options.forme %>.options
-                    .<%= name %>.trueplaceholder ||
-                <%= model + "." + options.forme %>.options
-                    .<%= name %>.placeholder
+        if (<%= model + "." + options.forme %>.options.<%= name %>.mess){
+            // El texto con entidades HTML
+            const textoConEntidadesHTML = <%= model %>.form.options.<%= name %>.mess[0].text;
+            // Función para convertir entidades HTML a etiquetas HTML
+            function convertirEntidadesAHTML(texto) {
+                const textarea = document.createElement('textarea');
+                textarea.innerHTML = texto;
+                return textarea.value;
+            }
+            // Convertir el texto
+            const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
+            console.log(textoConvertido)
+            <%= model + "." + options.forme %>.options.<%= name %>.popover = {
+                title: <%= model + "." + options.forme %>.options.<%= name %>.mess[0].field_names,
+                content: textoConvertido,
+                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model + "." + options.forme %>.options.<%= name %>.trueplaceholder || <%= model + "." + options.forme %>.options.<%= name %>.placeholder
             }
         }
     }
@@ -432,13 +426,10 @@ var toclient = JSON.stringify(options);
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
                     title: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.label + "`"),
-                    content
-            :
-                eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.popover.content + "`"
-            ),
-                trigger: 'manual'
-            })
-                ;
+                    content: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.popover.content + "`"),
+                    html: true,
+                    trigger: 'manual'
+                });
                 // Obtén el elemento que deseas observar
                 const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 

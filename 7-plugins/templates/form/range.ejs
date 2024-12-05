@@ -55,6 +55,13 @@ popopme = function (entity, field) {
         options.mess = prueba.sort(function (a, b) {
             return b.id - a.id
         });
+        const fragmentos = options.mess[0]?.text.split('\n') || [];
+        if (fragmentos.length > 0){
+            const contenidoHTML = fragmentos.map(fragmento => {
+                return `<p>${fragmento}</p>`;
+            }).join('');
+            options.mess[0].text = contenidoHTML;
+        }
     }
 
     sortArray();
@@ -80,31 +87,28 @@ var toclient = JSON.stringify(options);
     <%= model %>.form.options.<%= options.from %>.placeholder = "<%= options.label %>";
     <% } %>
     if (new SESSION().isLogged()) {
-        <%= model %>.
-        form.options.<%= options.from %>.mess = <%= model %>.
-        form.options.<%= options.from %>.mess.filter(d => {
+        <%= model %>.form.options.<%= options.from %>.mess = <%= model %>.form.options.<%= options.from %>.mess.filter(d => {
             return d.company == new SESSION().current().compania_id;
         })
-        if (<%= model %>.
-        form.options.<%= options.from %>.mess.length == 0
-    )
-        {
-            delete <%= model %>.
-            form.options.<%= options.from %>.mess
+        if (<%= model %>.form.options.<%= options.from %>.mess.length == 0) {
+            delete <%= model %>.form.options.<%= options.from %>.mess
         }
-        if (<%= model %>.
-        form.options.<%= options.from %>.mess
-    )
-        {
-            <%= model %>.
-            form.options.<%= options.from %>.popover = {
-                title:
-                <%= model %>.form.options.<%= options.from %>.mess[0].field_names.replace('_', ' ').replace('_', ' '),
-                content:
-                <%= model %>.form.options.<%= options.from %>.mess[0].text,
-                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
-                <%= model %>.form.options.<%= name %>.trueplaceholder ||
-                <%= model %>.form.options.<%= name %>.placeholder
+        if (<%= model %>.form.options.<%= options.from %>.mess){
+            // El texto con entidades HTML
+            const textoConEntidadesHTML = <%= model %>.form.options.<%= name %>.mess[0].text;
+            // Función para convertir entidades HTML a etiquetas HTML
+            function convertirEntidadesAHTML(texto) {
+                const textarea = document.createElement('textarea');
+                textarea.innerHTML = texto;
+                return textarea.value;
+            }
+            // Convertir el texto
+            const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
+            console.log(textoConvertido)
+            <%= model %>.form.options.<%= options.from %>.popover = {
+                title: <%= model %>.form.options.<%= options.from %>.mess[0].field_names.replace('_', ' ').replace('_', ' '),
+                content: textoConvertido,
+                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder
             }
         }
     }
@@ -164,8 +168,9 @@ var toclient = JSON.stringify(options);
                     container: 'body',
                     title: eval("`" +<%= model %>.form.options.<%= options.from %>.popover.label + "`"),
                     content: eval("`" +<%= model %>.form.options.<%= options.from %>.popover.content + "`"),
-                trigger: 'manual'
-            });
+                    html: true,
+                    trigger: 'manual'
+                });
                 // Obtén el elemento que deseas observar
                 const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 
