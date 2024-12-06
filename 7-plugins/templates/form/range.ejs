@@ -95,7 +95,7 @@ var toclient = JSON.stringify(options);
         }
         if (<%= model %>.form.options.<%= options.from %>.mess){
             // El texto con entidades HTML
-            const textoConEntidadesHTML = <%= model %>.form.options.<%= name %>.mess[0].text;
+            const textoConEntidadesHTML = <%= model %>.form.options.<%= options.from %>.mess[0].text;
             // Función para convertir entidades HTML a etiquetas HTML
             function convertirEntidadesAHTML(texto) {
                 const textarea = document.createElement('textarea');
