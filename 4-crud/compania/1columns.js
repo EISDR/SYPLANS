@@ -358,7 +358,6 @@ DSON.keepmerge(CRUD_compania, {
                 },
                 click: function (data) {
                     if (!DSON.oseaX(data.row)) {
-                        STORAGE.add('config_dataForView', data.row);
                         STORAGE.add('config_lacompania', data.row.id);
                         STORAGE.add('config_lacompania_nombre', data.row.nombre);
                         location.href = "#institucion";

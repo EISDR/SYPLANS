@@ -161,6 +161,8 @@ SESSION = function () {
     this.destroy = function () {
         STORAGE.add("YOERADELTIPO", new SESSION().current().tipo_institucion);
         STORAGE.delete("APPSESSION");
+        STORAGE.delete("config_lacompania");
+        STORAGE.delete("config_lacompania_nombre");
         STORAGE.delete("depa");
         STORAGE.delete("depaM");
         STORAGE.delete("historico");
