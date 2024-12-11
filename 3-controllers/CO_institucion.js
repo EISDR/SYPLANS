@@ -5,9 +5,17 @@ app.controller("institucion", function ($scope, $http, $compile) {
     institucion.session = new SESSION().current();
     institucion.user_config = new SESSION().current();
     institucion.admin_company = "1";
+    institucion.showmerelations = false;
     institucion.volver = function () {
         location.href = '#compania'
     };
+    if (STORAGE.exist('config_lacompania')){
+        baseController.lacompania = STORAGE.get('config_lacompania');
+        compania = null;
+    }
+    if (STORAGE.exist('config_lacompania_nombre')){
+        baseController.lacompania_nombre = STORAGE.get('config_lacompania_nombre');
+    }
     if (!baseController.lacompania)
         location.href = "#compania";
     institucion.compania = baseController.lacompania;
@@ -89,15 +97,15 @@ app.controller("institucion", function ($scope, $http, $compile) {
         institucion.refrescar_responsable();
     };
     institucion.triggers.table.after.load = function (data) {
-        if (institucion)
-            institucion.setPermission("remove", false);
+        // if (institucion)
+        //     institucion.setPermission("remove", false);
         if (!institucion.session.interinstitucional) {
             institucion.setPermission("add", false);
             institucion.setPermission("edit", false);
         }
-        if (!institucion.session.super) {
-            institucion.setPermission("add", false);
-        }
+        // if (!institucion.session.super) {
+        //     institucion.setPermission("add", false);
+        // }
         if (institucion.session.intersectorial) {
             institucion.setPermission("edit", true);
         }
@@ -128,17 +136,17 @@ app.controller("institucion", function ($scope, $http, $compile) {
                     breakBucle = false;
                 }
 
-                if (!institucion.session.super) {
-                    if (institucion.form.options.nombre)
-                        institucion.form.options.nombre.readonly = true;
-                    if (institucion.form.options.tipo_institucion)
-                        institucion.form.options.tipo_institucion.disabled = true;
-                    if (institucion.form.options.sector)
-                        institucion.form.options.sector.disabled = true;
-                    if (institucion.form.options.responsable)
-                        institucion.form.options.responsable.disabled = true;
-                    institucion.refreshAngular();
-                }
+                // if (!institucion.session.super) {
+                //     if (institucion.form.options.nombre)
+                //         institucion.form.options.nombre.readonly = true;
+                //     if (institucion.form.options.tipo_institucion)
+                //         institucion.form.options.tipo_institucion.disabled = true;
+                //     if (institucion.form.options.sector)
+                //         institucion.form.options.sector.disabled = true;
+                //     if (institucion.form.options.responsable)
+                //         institucion.form.options.responsable.disabled = true;
+                //     institucion.refreshAngular();
+                // }
             };
 
             institucion.form.readonly = {compania: baseController.lacompania};

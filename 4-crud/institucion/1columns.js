@@ -135,7 +135,7 @@ DSON.keepmerge(CRUD_institucion, {
                                 return true;
                             }
                             if (institucion.session.groups)
-                                if (institucion.session.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general).length > 0) {
+                                if (institucion.session.groups.filter(d => d.caracteristica == ENUM_2.Grupos.director_general || d.id == 1).length > 0) {
                                     return true;
                                 }
                             return (new SESSION().current().interinstitucional) && data.row.responsable == new SESSION().current().id;
