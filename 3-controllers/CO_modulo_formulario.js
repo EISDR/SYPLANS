@@ -16,16 +16,17 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
             {nombre: "Línea Completa", value: 12}
         ];
         modulo_formulario.operators = {
-            "alfanumérico": ['Contiene', 'No Contiene', 'Igual a', 'Diferente a', 'En Blanco-', 'Con Algún Valor-'],
+            "alfanumérico": ['Los registros que contengan', 'Los registros que no contengan', 'Los registros iguales a', 'Los registros diferentes a', 'Registros en blanco-', 'Registros con valor-'],
             "numérico": ['Igual a', 'Diferente a', 'Es Nulo-', 'Menor que', 'Menor o igual', 'Mayor que', 'Mayor o igual'],
             "fecha": ['Fecha Exacta', 'Antes de', 'Después de', 'Fecha Exacta o Antes', 'Fecha Exacta o Después'],
             "fecha y hora": ['Fecha Exacta', 'Antes de', 'Después de', 'Fecha Exacta o Antes', 'Fecha Exacta o Después'],
             "booleano": ['Verdadero-', 'Falso-'],
             "check": ['Marcado-', 'Sin Marcar-'],
             "desición": ['Igual a'],
-            "lista": ['Contiene', 'No Contiene'],
+            "lista": ['Agrupado Por selección-', 'Cantidad de selección con', 'Cantidad de selección diferente a', 'Sin Selección'],
             "lista múltiple": ['Contiene', 'No Contiene']
         };
+        modulo_formulario.tipoDeReportes = ["Lista", "Pastel", "Barra", "Línea"];
         modulo_formulario.singular = "Formulario";
         modulo_formulario.plural = "Formularios";
         modulo_formulario.registros = await BASEAPI.listp('modulo_formulario_registro', {limit: 0});
@@ -219,7 +220,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                     }
                 ]
             });
-            modulo_formulario.usuarios_list =  modulo_formulario.usuarios_list.data;
+            modulo_formulario.usuarios_list = modulo_formulario.usuarios_list.data;
             modulo_formulario.respuestas_cabeza = (await BASEAPI.listp('modulo_formulario_registro', {
                 limit: 0,
                 where: [
@@ -267,10 +268,10 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                 printDelay: 333,
             });
         }
-        modulo_formulario.format_date = function (value){
+        modulo_formulario.format_date = function (value) {
             return LAN.datetime(value);
         }
-        modulo_formulario.return_userName = function (value){
+        modulo_formulario.return_userName = function (value) {
             if (modulo_formulario.usuarios_list && modulo_formulario.usuarios_list.length > 0) {
                 let usuario = modulo_formulario.usuarios_list.filter(d => {
                     return d.id === value
@@ -282,7 +283,6 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
         modulo_formulario.get_head_value = (head_key, value) => {
             if (modulo_formulario.respuestas_data && modulo_formulario.respuestas_data.length > 0) {
                 const rawValue = modulo_formulario.respuestas_data[head_key][value];
-                debugger
                 if (Array.isArray(rawValue)) {
                     return rawValue.join(', ');
                 } else if (moment(rawValue, moment.ISO_8601, true).isValid()) {

@@ -4,9 +4,25 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
     indicador_poa.session = user;
     indicador_poa.colspan = user.cantidad * 3;
     indicador_poa.periodolist = [];
+    indicador_poa.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
     var paso = true;
     for (var p = 1; p <= user.cantidad; p++) {
         indicador_poa.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+    }
+    indicador_poa.changeCantidad = function (id) {
+        let monitoreo = baseController.poa_monitorieo.filter(d => d.id == id)[0];
+        if (monitoreo) {
+            user.cantidad = monitoreo.cantidad;
+            user.monitoreo_nombre = monitoreo.nombre_mostrar;
+            indicador_poa.periodolist = [];
+            for (var p = 1; p <= user.cantidad; p++) {
+                indicador_poa.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+            }
+            indicador_poa.list_mes = [];
+            for (var s = 1; s <= user.cantidad; s++) {
+                indicador_poa.list_mes.push(s);
+            }
+        }
     }
     indicador_poa.colpad = [];
     var rs_pad = indicador_poa.colspan, count_pda = 0,
@@ -95,7 +111,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         indicador_poa.list_direccion_meta = rsd.data;
     });
     indicador_poa.check_poa = function () {
-        if (indicador_poa.session.est_poa == 5 || indicador_poa.session.poa_habilitado == 0){
+        if (indicador_poa.session.est_poa == 5 || indicador_poa.session.poa_habilitado == 0) {
             $('.icon-plus-circle2 ').parent().hide();
             return;
         }
@@ -302,29 +318,75 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
             if (indicador_poa.linea_base)
                 data.updating.linea_base = indicador_poa.linea_base;
 
+            for (var i in indicador_poa.validate) {
+                if (LAN.money(i.split("periodos").pop()).value > 12) {
+                    delete indicador_poa.validate[i];
+                }
+            }
+
 
             var f = new Date();
             var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
             var user = new SESSION().current();
-            for (var key in indicador_poa.valores) {
-                await BASEAPI.updateallp('indicador_poa_periodo', {
-                    "valor": indicador_poa.tipo_meta == "5" && eval(`indicador_poa.periodos${key}`) ? eval(`indicador_poa.periodos${key}`).replace('$', '') : eval(`indicador_poa.periodos${key}`),
-                    "updated_at": fecha,
-                    "created_by": user.usuario_id,
-                    where: [{
-                        "field": "id",
-                        "value": key
-                    }]
-                });
+
+            let groupInsert = [];
+            let validPeriodo = [];
+
+            for (const index of indicador_poa.list_mes) {
+                let old = indicador_poa.unchanged.filter(d => d.periodo === index)[0];
+                if (old) {
+                    validPeriodo.push(old.id);
+                    await BASEAPI.updateallp('indicador_poa_periodo', {
+                        "valor": indicador_poa.tipo_meta == "5" && eval(`indicador_poa.periodos${old.id}`) ? eval(`indicador_poa.periodos${old.id}`).replace('$', '') : eval(`indicador_poa.periodos${old.id}`),
+                        "updated_at": "$now()",
+                        "created_by": user.usuario_id,
+                        where: [{
+                            "field": "id",
+                            "value": old.id
+                        }]
+                    });
+                } else {
+                    groupInsert.push({
+                        "indicador_poa": indicador_poa.id,
+                        "created_at": "$now()",
+                        "created_by": user.usuario_id,
+                        "valor": (indicador_poa.tipo_meta == "5" && eval(`indicador_poa.periodos${index}`) ? eval(`indicador_poa.periodos${index}`).replace('$', '') : eval(`indicador_poa.periodos${index}`)) || 0,
+                        "periodo": index
+                    });
+                }
             }
+            if (validPeriodo.length)
+                await BASEAPI.deleteallp('indicador_poa_periodo', [
+                    {
+                        field: "indicador_poa",
+                        value: indicador_poa.id
+                    },
+                    {
+                        field: "id",
+                        operator: "NOT IN",
+                        value: validPeriodo
+                    }
+                ]);
+            else
+                await BASEAPI.deleteallp('indicador_poa_periodo', [
+                    {
+                        field: "indicador_poa",
+                        value: indicador_poa.id
+                    }
+                ]);
+            if (groupInsert.length)
+                await BASEAPI.insertp('indicador_poa_periodo', groupInsert);
             indicador_poa.linea_base = indicador_poa.linea_base.replace('$', '');
             indicador_poa.list_indicador_poa_periodo = [];
-            for (var i in indicador_poa) if (i.indexOf("periodos") !== -1) eval(`delete indicador_poa.${i}`);
+            for (var i in indicador_poa)
+                if (i.indexOf("periodos") !== -1)
+                    eval(`delete indicador_poa.${i}`);
             resolve(true);
         }
     });
 
     indicador_poa.list_indicador_poa_periodo = [];
+    indicador_poa.unchanged = [];
     indicador_poa.valores = [];
     indicador_poa.list_mes = [];
 
@@ -379,28 +441,30 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         }
     }
     indicador_poa.getIMesNew = function () {
-        if (indicador_poa.form.mode === FORM.modes.new) {
-            indicador_poa.list_mes = [];
-            indicador_poa.valores = [];
-            indicador_poa.limpiar = false;
-            for (var s = 1; s <= user.cantidad; s++) {
-                indicador_poa.list_mes.push(s);
-            }
-            for (var i of indicador_poa.list_mes) {
-                eval(`indicador_poa.form.schemas.insert.periodos${i} = FORM.schemasType.calculated`);
-            }
-            indicador_poa.control.input("#subcontainerLineaBase", "linea_base", {
-                maxlength: 11, popover: {
-                    title: "Línea Base",
-                    content: "Captura la  Línea Base"
-                }
-            }, false, '', "Línea Base", false);
+        // if (indicador_poa.form.mode === FORM.modes.new) {
+        indicador_poa.list_mes = [];
+        indicador_poa.valores = [];
+        indicador_poa.limpiar = false;
+
+        for (var s = 1; s <= user.cantidad; s++) {
+            indicador_poa.list_mes.push(s);
         }
+        for (var i of indicador_poa.list_mes) {
+            eval(`indicador_poa.form.schemas.insert.periodos${i} = FORM.schemasType.calculated`);
+        }
+        indicador_poa.control.input("#subcontainerLineaBase", "linea_base", {
+            maxlength: 11, popover: {
+                title: "Línea Base",
+                content: "Captura la  Línea Base"
+            }
+        }, false, '', "Línea Base", false);
+        // }
     };
 
     indicador_poa.getIDedit = function () {
         if (indicador_poa.form.mode === FORM.modes.edit) {
             indicador_poa.list_indicador_poa_periodo = [];
+            indicador_poa.unchanged = [];
             indicador_poa.valores = [];
             indicador_poa.limpiar = false;
             BASEAPI.listp('indicador_poa_periodo', {
@@ -413,6 +477,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                     value: indicador_poa.id
                 }]
             }).then(function (result) {
+                indicador_poa.unchanged = result.data;
                 indicador_poa.list_indicador_poa_periodo = result.data;
 
                 for (var key in indicador_poa.list_indicador_poa_periodo) {
@@ -421,7 +486,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                     eval(`indicador_poa.form.schemas.insert.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = FORM.schemasType.calculated`);
 
                 }
-                indicador_poa.applyMasks();
+                indicador_poa.applyMasks("getEdit");
                 indicador_poa.refreshAngular();
             });
         }
@@ -431,7 +496,9 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
         if (indicador_poa !== undefined) {
             indicador_poa.initiation = true;
             var do_once_dp = false;
+            var do_once = false;
             indicador_poa.triggers.table.after.control = function (data) {
+
                 if (data == 'producto') {
                     if (indicador_poa.form.selected('producto') !== null) {
                         indicador_poa.fecha_inicio = indicador_poa.form.selected('producto').fecha_inicio;
@@ -484,6 +551,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                         indicador_poa.oldData_forAudit = indicador_poa.form.getAudit();
                     }
                 }
+                if (indicador_poa.miPOA.periodo_dinamico)
+                    if (data == 'poa_monitoreo') {
+                        if (mode === "new" && !do_once) {
+                            if (!indicador_poa.poa_monitoreo || indicador_poa.poa_monitoreo === '[NULL]') {
+                                indicador_poa.form.loadDropDown('poa_monitoreo');
+
+                                do_once = true;
+                            }
+                        }
+                        if (mode === "edit" && !do_once) {
+                            indicador_poa.form.loadDropDown('poa_monitoreo');
+                            do_once = true;
+                        }
+                    }
             };
             indicador_poa.triggers.table.after.close = function () {
                 indicador_poa.paso = true;
@@ -554,8 +635,11 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 view: indicador_poa.session.tipo_institucion == 1 ? "Ver ALL - " + `${MESSAGE.i('planificacion.titleindicador_poa')}` : "Ver - Indicador de Proyecto/Plan de Acción"
             };
 
-            indicador_poa.applyMasks = async function () {
+            indicador_poa.applyMasks = async function (desde) {
+                console.log("applyMasks", desde);
                 indicador_poa.applyMasksfalse = true;
+                if (!indicador_poa?.list_mes?.length)
+                    indicador_poa.list_mes = indicador_poa.list_indicador_poa_periodo;
                 switch (indicador_poa.tipo_meta) {
                     case "2": {
                         await indicador_poa.control.indice("#subcontainerLineaBase", "linea_base", {
@@ -579,17 +663,21 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.indice(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+
+                                await indicador_poa.control.indice(".subcontainer2", "periodos" + elid, {
                                     maxlength: 1, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -621,17 +709,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.money(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+                                await indicador_poa.control.money(".subcontainer2", "periodos" + elid, {
                                     popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadores(indicador_poa, `indicador_poa.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -663,17 +754,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.decimal(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+                                await indicador_poa.control.decimal(".subcontainer2", "periodos" + elid, {
                                     maxlength: 22, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadores(indicador_poa, `indicador_poa.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -704,17 +798,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.percentage(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+                                await indicador_poa.control.percentage(".subcontainer2", "periodos" + elid, {
                                     popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadores(indicador_poa, `indicador_poa.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -745,17 +842,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.integer(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+                                await indicador_poa.control.integer(".subcontainer2", "periodos" + elid, {
                                     popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadores(indicador_poa, `indicador_poa.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -788,17 +888,20 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_poa.list_indicador_poa_periodo) {
-                                await indicador_poa.control.valor_absoluto(".subcontainer2", "periodos" + indicador_poa.list_indicador_poa_periodo[key].id, {
+                            for (var key in indicador_poa.list_mes) {
+                                let elid = (indicador_poa.list_indicador_poa_periodo[key] || {})?.id || indicador_poa.list_mes[key];
+                                if (!(indicador_poa.list_indicador_poa_periodo[key] || {})?.id)
+                                    indicador_poa.list_indicador_poa_periodo[key] = indicador_poa.list_mes[key];
+                                await indicador_poa.control.valor_absoluto(".subcontainer2", "periodos" + elid, {
                                     maxlength: 11, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadoresValorAbsoluto(indicador_poa, `indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id}`, `periodos${indicador_poa.list_indicador_poa_periodo[key].id}`);
+                                watchIndicadoresValorAbsoluto(indicador_poa, `indicador_poa.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_poa.limpiar){
-							            indicador_poa.periodos${indicador_poa.list_indicador_poa_periodo[key].id} = "";
+							            indicador_poa.periodos${elid} = "";
 							            indicador_poa.linea_base = "";
 								    }
 					            `);
@@ -818,27 +921,45 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 delete indicador_poa.yadata;
                 if (indicador_poa.clicaalgo)
                     indicador_poa.clicaalgo();
-                indicador_poa.form.oldData['Nombre'] = indicador_poa.oldData_forAudit['Nombre'];
-                indicador_poa.form.oldData['Año'] = indicador_poa.oldData_forAudit['Año'];
-                indicador_poa.form.oldData['Año Línea Base'] = indicador_poa.oldData_forAudit['Año Línea Base'];
-                indicador_poa.form.oldData['Característica de indicador '] = indicador_poa.oldData_forAudit['Característica de indicador '];
-                indicador_poa.form.oldData['Proyecto/Producto'] = indicador_poa.oldData_forAudit['Proyecto/Producto'];
-                indicador_poa.form.oldData['Desagregacion_demografica_geografia'] = indicador_poa.oldData_forAudit['Desagregacion_demografica_geografia'];
-                indicador_poa.form.oldData['Descripción'] = indicador_poa.oldData_forAudit['Descripción'];
-                indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta'];
-                indicador_poa.form.oldData['Fuente'] = indicador_poa.oldData_forAudit['Fuente'];
-                indicador_poa.form.oldData['Medio de verificación'] = indicador_poa.oldData_forAudit['Medio de verificación'];
-                indicador_poa.form.oldData['Método cálculo'] = indicador_poa.oldData_forAudit['Método cálculo'];
-                indicador_poa.form.oldData['Observación'] = indicador_poa.oldData_forAudit['Observación'];
-                indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta']
-                indicador_poa.form.oldData['Tipo de dato de la meta'] = indicador_poa.oldData_forAudit['Tipo de dato de la meta']
+
+                if (indicador_poa.oldData_forAudit) {
+                    indicador_poa.form.oldData['Nombre'] = indicador_poa.oldData_forAudit['Nombre'];
+                    indicador_poa.form.oldData['Año'] = indicador_poa.oldData_forAudit['Año'];
+                    indicador_poa.form.oldData['Año Línea Base'] = indicador_poa.oldData_forAudit['Año Línea Base'];
+                    indicador_poa.form.oldData['Característica de indicador '] = indicador_poa.oldData_forAudit['Característica de indicador '];
+                    indicador_poa.form.oldData['Proyecto/Producto'] = indicador_poa.oldData_forAudit['Proyecto/Producto'];
+                    indicador_poa.form.oldData['Desagregacion_demografica_geografia'] = indicador_poa.oldData_forAudit['Desagregacion_demografica_geografia'];
+                    indicador_poa.form.oldData['Descripción'] = indicador_poa.oldData_forAudit['Descripción'];
+                    indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta'];
+                    indicador_poa.form.oldData['Fuente'] = indicador_poa.oldData_forAudit['Fuente'];
+                    indicador_poa.form.oldData['Medio de verificación'] = indicador_poa.oldData_forAudit['Medio de verificación'];
+                    indicador_poa.form.oldData['Método cálculo'] = indicador_poa.oldData_forAudit['Método cálculo'];
+                    indicador_poa.form.oldData['Observación'] = indicador_poa.oldData_forAudit['Observación'];
+                    indicador_poa.form.oldData['Dirección de la meta'] = indicador_poa.oldData_forAudit['Dirección de la meta'];
+                    indicador_poa.form.oldData['Tipo de dato de la meta'] = indicador_poa.oldData_forAudit['Tipo de dato de la meta'];
+                }
             };
 
-            indicador_poa.form.readonly = {active:1};
+            indicador_poa.form.readonly = {active: 1};
 
-            indicador_poa.createForm(data, mode, defaultData,undefined, function(){
+
+            if (mode == FORM.modes.new) {
+                if (defaultData === undefined)
+                    defaultData = {poa_monitoreo: indicador_poa?.miPOA?.monitoreo + ""}
+                else
+                    defaultData.poa_monitoreo = indicador_poa?.miPOA?.monitoreo + "";
+            }
+            if (mode == FORM.modes.edit)
+                if (indicador_poa.miPOA.periodo_dinamico) {
+                    indicador_poa.changeCantidad(indicador_poa.poa_monitoreo);
+                }
+            indicador_poa.createForm(data, mode, defaultData, undefined, function () {
                 indicador_poa.tipo_meta_old = indicador_poa.tipo_meta;
                 indicador_poa.direccion_meta_old = indicador_poa.direccion_meta;
+                if (mode == FORM.modes.edit)
+                    if (indicador_poa.miPOA.periodo_dinamico) {
+                        indicador_poa.changeCantidad(indicador_poa.poa_monitoreo);
+                    }
             });
 
             indicador_poa.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;
@@ -870,17 +991,19 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
 
 
             indicador_poa.form.after.update = async function (data) {
-                for (var key in indicador_poa.valores) {
-                    await BASEAPI.updateallp('indicador_poa_periodo', {
-                        "valor": indicador_poa.tipo_meta == "5" && eval(`indicador_poa.periodos${key}`) ? eval(`indicador_poa.periodos${key}`).replace('$', '') : eval(`indicador_poa.periodos${key}`),
-                        "updated_at": fecha,
-                        "created_by": user.usuario_id,
-                        where: [{
-                            "field": "id",
-                            "value": key
-                        }]
-                    });
-                }
+
+
+                // for (var key in indicador_poa.valores) {
+                //     await BASEAPI.updateallp('indicador_poa_periodo', {
+                //         "valor": indicador_poa.tipo_meta == "5" && eval(`indicador_poa.periodos${key}`) ? eval(`indicador_poa.periodos${key}`).replace('$', '') : eval(`indicador_poa.periodos${key}`),
+                //         "updated_at": fecha,
+                //         "created_by": user.usuario_id,
+                //         where: [{
+                //             "field": "id",
+                //             "value": key
+                //         }]
+                //     });
+                // }
                 indicador_poa.linea_base = indicador_poa.linea_base.replace('$', '');
                 indicador_poa.list_indicador_poa_periodo = [];
                 for (var i in indicador_poa) if (i.indexOf("periodos") !== -1) eval(`delete indicador_poa.${i}`);
@@ -961,12 +1084,44 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 VALIDATION.validate(indicador_poa, "fuente", rules)
             });
 
+            if (indicador_poa.miPOA.periodo_dinamico) {
+                indicador_poa.$scope.$watch('indicador_poa.poa_monitoreo', async function (value) {
+
+                    var rules = [];
+                    // if (indicador_poa.unchanged.length > 0 && indicador_poa.form.mode == "edit") {
+                    //     rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.unchanged, "Periodicidad", indicador_poa.poa_monitoreo_old, indicador_poa.poa_monitoreo, function (result) {
+                    //         if (!result) {
+                    //             indicador_poa.initiation = true;
+                    //         }
+                    //     }));
+                    // }
+                    if ((value !== undefined || value !== "[NULL]") && !indicador_poa.initiation) {
+                        if (indicador_poa.form.selected('poa_monitoreo')) {
+                            user.cantidad = indicador_poa.form.selected('poa_monitoreo').cantidad;
+                            user.monitoreo_nombre = indicador_poa.form.selected('poa_monitoreo').nombre_mostrar;
+                            indicador_poa.periodolist = [];
+                            for (var p = 1; p <= 12; p++) {
+                                if (indicador_poa.validate["periodos" + p])
+                                    delete indicador_poa.validate["periodos" + p];
+                            }
+                            for (var p = 1; p <= user.cantidad; p++) {
+                                indicador_poa.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+                            }
+                            $(".clearHtml").html('');
+                            indicador_poa.getIMesNew();
+                            indicador_poa.applyMasks("poa_monitoreo");
+                        }
+                    }
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(indicador_poa, "poa_monitoreo", rules);
+                });
+            }
 
             indicador_poa.$scope.$watch('indicador_poa.tipo_meta', function (value) {
                 var rules = [];
-                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Tipo de dato de la meta",indicador_poa.tipo_meta_old,indicador_poa.tipo_meta,function (result){
-                        if (!result){
+                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Tipo de dato de la meta", indicador_poa.tipo_meta_old, indicador_poa.tipo_meta, function (result) {
+                        if (!result) {
                             indicador_poa.initiation = true;
                         }
                     }));
@@ -975,14 +1130,14 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 VALIDATION.validate(indicador_poa, "tipo_meta", rules)
                 if (value && (!indicador_poa.initiation)) {
                     $(".clearHtml").html('');
-                    indicador_poa.applyMasks();
+                    indicador_poa.applyMasks("tipometa");
                 }
             });
 
             indicador_poa.$scope.$watch('indicador_poa.direccion_meta', function (value) {
                 var rules = [];
-                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Dirección de la meta",indicador_poa.direccion_meta_old,indicador_poa.direccion_meta));
+                if (indicador_poa.list_indicador_poa_periodo.length > 0 && indicador_poa.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_poa.list_indicador_poa_periodo, "Dirección de la meta", indicador_poa.direccion_meta_old, indicador_poa.direccion_meta));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_poa, "direccion_meta", rules)
@@ -1007,7 +1162,6 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                     rules.push(VALIDATION.general.required(value));
                 }
                 VALIDATION.validate(indicador_poa, "medio_verificacion", rules)
-                VALIDATION.validate(indicador_poa, "medio_verificacion", rules)
             });
 
             indicador_poa.$scope.$watch('indicador_poa.metodo_calculo', function (value) {
@@ -1015,7 +1169,6 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 if (value == "" || value == null) {
                     rules.push(VALIDATION.general.required(value));
                 }
-                VALIDATION.validate(indicador_poa, "metodo_calculo", rules)
                 VALIDATION.validate(indicador_poa, "metodo_calculo", rules)
 
             });
@@ -1054,7 +1207,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                 if (typeof productos_poa != "undefined") {
                     if (productos_poa) {
                         if (typeof productos_poa !== 'not defined') {
-                            if (productos_poa.departamento_object === null || productos_poa.resultado_object === null|| productos_poa.nombre === '' || productos_poa.fecha_inicio === null || productos_poa.fecha_fin === null || productos_poa.fecha_fin === "") {
+                            if (productos_poa.departamento_object === null || productos_poa.resultado_object === null || productos_poa.nombre === '' || productos_poa.fecha_inicio === null || productos_poa.fecha_fin === null || productos_poa.fecha_fin === "") {
                                 indicador_poa.showMsjSi = true;
                                 indicador_poa.showMsjNo = false;
                                 resolve(true);
@@ -1066,7 +1219,7 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
                                 return
                             }
 
-                            resolve( false);
+                            resolve(false);
                             return
                         }
                     }

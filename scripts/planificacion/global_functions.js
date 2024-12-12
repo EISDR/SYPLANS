@@ -3486,3 +3486,7 @@ function_send_email_cargos_y_resposables = function (titulo_push, cuerpo_push, t
 getBrowser = () => {
     return navigator.userAgent;
 }
+
+getMonitoreo = (id) => {
+    return baseController?.poa_monitorieo?.filter(d => d.id == id)[0] || {};
+}

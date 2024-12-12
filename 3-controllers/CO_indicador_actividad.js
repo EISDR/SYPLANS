@@ -4,8 +4,24 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
     indicador_actividad.colspan = user.cantidad * 3;
     indicador_actividad.periodolist = [];
     indicador_actividad.session = user;
+    indicador_actividad.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
     for (var p = 1; p <= user.cantidad; p++) {
         indicador_actividad.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+    }
+    indicador_actividad.changeCantidad = function (id) {
+        let monitoreo = baseController.poa_monitorieo.filter(d => d.id == id)[0];
+        if (monitoreo) {
+            user.cantidad = monitoreo.cantidad;
+            user.monitoreo_nombre = monitoreo.nombre_mostrar;
+            indicador_actividad.periodolist = [];
+            for (var p = 1; p <= user.cantidad; p++) {
+                indicador_actividad.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+            }
+            indicador_actividad.list_mes = [];
+            for (var s = 1; s <= user.cantidad; s++) {
+                indicador_actividad.list_mes.push(s);
+            }
+        }
     }
     indicador_actividad.colpad = [];
     var rs_pad = indicador_actividad.colspan, count_pda = 0,
@@ -87,7 +103,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
         indicador_actividad.list_direccion_meta = rsd.data;
     });
     indicador_actividad.check_poa = function () {
-        if (indicador_actividad.session.est_poa == 5 || indicador_actividad.session.poa_habilitado == 0){
+        if (indicador_actividad.session.est_poa == 5 || indicador_actividad.session.poa_habilitado == 0) {
             $('.icon-plus-circle2 ').parent().hide();
             return;
         }
@@ -287,26 +303,80 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
             if (indicador_actividad.linea_base)
                 data.updating.linea_base = indicador_actividad.linea_base;
 
+            for (var i in indicador_actividad.validate) {
+                if (LAN.money(i.split("periodos").pop()).value > 12) {
+                    delete indicador_actividad.validate[i];
+                }
+            }
+
             var f = new Date();
             var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
             var user = new SESSION().current();
-            for (var key in indicador_actividad.valores) {
-                await BASEAPI.updateallp('indicador_actividad_periodo', {
-                    "valor": indicador_actividad.tipo_meta == "5" && eval(`indicador_actividad.periodos${key}`) ? eval(`indicador_actividad.periodos${key}`).replace('$', '') : eval(`indicador_actividad.periodos${key}`),
-                    "updated_at": fecha,
-                    "created_by": user.usuario_id,
-                    where: [{
-                        "field": "id",
-                        "value": key
-                    }]
-                });
+            // for (var key in indicador_actividad.valores) {
+            //     await BASEAPI.updateallp('indicador_actividad_periodo', {
+            //         "valor": indicador_actividad.tipo_meta == "5" && eval(`indicador_actividad.periodos${key}`) ? eval(`indicador_actividad.periodos${key}`).replace('$', '') : eval(`indicador_actividad.periodos${key}`),
+            //         "updated_at": fecha,
+            //         "created_by": user.usuario_id,
+            //         where: [{
+            //             "field": "id",
+            //             "value": key
+            //         }]
+            //     });
+            // }
+            let groupInsert = [];
+            let validPeriodo = [];
+
+            for (const index of indicador_actividad.list_mes) {
+                let old = indicador_actividad.unchanged.filter(d => d.periodo === index)[0];
+                if (old) {
+                    validPeriodo.push(old.id);
+                    await BASEAPI.updateallp('indicador_actividad_periodo', {
+                        "valor": indicador_actividad.tipo_meta == "5" && eval(`indicador_actividad.periodos${old.id}`) ? eval(`indicador_actividad.periodos${old.id}`).replace('$', '') : eval(`indicador_actividad.periodos${old.id}`),
+                        "updated_at": "$now()",
+                        "created_by": user.usuario_id,
+                        where: [{
+                            "field": "id",
+                            "value": old.id
+                        }]
+                    });
+                } else {
+                    groupInsert.push({
+                        "indicador_actividad": indicador_actividad.id,
+                        "created_at": "$now()",
+                        "created_by": user.usuario_id,
+                        "valor": (indicador_actividad.tipo_meta == "5" && eval(`indicador_actividad.periodos${index}`) ? eval(`indicador_actividad.periodos${index}`).replace('$', '') : eval(`indicador_actividad.periodos${index}`)) || 0,
+                        "periodo": index
+                    });
+                }
             }
+            if (validPeriodo.length)
+                await BASEAPI.deleteallp('indicador_actividad_periodo', [
+                    {
+                        field: "indicador_actividad",
+                        value: indicador_actividad.id
+                    },
+                    {
+                        field: "id",
+                        operator: "NOT IN",
+                        value: validPeriodo
+                    }
+                ]);
+            else
+                await BASEAPI.deleteallp('indicador_actividad_periodo', [
+                    {
+                        field: "indicador_actividad",
+                        value: indicador_actividad.id
+                    }
+                ]);
+            if (groupInsert.length)
+                await BASEAPI.insertp('indicador_actividad_periodo', groupInsert);
 
             resolve(true);
         }
     });
 
     indicador_actividad.list_indicador_actividad_periodo = [];
+    indicador_actividad.unchanged = [];
     indicador_actividad.valores = [];
     indicador_actividad.list_mes = [];
 
@@ -360,28 +430,29 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
 
     indicador_actividad.getIMesNew = function () {
         //agregar el parametro de periodo a la funcion si se va a utilizar los periodos dinamicos
-        if (indicador_actividad.form.mode === FORM.modes.new) {
-            indicador_actividad.list_mes = [];
-            indicador_actividad.valores = [];
-            indicador_actividad.limpiar = false;
-            for (var s = 1; s <= user.cantidad; s++) {
-                indicador_actividad.list_mes.push(s);
-            }
-            for (var i of indicador_actividad.list_mes) {
-                eval(`indicador_actividad.form.schemas.insert.periodos${i} = FORM.schemasType.calculated`);
-            }
-            indicador_actividad.control.input("#subcontainerLineaBase", "linea_base", {
-                maxlength: 11, popover: {
-                    title: "Línea Base",
-                    content: "Captura la  Línea Base"
-                }
-            }, false, '', "Línea Base", false);
+        // if (indicador_actividad.form.mode === FORM.modes.new) {
+        indicador_actividad.list_mes = [];
+        indicador_actividad.valores = [];
+        indicador_actividad.limpiar = false;
+        for (var s = 1; s <= user.cantidad; s++) {
+            indicador_actividad.list_mes.push(s);
         }
+        for (var i of indicador_actividad.list_mes) {
+            eval(`indicador_actividad.form.schemas.insert.periodos${i} = FORM.schemasType.calculated`);
+        }
+        indicador_actividad.control.input("#subcontainerLineaBase", "linea_base", {
+            maxlength: 11, popover: {
+                title: "Línea Base",
+                content: "Captura la  Línea Base"
+            }
+        }, false, '', "Línea Base", false);
+        // }
     };
 
     indicador_actividad.getIDedit = function () {
         if (indicador_actividad.form.mode === FORM.modes.edit) {
             indicador_actividad.list_indicador_actividad_periodo = [];
+            indicador_actividad.unchanged = [];
             indicador_actividad.valores = [];
             indicador_actividad.limpiar = false;
             BASEAPI.listp('indicador_actividad_periodo', {
@@ -394,6 +465,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                     value: indicador_actividad.id
                 }]
             }).then(function (result) {
+                indicador_actividad.unchanged = result.data;
                 indicador_actividad.list_indicador_actividad_periodo = result.data;
 
                 for (var key in indicador_actividad.list_indicador_actividad_periodo) {
@@ -402,7 +474,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                     eval(`indicador_actividad.form.schemas.insert.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = FORM.schemasType.calculated`);
 
                 }
-                indicador_actividad.applyMasks();
+                indicador_actividad.applyMasks("getIDedit");
                 indicador_actividad.refreshAngular();
             });
         }
@@ -412,6 +484,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
         if (indicador_actividad !== undefined) {
             indicador_actividad.initiation = true;
             var do_once_dp = false;
+            var do_once = false;
             indicador_actividad.triggers.table.after.control = function (data) {
                 if (data == 'producto') {
                     if (indicador_actividad.form.selected('producto') !== null) {
@@ -467,9 +540,23 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                         indicador_actividad.oldData_forAudit = indicador_actividad.form.getAudit();
                     }
                 }
+                if (indicador_actividad.miPOA.periodo_dinamico)
+                    if (data === 'poa_monitoreo') {
+                        if (mode === "new" && !do_once) {
+                            if (!indicador_actividad.poa_monitoreo || indicador_actividad.poa_monitoreo === '[NULL]') {
+                                indicador_actividad.form.loadDropDown('poa_monitoreo');
+
+                                do_once = true;
+                            }
+                        }
+                        if (mode === "edit" && !do_once) {
+                            indicador_actividad.form.loadDropDown('poa_monitoreo');
+                            do_once = true;
+                        }
+                    }
                 // if (data == "actividad_monitoreo" && mode != "new") {
                 //     indicador_actividad.form.options.actividad_monitoreo.disabled = true;
-                //     indicador_actividad.form.options.indicador_poa.allonull =
+                //     indicador_actividad.form.options.indicador_actividad.allonull =
                 //         indicador_actividad.refreshAngular();
                 // }
             };
@@ -484,6 +571,23 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                     value: user.poa_id ? user.poa_id : 0
                 }
             ];
+
+            indicador_actividad.selectQueries["actividades_poa"] = [
+                {
+                    field: "poa",
+                    operator: "=",
+                    value: user.poa_id ? user.poa_id : 0
+                }
+            ];
+
+            indicador_actividad.selectQueries["departamento"] = [
+                {
+                    field: "poa",
+                    operator: "=",
+                    value: user.poa_id ? user.poa_id : 0
+                }
+            ];
+
             indicador_actividad.form.schemas.insert.departamento = FORM.schemasType.calculated;
 
 
@@ -500,8 +604,11 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 view: "Ver ALL - " + `${MESSAGE.i('planificacion.titleindicador_actividad')}`
             };
 
-            indicador_actividad.applyMasks = async function () {
+            indicador_actividad.applyMasks = async function (desde) {
+                console.log("applyMasks", desde);
                 indicador_actividad.applyMasksfalse = true;
+                if (!indicador_actividad?.list_mes?.length)
+                    indicador_actividad.list_mes = indicador_actividad.list_indicador_actividad_periodo;
                 switch (indicador_actividad.tipo_meta) {
                     case "2": {
                         await indicador_actividad.control.indice("#subcontainerLineaBase", "linea_base", {
@@ -525,17 +632,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.indice(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.indice(".subcontainer2", "periodos" + elid, {
                                     maxlength: 1, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -567,17 +678,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.money(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.money(".subcontainer2", "periodos" + elid, {
                                     maxlength: 22, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -609,17 +724,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.decimal(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.decimal(".subcontainer2", "periodos" + elid, {
                                     maxlength: 22, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -650,17 +769,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.percentage(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.percentage(".subcontainer2", "periodos" + elid, {
                                     popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -691,17 +814,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.integer(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.integer(".subcontainer2", "periodos" + elid, {
                                     popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadores(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -734,17 +861,21 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                             }
                         } else {
                             var conuntPeriodo = 1;
-                            for (var key in indicador_actividad.list_indicador_actividad_periodo) {
-                                await indicador_actividad.control.valor_absoluto(".subcontainer2", "periodos" + indicador_actividad.list_indicador_actividad_periodo[key].id, {
+                            for (var key in indicador_actividad.list_mes) {
+                                let elid = (indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id || indicador_actividad.list_mes[key];
+                                if (!(indicador_actividad.list_indicador_actividad_periodo[key] || {})?.id)
+                                    indicador_actividad.list_indicador_actividad_periodo[key] = indicador_actividad.list_mes[key];
+
+                                await indicador_actividad.control.valor_absoluto(".subcontainer2", "periodos" + elid, {
                                     maxlength: 11, popover: {
                                         title: user.monitoreo_nombre + ' ' + conuntPeriodo,
                                         content: "Captura el " + user.monitoreo_nombre + ' ' + conuntPeriodo
                                     }
                                 }, true, 3, user.monitoreo_nombre + ' ' + conuntPeriodo, false);
-                                watchIndicadoresValorAbsoluto(indicador_actividad, `indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`, `periodos${indicador_actividad.list_indicador_actividad_periodo[key].id}`);
+                                watchIndicadoresValorAbsoluto(indicador_actividad, `indicador_actividad.periodos${elid}`, `periodos${elid}`);
                                 eval(`
 						            if(indicador_actividad.limpiar){
-							            indicador_actividad.periodos${indicador_actividad.list_indicador_actividad_periodo[key].id} = "";
+							            indicador_actividad.periodos${elid} = "";
 							            indicador_actividad.linea_base = "";
 								    }
 					            `);
@@ -762,31 +893,47 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 indicador_actividad.applyMasksfalse = false;
                 indicador_actividad.refreshAngular();
                 delete indicador_actividad.yadata;
-                if (indicador_actividad)
-                    if (indicador_actividad.currentModel)
-                        indicador_actividad.currentModel.clicaalgo();
-                indicador_actividad.form.oldData['Nombre'] = indicador_actividad.oldData_forAudit['Nombre'];
-                indicador_actividad.form.oldData['Año'] = indicador_actividad.oldData_forAudit['Año'];
-                indicador_actividad.form.oldData['Año Línea Base'] = indicador_actividad.oldData_forAudit['Año Línea Base'];
-                indicador_actividad.form.oldData['Característica de indicador '] = indicador_actividad.oldData_forAudit['Característica de indicador '];
-                indicador_actividad.form.oldData['Producto'] = indicador_actividad.oldData_forAudit['Producto'];
-                indicador_actividad.form.oldData['Actividades'] = indicador_actividad.oldData_forAudit['Actividades'];
-                indicador_actividad.form.oldData['Desagregacion_demografica_geografia'] = indicador_actividad.oldData_forAudit['Desagregacion_demografica_geografia'];
-                indicador_actividad.form.oldData['Descripción'] = indicador_actividad.oldData_forAudit['Descripción'];
-                indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta'];
-                indicador_actividad.form.oldData['Fuente'] = indicador_actividad.oldData_forAudit['Fuente'];
-                indicador_actividad.form.oldData['Medio de verificación'] = indicador_actividad.oldData_forAudit['Medio de verificación'];
-                indicador_actividad.form.oldData['Método cálculo'] = indicador_actividad.oldData_forAudit['Método cálculo'];
-                indicador_actividad.form.oldData['Observación'] = indicador_actividad.oldData_forAudit['Observación'];
-                indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta']
-                indicador_actividad.form.oldData['Tipo de dato de la meta'] = indicador_actividad.oldData_forAudit['Tipo de dato de la meta']
+                if (indicador_actividad.clicaalgo)
+                    indicador_actividad.clicaalgo();
+                if (indicador_actividad.oldData_forAudit) {
+                    indicador_actividad.form.oldData['Nombre'] = indicador_actividad.oldData_forAudit['Nombre'];
+                    indicador_actividad.form.oldData['Año'] = indicador_actividad.oldData_forAudit['Año'];
+                    indicador_actividad.form.oldData['Año Línea Base'] = indicador_actividad.oldData_forAudit['Año Línea Base'];
+                    indicador_actividad.form.oldData['Característica de indicador '] = indicador_actividad.oldData_forAudit['Característica de indicador '];
+                    indicador_actividad.form.oldData['Producto'] = indicador_actividad.oldData_forAudit['Producto'];
+                    indicador_actividad.form.oldData['Actividades'] = indicador_actividad.oldData_forAudit['Actividades'];
+                    indicador_actividad.form.oldData['Desagregacion_demografica_geografia'] = indicador_actividad.oldData_forAudit['Desagregacion_demografica_geografia'];
+                    indicador_actividad.form.oldData['Descripción'] = indicador_actividad.oldData_forAudit['Descripción'];
+                    indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta'];
+                    indicador_actividad.form.oldData['Fuente'] = indicador_actividad.oldData_forAudit['Fuente'];
+                    indicador_actividad.form.oldData['Medio de verificación'] = indicador_actividad.oldData_forAudit['Medio de verificación'];
+                    indicador_actividad.form.oldData['Método cálculo'] = indicador_actividad.oldData_forAudit['Método cálculo'];
+                    indicador_actividad.form.oldData['Observación'] = indicador_actividad.oldData_forAudit['Observación'];
+                    indicador_actividad.form.oldData['Dirección de la meta'] = indicador_actividad.oldData_forAudit['Dirección de la meta']
+                    indicador_actividad.form.oldData['Tipo de dato de la meta'] = indicador_actividad.oldData_forAudit['Tipo de dato de la meta'];
+                }
             };
 
             indicador_actividad.form.readonly = {active: 1};
 
-            indicador_actividad.createForm(data, mode, defaultData, undefined, function(){
+            if (mode == FORM.modes.new) {
+                if (defaultData === undefined)
+                    defaultData = {poa_monitoreo: indicador_actividad?.miPOA?.monitoreo + ""}
+                else
+                    defaultData.poa_monitoreo = indicador_actividad?.miPOA?.monitoreo + "";
+            }
+            if (mode == FORM.modes.edit)
+                if (indicador_actividad.miPOA.periodo_dinamico) {
+                    indicador_actividad.changeCantidad(indicador_actividad.poa_monitoreo);
+                }
+
+            indicador_actividad.createForm(data, mode, defaultData, undefined, function () {
                 indicador_actividad.tipo_meta_old = indicador_actividad.tipo_meta;
                 indicador_actividad.direccion_meta_old = indicador_actividad.direccion_meta;
+                if (mode == FORM.modes.edit)
+                    if (indicador_actividad.miPOA.periodo_dinamico) {
+                        indicador_actividad.changeCantidad(indicador_actividad.poa_monitoreo);
+                    }
             });
 
             indicador_actividad.form.schemas.insert.fecha_inicio = FORM.schemasType.calculated;
@@ -890,13 +1037,45 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 VALIDATION.validate(indicador_actividad, "fuente", rules)
             });
 
+            if (indicador_actividad.miPOA.periodo_dinamico) {
+                indicador_actividad.$scope.$watch('indicador_actividad.poa_monitoreo', async function (value) {
+
+                    var rules = [];
+                    // if (indicador_actividad.unchanged.length > 0 && indicador_actividad.form.mode == "edit") {
+                    //     rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.unchanged, "Periodicidad", indicador_actividad.poa_monitoreo_old, indicador_actividad.poa_monitoreo, function (result) {
+                    //         if (!result) {
+                    //             indicador_actividad.initiation = true;
+                    //         }
+                    //     }));
+                    // }
+                    if ((value !== undefined || value !== "[NULL]") && !indicador_actividad.initiation) {
+                        if (indicador_actividad.form.selected('poa_monitoreo')) {
+                            user.cantidad = indicador_actividad.form.selected('poa_monitoreo').cantidad;
+                            user.monitoreo_nombre = indicador_actividad.form.selected('poa_monitoreo').nombre_mostrar;
+                            indicador_actividad.periodolist = [];
+                            for (var p = 1; p <= 12; p++) {
+                                if (indicador_actividad.validate["periodos" + p])
+                                    delete indicador_actividad.validate["periodos" + p];
+                            }
+                            for (var p = 1; p <= user.cantidad; p++) {
+                                indicador_actividad.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
+                            }
+                            $(".clearHtml").html('');
+                            indicador_actividad.getIMesNew();
+                            indicador_actividad.applyMasks("poa_monitoreo");
+                        }
+                    }
+                    rules.push(VALIDATION.general.required(value));
+                    VALIDATION.validate(indicador_actividad, "poa_monitoreo", rules);
+                });
+            }
 
             indicador_actividad.$scope.$watch('indicador_actividad.tipo_meta', function (value) {
                 var rules = [];
                 rules.push(VALIDATION.general.required(value));
-                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Tipo de dato de la meta",indicador_actividad.tipo_meta_old,indicador_actividad.tipo_meta, function (result){
-                        if (!result){
+                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Tipo de dato de la meta", indicador_actividad.tipo_meta_old, indicador_actividad.tipo_meta, function (result) {
+                        if (!result) {
                             indicador_actividad.initiation = true;
                         }
                     }));
@@ -904,14 +1083,14 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 VALIDATION.validate(indicador_actividad, "tipo_meta", rules);
                 if (value && (!indicador_actividad.initiation)) {
                     $(".clearHtml").html('');
-                    indicador_actividad.applyMasks();
+                    indicador_actividad.applyMasks("tipo_meta");
                 }
             });
 
             indicador_actividad.$scope.$watch('indicador_actividad.direccion_meta', function (value) {
                 var rules = [];
-                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit"){
-                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Dirección de la meta",indicador_actividad.direccion_meta_old,indicador_actividad.direccion_meta));
+                if (indicador_actividad.list_indicador_actividad_periodo.length > 0 && indicador_actividad.form.mode == "edit") {
+                    rules.push(VALIDATION.yariel.meta_alcanzada_indicador(indicador_actividad.list_indicador_actividad_periodo, "Dirección de la meta", indicador_actividad.direccion_meta_old, indicador_actividad.direccion_meta));
                 }
                 rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(indicador_actividad, "direccion_meta", rules)
@@ -940,29 +1119,13 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                     rules.push(VALIDATION.general.required(value));
                 }
                 VALIDATION.validate(indicador_actividad, "medio_verificacion", rules)
-                VALIDATION.validate(indicador_actividad, "medio_verificacion", rules)
             });
-            // indicador_actividad.$scope.$watch('indicador_actividad.actividad_monitoreo', function (value) {
-            //     var rules = [];
-            //     VALIDATION.validate(indicador_actividad, "actividad_monitoreo", rules);
-            //     if (indicador_actividad.actividad_monitoreo == "[NULL]") {
-            //         $(".clearHtml").html('');
-            //         indicador_actividad.getIMesNew(user.cantidad);
-            //     }
-            //     else {
-            //         if ((indicador_actividad.tipo_meta != "[NULL]" && value) && (!indicador_actividad.initiation)) {
-            //             indicador_actividad.getIMesNew(indicador_actividad.form.selected('actividad_monitoreo').cantidad);
-            //             $(".clearHtml").html('');
-            //             indicador_actividad.applyMasks();
-            //         }
-            //     }
-            // });
+
             indicador_actividad.$scope.$watch('indicador_actividad.metodo_calculo', function (value) {
                 var rules = [];
                 if (value == "" || value == null) {
                     rules.push(VALIDATION.general.required(value));
                 }
-                VALIDATION.validate(indicador_actividad, "metodo_calculo", rules)
                 VALIDATION.validate(indicador_actividad, "metodo_calculo", rules)
 
             });
@@ -971,20 +1134,7 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(indicador_actividad, "descripcion", rules)
             });
-            // indicador_actividad.$scope.$watch('indicador_actividad.indicador_poa', function (value) {
-            //     var rules = [];
-            //     VALIDATION.validate(indicador_actividad, "indicador_poa", rules);
-            //     // if (indicador_actividad.indicador_poa == "[NULL]") {
-            //     //     $(".clearHtml").html('');
-            //     // }
-            //     // else {
-            //     //     console.log("este es el else");
-            //     //     if ((indicador_actividad.tipo_meta != "[NULL]" && value) && (!indicador_actividad.initiation)) {
-            //     //         $(".clearHtml").html('');
-            //     //         indicador_actividad.applyMasks();
-            //     //     }
-            //     // }
-            // });
+
             indicador_actividad.$scope.$watch('indicador_actividad.indicador_poa', function (value) {
                 var rules = [];
                 if (indicador_actividad.form.selected("indicador_poa")) {

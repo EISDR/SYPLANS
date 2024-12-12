@@ -5,6 +5,7 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
         indicador_producto_poa_actividad.textModal = '';
         indicador_producto_poa_actividad.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
         var user = new SESSION().current();
+        indicador_producto_poa_actividad.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
         indicador_producto_poa_actividad.usuario_id = user.usuario_id;
         indicador_producto_poa_actividad.conditionPoa = {estado: user.estado, poa_id: user.poa_id};
         indicador_producto_poa_actividad.estatus = ENUM_2.presupuesto_estatus.Completo;
@@ -806,6 +807,13 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
                             indicador_producto_poa_actividad.ver_estado = indicador_producto_poa_actividad.form.selected('indicador_poa').estatus;
                             indicador_producto_poa_actividad.periodicidad =
                                 aacontroldemandofalso.periodicidadBy(indicador_producto_poa_actividad.poa.data[0].monitoreo).nombre;
+
+                            if (indicador_producto_poa_actividad.miPOA.periodo_dinamico) {
+                                let tienecustom = indicador_producto_poa_actividad.form.selected('indicador_poa').poa_monitoreo;
+                                if (tienecustom)
+                                    indicador_producto_poa_actividad.periodicidad = aacontroldemandofalso.periodicidadBy(tienecustom).nombre;
+                            }
+
                             indicador_producto_poa_actividad.indicador_poa_r = indicador_producto_poa_actividad.form.selected('indicador_poa').indicador_poa_r;
 
                             if (indicador_producto_poa_actividad.list_tipo_meta.length > 0) {
@@ -857,8 +865,8 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
         });
 
         indicador_producto_poa_actividad.save_pei_ano = function (indicado, limpi) {
-            let indicador = indicador_producto_poa_actividad.list_indicador_producto_poa_actividad.find(d=> d.id === indicado);
-            if (indicador_producto_poa_actividad.tipo_meta_comentario_obligatorio && indicador.count_comment == 0){
+            let indicador = indicador_producto_poa_actividad.list_indicador_producto_poa_actividad.find(d => d.id === indicado);
+            if (indicador_producto_poa_actividad.tipo_meta_comentario_obligatorio && indicador.count_comment == 0) {
                 SWEETALERT.show({
                     type: 'warning',
                     message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,

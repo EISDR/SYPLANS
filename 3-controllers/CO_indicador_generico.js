@@ -1514,11 +1514,7 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     indicador_generico.initiation = false;
                 }
 
-                if (data == "tipo_meta" && mode != "new" && indicador_generico.initiation) {
-                    $(".subcontainer2").html('');
-                    indicador_generico.getIDedit();
-                    indicador_generico.initiation = false;
-                }
+
                 if (data == "tipo_meta" && mode == "new" && indicador_generico.initiation) {
                     $(".subcontainer1").html('');
                     indicador_generico.getIMesNew();

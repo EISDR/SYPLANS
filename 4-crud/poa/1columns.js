@@ -44,6 +44,9 @@ DSON.keepmerge(CRUD_poa, {
             },
             monitoreo: {
                 label: "Monitoreo",
+                format: function (row) {
+                    return row.periodo_dinamico == 1 ? "Dinámico" : row.monitoreo;
+                }
             },
             activo: {
                 label: "Activo",
@@ -250,7 +253,7 @@ DSON.keepmerge(CRUD_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 1).then(function () {
-                                        if (data.row.id == new SESSION().current().poa_id){
+                                        if (data.row.id == new SESSION().current().poa_id) {
                                             new SESSION().update({poa_habilitado: 1});
                                         }
                                         SWEETALERT.stop();
@@ -282,7 +285,7 @@ DSON.keepmerge(CRUD_poa, {
                                 confirm: function () {
                                     SWEETALERT.loading({message: MESSAGE.ic('mono.procesing')});
                                     data.$scope.activeRow(data.row, 0).then(function () {
-                                        if (data.row.id == new SESSION().current().poa_id){
+                                        if (data.row.id == new SESSION().current().poa_id) {
                                             new SESSION().update({poa_habilitado: 0});
                                         }
                                         SWEETALERT.stop();
@@ -412,7 +415,7 @@ DSON.keepmerge(CRUD_poa, {
                 characterist: (data) => {
                     return '';
                 },
-                show:(data)=> {
+                show: (data) => {
                     // if(data.row){
                     //     return ( (data.row.id_estado === ENUM_2.poa_estatus.Autorizado) && (data.row.activo === ENUM_2.poa_estatus.Activo) );
                     // }
@@ -420,7 +423,7 @@ DSON.keepmerge(CRUD_poa, {
                 },
                 click: function (data) {
                     Row_id = data.row.id;
-                    poa.openmodalField(data.row.id,data.row);
+                    poa.openmodalField(data.row.id, data.row);
                     return false;
                 }
             },

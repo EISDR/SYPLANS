@@ -83,7 +83,8 @@
             </div>
 
 
-            <div ng-if="indicador_actividad.departamento == '0' && indicador_actividad.session.tipo_institucion == 1" class="col-sm-12 col-md-3  remove-input-space">
+            <div ng-if="indicador_actividad.departamento == '0' && indicador_actividad.session.tipo_institucion == 1"
+                 class="col-sm-12 col-md-3  remove-input-space">
                 <%- FORM.select("producto", scope, {
                     allownew: false,
                     allowedit: false,
@@ -101,7 +102,8 @@
                     condition: "item.poa == indicador_actividad.conditionPoa.poa_id"
                 }) %>
             </div>
-            <div ng-if="indicador_actividad.departamento == '0' && indicador_actividad.session.tipo_institucion == 2" class="col-sm-12 col-md-3  remove-input-space">
+            <div ng-if="indicador_actividad.departamento == '0' && indicador_actividad.session.tipo_institucion == 2"
+                 class="col-sm-12 col-md-3  remove-input-space">
                 <%- FORM.select("producto", scope, {
                     allownew: false,
                     allowedit: false,
@@ -120,7 +122,8 @@
                 }) %>
             </div>
 
-            <div ng-if="indicador_actividad.departamento != '0' && indicador_actividad.session.tipo_institucion == 1" class="col-sm-12 col-md-3  remove-input-space">
+            <div ng-if="indicador_actividad.departamento != '0' && indicador_actividad.session.tipo_institucion == 1"
+                 class="col-sm-12 col-md-3  remove-input-space">
                 <%-
                 FORM.select("producto", scope, {
                     allownew: false,
@@ -140,24 +143,25 @@
                 })
                 %>
             </div>
-            <div ng-if="indicador_actividad.departamento != '0' && indicador_actividad.session.tipo_institucion == 2" class="col-sm-12 col-md-3  remove-input-space">
+            <div ng-if="indicador_actividad.departamento != '0' && indicador_actividad.session.tipo_institucion == 2"
+                 class="col-sm-12 col-md-3  remove-input-space">
                 <%-
-                    FORM.select("producto", scope, {
-                        allownew: false,
-                        allowedit: false,
-                        allowview: false,
-                        allowlist: false,
-                        text: "item.nombre",
-                        table: "drp_productos_poa_indi_a",
-                        icon: {class: "archive"},
-                        truelabel: "Proyecto/Plan de Acción",
-                        permission: "productos_poa",
-                        popover: {
-                            title: "Proyecto/Plan de Acción",
-                            content: "Captura los Proyectos/Planes de Acción"
-                        },
-                        condition: "item.departamento == indicador_actividad.departamento && item.poa==indicador_actividad.conditionPoa.poa_id"
-                    })
+                FORM.select("producto", scope, {
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    text: "item.nombre",
+                    table: "drp_productos_poa_indi_a",
+                    icon: {class: "archive"},
+                    truelabel: "Proyecto/Plan de Acción",
+                    permission: "productos_poa",
+                    popover: {
+                        title: "Proyecto/Plan de Acción",
+                        content: "Captura los Proyectos/Planes de Acción"
+                    },
+                    condition: "item.departamento == indicador_actividad.departamento && item.poa==indicador_actividad.conditionPoa.poa_id"
+                })
                 %>
             </div>
             <div class="col-sm-12 col-md-3">
@@ -280,6 +284,21 @@
                     condition: "indicador_actividad.producto == item.producto && item.tipo_meta!=2"
                 }) %>
             </div>
+            <div class="col-sm-12 col-md-2" ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                <%- FORM.select("poa_monitoreo", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    traduce: false,
+                    text: "item.nombre",
+                    table: "poa_monitoreo",
+                    icon: {class: "archive"},
+                    label: "Periodicidad"
+                }) %>
+            </div>
             <div class="col-sm-12 col-md-3 ">
                 <div>
                     <%- FORM.select("tipo_meta", scope, {
@@ -329,12 +348,13 @@
         </div>
 
 
-
-        <div ng-show="indicador_actividad.form.mode == 'edit' && indicador_actividad.showFuente!==true" class="row" style="margin-bottom: 20px;">
+        <div ng-show="indicador_actividad.form.mode == 'edit' && indicador_actividad.showFuente!==true" class="row"
+             style="margin-bottom: 20px;">
             <div class="subcontainer2 clearHtml">
             </div>
         </div>
-        <div ng-show="indicador_actividad.form.mode == 'new' && indicador_actividad.showFuente!==true" class="row" style="margin-bottom: 20px;">
+        <div ng-show="indicador_actividad.form.mode == 'new' && indicador_actividad.showFuente!==true" class="row"
+             style="margin-bottom: 20px;">
             <div class="subcontainer1 clearHtml">
             </div>
         </div>

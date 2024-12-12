@@ -46,7 +46,7 @@
                  </span>
             </div>
 
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
                 <%- FORM.select("monitoreo", scope, {
                     allownew: false,
                     allowedit: false,
@@ -65,6 +65,9 @@
                     },
                 }) %>
             </div>
+            <div class="col-sm-12 col-md-2">
+                <%- FORM.checkbox("periodo_dinamico", scope, {text: 'Monitoreo Dinámico?'}) %>
+            </div>
             <!--<div class="col-sm-12 col-md-3">-->
                     <!--<- FORM.select("estado", scope, {-->
                         <!--allownull: false,-->
@@ -79,7 +82,8 @@
                         <!--label: "Estatus"-->
                     <!--}) >-->
             <!--</div>-->
-            <div class="col-sm-12 col-md-2" id="checkDinamic">
+
+            <div class="col-sm-12 col-md-1" id="checkDinamic">
                 <%- FORM.checkbox("activo", scope, {text: 'Activo?'}) %>
             </div>
         </div>

@@ -257,6 +257,21 @@
                     condition: "(item.pei == indicador_poa.session.pei_id && item.tipo_meta!=2) && (item.producto+'')==indicador_poa.producto+''"
                 }) %>
             </div>
+            <div class="col-sm-12 col-md-2" ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                <%- FORM.select("poa_monitoreo", scope, {
+                    allownull: false,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: false,
+                    traduce: false,
+                    text: "item.nombre",
+                    table: "poa_monitoreo",
+                    icon: {class: "archive"},
+                    label: "Periodicidad"
+                }) %>
+            </div>
             <div class="col-sm-12 col-md-3 ">
                 <div>
                     <%- FORM.select("tipo_meta", scope, {
