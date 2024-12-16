@@ -149,8 +149,8 @@ app.controller("compania", function ($scope, $http, $compile) {
             compania.setPermission("edit", true);
         }
         if (compania.session.institucion_id) {
-            baseController.lacompania = compania.records.data[0].id;
-            baseController.lacompania_nombre = compania.records.data[0].nombre;
+            STORAGE.add('config_lacompania', compania.records.data[0].id);
+            STORAGE.add('config_lacompania_nombre', compania.records.data[0].nombre);
             location.href = "#institucion";
         }
     };
