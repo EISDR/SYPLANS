@@ -169,6 +169,11 @@ app.controller("presupuesto_aprobado", function ($scope, $http, $compile) {
                     field: "compania",
                     operator: "=",
                     value: session.compania_id
+                },
+                {
+                    "field": "institucion",
+                    "operator":  session.institucion_id ? "=" : "is",
+                    "value":  session.institucion_id ?  session.institucion_id : "$null"
                 }
             ];
 
