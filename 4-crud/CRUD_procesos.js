@@ -430,6 +430,122 @@ DSON.keepmerge(CRUD_procesos, {
                     },
                     {
                         text: (data) => {
+                            return "Ver Ficha de Proceso"
+                        },
+                        icon: (data) => {
+                            return "file-spreadsheet";
+                        },
+                        characterist: (data) => {
+                            return "";
+                        },
+                        click: async function (data) {
+                            data.$scope.dataForFicha = data.row;
+                            let data_documentos = await BASEAPI.listp('vw_documentos_asociados_mp', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "proceso",
+                                        value: data.row.id
+                                    }
+                                ]
+                            });
+                            data_documentos = data_documentos.data;
+                            let data_tipo_recurso = await BASEAPI.listp('tipo_recurso', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "compania",
+                                        value: lachechon.compania_id
+                                    },
+                                    {
+                                        "field": "institucion",
+                                        "operator": lachechon.institucion_id ? "=" : "is",
+                                        "value":  lachechon.institucion_id ?  lachechon.institucion_id : "$null"
+                                    }
+                                ]
+                            });
+                            data_tipo_recurso = data_tipo_recurso.data;
+                            let data_recursos = await BASEAPI.listp('vw_recursos', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "proceso",
+                                        value: data.row.id
+                                    }
+                                ]
+                            });
+                            data_recursos = data_recursos.data;
+                            let data_indicadores = await BASEAPI.listp('vw_indicador_generico', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "table_",
+                                        value: 10
+                                    },
+                                    {
+                                        field: "compania",
+                                        value: lachechon.compania_id
+                                    },
+                                    {
+                                        field: "registro",
+                                        value: data.row.id
+                                    }
+                                ]
+                            });
+                            data_indicadores = data_indicadores.data;
+                            let indicadores_IDS = data_indicadores.map(d => d.id);
+                            let data_metas = await BASEAPI.listp('vw_indicador_generico_periodo', {
+                                limit: 0,
+                                where: [
+                                    {
+                                        field: "indicador_generico",
+                                        value: indicadores_IDS
+                                    },
+                                ]
+                            });
+                            data_metas = data_metas.data;
+
+                            let relations =
+                                [
+                                    {child: data_metas, parent: data_indicadores, field: "indicador_generico", name: "mis_metas"},
+                                ];
+
+                            relations.forEach(relation => {
+                                relation.child?.forEach(item => {
+                                    let current = relation.parent.filter(d => item[relation.field] == d.id)[0];
+                                    if (!current[relation.name])
+                                        current[relation.name] = [];
+                                    current[relation.name].push(item);
+                                });
+                            });
+                            data.$scope.dataForFicha.indicadores_proceso =  data_indicadores;
+                            data.$scope.dataForFicha.documentos_asociados =  data_documentos;
+                            data.$scope.dataForFicha.recursos =  data_recursos;
+                            data.$scope.dataForFicha.tipo_recursos =  data_tipo_recurso;
+                            var http = new HTTP();
+                            BASEAPI.ajax.get(http.path(["files", "api"]), {
+                                folder: `${lachechon.institucion?'institucion':'compania'}/logo/${lachechon.institucion_id||lachechon.compania_id}`},
+                                async function (data) {
+                                procesos.img_path = data.data.files[0];
+                            });
+                            data.$scope.modal.modalView("procesos/ficha", {
+                                width: 'modal-full',
+                                header: {
+                                    title: `Ficha de proceso: ${data.row.nombre}`,
+                                    icon: "file-spreadsheet"
+                                },
+                                footer: {
+                                    cancelButton: false
+                                },
+                                content: {
+                                    loadingContentText: `${MESSAGE.i('actions.Loading')}...`,
+                                    sameController: true
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: (data) => {
                             return MESSAGE.i('actions.Enable');
                         },
                         icon: (data) => {

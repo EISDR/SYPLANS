@@ -1729,6 +1729,15 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
                 return true;
             }
         }
+
+        procesos.exportPDF = function () {
+            //
+            $("#FichaProceso").printThis({
+                importCSS: false,                // import parent page css
+                loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                printDelay: 333
+            });
+        };
     }
     ready();
 });
