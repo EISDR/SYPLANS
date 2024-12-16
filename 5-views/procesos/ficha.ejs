@@ -1,0 +1,188 @@
+<div class="tab-content" id="FichaProceso">
+    <div class="tab-pane active" id="basic">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img style="max-height: 400px; "
+                 ng-src="files/{{procesos.session.institucion?'institucion':'compania'}}/logo/{{procesos.session.institucion_id||procesos.session.compania_id}}/{{procesos.img_path}}"
+                 alt="">
+
+        </div>
+        <h1 style=" text-align: center; font-size: 32px;">Ficha de Proceso {{procesos.dataForFicha.nombre}}</h1>
+        <br/>
+        <h3>Objetivo</h3>
+        <p style="font-size: 14px">
+            {{procesos.dataForFicha.objetivo}}
+        </p>
+        <h3>Alcance</h3>
+        <p style="font-size: 14px">
+            {{procesos.dataForFicha.alcance}}
+        </p>
+        <h3>Responsable</h3>
+        <p style="font-size: 14px">
+            {{procesos.dataForFicha.responsable_nombre}}
+        </p>
+        <h3>Característica del Proceso</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center"
+                    style="background-color: #9C282D; color: #FFF;">
+                    <strong>Proveedor</strong>
+                </th>
+                <th class="text-center"
+                    style="background-color: #9C282D; color: #FFF;">
+                    <strong>Entrada</strong>
+                </th>
+                <th class="text-center"
+                    style="background-color: #9C282D; color: #FFF;">
+                    <strong>Actividades</strong>
+                </th>
+                <th class="text-center"
+                    style="background-color: #9C282D; color: #FFF;">
+                    <strong>Salidas</strong>
+                </th>
+                <th class="text-center"
+                    style="background-color: #9C282D; color: #FFF;">
+                    <strong>Clientes</strong>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><span ng-bind-html=""></span></td>
+                <td><span ng-bind-html="procesos.dataForFicha.proceso_entrada"></span></td>
+                <td><span ng-bind-html=""></span></td>
+                <td><span ng-bind-html="procesos.dataForFicha.proceso_salida"></span></td>
+                <td><span ng-bind-html=""></span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="procesos.dataForFicha.indicadores_proceso.length > 0">
+            <h3>Indicadores de la gestión</h3>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Indicador</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Formula</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Meta</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Frecuencia de Análisis /Medición </strong>
+                    </th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="(key,value) in procesos.dataForFicha.indicadores_proceso">
+                <tr>
+                    <td rowspan="{{(value.mis_metas.length +1)}}"><span ng-bind-html="value.Nombre"></span></td>
+                    <td rowspan="{{(value.mis_metas.length +1)}}"><span ng-bind-html="value.metodo"></span></td>
+                </tr>
+                <tr ng-repeat="(key2,value2) in value.mis_metas">
+                    <td>
+                        <span ng-bind-html="value2.valor"></span>
+                    </td>
+                    <td>
+                        <span ng-bind-html="value2.monitoreo"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="procesos.dataForFicha.documentos_asociados.length > 0">
+            <h3>Información Documentada</h3>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>No.</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Manual/Politica/Procedimiento/Instructivos/Manuales/Registros</strong>
+                    </th>
+                    <th class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Código</strong>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key,value) in procesos.dataForFicha.documentos_asociados">
+                    <td><span ng-bind-html="(key + 1)"></span></td>
+                    <td><span ng-bind-html="value.nombre"></span></td>
+                    <td><span ng-bind-html="value.codigo"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="procesos.dataForFicha.recursos.length > 0">
+            <h3>Recursos</h3>
+            <table class="table table-bordered">
+                <tbody>
+                <tr ng-repeat-start="tipo in procesos.dataForFicha.tipo_recursos">
+                    <td colspan="{{ procesos.dataForFicha.tipo_recursos.length }}"
+                        class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>{{ tipo.nombre }}</strong>
+                    </td>
+                </tr>
+                <tr ng-repeat="recurso in procesos.dataForFicha.recursos | filter: { tipo: tipo.id }">
+                    <td ng-if="tipo.id === recurso.tipo"  class="text-center">
+                        <span ng-bind-html="recurso.descripcion"></span>
+                    </td>
+                </tr>
+                <tr ng-repeat-end></tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <table class="table table-bordered" ng-if="procesos.dataForFicha.tiempo_ejecucion">
+            <tbody>
+                <tr>
+                    <td class="text-center"
+                        style="background-color: #9C282D; color: #FFF;">
+                        <strong>Tiempo de Ejecución del Proceso</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <span ng-bind-html="procesos.dataForFicha.tiempo_ejecucion"></span>
+                        <span ng-bind-html="procesos.dataForFicha.unidad_tiempo_nombre"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-footer dragonformfooter" dragonlanguage="" id="btnformfooter" style="margin-top: 20px">
+    <button
+            dragonlanguage="" title="MESSAGE.ic('mono.cancel')"
+            type="button" class="btn bg-<%= COLOR.warning %> btn-labeled btn-xs pull-right"
+            onclick="MODAL.close()">
+        <b><i class="icon-cross2"></i></b>
+        Cerrar
+    </button>
+    <button title="Descargar"
+            type="button" role="button"
+            class=" btn bg-<%= COLOR.primary %>-800 btn-labeled btn-xs pull-right"
+            ng-click="<%= scope %>.exportPDF()">
+        <b><i class="icon-floppy-disk"></i></b>
+        Descargar
+    </button>
+</div>
+
+
+
+
+
+
