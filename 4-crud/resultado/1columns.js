@@ -516,9 +516,9 @@ DSON.keepmerge(CRUD_resultado, {
                                     message: MESSAGE.i('alerts.AYSDelete'),
                                     confirm: function () {
                                         SWEETALERT.loading({message: MESSAGE.ic('mono.deleting') + "..."});
-                                        // data.$scope.deleteRow(data.row).then(function () {
-                                        //     SWEETALERT.stop();
-                                        // });
+                                        data.$scope.deleteRow(data.row).then(function () {
+                                            SWEETALERT.stop();
+                                        });
                                     }
                                 });
                             }
