@@ -5,7 +5,11 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
         indicador_producto_poa_actividad.textModal = '';
         indicador_producto_poa_actividad.asbierto = CONFIGCOMPANY.carga_evidencia_abierta;
         var user = new SESSION().current();
-        indicador_producto_poa_actividad.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
+        if (Array.isArray(baseController?.poaFirt))
+            indicador_producto_poa_actividad.miPOA = baseController?.poaFirt[0] || {};
+        else
+            indicador_producto_poa_actividad.miPOA = (baseController?.poaFirt || {});
+
         indicador_producto_poa_actividad.usuario_id = user.usuario_id;
         indicador_producto_poa_actividad.conditionPoa = {estado: user.estado, poa_id: user.poa_id};
         indicador_producto_poa_actividad.estatus = ENUM_2.presupuesto_estatus.Completo;

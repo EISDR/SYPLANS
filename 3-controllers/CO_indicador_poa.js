@@ -5,6 +5,10 @@ app.controller("indicador_poa", function ($scope, $http, $compile) {
     indicador_poa.colspan = user.cantidad * 3;
     indicador_poa.periodolist = [];
     indicador_poa.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
+    if (Array.isArray(baseController?.poaFirt))
+        indicador_poa.miPOA = baseController?.poaFirt[0] || {};
+    else
+        indicador_poa.miPOA = (baseController?.poaFirt || {});
     var paso = true;
     for (var p = 1; p <= user.cantidad; p++) {
         indicador_poa.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});

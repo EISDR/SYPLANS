@@ -4,7 +4,10 @@ app.controller("indicador_actividad", function ($scope, $http, $compile) {
     indicador_actividad.colspan = user.cantidad * 3;
     indicador_actividad.periodolist = [];
     indicador_actividad.session = user;
-    indicador_actividad.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
+    if (Array.isArray(baseController?.poaFirt))
+        indicador_actividad.miPOA = baseController?.poaFirt[0] || {};
+    else
+        indicador_actividad.miPOA = (baseController?.poaFirt || {});
     for (var p = 1; p <= user.cantidad; p++) {
         indicador_actividad.periodolist.push({periodo: user.monitoreo_nombre + ' ' + p});
     }
