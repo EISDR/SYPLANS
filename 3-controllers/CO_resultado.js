@@ -97,6 +97,11 @@ app.controller("resultado", function ($scope, $http, $compile) {
                 }
                 //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
             };
+            resultado.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
+                //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+                data.inserting.active = 1;
+                resolve(true);
+            });
         }
     };
 });
