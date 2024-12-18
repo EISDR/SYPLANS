@@ -78,24 +78,22 @@ DSON.keepmerge(CRUD_modulo_formulario, {
 //  return data.row.id > 5;
 //};
 //add options example, remember add new item in allow object at admin/0-config/security/permission.json
-// CRUD_modulo_formulario.table.options[0].menus.push({
-//     text: (data) => {
-//         return MESSAGE.i('actions.Extra');
-//     },
-//     icon: (data) => {
-//         return "list";
-//     },
-//     permission: (data) => {
-//         return 'extra';
-//     },
-//     characterist: (data) => {
-//         return "";
-//     },
-//     show: function (data) {
-//         return true;
-//     },
-//     click: function (data) {
-//         //extra function
-//         return false;
-//     }
-// });
+CRUD_modulo_formulario.table.options[0].menus[1] = {
+    text: (data) => {
+        return "Ver Gráficos";
+    },
+    icon: (data) => {
+        return "list";
+    },
+    click: function (data) {
+        console.log(data.row);
+        Row_id = '';
+        data.$scope.formulary({
+            where: [{
+                field: eval(`CRUD_${data.$scope.modelName}`).table.key,
+                value: eval(`data.row.${eval(`CRUD_${data.$scope.modelName}`).table.key}`)
+            }]
+        }, FORM.modes.edit, {}, "report");
+        return false;
+    }
+};

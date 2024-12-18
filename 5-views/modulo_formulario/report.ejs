@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-heading" style="padding: 5px 10px 0 10px; background-color: #f4f4f4;">
+
+    </div>
+    <div class="panel-body">
+        <div class="tab-content" id="maingrafi" ng-show="modulo_formulario.endloaded" style="display: none">
+            <div class="tab-pane active" id="basic">
+                <div class="row">
+                    <ul class="visible-elements" style="list-style: none; text-align: center">
+                        <li>
+                            <button style="margin-top: 10px;width: 25em;"
+                                    title="Descargar - Formato de impresión"
+                                    ng-click="modulo_formulario.exportReport();"
+                                    type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
+                                Imprimir
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row text-center" id="graficos">
+                    <div class='col-sm-12 col-md-12 text-center'>
+                        <h2>{{modulo_formulario.nombre}}</h2>
+                    </div>
+                    <div class='col-lg-3 col-md-4 col-sm-12'  ng-repeat="(x,chart) in modulo_formulario.config.fields"
+                         ng-if="chart.tipo==='lista'">
+                        <center>
+                            <canvas id="chart{{chart.id}}" ></canvas>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

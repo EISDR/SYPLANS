@@ -1,5 +1,6 @@
 app.controller("modulo_formulario", function ($scope, $http, $compile) {
     ready = async () => {
+        Chart.register(ChartDataLabels);
         modulo_formulario = this;
         //modulo_formulario.fixFilters = [];
         modulo_formulario.session = new SESSION().current();
@@ -111,7 +112,9 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                     modulo_formulario.cacheOptions[fieldid] = field.config.options.split(",");
             return modulo_formulario.cacheOptions[fieldid];
         }
-        modulo_formulario.formulary = function (data, mode, defaultData) {
+        modulo_formulario.formulary = function (data, mode, defaultData, view) {
+            modulo_formulario.endloaded = false;
+
             if (modulo_formulario !== undefined) {
                 RUN_B("modulo_formulario", modulo_formulario, $scope, $http, $compile);
                 modulo_formulario.form.modalWidth = ENUM.modal.width.full;
@@ -121,7 +124,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                     edit: "Editar Formulario",
                     view: "Ver Formulario"
                 };
-                modulo_formulario.createForm(data, mode, defaultData, undefined, async (data) => {
+                modulo_formulario.createForm(data, mode, defaultData, view, async (data) => {
                     try {
                         if (mode === "new") {
                             modulo_formulario.config = {fields: [], filters: [], indicadores: []};
@@ -144,6 +147,11 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                             }
                         }
                         await modulo_formulario.refresh_resuestas();
+                        if (view === "report") {
+                            modulo_formulario.refreshAngular();
+                            await modulo_formulario.createCharts();
+                            $(".modal-title").html(`<h6 class="modal-title"><i class="icon-pencil7"></i>${modulo_formulario.nombre || ""}</h6>`);
+                        }
                     } catch (e) {
                         console.log(e);
                         modulo_formulario.config = {fields: [], filters: [], indicadores: []};
@@ -260,13 +268,132 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
             });
             DOWNLOAD.excel(`Respuestas del Formulario  ${modulo_formulario.nombre}`, url);
         };
+        modulo_formulario.colors = [
+            "#FF5733", // Red-Orange
+            "#33FF57", // Green
+            "#3357FF", // Blue
+            "#FF33A1", // Pink
+            "#F3FF33", // Yellow
+            "#33FFF3", // Aqua
+            "#8A33FF", // Purple
+            "#FF8C33", // Orange
+            "#33FF8C", // Light Green
+            "#FFC733", // Golden Yellow
+            "#33A1FF", // Sky Blue
+            "#5733FF", // Deep Purple
+            "#FF3333", // Bright Red
+            "#33FFAA", // Mint
+            "#FFB733", // Light Orange
+            "#338CFF", // Ocean Blue
+            "#D033FF", // Violet
+            "#FF5733", // Coral
+            "#33FFD7", // Turquoise
+            "#A1FF33", // Lime Green
+            "#FF333A", // Salmon
+            "#33FFA1", // Spring Green
+            "#5733D0", // Indigo
+            "#FF3357", // Crimson
+            "#33D0FF", // Cerulean
+            "#FFD033", // Amber
+            "#5733A1", // Dark Violet
+            "#FF8A33", // Burnt Orange
+            "#33D7FF", // Electric Blue
+            "#FFAA33"  // Pumpkin
+        ];
+        modulo_formulario.chatCache = {};
+        modulo_formulario.endloaded = false;
+        modulo_formulario.createCharts = async () => {
+            SWEETALERT.loading({message: "Creando Gráficos"});
+            setTimeout(() => {
+                $("#maingrafi").show();
+
+                for (const chart of modulo_formulario.config.fields) {
+                    if (modulo_formulario.chatCache[chart.field])
+                        modulo_formulario.chatCache[chart.field].destroy();
+                    if (chart.tipo === "lista") {
+                        const ctx = document.getElementById(`chart${chart.id}`);
+                        let labels = chart.config.options.split(",");
+                        let estadisticas = labels.map(d => modulo_formulario.respuestas_data.filter(e => e[chart.field] === d).length);
+                        let config = {
+                            type: 'pie',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: chart.field,
+                                    data: estadisticas,
+                                    backgroundColor: modulo_formulario.colors,
+                                    hoverOffset: 4,
+                                    datalabels: {
+                                        align: 'center',
+                                        anchor: 'center',
+                                        formatter: (value, ctx) => {
+                                            let sum = 0;
+                                            let dataArr = ctx.chart.data.datasets[0].data;
+                                            dataArr.map(data => {
+                                                sum += data;
+                                            });
+                                            let percentage = (value * 100 / sum).toFixed(2) + "%";
+                                            console.log(percentage);
+                                            if (value)
+                                                return percentage;
+                                            return "";
+                                        },
+                                        color: '#fff',
+                                    }
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'left',
+                                },
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: chart.field
+                                    }
+                                },
+
+                            },
+                            actions: [{
+                                name: 'Barras',
+                                handler(chart) {
+                                    chart.type = 'bar';
+                                    chart.update();
+                                }
+                            }]
+                        };
+                        modulo_formulario.chatCache[chart.field] = new Chart(ctx, config);
+                        console.log(config);
+
+                    }
+                }
+                modulo_formulario.endloaded = true;
+                modulo_formulario.refreshAngular();
+                SWEETALERT.stop();
+
+            }, 2000);
+        };
 
         modulo_formulario.exportPDF = function () {
             $("#datashow").printThis({
+                canvas: true,
                 importCSS: false,                // import parent page css
                 loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
-                printDelay: 333,
+                printDelay: 2000,
             });
+        }
+        modulo_formulario.exportReport = function () {
+            $("#graficos").printThis({
+                canvas: true,
+                printDelay: 500,
+                loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+            });
+            // $("#graficos").printThis({
+            //     importCSS: false,                // import parent page css
+            //     loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+            //     printDelay: 333,
+            // });
         }
         modulo_formulario.format_date = function (value) {
             return LAN.datetime(value);
