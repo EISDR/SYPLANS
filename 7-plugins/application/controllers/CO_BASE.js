@@ -1612,17 +1612,6 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         };
         baseController.allloaded = true;
         baseController.refreshAngular();
-        baseController.getProfileImange = function () {
-            console.log("me ejecuté");
-            var http = new HTTP();
-            BASEAPI.ajax.get(http.path(["files", "api"]), {
-                    folder: `usuario/profileimage/${adasession.getID()}`},
-                async function (data) {
-                    baseController.img_path = data.data.files[0];
-                    baseController.refreshAngular();
-                });
-        }
-        baseController.getProfileImange();
         $(document).ready(function () {
             $(document).on('click', '.dragon-menu a:not(.has-ul)', function () {
                 $("body").removeClass("sidebar-mobile-main");

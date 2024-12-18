@@ -215,23 +215,11 @@ app.controller("usuario", function ($scope, $http, $compile) {
                 resolve(true);
             });
 
-            // usuario.triggers.table.after.insert = function (data) {
-            //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-            //     baseController.getProfileImange();
-            //     return true;
-            // };
-
             usuario.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
                 //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
                 data.updating.usuario_activo = undefined;
                 resolve(true);
             });
-
-            usuario.triggers.table.after.update = function (data) {
-                //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
-                baseController.getProfileImange();
-                return true;
-            };
 
             usuario.triggers.table.before.load = () => new Promise((resolve, reject) => {
                 //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
