@@ -286,7 +286,7 @@ DSON.keepmerge(CRUD_presupuesto_aprobado, {
                             return "";
                         },
                         show: function (data) {
-                            return new SESSION().current.groups[0].id == 4;
+                            return new SESSION()?.current()?.groups[0]?.id == 4;
                         },
                         click: function (data) {
                             data.$scope.formulary({

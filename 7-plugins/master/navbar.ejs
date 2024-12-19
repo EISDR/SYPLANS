@@ -671,13 +671,4 @@
             }
         });
     }
-
-    $(function(){
-        <%= scope %>.refreshAngular();
-        setTimeout(function () {
-            $('[data-dragonfile]').each(function () {
-                FILE.runServerFile($(this))
-            });
-        },500);
-    });
 </script>

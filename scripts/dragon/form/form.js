@@ -1474,7 +1474,7 @@ FORM = {
                                     // $scope.modalAction($scope.modelName, 'Parent', 'user', 'new', {});
                                     setTimeout(() => {
                                         eval(`${$scope.modelName}.formulary(null, 'new');`)
-                                    }, 200)
+                                    }, 500)
                                 }
                                 $scope.refresh();
                             }
@@ -1514,7 +1514,7 @@ FORM = {
                                                 // $scope.modalAction($scope.modelName, 'Parent', 'user', 'new', {});
                                                 setTimeout(() => {
                                                     eval(`${$scope.modelName}.formulary(null, 'new');`)
-                                                }, 200);
+                                                }, 500);
                                                 return;
                                             }
                                         }
@@ -1546,7 +1546,7 @@ FORM = {
                                                 // $scope.modalAction($scope.modelName, 'Parent', 'user', 'new', {});
                                                 setTimeout(() => {
                                                     eval(`${$scope.modelName}.formulary(null, 'new');`)
-                                                }, 200);
+                                                }, 500);
                                                 return;
                                             }
                                         }
@@ -1563,7 +1563,7 @@ FORM = {
                                             // $scope.modalAction($scope.modelName, 'Parent', 'user', 'new', {});
                                             setTimeout(() => {
                                                 eval(`${$scope.modelName}.formulary(null, 'new');`)
-                                            }, 200);
+                                            }, 500);
                                             return;
                                         }
                                     }
@@ -1580,7 +1580,7 @@ FORM = {
                                     // $scope.modalAction($scope.modelName, 'Parent', 'user', 'new', {});
                                     setTimeout(() => {
                                         eval(`${$scope.modelName}.formulary(null, 'new');`)
-                                    }, 200);
+                                    }, 500);
                                     return;
                                 }
                             }
