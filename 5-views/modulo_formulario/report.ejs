@@ -21,10 +21,11 @@
                     <div class='col-sm-12 col-md-12 text-center'>
                         <h2>{{modulo_formulario.nombre}}</h2>
                     </div>
-                    <div class='col-lg-3 col-md-4 col-sm-12'  ng-repeat="(x,chart) in modulo_formulario.config.fields"
+                    <div class='col-lg-3 col-md-4 col-sm-12'
+                         ng-repeat="(x,chart) in modulo_formulario.config.fields"
                          ng-if="chart.tipo==='lista'">
                         <center>
-                            <canvas id="chart{{chart.id}}" ></canvas>
+                            <canvas style=" margin-top: 20px;" id="chart{{chart.id}}"></canvas>
                         </center>
                     </div>
                 </div>

@@ -314,6 +314,12 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                         const ctx = document.getElementById(`chart${chart.id}`);
                         let labels = chart.config.options.split(",");
                         let estadisticas = labels.map(d => modulo_formulario.respuestas_data.filter(e => e[chart.field] === d).length);
+
+                        let sum = 0;
+                        estadisticas.map(datax => {
+                            sum += datax;
+                        });
+
                         let config = {
                             type: 'pie',
                             data: {
@@ -335,7 +341,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                                             let percentage = (value * 100 / sum).toFixed(2) + "%";
                                             console.log(percentage);
                                             if (value)
-                                                return percentage;
+                                                return `${value} (${percentage})`;
                                             return "";
                                         },
                                         color: '#fff',
@@ -350,7 +356,7 @@ app.controller("modulo_formulario", function ($scope, $http, $compile) {
                                 plugins: {
                                     title: {
                                         display: true,
-                                        text: chart.field
+                                        text: `${chart.field}. ${sum} votos`
                                     }
                                 },
 
