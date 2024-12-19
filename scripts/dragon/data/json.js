@@ -250,9 +250,9 @@ DSON = {
         return typeof obj === "function";
     },
     cleanNumber: function (number) {
-
+        number = number + '';
         if (DSON.oseaX(number))
-            return 0;
+            return '0';
         if (new SESSION().current()) {
             let toreplace = new SESSION().current().monedaformat[1];
             if (toreplace === ",") {
