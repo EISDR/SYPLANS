@@ -83,20 +83,21 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 label: function () {
                     return MESSAGE.i('planificacion.titleODS');
                 },
-                shorttext: 80000,
-                visible: true,
-                visibleDetail: true,
+                visible: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
                 export: false,
-                exportExample: false
+                exportExample: false,
+                dead: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? false : true : false
             },
             relation_ods: {
                 label: function () {
                     return MESSAGE.i('planificacion.titleODS');
                 },
+                shorttext: 370,
                 visible: false,
                 visibleDetail: false,
-                export: true,
-                exportExample:true,
+                export: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
+                exportExample: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
                 checkExport: true,
                 dead: true
             },
@@ -105,11 +106,11 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 label: function() {
                     return "Programas Sectoriales";
                 },
-                visible: new SESSION().current() ? new SESSION().current().sector_id !== null ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().sector_id !== null ? true : false : false,
+                visible: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
+                visibleDetail: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().sector_id !== null ? false : true : false
+                dead: new SESSION().current() ? new SESSION().current().intersectorial !== null ? false : true : false
             },
             programas_sectoriales: {
                 sortable: false,
@@ -119,8 +120,8 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
-                export: new SESSION().current() ? new SESSION().current().sector_id !== null ? true : false : false,
-                exportExample: new SESSION().current() ? new SESSION().current().sector_id !== null ? true : false : false,
+                export: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
+                exportExample: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
                 checkExport: true,
                 dead: true
             }

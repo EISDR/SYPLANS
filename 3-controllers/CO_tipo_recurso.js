@@ -10,7 +10,7 @@ app.controller("tipo_recurso", function ($scope, $http, $compile) {
         {
             "field": "institucion",
             "operator":   tipo_recurso.session.institucion_id ? "=" : "is",
-            "value":  tipo_recurso.session.institucion_id ?  tipo_recurso.session.institucion_id : "null"
+            "value":  tipo_recurso.session.institucion_id ?  tipo_recurso.session.institucion_id : "$null"
         }
     ];
     tipo_recurso.singular = "Tipo de recurso";
