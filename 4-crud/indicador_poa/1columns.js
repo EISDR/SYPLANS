@@ -96,6 +96,13 @@ DSON.keepmerge(CRUD_indicador_poa, {
             ano_linea_base: {
                 label: "Año Línea Base"
             },
+            poa_monitoreo_nombre: {
+                // label: "Medio de Verificación",
+                label: function () {
+                    return "Periodicidad"
+                },
+                shorttext: 370
+            },
             linea: {
                 label: function () {
                     return "Línea Base";
@@ -581,6 +588,7 @@ DSON.keepmerge(CRUD_indicador_poa, {
                     // }
                     indicador_poa.list_indicador_poa_periodo_view = [];
                     indicador_poa.detalleapd = [];
+                    indicador_poa.dataForViewMeta = data.row;
                     var contador = 1;
                     BASEAPI.listp('vw_indicador_poa_periodo', {
                         limit: 0,
