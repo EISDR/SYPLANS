@@ -1,13 +1,21 @@
 <div class="tab-content" id="FichaProceso">
     <div class="tab-pane active" id="basic">
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <img style="max-height: 400px; "
+        <div style="display: flex;">
+            <img style="max-height: 120px; "
                  ng-src="files/{{procesos.session.institucion?'institucion':'compania'}}/logo/{{procesos.session.institucion_id||procesos.session.compania_id}}/{{procesos.img_path}}"
                  alt="">
 
         </div>
-        <h1 style=" text-align: center; font-size: 32px;">Ficha de Proceso {{procesos.dataForFicha.nombre}}</h1>
+        <h1 style=" text-align: center; font-size: 32px;">Ficha de Proceso</h1>
         <br/>
+        <h3>Mapa de Proceso</h3>
+        <p style="font-size: 14px">
+            {{procesos.dataForFicha.nombre_mapa}}
+        </p>
+        <h3>Proceso</h3>
+        <p style="font-size: 14px">
+            {{procesos.dataForFicha.nombre}}
+        </p>
         <h3>Objetivo</h3>
         <p style="font-size: 14px">
             {{procesos.dataForFicha.objetivo}}
@@ -24,56 +32,41 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th class="text-center"
-                    style="background-color: #9C282D; color: #FFF;">
-                    <strong>Proveedor</strong>
-                </th>
-                <th class="text-center"
+                <th
                     style="background-color: #9C282D; color: #FFF;">
                     <strong>Entrada</strong>
                 </th>
-                <th class="text-center"
-                    style="background-color: #9C282D; color: #FFF;">
-                    <strong>Actividades</strong>
-                </th>
-                <th class="text-center"
+                <th
                     style="background-color: #9C282D; color: #FFF;">
                     <strong>Salidas</strong>
-                </th>
-                <th class="text-center"
-                    style="background-color: #9C282D; color: #FFF;">
-                    <strong>Clientes</strong>
                 </th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><span ng-bind-html=""></span></td>
                 <td><span ng-bind-html="procesos.dataForFicha.proceso_entrada"></span></td>
-                <td><span ng-bind-html=""></span></td>
                 <td><span ng-bind-html="procesos.dataForFicha.proceso_salida"></span></td>
-                <td><span ng-bind-html=""></span></td>
             </tr>
             </tbody>
         </table>
         <div ng-if="procesos.dataForFicha.indicadores_proceso.length > 0">
-            <h3>Indicadores de la gestión</h3>
+            <h3>Indicadores de gestión</h3>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Indicador</strong>
                     </th>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
-                        <strong>Formula</strong>
+                        <strong>Fórmula</strong>
                     </th>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Meta</strong>
                     </th>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Frecuencia de Análisis /Medición </strong>
                     </th>
@@ -96,19 +89,19 @@
             </table>
         </div>
         <div ng-if="procesos.dataForFicha.documentos_asociados.length > 0">
-            <h3>Información Documentada</h3>
+            <h3>Documentos del Proceso</h3>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>No.</strong>
                     </th>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Manual/Politica/Procedimiento/Instructivos/Manuales/Registros</strong>
                     </th>
-                    <th class="text-center"
+                    <th
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Código</strong>
                     </th>
@@ -127,15 +120,14 @@
             <h3>Recursos</h3>
             <table class="table table-bordered">
                 <tbody>
-                <tr ng-repeat-start="tipo in procesos.dataForFicha.tipo_recursos">
+                <tr ng-repeat-start="(key, tipo) in procesos.dataForFicha.tipo_recursos">
                     <td colspan="{{ procesos.dataForFicha.tipo_recursos.length }}"
-                        class="text-center"
                         style="background-color: #9C282D; color: #FFF;">
-                        <strong>{{ tipo.nombre }}</strong>
+                        <strong>{{key + 1}}. {{ tipo.nombre }}</strong>
                     </td>
                 </tr>
                 <tr ng-repeat="recurso in procesos.dataForFicha.recursos | filter: { tipo: tipo.id }">
-                    <td ng-if="tipo.id === recurso.tipo"  class="text-center">
+                    <td ng-if="tipo.id === recurso.tipo">
                         <span ng-bind-html="recurso.descripcion"></span>
                     </td>
                 </tr>
@@ -148,13 +140,13 @@
         <table class="table table-bordered" ng-if="procesos.dataForFicha.tiempo_ejecucion">
             <tbody>
                 <tr>
-                    <td class="text-center"
+                    <td
                         style="background-color: #9C282D; color: #FFF;">
                         <strong>Tiempo de Ejecución del Proceso</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">
+                    <td>
                         <span ng-bind-html="procesos.dataForFicha.tiempo_ejecucion"></span>
                         <span ng-bind-html="procesos.dataForFicha.unidad_tiempo_nombre"></span>
                     </td>
