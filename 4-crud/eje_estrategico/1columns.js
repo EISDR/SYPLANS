@@ -83,11 +83,11 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 label: function () {
                     return MESSAGE.i('planificacion.titleODS');
                 },
-                visible: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
-                visibleDetail: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
+                visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 || new SESSION().current().maneja_ods == 1 ? true : false : false,
+                visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
                 exportExample: false,
-                dead: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? false : true : false
+                dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             relation_ods: {
                 label: function () {
@@ -96,8 +96,8 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
-                export: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
-                exportExample: new SESSION().current() ? new SESSION().current().maneja_ods == 1 ? true : false : false,
+                export: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 || new SESSION().current().maneja_ods == 1 ? true : false : false,
+                exportExample: new SESSION().current() ? new SESSION().current().tipo_institucion == 1|| new SESSION().current().maneja_ods == 1 ? true : false : false,
                 checkExport: true,
                 dead: true
             },

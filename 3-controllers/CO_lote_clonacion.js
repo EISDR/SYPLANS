@@ -690,6 +690,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                                                                                         for (let meta of indicador_actividad.mis_metas) {
                                                                                                                                                             let new_meta = DSON.OSO(meta);
                                                                                                                                                             delete new_meta.id
+                                                                                                                                                            delete new_meta.valor_alcanzado
                                                                                                                                                             new_meta.indicador_actividad = result_indicador_actividad.data[0].id;
                                                                                                                                                             await BASEAPI.insertIDp('indicador_actividad_periodo', new_meta, '', '');
                                                                                                                                                         }
@@ -740,6 +741,7 @@ app.controller("lote_clonacion", function ($scope, $http, $compile) {
                                                                                                                                     for (let meta of indicador_producto.mis_metas) {
                                                                                                                                         let new_meta = DSON.OSO(meta);
                                                                                                                                         delete new_meta.id
+                                                                                                                                        delete new_meta.valor_alcanzado
                                                                                                                                         new_meta.indicador_poa = result_indicador_producto.data[0].id;
                                                                                                                                         await BASEAPI.insertIDp('indicador_poa_periodo', new_meta, '', '');
                                                                                                                                     }
