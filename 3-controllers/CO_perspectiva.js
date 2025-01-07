@@ -11,7 +11,8 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
             },
             {
                 "field": "institucion",
-                "value": perspectiva.session.institucion_id ? perspectiva.session.institucion_id : "null"
+                "operator": perspectiva.session.institucion_id ? "=" : "is",
+                "value":  perspectiva.session.institucion_id ?  perspectiva.session.institucion_id : "$null"
             }
         ];
     }
@@ -28,11 +29,6 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
             };
             if (perspectiva.session.super){
                 perspectiva.form.readonly = {};
-            }else {
-                perspectiva.form.readonly = {
-                    compania: perspectiva.session.compania_id,
-                    institucion: perspectiva.session.institucion_id ? perspectiva.session.institucion_id : 'null'
-                };
             }
             perspectiva.createForm(data, mode, defaultData);
             perspectiva.$scope.$watch('perspectiva.no_orden', function (value) {
@@ -68,6 +64,18 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
     };
     perspectiva.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        const esSuper = perspectiva.session.super;
+        const institucionValida = perspectiva.institucion != '[NULL]';
+        const institucionId = perspectiva.session.institucion_id;
+
+        const operator = esSuper
+            ? (institucionValida ? "=" : institucionId ? "=" : "is")
+            : "is";
+
+        const value = esSuper
+            ? (institucionValida ? perspectiva.institucion : institucionId ? institucionId : "$null")
+            : "$null";
+
         var no_orden = await BASEAPI.firstp("perspectiva", {
             where: [
                 {
@@ -82,13 +90,17 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
                 },
                 {
                     field: "institucion",
-                    value: perspectiva.session.super ? perspectiva.institucion != '[NULL]' ? perspectiva.institucion : perspectiva.session.institucion_id ? perspectiva.session.institucion_id : "null" : "null"
+                    operator: operator,
+                    value: value
                 }
             ]
         });
         if (perspectiva.session.super){
             data.inserting.compania = perspectiva.compania;
-            data.inserting.institucion = perspectiva.institucion != '[NULL]' ? perspectiva.institucion : "null";
+            data.inserting.institucion = perspectiva.institucion != '[NULL]' ? perspectiva.institucion : "$null";
+        }else{
+            data.inserting.compania = perspectiva.session.compania_id;
+            data.inserting.institucion = perspectiva.session.institucion_id;
         }
         if (no_orden) {
             SWEETALERT.show({
@@ -107,6 +119,18 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
     });
     perspectiva.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        const esSuper = perspectiva.session.super;
+        const institucionValida = perspectiva.institucion != '[NULL]';
+        const institucionId = perspectiva.session.institucion_id;
+
+        const operator = esSuper
+            ? (institucionValida ? "=" : institucionId ? "=" : "is")
+            : "is";
+
+        const value = esSuper
+            ? (institucionValida ? perspectiva.institucion : institucionId ? institucionId : "$null")
+            : "$null";
+
         var no_orden = await BASEAPI.firstp("perspectiva", {
             where: [
                 {
@@ -126,13 +150,17 @@ app.controller("perspectiva", function ($scope, $http, $compile) {
                 },
                 {
                     field: "institucion",
-                    value: perspectiva.session.super ? perspectiva.institucion != '[NULL]' ? perspectiva.institucion : perspectiva.session.institucion_id ? perspectiva.session.institucion_id : "null" : "null"
+                    operator: operator,
+                    value: value
                 }
             ]
         });
         if (perspectiva.session.super){
             data.updating.compania = perspectiva.compania;
-            data.updating.institucion = perspectiva.institucion != '[NULL]' ? perspectiva.institucion : "null";
+            data.updating.institucion = perspectiva.institucion != '[NULL]' ? perspectiva.institucion : "$null";
+        }else{
+            data.updating.compania = perspectiva.session.compania_id;
+            data.updating.institucion = perspectiva.session.institucion_id;
         }
         if (no_orden) {
             SWEETALERT.show({

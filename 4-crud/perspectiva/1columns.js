@@ -4,8 +4,7 @@ CRUD_perspectiva = {};
 DSON.keepmerge(CRUD_perspectiva, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_perspectiva, {
     table: {
-        engine: 'st',
-        isStorage: true,
+        engine: 'my',
         columns: {
             id: {
                 label: "ID",
