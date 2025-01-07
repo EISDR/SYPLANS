@@ -1,21 +1,5 @@
 {
   "appEntities": {
-    "perspectiva": {
-      "key": "id",
-      "type": "one",
-      "fields": [
-        "id",
-        "nombre",
-        "descripcion",
-        "created_at",
-        "updated_at",
-        "deleted_at",
-        "created_by",
-        "updated_by",
-        "deleted_by",
-        "compania"
-      ]
-    },
     "tipoMeta": {
       "key": "id",
       "type": "one",
@@ -107,25 +91,6 @@
       "fields": [
         "nombre",
         "descripcion",
-        "compania",
-        "institucion"
-      ]
-    },
-    "perspectiva": {
-      "key": "id",
-      "type": "one",
-      "fields": [
-        "id",
-        "nombre",
-        "no_orden",
-        "descripcion",
-        "icono",
-        "created_at",
-        "updated_at",
-        "deleted_at",
-        "created_by",
-        "updated_by",
-        "deleted_by",
         "compania",
         "institucion"
       ]
