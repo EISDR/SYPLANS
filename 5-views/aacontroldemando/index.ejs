@@ -48,12 +48,15 @@
 
             <div class="container" style="width: 100%">
                 <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando">
-                    <h3>Evaluación filtrada por {{<%= scope %>.elpoa.nombre_mostrar}}(s):</h3>
+                    <h3>Evaluación filtrada {{<%= scope %>.miPOA.periodo_dinamico ? 'hasta el mes de' : 'por
+                        '+<%= scope %>
+                        .elpoa.nombre_mostrar+'(s)'}}:</h3>
                 </div>
                 <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando_pei">
                     <h3>Evaluación filtrada por año(s):</h3>
                 </div>
-                <div class="col-sm-8" style="text-align: left;margin-top: 8px;">
+                <div class="col-sm-8" style="text-align: left;margin-top: 8px;"
+                     ng-show="!<%= scope %>.miPOA.periodo_dinamico">
                     <select3 class="form-control fantizo" ng-model="<%= scope %>.filtrofecha"
                              multiple s2-options="opt.id as opt.name for opt in <%= scope %>.filters">
                     </select3>
@@ -74,10 +77,28 @@
                         }
                     </style>
                 </div>
+                <div class="col-sm-2" style="text-align: left;margin-top: 8px;"
+                     ng-show="<%= scope %>.miPOA.periodo_dinamico">
+
+                    <select class="form-control fantizomes" ng-model="<%= scope %>.filtrofechames"
+                            ng-options="opt as opt for opt in <%= scope %>.monthNames">
+                    </select>
+                    <style>
+                        .fantizomes {
+                            padding-top: 10px;
+                            font-size: 21px;
+                            height: 46px;
+                            color: #333 !important;
+                        }
+                    </style>
+                </div>
+                <div class="col-sm-6 " style="text-align: left;margin-top: -1px" ng-show="aacontroldemando && <%= scope %>.miPOA.periodo_dinamico" >
+                    <h3>Del año {{aacontroldemando.elpoa.periodo_poa}}</h3>
+                </div>
                 <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 17px !important;">
                     <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary">Filtrar</button>
                 </div>
-                <div class="col-sm-12" style="margin-top: 26px"
+                <div class="col-sm-12" style="margin-top: 63px"
                      ng-if="!<%= scope %>.modolista && !aacontroldemandog.unicomenu">
                     <center>
                         <div class="panel panel-default"
@@ -101,7 +122,8 @@
                         </div>
                     </center>
                 </div>
-                <div class="containerGeneral" style="width: 100%;margin-top: 85px" ng-if="!aacontroldemandog.unicomenu">
+                <div class="containerGeneral" style="width: 100%;margin-top: 126px"
+                     ng-if="!aacontroldemandog.unicomenu">
                     <div class="row"
                          ng-repeat="(key,value) in <%= scope %>.mainMenu track by key"
                          ng-style="{'margin-top': (key > 0)? '2rem' : ''}">

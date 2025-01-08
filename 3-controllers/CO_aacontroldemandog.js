@@ -4,6 +4,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
     aacontroldemandog.session = new SESSION().current();
     aacontroldemandog.DPTO = new SESSION().definitivo();
     aacontroldemandog.modolista = location.href.indexOf('modolista') !== -1;
+    aacontroldemandog.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
     if (location.href.split('?').length > 1)
         if (location.href.split('?')[1].split('-').length > 1)
             if (location.href.split('?')[1].split('-')[1])
