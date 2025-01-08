@@ -33,7 +33,7 @@
                     query: {
                         orderby: "no_orden",
                     },
-                    condition: "item.compania == resultado.session.compania_id && item.institucion == 'null'"
+                    condition: "item.compania == resultado.session.compania_id && item.institucion == null"
                 }) %>
             </div>
             <div class="col-sm-12 col-md-4" ng-if="resultado.session.institucion">
