@@ -93,11 +93,11 @@
                             <div class="panel panel-white">
                                 <div class="panel-body">
                                     <a href="#"
-                                       style='{{ <%= scope %>.moduleName(key).length > 40 ? "text-align: left;" : "" }}'
+                                       style='font-size: 13px; {{ <%= scope %>.moduleName(key).length > 50 ? "text-align: left;" : "" }}'
                                        class="elmodulo_{{key}} indicador-padding btn border-{{<%= scope %>.moduleColor(module.allow)}} text-{{<%= scope %>.moduleColor(module.allow)}} btn-flat btn-rounded btn-icon btn-xs valign-text-bottom legitRipple style-btn-a"
                                        data-toggle="dropdown" title='{{<%= scope %>.moduleName(key)}}'>
                                         <i class="icon-arrow-down5"></i>
-                                        {{<%= scope %>.moduleNameShort(key,30)}}
+                                        {{<%= scope %>.moduleNameShort(key,70)}}
                                     </a>
 
                                     <ul class="dropdown-menu dropdown-menu-left"
@@ -121,7 +121,7 @@
                                         </li>
                                         <ul ng-if="<%= scope %>.isObject(module.allow[aKey])"
                                             ng-repeat="(aKey,action) in module.allow"
-                                            style="width: 100%; float: left;padding-left: 0;">
+                                            style="width: 100%; float: left; padding-left: 0;">
                                             <li class="sub-permission col-md-12 col-sm-12 permission-sub-title"
                                                 style="padding-left: 23px;font-size: 15px; margin-top: -10px;">{{<%= scope %>.moduleName(aKey)}}
                                             </li>
