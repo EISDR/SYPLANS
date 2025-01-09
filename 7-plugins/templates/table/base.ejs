@@ -42,6 +42,7 @@
             <th ng-repeat="(key, value) in <%= scope %>.columns() track by key"
                 ng-show="<%= scope %>.columnVisible(value) && (!value.clrow||value.clrow==1)"
                 data-column="{{key}}"
+                style= "{{value.style}}"
                 ng-dblclick="<%= scope %>.cell.dblColumnSelect($event)"
                 class="handle {{value.responsive}}"
             >

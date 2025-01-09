@@ -3,7 +3,7 @@ DSON.keepmerge(CRUD_eje_estrategico, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_eje_estrategico, {
     table: {
         engine: 'my',
-        width: "width:1500px;",
+        width: "width:2000px;",
         view: "drp_eje_estrategico_2",
         viewExport: "drp_eje_estrategico_2_export",
         method: "eje_estrategico",
@@ -36,7 +36,8 @@ DSON.keepmerge(CRUD_eje_estrategico, {
 
             descripcion: {
                 label: "Descripción",
-                shorttext: 370
+                shorttext: 370,
+                style: "max-width:400px;"
             },
 
             end_nombre_mul: {
