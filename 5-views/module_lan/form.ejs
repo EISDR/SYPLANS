@@ -1,0 +1,65 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="basic">
+        <div class="row">
+            <div class='col-sm-12 col-md-4'>
+                <%- FORM.select('language', scope, {
+                    column: 'name',
+                    table: 'language',
+                    // self: true,
+                    // allownull: true,
+                    allownew: false,
+                    allowedit: false,
+                    allowview: false,
+                    allowlist: false,
+                    refresh: true,
+                    //condition: 'true',
+                    //multiple: false,get: {table: "language_linked", fieldFrom: "id", fieldTo: "myid(language)", field: "theirid"},
+                    //disabled: false,
+                    //helptext: "",
+                    //value: 'id',
+                    text: 'item.nombre',
+                    //query: {
+                        //limit: 0,
+                        //page: 1,
+                        //where: [],
+                        //orderby: 'id',
+                        //order: 'asc',
+                        //distinct: false
+                        // join: [
+                        //     {
+                        //         table: 'ms_category',
+                        //         base: 'category',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     },
+                        //     {
+                        //         table: 'otratable',
+                        //         base: 'ms_category_id',
+                        //         field: 'id',
+                        //         columns: ['id', 'name']
+                        //     }
+                        // ]
+                    //},
+                }) %>
+            </div>
+            <div class='col-sm-12 col-md-4'>
+                <%- FORM.input('key', scope, {placeholder: "Indice", maxlength: 500}) %>
+            </div>
+            <div class='col-sm-12 col-md-4'>
+                <%- FORM.checkbox('ia', scope, {text: "¿Trabaja con IA?", maxlength: 500}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.input('value', scope, {placeholder: "Texto a mostrar", maxlength: 1000}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- FORM.footer(scope) %>
+
+
+
+
+
