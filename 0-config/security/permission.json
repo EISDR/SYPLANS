@@ -2539,6 +2539,10 @@
           "filter": true,
           "actions": true
         }
+      },
+      "module_lan": {
+        "type": "full",
+        "allow": {}
       }
     }
   }
