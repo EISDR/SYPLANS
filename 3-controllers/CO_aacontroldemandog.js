@@ -322,18 +322,18 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             }
             let table_ = aacontroldemandog.api[list].filter(d => d[filter || field])[0];
             if (!table_) {
-                aacontroldemandog.aunnoexiste = "Aun no existen indicadores evaluados que pertenezcan a: " + entidad;
+                aacontroldemandog.aunnoexiste = "No existen indicadores evaluados que pertenezcan a: " + entidad + " o que cumplan con los filtros aplicados";
                 if (!aacontroldemandog.unicomenu) {
                     SWEETALERT.show({
                         type: "info",
                         title: "Información",
-                        message: "Aun no existen indicadores evaluados que pertenezcan a: " + entidad
+                        message: "Aun no existen indicadores evaluados que pertenezcan a: " + entidad + " o que cumplan con los filtros aplicados"
                     });
                 } else if (aacontroldemandog.unicomenu === 'proceso') {
                     if (aacontroldemandog.api.currentMapa) {
-                        aacontroldemandog.aunnoexiste = `Aun no existen indicadores evaluados que pertenezcan al Mapa de Procesos: ${aacontroldemandog.api.currentMapa.nombre}`;
+                        aacontroldemandog.aunnoexiste = `No existen indicadores evaluados que pertenezcan al Mapa de Procesos: ${aacontroldemandog.api.currentMapa.nombre}` + " o que cumplan con los filtros aplicados";
                     } else {
-                        aacontroldemandog.aunnoexiste = `Aun no existen un Mapa de Procesos por lo tanto no existen indicadores para mostrar.`;
+                        aacontroldemandog.aunnoexiste = `No existen un Mapa de Procesos por lo tanto no existen indicadores para mostrar.`+ " o que cumplan con los filtros aplicados";
                     }
                 }
                 aacontroldemandog.refreshAngular();
