@@ -19,19 +19,38 @@
         </div>
 
 
-        <div class="subcontent text-center" id="tabsComment" style="    margin-top: 100px;"
+        <div class="subcontent text-center" id="tabsComment" style="    margin-top: 25px;"
              ng-if="aacontroldemandog.unicomenu">
-            <div ng-if="!aacontroldemandog.aunnoexiste">
-                <button style=" min-width: 700px; padding: 15px 15px 15px 15px; "
+            <div class="col-sm-12">
+                <div class="col-sm-5" style="text-align: left"
+                     ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                    <label>Hasta el Mes</label>
+                    <select class="form-control fantizomes" ng-model="<%= scope %>.filtrofechames"
+                            ng-options="opt as opt for opt in <%= scope %>.monthNames">
+                    </select>
+                    <style>
+                        .fantizomes {
+                            padding-top: 10px;
+                            font-size: 21px;
+                            height: 46px;
+                            color: #333 !important;
+                        }
+                    </style>
+                </div>
+                <div class="col-sm-5 " style="text-align: left;margin-top: -1px"
+                     ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                    <label>En el año</label>
+                    <input type="number" class="form-control fantizomes" ng-model="<%= scope %>.filtrofechamesYear">
+                </div>
+                <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 36px !important;">
+                    <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+
+            <div ng-if="!aacontroldemandog.aunnoexiste" style="text-align: left">
+                <button style="width: 92%;padding: 15px 15px 15px 15px;margin-top: 40px;"
                         class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('cerrar')">
-                    <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos a la Fecha<i
-                            class="border-white  position-right"></i>
-                </button>
-                <br>
-                <button style=" min-width: 700px; padding: 15px 15px 15px 15px; margin-top: 100px;"
-                        class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('abrir')">
-                    <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte}} con Cálculos de Períodos
-                    Transcurridos (pasado)<i
+                    <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte||'Cargando Reporte...'}}<i
                             class="border-white  position-right"></i>
                 </button>
             </div>
@@ -92,7 +111,8 @@
                         }
                     </style>
                 </div>
-                <div class="col-sm-6 " style="text-align: left;margin-top: -1px" ng-show="aacontroldemando && <%= scope %>.miPOA.periodo_dinamico" >
+                <div class="col-sm-6 " style="text-align: left;margin-top: -1px"
+                     ng-show="aacontroldemando && <%= scope %>.miPOA.periodo_dinamico">
                     <h3>del año {{aacontroldemando.elpoa.periodo_poa}}</h3>
                 </div>
                 <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 17px !important;">
