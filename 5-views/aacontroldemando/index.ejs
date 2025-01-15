@@ -22,8 +22,7 @@
         <div class="subcontent text-center" id="tabsComment" style="    margin-top: 25px;"
              ng-if="aacontroldemandog.unicomenu">
             <div class="col-sm-12">
-                <div class="col-sm-5" style="text-align: left"
-                     ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                <div class="col-sm-5" style="text-align: left">
                     <label>Hasta el Mes</label>
                     <select class="form-control fantizomes" ng-model="<%= scope %>.filtrofechames"
                             ng-options="opt as opt for opt in <%= scope %>.monthNames">
@@ -37,8 +36,7 @@
                         }
                     </style>
                 </div>
-                <div class="col-sm-5 " style="text-align: left;margin-top: -1px"
-                     ng-show="<%= scope %>.miPOA.periodo_dinamico">
+                <div class="col-sm-5 " style="text-align: left;margin-top: -1px">
                     <label>En el año</label>
                     <input type="number" class="form-control fantizomes" ng-model="<%= scope %>.filtrofechamesYear">
                 </div>
