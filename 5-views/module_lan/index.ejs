@@ -2,6 +2,19 @@
     <div class="panel panel-flat">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
+            <div class="row" ng-show="<%= scope %>.records.data.length > 0">
+                <div class="col-sm-12 col-md-12">
+                    <button
+                            style="padding-left: 35px; margin-bottom: 5px"
+                            dragonlanguage="" title="Descargar"
+                            type="button" role="button"
+                            class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                            ng-click="<%= scope %>.downloadJson()">
+                        <b><i class="icon-arrow-right7"></i></b>
+                        Descargar
+                    </button>
+                </div>
+            </div>
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
         </div>
     </div>

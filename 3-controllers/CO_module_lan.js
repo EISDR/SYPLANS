@@ -56,6 +56,41 @@ app.controller("module_lan", function ($scope, $http, $compile) {
             });
         }
     };
+    module_lan.downloadJson = async function() {
+        module_lan.data = await BASEAPI.listp('module_lan', {
+            limit: 0,
+            join: [
+                {
+                    'table': 'language',
+                    'base': 'language',
+                    'field': 'id',
+                    'columns': ['nombre']
+                }
+            ],
+        });
+        module_lan.data = module_lan.data.data;
+
+        const groupedData = module_lan.data.reduce((acc, item) => {
+            if (!acc[item.language_nombre]) {
+                acc[item.language_nombre] = [];
+            }
+            acc[item.language_nombre].push(item);
+            return acc;
+        }, {});
+        console.log('Datos agrupados por language_nombre:', groupedData);
+
+        Object.keys(groupedData).forEach(language => {
+            const jsonData = JSON.stringify(groupedData[language], null, 4);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${language}_data.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    };
     // $scope.triggers.table.after.load = function (records) {
     //     //console.log(`$scope.triggers.table.after.load ${$scope.modelName}`);
     // };
