@@ -1,5 +1,5 @@
 MESSAGE = {
-    missingLanguage: {},
+    missingLanguage: [],
     OPEN: function () {
         baseController.viewData = {
             staticdata: MESSAGE.missingLanguage
@@ -18,13 +18,32 @@ MESSAGE = {
         };
         baseController.currentModel.modal.modalView("templates/components/messageManager", modal);
     },
-    register: function (lan, folder, key) {
-        if (MESSAGE.missingLanguage[lan + '-' + folder] === undefined) {
-            MESSAGE.missingLanguage[lan + '-' + folder] = {lan: "en", folder: folder, messages: []};
-            MESSAGE.missingLanguage[lan + '-' + folder].messages.push(key);
-        } else {
-            if (!ARRAY.contains(MESSAGE.missingLanguage[lan + '-' + folder].messages, key))
-                MESSAGE.missingLanguage[lan + '-' + folder].messages.push(key);
+    register: function (language, folder, key) {
+        if (!STORAGE.get("missingLanguage"))
+            console.log("norev");
+        let recolectados = STORAGE.get("missingLanguage") || [];
+        for (const old of recolectados) {
+            let exist = MESSAGE.missingLanguage.filter(d => d.category === old.category && d.key === old.key).length;
+            if (!exist)
+                MESSAGE.missingLanguage.push(old);
+        }
+        let exist = MESSAGE.missingLanguage.filter(d => d.category === folder && d.key === key);
+        if (!exist.length) {
+            let old = "";
+            if (LANGUAGEOLD.es)
+                if (LANGUAGEOLD.es[folder || "mono"])
+                    if (LANGUAGEOLD.es[folder || "mono"][key])
+                        old = LANGUAGEOLD.es[folder || "mono"][key];
+            MESSAGE.missingLanguage.push({
+                category: folder || "mono",
+                key: key,
+                es: old ? old : `${key}**`,
+                en: `${key}**`,
+                ia: 0,
+                human: 0,
+                exist: 0
+            });
+            STORAGE.add("missingLanguage", MESSAGE.missingLanguage);
         }
     },
     characterize: function (str) {
@@ -45,7 +64,7 @@ MESSAGE = {
         var lan = STORAGE.get('LANGUAGE') || CONFIG.language;
         var toreturn = key;
         if (MESSAGE.exist(key)) {
-            return MESSAGE.characterize(eval(`LANGUAGE.${lan}.${key}`));
+            return MESSAGE.characterize(eval(`(LANGUAGE?.${lan}||{}).${key}`));
         } else {
             for (var i in LANGUAGE) {
                 if (MESSAGE.existOther(key, i)) {
@@ -88,18 +107,18 @@ MESSAGE = {
     },
     exist: function (key) {
         var lan = STORAGE.get('LANGUAGE') || CONFIG.language;
-        if (!eval(`LANGUAGE.${lan}.hasOwnProperty('${key.split('.')[0]}')`))
+        if (!eval(`(LANGUAGE?.${lan}||{}).hasOwnProperty('${key.split('.')[0]}')`))
             return false;
-        var exist = eval(`LANGUAGE.${lan}.${key.split('.')[0]}.hasOwnProperty('${key.split('.')[1]}')`);
+        var exist = eval(`((LANGUAGE?.${lan}||{})?.${key.split('.')[0]}||{}).hasOwnProperty('${key.split('.')[1]}')`);
         if (!exist) {
             MESSAGE.register(lan, key.split('.')[0], key.split('.')[1]);
         }
         return exist;
     },
     existOther: function (key, lan) {
-        if (!eval(`LANGUAGE.${lan}.hasOwnProperty('${key.split('.')[0]}')`))
+        if (!eval(`(LANGUAGE?.${lan}||{}).hasOwnProperty('${key.split('.')[0]}')`))
             return false;
-        return eval(`LANGUAGE.${lan}.${key.split('.')[0]}.hasOwnProperty('${key.split('.')[1]}')`);
+        return eval(`((LANGUAGE?.${lan}||{})?.${key.split('.')[0]}||{}).hasOwnProperty('${key.split('.')[1]}')`);
     },
     current: function (code) {
         return SHOWLANGS.filter(function (lang) {
@@ -148,7 +167,7 @@ MESSAGE = {
 
         $('[dragoncontrol]').each(function () {
             $me = $(this);
-      
+
 
             $meId = $me.attr('id');
             //new ANIMATION().loadingPure($("#" + $meId).parent(), " ", ``, '30');
@@ -178,5 +197,20 @@ MESSAGE = {
             $me.removeAttr('dragoncontrol');
         });
         MENU.hideNavBar();
+    },
+    ia: {
+        llaves: [
+            "050a959c8amshc63e1077497d200p1f174ajsnaac283750ae4",
+            "28ccc2c1c2mshe2fb37e2a19557fp10e3fbjsn296d6173f5dc",
+            "1983932697mshf3ace7d3cdc388ep10e0a0jsn139a082b3ed4",
+            "6d59663e89msh5a36a734d05c09ep1ef4dbjsn7411085ceced",
+            "dcf99cb3e7msh08cad86b1e99ec9p1aa666jsn8757fd3bc7e2",
+            "ed45948cd7msh99d59836b48e36fp1e029ajsnd8fe501e9c4f",
+            "1612f8a02dmshfdd217d1536edc7p1d5211jsn4719ba200211",
+            "a685681a9dmshf39fb816c87c933p137a3cjsn0d4d6ee16f81",
+            "0117bd1c33msh5b8c728b8fa6c33p107da4jsn93eba1d19e86",
+            "2e2694555fmsh92f7e40347ff631p1ff7cbjsnb23b7d13cce8",
+            "4245a2c86dmshaca018dd3c137a2p1f0d96jsn59a0ead6a510"
+        ],
     }
 };

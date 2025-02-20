@@ -58,8 +58,9 @@ addMenu([], CONFIG.menus);
     CURRENCIES = "<%= JSON.stringify(CURRENCIES) %>";
     CURRENCIES = eval("(" + CURRENCIES.replaceAll("&#34;", '"') + ")");
 
-    LANGUAGE = "<%= JSON.stringify(LANGUAGE) %>";
-    LANGUAGE = eval("(" + LANGUAGE.replaceAll("&#34;", '"') + ")");
+    LANGUAGEOLD = "<%= JSON.stringify(LANGUAGE) %>";
+    LANGUAGEOLD = eval("(" + LANGUAGEOLD.replaceAll("&#34;", '"') + ")");
+    LANGUAGE = {};
     CONTROLS = "<%= JSON.stringify(controls) %>";
     CONTROLS = eval("(" + CONTROLS.replaceAll("&#34;", '"') + ")");
     SHOWLANGS = "<%= JSON.stringify(SHOWLANGS) %>";

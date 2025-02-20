@@ -78,6 +78,12 @@
         },
         {
           "modal": "",
+          "icon": "lan3",
+          "href": "#module_lan",
+          "text": "GLobalización"
+        },
+        {
+          "modal": "",
           "icon": "lifebuoy",
           "href": "#tipo_institucion",
           "condition": "baseController.session.super",

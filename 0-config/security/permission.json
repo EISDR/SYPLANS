@@ -2541,8 +2541,29 @@
         }
       },
       "module_lan": {
-        "type": "full",
-        "allow": {}
+        "type": "empty",
+        "allow": {
+          "file": {
+            "download": false,
+            "remove": false,
+            "upload": false
+          },
+          "actions": true,
+          "view": false,
+          "audit": false,
+          "remove": false,
+          "menu": true,
+          "edit": true,
+          "filter": true,
+          "add": false,
+          "export": {
+            "Clipboard": false,
+            "PDF": false,
+            "CSV": false,
+            "XLS": false,
+            "DOC": false
+          }
+        }
       }
     }
   }
