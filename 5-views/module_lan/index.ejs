@@ -2,20 +2,133 @@
     <div class="panel panel-flat">
         <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
         <div class="subcontent">
-            <div class="row" ng-show="<%= scope %>.records.data.length > 0">
+            <div class="row" style="margin-bottom: 10px;">
                 <div class="col-sm-12 col-md-12">
-                    <button
-                            style="padding-left: 35px; margin-bottom: 5px"
-                            dragonlanguage="" title="Descargar"
-                            type="button" role="button"
-                            class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
-                            ng-click="<%= scope %>.downloadJson()">
-                        <b><i class="icon-arrow-right7"></i></b>
-                        Descargar
-                    </button>
+                    <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                        <li><label class="ponerRedondo"
+                                   style="background-color: #81c784;border: 1px black solid"></label>
+                            <label class="labelRedondo" dragonlanguage>
+                                <language>MESSAGE.ic("special.ia")</language>
+                            </label></li>
+
+                        <li><label class="ponerRedondo"
+                                   style="background-color: #fcfcfc;border: 1px black solid"></label>
+                            <label class="labelRedondo" dragonlanguage>
+                                <language>MESSAGE.ic("special.human")</language>
+                            </label></li>
+
+                        <li><label class="ponerRedondo"
+                                   style="background-color: #e57373;border: 1px black solid"></label>
+                            <label class="labelRedondo" dragonlanguage>
+                                <language>MESSAGE.ic("special.nowork")</language>
+                            </label></li>
+
+                        <li>
+                            <button
+                                    ng-show="module_lan.hasChanges"
+                                    style="margin-top: -18px;margin-left: 40px;float: left !important;"
+                                    dragonlanguage="" title="Aplica cambios de lenguaje en la aplicación"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope %>.actualizarLengua()">
+                                <b style="padding: 11px"><i class="icon-reload-alt"></i></b>
+                                Aplicar Cambios
+                            </button>
+
+                            <button
+                                    ng-show="module_lan.currentLan!==item.nombre"
+                                    style="margin-top: -18px;margin-left: 10px;float: left !important;"
+                                    ng-repeat="(ix,item) in module_lan.languages track by item.id" type="button"
+                                    role="button"
+                                    class="bg-info btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope %>.cambiarIdioma(item)">
+                                <b style="padding: 11px">
+                                    <i class="icon-list"></i>
+                                </b>
+                                Cambiar a {{item.label}}
+                            </button>
+
+                            <button
+                                    ng-show="module_lan.thereNews()"
+                                    style="margin-top: -18px;margin-left: 10px;float: left !important;"
+                                    dragonlanguage="" title="Mensajes recolectados"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope %>.openPending()">
+                                <b style="padding: 11px"><i class="icon-arrow-right7"></i></b>
+                                Mensajes recolectados ({{module_lan.missings.length}})
+                            </button>
+                            <button style="margin-top: -18px;margin-left: 10px;float: left !important;"
+                                    dragonlanguage="" title="Traducir Todo"
+                                    type="button" role="button"
+                                    class="bg-<%= COLOR.primary %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                    ng-click="<%= scope %>.translateAll()">
+                                <b style="padding: 11px"><i class="icon-arrow-right7"></i></b>
+                                Traducir todo
+                            </button>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
             <%- include('../../7-plugins/templates/table/base',{scope:scope}); %>
+        </div>
+    </div>
+    <div class="modal" id="listPending" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="border: 3px solid #004d80">
+                    <div class="tab-content" style="height: 800px">
+                        <div class="tab-pane active" id="basic">
+                            <div class="row">
+                                <h3 style="float: left;margin-top: 29px;margin-left: 11px;">
+                                    Mensajes Recolectados: {{module_lan.missings.length}}
+                                </h3>
+                                <button type="button" class="close " style="float: right;margin-top: -21px !important;!i;!;font-size: 33px;" onclick="$('#listPending').modal('hide')">
+                                    x
+                                </button>
+                                <button
+                                        style="margin-top: 24px;margin-left: 10px;float: right !important;"
+                                        dragonlanguage="" title="Registrar"
+                                        type="button" role="button"
+                                        class="bg-<%= COLOR.info %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
+                                        ng-click="<%= scope %>.integrarMensajes()">
+                                    <b style="padding: 11px"><i class="icon-arrow-right7"></i></b>
+                                    Registrar
+                                </button>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <table class=" table table-togglable table-framed sindu-table">
+                                        <thead>
+                                        <tr class="bg-secundary">
+                                            <th dragonlanguage>
+                                                <language>MESSAGE.ic("columns.category")</language>
+                                            </th>
+                                            <th dragonlanguage>
+                                                <language>MESSAGE.ic("columns.key")</language>
+                                            </th>
+                                            <th dragonlanguage>
+                                                <language>MESSAGE.ic("columns.value")</language>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="(i,item) in module_lan.missings track by $index">
+                                            <td>{{item.category}}</td>
+                                            <td>{{item.key}}</td>
+                                            <td>{{item.es}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div><!--end-->

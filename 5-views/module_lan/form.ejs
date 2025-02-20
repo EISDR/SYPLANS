@@ -1,57 +1,51 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-12 col-md-4'>
-                <%- FORM.select('language', scope, {
-                    column: 'name',
-                    table: 'language',
-                    // self: true,
-                    // allownull: true,
+
+            <div class='col-sm-12 col-md-1'>
+                <%- FORM.checkbox('exist', scope, {truetext: "¿Categoría existente?"}) %>
+            </div>
+            <div class='col-sm-12 col-md-6' ng-show="module_lan.exist">
+                <%- FORM.select('category_exist', scope, {
+                    column: 'category',
+                    table: 'vw_lancategory',
+                    allownull: true,
                     allownew: false,
                     allowedit: false,
                     allowview: false,
                     allowlist: false,
                     refresh: true,
-                    //condition: 'true',
-                    //multiple: false,get: {table: "language_linked", fieldFrom: "id", fieldTo: "myid(language)", field: "theirid"},
-                    //disabled: false,
-                    //helptext: "",
-                    //value: 'id',
-                    text: 'item.nombre',
-                    //query: {
-                        //limit: 0,
-                        //page: 1,
-                        //where: [],
-                        //orderby: 'id',
-                        //order: 'asc',
-                        //distinct: false
-                        // join: [
-                        //     {
-                        //         table: 'ms_category',
-                        //         base: 'category',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     },
-                        //     {
-                        //         table: 'otratable',
-                        //         base: 'ms_category_id',
-                        //         field: 'id',
-                        //         columns: ['id', 'name']
-                        //     }
-                        // ]
-                    //},
+                    text: 'item.name',
+                    truelabel: "Categoría"
                 }) %>
             </div>
-            <div class='col-sm-12 col-md-4'>
-                <%- FORM.input('key', scope, {placeholder: "Indice", maxlength: 500}) %>
+            <div class='col-sm-12 col-md-6' ng-show="!module_lan.exist">
+                <%- FORM.input('category', scope, {placeholder: "Categoría", maxlength: 500}) %>
             </div>
-            <div class='col-sm-12 col-md-4'>
-                <%- FORM.checkbox('ia', scope, {text: "¿Trabaja con IA?", maxlength: 500}) %>
+
+            <div class='col-sm-12 col-md-1'>
+                <%- FORM.checkbox('ia', scope, {text: "¿Traducido con AI?", disabled: true, maxlength: 500}) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-12 col-md-6'>
+                <%- FORM.input('key', scope, {maxlength: 500}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('es', scope, {placeholder: "Español", maxlength: 1000}) %>
+            </div>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('en', scope, {placeholder: "Inglés", maxlength: 1000}) %>
             </div>
         </div>
         <div class="row">
             <div class='col-sm-12 col-md-12'>
-                <%- FORM.input('value', scope, {placeholder: "Texto a mostrar", maxlength: 1000}) %>
+                <button title="Eliminar campo" style="float: right"
+                        ng-click="module_lan.translateForm();"
+                        type="button"
+                        class="btn bg-info btn-xs">
+                    Traducir con AI
+                </button>
             </div>
         </div>
     </div>
