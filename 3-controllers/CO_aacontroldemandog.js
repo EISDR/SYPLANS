@@ -4,11 +4,6 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
     aacontroldemandog.session = new SESSION().current();
     aacontroldemandog.DPTO = new SESSION().definitivo();
     aacontroldemandog.modolista = location.href.indexOf('modolista') !== -1;
-    aacontroldemandog.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
-    aacontroldemandog.monthNames = [
-        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    ];
     if (location.href.split('?').length > 1)
         if (location.href.split('?')[1].split('-').length > 1)
             if (location.href.split('?')[1].split('-')[1])
@@ -53,36 +48,6 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
                 operator: "IS",
                 value: "$NULL"
             })
-
-    aacontroldemandog.filtrofechames = STORAGE.get("filtrofechames") || "Diciembre";
-    aacontroldemandog.filtrofechamesYear = STORAGE.get("filtrofechamesYear") || new Date().getFullYear();
-    aacontroldemandog.setFiltro = () => {
-        SWEETALERT.loading({message: "Filtrando Cumplimiento"});
-        STORAGE.add("filtrofechames", aacontroldemandog.filtrofechames);
-        STORAGE.add("filtrofechamesYear", aacontroldemandog.filtrofechamesYear);
-        location.reload();
-    }
-    if (aacontroldemandog.filtrofechames) {
-        let elme = aacontroldemandog.monthNames.indexOf(aacontroldemandog.filtrofechames) + 1;
-        let lafe = `${aacontroldemandog.filtrofechamesYear}-${elme}-01`;
-        let lafefinal = moment(lafe).add(1, 'month').add(-1, 'day').format("YYYY-MM-DD");
-
-        aacontroldemandog.filtrosCompania.push(
-            {
-                field: "from_date",
-                operator: "<=",
-                value: lafefinal
-            }
-        );
-        aacontroldemandog.filtrosCompania.push(
-            {
-                field: "ano",
-                value: aacontroldemandog.filtrofechamesYear
-            }
-        );
-
-    }
-
     aacontroldemandog.REPORTING = undefined;
     aacontroldemandog.FICHA = {
         datos_relacionados: [
@@ -322,18 +287,18 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             }
             let table_ = aacontroldemandog.api[list].filter(d => d[filter || field])[0];
             if (!table_) {
-                aacontroldemandog.aunnoexiste = "No existen indicadores evaluados que pertenezcan a: " + entidad + " o que cumplan con los filtros aplicados";
+                aacontroldemandog.aunnoexiste = "Aun no existen indicadores evaluados que pertenezcan a: " + entidad;
                 if (!aacontroldemandog.unicomenu) {
                     SWEETALERT.show({
                         type: "info",
                         title: "Información",
-                        message: "Aun no existen indicadores evaluados que pertenezcan a: " + entidad + " o que cumplan con los filtros aplicados"
+                        message: "Aun no existen indicadores evaluados que pertenezcan a: " + entidad
                     });
                 } else if (aacontroldemandog.unicomenu === 'proceso') {
                     if (aacontroldemandog.api.currentMapa) {
-                        aacontroldemandog.aunnoexiste = `No existen indicadores evaluados que pertenezcan al Mapa de Procesos: ${aacontroldemandog.api.currentMapa.nombre}` + " o que cumplan con los filtros aplicados";
+                        aacontroldemandog.aunnoexiste = `Aun no existen indicadores evaluados que pertenezcan al Mapa de Procesos: ${aacontroldemandog.api.currentMapa.nombre}`;
                     } else {
-                        aacontroldemandog.aunnoexiste = `No existen un Mapa de Procesos por lo tanto no existen indicadores para mostrar.`+ " o que cumplan con los filtros aplicados";
+                        aacontroldemandog.aunnoexiste = `Aun no existen un Mapa de Procesos por lo tanto no existen indicadores para mostrar.`;
                     }
                 }
                 aacontroldemandog.refreshAngular();
@@ -444,7 +409,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         indicador: (periodos, pei) => {
             if (periodos)
                 if (periodos.length) {
-                    let periodicidad = aacontroldemandog.calcs.periodicidad(pei ? [] : periodos[0].monitoreo_cantidad);
+                    let periodicidad = aacontroldemandog.calcs.periodicidad(pei ? [] : periodos);
                     let tipo_meta = periodos[0].tipo_meta;
                     let direccion_meta = periodos[0].direccion_meta;
                     let formula = aacontroldemandog.calcs.formula(tipo_meta, direccion_meta);
@@ -458,7 +423,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
             var year = new Date().getFullYear();
             if (periodos)
                 if (periodos.length) {
-                    let periodicidad = aacontroldemandog.calcs.periodicidad(pei ? [] : periodos[0].monitoreo_cantidad);
+                    let periodicidad = aacontroldemandog.calcs.periodicidad(pei ? [] : periodos);
                     var actual = Math.ceil((mes / (12 / periodicidad.cantidad)));
                     let tipo_meta = aacontroldemandog.api.tiposMeta.filter(d => d.id === formula.tipo_meta);
                     let direccion_meta = aacontroldemandog.api.direccionesMeta.filter(d => d.id === formula.direccion_meta);
@@ -513,7 +478,7 @@ app.controller("aacontroldemandog", function ($scope, $http, $compile) {
         },
         periodicidad: (periodos) => {
             return aacontroldemandog.api.periodicidad.filter(d => {
-                return d.cantidad === (periodos || 1);
+                return d.cantidad === (periodos || []).length;
             })[0] || {
                 cantidad: 1,
                 descripcion: "Cada año",
