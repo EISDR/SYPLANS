@@ -29,7 +29,7 @@
                              s2-options="opt.nombre as opt.nombre for opt in  <%= scope %>.REPORTING.elementos">
                     </select3>
                 </div>
-                <div class='col-sm-9 col-md-9' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
+                <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
                     <label>Escriba aquí su criterio de búsqueda</label>
                     <input type="search"
                            class="form-control busquedaInput"
@@ -38,14 +38,14 @@
                            ng-change=""
                            ng-model-onblur>
                 </div>
-                <div class='col-sm-3 col-md-3 ' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
-                    <label>Filtrar por el año del indicador</label>
-                    <input type="number"
-                           class="form-control busquedaInput"
-                           placeholder="Año a filtrar"
-                           ng-model="<%= scope %>.inputYear"
-                           ng-model-onblur>
-                </div>
+<!--                <div class='col-sm-3 col-md-3 ' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">-->
+<!--                    <label>Filtrar por el año del indicador</label>-->
+<!--                    <input type="number"-->
+<!--                           class="form-control busquedaInput"-->
+<!--                           placeholder="Año a filtrar"-->
+<!--                           ng-model="<%= scope %>.inputYear"-->
+<!--                           ng-model-onblur>-->
+<!--                </div>-->
             </div>
             <div class="row" ng-show="<%= scope %>.unicomenu!=='evento'">
                 <div class='col-sm-9 col-md-9'>

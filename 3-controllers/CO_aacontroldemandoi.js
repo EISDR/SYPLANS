@@ -3,6 +3,7 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
     RUNCONTROLLER("aacontroldemando", aacontroldemando, $scope, $http, $compile);
     aacontroldemando.session = new SESSION().current();
     aacontroldemando.DPTO = new SESSION().definitivo();
+    aacontroldemando.miPOA = (baseController?.poaFirt || baseController?.poaFirt[0] || {});
     aacontroldemando.monthNames = [
         "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
@@ -13,6 +14,7 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
     aacontroldemando.incrementar = (12 / aacontroldemando.elmonitoreo.cantidad);
     aacontroldemando.filters = [];
     aacontroldemando.perix = 1;
+
     for (i = 1; i <= 12; i += aacontroldemando.incrementar) {
         if (aacontroldemando.incrementar > 1) {
             aacontroldemando.filters.push({
@@ -28,9 +30,16 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
         aacontroldemando.perix++;
     }
     aacontroldemando.filtrofecha = STORAGE.get("cumplifilterpoa") || aacontroldemando.filters.map(d => d.id);
+
+    if (aacontroldemando.miPOA.periodo_dinamico && typeof aacontroldemando_pei === "undefined") {
+        aacontroldemando.filtrofechames = STORAGE.get("filtrofechames") || "Diciembre";
+    }
     aacontroldemando.setFiltro = () => {
         SWEETALERT.loading({message: "Filtrando Cumplimiento"});
-        STORAGE.add("cumplifilterpoa", aacontroldemando.filtrofecha);
+        if (aacontroldemando.filtrofechames) {
+            STORAGE.add("filtrofechames", aacontroldemando.filtrofechames);
+        } else
+            STORAGE.add("cumplifilterpoa", aacontroldemando.filtrofecha);
         location.reload();
     }
 
@@ -53,13 +62,30 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
             value: `$${aacontroldemando.session.poa_id} OR poa=0)`
         },
     ];
-    if (aacontroldemando.filtrofecha) {
-        aacontroldemando.filtrosCompania.push({
-            field: "periodo",
-            operator: "in",
-            value: aacontroldemando.filtrofecha
-        });
+
+    if (aacontroldemando.miPOA.periodo_dinamico) {
+        if (aacontroldemando.filtrofechames) {
+            let elme = aacontroldemando.monthNames.indexOf(aacontroldemando.filtrofechames) + 1;
+            let lafe = `${aacontroldemando.elpoa.periodo_poa}-${elme}-01`;
+            let lafefinal = moment(lafe).add(1, 'month').add(-1, 'day').format("YYYY-MM-DD");
+
+            aacontroldemando.filtrosCompania.push(
+                {
+                    field: "from_date",
+                    operator: "<=",
+                    value: lafefinal
+                }
+            );
+
+        } else if (aacontroldemando.filtrofecha) {
+            aacontroldemando.filtrosCompania.push({
+                field: "from_date",
+                operator: "in",
+                value: aacontroldemando.filtrofecha
+            });
+        }
     }
+
     aacontroldemando.builded = false;
     aacontroldemando.abierto = true;
     aacontroldemando.donfocusnah = true;
@@ -414,7 +440,7 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
         indicador: (periodos, pei) => {
             if (periodos)
                 if (periodos.length) {
-                    let periodicidad = aacontroldemando.calcs.periodicidad(pei ? [] : periodos);
+                    let periodicidad = aacontroldemando.calcs.periodicidad(pei ? [] : periodos[0].monitoreo_cantidad);
                     let tipo_meta = periodos[0].tipo_meta;
                     let direccion_meta = periodos[0].direccion_meta;
                     let formula = aacontroldemando.calcs.formula(tipo_meta, direccion_meta);
@@ -428,7 +454,7 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
             var year = new Date().getFullYear();
             if (periodos)
                 if (periodos.length) {
-                    let periodicidad = aacontroldemando.calcs.periodicidad(pei ? [] : periodos);
+                    let periodicidad = aacontroldemando.calcs.periodicidad(pei ? [] : periodos[0].monitoreo_cantidad);
                     var actual = Math.ceil((mes / (12 / periodicidad.cantidad)));
                     let tipo_meta = aacontroldemando.api.tiposMeta.filter(d => d.id === formula.tipo_meta);
                     let direccion_meta = aacontroldemando.api.direccionesMeta.filter(d => d.id === formula.direccion_meta);
@@ -483,7 +509,7 @@ app.controller("aacontroldemando", function ($scope, $http, $compile) {
         },
         periodicidad: (periodos) => {
             return aacontroldemando.api.periodicidad.filter(d => {
-                return d.cantidad === (periodos || []).length;
+                return d.cantidad === (periodos || 1);
             })[0] || {
                 cantidad: 1,
                 descripcion: "Cada año",
