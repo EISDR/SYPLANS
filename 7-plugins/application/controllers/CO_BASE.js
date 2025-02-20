@@ -502,37 +502,6 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         var session = new SESSION();
         if (session.current()) {
             let intersession = session.current();
-
-
-            let updatelan = !STORAGE.get('lastLan') || !STORAGE.get('LANGUAGEDATA');
-            MESSAGE.missingLanguage = STORAGE.get("missingLanguage") || [];
-            if (updatelan) {
-                if (STORAGE.get('templan')) {
-                    intersession.language = STORAGE.get('templan');
-                }
-                let userlan = intersession.language || "es";
-                CONFIG.language = userlan;
-                baseController.lanes = await BASEAPI.listf("module_lan");
-                baseController.lans = await BASEAPI.listf("language");
-                LANGUAGE = {};
-                baseController.lans.forEach(d => {
-                    LANGUAGE[d.nombre] = {};
-                });
-                for (const LL of baseController.lanes) {
-                    let category = LL.category || "base";
-                    if (!LANGUAGE[userlan])
-                        LANGUAGE[userlan] = {};
-                    if (!LANGUAGE[userlan][category])
-                        LANGUAGE[userlan][category] = {};
-                    if (!LANGUAGE[userlan][category][LL.key])
-                        LANGUAGE[userlan][category][LL.key] = LL[userlan];
-                }
-                STORAGE.add('lastLan', true);
-                STORAGE.add('LANGUAGEDATA', LANGUAGE);
-            } else {
-                LANGUAGE = STORAGE.get('LANGUAGEDATA');
-            }
-
             CONFIGCOMPANY = await BASEAPI.firstp("compania_config", {
                 orderby: "compania_id",
                 order: "desc",

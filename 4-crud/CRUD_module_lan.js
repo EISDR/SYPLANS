@@ -5,24 +5,18 @@ DSON.keepmerge(CRUD_module_lan, {
         //width: "width:3000px;",
         //view: 'vw_module_lan',
         //method: 'module_lan',
-        limits: [10, 50, 100, 0],
+        //limits: [10, 50, 100, 0],
         //report: true,
-        batch: false,
+        //batch: false,
         //persist: false,
         //sortable: false,
         //dragrow: 'num',
         //rowStyle: function (row, $scope) {
         //    return "color:red;";
         //},
-        rowClass: function (row, $scope) {
-            let estatus = module_lan.getStatus(row);
-            let table = {
-                "ia": "text-default bg-success-300",
-                "human": "",
-                "no": "text-default  bg-danger-300",
-            }
-            return table[estatus];
-        },
+        //rowClass: function (row, $scope) {
+        //    return row.name === 'whatever' ? "bg-" + COLOR.danger + "-300" : "";
+        //},
         //activeColumn: "active",
         //key: 'id',
         //deletekeys: ['id'],
@@ -52,30 +46,26 @@ DSON.keepmerge(CRUD_module_lan, {
                 visibleDetail: false,
                 export: false,
                 exportExample: false,
-                dead: true,
-                nofilter: true
+                dead: true
             },
-            category: {
-                link: {
-                    from: "vw_lancategory",
-                    value: "id",
-                    text: "item.name"
+            language_nombre: {
+                label: function () {
+                    return "Lenguaje"
                 }
             },
             key: {
                 label: function () {
-                    return "ID"
+                    return "Indice"
+                }
+            },
+            value: {
+                label: function () {
+                    return "Texto a mostrar"
                 }
             },
             ia: {
-                format: (row) => {
-                    let estatus = module_lan.getStatus(row);
-                    let table = {
-                        "ia": MESSAGE.i('special.ia'),
-                        "human": MESSAGE.i('special.human'),
-                        "no": MESSAGE.i('special.nowork'),
-                    }
-                    return table[estatus];
+                label: function () {
+                    return "¿Trabaja con IA?"
                 },
                 visible: true,
                 sorttype: ENUM.FORMAT.bool,
@@ -85,6 +75,13 @@ DSON.keepmerge(CRUD_module_lan, {
         filters: {
             columns: true
         },
+        single: [
+            {
+                'table': 'language',
+                'base': 'language',
+                'field': 'id',
+                'columns': ['id', 'nombre']
+            }]
     }
 });
 //modify methods that existing option
