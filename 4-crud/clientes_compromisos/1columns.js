@@ -14,7 +14,6 @@ DSON.keepmerge(CRUD_clientes_compromisos, {
                 dead: true
             },
             compromiso: {
-                label: "Compromiso Institucional",
                 shorttext: 800
             }
         },
@@ -22,9 +21,7 @@ DSON.keepmerge(CRUD_clientes_compromisos, {
             columns: [
                 {
                     key: 'compromiso',
-                    label: 'Compromiso',
                     type: FILTER.types.string,
-                    placeholder: 'Compromiso',
                     maxlength: 1000
                 }
             ]

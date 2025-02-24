@@ -28,7 +28,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productos2, {
         },
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -37,24 +36,15 @@ DSON.keepmerge(CRUD_vw_dashboard_productos2, {
                 exportExample: false
             },
             nombre: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
             },
             resultado_nombre: {
-                label: function() {
-                    return "Resultado esperado"
-                },
             },
             departamento_nombre: {
-                label: "Departamento",
             },
             estatus: {
-                label: "Estado",
             },
             condition: {
                 export: true,
-                label: "Condición",
                 format: function (row) {
                     var nom = row.condition;
                     $(`.Vencido`).css('background', '#FF0000');
@@ -79,19 +69,16 @@ DSON.keepmerge(CRUD_vw_dashboard_productos2, {
                 dead: true,
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "time",
                 formattype: "datetime>DD-MM-YYYY",
                 exportExample: false
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "time",
                 formattype: "datetime>DD-MM-YYYY",
                 exportExample: false
             },
             presupuesto: {
-                label: "presupuesto",
                 formattype: "money",
                 exportExample: "[money]"
             }

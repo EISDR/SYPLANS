@@ -17,7 +17,6 @@
                                 allowlist: false,
                                 refresh: false,
                                 multiple: false,
-                                label: "POA",
                                 text: "item.periodo_poa",
                                 table: "vw_dashboard_poas",
                                 icon: {class: "archive"},
@@ -38,7 +37,6 @@
                                 allowlist: false,
                                 refresh: false,
                                 multiple: false,
-                                label: "Gestión Presupuestaria",
                                 text: "item.periodo_poa",
                                 table: "vw_dashboard_poas",
                                 icon: {class: "archive"},
@@ -54,7 +52,6 @@
                         <div class="col-md-6 col-sm-6 select-heigt">
                             <%- FORM.selectsimple("periodos", scope, {
                                 multiple: true,
-                                miplaceholder: "Seleccione los periodos que desee consultar",
                                 text: "item.name",
                                 icon: {class: "archive"}
                             }) %>
@@ -74,7 +71,7 @@
                                 <script>
                                     dashboard_cofiguration.changePie();
                                 </script>
-                                <%- CHART.doughnut("pie", scope, {label: "Presupuesto", radius: ["25%", "60%"], charPos: ["45%", "50%"]}) %>
+                                <%- CHART.doughnut("pie", scope, { radius: ["25%", "60%"], charPos: ["45%", "50%"]}) %>
                             </div>
                             <div class="col-md-7 col-sm-7 pl-0 pr-0"
                                  style="padding-left: 21px!important;border-left: 1.2px solid #ddd;">
@@ -85,7 +82,7 @@
                                 <script>
                                     dashboard_cofiguration.changeBar();
                                 </script>
-                                <%- CHART.bar("bar2", scope, {label: "Desempeño"}) %>
+                                <%- CHART.bar("bar2", scope, {}) %>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -97,8 +94,8 @@
                                 <script>
                                     dashboard_cofiguration.changeLine();
                                 </script>
-                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 1"><%- CHART.columns("line", scope, {label: "Indicadores de Proyecto/Producto"}) %></div>
-                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 2"><%- CHART.columns("line", scope, {label: "Indicadores de Proyecto/Plan de Acción"}) %></div>
+                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 1"><%- CHART.columns("line", scope, {}) %></div>
+                                <div ng-if="dashboard_cofiguration.session.tipo_institucion == 2"><%- CHART.columns("line", scope, {}) %></div>
                             </div>
                         </div>
                     </div>

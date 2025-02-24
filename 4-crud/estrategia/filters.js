@@ -5,35 +5,26 @@ CRUD_estrategia = DSON.merge(CRUD_estrategia,
                 columns: [
                     {
                         key: 'no_eje',
-                        label: 'No. Eje estratégico',
                         type: FILTER.types.integer,
-                        placeholder: 'No. Eje estratégico',
                         maxlength: 15
                     },
                     {
                         key: 'no_objetivo',
-                        label: 'No. Objetivo',
                         type: FILTER.types.integer,
-                        placeholder: 'No. Objetivo',
                         maxlength: 15
                     },
                     {
                         key: 'no_estrategia',
-                        label: 'No. Estrategia',
                         type: FILTER.types.integer,
-                        placeholder: 'No. Estrategia',
                         maxlength: 15
                     },
                     {
                         key: 'estrategia',
-                        label: 'Estrategia',
                         type: FILTER.types.string,
-                        placeholder: 'Estrategia',
                         maxlength: 255
                     },
                     {
                         key: 'eje_estrategico_id',
-                        label: 'Eje Estratégico',
                         type: FILTER.types.relation,
                         table: 'eje_estrategico',
                         value: "id",
@@ -52,7 +43,6 @@ CRUD_estrategia = DSON.merge(CRUD_estrategia,
                     },
                     {
                         key: 'objetivo_estrategico_id',
-                        label: 'Objetivo Estratégico',
                         type: FILTER.types.relation,
                         table: 'vw_objetivo_estrategico',
                         value: "id",

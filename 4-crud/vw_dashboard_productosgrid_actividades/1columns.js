@@ -43,17 +43,10 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_actividades, {
                 dead: true
             },
             producto: {
-                label: function () {
-                    return "Actividad"
-                },
             },
             indicador: {
-                label: "Indicador",
             },
             flecha: {
-                label: function () {
-                    return "Dirección Meta"
-                },
                 anonymous: true,
                 format: function (row) {
                     if (row.cumplidor)
@@ -67,9 +60,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_actividades, {
                 }
             },
             acumulado: {
-                label: function () {
-                    return "Proyectado"
-                },
                 format: function (row) {
                     if (row.cumplidor)
                         if (row.cumplidor.general)
@@ -82,7 +72,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_actividades, {
                 // formattype: ENUM.FORMAT.numeric
             },
             alcanzado: {
-                label: "Alcanzada",
                 sorttype: "numeric",
                 format: function (row) {
                     if (row.cumplidor)
@@ -109,9 +98,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid_actividades, {
                 sortable: false
             },
             detalle: {
-                label: function () {
-                    return "Acciones"
-                },
                 format: function (row) {
                     return `<a class="ng-binding" title="Ver Detalle" data-action="Ver">
 			<i class="icon-eye "></i>

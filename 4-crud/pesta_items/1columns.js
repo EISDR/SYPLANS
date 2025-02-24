@@ -27,9 +27,6 @@ DSON.keepmerge(CRUD_pesta_items, {
             },
             descripcion: {
                 exportKey: 'description',
-                label: function () {
-                    return "Descripción"
-                },
                 drag: true
             },
             pesta_id: {

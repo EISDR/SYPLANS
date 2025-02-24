@@ -7,7 +7,6 @@ CRUD_vw_dashboard_productosgrid = DSON.merge(CRUD_vw_dashboard_productosgrid,
                 columns: [
                     {
                         key: 'producto',
-                        label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                         type: FILTER.types.relation,
                         table: 'productos_poa',
                         value: "id",
@@ -26,7 +25,6 @@ CRUD_vw_dashboard_productosgrid = DSON.merge(CRUD_vw_dashboard_productosgrid,
                     },
                     {
                         key: 'indicador',
-                        label: 'Indicador',
                         type: FILTER.types.relation,
                         table: 'vw_indicador_poa',
                         value: "id",
@@ -45,21 +43,15 @@ CRUD_vw_dashboard_productosgrid = DSON.merge(CRUD_vw_dashboard_productosgrid,
                     },
                     {
                         key: 'acumulado',
-                        label: 'Acumulado',
                         type: FILTER.types.integer,
-                        placeholder: 'Acumulado'
                     },
                     {
                         key: 'alcanzado',
-                        label: 'Alcanzado',
                         type: FILTER.types.integer,
-                        placeholder: 'Alcanzado'
                     },
                     {
                         key: 'varianza',
-                        label: 'Varianza',
                         type: FILTER.types.integer,
-                        placeholder: 'Varianza'
                     },
                 ]
             }

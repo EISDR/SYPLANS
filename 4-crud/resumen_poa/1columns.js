@@ -38,9 +38,6 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 exportExample: false
             },
             eje_estrategico: {
-                label: function () {
-                    return "Eje estratégico"
-                },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
                     return (category === "span") ? resumen_poa.sp_('d.eje_estrategico', index, list)
@@ -48,9 +45,6 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 }
             },
             objetivo_estrategico: {
-                label: function () {
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
                     return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico', index, list)
@@ -58,9 +52,6 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 }
             },
             estrategia: {
-                label: function () {
-                    return "Estrategia"
-                },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
                     return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list)
@@ -68,9 +59,6 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 }
             },
             resultado_nombre: {
-                label: function () {
-                    return "Resultado Esperado"
-                },
                 shorttext: 370,
                 rowspan: function (index, list, category) {
                     return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre', index, list)
@@ -78,22 +66,17 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 }
             },
             producto: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
                 rowspan: function (index, list, category) {
                     return (category === "span") ? resumen_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre + d.producto', index, list)
                         : resumen_poa.sm_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado_nombre + d.producto', index, list);
                 }
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370
             },
             fecha_inicio: {formattype: ENUM.FORMAT.date},
             fecha_fin: {formattype: ENUM.FORMAT.date},
             nofinancieros: {
-                label: "No Financieros",
                 format: (row) => {
                     let arrayx = [];
                     try {
@@ -105,7 +88,6 @@ DSON.keepmerge(CRUD_resumen_poa, {
                 }
             },
             financieros: {
-                label: "Financieros",
                 format: (row) => {
                     return LAN.money(row.presupuesto).format(false);
                 }

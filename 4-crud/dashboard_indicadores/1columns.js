@@ -16,7 +16,6 @@ DSON.keepmerge(CRUD_dashboard_indicadores, {
                 dead: true
             },
             name: {
-                label: "Name",
                 shorttext: 20
             },
             active: {

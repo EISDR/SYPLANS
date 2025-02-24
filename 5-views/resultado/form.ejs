@@ -11,7 +11,6 @@
                     allowview: false,
                     allowlist: false,
                     refresh: true,
-                    label: "Tipo de Resultado Esperado",
                     table: "tipo_resultado",
                     text: "item.nombre",
                     icon: {class: "archive"}
@@ -29,7 +28,6 @@
                     permission: "perspectiva",
                     table: "perspectiva",
                     icon: {class: "archive"},
-                    truelabel: "Perspectiva (Balanced Scorecard)",
                     query: {
                         orderby: "no_orden",
                     },
@@ -48,7 +46,6 @@
                     permission: "perspectiva",
                     table: "perspectiva",
                     icon: {class: "archive"},
-                    truelabel: "Perspectiva (Balanced Scorecard)",
                     query: {
                         orderby: "no_orden"
                     },
@@ -58,7 +55,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12 remove-input-space txtarea-mt-15">
-                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 4000}) %>
+                <%- FORM.textarea("descripcion", scope, {maxlength: 4000}) %>
             </div>
         </div>
 
@@ -87,10 +84,8 @@
                             allowview: false,
                             allowlist: false,
                             refresh: true,
-                            label: "Objetivos Generales END",
                             permission: "objetivo",
                             column: "id",
-                            miplaceholder: " ",
                             table: "drp_edt_objetivo_general",
                             text: "item.nombre",
                             icon: {class: "archive"},
@@ -111,10 +106,8 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            label: "Objetivos Específicos END",
                             permission: "objetivo_especifico",
                             column: "id",
-                            miplaceholder: " ",
                             table: "drp_edt_objetivo_especificio",
                             text: "item.nombre",
                             icon: {class: "archive"},
@@ -135,7 +128,6 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            label: "Líneas de Acción",
                             permission: "linea_accion",
                             column: "id",
                             table: "drp_edt_linea_accion",
@@ -162,9 +154,7 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            label: "Objetivos de Desarrollo Sostenible",
                             permission: "ods",
-                            miplaceholder: " ",
                             column: "ods",
                             table: "ods",
                             text: "item.edt + '. ' +item.nombre",
@@ -184,7 +174,6 @@
                             allowedit: false,
                             allowview: false,
                             allowlist: false,
-                            label: "Metas de los Objetivos de Desarrollo Sostenible",
                             permission: "mods",
                             column: "id",
                             table: "mods",
@@ -210,7 +199,6 @@
                             allownew: false,
                             allowlist: false,
                             allowedit: false,
-                            label: "Compromisos Nacionales",
                             permission: "compromiso",
                             column: "id",
                             table: "compromiso",
@@ -233,7 +221,6 @@
                             allownew: false,
                             allowlist: false,
                             allowedit: false,
-                            label: "Compromisos Internacionales",
                             permission: "compromiso",
                             column: "id",
                             table: "compromiso",
@@ -258,7 +245,6 @@
                             allownew: false,
                             allowlist: false,
                             allowedit: false,
-                            label: "Meta Compromisos Nacionales Relacionados",
                             column: "id",
                             table: "otros_compromiso",
                             text: "item.nombre",
@@ -280,7 +266,6 @@
                             allownew: false,
                             allowlist: false,
                             allowedit: false,
-                            label: "Meta Compromisos Internacionales Relacionados",
                             column: "id",
                             table: "otros_compromiso",
                             text: "item.nombre",
@@ -303,7 +288,6 @@
 
                     <div class="col-sm-12 col-md-12" ng-if="resultado.session.tipo_institucion==1">
                         <%- FORM.textarea("supuestos", scope, {
-                            placeholder: "Supuestos",
                             maxlength: 2000
                         }) %>
                     </div>
@@ -317,7 +301,6 @@
                             allownew: false,
                             allowlist: false,
                             allowedit: false,
-                            label: "Denominaciones de los PNPSP",
                             table: "vw_denominacion_pnpsp",
                             text: "item.nombre_sec",
                             icon: {class: "archive"},
@@ -346,9 +329,7 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            label: "Objetivos de Desarrollo Sostenible",
                             permission: "ods",
-                            miplaceholder: " ",
                             column: "ods",
                             table: "ods",
                             text: "item.edt + '. ' +item.nombre",
@@ -368,7 +349,6 @@
                             allowedit: false,
                             allowview: false,
                             allowlist: false,
-                            label: "Metas de los Objetivos de Desarrollo Sostenible",
                             permission: "mods",
                             column: "id",
                             table: "mods",

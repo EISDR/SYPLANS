@@ -18,7 +18,6 @@ DSON.keepmerge(CRUD_estrategia, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left",
                 format: function (row) {
@@ -26,33 +25,21 @@ DSON.keepmerge(CRUD_estrategia, {
                 }
             },
             eje_estrategico: {
-                label: function() {
-                    return "Eje Estratégico";
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: "No.",
                 class: "text-left",
             },
             objetivo_estrategico: {
-                label: function () {
-                    return "Objetivo Estratégico Institucional";
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategia: {
-                label: "Estrategia",
                 shorttext: 370
             },
             resultados_esperados: {
-                label: function () {
-                    return "Resultados Esperados";
-                },
                 shorttext: 370,
                 sortable: false,
             }

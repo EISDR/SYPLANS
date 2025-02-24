@@ -7,7 +7,6 @@
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Eje Estratégico Institucional",
                     condition: "item.pei == estrategia.pei.data[0].id"
                 }) %>
             </div>
@@ -17,7 +16,6 @@
                     permission: "objetivo_estrategico",
                     table: "drp_objetivo_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Objetivo Estratégico Institucional",
                     condition: "item.eje_estrategico == estrategia.eje_estrategico"
                 }) %>
             </div>
@@ -27,7 +25,6 @@
                     permission: "objetivo_estrategico",
                     table: "drp_objetivo_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Objetivo Estratégico Institucional",
                     condition: "item.eje_estrategico == estrategia.eje_estrategico"
                 }) %>
             </div>
@@ -37,7 +34,6 @@
                     allowedit: false,
                     allowview: false,
                     allowlist: false,
-                    truelabel: "Objetivos Específicos END",
                     permission: "objetivo_especifico",
                     column: "id",
                     table: "drp_edt_objetivo_especificio_est",
@@ -59,7 +55,6 @@
             <div class="col-sm-8 col-md-8 remove-input-space">
                 <%- FORM.input("nombre", scope, {
                     maxlength: 1000,
-                    trueplaceholder: "Nombre Estrategia"
                 }) %>
             </div>
         </div>
@@ -119,7 +114,6 @@
                                 value: "id",
                                 table: "vw_foda_items_fortaleza",
                                 icon: {class: "archive"},
-                                label: "Fortalezas",
                                 get: {
                                     table: 'vw_estrategia_foda_1',
                                     tableDelete: 'estrategia_foda',
@@ -149,7 +143,6 @@
                                 value: "id",
                                 table: "vw_foda_items_oportunidad",
                                 icon: {class: "archive"},
-                                label: "Oportunidades",
                                 get: {
                                     table: 'vw_estrategia_foda_3',
                                     tableDelete: 'estrategia_foda',
@@ -182,7 +175,6 @@
                                 value: "id",
                                 table: "vw_foda_items_debilidad",
                                 icon: {class: "archive"},
-                                label: "Debilidades",
                                 get: {
                                     table: 'vw_estrategia_foda_2',
                                     tableDelete: 'estrategia_foda',
@@ -213,7 +205,6 @@
                                 value: "id",
                                 table: "vw_foda_items_amenaza",
                                 icon: {class: "archive"},
-                                label: "Amenazas",
                                 get: {
                                     table: 'vw_estrategia_foda_4',
                                     tableDelete: 'estrategia_foda',
@@ -247,7 +238,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Político",
                                 get: {
                                     table: 'vw_estrategia_pesta_1',
                                     tableDelete: 'estrategia_pesta',
@@ -278,7 +268,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Económico",
                                 get: {
                                     table: 'vw_estrategia_pesta_2',
                                     tableDelete: 'estrategia_pesta',
@@ -311,7 +300,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Social",
                                 get: {
                                     table: 'vw_estrategia_pesta_3',
                                     tableDelete: 'estrategia_pesta',
@@ -342,7 +330,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Tecnológico",
                                 get: {
                                     table: 'vw_estrategia_pesta_4',
                                     tableDelete: 'estrategia_pesta',
@@ -375,7 +362,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Ambiental",
                                 get: {
                                     table: 'vw_estrategia_pesta_5',
                                     tableDelete: 'estrategia_pesta',
@@ -405,7 +391,6 @@
                                 value: "id",
                                 table: "vw_pesta_items",
                                 icon: {class: "archive"},
-                                label: "Legal",
                                 get: {
                                     table: 'vw_estrategia_pesta_6',
                                     tableDelete: 'estrategia_pesta',

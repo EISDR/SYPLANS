@@ -5,19 +5,14 @@ CRUD_resultado = DSON.merge(CRUD_resultado,
                 columns: [
                     {
                         key: 'resultado_esperado',
-                        label: 'Resultado',
                         type: FILTER.types.string,
-                        placeholder: 'Resultado'
                     },
                     {
                         key: 'descripcion',
-                        label: 'Resultado',
                         type: FILTER.types.string,
-                        placeholder: 'Resultado'
                     },
                     {
                         key: 'perspectiva',
-                        label: 'Perspectiva',
                         type: FILTER.types.relation,
                         table: 'perspectiva',
                         value: "id",

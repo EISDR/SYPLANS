@@ -20,9 +20,6 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 exportExample: false
             },
             eje_estrategico: {
-                label: () => {
-                    return "Eje Estratégico"
-                },
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
                     return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico', index, list)
@@ -30,7 +27,6 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 }
             },
             objetivo_estrategico: {
-                label: "Objetivo Estratégico",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
                     return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico', index, list)
@@ -38,7 +34,6 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 }
             },
             estrategia: {
-                label: "Estrategia",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
                     return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia', index, list)
@@ -46,7 +41,6 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 }
             },
             resultado: {
-                label: "Resultado Esperado",
                 shorttext: 370,
                 rowspan: function (index, list, category, fromreport) {
                     return (category === "span") ? resumen_pei_poa.sp_('d.eje_estrategico + d.objetivo_estrategico + d.estrategia + d.resultado', index, list)
@@ -54,7 +48,6 @@ DSON.keepmerge(CRUD_resumen_pei, {
                 }
             },
             indicador: {
-                label: "Indicador",
                 shorttext: 370
             },
             pei: {

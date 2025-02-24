@@ -16,79 +16,44 @@ DSON.keepmerge(CRUD_indicador_pei, {
                 dead: true
             },
             no_nombre_eje: {
-                label: function () {
-                    return "Eje Estratégico";
-                },
                 shorttext: 370
             },
             no_nombre_objetivo: {
-                label: function () {
-                    return "Objetivo Estratégico";
-                },
                 shorttext: 370
             },
             no_nombre_estrategia: {
-                label: function () {
-                    return "Estrategia";
-                },
                 shorttext: 370
             },
             no_nombre_resultado: {
-                label: function () {
-                    return "Resultado Esperado";
-                },
                 shorttext: 370
             },
             no_indicador: {
-                label: function () {
-                    return "No. Indicador"
-                }
             },
             nombre: {
-                label: function () {
-                    return "Indicador PEI";
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción Indicador PEI";
-                },
                 shorttext: 370
             },
             fuente: {
-                label: "Fuente",
                 shorttext: 370
             },
             desagregacion_demografica_geografia: {
-                label: function () {
-                    return "Desagregación Demográfica Geográfica";
-                },
                 shorttext: 370
             },
             caracteristica: {
-                label: function () {
-                    return "Caracteristicas del Indicador";
-                },
                 shorttext: 370
             },
             metodo: {
-                label: "Método Cálculo",
                 shorttext: 370
             },
             tipo_meta: {
-                label: "Tipo de dato de la Meta",
             },
             direccion_meta: {
-                label: "Dirección Meta"
             },
             ano_linea_base: {
-                label: "Año Línea Base"
             },
             linea: {
-                label: function () {
-                    return "Línea Base";
-                },
                 format: function (row) {
                     if (row.linea) {
                         switch (row.tipo_meta) {
@@ -109,19 +74,12 @@ DSON.keepmerge(CRUD_indicador_pei, {
                 },
             },
             medio: {
-                label: function () {
-                    return "Medio de Verificación";
-                },
                 shorttext: 370
             },
             unidad_ejecutora_nombre: {
-                label: function () {
-                    return "Unidad Ejecutora";
-                },
                 shorttext: 370
             },
             observacion: {
-                label: "Observación",
                 shorttext: 370
             },
         }, options: [

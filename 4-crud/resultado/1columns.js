@@ -17,7 +17,6 @@ DSON.keepmerge(CRUD_resultado, {
                 dead: true
             },
             no_resultado: {
-                label: "No.",
                 format: function (row) {
                     if (row.no_resultado) {
                         return row.no_resultado;
@@ -27,19 +26,15 @@ DSON.keepmerge(CRUD_resultado, {
                 }
             },
             resultado_esperado: {
-                label: "Nombre",
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             tipo_resultado_nombre: {
-                label: "Tipo de Resultado Esperado",
                 shorttext: 370,
             },
             perspectiva: {
-                label: "Perspectiva",
                 shorttext: 370,
             },
             created_at: {

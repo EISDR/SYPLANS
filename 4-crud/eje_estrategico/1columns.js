@@ -22,28 +22,20 @@ DSON.keepmerge(CRUD_eje_estrategico, {
             },
 
             no_orden: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left",
                 drag: true,
             },
             nombre_eje: {
-                label: function (row) {
-                    return MESSAGE.i('planificacion.titleEjeEstrategico');
-                },
                 shorttext: 370
             },
 
             descripcion: {
-                label: "Descripción",
                 shorttext: 370,
                 style: "max-width:400px;"
             },
 
             end_nombre_mul: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titleEjeEnd');
-                },
                 shorttext: 80000,
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
@@ -52,7 +44,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             relation_end: {
-                label: "Estrategia Nacional de Desarrollo",
                 visible: false,
                 visibleDetail: false,
                 export:  new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
@@ -61,9 +52,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 dead: true
             },
             pnpsp_nombre_mul: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titlePNPSP');
-                },
                 shorttext: 80000,
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
@@ -72,7 +60,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             relation_pnpsp: {
-                label: "Plan Nacional Plurianual del Sector Público",
                 visible: false,
                 visibleDetail: false,
                 export: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
@@ -81,9 +68,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 dead: true
             },
             ods_nombre_mul: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titleODS');
-                },
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 || new SESSION().current().maneja_ods == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -91,9 +75,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             relation_ods: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titleODS');
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -104,9 +85,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
             },
             programa_sectorial: {
                 sortable: false,
-                label: function() {
-                    return "Programas Sectoriales";
-                },
                 visible: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().intersectorial !== null ? true : false : false,
                 export: false,
@@ -115,9 +93,6 @@ DSON.keepmerge(CRUD_eje_estrategico, {
             },
             programas_sectoriales: {
                 sortable: false,
-                label: function() {
-                    return "Programas Sectoriales";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,

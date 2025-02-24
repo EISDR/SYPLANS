@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_objetivo_estrategico_especifico, {
                 exportExample: false
             },
             no_objetivo_especifico: {
-                label: function() {
-                    return "No. Objetivo Específico";
-                },
                 format: function (row) {
                     if (row.no_objetivo_especifico){
                         return row.no_objetivo_especifico;
@@ -66,15 +63,11 @@ DSON.keepmerge(CRUD_objetivo_estrategico_especifico, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre'
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción'
                 },
             ]
         },

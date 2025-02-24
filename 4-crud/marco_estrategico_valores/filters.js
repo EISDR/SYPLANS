@@ -5,24 +5,17 @@ CRUD_marco_estrategico_valores = DSON.merge(CRUD_marco_estrategico_valores,
                 columns: [
                     {
                         key: 'nombre',
-                        label: function () {
-                            return "Valor";
-                        },
                         type: FILTER.types.string,
-                        placeholder: "Valor",
                         maxlength: 255
                     }
                     ,
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción',
                         maxlength: 255
                     },
                     {
                         key: 'conductas',
-                        label: 'Conductas Asociadas',
                         type: FILTER.types.relation,
                         multi: {
                             to: 'marco_estrategico_valor',

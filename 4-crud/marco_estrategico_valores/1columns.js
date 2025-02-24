@@ -18,25 +18,17 @@ DSON.keepmerge(CRUD_marco_estrategico_valores, {
                 dead: true
             },
             nombre: {
-                label: function (row) {
-                    return MESSAGE.i('planificacion.titleMarcoEstrategicoValor');
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción"
-                },
                 shorttext: 370
             },
             me_virtudes: {
-                label: "Conductas Asociadas",
                 shorttext: 370,
                 export: false,
                 exportExample: false,
             },
             virtudes: {
-                label: "Conductas Asociadas",
                 visible: false,
                 visibleDetail: false,
                 export: true,

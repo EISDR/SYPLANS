@@ -9,7 +9,6 @@
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Eje Estratégico",
                     // childs: [
                     //     {
                     //         model: 'alineacionoe'
@@ -31,7 +30,6 @@
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Eje Estratégico"
                 })
                 %>
             </div>
@@ -50,8 +48,6 @@
                     value: "id",
                     table: "vw_alineacion_oe",
                     icon: {class: "archive"},
-                    truelabel: "Alineación OE-END",
-                    miplaceholder: "Seleccione los objetivos que desea alinear",
                     get: {
                         table: 'objetivo_estrategico_oe_end',
                         fieldFrom: 'id',
@@ -74,7 +70,6 @@
                     value: "id",
                     table: "vw_politica_gobierno",
                     icon: {class: "archive"},
-                    truelabel: "Politicas de Gobierno",
                     condition: "item.compania ==  objetivo_estrategico.session.compania_id",
                     get: {
                         table: 'objetivo_estrategico_politica_gobierno',
@@ -93,7 +88,7 @@
 
         <div class="row">
             <div class="col-sm-12 col-md-12 remove-input-space">
-                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción", maxlength: 1000}) %>
+                <%- FORM.textarea("descripcion", scope, {maxlength: 1000}) %>
             </div>
         </div>
         <br>

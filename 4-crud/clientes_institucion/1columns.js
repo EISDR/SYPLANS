@@ -20,26 +20,18 @@ DSON.keepmerge(CRUD_clientes_institucion, {
                 dead: true
             },
             nombre: {
-                label: function (row) {
-                    return MESSAGE.i('planificacion.titleClienteNombre');
-                },
                 shorttext: 370
             },
             descripcion: {
                 exportKey: 'compromiso_institucional',
-                label: function () {
-                    return "Descripción"
-                },
                 shorttext: 370
             },
             cliente_id: {
-                label: "Compromiso Institucional",
                 shorttext: 370,
                 export: false,
                 exportExample: false
             },
             compromiso: {
-                label: "Compromiso Institucional",
                 visible: false,
                 visibleDetail: false,
                 export: true,

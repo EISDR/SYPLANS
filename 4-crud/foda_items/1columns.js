@@ -27,9 +27,6 @@ DSON.keepmerge(CRUD_foda_items, {
             },
             descripcion: {
                 exportKey: 'description',
-                label: function () {
-                    return "Descripción"
-                },
                 // shorttext: 370,
                 drag: true
             },

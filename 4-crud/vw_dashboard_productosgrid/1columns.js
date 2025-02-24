@@ -43,21 +43,10 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid, {
                 dead: true
             },
             producto: {
-                label: function () {
-                    if (new SESSION().current().tipo_institucion == 1) {
-                        return "Proyecto/Producto"
-                    } else {
-                        return "Proyecto"
-                    }
-                },
             },
             indicador: {
-                label: "Indicador",
             },
             flecha: {
-                label: function () {
-                    return "Dirección Meta"
-                },
                 anonymous: true,
                 format: function (row) {
                     if (row.cumplidor)
@@ -71,9 +60,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid, {
                 }
             },
             acumulado: {
-                label: function () {
-                    return "Proyectado"
-                },
                 format: function (row) {
                     if (row.cumplidor)
                         if (row.cumplidor.general)
@@ -86,7 +72,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid, {
                 // formattype: ENUM.FORMAT.numeric
             },
             alcanzado: {
-                label: "Alcanzada",
                 sorttype: "numeric",
                 format: function (row) {
                     if (row.cumplidor)
@@ -113,9 +98,6 @@ DSON.keepmerge(CRUD_vw_dashboard_productosgrid, {
                 sortable: false
             },
             detalle: {
-                label: function () {
-                    return "Acciones"
-                },
                 format: function (row) {
                     return `<a class="ng-binding" title="Ver Detalle" data-action="Ver">
 			<i class="icon-eye "></i>

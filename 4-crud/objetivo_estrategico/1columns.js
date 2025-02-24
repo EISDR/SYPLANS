@@ -18,57 +18,28 @@ DSON.keepmerge(CRUD_objetivo_estrategico, {
                 dead: true
             },
             no_orden: {
-                label: function () {
-                    return "No.Eje"
-                },
                 class: "text-left",
             },
             eje_estrategico: {
-                label: function () {
-                    return "Eje Estratégico";
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.Objetivo"
-                },
                 class: "text-left",
             },
             nombre: {
-                label: function () {
-                    if (new SESSION().current().tipo_institucion == 2) {
-                        return "Objetivo Estratégico"
-                    } else {
-                        return MESSAGE.i('planificacion.titleObjetivoEstrategico');
-                    }
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción"
-                },
                 shorttext: 370
             },
             objetivo_especifico: {
                 sortable: false,
-                label: function () {
-                    if (new SESSION().current().tipo_institucion == 2) {
-                        return "Objetivos Específicos"
-                    } else {
-                        return "Objetivos Específicos Institucionales";
-                    }
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370
             },
             objetivos_especificos: {
                 sortable: false,
-                label: function () {
-                    return "Objetivos Específicos Institucionales";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -79,18 +50,12 @@ DSON.keepmerge(CRUD_objetivo_estrategico, {
             },
             objetivo_end: {
                 sortable: false,
-                label: function () {
-                    return "Objetivos Generales END";
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370
             },
             objetivos_end: {
                 sortable: false,
-                label: function () {
-                    return "Objetivos Generales END";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -101,18 +66,12 @@ DSON.keepmerge(CRUD_objetivo_estrategico, {
             },
             politica_gobierno: {
                 sortable: false,
-                label: function () {
-                    return "Políticas de Gobierno";
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370
             },
             politicas_gobierno: {
                 sortable: false,
-                label: function () {
-                    return "Políticas de Gobierno";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,

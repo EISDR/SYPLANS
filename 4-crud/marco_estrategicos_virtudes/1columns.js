@@ -16,13 +16,9 @@ DSON.keepmerge(CRUD_marco_estrategicos_virtudes, {
                 dead: true
             },
             nombre: {
-                label: function (row) {
-                    return MESSAGE.i('planificacion.titleMarcoEstrategicoVirtude');
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
         },

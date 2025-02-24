@@ -22,7 +22,6 @@
                     },
                     multiple:true,
                     icon: {class: "archive"},
-                    label: "Objetivos de Desarrollo Sostenible",
                     get: {
                         table: 'eje_estrategico_ods',
                         tableDelete: 'eje_estrategico_ods',
@@ -43,7 +42,6 @@
                         query: {
                             orderby: "edt"
                         },
-                        label: "Estrategia Nacional de Desarrollo",
                         condition: "item.compania == eje_estrategico.compania_id",
                         get: {
                             table: 'eje_estrategico_end',
@@ -61,7 +59,6 @@
                         table: "pnpsp",
                         multiple:true,
                         icon: {class: "archive"},
-                        label: "Plan Nacional Plurianual del Sector Público",
                         condition: "item.compania == eje_estrategico.compania_id",
                         get: {
                             table: 'eje_estrategico_pnpsp',
@@ -83,7 +80,6 @@
                         },
                         multiple:true,
                         icon: {class: "archive"},
-                        label: "Objetivos de Desarrollo Sostenible",
                         get: {
                             table: 'eje_estrategico_ods',
                             tableDelete: 'eje_estrategico_ods',
@@ -102,7 +98,6 @@
                         text: "item.sec_nombre",
                         table: "vw_sec_programa_sectorial",
                         icon: {class: "archive"},
-                        label: "Programas Sectoriales",
                         condition: "(item.sector_id == eje_estrategico.session.sector_id)",
                         controller: "sec_programa_sectorial",
                         get: {
@@ -120,7 +115,7 @@
 
         <div class="row">
             <div class="col-sm-12 col-md-12 remove-input-space">
-                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción",maxlength: 1000}) %>
+                <%- FORM.textarea("descripcion", scope, {maxlength: 1000}) %>
             </div>
         </div>
     </div>

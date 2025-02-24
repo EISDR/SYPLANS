@@ -18,7 +18,6 @@
                     text: "item.name",
                     table: "ws_connection",
                     icon: {class: "archive"},
-                    truelabel: "Base de Datos Externa"
                 }) %>
             </div>
             <div class="col-sm-6 col-md-6 ">
@@ -31,7 +30,6 @@
                     text: "item.name",
                     table: "ws_connection_field",
                     icon: {class: "archive"},
-                    truelabel: "Fuente Externa",
                     condition: "item.ws_connection == indicador_pei.ws_connection"
                 }) %>
             </div>
@@ -44,7 +42,6 @@
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.input("nombre", scope, {
                     maxlength: 1000,
-                    trueplaceholder: "Indicador PEI",
                     popover: {
                         title: "Nombre del Indicador",
                         content: "Captura el Nombre del Indicador"
@@ -54,7 +51,6 @@
             <div class="col-sm-6 col-md-6">
                 <%- FORM.textarea("descripcion", scope, {
                     maxlength: 4000,
-                    trueplaceholder: "Descripción Indicador PEI"
                 }) %>
             </div>
         </div>
@@ -69,7 +65,6 @@
                     permission: "eje_estrategico",
                     table: "drp_eje_estrategico",
                     icon: {class: "archive"},
-                    truelabel: "Eje Estratégico",
                     popover: {
                         title: "Eje Estratégico",
                         content: "Captura los Ejes Estratégicos"
@@ -87,7 +82,6 @@
                     permission: "objetivo_estrategico",
                     table: "drp_objetivo_estrategico",
                     icon: {class: "archive"},
-                    label: "Objetivo Estratégico",
                     popover: {
                         title: "Objetivo Estratégico",
                         content: "Captura los Objetivos Estratégicos"
@@ -105,7 +99,6 @@
                     permission: "estrategia",
                     table: "drp_estrategia",
                     icon: {class: "archive"},
-                    label: "Estrategia",
                     condition: "item.objetivo_estrategico == indicador_pei.objetivo_estrategico",
                     popover: {
                         title: "Estrategia",
@@ -123,7 +116,6 @@
                     permission: "resultado",
                     table: "drp_resultado",
                     icon: {class: "archive"},
-                    label: "Resultado Esperado",
                     condition: "item.estrategia == indicador_pei.estrategia",
                     popover: {
                         title: "Resultados Esperados",
@@ -147,7 +139,6 @@
             <div class="col-sm-2 col-md-2">
                 <%- FORM.textarea("metodo_calculo", scope, {
                     maxlength: 255,
-                    placeholder: "Método Cálculo",
                     popover: {
                         title: "Método Cálculo",
                         content: "Captura el Método de Cálculo"
@@ -156,7 +147,6 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
-                    trueplaceholder: "Desagregación Demográfica Geográfica",
                     maxlength: 4000
                 }) %>
             </div>
@@ -170,7 +160,6 @@
                     table: "caracteristica_indicador",
                     multiple: true,
                     icon: {class: "archive"},
-                    label: "Caracteristica",
                     condition: "item.compania == indicador_pei.session.compania_id && item.active == 1",
                     get: {
                         table: 'caracteristica_indicador_pei',
@@ -186,8 +175,6 @@
             <div class="col-sm-8 col-md-8">
                 <%- FORM.textarea("observacion", scope, {
                     maxlength: 1000,
-                    label: "Observación",
-                    label_custom: true
                 }) %>
             </div>
             <div class="col-sm-4 col-md-4" ng-if="!indicador_pei.session.institucion_id">
@@ -199,7 +186,6 @@
                     text: "item.nombre",
                     table: "departamento",
                     icon: {class: "archive"},
-                    label: "Unidad Ejecutora",
                     condition: "item.compania == indicador_pei.session.compania_id && item.institucion == null"
                 }) %>
             </div>
@@ -213,7 +199,6 @@
                     text: "item.nombre",
                     table: "departamento",
                     icon: {class: "archive"},
-                    label: "Unidad Ejecutora",
                     condition: "item.institucion == indicador_pei.session.institucion_id"
                 }) %>
             </div>
@@ -230,7 +215,6 @@
                         text: "item.nombre",
                         table: "tipoMeta",
                         icon: {class: "archive"},
-                        label: "Tipo Meta",
                         popover: {
                             title: "Tipo Meta",
                             content: "Captura los tipos de metas"
@@ -248,7 +232,6 @@
                     text: "item.nombre",
                     table: "direccionMeta",
                     icon: {class: "archive"},
-                    label: "Dirección Meta",
                     popover: {
                         title: "Dirección Meta",
                         content: "Captura la Dirección de la Meta"
@@ -257,7 +240,6 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <%- FORM.integer("ano_linea_base", scope, {
-                    placeholder: "Año Línea Base",
                     maxlength: 4
                 }) %>
             </div>
@@ -267,7 +249,6 @@
             <div class="col-sm-4 col-md-4 remove-input-space">
                 <%- FORM.textarea("medio_verificacion", scope, {
                     maxlength: 1000,
-                    placeholder: "Medio Verificación",
                     popover: {
                         title: "Medio Verificación",
                         content: "Captura el Medio de Verificación"

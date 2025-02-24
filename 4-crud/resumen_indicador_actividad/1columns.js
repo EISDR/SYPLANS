@@ -47,44 +47,23 @@ DSON.keepmerge(CRUD_resumen_indicador_actividad, {
                 exportExample: false
             },
             indicadores: {
-                label: () => {
-                    return "Indicadores"
-                },
                 shorttext: 370
             },
             producto: {
-                label: () => {
-                    return "Resultado Esperado"
-                },
                 shorttext: 370
             },
             actividad: {
-                label: () => {
-                    return "Resultado Esperado"
-                },
                 shorttext: 370
             },
             fuente: {
-                label: () => {
-                    return "Fuente"
-                },
                 shorttext: 370
             },
             metodo_calculo: {
-                label: () => {
-                    return "Método Calculo"
-                },
                 shorttext: 370
             },
             tipo_meta_nombre: {
-                label: function () {
-                    return "Unidad / Escala de Medición"
-                },
             },
             direccion_meta_nombre: {
-                label: function () {
-                    return "Dirección Meta"
-                },
                 sortable: false,
                 visible: false,
                 visibleDetail: false,
@@ -94,20 +73,11 @@ DSON.keepmerge(CRUD_resumen_indicador_actividad, {
                 dead: true
             },
             linea_base: {
-                label: () => {
-                    return "Línea Base"
-                },
             },
             medio_verificacion: {
-                label: () => {
-                    return "Medio Verificación"
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: () => {
-                    return "Descripción"
-                },
                 shorttext: 370
             },
             no_orden: {

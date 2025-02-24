@@ -5,18 +5,12 @@ CRUD_clientes_institucion = DSON.merge(CRUD_clientes_institucion,
                 columns: [
                     {
                         key: 'nombre',
-                        label: function () {
-                            return MESSAGE.i('planificacion.titleClienteNombre');
-                        },
                         type: FILTER.types.string,
-                        placeholder: MESSAGE.i('planificacion.titleClienteNombre'),
                         maxlength: 64
                     },
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción',
                         maxlength: 800
                     },
                     // {
@@ -28,7 +22,6 @@ CRUD_clientes_institucion = DSON.merge(CRUD_clientes_institucion,
                     // },
                     {
                         key: 'compromiso_id',
-                        label: 'Compromiso Institucional',
                         type: FILTER.types.relation,
                         multi: {
                             to: 'cliente',

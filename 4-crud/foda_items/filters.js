@@ -5,9 +5,7 @@ CRUD_foda_items = DSON.merge(CRUD_foda_items,
                 columns: [
                     {
                         key: 'descripción',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción',
                         maxlength: 1000
                     }
                 ]

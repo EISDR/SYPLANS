@@ -7,7 +7,6 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                 columns: [
                     {
                         key: 'id_eje_estrategico',
-                        label: 'Eje Estratégico',
                         type: FILTER.types.relation,
                         table: 'eje_estrategico',
                         value: "id",
@@ -26,7 +25,6 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'id_objetivo_estrategico',
-                        label: 'Objetivo Estratégico',
                         type: FILTER.types.relation,
                         table: 'vw_objetivo_estrategico',
                         value: "id",
@@ -45,7 +43,6 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'id_estrategia',
-                        label: 'Estrategia',
                         type: FILTER.types.relation,
                         table: 'vw_estrategia',
                         value: "id",
@@ -64,7 +61,6 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'id_resultado',
-                        label: 'Resultado esperado',
                         type: FILTER.types.relation,
                         table: 'vw_resultado',
                         value: "id",
@@ -83,39 +79,26 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'nombre',
-                        label: function () {
-                            return MESSAGE.i('planificacion.titleTablaIndicadorPEI');
-                        },
                         type: FILTER.types.string,
-                        placeholder: 'Estrategia'
                     },
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción'
                     },
                     {
                         key: 'fuente',
-                        label: 'Fuente',
                         type: FILTER.types.string,
-                        placeholder: 'Fuente'
                     },
                     {
                         key: 'desagregacion_demografica_geografia',
-                        label: 'Desagregación Demográfica Geográfica',
                         type: FILTER.types.string,
-                        placeholder: 'Desagregación Demográfica Geográfica'
                     },
                     {
                         key: 'metodo',
-                        label: 'Método Cálculo',
                         type: FILTER.types.string,
-                        placeholder: 'Método Cálculo'
                     },
                     {
                         key: 'tipo_meta',
-                        label: 'Tipo de meta',
                         type: FILTER.types.relation,
                         table: 'tipoMeta',
                         value: "id",
@@ -131,7 +114,6 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'direccion_meta',
-                        label: 'Dirección de la meta',
                         type: FILTER.types.relation,
                         table: 'direccionMeta',
                         value: "id",
@@ -147,20 +129,14 @@ CRUD_indicador_pei = DSON.merge(CRUD_indicador_pei,
                     },
                     {
                         key: 'linea',
-                        label: 'Línea Base',
                         type: FILTER.types.integer,
-                        placeholder: 'Línea Base'
                     },
                     {
                         key: 'medio',
-                        label: 'Medio Verificación',
                         type: FILTER.types.string,
-                        placeholder: 'Medio Verificación'
                     },
                     {
                         key: 'unidad_ejecutora',
-                        label: 'Unidad Ejecutora',
-                        placeholder: 'Unidad Ejecutora',
                         type: FILTER.types.relation,
                         value: "id",
                         table: 'departamento',

@@ -20,15 +20,12 @@ DSON.keepmerge(CRUD_resumen_actividad, {
                 exportExample: false
             },
             producto: {
-                label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                 shorttext: 370
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370
             },
             actividades_apoyo: {
-                label: "Actividad Apoyo",
                 shorttext: 370
             },
             no_producto: {
