@@ -15,7 +15,6 @@
             <div class="col-sm-12 col-md-4" ng-if="!institucion">
                 <%- FORM.select("viceministerio", scope, {
                     allowview: false,
-                    truelabel: "Viceministerio",
                     table: "viceministerios",
                     text: "item.nombre",
                     icon: {class: "archive"},
@@ -25,7 +24,6 @@
             <div class="col-sm-12 col-md-4" ng-if="!institucion">
                 <%- FORM.select("direccion_general", scope, {
                     allowview: false,
-                    truelabel: "Dirección General",
                     table: "direcciones_generales",
                     text: "item.nombre",
                     icon: {class: "archive"},
@@ -35,7 +33,6 @@
             <div class="col-sm-12 col-md-4" ng-if="!institucion">
                 <%- FORM.select("direccion_area", scope, {
                     allowview: false,
-                    truelabel: "Dirección de Área",
                     table: "direcciones_area",
                     text: "item.nombre",
                     icon: {class: "archive"},
@@ -48,7 +45,6 @@
                 <%- FORM.select("cargo", scope, {
                     allowview: false,
                     permission: "cargo",
-                    truelabel: "Cargo",
                     column: "cargo",
                     table: "cargo",
                     text: "item.nombre",
@@ -60,7 +56,6 @@
                 <%- FORM.select("cargo", scope, {
                     allowview: false,
                     permission: "cargo",
-                    truelabel: "Cargo",
                     column: "cargo",
                     table: "cargo",
                     text: "item.nombre",
@@ -73,7 +68,6 @@
                     <%- FORM.select("departamento", scope, {
                         allowview: false,
                         permission: "departamento",
-                        truelabel: "Departamento",
                         column: "departamento",
                         table: "departamento",
                         text: "item.nombre",
@@ -85,7 +79,6 @@
                     <%- FORM.select("departamento", scope, {
                         allowview: false,
                         permission: "departamento",
-                        truelabel: "Departamento",
                         column: "departamento",
                         table: "departamento",
                         text: "item.nombre",
@@ -102,7 +95,6 @@
                         allowedit: false,
                         allowlist: false,
                         permission: "departamento",
-                        truelabel: "Departamentos Relacionados",
                         column: "departamento",
                         table: "departamento",
                         text: "item.nombre",
@@ -124,7 +116,6 @@
                         allowedit: false,
                         allowlist: false,
                         permission: "departamento",
-                        truelabel: "Departamentos Relacionados",
                         column: "departamento",
                         table: "departamento",
                         text: "item.nombre",
@@ -155,7 +146,6 @@
                     table: "group",
                     label: 'Grupo',
                     traduce: false,
-                    placeholder: "Seleccione un Grupo",
                     icon: {class: "users4"}
                 }) %>
             </div>
@@ -169,7 +159,6 @@
                     column: "nombre",
                     text: "item.nombre",
                     table: "tipo_auditores",
-                    label: 'Tipo de Auditor',
                     traduce: false,
                     placeholder: "Seleccione un Tipo de Auditor",
                     condition: "(item.compania == compania.id && item.institucion==null)",
@@ -186,7 +175,6 @@
                     column: "nombre",
                     table: "tipo_auditores",
                     text: "item.nombre",
-                    label: 'Tipo de Auditor',
                     traduce: false,
                     placeholder: "Seleccione un Tipo de Auditor",
                     condition: "(item.institucion == institucion.id)",
@@ -194,12 +182,10 @@
                 }) %>
             </div>
             <div class="col-sm-12 col-md-4 set-password-btn">
-                <%- FORM.password("password", scope, {placeholder: "Contraseña", maxlength: 64}) %>
+                <%- FORM.password("password", scope, {maxlength: 64}) %>
             </div>
             <div class="col-sm-12 col-md-4 set-password-btn">
                 <%- FORM.password("repeatPassword", scope, {
-                    label: "Repetir contraseña",
-                    placeholder: "Repetir contraseña",
                     maxlength: 64
                 }) %>
             </div>
@@ -211,8 +197,6 @@
                     show: 'image',
                     image: 130,
                     imagefloat: 'right',
-                    title: 'Subir imagen de perfil',
-                    truetext: 'Imagen de perfil',
                     maxfiles: 1,
                     columns: 1,
                     // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
@@ -221,15 +205,15 @@
             </div>
             <div style="text-align: center;" class="col-sm-2 col-md-2"
                  ng-if="((usuario.profile==1||usuario.profile==4) && usuario.session.interinstitucional ) || (compania?compania.session.super:institucion.session.super)">
-                <%- FORM.checkbox("interinstitucional", scope, {truetext: 'Interinstitucional'}) %>
+                <%- FORM.checkbox("interinstitucional", scope, {}) %>
             </div>
             <div style="text-align: center;" class="col-sm-2 col-md-2"
                  ng-if="!(((usuario.profile==1||usuario.profile==4) && usuario.session.interinstitucional ) || (compania?compania.session.super:institucion.session.super))">
-                <%- FORM.checkbox("interinstitucional", scope, {truetext: 'Interinstitucional', disabled: true}) %>
+                <%- FORM.checkbox("interinstitucional", scope, { disabled: true}) %>
             </div>
             <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic"
                  ng-show="usuario.form.mode == 'edit'">
-                <%- FORM.checkbox("usuario_activo", scope, {truetext: '¿Usuario activo?', disabled: true}) %>
+                <%- FORM.checkbox("usuario_activo", scope, {disabled: true}) %>
             </div>
         </div>
     </div>

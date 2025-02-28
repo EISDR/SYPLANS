@@ -48,19 +48,10 @@ DSON.keepmerge(CRUD_lote_clonacion, {
                 exportExample: false
             },
             departamento_nombre: {
-                label: function (){
-                    return "Departamento";
-                }
             },
             autor_nombre: {
-                label: function (){
-                    return "Autor";
-                }
             },
             estatus: {
-                label: function (){
-                    return "Estatus";
-                },
                 format: function (row){
                     if (row.estatus == 1)
                         return "Pendiente a ejecutarse"
@@ -69,14 +60,8 @@ DSON.keepmerge(CRUD_lote_clonacion, {
                 }
             },
             poa_desde_nombre: {
-                label: function (){
-                    return "POA a copiar";
-                }
             },
             poa_destino_nombre: {
-                label: function (){
-                    return "POA destino";
-                }
             }
         },
         filters: {

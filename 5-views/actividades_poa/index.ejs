@@ -16,7 +16,6 @@
                         allowview: false,
                         refresh: false,
                         multiple: false,
-                        label: "Departamento",
                         text: "item.departamento",
                         table: "vw_presupuesto_departamento",
                         field: "id",
@@ -31,7 +30,7 @@
                     <hr style="margin-top: 8px;margin-bottom: 5px;"/>
 
                     <div class="col-sm-12 col-md-3">
-                        <%- FORM.money("valor", scope, {trueplaceholder: "Asignado al Dpto.", disabled: true})
+                        <%- FORM.money("valor", scope, { disabled: true})
                         // FORM.inputview("valor",scope, {
                         //     placeholder: 'Presupuesto',
                         //     icon: {class: "cash3"},
@@ -42,7 +41,6 @@
                     <div class="col-sm-12 col-md-3">
                         <%-
                         FORM.money("presupuesto_actividades", scope, {
-                            trueplaceholder: "Asignado a las actividades",
                             disabled: true
                         })
                         // FORM.inputview("presupuesto_actividades",scope, {
@@ -54,7 +52,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <%-
-                        FORM.money("presupuesto_restantePre", scope, {trueplaceholder: "Disponible", disabled: true})
+                        FORM.money("presupuesto_restantePre", scope, {disabled: true})
                         // FORM.inputview("presupuesto_restantePre", scope, {
                         //     placeholder: "Presupuesto Disponible",
                         //     icon: {class: "cash3"},
@@ -64,7 +62,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <%-
-                        FORM.money("presupuesto_liberado", scope, {trueplaceholder: "A Liberar", disabled: true})
+                        FORM.money("presupuesto_liberado", scope, {disabled: true})
                         // FORM.inputview("presupuesto_liberado", scope, {
                         //     placeholder: "Presupuesto Liberado",
                         //     icon: {class: "cash3"},

@@ -15,7 +15,6 @@
                         allowview: false,
                         refresh: false,
                         multiple: false,
-                        label: "Departamento",
                         text: "item.departamento",
                         table: "vw_presupuesto_departamento",
                         field: "id",
@@ -32,7 +31,6 @@
                     <div class="col-sm-12 col-md-3">
                         <%-
                         FORM.inputview("valor", scope, {
-                            trueplaceholder: 'Asignado al Dpto.',
                             icon: {class: "cash3"},
                             format: {mask: "000,000,000.00", options: {reverse: true}}
                         })
@@ -41,7 +39,6 @@
                     <div class="col-sm-12 col-md-3">
                         <%-
                         FORM.inputview("presupuesto_actividades", scope, {
-                            trueplaceholder: 'Asignado a las actividades',
                             icon: {class: "cash3"},
                             format: {mask: "000,000,000.00", options: {reverse: true}}
                         })
@@ -50,7 +47,6 @@
                     <div class="col-sm-12 col-md-3">
                         <%-
                         FORM.inputview("presupuesto_restantePre", scope, {
-                            trueplaceholder: "Disponible",
                             icon: {class: "cash3"},
                             format: {mask: "000,000,000.00", options: {reverse: true}}
                         })
@@ -59,7 +55,6 @@
                     <div class="col-sm-12 col-md-3">
                         <%-
                         FORM.inputview("presupuesto_liberado", scope, {
-                            trueplaceholder: "A Liberar",
                             icon: {class: "cash3"},
                             format: {mask: "000,000,000.00", options: {reverse: true}}
                         })

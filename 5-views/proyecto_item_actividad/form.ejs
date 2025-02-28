@@ -5,7 +5,6 @@
                 <%- FORM.select('proyecto_item', scope, {
                     column: 'name',
                     table: 'vw_proyecto_item',
-                    truelabel: "Proyecto",
                     condition: "item.pei== vw_dashboard_proyecto.session.pei_id",
                     text: 'item.nombre',
                     allownew: false,
@@ -149,7 +148,6 @@
                 <%- FORM.select('departamento', scope, {
                     column: 'name',
                     table: 'departamento',
-                    truelabel: "Departamento",
                     condition: "item.compania==" + scope + ".session.compania_id && (" + scope + ".session.institucion_id?(" + scope + ".session.institucion_id==item.institucion):(item.institucion==$null))",
                     text: 'item.nombre',
                     allownew: false,
@@ -256,10 +254,10 @@
         </div>
         <div class="row">
             <div class="col-sm-3 col-md-3">
-                <%- FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado a la Actividad", maxlength: 15}) %>
+                <%- FORM.money("presupuesto", scope, {maxlength: 15}) %>
             </div>
             <div class="col-sm-3 col-md-3">
-                <%- FORM.inputview("presupuesto_disponible", scope, {trueplaceholder: "Presupuesto restante del Proyecto", maxlength: 15, disabled: true, icon: { class: "cash", style: "margin-top: -3px" } }) %>
+                <%- FORM.inputview("presupuesto_disponible", scope, { maxlength: 15, disabled: true, icon: { class: "cash", style: "margin-top: -3px" } }) %>
             </div>
             <div class="col-sm-4 col-md-6" ng-if="(proyecto_item.session.tipo_institucion == 1 || proyecto_item_actividad.session.maneja_ods)">
                 <%- FORM.select("mods", scope, {
@@ -271,7 +269,6 @@
                     text: "item.nombre",
                     table: "vw_mods",
                     icon: {class: "archive"},
-                    truelabel: "Metas de Objetivos de Desarrollo Sostenibles",
                     get: {
                         table: 'proyecto_actividad_mods',
                         tableDelete: 'proyecto_actividad_mods',

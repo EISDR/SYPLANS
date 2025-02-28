@@ -9,7 +9,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
         sort: "departamento_nombre",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -27,60 +26,43 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
             },
             departamento_nombre: {},
             no1: {
-                label: "No.",
                 shorttext: 30,
             },
             producto_nombre: {
-                label: function() {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto"
-                },
                 shorttext: 370
             },
             no2: {
-                label: "No.",
                 shorttext: 30,
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370,
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
                 shorttext: 370,
             },
             presupuesto_consumido: {
-                label: function() {
-                    return "Presupuesto Consumido"
-                },
                 formattype: "money",
                 exportExample: "[money]",
                 shorttext: 370,
             },
             avance_porcentaje: {
-                label: "Porcentaje de Avance",
                 sorttype: "percentage",
                 formattype: "percentage",
             },
             tipo_inversion: {
-                label: function(){
-                    return "Tipo de Inversión"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -88,9 +70,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             biene_permiso: {
-                label: function() {
-                    return "Código de Bienes y Servicios"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -98,9 +77,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             biene_permiso_nombre: {
-                label: function() {
-                    return "Descripcion de Bienes y Servicios"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -108,9 +84,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario: {
-                label: function() {
-                    return "Código del Clasificador Presupuestario"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -118,9 +91,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario_nombre: {
-                label: function() {
-                    return "Descripción del Clasificador Presupuestario"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -128,7 +98,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             comentario: {
-                label: "Comentario",
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -137,20 +106,13 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: true
             },
             razon_nombre: {
-                label: function(){
-                    return "Evaluación de cierre"
-                },
                 shorttext: 370,
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370
             },
             condition: {
                 export: true,
-                label: function(){
-                    return "Condición de la actividad"
-                },
                 format: function (row) {
                     //
                     var nom = row.condition;
@@ -169,9 +131,6 @@ DSON.keepmerge(CRUD_actividades_poa_monitoreo, {
                 dead: true
             },
             archivo: {
-                label: function () {
-                    return "Documento Adjunto"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){

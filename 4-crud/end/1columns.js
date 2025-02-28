@@ -19,34 +19,21 @@ DSON.keepmerge(CRUD_end, {
                 dead: true
             },
             edt: {
-                label: function () {
-                    return "No. Secuencia"
-                },
                 sorttype: "numeric",
             },
             nombre: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titleEjeEnd');
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción";
-                },
                 shorttext: 370
             },
             objetivo: {
-                label: function () {
-                    return "Objetivos Generales";
-                },
                 shorttext: 8000,
                 export: false,
                 exportExample: false,
                 sortable: false,
             },
             objetivos_end: {
-                label: "Objetivos",
                 shorttext: 8000,
                 visible: false,
                 visibleDetail: false,

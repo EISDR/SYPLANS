@@ -21,7 +21,6 @@
                                         allowedit: false,
                                         allowview: false,
                                         allowlist: false,
-                                        label: "Departamento",
                                         text: "item.nombre +' - '+ item.estatus_nombre",
                                         // text: "item.nombre + ' ' + item.apellido",
                                         table: "vw_presupuesto_departamento_auth",
@@ -70,7 +69,6 @@
                                             allowedit: false,
                                             allowview: false,
                                             allowlist: false,
-                                            label: "Estatus",
                                             text: "item.nombre",
                                             table: "presupuesto_aprobado_estatus",
                                             icon: {class:"archive"},
@@ -120,7 +118,6 @@
                                         <div class="col-sm-12 col-md-12" ng-show="departamento_poa.pei_activo()">
                                             <%-
                                             FORM.textarea("comentario", scope, {
-                                                placeholder: "Comentario",
                                                 maxlength: 4000
                                             })
                                             %>
@@ -215,7 +212,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12" ng-show="departamento_poa.viewBotonAddCommentLiberar">
-                                        <%- FORM.textarea("comentarioDepartamental", scope, {maxlength: 4000, placeholder: "Introduzca comentario"}) %>
+                                        <%- FORM.textarea("comentarioDepartamental", scope, {maxlength: 4000}) %>
                                     </div>
                                 </div>
                             </div>

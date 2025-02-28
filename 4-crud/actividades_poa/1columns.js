@@ -12,7 +12,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
         sort: "departamento_nombre",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 export: false,
@@ -31,61 +30,37 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             departamento_nombre: {},
             no1: {
-                label: "No.",
             },
             producto_nombre: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto"
-                },
                 shorttext: 370
             },
             no2: {
-                label: "No.",
             },
             actividad: {
-                label: function (row) {
-                    return "Actividad"
-                },
                 shorttext: 370
             },
             responsable: {
-                label: function (row) {
-                    return "Responsable"
-                },
                 shorttext: 370
             },
             fecha_inicio: {
-                label: function () {
-                    return "Fecha Inicio";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: function () {
-                    return "Fecha Fin";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
                 shorttext: 370,
             },
             presupuesto_consumido: {
-                label: function () {
-                    return "Presupuesto Consumido"
-                },
                 formattype: "money",
                 exportExample: "[money]",
                 shorttext: 370,
             },
             tipo_inversion: {
-                label: function () {
-                    return "Tipo de Inversión"
-                },
                 visible: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? true : false : false,
                 export: false,
@@ -93,9 +68,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             bienes_permiso: {
-                label: function () {
-                    return "Código de Bienes y Servicios"
-                },
                 format: function (row) {
                     if (row.bienes_permiso == '[NULL]') {
                         return "";
@@ -111,9 +83,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             bienes_permiso_nombre: {
-                label: function () {
-                    return "Descripcion de Bienes y Servicios"
-                },
                 format: function (row) {
                     if (row.bienes_permiso_nombre == '[NULL]') {
                         return "";
@@ -128,9 +97,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario: {
-                label: function () {
-                    return "Código del Clasificador Presupuestario"
-                },
                 format: function (row) {
                     if (row.presupuestario == '[NULL]') {
                         return "";
@@ -145,9 +111,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             presupuestario_nombre: {
-                label: function () {
-                    return "Descripción del Clasificador Presupuestario"
-                },
                 format: function (row) {
                     if (row.presupuestario_nombre == '[NULL]') {
                         return "";
@@ -162,12 +125,10 @@ DSON.keepmerge(CRUD_actividades_poa, {
                 dead: new SESSION().current() ? CONFIGCOMPANY.pacc == 1 ? false : true : false
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370
             },
             condition: {
                 export: true,
-                label: "Condición",
                 format: function (row) {
                     var nom = row.condition;
                     $(`.Vencida`).css('background', '#FF0000');
@@ -179,9 +140,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             maneja_presupuesto: {
                 visible: false,
-                label: function () {
-                    return "¿Maneja el presupuesto en las actividades apoyo?"
-                },
                 export: false,
                 exportExample: false,
                 dead: true,
@@ -198,9 +156,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             involucrados: {
                 sortable: false,
-                label: function () {
-                    return "Involucrados"
-                },
                 visible: false,
                 visibleDetail: false,
                 export: false,
@@ -208,9 +163,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             involucrados_export: {
                 sortable: false,
-                label: function () {
-                    return "Involucrados"
-                },
                 visible: false,
                 visibleDetail: false,
                 parent: "involucrados",
@@ -221,9 +173,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             actividades_apoyo: {
                 sortable: false,
-                label: function () {
-                    return "Actividades de apoyo"
-                },
                 visible: false,
                 visibleDetail: false,
                 export: false,
@@ -231,9 +180,6 @@ DSON.keepmerge(CRUD_actividades_poa, {
             },
             actividades_apoyo_export: {
                 sortable: false,
-                label: function () {
-                    return "Actividades de apoyo"
-                },
                 visible: false,
                 visibleDetail: false,
                 parent: "actividades_apoyo",

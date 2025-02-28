@@ -42,13 +42,11 @@
         <div class="row">
             <div class='col-sm-6 col-md-6'>
                 <%- FORM.input('codigo_clasificador_obj1', scope, {
-                    trueplaceholder: "Código Clasificador por Objeto del Gasto I",
                     maxlength: 15
                 }) %>
             </div>
             <div class='col-sm-6 col-md-6'>
                 <%- FORM.input('codigo_clasificador_obj2', scope, {
-                    trueplaceholder: "Código Clasificador por Objeto del Gasto II",
                     maxlength: 15
                 }) %>
             </div>
@@ -64,7 +62,6 @@
                     value: "id",
                     table: "vw_bienes_servicio_objeto_gasto", //tabla de donde viene la data
                     icon: {class: "archive"},
-                    truelabel: "Códigos Auxiliares Clasificadores por Objetos del Gasto",
                     get: {
                         table: 'catalogo_bienes_servicios_auxiliar', //tabla pivot donde se guardan los datos
                         fieldFrom: 'id', //Campo del formulario que sue guardara en fieldTo

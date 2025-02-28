@@ -7,7 +7,6 @@
                     allowview: false,
                     multiple: false,
                     disabled: false,
-                    truelabel: "Departamento",
                     text: "item.nombre",
                     table: "vw_departamento_not_exists_presupuesto",
                     field: "id",
@@ -25,7 +24,6 @@
                         allowview: false,
                         multiple: false,
                         disabled: false,
-                        label: "Departamento",
                         text: "item.nombre",
                         table: "vw_departamento_not_exists_presupuesto",
                         field: "id",
@@ -40,43 +38,41 @@
             <div class="col-sm-4 col-md-4">
                 <%-
                 FORM.money("valor",scope, {
-                    placeholder: "Presupuesto del Departamento",
                     maxlength: 16
                 })
                 %>
             </div>
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'new'">
                 <%-
-                FORM.money("restante_modi", scope, {placeholder: "Presupuesto Institucional Restante",disabled:true})
+                FORM.money("restante_modi", scope, {disabled:true})
                 %>
             </div >
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
                 <%-
-                FORM.money("presupuesto_consumido_departamento", scope, {placeholder: "Presupuesto Actividades Asignado",disabled:true})
+                FORM.money("presupuesto_consumido_departamento", scope, {disabled:true})
                 %>
             </div >
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
                 <%-
-                FORM.money("restante_modi", scope, {placeholder: "Presupuesto Institucional Restante",disabled:true})
+                FORM.money("restante_modi", scope, {disabled:true})
                 %>
             </div >
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
                 <%-
-                FORM.money("presupuesto_detenido_departamento", scope, {placeholder: "Presupuesto Detenido",disabled:true})
+                FORM.money("presupuesto_detenido_departamento", scope, {disabled:true})
                 %>
             </div >
             <div class="col-sm-4 col-md-4" ng-if="presupuesto_aprobado.form.mode === 'edit'">
                 <%-
-                FORM.money("restante_departamento", scope, {placeholder: "Presupuesto Restante del Departamento",disabled:true})
+                FORM.money("restante_departamento", scope, {disabled:true})
                 %>
             </div >
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12" style="padding-bottom: 30px;" ng-show="presupuesto_aprobado.form.mode === 'edit'">
                 <%- FORM.textarea("comentario", scope, {
-                    placeholder: "Comentario"
                 }) %>
             </div>
         </div>

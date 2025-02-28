@@ -2,7 +2,7 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class="col-sm-2 col-md-2" style="margin-top: 8px;">
-                <%- FORM.input("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+                <%- FORM.input("edt", scope, {maxlength: 5}) %>
             </div>
             <div class="col-sm-4 col-md-4 drp-pt" ng-show="mods.show_me">
                 <%- FORM.select("ods", scope, {
@@ -10,7 +10,6 @@
                     permission: "ods",
                     table: "ods",
                     icon: {class: "archive"},
-                    truelabel: "Objetivo de Desarrollo Sostenible"
                 }) %>
             </div>
         </div>

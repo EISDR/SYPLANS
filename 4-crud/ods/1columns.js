@@ -10,7 +10,6 @@ DSON.keepmerge(CRUD_ods, {
         method: "ods",
         columns: {
             id: {
-                label: "id",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -20,27 +19,15 @@ DSON.keepmerge(CRUD_ods, {
                 dead: true
             },
             edt: {
-                label: function () {
-                    return "No. Secuencia"
-                },
                 sorttype: "numeric"
             },
             nombre: {
-                label: function () {
-                    return MESSAGE.i('planificacion.titleODS');
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción";
-                },
                 shorttext: 370
             },
             metas_grid: {
-                label: function () {
-                    return "Metas";
-                },
                 export: false,
                 exportExample: false,
             },
@@ -58,9 +45,6 @@ DSON.keepmerge(CRUD_ods, {
                 dead: true
             },
             archivo: {
-                label: function () {
-                    return "Imagen"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){

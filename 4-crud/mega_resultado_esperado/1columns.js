@@ -18,42 +18,26 @@ DSON.keepmerge(CRUD_mega_resultado_esperado, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico:{
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: "No.",
                 class: "text-left",
             },
             objetivo_estrategico:{
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia:{
-                label: "No.",
             },
             estrategia_nombre: {
-                label: function(){
-                    return "Estrategias";
-                },
                 shorttext: 370
             },
             no_resultado: {
-                label: "No.",
             },
             resultado_nombre: {
-                label: function(){
-                    return "Resultados Esperados"
-                },
                 shorttext: 370
             },
             contador: {

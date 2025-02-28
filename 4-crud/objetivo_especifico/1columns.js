@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_objetivo_especifico, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,7 +17,6 @@ DSON.keepmerge(CRUD_objetivo_especifico, {
                 dead: true
             },
             objetivo_edt: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -29,27 +27,17 @@ DSON.keepmerge(CRUD_objetivo_especifico, {
             },
 
             objetivo_nombre: {
-                label: function () {
-                    return "Objetivo General";
-                },
                 format: function (row) {
                     return end.edt + "." + row.objetivo_edt + " " + row.objetivo_nombre;
                 },
             },
             edt: {
-                label: function () {
-                    return "EDT. Objetivo Específico"
-                },
                 sorttype: "numeric"
             },
             nombre: {
-                label: function () {
-                    return "Objetivo Específico"
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             }
         },

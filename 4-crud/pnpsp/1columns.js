@@ -9,7 +9,6 @@ DSON.keepmerge(CRUD_pnpsp, {
         order: "desc",
         columns: {
             id: {
-                label: "id",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -19,28 +18,21 @@ DSON.keepmerge(CRUD_pnpsp, {
                 dead: true
             },
             edt: {
-                label: function(){
-                    return "No. Secuencia";
-                },
                 shorttext: 370
             },
             nombre: {
-                label: function(){ return MESSAGE.i('planificacion.titlePNPSP'); },
                 shorttext: 370
             },
             descripcion: {
-                label: function(){ return "Descripción"; },
                 shorttext: 370
             },
             denominacion_pnpsp: {
                 sortable: false,
                 export: false,
                 exportExample: false,
-                label: function(){ return "Denominación Resultados PNPSP"; }
             },
             denominaciones_pnpsp: {
                 sortable: false,
-                label: function(){ return "Denominación Resultados PNPSP"; },
                 visible: false,
                 visibleDetail: false,
                 export: true,

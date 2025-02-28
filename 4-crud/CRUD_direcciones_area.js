@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_direcciones_area, {
                 exportExample: false
             },
             direcciones_generales_nombre: {
-                label: function (){
-                    return "Dirección General"
-                }
             },
             nombre: {},
             descripcion: {shorttext: 360},
@@ -59,21 +56,16 @@ DSON.keepmerge(CRUD_direcciones_area, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 15
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 255
                 },
                 {
                     key: 'direccion_general',
-                    label: 'Dirección General',
                     type: FILTER.types.relation,
                     table: 'direcciones_generales',
                     value: "id",

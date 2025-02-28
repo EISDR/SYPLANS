@@ -7,7 +7,6 @@ DSON.keepmerge(CRUD_compania, {
         order: "desc",
         columns: {
             id: {
-                label: "id",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,15 +17,12 @@ DSON.keepmerge(CRUD_compania, {
 
             },
             nombre: {
-                label: MESSAGE.i(`planificacion.titleCompania`),
                 shorttext: 370
             },
             tipo_institucion_nombre: {
-                label: "Tipo institución",
                 shorttext: 370
             },
             usuario_nombre: {
-                label: "Responsable",
                 shorttext: 370,
                 format: function (row) {
                     return row.usuario_nombre + ' ' + row.usuario_apellido;

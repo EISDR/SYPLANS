@@ -54,14 +54,10 @@ DSON.keepmerge(CRUD_comentarios_actividad_apoyo, {
             responsable: {},
             estatus_actividad_apoyo: {},
             value3: {
-                label: function (){
-                    return "Presupuesto Consumido"
-                },
                 sorttype: "money",
                 formattype: "money",
             },
             archivos: {
-                label: "Archivos",
                 format: function (row) {
                     if (typeof comentarios_actividad_apoyo !== 'null') {
                         if (comentarios_actividad_apoyo) {

@@ -7,15 +7,11 @@ CRUD_actividades_apoyo = DSON.merge(CRUD_actividades_apoyo,
                 columns: [
                     {
                         key: 'nombre',
-                        label: 'Nombre',
                         type: FILTER.types.string,
-                        placeholder: 'Nombre',
                         maxlength: 64
                     },
                     {
                         key: 'departamento',
-                        label: 'Departamento',
-                        placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",
                         table: 'departamento',
@@ -41,7 +37,6 @@ CRUD_actividades_apoyo = DSON.merge(CRUD_actividades_apoyo,
                     },
                     {
                         key: 'responsable',
-                        label: 'Responsable',
                         type: FILTER.types.relation,
                         table: 'usuario',
                         value: "id",
@@ -67,19 +62,14 @@ CRUD_actividades_apoyo = DSON.merge(CRUD_actividades_apoyo,
                     },
                     {
                         key: 'fecha_inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.string,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha_fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.string,
-                        placeholder: 'Fecha Fin'
                     },
                     {
                         key: 'bienes_permiso',
-                        label: 'Código de Bienes y Servicios',
                         type: FILTER.types.relation,
                         table: 'vw_bienes_servicio',
                         value: "id",
@@ -95,7 +85,6 @@ CRUD_actividades_apoyo = DSON.merge(CRUD_actividades_apoyo,
                     },
                     {
                         key: 'bienes_permiso_nombre',
-                        label: 'Descripción de Bienes y Servicios',
                         type: FILTER.types.relation,
                         table: 'vw_bienes_servicio',
                         value: "nombre",

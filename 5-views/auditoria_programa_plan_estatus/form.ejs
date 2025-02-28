@@ -2,10 +2,10 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class='col-sm-12 col-md-1'>
-                <%- FORM.integer('orden', scope, { trueplaceholder: "No. Secuencia"}) %>
+                <%- FORM.integer('orden', scope, { }) %>
             </div>
             <div class='col-sm-12 col-md-2'>
-                <%- FORM.integer('code', scope, { trueplaceholder: "Número Identificador"}) %>
+                <%- FORM.integer('code', scope, { }) %>
             </div>
             <div class='col-sm-12 col-md-3'>
                 <%- FORM.input('nombre', scope, {}) %>
@@ -22,7 +22,6 @@
                     value: "id",
                     table: "auditoria_programa_plan_estatus",
                     icon: {class: "archive"},
-                    truelabel: "Estatus permitidos",
                     condition:"item.entidad == auditoria_programa_plan_estatus.entidad && item.id != auditoria_programa_plan_estatus.id",
                     get: {
                         table: 'auditoria_programa_plan_estatus_permitido',
@@ -49,7 +48,6 @@
                     value: "id",
                     table: "a_clone_group",
                     icon: {class: "archive"},
-                    truelabel: "Roles permitidos",
                     get: {
                         table: 'auditoria_programa_plan_estatus_rol',
                         fieldFrom: 'id',
@@ -66,7 +64,7 @@
         </div>
         <div class="row">
             <div class='col-sm-12 col-md-1'>
-                <%- FORM.ngmask('tiempo_estimado', scope, {placeholder: 'Tiempo Estimado', label_custom: true, mask: "99:99", maxlength: 5}) %>
+                <%- FORM.ngmask('tiempo_estimado', scope, { mask: "99:99", maxlength: 5}) %>
             </div>
             <div class='col-sm-12 col-md-11'>
                 <%- FORM.textarea('descripcion', scope, {

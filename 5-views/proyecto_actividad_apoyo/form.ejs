@@ -5,7 +5,7 @@
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
             <div class='col-sm-3 col-md-3' ng-show="<%= scope %>.form.mode==='new'">
-                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
+                <%- FORM.inputview('initstatus', scope, {}) %>
                 <script>
                     <%= scope %>.initstatus = "Abierta";
                     <%= scope %>.refreshAngular();
@@ -65,7 +65,6 @@
                     allowview: true,
                     allowlist: true,
                     refresh: true,
-                    truelabel: "Departamento",
                     column: 'name',
                     table: 'departamento',
                     condition: "(item.compania == proyecto_actividad_apoyo.session.compania_id && item.institucion == $null) && (item.active)",
@@ -80,7 +79,6 @@
                     allowview: true,
                     allowlist: true,
                     refresh: true,
-                    truelabel: "Departamento",
                     column: 'name',
                     table: 'departamento',
                     condition: "(item.institucion == auditoria_programa_plan.session.institucion_id) && (item.active)",

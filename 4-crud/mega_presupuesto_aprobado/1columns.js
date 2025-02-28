@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_mega_presupuesto_aprobado, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,7 +17,6 @@ DSON.keepmerge(CRUD_mega_presupuesto_aprobado, {
                 dead: true
             },
             poa: {
-                label: "Poa",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -27,21 +25,17 @@ DSON.keepmerge(CRUD_mega_presupuesto_aprobado, {
                 dead: true
             },
             nombre: {
-                label: function(){ return "Departamento"},
                 shorttext: 370
             },
             asignado: {
-                label: "Presupuesto Asignado",
                 formattype: "money",
                 exportExample: "[money]",
             },
             por_asignar: {
-                label: "Presupuesto por Asignar",
                 formattype: "money",
                 exportExample: "[money]",
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370
             }
         },

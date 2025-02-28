@@ -5,16 +5,12 @@ CRUD_departamento = DSON.merge(CRUD_departamento,
                 columns: [
                     {
                         key: 'nombre',
-                        label: 'Nombre',
                         type: FILTER.types.string,
-                        placeholder: 'Nombre'
                     }
                     ,
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción'
                     }
                 ]
             }

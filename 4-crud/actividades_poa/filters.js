@@ -7,26 +7,16 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                 columns: [
                     {
                         key: 'no1',
-                        label: function () {
-                            return lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción'
-                        },
                         type: FILTER.types.integer,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         maxlength: 15
                     },
                     {
                         key: 'no2',
-                        label: function () {
-                            return 'No. Actividad';
-                        },
                         type: FILTER.types.integer,
-                        placeholder: 'No. Actividad',
                         maxlength: 15
                     },
                     {
                         key: 'departamento',
-                        label: 'Departamento',
-                        placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'departamento',
@@ -52,7 +42,6 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'producto',
-                        label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                         type: FILTER.types.relation,
                         table: 'vw_productos_poa_detalles',
                         value: "id",
@@ -71,14 +60,11 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'actividad',
-                        label: 'Actividad',
                         type: FILTER.types.string,
-                        placeholder: 'Actividad',
                         maxlength: 64
                     },
                     {
                         key: 'responsable_id',
-                        label: 'Responsable',
                         type: FILTER.types.relation,
                         table: 'usuario',
                         value: "id",
@@ -104,26 +90,19 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'fecha_inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha_fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Fin'
                     },
                     {
                         key: 'presupuesto',
-                        label: 'Presupuesto',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto',
                         maxlength: 20
                     },
                     {
                         key: 'estatus_actividad',
-                        label: 'Estatus',
                         type: FILTER.types.relation,
                         table: 'auditoria_programa_plan_estatus',
                         value: "code",
@@ -144,7 +123,6 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'tipo_inversion',
-                        label: 'Tipo Inversión',
                         type: FILTER.types.relation,
                         table: 'tipo_inversion',
                         value: "id",
@@ -160,7 +138,6 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'bienes_permiso',
-                        label: 'Código de Bienes y Servicios',
                         type: FILTER.types.relation,
                         table: 'vw_bienes_servicio',
                         value: "id",
@@ -176,7 +153,6 @@ CRUD_actividades_poa = DSON.merge(CRUD_actividades_poa,
                     },
                     {
                         key: 'bienes_permiso_nombre',
-                        label: 'Descripción de Bienes y Servicios',
                         type: FILTER.types.relation,
                         table: 'vw_bienes_servicio',
                         value: "nombre",

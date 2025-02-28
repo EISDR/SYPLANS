@@ -53,16 +53,11 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: true
             },
             nombre: {
-                label: function () {
-                    return "Actividad de apoyo"
-                }
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             departamento_nombre: {
-                label: "Dpto.Solicitado",
                 format: {
                     table: "departamento",
                     from: "departamento",
@@ -81,25 +76,17 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 }
             },
             actividades_poa_nombre: {
-                label: function () {
-                    return "Actividad Principal"
-                }
             },
             usuario_nombre: {
-                label: "Responsable",
                 shorttext: 370,
                 format: function (row) {
                     return row.usuario_nombre + " " + row.usuario_apellido;
                 }
             },
             estatus_nombre: {
-                label: function () {
-                    return "Estatus"
-                }
             },
             condicion: {
                 export: true,
-                label: "Condición",
                 format: function (row) {
                     var nom = row.condicion;
                     $(`.Vencida`).css('background', '#FF0000');
@@ -110,39 +97,28 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 }
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             },
             manejapresupuesto: {
-                label: function () {
-                    return "Maneja presupuesto?"
-                }
             },
             act_apoyo_presupuesto: {
-                label:"Presupuesto",
                 sorttype: "money",
                 formattype: "money",
             },
             presupuesto_consumido: {
-                label: "Presupuesto Consumido",
                 sorttype: "money",
                 formattype: "money",
             },
             avance_porcentaje: {
-                label: "Porcentaje de Avance",
                 sorttype: "percentage",
                 formattype: "percentage",
             },
             razon_nombre: {
-                label: function () {
-                    return "Condición de cierre";
-                }
             },
             tipo_inversion_nombre: {
                 visible: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
@@ -152,9 +128,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: lachechon ? lachechon.tipo_institucion == 1 ? false : true : false
             },
             bienes_permiso:{
-                label: function (){
-                    return "Código de Bienes y Servicios"
-                },
                 visible: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 visibleDetail: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -162,9 +135,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: lachechon ? lachechon.tipo_institucion == 1 ? false : true : false
             },
             bienes_permiso_nombre: {
-                label: function (){
-                    return "Descripción de Bienes y Servicios"
-                },
                 visible: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 visibleDetail: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -172,9 +142,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: lachechon ? lachechon.tipo_institucion == 1 ? false : true : false
             },
             presupuestario: {
-                label: function (){
-                    return "Código del Clasificador Presupuestario"
-                },
                 visible: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 visibleDetail: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -182,9 +149,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: lachechon ? lachechon.tipo_institucion == 1 ? false : true : false
             },
             presupuestario_nombre: {
-                label: function (){
-                    return "Descripción del Clasificador Presupuestario"
-                },
                 visible: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 visibleDetail: lachechon ? lachechon.tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -192,9 +156,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 dead: lachechon ? lachechon.tipo_institucion == 1 ? false : true : false
             },
             archivos: {
-                label: function () {
-                    return "Documento Adjunto"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){

@@ -7,30 +7,24 @@ DSON.keepmerge(CRUD_group, {
         columns: {
             id: {visible: false, visibleDetail: false, export: false, exportExample: false},
             name: {
-                label: "name",
                 shorttext: 40
             },
             description: {
-                label: "description",
                 sortable: false,
                 shorttext: 80,
                 null: "<span class='text-grey'>[NULL]</span>"
             },
             homePage: {
-                label: "Home Page",
                 shorttext: 40
             },
             isAdmin: {
-                label: "Admin",
                 visible: true,
                 sorttype: "bool",
                 formattype: "bool"
             },
             caracteristica: {
-                label: "Característica",
             },
             notificaciones: {
-                label: "Acepta Notificaciones de Avance de Indicador?",
                 format: function (row) {
                     if(row.notificaciones == 1){
                         return "Sí"
@@ -40,10 +34,8 @@ DSON.keepmerge(CRUD_group, {
                 }
             },
             gracia: {
-                label: "Días de Gracia",
             },
             repeat: {
-                label: "Cantidad de días a repetir las notificaciones",
             },
             created: {
                 visible: false,

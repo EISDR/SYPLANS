@@ -16,13 +16,10 @@ DSON.keepmerge(CRUD_mega_comentarios_resultado_esperado, {
                 dead: true
             },
             comentario: {
-                label: "Comentario",
             },
             usuario_nombre: {
-                label: "Responsable",
             },
             created_at: {
-                label: "Fecha",
                 sorttype: "datetime",
                 formattype: "datetime",
             }

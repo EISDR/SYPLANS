@@ -16,46 +16,30 @@ DSON.keepmerge(CRUD_mega_indicadores_pei, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico: {
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             objetivo_estrategico: {
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategias: {
-                label: "Estrategia",
                 shorttext: 370,
                 // visible: false,
                 // visibleDetail: true,
             },
             no_resultado: {
-                label: "No. resultado",
                 shorttext: 370,
             },
             resultados: {
-                label: function(){
-                    return "Resultados Esperados"
-                },
                 shorttext: 370,
             },
             no_indicador: {

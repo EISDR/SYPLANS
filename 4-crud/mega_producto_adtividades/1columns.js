@@ -19,7 +19,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 dead: true
             },
             no2: {
-                label: "No.",
                 click: function (key,value,rowdata) {
                     var animation = new ANIMATION();
                     mega_productos_actividades_apoyo.fixFilters = [
@@ -34,7 +33,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             cantidad_actividades: {
-                label: "Cantidad de Actividades",
                 visible: false,
                 click: function (key,value,rowdata) {
                     var animation = new ANIMATION();
@@ -50,7 +48,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370,
                 click: function (key,value,rowdata) {
                     var animation = new ANIMATION();
@@ -66,7 +63,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370,
                 click: function (key,value,rowdata) {
                     var animation = new ANIMATION();
@@ -82,7 +78,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
                 click: function (key,value,rowdata) {
@@ -99,7 +94,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
                 click: function (key,value,rowdata) {
@@ -116,7 +110,6 @@ DSON.keepmerge(CRUD_mega_producto_adtividades, {
                 },
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
                 click: function (key,value,rowdata) {

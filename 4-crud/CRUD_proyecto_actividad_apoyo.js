@@ -51,36 +51,18 @@ DSON.keepmerge(CRUD_proyecto_actividad_apoyo, {
             nombre: {},
             descripcion: {},
             departamento: {
-                label: function (){
-                    return "Departamento"
-                }
             },
             estatus: {
-                label: function (){
-                    return "Estatus"
-                }
             },
             fecha_inicio: {
-                label: function (){
-                    return "Fecha Inicio"
-                },
                 formattype: ENUM.FORMAT.date
             },
             fecha_fin: {
-                label: function (){
-                    return  "Fecha Fin"
-                },
                 formattype: ENUM.FORMAT.date
             },
             responsable: {
-                label: function (){
-                    return  "Responsable"
-                },
             },
             archivos: {
-                label: function () {
-                    return "Documento Adjunto"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){

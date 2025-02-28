@@ -14,7 +14,6 @@
                     text: "item.nombre",
                     table: "drp_resultado",
                     icon: {class: "archive"},
-                    label: "Resultado esperado"
                 }) %>
             </div>
             <div class="col-sm-4 col-md-4 add-class" disabled>
@@ -48,7 +47,6 @@
                     allowedit: false,
                     allowview: false,
                     allowlist: false,
-                    truelabel: 'Departamento',
                     text: "item.nombre",
                     permission: "departamento",
                     table: "vw_departamento_not_exists_presupuesto",
@@ -71,7 +69,6 @@
                     text: "item.nombre_completo",
                     table: "involucrados",
                     icon: {class: "archive"},
-                    label: "Involucrados",
                     condition: "(item.compania == productos_poa.session.compania_id && item.active == 1) && (item.tipo == 1)",
                     get: {
                         table: 'prudcto_involucrado',
@@ -149,7 +146,6 @@
                             <div class="row" style="padding-top: 20px;">
                                 <div class="col-sm-12 col-md-10" style="padding-bottom: 30px;">
                                     <%- FORM.textarea("comentario", scope, {
-                                        placeholder: "Comentario"
                                     }) %>
                                 </div>
                             </div>

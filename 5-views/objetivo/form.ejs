@@ -2,7 +2,7 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class="col-sm-2 col-md-2">
-                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+                <%- FORM.integer("edt", scope, {maxlength: 5}) %>
             </div>
         </div>
         <div class="row">
@@ -15,7 +15,7 @@
             <div class="col-sm-8 col-md-8">
                 <%-
                 // FORM.input("descripcion", scope, {placeholder:"Descripción",maxlength: 255})
-                FORM.textarea('descripcion', scope, {label: "Descripción", placeholder: "Descripción", maxlength: 1000})
+                FORM.textarea('descripcion', scope, {maxlength: 1000})
                 %>
             </div>
         </div>

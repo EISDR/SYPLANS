@@ -49,94 +49,49 @@ DSON.keepmerge(CRUD_reporte_indicadores, {
                 dead: true
             },
             eje_estrategico: {
-                label: function() {
-                    return "Eje Estrategico"
-                },
             },
             objetivo_estrategico: {
-                label: "Objetivo Estrategico",
             },
             estrategia: {
-                label: "Estrategia",
             },
             resultado: {
-                label: "Resultado",
             },
             producto: {
-                label: "Producto",
             },
             actividad: {
-                label: "Actividad",
             },
             registro: {
-                label: "Registro",
             },
             indicador: {
                 // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                label: function () {
-                    return "Nombre del Indicador"
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function () {
-                    return "Descripción del Indicador"
-                },
                 shorttext: 370
             },
             fuente: {
-                label: function () {
-                    return "Fuente del Indicador"
-                },
                 shorttext: 370
             },
             metodo_calculo: {
-                label: function () {
-                    return "Método de Cálculo"
-                },
                 shorttext: 370
             },
             departamento: {
-                label: function () {
-                    return "Unidad Ejecutora"
-                }
             },
             desagregacion_demografica_geografia: {
-                label: function () {
-                    return "Desagregación Demográfica Geográfica";
-                },
                 shorttext: 370
             },
             caracteristica: {
-                label: function () {
-                    return "Características del Indicador";
-                },
                 shorttext: 370
             },
             tipo_meta: {
-                label: function () {
-                    return "Tipo de dato de la Meta";
-                }
             },
             direccion_meta: {
-                label: function () {
-                    return "Dirección de la Meta"
-                }
             },
             ano: {
-                label: function () {
-                    return "Año a evaluar"
-                }
             },
             ano_linea_base: {
-                label: function () {
-                    return "Año Línea Base"
-                }
             },
             linea_base: {
-                label: function () {
-                    return "Línea Base";
-                },
                 shorttext: 370,
                 format: function (row) {
                     if (row.linea_base) {
@@ -159,13 +114,9 @@ DSON.keepmerge(CRUD_reporte_indicadores, {
             },
             medio_verificacion: {
                 // label: "Medio de Verificación",
-                label: function () {
-                    return "Medio de Verificación"
-                },
                 shorttext: 370
             },
             observacion: {
-                label: "Observación",
                 shorttext: 370
             }
         },

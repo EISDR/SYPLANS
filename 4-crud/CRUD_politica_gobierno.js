@@ -50,24 +50,15 @@ DSON.keepmerge(CRUD_politica_gobierno, {
                 dead: true
             },
             no_secuencia: {
-                label: function () {
-                    return "No. Secuencia"
-                },
                 formattype: ENUM.FORMAT.numeric
             },
             nombre: {},
             descripcion: {shorttext: 360},
             impacto_politica: {
-                label: function () {
-                    return "Impactos de la Política";
-                },
                 export: false,
                 exportExample: false,
             },
             impactos_politica: {
-                label: function () {
-                    return "Impactos de la Política";
-                },
                 visible: false,
                 visibleDetail: false,
                 export: true,
@@ -80,23 +71,17 @@ DSON.keepmerge(CRUD_politica_gobierno, {
             columns: [
                 {
                     key: 'no_secuencia',
-                    label: "No. Secuencia",
                     type: FILTER.types.integer,
-                    placeholder: 'No. secuencia',
                     maxlength: 255
                 },
                 {
                     key: 'nombre',
-                    label: "Nombre",
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 255
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 1000
                 },
             ]

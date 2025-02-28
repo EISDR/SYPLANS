@@ -29,7 +29,6 @@
                         allowlist: false,
                         text: "item.nombre",
                         table: 'vw_departamento_filtro',
-                        label: "Departamento",
                         icon: {class: "archive"},
                         condition: "item.compania==vw_reporte_desempeno_usuario.session.compania_id && item.institucion==null"
                     }) %>
@@ -43,7 +42,6 @@
                         allowlist: false,
                         text: "item.nombre",
                         table: 'vw_departamento_filtro',
-                        label: "Departamento",
                         icon: {class: "archive"},
                         condition: "item.institucion==vw_reporte_desempeno_usuario.session.institucion_id"
                     }) %>
@@ -56,7 +54,6 @@
                         allowlist: false,
                         text: "item.completo",
                         table: 'vw_usuario',
-                        label: "Usuario",
                         icon: {class: "archive"},
                         condition: "(item.compania==vw_reporte_desempeno_usuario.session.compania_id) && (item.institucion==null)"
                     }) %>
@@ -69,7 +66,6 @@
                         allowlist: false,
                         text: "item.completo",
                         table: 'vw_usuario',
-                        label: "Usuario",
                         icon: {class: "archive"},
                         condition: "(item.institucion==vw_reporte_desempeno_usuario.session.institucion_id)"
                     }) %>

@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_usuario, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,19 +17,15 @@ DSON.keepmerge(CRUD_usuario, {
                 dead: true
             },
             nombre: {
-                label: "Nombre",
                 shorttext: 370
             },
             apellido: {
-                label: "Apellido",
                 shorttext: 370
             },
             correo: {
-                label: "Correo",
                 shorttext: 370
             },
             cargo_nombre: {
-                label: "Cargo",
                 shorttext: 370,
                 // link: {
                 //     table: "cargo",
@@ -50,7 +45,6 @@ DSON.keepmerge(CRUD_usuario, {
                 // }
             },
             departamento_nombre: {
-                label: "Departamento",
                 shorttext: 370,
                 // link: {
                 //     table: "departamento",
@@ -70,13 +64,9 @@ DSON.keepmerge(CRUD_usuario, {
                 // }
             },
             departamento_secundario:{
-                label: "Departamentos Relacionados",
                 shorttext: 370,
             },
             profile: {
-                label: function () {
-                    return "Grupo";
-                },
                 format: function (row) {
                     if (typeof row.profile === 'string') {
                         return row.tipo_auditor ? row.profile + " (" + row.tipo_auditores_nombre + ")" : row.profile;
@@ -95,7 +85,6 @@ DSON.keepmerge(CRUD_usuario, {
                 }
             },
             compania_nombre: {
-                label: "Compañia",
                 visible: false,
                 visibleDetail: false,
                 export: false,
@@ -103,14 +92,8 @@ DSON.keepmerge(CRUD_usuario, {
                 dead: true
             },
             usuario_estatus: {
-                label: function () {
-                   return "Estatus del usuario"
-                },
             },
             interinstitucional: {
-                label: function (){
-                  return "interinstitucional?"
-                },
                 format: function (row) {
                     if (row.interinstitucional == 1){
                         return "Sí"

@@ -7,28 +7,21 @@ CRUD_indicador_poa = DSON.merge(CRUD_indicador_poa,
                 columns: [
                     {
                         key: 'no',
-                        label: 'No. Resultado Esperado',
                         type: FILTER.types.integer,
-                        placeholder: 'No. Resultado Esperado',
                         maxlength: 15
                     },
                     {
                         key: 'no_producto',
-                        label: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         type: FILTER.types.integer,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         maxlength: 15
                     },
                     {
                         key: 'nombre_indicador',
-                        label: MESSAGE.i('planificacion.titleIndicadorPOA'),
                         type: FILTER.types.string,
-                        placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
                         maxlength: 255
                     },
                     {
                         key: 'id_producto',
-                        label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                         type: FILTER.types.relation,
                         table: 'vw_productos_poa_detalles',
                         value: "id",
@@ -49,34 +42,25 @@ CRUD_indicador_poa = DSON.merge(CRUD_indicador_poa,
                     },
                     {
                         key: 'descripcion_indicador',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción',
                         maxlength: 4000
                     },
                     {
                         key: 'fuente',
-                        label: 'Fuente',
                         type: FILTER.types.string,
-                        placeholder: 'Fuente',
                         maxlength: 255
                     },
                     {
                         key: 'desagregacion_demografica_geografia',
-                        label: 'Desagregación Demográfica Geográfica',
                         type: FILTER.types.string,
-                        placeholder: 'Desagregación Demográfica Geográfica'
                     },
                     {
                         key: 'metodo',
-                        label: 'Método Cálculo',
                         type: FILTER.types.string,
-                        placeholder: 'Método Cálculo',
                         maxlength: 255
                     },
                     {
                         key: 'tipo_meta',
-                        label: 'Tipo de meta',
                         type: FILTER.types.relation,
                         table: 'tipoMeta',
                         value: "id",
@@ -92,7 +76,6 @@ CRUD_indicador_poa = DSON.merge(CRUD_indicador_poa,
                     },
                     {
                         key: 'direccion_meta',
-                        label: 'Dirección de la meta',
                         type: FILTER.types.relation,
                         table: 'direccionMeta',
                         value: "id",
@@ -108,21 +91,16 @@ CRUD_indicador_poa = DSON.merge(CRUD_indicador_poa,
                     },
                     {
                         key: 'linea',
-                        label: 'Línea Base',
                         type: FILTER.types.integer,
-                        placeholder: 'Línea Base',
                         maxlength: 30
                     },
                     {
                         key: 'medio_verificacion',
-                        label: 'Medio de Verificación',
                         type: FILTER.types.string,
-                        placeholder: 'Medio Verificación',
                         maxlength: 255
                     },
                     {
                         key: 'id_resultado',
-                        label: 'Resultado esperado',
                         type: FILTER.types.relation,
                         table: 'vw_resultado',
                         value: "id",
@@ -143,7 +121,6 @@ CRUD_indicador_poa = DSON.merge(CRUD_indicador_poa,
                     },
                     {
                         key: 'departamento',
-                        label: 'Departamento',
                         placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",

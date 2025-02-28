@@ -163,7 +163,6 @@
                     text: "item.nombre",
                     table: "vw_instituciones",
                     icon: {class: "archive"},
-                    label: "Institución",
                     query: {
                         orderby: "tipo",
                         order: "asc"
@@ -183,7 +182,6 @@
                     text: "item.nombre",
                     table: "vw_instituciones",
                     icon: {class: "archive"},
-                    label: "Institución",
                     query: {
                         orderby: "tipo",
                         order: "asc"
@@ -204,7 +202,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
                         }) %>
                     </div>
@@ -219,7 +216,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
                         }) %>
                     </div>
@@ -234,7 +230,6 @@
                             text: "item.nombre + ' (' + item.entidad + ')'",
                             table: "vw_departamento_filtro",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel+'')"
                         }) %>
                     </div>
@@ -253,7 +248,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
                         }) %>
                     </div>
@@ -269,7 +263,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.institucion==" + scope + ".institucion)"
                         }) %>
                     </div>
@@ -289,7 +282,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento"
                         }) %>
                     </div>
                     <%- include('campoindicador',{scope:scope}); %>
@@ -331,7 +323,6 @@
                     text: "item.nombre",
                     table: "vw_instituciones",
                     icon: {class: "archive"},
-                    label: "Institución",
                     query: {
                         orderby: "tipo",
                         order: "asc"
@@ -351,7 +342,6 @@
                     text: "item.nombre",
                     table: "vw_instituciones",
                     icon: {class: "archive"},
-                    label: "Institución",
                     query: {
                         orderby: "tipo",
                         order: "asc"
@@ -372,7 +362,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
                         }) %>
                     </div>
@@ -387,7 +376,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==" + scope + ".institucion))"
                         }) %>
                     </div>
@@ -402,7 +390,6 @@
                             text: "item.nombre + ' (' + item.entidad + ')'",
                             table: "vw_departamento_filtro",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel+'')"
                         }) %>
                     </div>
@@ -420,7 +407,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.compania==" + scope + ".companiasel && (item.institucion==null))"
                         }) %>
                     </div>
@@ -435,7 +421,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento",
                             condition: "(item.institucion==" + scope + ".institucion)"
                         }) %>
                     </div>
@@ -452,7 +437,6 @@
                             text: "item.nombre",
                             table: "vw_performance_departamento",
                             icon: {class: "archive"},
-                            truelabel: "Departamento"
                         }) %>
                     </div>
                     <div style="margin-top: 5px; margin-left: 5px;" ng-if="<%= scope %>.searchbutton && !<%= scope %>.ifdepartamento"

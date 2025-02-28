@@ -7,14 +7,11 @@ CRUD_productos_poa = DSON.merge(CRUD_productos_poa,
                 columns: [
                     {
                         key: 'no2',
-                        label: function () { return 'No. Resultado'},
                         type: FILTER.types.integer,
-                        placeholder: 'No. Resultado',
                         maxlength: 15
                     },
                     {
                         key: 'id_resultado',
-                        label: 'Resultado esperado',
                         type: FILTER.types.relation,
                         table: 'vw_resultado',
                         value: "id",
@@ -33,29 +30,21 @@ CRUD_productos_poa = DSON.merge(CRUD_productos_poa,
                     },
                     {
                         key: 'no1',
-                        label: function () { return lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción'},
                         type: FILTER.types.integer,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         maxlength: 15
                     },
                     {
                         key: 'producto',
-                        label: function () { return lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción'},
                         type: FILTER.types.string,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                         maxlength: 255
                     },
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción',
                         maxlength: 1000
                     },
                     {
                         key: 'id_departamento',
-                        label: 'Departamento',
-                        placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'departamento',
@@ -81,7 +70,6 @@ CRUD_productos_poa = DSON.merge(CRUD_productos_poa,
                     },
                     {
                         key: 'estado_producto_id',
-                        label: 'Estado',
                         type: FILTER.types.relation,
                         table: 'productos_poa_status',
                         value: "id",
@@ -97,15 +85,11 @@ CRUD_productos_poa = DSON.merge(CRUD_productos_poa,
                     },
                     {
                         key: 'fecha inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Fin'
                     }
                 ]
             }

@@ -7,7 +7,6 @@ DSON.keepmerge(CRUD_departamento_poa, {
         method:"presupuesto_aprobado",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -16,22 +15,18 @@ DSON.keepmerge(CRUD_departamento_poa, {
                 exportExample: false
             },
             departamento: {
-                label: "Departamento",
                 shorttext: 370
             },
             valor:{
-                label: "Presupuesto Aprobado",
                 formattype: "money",
                 exportExample: "[money]",
             },
             presupuesto_restante:{
-                label: "Presupuesto Restante",
                 visible: false,
                 formattype: "money",
                 exportExample: "[money]",
             },
             estatus:{
-                label: "Estatus"
             },
             created_at: {
                 visible: false,

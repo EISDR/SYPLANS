@@ -54,52 +54,25 @@ DSON.keepmerge(CRUD_catalogo_bienes_servicios, {
             clase: {},
             material: {},
             desc_es: {
-                label: function () {
-                    return "Descripción en Español"
-                },
                 shorttext: 360
             },
             desc_en: {
-                label: function () {
-                    return "Descripción en Inglés"
-                },
                 shorttext: 360
             },
             cuentas_auxiliares: {
-                label: function () {
-                    return "Cuentas auxiliares"
-                }
             },
             codigo_clasificador_obj1: {
-                label: function () {
-                    return "Código Clasificador por Objeto del Gasto I"
-                }
             },
             codigo_clasificador_obj2: {
-                label: function () {
-                    return "Código Clasificador por Objeto del Gasto II"
-                }
             },
             desc_clasificador_obj1: {
-                label: function () {
-                    return "Descripción Clasificador por Objeto del Gasto I"
-                }
             },
             desc_clasificador_obj2: {
-                label: function () {
-                    return "Descripción Clasificador por Objeto del Gasto II"
-                }
             },
             definicion: {
-                label: function () {
-                    return "Definición"
-                },
                 shorttext: 360
             },
             sinonimos: {
-                label: function () {
-                    return "Sinónimos"
-                },
                 shorttext: 360
             }
         },
@@ -107,93 +80,67 @@ DSON.keepmerge(CRUD_catalogo_bienes_servicios, {
             columns: [
                 {
                     key: 'nivel',
-                    label: "Nivel",
                     type: FILTER.types.string,
-                    placeholder: 'Nivel',
                     maxlength: 255
                 },
                 {
                     key: 'segmento',
-                    label: "Segmento",
                     type: FILTER.types.string,
-                    placeholder: 'Segmento',
                     maxlength: 255
                 },
                 {
                     key: 'familia',
-                    label: 'Familia',
                     type: FILTER.types.string,
-                    placeholder: 'Familia',
                     maxlength: 1000
                 },
                 {
                     key: 'clase',
-                    label: "Clase",
                     type: FILTER.types.string,
-                    placeholder: 'Clase',
                     maxlength: 255
                 },
                 {
                     key: 'material',
-                    label: "Material",
                     type: FILTER.types.string,
-                    placeholder: 'Material',
                     maxlength: 255
                 },
                 {
                     key: 'desc_es',
-                    label: 'Descripción en Español',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción en Español',
                     maxlength: 1000
                 },
                 {
                     key: 'desc_en',
-                    label: "Descripción en Inglés",
                     type: FILTER.types.string,
-                    placeholder: 'Descripción en Inglés',
                     maxlength: 1000
                 },
                 {
                     key: 'codigo_clasificador_obj1',
-                    label: "Código Clasificador por Objeto del Gasto I",
                     type: FILTER.types.string,
-                    placeholder: 'Código Clasificador por Objeto del Gasto I',
                     maxlength: 255
                 },
                 {
                     key: 'codigo_clasificador_obj2',
-                    label: 'Código Clasificador por Objeto del Gasto II',
                     type: FILTER.types.string,
-                    placeholder: 'Código Clasificador por Objeto del Gasto II',
                     maxlength: 255
                 },
                 {
                     key: 'desc_clasificador_obj1',
-                    label: "Descripción Clasificador por Objeto del Gasto I",
                     type: FILTER.types.string,
-                    placeholder: 'Descripción Clasificador por Objeto del Gasto I',
                     maxlength: 1000
                 },
                 {
                     key: 'desc_clasificador_obj2',
-                    label: "Descripción Clasificador por Objeto del Gasto II",
                     type: FILTER.types.string,
-                    placeholder: 'Descripción Clasificador por Objeto del Gasto II',
                     maxlength: 1000
                 },
                 {
                     key: 'definicion',
-                    label: 'Definición',
                     type: FILTER.types.string,
-                    placeholder: 'Definición',
                     maxlength: 1000
                 },
                 {
                     key: 'sinonimos',
-                    label: "Sinónimos",
                     type: FILTER.types.string,
-                    placeholder: 'Sinónimos',
                     maxlength: 255
                 }
             ]

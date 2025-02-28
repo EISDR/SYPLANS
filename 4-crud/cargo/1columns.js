@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_cargo, {
         view: "vw_cargo",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,11 +17,9 @@ DSON.keepmerge(CRUD_cargo, {
                 dead: true
             },
             nombre: {
-                label: MESSAGE.i(`planificacion.titleCargo`),
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             compania: {

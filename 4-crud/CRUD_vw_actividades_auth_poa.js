@@ -15,58 +15,35 @@ DSON.keepmerge(CRUD_vw_actividades_auth_poa, {
             },
             no2: {
                 shorttext: 360,
-                label: function() {
-                    return "No.";
-                }
             },
             actividad: {
-                label: function() {
-                    return "Actividades";
-                }
             },
             presupuesto: {
-                label: function() {
-                    return "Presupuesto";
-                },
                 formattype: "money"
             },
             fecha_inicio: {
                 formattype: ENUM.FORMAT.date,
-                label: function() {
-                    return "Fecha de inicio";
-                }
             },
             fecha_fin: {
                 formattype: ENUM.FORMAT.date,
-                label: function() {
-                    return "Fecha de fin";
-                }
             },
             //poa_name: {link: {table: 'poa',from: 'poa'}},
             estatus_actividad: {formattype: ENUM.FORMAT.numeric, visible:false},
             nombre: {
-                label: function() {
-                    return "Estatus";
-                }
             }
         },
         filters: {
             columns: [
                 {
                     key: 'no2',
-                    label: function () { return 'No. Actividad'},
                     type: FILTER.types.integer,
-                    placeholder: 'No. Actividad'
                 },
                 {
                     key: 'actividad',
-                    label: 'Actividad',
                     type: FILTER.types.string,
-                    placeholder: 'Actividad'
                 },
                 {
                     key: 'estatus_actividad',
-                    label: 'Estado',
                     type: FILTER.types.relation,
                     table: 'actividades_poa_estatus',
                     value: "id",
@@ -82,15 +59,11 @@ DSON.keepmerge(CRUD_vw_actividades_auth_poa, {
                 },
                 {
                     key: 'fecha_inicio',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'fecha_fin',
-                    label: 'Fecha Fin',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Fin'
                 }
             ]
         },

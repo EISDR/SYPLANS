@@ -65,15 +65,9 @@ DSON.keepmerge(CRUD_modulo_formulario_registro, {
             fecha: {formattype: ENUM.FORMAT.datetime},
             ip: {},
             nombre: {
-                label: () => {
-                    return "Usuario"
-                }
             },
             origen: {},
             browser: {
-                label: () => {
-                    return "Navegador"
-                }
             }
         },
         filters: {

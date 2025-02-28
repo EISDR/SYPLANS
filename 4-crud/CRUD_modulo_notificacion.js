@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_modulo_notificacion, {
                 exportExample: false
             },
             view: {
-                label: () => {
-                    return "Entidad"
-                },
                 format: (row) => {
                     return v.capitalize(row.view.replace('mdn_', '').replaceAll('_', ' '))
                 }

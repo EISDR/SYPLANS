@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_involucrados, {
                 exportExample: false
             },
             nombre_completo: {
-                label: function () {
-                    return "Nombre"
-                }
             },
             correo: {},
             involucrados_tipo_nombre: {
@@ -62,13 +59,9 @@ DSON.keepmerge(CRUD_involucrados, {
                     "3-Programa Sectorial, " +
                     "4-Producto Terminal Sectorial, " +
                     "5-Actividades",
-                label: function () {
-                    return "Tipo"
-                },
             },
             active: {
                 exportExample: "0=No, 1=Si",
-                label: "Activo?",
                 format: function (row) {
                     if (row.active == 1) {
                         return "Sí";
@@ -90,19 +83,14 @@ DSON.keepmerge(CRUD_involucrados, {
             columns: [
                 {
                     key: 'nombre_completo',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre'
                 },
                 {
                     key: 'correo',
-                    label: 'Correo',
                     type: FILTER.types.string,
-                    placeholder: 'Correo'
                 },
                 {
                     key: 'tipo',
-                    label: 'Tipo',
                     type: FILTER.types.relation,
                     table: 'Involucrados_tipo',
                     value: "id",

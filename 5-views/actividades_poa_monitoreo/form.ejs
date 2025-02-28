@@ -15,7 +15,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-8 col-md-8">
-                        <%- FORM.inputview("nombre", scope, {placeholder: "Nombre"}) %>
+                        <%- FORM.inputview("nombre", scope, {}) %>
                     </div>
                     <div class="col-sm-4 col-md-4" ng-if="!actividades_poa_monitoreo.session.institucion">
                         <%- FORM.select("responsable", scope, {
@@ -26,7 +26,6 @@
                             allowlist: false,
                             disabled: true,
                             multiple: false,
-                            label: "Responsable",
                             text: "item.nombre + ' ' + item.apellido",
                             table: "usuario",
                             columns: ["nombre"],
@@ -43,7 +42,6 @@
                                 allowlist: false,
                                 disabled: true,
                                 multiple: false,
-                                label: "Responsable",
                                 text: "item.nombre + ' ' + item.apellido",
                                 table: "usuario",
                                 columns: ["nombre"],
@@ -67,7 +65,6 @@
                             refresh: false,
                             multiple: false,
                             disabled: true,
-                            truelabel: "Proyecto/Producto",
                             text: "item.producto",
                             table: "vw_productos_poa_resultado_corta",
                             columns: ["producto"],
@@ -86,7 +83,6 @@
                                 refresh: false,
                                 multiple: false,
                                 disabled: true,
-                                truelabel: "Proyecto/Plan de Acción",
                                 text: "item.producto",
                                 table: "vw_productos_poa_resultado_corta",
                                 columns: ["producto"],
@@ -102,10 +98,10 @@
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3">
-                        <%-FORM.inputview("presupuesto_ver", scope, {placeholder: "Presupuesto Asignado"} )%>
+                        <%-FORM.inputview("presupuesto_ver", scope, {} )%>
                     </div>
                     <div class="col-sm-3 col-md-3">
-                        <%-FORM.inputview("show_presupuesto_consumido", scope, {placeholder: "Presupuesto Ejecutado"} )%>
+                        <%-FORM.inputview("show_presupuesto_consumido", scope, {} )%>
                     </div>
                 </div>
             </div>
@@ -128,44 +124,40 @@
                             value: "id",
                             table: "vw_auditoria_programa_plan_estatus",
                             icon: {class: "archive"},
-                            truelabel: "Estatus",
                             condition: "item.plan_status == actividades_poa_monitoreo.my_true_estatus && item.entidad == 'actividades_poa'"
                         }) %>
                     </div>
 
                     <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic" ng-show="(actividades_poa_monitoreo.estatus == '1' || actividades_poa_monitoreo.estatus == '5')">
                         <%- FORM.checkbox("maneja_presupuesto", scope, {
-                            text: 'Manejar presupuesto?',
                             disabled: true
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="false">
-                        <%-FORM.inputview("presupuesto_consumido", scope, {placeholder: "Presupuesto Consumido", maxlength: 16})%>
+                        <%-FORM.inputview("presupuesto_consumido", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="actividades_poa_monitoreo.estatus == '6' && !actividades_poa_monitoreo.dont_show_money">
-                        <%-FORM.inputview("presupuesto_consumido_ver", scope, {placeholder: "Presupuesto Consumido", maxlength: 16})%>
+                        <%-FORM.inputview("presupuesto_consumido_ver", scope, {maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="(actividades_poa_monitoreo.estatus == '6' && !actividades_poa_monitoreo.dont_show_money ) && !actividades_poa_monitoreo.maneja_presupuesto">
-                        <%-FORM.money("act_presupuesto_consumido", scope, {placeholder: "Añadir Presupuesto Consumido", maxlength: 16})%>
+                        <%-FORM.money("act_presupuesto_consumido", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-if="!actividades_poa_monitoreo.maneja_presupuesto" ng-show="actividades_poa_monitoreo.estatus == '6' && !actividades_poa_monitoreo.dont_show_money">
-                        <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3}) %>
+                        <%- FORM.percentage("avance_porcentaje", scope, { maxlength: 3}) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-if="actividades_poa_monitoreo.maneja_presupuesto" ng-show="actividades_poa_monitoreo.estatus == '6' && !actividades_poa_monitoreo.dont_show_money">
-                        <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3, disabled: true}) %>
+                        <%- FORM.percentage("avance_porcentaje", scope, { maxlength: 3, disabled: true}) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="actividades_poa_monitoreo.estatus == '1'">
-                        <%-FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto total consumido", maxlength: 16})%>
+                        <%-FORM.money("presupuesto", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="actividades_poa_monitoreo.estatus == '1'">
-                        <%-FORM.inputview("presupuesto_restante_show", scope, {placeholder: "Presupuesto Disponible", maxlength: 16})%>
+                        <%-FORM.inputview("presupuesto_restante_show", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-3 col-md-3 center-profile-image countFile" ng-show="actividades_poa_monitoreo.mostrar_actividad">
                         <%- FORM.file("actividadfile", scope, {
-                            title: 'Subir Evidencia',
                             maxfiles: 999,
                             columns: 4,
-                            truetext: 'Subir Evidencia',
                             imagefloat: "right",
                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
@@ -180,7 +172,6 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            text: "item.nombre_razon",
                             table: "razon",
                             columns: ["nombre"],
                             icon: {class: "archive"},
@@ -203,10 +194,10 @@
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-show="actividades_poa_monitoreo.estatus == '1'">
-                        <%- FORM.integer("calificacion", scope, {placeholder: "Puntuación", maxlength: 3}) %>
+                        <%- FORM.integer("calificacion", scope, { maxlength: 3}) %>
                     </div>
                     <div class="col-sm-6 col-md-6">
-                        <%- FORM.textarea("comentario", scope, {placeholder: "Comentario"}) %>
+                        <%- FORM.textarea("comentario", scope, {}) %>
                     </div>
                 </div>
                 <div class="row">
@@ -299,7 +290,7 @@
                                 <div class="">
                                     <div class="row">
                                         <div class="col-sm-4 col-md-4">
-                                            <%- FORM.textarea("comentario_comment", scope, {placeholder: "Comentario"}) %>
+                                            <%- FORM.textarea("comentario_comment", scope, {}) %>
 
                                         </div>
                                         <div class="col-sm-3 col-md-3" style="margin-top: 23px;"
@@ -321,10 +312,8 @@
                                         </div>
                                         <div class="col-sm-5 col-md-5 center-profile-image countFile" ng-show="actividades_poa_monitoreo.mostrar_comentario">
                                             <%- FORM.file("actividadfile_comment", scope, {
-                                                title: 'Subir Evidencia',
                                                 maxfiles: 999,
                                                 columns: 4,
-                                                truetext: 'Subir Evidencia',
                                                 // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                                                 // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                                             }) %>

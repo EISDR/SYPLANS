@@ -7,25 +7,16 @@ CRUD_actividades_poa_monitoreo = DSON.merge(CRUD_actividades_poa_monitoreo,
                 columns: [
                     {
                         key: 'no1',
-                        label: function () {
-                            return lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción';
-                        },
                         type: FILTER.types.integer,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         maxlength: 15
                     },
                     {
                         key: 'no2',
-                        label: function () {
-                            return 'No. Actividad';
-                        },
                         type: FILTER.types.integer,
-                        placeholder: 'No. Actividad',
                         maxlength: 15
                     },
                     {
                         key: 'producto',
-                        label: 'Producto',
                         type: FILTER.types.relation,
                         table: 'productos_poa',
                         value: "id",
@@ -44,14 +35,11 @@ CRUD_actividades_poa_monitoreo = DSON.merge(CRUD_actividades_poa_monitoreo,
                     },
                     {
                         key: 'actividad',
-                        label: 'Actividad',
                         type: FILTER.types.string,
-                        placeholder: 'Actividad',
                         maxlength: 255
                     },
                     {
                         key: 'responsable_id',
-                        label: 'Responsable',
                         type: FILTER.types.relation,
                         table: 'usuario',
                         value: "id",
@@ -77,33 +65,24 @@ CRUD_actividades_poa_monitoreo = DSON.merge(CRUD_actividades_poa_monitoreo,
                     },
                     {
                         key: 'fecha_inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.datetime,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha_fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.datetime,
-                        placeholder: 'Fecha Fin'
                     },
                     {
                         key: 'presupuesto',
-                        label: 'Presupuesto',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto',
                         maxlength: 20
                     },
                     {
                         key: 'presupuesto_consumido',
-                        label: 'Presupuesto Consumido',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto Consumido',
                         maxlength: 20
                     },
                     {
                         key: 'estatus_actividad',
-                        label: 'Estatus',
                         type: FILTER.types.relation,
                         table: 'auditoria_programa_plan_estatus',
                         value: "code",
@@ -124,7 +103,6 @@ CRUD_actividades_poa_monitoreo = DSON.merge(CRUD_actividades_poa_monitoreo,
                     },
                     {
                         key: 'razon',
-                        label: 'Razón',
                         type: FILTER.types.relation,
                         table: 'razon',
                         value: "id",

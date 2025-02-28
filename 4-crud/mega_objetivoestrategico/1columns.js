@@ -16,35 +16,23 @@ DSON.keepmerge(CRUD_mega_objetivoestrategico, {
                 dead: true
             },
             no_orden:{
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico: {
-                label: function(){
-                    return "Eje Estratégico";
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             nombre: {
-                label: function() { return MESSAGE.i('planificacion.titleObjetivoEstrategico')},
                 shorttext: 370
             },
             descripcion: {
-                label: function() { return "Descripción" },
                 shorttext: 370
             },
             objetivo_end: {
                 sortable: false,
-                label: function() {
-                    return "Objetivos Generales END";
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370,
@@ -54,9 +42,6 @@ DSON.keepmerge(CRUD_mega_objetivoestrategico, {
             },
             objetivos_end: {
                 sortable: false,
-                label: function() {
-                    return "Objetivos END";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -67,18 +52,12 @@ DSON.keepmerge(CRUD_mega_objetivoestrategico, {
             },
             objetivo_especifico: {
                 sortable: false,
-                label: function() {
-                    return "Objetivos Específicos Institucionales";
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370
             },
             objetivos_especificos: {
                 sortable: false,
-                label: function() {
-                    return "Objetivos Específicos Institucionales";
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,

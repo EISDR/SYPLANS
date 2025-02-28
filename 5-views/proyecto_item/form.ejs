@@ -5,7 +5,7 @@
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
             <div class='col-sm-3 col-md-3'>
-                <%- FORM.inputview('initstatus', scope, {trueplaceholder: "Estatus"}) %>
+                <%- FORM.inputview('initstatus', scope, {}) %>
                 <script>
                     <%= scope %>.initstatus = <%= scope %>.firststatus.nombre;
                     <%= scope %>.refreshAngular();
@@ -18,7 +18,6 @@
                             column: 'name',
                             table: 'departamento',
                             condition: "item.compania==" + scope + ".session.compania_id && (" + scope + ".session.institucion_id?(" + scope + ".session.institucion_id==item.institucion):(item.institucion==$null))",
-                            truelabel: "Departamento",
                         //self: true,
                 //allownull: true,
                         allownew: false,
@@ -115,7 +114,6 @@
                     text: "item.nombre_completo",
                     table: "involucrados",
                     icon: {class: "archive"},
-                    label: "Involucrados",
                     condition: "(item.compania == proyecto_item.session.compania_id && item.institucion == $null) && ( item.tipo == 6 && item.active == 1)",
                     get: {
                         table: 'proyecto_item_involucrado',
@@ -138,7 +136,6 @@
                     text: "item.nombre_completo",
                     table: "involucrados",
                     icon: {class: "archive"},
-                    label: "Involucrados",
                     condition: "(item.institucion == proyecto_item.session.institucion_id && item.active == 1) && (item.tipo == 6)",
                     get: {
                         table: 'proyecto_item_involucrado',
@@ -160,12 +157,12 @@
 
             <div class="col-sm-4 col-md-4">
                 <%-
-                        FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado al proyecto", maxlength: 15})
+                        FORM.money("presupuesto", scope, { maxlength: 15})
                 %>
             </div>
             <div class="col-sm-4 col-md-4">
                 <%-
-                        FORM.inputview("presupuesto_total_restante", scope, {trueplaceholder: "Presupuesto restante", maxlength: 15})
+                        FORM.inputview("presupuesto_total_restante", scope, { maxlength: 15})
                 %>
             </div>
         </div>
@@ -187,7 +184,6 @@
                     text: "item.nombre",
                     table: "drp_resultado",
                     icon: {class: "archive"},
-                    label: "Resultado esperado",
                     condition: "item.pei==proyecto_item.session.pei_id"
                 }) %>
             </div>
@@ -201,7 +197,6 @@
                     text: "item.edt + ' ' + item.nombre",
                     table: "ods",
                     icon: {class: "archive"},
-                    label: "Objetivos de Desarrollo Sostenibles",
                     get: {
                         table: 'proyecto_item_ods',
                         tableDelete: 'proyecto_item_ods',
@@ -221,7 +216,6 @@
                     text: "item.edt + ' ' + item.nombre",
                     table: "ods",
                     icon: {class: "archive"},
-                    label: "Objetivos de Desarrollo Sostenibles",
                     condition: "(item.active == 1)",
                     get: {
                         table: 'proyecto_item_ods',

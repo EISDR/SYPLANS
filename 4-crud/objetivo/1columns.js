@@ -18,19 +18,12 @@ DSON.keepmerge(CRUD_objetivo, {
                 dead: true
             },
             edt: {
-                label: function () {
-                    return "EDT. Objetivo General"
-                },
                 sorttype: "numeric"
             },
             nombre: {
-                label: function () {
-                    return "Objetivo General"
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             created_at: {

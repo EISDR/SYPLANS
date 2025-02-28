@@ -8,8 +8,6 @@
                 <div class="col-sm-6 col-md-6">
                     <%-
                     FORM.textarea('descripcion', scope, {
-                        label: "Descripción",
-                        placeholder: "Descripción",
                         maxlength: 4000
                     })
                     %>
@@ -34,7 +32,6 @@
                         refresh: false,
                         multiple: false,
                         disabled: true,
-                        label: "Estatus",
                         text: "item.nombre",
                         table: "actividades_apoyo_estatus",
                         columns: ["id", "nombre"],
@@ -44,7 +41,7 @@
                 </div>
                 <div style="text-align: center;" class="col-sm-4 col-md-4" id="checkDinamic"
                      ng-show="actividades_poa.maneja_presupuesto">
-                    <%- FORM.checkbox("maneja_presupuesto_act_apoyo", scope, {truetext: 'Maneja presupuesto?'}) %>
+                    <%- FORM.checkbox("maneja_presupuesto_act_apoyo", scope, {}) %>
                 </div>
             </div>
             <div class="row">
@@ -57,7 +54,6 @@
                         refresh: false,
                         multiple: false,
                         disabled: false,
-                        truelabel: "Departamento",
                         text: "item.nombre",
                         table: "drp_departamento_actvidades",
                         columns: ["id", "nombre"],
@@ -73,7 +69,6 @@
                         refresh: true,
                         multiple: false,
                         disabled: false,
-                        label: "Responsable",
                         table: "drp_usuario",
                         condition: "(item.poa_id==actividades_apoyo.datas.poa_id && item.departamento==actividades_apoyo.form.selected('departamento').id) && (item.active)",
                         icon: {class: "archive"}
@@ -83,7 +78,7 @@
             <div class="row" ng-show="false">
                 <div class="col-sm-2 col-md-2 form-group-material has-feedback  has-feedback-left">
                     <%-
-                    FORM.money("presupuesto_pro", scope, {placeholder: "Presupuesto", disabled: true})
+                    FORM.money("presupuesto_pro", scope, {disabled: true})
                     %>
                 </div>
             </div>
@@ -92,12 +87,12 @@
                 <div class="col-sm-4 col-md-4 form-group-material  has-feedback  has-feedback-left"
                      ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
                     <%-
-                    FORM.money("presupuesto_restante", scope, {placeholder: "Presupuesto Disponible", disabled: true})
+                    FORM.money("presupuesto_restante", scope, {disabled: true})
                     %>
                 </div>
                 <div class="col-sm-4 col-md-4" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
                     <%-
-                    FORM.money("presupuesto", scope, {placeholder: "Presupuesto Asignado", maxlength: 15})
+                    FORM.money("presupuesto", scope, {maxlength: 15})
                     %>
                 </div>
                 <div ng-show="actividades_apoyo.session.tipo_institucion == 1">
@@ -111,7 +106,6 @@
                             refresh: true,
                             multiple: false,
                             disabled: false,
-                            label: "Tipo de inversión",
                             column: "tipo_inversion",
                             table: "tipo_inversion",
                             text: "item.nombre",
@@ -145,24 +139,21 @@
             <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.configcompany.pacc == 1" style="margin-top: 20px">
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
                     <%- FORM.inputview("bienes_permiso", scope, {
-                        placeholder: "Código de Bienes y Servicios",
                         posttype: "text"
                     }) %>
                 </div>
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.configcompany.pacc == 1">
                     <%- FORM.inputview("bienes_permiso_nombre", scope, {
-                        placeholder: "Descripción de Bienes y Servicios",
                         posttype: "text"
                     }) %>
                 </div>
             </div>
             <div class="row" ng-show="actividades_apoyo.session.tipo_institucion == 1 && actividades_poa.configcompany.pacc == 1">
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo">
-                    <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
+                    <%- FORM.inputview("presupuestario", scope, {posttype: "text"}) %>
                 </div>
                 <div class="col-sm-6 col-md-6" ng-show="actividades_apoyo.maneja_presupuesto_act_apoyo && actividades_poa.configcompany.pacc == 1">
                     <%- FORM.inputview("presupuestario_nombre", scope, {
-                        placeholder: "Descripción del Objeto",
                         posttype: "text"
                     }) %>
                 </div>

@@ -22,7 +22,6 @@
                                         table: "vw_pei",
                                         permission: "pei",
                                         icon: {class: "archive"},
-                                        label: "PEI",
                                         condition: "item.compania == filtros_pei.session.compania_id"
                                     }) %>
                                 </div>
@@ -42,7 +41,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         icon: {class: "archive"},
-                                        label: "Eje Estratégico"
                                     }) %>
                                 </div>
                                 <div class="col-sm-12 col-md-4 ">
@@ -57,7 +55,6 @@
                                         refresh: false,
                                         query: {orderby: "nombre"},
                                         icon: {class: "archive"},
-                                        label: "Objetivo Estratégico",
                                         condition: "item.eje_estrategico == filtros_pei.eje_estrategico_pei || filtros_pei.eje_estrategico_pei == '[NULL]'"
                                     }) %>
                                 </div>
@@ -72,7 +69,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         icon: {class: "archive"},
-                                        label: "Estrategia",
                                         condition: "filtros_pei.LAN.pairCompare([filtros_pei.eje_estrategico_pei,filtros_pei.objetivo_estrategico_pei],[item.eje_estrategico,item.objetivo_estrategico],'[NULL]')"
                                     }) %>
                                 </div>
@@ -89,7 +85,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         icon: {class: "archive"},
-                                        label: "Resultado",
                                         condition: "filtros_pei.LAN.pairCompare([filtros_pei.eje_estrategico_pei,filtros_pei.objetivo_estrategico_pei,filtros_pei.estrategia_pei],[item.eje_estrategico,item.objetivo_estrategico, item.estrategia],'[NULL]')"
                                     }) %>
                                 </div>
@@ -143,7 +138,6 @@
                             text: "item.nombre",
                             table: "pei_estatus",
                             icon: {class: "archive"},
-                            label: "Estado"
                         }) %>
                     </div>
                     <div class="col-md-12 pr-0 pl-0" style="position: absolute; bottom: -145px;">

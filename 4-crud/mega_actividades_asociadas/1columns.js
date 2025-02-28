@@ -16,72 +16,46 @@ DSON.keepmerge(CRUD_mega_actividades_asociadas, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico:{
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             objetivo_estrategico:{
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategia:{
-                label: "Estrategia",
                 shorttext: 370
             },
             no_resultado: {
-                label: "No.",
                 class: "text-left"
             },
             resultado_esperado:{
-                label: function(){
-                    return "Resultados Esperados"
-                },
                 shorttext: 370
             },
             no_producto: {
-                label: "No.",
                 class: "text-left"
             },
             producto_nombre:{
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
                 shorttext: 370
             },
             no2:{
-                label: "No.",
                 shorttext: 370
             },
             actividad_poa_nombre:{
-                label: "Actividad",
                 shorttext: 370
             },
             nombre: {
-                label: function (row) {
-                    return MESSAGE.i('planificacion.titleTablaActividadApoyo');
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function(){ return "Descripción"},
                 shorttext: 370
             },
             presupuesto: {
@@ -89,24 +63,19 @@ DSON.keepmerge(CRUD_mega_actividades_asociadas, {
                 formattype: "money",
             },
             estado: {
-                label: function(){ return "Estado"},
                 shorttext: 370
             },
             razon: {
-                label: function(){ return "Condición de Cierre"},
                 shorttext: 370
             },
             area_apoyo: {
-                label: "Área de apoyo",
                 shorttext: 370
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             }

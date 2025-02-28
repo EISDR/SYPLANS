@@ -5,20 +5,19 @@
                 <%- FORM.input("nombre", scope, {maxlength: 64, disabled: true}) %>
             </div>
             <div class="col-sm-12 col-md-3">
-                <%- FORM.input("valor", scope, {maxlength: 20, trueplaceholder: "Valor", disabled: true}) %>
+                <%- FORM.input("valor", scope, {maxlength: 20, disabled: true}) %>
             </div>
             <div class='col-sm-4 col-md-3'>
-                <%- FORM.checkbox('comentario_obligatorio', scope, {text: "¿Comentario obligatorio?",}) %>
+                <%- FORM.checkbox('comentario_obligatorio', scope, {t}) %>
             </div>
             <div class='col-sm-2 col-md-3'>
-                <%- FORM.checkbox('ocultar', scope, {text: "¿Ocultar?",}) %>
+                <%- FORM.checkbox('ocultar', scope, {}) %>
             </div>
         </div>
         <div class="row">
 
             <div class="col-sm-6 col-md-12 remove-input-space">
                 <%- FORM.textarea("descripcion", scope, {
-                    placeholder: "Descripción",
                     maxlength: 4000,
                     disabled: true
                 }) %>

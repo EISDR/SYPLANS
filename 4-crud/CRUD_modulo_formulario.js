@@ -50,7 +50,6 @@ DSON.keepmerge(CRUD_modulo_formulario, {
             nombre: {},
             descripcion: {},
             indicador: {
-                label: "Condición",
                 format: function (row) {
                     try {
                         let configuration = JSON.parse(row.config);

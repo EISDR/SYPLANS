@@ -17,14 +17,11 @@ DSON.keepmerge(CRUD_indicador_actividad, {
                 dead: true
             },
             departamento_nombre: {
-                label: "Departamento",
                 shorttext: 370
             },
             no: {
-                label: "No.",
             },
             resultado_esperado: {
-                label: "Resultado Esperado",
                 shorttext: 370
             },
             // indicador_poa_r: {
@@ -33,89 +30,47 @@ DSON.keepmerge(CRUD_indicador_actividad, {
             //     },
             // },
             no_producto: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "No. Proyecto/Producto" : "No. Proyecto"
-                },
             },
             producto: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto"
-                },
                 shorttext: 370
             },
             no_actividad: {
-                label: function () {
-                    return "No. Actividad"
-                },
             },
             actividades_poa_nombre: {
-                label: function () {
-                    return "Actividad"
-                },
                 shorttext: 500
             },
             no_indicador: {
-                label: function () {
-                    return "No. Indicador"
-                },
             },
             nombre_indicador: {
-                label: function () {
-                    return "Indicador de Actividades"
-                },
                 // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
                 shorttext: 370
             },
             descripcion_indicador: {
-                label: "Descripción",
                 shorttext: 370
             },
             fuente: {
-                label: "Fuente del Indicador",
                 shorttext: 370
             },
             metodo: {
-                label: "Método de Cálculo",
                 shorttext: 370
             },
             desagregacion_demografica_geografia: {
-                label: function () {
-                    return "Desagregación Demográfica Geográfica";
-                },
                 shorttext: 370
             },
             caracteristica: {
-                label: function () {
-                    return "Caracteristicas del Indicador";
-                },
                 shorttext: 370
             },
             tipo_meta: {
-                label: function () {
-                    return "Tipo de dato de la Meta"
-                }
             },
             direccion_meta: {
-                label: function (row) {
-                    return "Medio de Verificación"
-                }
             },
             ano_linea_base: {
-                label: function (row) {
-                    return "Año Línea Base"
-                }
             },
             poa_monitoreo_nombre: {
                 // label: "Medio de Verificación",
-                label: function () {
-                    return "Periodicidad"
-                },
                 shorttext: 370
             },
             linea: {
-                label: function (row) {
-                    return "Línea Base"
-                },
                 shorttext: 370,
                 format: function (row) {
                     if (row.linea) {
@@ -137,11 +92,9 @@ DSON.keepmerge(CRUD_indicador_actividad, {
                 },
             },
             medio_verificacion: {
-                label: "Medio de Verificación",
                 shorttext: 370
             },
             observacion: {
-                label: "Observación",
                 shorttext: 370
             }
         },

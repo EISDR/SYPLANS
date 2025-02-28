@@ -26,7 +26,6 @@
             text: "item.nombre",
             table: "compania",
             icon: {class: "archive"},
-            label: "Compañía",
             disable: false,
             condition: "item.tipo_institucion==1 && item.sector==" + scope + ".misectory"
         }) %>
@@ -43,7 +42,6 @@
             text: "item.nombre",
             table: "compania",
             icon: {class: "archive"},
-            label: "Compañía",
             disable: false,
             condition: "item.id==" + scope + ".companiasel"
         }) %>
@@ -58,7 +56,6 @@
             text: "item.nombre",
             table: "institucion",
             icon: {class: "archive"},
-            label: "Institución",
             condition: "item.compania==" + scope + ".companiasel"
         }) %>
     </div>

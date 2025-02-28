@@ -7,7 +7,6 @@ DSON.keepmerge(CRUD_perspectiva, {
         engine: 'my',
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -17,19 +16,10 @@ DSON.keepmerge(CRUD_perspectiva, {
                 dead: !lachechon.super
             },
             no_orden: {
-                label: function(){
-                    return "No. orden";
-                }
             },
             nombre: {
-                label: function(){
-                    return "Nombre";
-                }
             },
             descripcion: {
-                label: function(){
-                    return "Descripción"
-                }
             },
             created_at: {
                 visible: false,
@@ -76,7 +66,6 @@ DSON.keepmerge(CRUD_perspectiva, {
                 dead: true
             },
             compania: {
-                label: "Compañía",
                 visible: lachechon ? lachechon.super : false,
                 visibleDetail: lachechon ? lachechon.super : false,
                 export: false,
@@ -84,7 +73,6 @@ DSON.keepmerge(CRUD_perspectiva, {
                 dead: lachechon ? !lachechon.super : false
             },
             institucion: {
-                label: "Institución",
                 format: function(row){
                     return row.institucion === 'null' ? ' ' : row.institucion
                 },

@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_direcciones_generales, {
                 exportExample: false
             },
             viceministerios_nombre: {
-                label: function (){
-                    return "Viceministerio"
-                }
             },
             nombre: {},
             descripcion: {shorttext: 360},
@@ -59,23 +56,17 @@ DSON.keepmerge(CRUD_direcciones_generales, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 15
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 255
                 },
                 {
                     key: 'viceministerio',
-                    label: 'Viceministerio',
                     type: FILTER.types.relation,
-                    table: 'viceministerios',
                     value: "id",
                     text: "item.nombre",
                     query: {

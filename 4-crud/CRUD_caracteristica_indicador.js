@@ -51,7 +51,6 @@ DSON.keepmerge(CRUD_caracteristica_indicador, {
             descripcion: {shorttext: 360},
             active: {
                 exportExample: "0=No, 1=Si",
-                label: "Activo?",
                 format: function (row) {
                     if (row.active == 1) {
                         return "Sí";
@@ -73,15 +72,11 @@ DSON.keepmerge(CRUD_caracteristica_indicador, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre'
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción'
                 },
             ]
         },

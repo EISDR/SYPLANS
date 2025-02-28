@@ -51,30 +51,18 @@ DSON.keepmerge(CRUD_notificacion, {
             title: {},
             descripcion: {shorttext: 360},
             fecha_desde: {
-                label: function (){
-                  return "Fecha Desde"
-                },
                 formattype: ENUM.FORMAT.date
             },
             fecha_hasta: {
-                label: function (){
-                    return "Fecha Hasta"
-                },
                 formattype: ENUM.FORMAT.date
             },
             rol_nombres: {
-                label: function (){
-                    return "Roles"
-                },
                 visible: true,
                 visibleDetail: true,
                 export: false,
                 exportExample: false,
             },
             rol_export: {
-                label: function (){
-                    return "Roles"
-                },
                 visible: false,
                 visibleDetail: false,
                 export: true,
@@ -84,9 +72,6 @@ DSON.keepmerge(CRUD_notificacion, {
             },
             link: {},
             condicion: {
-                label: function (){
-                    return "Estatus";
-                }
             },
             active: {
                 format: function(row) {
@@ -102,33 +87,24 @@ DSON.keepmerge(CRUD_notificacion, {
             columns: [
                 {
                     key: 'title',
-                    label: 'Título',
                     type: FILTER.types.string,
-                    placeholder: 'Título',
                     maxlength: 255
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 255
                 },
                 {
                     key: 'fecha_inicio',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'fecha_fin',
-                    label: 'Fecha Fin',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Fin'
                 },
                 {
                     key: 'rol',
-                    label: 'Rol',
                     type: FILTER.types.relation,
                     table: 'group',
                     value: "id",
@@ -144,9 +120,7 @@ DSON.keepmerge(CRUD_notificacion, {
                 },
                 {
                     key: 'link',
-                    label: 'Link',
                     type: FILTER.types.string,
-                    placeholder: "Link"
                 }
             ]
         },

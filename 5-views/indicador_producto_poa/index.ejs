@@ -61,7 +61,6 @@
                                         text: "item.nombre",
                                         table: "drp_producto_x_indicador",
                                         icon: {class: "archive"},
-                                        truelabel: "Proyecto/Producto",
                                         condition: "item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3'"
                                     }) %>
                                 </div>
@@ -76,15 +75,11 @@
                                         text: "item.nombre",
                                         table: "drp_producto_x_indicador",
                                         icon: {class: "archive"},
-                                        truelabel: "Proyecto/Plan de Acción",
                                         condition: "item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3'"
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <%- FORM.inputview("range_date", scope, {
-                                        label_custom: true,
-                                        label: "Fecha Inicio / Fecha Fin",
-                                        placeholder: "Fecha Inicio / Fecha Fin "
                                     }) %>
                                 </div>
                             </div>
@@ -100,7 +95,7 @@
 
                             <div class="row">
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa.queries.id">
-                                    <%- FORM.inputview("indicador_poa_object.nombre", scope, {placeholder: "Indicador"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-12 col-md-12" ng-show="!indicador_producto_poa.queries.id">
                                     <%- FORM.select("indicador_poa", scope, {
@@ -112,7 +107,6 @@
                                         text: "item.nombre +' ('+ (item.departamento_name|| 'Sin departamento')+')'",
                                         table: "z_indicador_poa",
                                         icon: {class: "archive"},
-                                        label: "Indicador",
                                         condition: "(indicador_producto_poa.producto == item.producto || indicador_producto_poa.producto=='[NULL]') && (item.poa == indicador_producto_poa.conditionPoa.poa_id && item.estatus == '3')",
 
                                     }) %>
@@ -146,19 +140,19 @@
 
                             <div class="row">
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("tipo_meta_nombre", scope, {placeholder: "Tipo de dato de la Meta"}) %>
+                                    <%- FORM.inputview("tipo_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("direccion_meta_nombre", scope, {placeholder: "Dirección de la Meta"}) %>
+                                    <%- FORM.inputview("direccion_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("ano_linea_base", scope, {placeholder: "Año Línea Base"}) %>
+                                    <%- FORM.inputview("ano_linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("linea_base", scope, {placeholder: "Línea Base"}) %>
+                                    <%- FORM.inputview("linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("periodicidad", scope, {trueplaceholder: "Periodicidad"}) %>
+                                    <%- FORM.inputview("periodicidad", scope, {}) %>
                                 </div>
                             </div>
 
@@ -234,7 +228,6 @@
                                                  ng-show="value.allow.allow===1">
                                                 <a
 
-                                                        title="Guardar"
                                                         style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;"
                                                         class="savepartialy"
                                                         ng-click="indicador_producto_poa.save_pei_ano(value.id);">
@@ -245,7 +238,6 @@
                                                 </a>
                                                 <a
 
-                                                        title="Limpiar"
                                                         style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;font-size: 22px; color: #ccc !important;"
                                                         class="savepartialy"
                                                         ng-click="indicador_producto_poa.save_pei_ano(value.id,true);">
@@ -278,7 +270,7 @@
 
                                             </div>
                                             <div style="float: right;margin-left: 14px;">
-                                                <button title="Enviar notificación a Encargados y Analistas de la planificación"
+                                                <button
                                                         type="button"
                                                         class="btn bg-warning btn-xs mr-0"
                                                         style="margin-top: 6px;"
@@ -313,15 +305,12 @@
                                                  style="display: none"
                                                  dragoncontrol="file"
                                                  ng-if="value.allow.allow===1"
-                                                 label="Subir Evidencias"
                                                  cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
                                                  id="IndicadorPOA{{value.id}}" cache="false">
                                                 {
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_producto_poa/META{{value.id}}",
-                                                title:"Subir Evidencias",
-                                                truetext:"Subir Evidencias",
                                                 alone:true,
                                                 }
                                             </div>
@@ -329,15 +318,12 @@
                                             <div class=" modificar modificarIndicadorProducto" style="display: none"
                                                  dragoncontrol="file"
                                                  ng-if="value.allow.allow!==1"
-                                                 label="Ver Evidencias"
                                                  cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
                                                  id="IndicadorPOA{{value.id}}" cache="false">
                                                 {
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_producto_poa/META{{value.id}}",
-                                                title:"Ver Evidencias",
-                                                truetext:"Ver Evidencias",
                                                 alone:true,
                                                 }
                                             </div>

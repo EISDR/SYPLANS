@@ -11,7 +11,6 @@
                             text: "item.nombre",
                             table: 'vw_proyecto_item_actividad',
                             column: ['id'],
-                            label: "Actividad",
                             icon: {class: "archive"},
                             allownull: false,
                             allownew: false,
@@ -51,29 +50,25 @@
                     </div>
                     <div class='col-sm-4 col-md-4'>
                         <%- FORM.inputview("departamento_actividad", scope, {
-                            placeholder: "Departamento"
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4">
                         <%- FORM.inputview("producto_actividad", scope, {
-                            trueplaceholder: "Proyecto Especial",
                         }) %>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-md-4">
                         <%- FORM.inputview("responsable_actividad", scope, {
-                            placeholder: "Responsable",
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4'>
                         <%- FORM.inputview('presupuesto_actividad', scope, {
                             disabled: true,
-                            label: "Presupuesto",
                         }) %>
                     </div>
                     <div class='col-sm-3 col-md-4'>
-                        <%- FORM.inputview("estatus_nombre_actividad",scope,{ placeholder: "Estatus"})%>
+                        <%- FORM.inputview("estatus_nombre_actividad",scope,{ })%>
                     </div>
                 </div>
             </div>
@@ -130,7 +125,6 @@
                                 allowview: false,
                                 allowlist: false,
                                 allownull: false,
-                                label: "Estado",
                                 table: "vw_auditoria_programa_plan_estatus",
                                 text: "item.nombre",
                                 icon: {class: "archive"},
@@ -145,7 +139,6 @@
                                 allowlist: false,
                                 // refresh: false,
                                 // disabled: true,
-                                truelabel: "Condiciones de Cierre",
                                 table: "vw_proyecto_razon_apoyo",
                                 text: "item.nombre_razon",
                                 icon: {class: "archive"},
@@ -154,10 +147,8 @@
                         </div>
                         <div class="col-sm-2 col-md-2 center-profile-image countFile">
                             <%- FORM.file("actividad_apoyofile_comment", scope, {
-                                title: 'Subir Evidencias',
                                 maxfiles: 999,
                                 columns: 4,
-                                truetext: 'Subir Evidencias',
                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                             }) %>
@@ -173,7 +164,6 @@
                                     allowview: false,
                                     allowlist: false,
                                     multiple: false,
-                                    label: "Responsable",
                                     text: "item.nombre + ' ' + item.apellido",
                                     table: "usuario",
                                     columns: ["nombre"],
@@ -189,7 +179,6 @@
                                     allowview: false,
                                     allowlist: false,
                                     multiple: false,
-                                    label: "Responsable",
                                     text: "item.nombre + ' ' + item.apellido",
                                     table: "usuario",
                                     columns: ["nombre"],

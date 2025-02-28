@@ -26,7 +26,6 @@
                             allowlist: false,
                             disabled: true,
                             multiple: false,
-                            label: "Responsable",
                             text: "item.nombre + ' ' + item.apellido",
                             table: "usuario",
                             columns: ["nombre"],
@@ -43,7 +42,6 @@
                             allowlist: false,
                             disabled: true,
                             multiple: false,
-                            label: "Responsable",
                             text: "item.nombre + ' ' + item.apellido",
                             table: "usuario",
                             columns: ["nombre"],
@@ -61,7 +59,6 @@
                             allowlist: false,
                             disabled: true,
                             multiple: false,
-                            label: "Responsable",
                             text: "item.nombre + ' ' + item.apellido",
                             table: "usuario",
                             columns: ["nombre"],
@@ -78,7 +75,6 @@
                             allowlist: false,
                             disabled: true,
                             multiple: false,
-                            label: "Responsable",
                             text: "item.nombre + ' ' + item.apellido",
                             table: "usuario",
                             columns: ["nombre"],
@@ -92,7 +88,7 @@
 
                 <div class="row">
                     <div class="col-sm-3 col-md-3">
-                        <%- FORM.inputview("proyecto_item_nombre", scope, {trueplaceholder: "Proyecto Especial"}) %>
+                        <%- FORM.inputview("proyecto_item_nombre", scope, {}) %>
                     </div>
                     <div class="col-sm-3 col-md-3">
                         <%- FORM.daterange("range_date", scope, {
@@ -102,10 +98,10 @@
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3">
-                        <%-FORM.inputview("presupuesto_ver", scope, {placeholder: "Presupuesto Asignado"} )%>
+                        <%-FORM.inputview("presupuesto_ver", scope, {} )%>
                     </div>
                     <div class="col-sm-3 col-md-3">
-                        <%-FORM.inputview("show_presupuesto_consumido", scope, {placeholder: "Presupuesto Ejecutado"} )%>
+                        <%-FORM.inputview("show_presupuesto_consumido", scope, {} )%>
                     </div>
                 </div>
             </div>
@@ -127,31 +123,28 @@
                             value: "id",
                             table: "vw_auditoria_programa_plan_estatus",
                             icon: {class: "archive"},
-                            truelabel: "Estatus",
                             condition: "item.plan_status == vw_proyecto_item_actividad.my_true_estatus && item.entidad == 'proyecto_item_actividad'"
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '3' && !<%= scope %>.dont_show_money">
-                        <%-FORM.inputview("presupuesto_consumido_ver", scope, {placeholder: "Presupuesto Consumido", maxlength: 16})%>
+                        <%-FORM.inputview("presupuesto_consumido_ver", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '3' && !<%= scope %>.dont_show_money">
-                        <%-FORM.money("act_presupuesto_consumido", scope, {placeholder: "Añadir Presupuesto Consumido", maxlength: 16})%>
+                        <%-FORM.money("act_presupuesto_consumido", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '3' && !<%= scope %>.dont_show_money">
-                        <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3}) %>
+                        <%- FORM.percentage("avance_porcentaje", scope, { maxlength: 3}) %>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '6'">
-                        <%-FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto Final Consumido", maxlength: 16})%>
+                        <%-FORM.money("presupuesto", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-2 col-md-2" ng-show="<%= scope %>.estatus_id == '6'">
-                        <%-FORM.inputview("presupuesto_restante", scope, {placeholder: "Presupuesto disponible del Proyecto", maxlength: 16})%>
+                        <%-FORM.inputview("presupuesto_restante", scope, { maxlength: 16})%>
                     </div>
                     <div class="col-sm-3 col-md-3 center-profile-image countFile">
                         <%- FORM.file("actividadfile", scope, {
-                            title: 'Subir Evidencia',
                             maxfiles: 999,
                             columns: 4,
-                            truetext: 'Subir Evidencia',
                             imagefloat: "right",
                         // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                         // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
@@ -168,7 +161,6 @@
                             allowlist: false,
                             refresh: false,
                             text: "item.nombre_razon",
-                            truelabel: "Condiciones de Cierre",
                             table: "vw_proyecto_razon_actividad",
                             columns: ["nombre"],
                             icon: {class: "archive"},
@@ -183,7 +175,6 @@
                             allowview: false,
                             allowlist: false,
                             refresh: false,
-                            truelabel: "Condiciones de Cierre",
                             text: "item.nombre_razon",
                             table: "razon",
                             columns: ["nombre"],
@@ -192,7 +183,7 @@
                         }) %>
                     </div>
                     <div class="col-sm-6 col-md-6">
-                        <%- FORM.textarea("comentario", scope, {placeholder: "Comentario"}) %>
+                        <%- FORM.textarea("comentario", scope, {}) %>
                     </div>
                 </div>
                 <div class="row">
@@ -287,7 +278,7 @@
                                 <div class="">
                                     <div class="row">
                                         <div class="col-sm-4 col-md-4">
-                                            <%- FORM.textarea("comentario_comment", scope, {placeholder: "Comentario"}) %>
+                                            <%- FORM.textarea("comentario_comment", scope, {}) %>
 
                                         </div>
                                         <div class="col-sm-3 col-md-3" style="margin-top: 23px;">
@@ -308,10 +299,8 @@
                                         </div>
                                         <div class="col-sm-5 col-md-5 center-profile-image countFile" ng-show="actividades_poa_monitoreo.mostrar_comentario">
                                             <%- FORM.file("actividadfile_comment", scope, {
-                                                title: 'Subir Evidencia',
                                                 maxfiles: 999,
                                                 columns: 4,
-                                                truetext: 'Subir Evidencia',
                                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                                             }) %>

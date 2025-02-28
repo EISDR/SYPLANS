@@ -31,7 +31,6 @@
                         allowlist: false,
                         text: "item.nombre",
                         table: 'vw_departamento_filtro_conpoa',
-                        label: "Departamento",
                         icon: {class: "archive"},
                         condition: "(item.compania==" + scope + ".session.compania_id && item.poa==" + scope + ".session.poa_id && item.institucion==null) || item.poa==0 "
                     }) %>
@@ -47,7 +46,6 @@
                         todos: true,
                         text: "item.nombre",
                         table: 'vw_departamento_filtro_conpoa',
-                        label: "Departamento",
                         icon: {class: "archive"},
                         condition: "(item.institucion==" + scope + ".session.institucion_id && item.poa==" + scope + ".session.poa_id)  || item.poa==0"
                     }) %>

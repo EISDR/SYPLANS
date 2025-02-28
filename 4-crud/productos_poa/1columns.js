@@ -20,39 +20,25 @@ DSON.keepmerge(CRUD_productos_poa, {
                 dead: true
             },
             no2: {
-                label: "No.",
             },
             resultado: {
-                label: function () {
-                    return "Resultado Esperado";
-                },
                 shorttext: 370
             },
             no1: {
-                label: "No.",
             },
             producto: {
-                label: function () {
-                    return lachechon.tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "descripción",
                 shorttext: 370
             },
             departamento: {
-                label: function () {
-                    return "Departamento";
-                },
                 shorttext: 370
             },
             estado_producto: {
-                label: "estado",
                 shorttext: 370
             },
             condition: {
-                label: "Condición",
                 export: true,
                 format: function (row) {
                     var nom = row.condition;
@@ -64,33 +50,21 @@ DSON.keepmerge(CRUD_productos_poa, {
                 }
             },
             fecha_inicio: {
-                label: function () {
-                    return "Fecha Inicio";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: function () {
-                    return "Fecha Fin";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
             actividades: {
                 sortable: false,
-                label: function () {
-                    return lachechon.tipo_institucion == 1 ? "Actividades del Proyecto/Producto" : "Actividades del Proyecto";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,
             },
             actividades_poa: {
                 sortable: false,
-                label: function () {
-                    return  lachechon.tipo_institucion == 1 ? "Actividades del Proyecto/Producto" : "Actividades del Proyecto";
-                },
                 visible: false,
                 visibleDetail: false,
                 checkExport: true,
@@ -98,18 +72,12 @@ DSON.keepmerge(CRUD_productos_poa, {
             },
             involucrado: {
                 sortable: false,
-                label: function () {
-                    return "Involucrados";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,
             },
             involucrados: {
                 sortable: false,
-                label: function () {
-                    return "Involucrados";
-                },
                 visible: false,
                 visibleDetail: false,
                 checkExport: true,
@@ -117,9 +85,6 @@ DSON.keepmerge(CRUD_productos_poa, {
             },
             indicadores: {
                 sortable: false,
-                label: function () {
-                    return lachechon.tipo_institucion == 1 ? "Indicadores del Proyecto/Producto" : "Indicadores del Proyecto";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,

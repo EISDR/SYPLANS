@@ -7,7 +7,6 @@
             <div class="col-sm-3 col-md-3 ">
                 <%-
                 FORM.selectsimple("homePage", scope, {
-                    label: "Home Page",
                     data: MENUONEROW,
                     groupby: "category",
                     icon: {class: "home"}
@@ -31,15 +30,15 @@
         </div>
         <div class="row">
             <div class="col-sm-3 col-md-3">
-                <%- FORM.checkbox("notificaciones", scope, {text: 'Acepta Notificaciones de Avance de Indicador?'}) %>
+                <%- FORM.checkbox("notificaciones", scope, {}) %>
             </div>
         </div>
         <div class="row" ng-show="group.notificaciones == 1">
             <div class="col-sm-3 col-md-3">
-                <%- FORM.integer("gracia", scope, {placeholder: 'Días de gracia'}) %>
+                <%- FORM.integer("gracia", scope, {}) %>
             </div>
             <div class="col-sm-3 col-md-3">
-                <%- FORM.integer("repeat", scope, {placeholder: 'Cantidad de días a repetir las notificaciones'}) %>
+                <%- FORM.integer("repeat", scope, {}) %>
             </div>
         </div>
     </div>

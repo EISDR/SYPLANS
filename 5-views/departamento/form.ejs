@@ -12,7 +12,6 @@
                     allowlist: false,
                     refresh: false,
                     multiple: false,
-                    label: "Dirección Área",
                     text: "item.nombre",
                     table: "direcciones_area",
                     columns: ["nombre"],
@@ -20,7 +19,7 @@
                 }) %>
             </div>
             <div class="col-sm-12 col-md-12">
-                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000}) %>
+                <%- FORM.textarea('descripcion',scope,{maxlength: 4000}) %>
             </div>
         </div>
     </div>

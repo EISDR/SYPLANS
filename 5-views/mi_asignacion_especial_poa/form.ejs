@@ -5,7 +5,7 @@
                 <%- FORM.input("nombre", scope, {maxlength: 1000}) %>
             </div>
             <div class="col-sm-8 col-md-8">
-                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength: 4000}) %>
+                <%- FORM.textarea('descripcion',scope,{maxlength: 4000}) %>
             </div>
         </div>
 
@@ -19,7 +19,6 @@
                     allowview: false,
                     multiple: false,
                     disabled: false,
-                    label: "Departamento a Solicitar",
                     text: "item.nombre",
                     table: "departamento",
                     columns: ["nombre"],
@@ -34,7 +33,6 @@
                 allowview: false,
                 multiple: false,
                 disabled: false,
-                label: "Responsable",
                 text: "item.nombre + ' ' + item.apellido",
                 table: "usuario",
                 columns: ["nombre"],

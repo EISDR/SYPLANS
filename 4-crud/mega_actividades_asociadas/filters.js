@@ -7,13 +7,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                 columns: [
                     {
                         key: 'no_eje',
-                        label: 'No. eje estratégico',
                         type: FILTER.types.string,
-                        placeholder: 'No. eje estratégico'
                     },
                     {
                         key: 'id_eje_estrategico',
-                        label: 'Eje Estratégico',
                         type: FILTER.types.relation,
                         table: 'eje_estrategico',
                         value: "id",
@@ -32,13 +29,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'no_objetivo',
-                        label: 'No. objetivo estratégico',
                         type: FILTER.types.string,
-                        placeholder: 'No. objetivo estratégico'
                     },
                     {
                         key: 'id_objetivo_estrategico',
-                        label: 'Objetivo Estratégico',
                         type: FILTER.types.relation,
                         table: 'vw_objetivo_estrategico',
                         value: "id",
@@ -57,13 +51,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'no_estrategia',
-                        label: 'No. Estrategia',
                         type: FILTER.types.string,
-                        placeholder: 'No. Estrategia'
                     },
                     {
                         key: 'id_estrategia',
-                        label: 'Estrategia',
                         type: FILTER.types.relation,
                         table: 'vw_estrategia',
                         value: "id",
@@ -82,13 +73,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'no2',
-                        label: 'No. Resultado esperado',
                         type: FILTER.types.string,
-                        placeholder: 'No. Resultado esperado'
                     },
                     {
                         key: 'id_resultado_esperado',
-                        label: 'Resultado Esperado',
                         type: FILTER.types.relation,
                         table: 'vw_resultado',
                         value: "id",
@@ -107,13 +95,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'no1',
-                        label:  lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                         type: FILTER.types.integer,
-                        placeholder: lachechon.tipo_institucion === 1 ? 'No. Proyecto/Producto' : 'No. Proyecto/Plan de Acción',
                     },
                     {
                         key: 'producto',
-                        label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                         type: FILTER.types.relation,
                         table: 'vw_productos_poa_detalles',
                         value: "id",
@@ -132,14 +117,10 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'no2',
-                        label: 'No. Actividad',
                         type: FILTER.types.integer,
-                        placeholder: 'No. Actividad'
                     },
                     {
                         key: 'actividad_poa',
-                        label: 'Actividad',
-                        placeholder: 'Actividad',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'vw_actividades_poa',
@@ -158,28 +139,18 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'presupuesto',
-                        label: 'Presupuesto',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto'
                     },
                     {
                         key: 'nombre',
-                        label: function (row) {
-                            return MESSAGE.i('planificacion.titleTablaActividadApoyo');
-                        },
                         type: FILTER.types.string,
-                        placeholder: 'Actividad de apoyo'
                     },
                     {
                         key: 'descripcion',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción'
                     },
                     {
                         key: 'departamento',
-                        label: 'Área de apoyo',
-                        placeholder: 'Área de apoyo',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'departamento',
@@ -205,15 +176,11 @@ CRUD_mega_actividades_asociadas = DSON.merge(CRUD_mega_actividades_asociadas,
                     },
                     {
                         key: 'fecha_inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha_fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Fin'
                     },
                 ]
             }

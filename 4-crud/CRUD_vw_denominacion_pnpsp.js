@@ -49,9 +49,6 @@ DSON.keepmerge(CRUD_vw_denominacion_pnpsp, {
                 dead: true
             },
             no_secuencia: {
-                label: function () {
-                    return "No. Secuencia"
-                },
                 formattype: ENUM.FORMAT.numeric
             },
             nombre: {},
@@ -77,23 +74,17 @@ DSON.keepmerge(CRUD_vw_denominacion_pnpsp, {
             columns: [
                 {
                     key: 'no_secuencia',
-                    label: "No. Secuencia",
                     type: FILTER.types.integer,
-                    placeholder: 'No. secuencia',
                     maxlength: 255
                 },
                 {
                     key: 'nombre',
-                    label: "Nombre",
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 255
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 1000
                 },
             ]

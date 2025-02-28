@@ -18,97 +18,58 @@ DSON.keepmerge(CRUD_mega_indicadores_poa, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico:{
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             objetivo_estrategico:{
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategia:{
-                label: "Estrategia",
                 shorttext: 370
             },
             no_resultado: {
-                label: "No.",
                 class: "text-left"
             },
             resultado_esperado:{
-                label: function(){
-                    return "Resultados Esperados"
-                },
                 shorttext: 370
             },
             no_producto: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "No. Proyecto/Producto" : "No. Proyecto";
-                },
                 class: "text-left"
             },
             producto:{
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
             },
             no_indicador: {
-                label: "No.",
                 class: "text-left"
             },
             nombre_indicador:{
-                label: "Indicador"
             },
             descripcion:{
-                label: function() { return "Descripción" },
             },
             fuente:{
-                label: "Fuente del Indicador"
             },
             metodo:{
-                label: "Método Cálculo",
             },
             desagregacion_demografica_geografia: {
-                label: function() {
-                    return "Desagregación Demográfica Geográfica";
-                },
                 shorttext: 370
             },
             tipo_meta:{
-                label: "Tipo Meta",
             },
             direccion_meta:{
-                label: "Dirección Meta",
             },
             ano_linea_base: {
-                label: function (row) {
-                    return "Año Línea Base"
-                }
             },
             linea: {
-                label: function (row) {
-                    return "Línea Base"
-                }
             },
             observacion: {
-                label: "Observación",
                 shorttext: 370
             }
         },

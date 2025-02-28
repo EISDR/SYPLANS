@@ -52,38 +52,22 @@ DSON.keepmerge(CRUD_proyecto_item_actividad, {
                 shorttext: 360
             },
             departamento: {
-                label: function () {
-                    return "Departamento"
-                }
             },
             responsable: {},
             estatus: {},
             from: {
-                label: function () {
-                    return "Desde"
-                }, formattype: ENUM.FORMAT.date
+                formattype: ENUM.FORMAT.date
             },
             to: {
-                label: function () {
-                    return "Hasta"
-                }, formattype: ENUM.FORMAT.date
+                formattype: ENUM.FORMAT.date
             },
             presupuesto: {
-                label: function () {
-                    return "Presupuesto"
-                },
                 formattype: ENUM.FORMAT.money
             },
             presupuesto_consumido: {
-                label: function () {
-                    return "Presupuesto Ejecutado"
-                },
                 formattype: ENUM.FORMAT.money
             },
             archivos: {
-                label: function () {
-                    return "Documento Adjunto"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){
@@ -147,16 +131,10 @@ DSON.keepmerge(CRUD_proyecto_item_actividad, {
                 }
             },
             actividades_apoyo_table: {
-                label: function () {
-                    return "Actividades de apoyo"
-                },
                 export: false,
                 exportExample: false,
             },
             actividades_apoyo: {
-                label: function () {
-                    return "Actividades de apoyo"
-                },
                 visible: false,
                 visibleDetail: false,
                 parent: "actividades_apoyo",
@@ -166,9 +144,6 @@ DSON.keepmerge(CRUD_proyecto_item_actividad, {
                 dead: true
             },
             mods: {
-                label: function () {
-                    return "Metas de Objetivos de Desarrollo Sostenible";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,

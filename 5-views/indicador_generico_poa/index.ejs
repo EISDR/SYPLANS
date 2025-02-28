@@ -86,7 +86,7 @@
 
                             <div class="row">
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_generico_poa.queries.id">
-                                    <%- FORM.inputview("indicador_generico_object.nombre_indicador", scope, {placeholder: "Indicador"}) %>
+                                    <%- FORM.inputview("indicador_generico_object.nombre_indicador", scope, {}) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="!indicador_generico_poa.queries.id">
                                     <%- FORM.select("year", scope, {
@@ -100,7 +100,6 @@
                                         value: "ano",
                                         table: "vw_indicador_generico",
                                         icon: {class: "archive"},
-                                        label: "Año",
                                         condition: "item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id",
                                         query: {
                                             limit: 0,
@@ -127,7 +126,6 @@
                                         text: "item.nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
-                                        label: "Indicador de Proceso",
                                         query: {
                                             limit: 0,
                                             // page: 1,
@@ -174,7 +172,6 @@
                                         text: "item.nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
-                                        label: "Indicador",
                                         query: {
                                             limit: 0,
                                             // page: 1,
@@ -212,7 +209,6 @@
                                         text: "item.nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                         table: "indicador_generico",
                                         icon: {class: "archive"},
-                                        label: "Indicador",
                                         condition: "item.ano==indicador_generico_poa.year && item.table_==indicador_generico_poa.entidadobj.id && item.compania==indicador_generico_poa.session.compania_id",
                                         join: [
                                             {
@@ -246,16 +242,16 @@
 
                             <div class="row">
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("tipo_meta_nombre", scope, {placeholder: "Tipo de dato de la Meta"}) %>
+                                    <%- FORM.inputview("tipo_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("direccion_meta_nombre", scope, {placeholder: "Dirección de la Meta"}) %>
+                                    <%- FORM.inputview("direccion_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("ano_linea_base", scope, {placeholder: "Año Línea Base"}) %>
+                                    <%- FORM.inputview("ano_linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("linea_base", scope, {placeholder: "Línea Base"}) %>
+                                    <%- FORM.inputview("linea_base", scope, {}) %>
                                 </div>
                             </div>
 
@@ -269,10 +265,10 @@
                                               ng-model="indicador_generico_poa.medio_verificacion"></textarea>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("ano", scope, {trueplaceholder: "Año a evaluar"}) %>
+                                    <%- FORM.inputview("ano", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("periodicidad", scope, {trueplaceholder: "Periodicidad"}) %>
+                                    <%- FORM.inputview("periodicidad", scope, {}) %>
                                 </div>
                             </div>
                             <div class="row">
@@ -418,8 +414,6 @@
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_generico_poa/META{{value.id}}",
-                                                title:"Subir Evidencias",
-                                                truetext:"Subir Evidencias",
                                                 alone:true,
                                                 }
                                             </div>
@@ -434,8 +428,6 @@
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_generico_poa/META{{value.id}}",
-                                                title:"Ver Evidencias",
-                                                truetext:"Ver Evidencias",
                                                 alone:true,
                                                 }
                                             </div>

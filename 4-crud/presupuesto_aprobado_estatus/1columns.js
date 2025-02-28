@@ -5,17 +5,14 @@ DSON.keepmerge(CRUD_presupuesto_aprobado_estatus, {
         engine: 'my',
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false
             },
             nombre: {
-                label: "Nombre",
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             created_at: {

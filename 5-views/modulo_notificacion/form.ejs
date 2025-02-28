@@ -18,7 +18,6 @@
                     </div>
                     <div class='col-sm-4 col-md-4'>
                         <%- FORM.selectsimple("view", scope, {
-                            label: "Entidad",
                             value: "code",
                             data: models.filter(d => d).filter(d => d.indexOf('mdn_') !== -1).map(d => {
                                 return {code: d, name: params.capitalize(d.replace('mdn_', '').replaceAll('_', ' '))}
@@ -47,27 +46,22 @@
                     </div>
                     <div class='col-sm-12 col-md-12'>
                         <%- FORM.input('subject', scope, {
-                            trueplaceholder: "Asunto"
                         }) %>
                     </div>
                     <div class='col-sm-12 col-md-12'>
                         <%- FORM.html('template', scope, {
-                            placeholder: "Plantilla del Correo"
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.checkbox('masterpage', scope, {
-                            truetext: "Aplicar estilo SYPLANS?"
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.checkbox('tambienpush', scope, {
-                            truetext: "También envía notificación Push?"
                         }) %>
                     </div>
                     <div class='col-sm-12 col-md-12' ng-show="modulo_notificacion.tambienpush">
                         <%- FORM.html('template_push', scope, {
-                            placeholder: "Plantilla para notificación Push"
                         }) %>
                     </div>
                 </div>
@@ -94,7 +88,6 @@
                             value: "id",
                             table: "a_clone_group",
                             icon: {class: "users4"},
-                            truelabel: "Roles fijos a enviar",
                             get: {
                                 table: 'modulo_notificacion_group',
                                 fieldFrom: 'id',
@@ -105,7 +98,6 @@
                     </div>
                     <div class='col-sm-2 col-md-2'>
                         <%- FORM.selectsimple("destiny_roles", scope, {
-                            label: "Destino",
                             value: "code",
                             data: [
                                 {"code": "TO", "name": "Para (To)"},
@@ -126,7 +118,6 @@
                             value: "id",
                             table: "usuario",
                             icon: {class: "user"},
-                            truelabel: "Usuario fijos a enviar",
                             get: {
                                 table: 'modulo_notificacion_usuario',
                                 fieldFrom: 'id',
@@ -138,7 +129,6 @@
                     </div>
                     <div class='col-sm-2 col-md-2'>
                         <%- FORM.selectsimple("destiny_usuario", scope, {
-                            label: "Destino",
                             value: "code",
                             data: [
                                 {"code": "TO", "name": "Para (To)"},
@@ -149,13 +139,10 @@
                     </div>
                     <div class="col-sm-10 col-md-10">
                         <%- FORM.tags("direct_emails", scope, {
-                            placeholder: "Correos fijos a enviar",
-                            placeholderHolder: "Digite el correo"
                         }) %>
                     </div>
                     <div class='col-sm-2 col-md-2'>
                         <%- FORM.selectsimple("destiny_fix", scope, {
-                            label: "Destino",
                             value: "code",
                             data: [
                                 {"code": "TO", "name": "Para (To)"},
@@ -179,13 +166,11 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "key"},
-                            truelabel: "Variable clave para no repetir envío",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
                     <div class='col-sm-6 col-md-6'>
                         <%- FORM.selectsimple("disparo_type", scope, {
-                            label: "Tipo de evento que activa la notificación",
                             value: "code",
                             data: [
                                 {"code": "fecha", "name": "Por Fecha"},
@@ -201,7 +186,6 @@
                 <div class="row" ng-show="modulo_notificacion.view!=='[NULL]'">
                     <div class='col-sm-6 col-md-6' ng-show="modulo_notificacion.disparo_type==='code'">
                         <%- FORM.selectsimple("field_action", scope, {
-                            label: "Acción dentro de SYPLANS",
                             value: "code",
                             data: [
                                 {"code": "GASNC", "name": "Gestión de Escalamiento - Salidas no Conforme"},
@@ -231,7 +215,6 @@
                             value: "id",
                             table: "auditoria_entidad_flujo",
                             icon: {class: "list"},
-                            truelabel: "Módulo u opción"
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4" ng-show="modulo_notificacion.disparo_type==='estimado'">
@@ -245,7 +228,6 @@
                             value: "id",
                             table: "auditoria_programa_plan_estatus",
                             icon: {class: "list"},
-                            truelabel: "Estatus",
                             condition: "item.entidad==modulo_notificacion.field_entidad && item.tiempo_estimado"
                         }) %>
                     </div>
@@ -260,7 +242,6 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "calendar"},
-                            truelabel: "Variable que contiene el tiempo transcurrido disparará el envío",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
@@ -275,7 +256,6 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "calendar"},
-                            truelabel: "Variable que contiene la vigencia disparará el envío",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
@@ -290,13 +270,11 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "calendar"},
-                            truelabel: "Variable que contiene el tiempo",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='vigencia'">
                         <%- FORM.selectsimple("field_tiempocondition", scope, {
-                            label: "Condición",
                             value: "code",
                             data: [
                                 {"code": "igual", "name": "Cuando sea Igual"},
@@ -319,13 +297,11 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "calendar"},
-                            truelabel: "Variable que contiene la fecha que disparará el envío",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='fecha'">
                         <%- FORM.selectsimple("field_fechacondition", scope, {
-                            label: "Condición",
                             value: "code",
                             data: [
                                 {"code": "igual", "name": "Cuando sea Igual"},
@@ -339,7 +315,6 @@
                     </div>
                     <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type==='fecha'">
                         <%- FORM.checkbox('date_strict', scope, {
-                            truetext: "Tomará en cuenta la hora?"
                         }) %>
                     </div>
                 </div>
@@ -355,7 +330,6 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "mail5"},
-                            truelabel: "Variable que contiene los correos a enviar",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
@@ -370,7 +344,6 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "mail5"},
-                            truelabel: "Variable que contiene los correos a enviar en CC",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
@@ -385,7 +358,6 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "mail5"},
-                            truelabel: "Variable que contiene los correos a enviar en CCO",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
@@ -400,13 +372,11 @@
                             value: "column_name",
                             table: "vw_mdnfields",
                             icon: {class: "list"},
-                            truelabel: "Variable que contiene la lista negra",
                             condition: "item.table_name==modulo_notificacion.view"
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-4' ng-show="modulo_notificacion.disparo_type!=='code'">
                         <%- FORM.checkbox('send_one', scope, {
-                            truetext: "Repetir Diario?"
                         }) %>
                     </div>
                 </div>

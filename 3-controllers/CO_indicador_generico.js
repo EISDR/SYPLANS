@@ -165,101 +165,50 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     edt_ods: {
-                        label: function () {
-                            return "No."
-                        },
                         sorttype: ENUM.FORMATFILTER.numeric
                     },
                     ods_nombre: {
-                        label: function () {
-                            return "Objetivo de Desarrollo Sostenible"
-                        },
                         sortable: false,
                     },
                     edt_mod: {
-                        label: function () {
-                            return "No."
-                        },
                         sorttype: ENUM.FORMATFILTER.numeric,
                     },
                     mod_nombre: {
-                        label: function () {
-                            return "Meta Objetivo de Desarrollo Sostenible"
-                        },
                         sortable: false,
                     },
                     edt_indicador: {
-                        label: function () {
-                            return "No."
-                        },
                         sorttype: ENUM.FORMATFILTER.numeric,
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     departamento_nombre: {
-                        label: function () {
-                            return "Departamento"
-                        }
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -282,13 +231,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };
@@ -318,74 +263,37 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     registro: {
-                        label: "Registro",
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     departamento_nombre: {
-                        label: function () {
-                            return "Departamento"
-                        }
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -408,13 +316,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };
@@ -492,87 +396,44 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     mapa_proceso_nombre: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Mapa de Proceso"
-                        },
                         shorttext: 370
                     },
                     procesos_categoria_nombre: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Macroproceso"
-                        },
                         shorttext: 370
                     },
                     registro: {
-                        label: "Registro",
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     departamento_nombre: {
-                        label: function () {
-                            return "Departamento"
-                        }
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -595,13 +456,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };
@@ -609,7 +466,6 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     columns: [
                         {
                             key: 'registro',
-                            label: 'Registro',
                             type: FILTER.types.relation,
                             table: 'pnpsp',
                             value: "id",
@@ -625,35 +481,26 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'nombre_indicador',
-                            label: MESSAGE.i('planificacion.titleIndicadorPOA'),
                             type: FILTER.types.string,
-                            placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
                             maxlength: 255
                         },
                         {
                             key: 'descripcion_indicador',
-                            label: 'Descripción',
                             type: FILTER.types.string,
-                            placeholder: 'Descripción',
                             maxlength: 4000
                         },
                         {
                             key: 'fuente',
-                            label: 'Fuente',
                             type: FILTER.types.string,
-                            placeholder: 'Fuente',
                             maxlength: 255
                         },
                         {
                             key: 'metodo',
-                            label: 'Método Cálculo',
                             type: FILTER.types.string,
-                            placeholder: 'Método Cálculo',
                             maxlength: 255
                         },
                         {
                             key: 'tipo_meta',
-                            label: 'Tipo de meta',
                             type: FILTER.types.relation,
                             table: 'tipoMeta',
                             value: "id",
@@ -669,7 +516,6 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'direccion_meta',
-                            label: 'Dirección de la meta',
                             type: FILTER.types.relation,
                             table: 'direccionMeta',
                             value: "id",
@@ -685,21 +531,16 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         },
                         {
                             key: 'linea',
-                            label: 'Línea Base',
                             type: FILTER.types.integer,
-                            placeholder: 'Línea Base',
                             maxlength: 30
                         },
                         {
                             key: 'medio_verificacion',
-                            label: 'Medio de Verificación',
                             type: FILTER.types.string,
-                            placeholder: 'Medio Verificación',
                             maxlength: 255
                         },
                         {
                             key: 'mapa_proceso',
-                            label: 'Mapa de proceso',
                             type: FILTER.types.relation,
                             table: 'mapa_proceso',
                             value: "id",
@@ -830,74 +671,37 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     registro: {
-                        label: "Registro",
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     departamento_nombre: {
-                        label: function () {
-                            return "Departamento"
-                        }
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -920,13 +724,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };
@@ -984,69 +784,35 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     registro: {
-                        label: "Registro",
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -1069,13 +835,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };
@@ -1099,69 +861,35 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                         dead: true
                     },
                     registro: {
-                        label: "Registro",
                     },
                     nombre_indicador: {
                         // label: MESSAGE.i('planificacion.titleIndicadorPOA'),
-                        label: function () {
-                            return "Nombre del Indicador"
-                        },
                         shorttext: 370
                     },
                     descripcion_indicador: {
-                        label: function () {
-                            return "Descripción del Indicador"
-                        },
                         shorttext: 370
                     },
                     fuente: {
-                        label: function () {
-                            return "Fuente del Indicador"
-                        },
                         shorttext: 370
                     },
                     metodo: {
-                        label: function () {
-                            return "Método de Cálculo"
-                        },
                         shorttext: 370
                     },
                     desagregacion_demografica_geografia: {
-                        label: function () {
-                            return "Desagregación Demográfica Geográfica";
-                        },
                         shorttext: 370
                     },
                     caracteristica: {
-                        label: function () {
-                            return "Características del Indicador";
-                        },
                         shorttext: 370
                     },
                     tipo_meta: {
-                        label: function () {
-                            return "Tipo de dato de la Meta";
-                        }
                     },
                     direccion_meta: {
-                        label: function () {
-                            return "Dirección de la Meta"
-                        }
                     },
                     ano: {
-                        label: function () {
-                            return "Año a evaluar"
-                        }
                     },
                     ano_linea_base: {
-                        label: function () {
-                            return "Año Línea Base"
-                        }
                     },
                     linea: {
-                        label: function () {
-                            return "Línea Base";
-                        },
                         shorttext: 370,
                         format: function (row) {
                             if (row.linea) {
@@ -1184,13 +912,9 @@ app.controller("indicador_generico", function ($scope, $http, $compile) {
                     },
                     medio_verificacion: {
                         // label: "Medio de Verificación",
-                        label: function () {
-                            return "Medio de Verificación"
-                        },
                         shorttext: 370
                     },
                     observacion: {
-                        label: "Observación",
                         shorttext: 370
                     }
                 };

@@ -49,9 +49,6 @@ DSON.keepmerge(CRUD_razon, {
             },
             nombre_razon: {},
             description: {
-                label: function (){
-                    return "Descripción"
-                },
                 exportKey: 'description',
             },
             tipo: {
@@ -82,21 +79,16 @@ DSON.keepmerge(CRUD_razon, {
             columns: [
                 {
                     key: 'nombre_razon',
-                    label: 'Condición',
                     type: FILTER.types.string,
-                    placeholder: 'Condición',
                     maxlength: 1000
                 },
                 {
                     key: 'description_razon',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 4000
                 },
                 {
                     key: 'tipo_id',
-                    label: 'Tipo',
                     type: FILTER.types.relation,
                     table: 'tipo_razon',
                     value: "id",

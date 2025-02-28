@@ -4,7 +4,6 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.integer('no_secuencia', scope, {
                     maxlength: 5,
-                    placeholder: "No. Secuencia",
                 }) %>
             </div>
         </div>
@@ -25,7 +24,6 @@
                     value: "id",
                     table: "vw_impacto_politica",
                     icon: {class: "archive"},
-                    truelabel: "Impactos de la política",
                     condition: "item.compania == denominacion_pnpsp.session.compania_id",
                     get: {
                         table: 'politica_denominacion_pnpsp',

@@ -9,7 +9,6 @@ DSON.keepmerge(CRUD_linea_accion, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -19,7 +18,6 @@ DSON.keepmerge(CRUD_linea_accion, {
                 dead: true
             },
             objetivo_especifico_edt: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -30,48 +28,29 @@ DSON.keepmerge(CRUD_linea_accion, {
             },
 
             objetivo_nombre: {
-                label: function () {
-                    return "Objetivo General";
-                },
                 format: function (row) {
                     return end.edt + "." + row.objetivo_edt + " " + row.objetivo_nombre;
                 },
             },
             objetivo_especifico_nombre: {
-                label: function () {
-                    return "Objetivo Especifico";
-                },
                 format: function (row) {
                     return end.edt + "." + row.objetivo_edt + "." + row.objetivo_especifico_edt + " " + row.objetivo_especifico_nombre;
                 },
             },
             edt: {
-                label: function () {
-                    return "EDT. Línea de Acción"
-                },
                 sorttype: "numeric"
             },
             nombre: {
-                label: function () {
-                    return "Línea de Acción"
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             politica_gobierno: {
                 export: false,
                 exportExample: false,
-                label: function (){
-                    return "Políticas de Gobierno"
-                }
             },
             politicas_gobierno: {
-                label: function (){
-                    return "Políticas de Gobierno"
-                },
                 visible: false,
                 visibleDetail: false,
                 export: true,

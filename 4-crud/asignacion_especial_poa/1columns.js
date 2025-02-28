@@ -9,7 +9,6 @@ DSON.keepmerge(CRUD_asignacion_especial_poa, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
@@ -18,41 +17,29 @@ DSON.keepmerge(CRUD_asignacion_especial_poa, {
                 dead: true
             },
             nombre: {
-                label: function(){
-                    return "Asignación";
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: function() { return "Descripción";},
                 shorttext: 370
             },
             departamento_solicitado: {
-                label: function(){
-                    return "Dpto. Solicitado";
-                },
                 shorttext: 370
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "time",
                 formattype: "date"
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "time",
                 formattype: "date"
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370,
             },
             razon: {
-                label: "Razón",
                 shorttext: 370
             },
             created_by: {

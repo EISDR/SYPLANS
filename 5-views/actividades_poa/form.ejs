@@ -1,7 +1,7 @@
 <div ng-show="actividades_poa.showMsjNo">
 <div class="row">
     <div class="col-sm-12 col-md-12">
-        <%- FORM.textarea("nombre", scope, {maxlength: 1000, placeholder: "Actividad"}) %>
+        <%- FORM.textarea("nombre", scope, {maxlength: 1000}) %>
     </div>
     <div class="col-sm-4 col-md-4" ng-show="!actividades_poa.dont_show_productos">
         <%-
@@ -12,8 +12,6 @@
             allowlist: false,
             refresh: false,
             multiple: false,
-            truelabel: "Departamento",
-            placeholder: "Departamentos",
             text: "item.nombre",
             table: "drp_departamento_actvidades",
             columns: ["nombre"],
@@ -30,9 +28,7 @@
             allowlist: false,
             refresh: false,
             multiple: false,
-            truelabel: "Proyecto/Producto",
             permission: "productos_poa",
-            placeholder: "Productos",
             text: "item.producto",
             table: "vw_productos_poa_resultado_corta",
             columns: ["producto"],
@@ -50,9 +46,7 @@
             allowlist: false,
             refresh: false,
             multiple: false,
-            label: "Proyecto/Plan de Acción",
             permission: "productos_poa",
-            placeholder: "Proyecto/Plan de Acción",
             text: "item.producto",
             table: "vw_productos_poa_resultado_corta",
             columns: ["producto"],
@@ -62,10 +56,10 @@
         %>
     </div>
     <div class="col-sm-4 col-md-4" ng-show="actividades_poa.dont_show_productos">
-        <%- FORM.inputview("show_dept", scope, {placeholder: "Departamento", posttype: "text"}) %>
+        <%- FORM.inputview("show_dept", scope, {posttype: "text"}) %>
     </div>
     <div class="col-sm-4 col-md-4" ng-show="actividades_poa.dont_show_productos">
-        <%- FORM.inputview("show_prod", scope, {placeholder: "Producto", posttype: "text"}) %>
+        <%- FORM.inputview("show_prod", scope, {posttype: "text"}) %>
     </div>
     <div class="col-sm-4 col-md-4">
         <%- FORM.select("involucrados", scope, {
@@ -79,7 +73,6 @@
             text: "item.nombre_completo",
             table: "involucrados",
             icon: {class: "archive"},
-            label: "Involucrados",
             condition: "(item.compania == actividades_poa.session.compania_id && item.active == 1) && (item.tipo == 5)",
             get: {
                 table: 'actividades_poa_involucrado',
@@ -123,27 +116,25 @@
      ng-class="actividades_poa.maneja_presupuesto ? 'row': ''">
     <div class="col-sm-2 col-md-2 form-group-material has-feedback  has-feedback-left" ng-show="!actividades_poa.dont_show_productos">
         <%-
-        FORM.money("presupuesto_pro", scope, {placeholder: "Presupuesto asignado al Dpto.", disabled: true})
+        FORM.money("presupuesto_pro", scope, {disabled: true})
         %>
     </div>
     <div class="col-sm-2 col-md-2" ng-show="actividades_poa.dont_show_productos">
-        <%- FORM.inputview("show_presupuesto", scope, {placeholder: "Presupuesto asignado al Dpto.", posttype: "text"}) %>
+        <%- FORM.inputview("show_presupuesto", scope, {posttype: "text"}) %>
     </div>
     <div class="col-sm-2 col-md-2 form-group-material  has-feedback  has-feedback-left">
         <%-
         FORM.money("presupuesto_restante", scope, {
-            label: "Presupuesto Restante",
-            placeholder: "Presupuesto Restante",
             disabled: true
         })
         %>
     </div>
     <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic">
-        <%- FORM.checkbox("maneja_presupuesto", scope, {text: "¿Maneja el presupuesto en las actividades apoyo?"}) %>
+        <%- FORM.checkbox("maneja_presupuesto", scope, {}) %>
     </div>
     <div class="col-sm-3 col-md-3">
         <%-
-        FORM.money("presupuesto", scope, {trueplaceholder: "Presupuesto asignado", maxlength: 15})
+        FORM.money("presupuesto", scope, {maxlength: 15})
         %>
     </div>
 </div>
@@ -188,7 +179,6 @@
                 refresh: true,
                 multiple: false,
                 disabled: false,
-                label: "Tipo de inversión",
                 column: "tipo_inversion",
                 table: "tipo_inversion",
                 text: "item.nombre",
@@ -216,21 +206,20 @@
 </div>
 <div class="row" ng-if="actividades_poa.configcompany.pacc == 1" style="margin-top: 20px">
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
-        <%- FORM.inputview("bienes_permiso", scope, {placeholder: "Código de Bienes y Servicios", posttype: "text"}) %>
+        <%- FORM.inputview("bienes_permiso", scope, {posttype: "text"}) %>
     </div>
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
         <%- FORM.inputview("bienes_permiso_nombre", scope, {
-            placeholder: "Descripción de Bienes y Servicios",
             posttype: "text"
         }) %>
     </div>
 </div>
 <div class="row" ng-if="actividades_poa.configcompany.pacc == 1">
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
-        <%- FORM.inputview("presupuestario", scope, {placeholder: "Objeto de Gasto", posttype: "text"}) %>
+        <%- FORM.inputview("presupuestario", scope, {posttype: "text"}) %>
     </div>
     <div class="col-sm-6 col-md-6" ng-show="!actividades_poa.maneja_presupuesto">
-        <%- FORM.inputview("presupuestario_nombre", scope, {placeholder: "Descripción del Objeto", posttype: "text"}) %>
+        <%- FORM.inputview("presupuestario_nombre", scope, {posttype: "text"}) %>
     </div>
 </div>
 <div class="row">

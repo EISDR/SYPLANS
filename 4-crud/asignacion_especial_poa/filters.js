@@ -7,20 +7,14 @@ CRUD_asignacion_especial_poa = DSON.merge(CRUD_asignacion_especial_poa,
                 columns: [
                     {
                         key: 'nombre',
-                        label: 'Asignación',
                         type: FILTER.types.string,
-                        placeholder: 'Asignación'
                     },
                     {
                         key: 'descripción',
-                        label: 'Descripción',
                         type: FILTER.types.string,
-                        placeholder: 'Descripción'
                     },
                     {
                         key: 'depaid',
-                        label: 'Departamento solicitado',
-                        placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'departamento',
@@ -46,7 +40,6 @@ CRUD_asignacion_especial_poa = DSON.merge(CRUD_asignacion_especial_poa,
                     },
                     {
                         key: 'responsableid',
-                        label: 'Responsable',
                         type: FILTER.types.relation,
                         table: 'usuario',
                         value: "id",
@@ -72,20 +65,14 @@ CRUD_asignacion_especial_poa = DSON.merge(CRUD_asignacion_especial_poa,
                     },
                     {
                         key: 'fecha_inicio',
-                        label: 'Fecha Inicio',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Inicio'
                     },
                     {
                         key: 'fecha_fin',
-                        label: 'Fecha Fin',
                         type: FILTER.types.date,
-                        placeholder: 'Fecha Fin'
                     },
                     {
                         key: 'estatus_id',
-                        label: 'Estatus',
-                        placeholder: 'Estatus',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'asignacion_especial_poa_estatus',
@@ -101,8 +88,6 @@ CRUD_asignacion_especial_poa = DSON.merge(CRUD_asignacion_especial_poa,
                     },
                     {
                         key: 'razon_id',
-                        label: 'Condición',
-                        placeholder: 'Condición',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'razon',

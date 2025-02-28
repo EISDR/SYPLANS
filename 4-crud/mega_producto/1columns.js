@@ -10,7 +10,6 @@ DSON.keepmerge(CRUD_mega_producto, {
         batch: false,
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 export: false,
@@ -20,84 +19,52 @@ DSON.keepmerge(CRUD_mega_producto, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico:{
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             objetivo_estrategico:{
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategia:{
-                label: "Estrategia",
                 shorttext: 370
             },
             no2: {
-                label: "No.",
             },
             resultado: {
-                label: function(){
-                    return "Resultado Esperado"
-                },
                 shorttext: 370
             },
             no1: {
-                label: "No.",
             },
             producto: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
                 shorttext: 370
             },
             estado_producto: {
-                label: "estado",
                 shorttext: 370
             },
             departamento: {
-              label: "Departamento",
               shorttext: 370
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 formattype: ENUM.FORMAT.date,
-                placeholder: 'Fecha Inicio'
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 formattype: ENUM.FORMAT.date,
-                placeholder: 'Fecha Fin'
             },
             involucrado: {
-                label: function () {
-                    return "Involucrados";
-                },
                 shorttext:150,
                 export: false,
                 exportExample: false,
             },
             involucrados: {
-                label: function () {
-                    return "Involucrados";
-                },
                 visible: false,
                 visibleDetail: false,
                 checkExport: true,

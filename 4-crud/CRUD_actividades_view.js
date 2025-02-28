@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_actividades_view, {
         batch: false,
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
@@ -24,28 +23,20 @@ DSON.keepmerge(CRUD_actividades_view, {
                 dead: true
             },
             no1: {
-                label: "No.",
             },
             producto_nombre: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto"
-                },
                 shorttext: 370
             },
             no2: {
-                label: "No.",
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370
             },
             condition: {
                 export: true,
-                label: "Condición",
                 format: function (row) {
                     var nom = row.condition;
                     $(`.Vencida`).css('background', '#FF0000');
@@ -56,22 +47,18 @@ DSON.keepmerge(CRUD_actividades_view, {
                 }
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370
             },
             estatus_actividad: {

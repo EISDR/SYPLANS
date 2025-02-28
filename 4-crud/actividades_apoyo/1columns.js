@@ -13,7 +13,6 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
@@ -22,17 +21,12 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead:true
             },
             nombre: {
-                label: function () {
-                    return "Actividad Apoyo";
-                },
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             departamento_nombre: {
-                label: "Dpto.Solicitado",
                 format: {
                     table: "departamento",
                     from: "departamento",
@@ -51,23 +45,16 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 }
             },
             usuario_nombre: {
-                label: "Responsable",
                 shorttext: 370,
                 format: function (row){
                     return row.usuario_nombre + " " + row.usuario_apellido;
                 }
             },
             fecha_inicio: {
-                label: function () {
-                    return "Fecha Inicio";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: function () {
-                    return "Fecha Fin";
-                },
                 sorttype: "date",
                 formattype: "date",
             },
@@ -79,23 +66,14 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead: true
             },
             maneja_presupuesto: {
-                label: function() {
-                    return "Maneja Presupuesto?";
-                },
                 format: function (row) {
                     return row.maneja_presupuesto_act_apoyo == 1 ? "Sí" : "No";
                 }
             },
             view_presupuesto: {
-                label: function () {
-                    return "Presupuesto";
-                },
                 formattype: "money",
             },
             tipo_inversion_nombre: {
-                label: function () {
-                    return "Tipo de Inversión";
-                },
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -103,7 +81,6 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             bienes_permiso: {
-                label: "Código de Bienes y Servicios",
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -111,7 +88,6 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             bienes_permiso_nombre: {
-                label: "Descripcion de Bienes y Servicios",
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -119,9 +95,6 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             presupuestario: {
-                label: function () {
-                    return "Código del Clasificador";
-                },
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,
@@ -129,9 +102,6 @@ DSON.keepmerge(CRUD_actividades_apoyo, {
                 dead: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? false : true : false
             },
             presupuestario_nombre: {
-                label: function () {
-                    return "Nombre del Clasificador";
-                },
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 export: false,

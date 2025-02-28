@@ -63,13 +63,11 @@
                                         text: "item.nombre",
                                         table: "drp_resultado_indicador_pei",
                                         icon: {class: "archive"},
-                                        truelabel: "Resultado Esperado",
                                         condition: 'indicador_resultado_pei.conditionPei.estatus && item.pei == indicador_resultado_pei.conditionPei.pei_id'
                                     }) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <%- FORM.textarea("estrategia_resultado", scope, {
-                                        placeholder: "Estrategia",
                                         disabled: true
                                     }) %>
                                 </div>
@@ -83,7 +81,7 @@
                     <div class="panel panel-<%= COLOR.secundary %>">
                         <div class="panel-body">
                             <div class="col-sm-6 col-md-6" ng-show="indicador_resultado_pei.queries.id">
-                                <%- FORM.inputview("indicador_pei_object.nombre", scope, {placeholder: "Indicador"}) %>
+                                <%- FORM.inputview("indicador_pei_object.nombre", scope, {}) %>
                             </div>
                             <div class="row" ng-show="!indicador_resultado_pei.queries.id">
                                 <div class="col-sm-6 col-md-6">
@@ -96,7 +94,6 @@
                                         text: "item.nombre",
                                         table: "vw_indicador_pei_drp",
                                         icon: {class: "archive"},
-                                        truelabel: "Indicador PEI",
                                         condition: "item.pei==indicador_resultado_pei.userVar.pei_id &&(item.resultado == indicador_resultado_pei.resultado || indicador_resultado_pei.resultado==='[NULL]')"
                                     }) %>
                                 </div>
@@ -158,19 +155,19 @@
 
                             <div class="row">
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("tipo_meta_nombre", scope, {placeholder: "Tipo de dato de la Meta"}) %>
+                                    <%- FORM.inputview("tipo_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("direccion_meta_nombre", scope, {placeholder: "Dirección de la Meta"}) %>
+                                    <%- FORM.inputview("direccion_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("ano_linea_base", scope, {placeholder: "Año Línea Base"}) %>
+                                    <%- FORM.inputview("ano_linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("linea_base", scope, {placeholder: "Línea Base"}) %>
+                                    <%- FORM.inputview("linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("periodicidad", scope, {trueplaceholder: "Periodicidad"}) %>
+                                    <%- FORM.inputview("periodicidad", scope, {}) %>
                                 </div>
                             </div>
 
@@ -344,8 +341,6 @@
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_resultado_pei/META{{value.id}}",
-                                                title:"Subir Evidencias",
-                                                truetext:"Subir Evidencias",
                                                 alone:true,
                                                 }
                                             </div>
@@ -360,8 +355,6 @@
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_resultado_pei/META{{value.id}}",
-                                                title:"Ver Evidencias",
-                                                truetext:"Ver Evidencias",
                                                 alone:true,
                                                 }
                                             </div>

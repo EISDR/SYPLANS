@@ -16,98 +16,65 @@ DSON.keepmerge(CRUD_mega_actividades, {
                 dead: true
             },
             no_eje: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left"
             },
             eje_estrategico:{
-                label: function(){
-                    return "Eje Estratégico"
-                },
                 shorttext: 370
             },
             no_objetivo: {
-                label: function () {
-                    return "No.";
-                },
                 class: "text-left",
             },
             objetivo_estrategico:{
-                label: function(){
-                    return "Objetivo Estratégico"
-                },
                 shorttext: 370
             },
             no_estrategia: {
-                label: "No.",
                 class: "text-left"
             },
             estrategia:{
-                label: "Estrategia",
                 shorttext: 370
             },
             no_resultado: {
-                label: "No.",
                 class: "text-left"
             },
             resultado_esperado:{
-                label: function(){
-                    return "Resultados Esperados"
-                },
                 shorttext: 370
             },
             no1: {
-                label: "No.",
                 shorttext: 370,
             },
             producto_nombre: {
-                label: function () {
-                    return new SESSION().current().tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto";
-                },
                 shorttext: 370,
             },
             no2: {
-                label: "No.",
                 shorttext: 370
             },
             actividad: {
-                label: "Actividad",
                 shorttext: 370
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 shorttext: 370,
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 shorttext: 370,
                 sorttype: "date",
                 formattype: "date",
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
             },
             estatus: {},
             razon_nombre: {
-                label: function(row){
-                    return "Condición de Cierre"
-                },
             },
             calificacion: {
-                label: function(row){
-                    return "Puntuación"
-                },
             },
             archivo:{
-                label: "Adjuntos",
                 click: function (data) {
                     if(data.row.estatus == "Completado"){
                         mega_actividades.setPermission("file.upload",false);

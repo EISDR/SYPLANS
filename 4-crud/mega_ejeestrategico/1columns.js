@@ -20,24 +20,20 @@ DSON.keepmerge(CRUD_mega_ejeestrategico, {
             },
 
             no_orden: {
-                label: "No.",
                 sorttype: "numeric",
                 class: "text-left",
                 drag: true,
             },
 
             nombre: {
-                label: function() { return MESSAGE.i('planificacion.titleEjeEstrategico')},
                 shorttext: 370
             },
 
             descripcion: {
-                label: function() { return "Descripción" },
                 shorttext: 370
             },
 
             end: {
-                label: function(){ return MESSAGE.i('planificacion.titleEjeEnd'); },
                 shorttext: 370,
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true:  false :false,
@@ -48,7 +44,6 @@ DSON.keepmerge(CRUD_mega_ejeestrategico, {
 
 
             pnpsp_nombre: {
-                label: function () { return MESSAGE.i('planificacion.titlePNPSP'); },
                 shorttext: 370,
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true:  false :false,
@@ -59,7 +54,6 @@ DSON.keepmerge(CRUD_mega_ejeestrategico, {
 
 
             ods: {
-                label: function () { return MESSAGE.i('planificacion.titleODS'); },
                 shorttext: 370,
                 visible: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true : false : false,
                 visibleDetail: new SESSION().current() ? new SESSION().current().tipo_institucion == 1 ? true:  false :false,

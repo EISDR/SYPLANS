@@ -5,13 +5,10 @@ CRUD_mega_indicadores_pei_resultado = DSON.merge(CRUD_mega_indicadores_pei_resul
                 columns: [
                     {
                         key: 'nombre',
-                        label: 'Indicador PEI',
                         type: FILTER.types.string,
-                        placeholder: 'Indicador PEI'
                     },
                     {
                         key: 'tipo_meta',
-                        label: 'Tipo Meta',
                         type: FILTER.types.relation,
                         table: 'tipoMeta',
                         value: "id",
@@ -27,7 +24,6 @@ CRUD_mega_indicadores_pei_resultado = DSON.merge(CRUD_mega_indicadores_pei_resul
                     },
                     {
                         key: 'direccion_meta',
-                        label: "Dirección Meta",
                         type: FILTER.types.relation,
                         table: 'direccionMeta',
                         value: "id",
@@ -43,9 +39,7 @@ CRUD_mega_indicadores_pei_resultado = DSON.merge(CRUD_mega_indicadores_pei_resul
                     },
                     {
                         key: 'linea_base',
-                        label: "Línea Base",
                         type: FILTER.types.string,
-                        placeholder: "Línea Base",
                     }
                 ]
             }

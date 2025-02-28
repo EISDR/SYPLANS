@@ -13,7 +13,6 @@
                     refresh: false,
                     multiple: false,
                     disabled: false,
-                    label: "Sección",
                     text: "item.nombre",
                     table: "tipo_razon",
                     columns: ["id", "nombre"],
@@ -25,16 +24,12 @@
         <div class="row">
             <div class='col-sm-12 col-md-12'>
                 <%- FORM.textarea('description', scope, {
-                    label: "Descripción",
-                    placeholder: "Descripción"
                 }) %>
             </div>
         </div>
         <div class="row" ng-show="false">
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.select("compania", scope, {
-                    label: "Compania",
-                    placeholder: "Compania",
                     text: "item.nombre",
                     table: "compania",
                     columns: ["nombre"],

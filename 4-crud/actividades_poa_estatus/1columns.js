@@ -7,18 +7,15 @@ DSON.keepmerge(CRUD_actividades_poa_estatus, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
                 dead: true
             },
             nombre: {
-                label: MESSAGE.i('planificacion.titleActividadPoaEstatus'),
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             created_at: {

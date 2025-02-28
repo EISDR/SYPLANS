@@ -17,51 +17,40 @@ DSON.keepmerge(CRUD_mega_indicadores_pei_resultado, {
                 dead: true
             },
             eje_estrategico_nombre:{
-                label: "Eje Estratégico",
                 visible: false,
                 visibleDetail: true
             },
             objetivo_estrategico_nombre:{
-                label: "Objetivo Estratégico",
                 visible: false,
                 visibleDetail: true
             },
             estrategia_nombre:{
-                label: "Estrategia",
                 visible: false,
                 visibleDetail: true
             },
             resultado_nombre:{
-                label: "Resultado Esperado",
                 visible: false,
                 visibleDetail: true
             },
             nombre:{
-                label: "Indicador PEI",
             },
             descripcion:{
-                label: "Descripción",
                 visible: false,
                 visibleDetail: true
             },
             fuente:{
-                label: "Fuente del Indicador",
                 visible: false,
                 visibleDetail: true
             },
             metodo_calculo:{
-                label: "Método Cálculo",
                 visible: false,
                 visibleDetail: true
             },
             tipo_meta:{
-                label: "Tipo Meta",
             },
             direccion_meta:{
-                label: "Dirección Meta",
             },
             linea_base:{
-                label: "Línea Base",
             }
         },options: [
 

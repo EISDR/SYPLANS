@@ -16,16 +16,13 @@ DSON.keepmerge(CRUD_mega_comentarios_pei, {
                 dead: true
             },
             comentario: {
-                label: "Comentario",
                 shorttext: 370
             },
             created_at: {
-                label: "Fecha",
                 sorttype: "datetime",
                 formattype: "datetime",
             },
             usuario_nombre: {
-                label: "Responsable",
             }
         },
         // allow: {

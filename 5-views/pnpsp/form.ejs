@@ -3,7 +3,7 @@
         <%- include('../inter_form_c',{scope:scope}); %>
         <div class="row">
             <div class="col-sm-3 col-md-3">
-                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+                <%- FORM.integer("edt", scope, {maxlength: 5}) %>
             </div>
         </div>
         <div class="row">
@@ -11,7 +11,7 @@
                 <%- FORM.textarea("nombre", scope, {maxlength: 1000}) %>
             </div>
             <div class="col-sm-6 col-md-6 remove-input-space">
-                <%- FORM.textarea('descripcion',scope,{label:"Descripción", placeholder:"Descripción",maxlength00: 4000}) %>
+                <%- FORM.textarea('descripcion',scope,{label:"Descripción", maxlength: 4000}) %>
             </div>
         </div>
         <div class="row">

@@ -50,24 +50,15 @@ DSON.keepmerge(CRUD_vw_compromiso, {
             tipo_compromiso: {
                 exportExample: "1-Nacional, " +
                     "2-Internacional",
-                label: function () {
-                    return "Tipo Compromiso"
-                }
             },
             nombre: {},
             descripcion: {shorttext: 360},
             metas: {
-                label: function () {
-                    return "Metas Compromisos Nacionales e Internacionales"
-                },
                 export: false,
                 exportExample: false,
                 shorttext: 370
             },
             metas_oc: {
-                label: function () {
-                    return "Metas Compromisos Nacionales e Internacionales"
-                },
                 shorttext: 370,
                 visible: false,
                 visibleDetail: false,
@@ -78,7 +69,6 @@ DSON.keepmerge(CRUD_vw_compromiso, {
             },
             active: {
                 exportExample: "0=No, 1=Si",
-                label: "Activo?",
                 format: function (row) {
                     if (row.active == 1) {
                         return "Sí";
@@ -100,19 +90,14 @@ DSON.keepmerge(CRUD_vw_compromiso, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre'
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción'
                 },
                 {
                     key: 'tipo_compromiso_id',
-                    label: "Tipo de compromiso",
                     type: FILTER.types.relation,
                     table: 'tipo_compromiso',
                     value: "id",

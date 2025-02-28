@@ -8,7 +8,6 @@
         text: "item.no_indicador+ ' ' +item.nombre",
         table: "vw_indicador_pei_drp",
         icon: {class: "archive"},
-        truelabel: "Indicador PEI",
         condition: "item.pei==" + scope + ".session.pei_id"
     }) %>
 </div>
@@ -23,7 +22,6 @@
         text: "item.indicador+ ' (' +item.departamento +')'",
         table: "vw_monitoreo_producto",
         icon: {class: "archive"},
-        truelabel: "Indicador de Producto",
         condition: "item.poa==" + scope + ".session.poa_id",
         query: {
             limit: 0,
@@ -46,7 +44,6 @@
         text: "item.indicador+ ' (' +item.departamento +')'",
         table: "vw_monitoreo_actividad",
         icon: {class: "archive"},
-        truelabel: "Indicador de Actividad",
         condition: "item.poa==" + scope + ".session.poa_id",
         query: {
             limit: 0,
@@ -68,7 +65,6 @@
         text: "item.no_indicador+ ' ' +item.nombre_indicador",
         table: "vw_indicador_proceso",
         icon: {class: "archive"},
-        truelabel: "Indicador de Procesos"
     }) %>
 </div>
 
@@ -84,7 +80,6 @@
         value: "table_",
         table: "indicador_generico_entidad",
         icon: {class: "archive"},
-        truelabel: "Tipo de Indicador"
     }) %>
 </div>
 
@@ -102,7 +97,6 @@
         table: "vw_indicador_generico",
         icon: {class: "archive"},
         condition: "item.mapa_proceso_estatus!=4 && item.entidad==" + scope + ".entidad && item.compania==" + scope + ".session.compania_id",
-        truelabel: "Indicador de Proceso",
         join: [
             {
                 table: "procesos",
@@ -130,6 +124,5 @@
         table: "vw_indicador_generico",
         icon: {class: "archive"},
         condition: "item.entidad==" + scope + ".entidad && item.compania==" + scope + ".session.compania_id",
-        truelabel: "Indicador"
     }) %>
 </div>

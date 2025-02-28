@@ -30,7 +30,6 @@ DSON.keepmerge(CRUD_vw_dashboard_proyectosgrid, {
         },
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
@@ -43,21 +42,10 @@ DSON.keepmerge(CRUD_vw_dashboard_proyectosgrid, {
                 dead: true
             },
             producto: {
-                label: function () {
-                    if (new SESSION().current().tipo_institucion == 1) {
-                        return "Proyecto/Producto"
-                    } else {
-                        return "Proyecto"
-                    }
-                },
             },
             indicador: {
-                label: "Indicador",
             },
             flecha: {
-                label: function () {
-                    return "Dirección Meta"
-                },
                 anonymous: true,
                 value: function (data) {
                     var icon = "";
@@ -116,9 +104,6 @@ DSON.keepmerge(CRUD_vw_dashboard_proyectosgrid, {
                 }
             },
             acumulado: {
-                label: function () {
-                    return "Proyectado"
-                },
                 format: function (row) {
                     if (row.acumulado) {
                         switch (row.tipo_meta) {
@@ -163,7 +148,6 @@ DSON.keepmerge(CRUD_vw_dashboard_proyectosgrid, {
                 // formattype: ENUM.FORMAT.numeric
             },
             alcanzado: {
-                label: "Alcanzada",
                 sorttype: "numeric",
                 format: function (row) {
                     if (row.alcanzado !== undefined && row.alcanzado!=='null' && row.alcanzado!==null) {
@@ -255,9 +239,6 @@ DSON.keepmerge(CRUD_vw_dashboard_proyectosgrid, {
             //     }
             // },
             detalle: {
-                label: function () {
-                    return "Acciones"
-                },
                 format: function (row) {
                     return `<a class="ng-binding" title="Ver Detalle" data-action="Ver">
                         <i class="icon-eye "></i>

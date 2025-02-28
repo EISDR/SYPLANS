@@ -3,23 +3,21 @@
         <%- include('../inter_form_c',{scope:scope}); %>
         <div class="row">
             <div class="col-sm-3 col-md-3">
-                <%- FORM.integer("edt", scope, {maxlength: 5, placeholder: "No. Secuencia"}) %>
+                <%- FORM.integer("edt", scope, {maxlength: 5}) %>
             </div>
             <div class="col-sm-3 col-md-3 custom-upload">
                 <%- FORM.file("odsimage", scope, {
                     show: 'image',
                     image: 130,
-                    title: 'Subir Imagen',
                     maxfiles: 1,
                     columns: 1,
-                    truetext: 'Subir Imagen',
                     imagefloat: "right",
                     acceptedFiles: "image/*",
                     acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen",
                 }) %>
             </div>
             <div class='col-sm-2 col-md-2'>
-                <%- FORM.color('colorName', scope, {trueplaceholder: "Color"}) %>
+                <%- FORM.color('colorName', scope, {}) %>
             </div>
         </div>
         <div class="row">
@@ -28,8 +26,6 @@
             </div>
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.textarea('descripcion', scope, {
-                    label: "Descripción",
-                    placeholder: "Descripción",
                     maxlength: 4000
                 }) %>
             </div>

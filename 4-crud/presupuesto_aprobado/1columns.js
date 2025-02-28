@@ -8,7 +8,6 @@ DSON.keepmerge(CRUD_presupuesto_aprobado, {
         order: "desc",
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -18,30 +17,25 @@ DSON.keepmerge(CRUD_presupuesto_aprobado, {
                 dead: true
             },
             departamento: {
-                label: "Departamento",
                 shorttext: 370,
                 visibleDetail:true,
             },
             valor:{
-                label: "Presupuesto Aprobado",
                 formattype: "money",
                 exportExample: "[money]",
                 visibleDetail:true,
             },
             presupuesto_restante: {
-                label: "Presupuesto Restante",
                 formattype: "money",
                 exportExample: "[money]",
                 visibleDetail:true,
             },
             presupuesto_asignado: {
-                label: "Presupuesto Asignado",
                 formattype: "money",
                 exportExample: "[money]",
                 visibleDetail:true,
             },
             presupuesto_institucional_restante: {
-                label: "Presupuesto Institucional Restante",
                 formattype: "money",
                 exportExample: "[money]",
                 visible: false,
@@ -50,7 +44,6 @@ DSON.keepmerge(CRUD_presupuesto_aprobado, {
                 exportExample: false
             },
             presupuesto_liberado: {
-                label: "Presupuesto Detenido",
                 formattype: "money",
                 exportExample: "[money]",
                 // visible: false,

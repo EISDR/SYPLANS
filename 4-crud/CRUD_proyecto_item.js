@@ -51,42 +51,23 @@ DSON.keepmerge(CRUD_proyecto_item, {
             nombre: {},
             descripcion: {shorttext: 360},
             compania: {
-                label: function () {
-                    return "Compañía"
-                }
             },
             institucion: {
-                label: function () {
-                    return "Institución"
-                }
             },
             departamento: {
-                label: function () {
-                    return "Departamento"
-                }
             },
             responsable: {},
             estatus: {},
             from: {
-                label: function () {
-                    return "Desde"
-                }, formattype: ENUM.FORMAT.date
+                formattype: ENUM.FORMAT.date
             },
             to: {
-                label: function () {
-                    return "Hasta"
-                }, formattype: ENUM.FORMAT.date
+                formattype: ENUM.FORMAT.date
             },
             presupuesto: {
-                label: function () {
-                    return "Presupuesto"
-                },
                 formattype: ENUM.FORMAT.money
             },
             heredado: {
-                label: function () {
-                    return "¿Usado como Producto Operativo?"
-                },
                 format: function (row) {
                     $(`.centralizar`).css('text-align', 'center');
                     return row.heredado === 1 ? '<div class="centralizar">Sí</div>' : '<div class="centralizar">No</div>';
@@ -98,25 +79,16 @@ DSON.keepmerge(CRUD_proyecto_item, {
                 dead: true
             },
             involucrado: {
-                label: function () {
-                    return "Involucrados";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,
             },
             ods: {
-                label: function () {
-                    return "Objetivos de Desarrollo Sostenible";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,
             },
             actividades: {
-                label: function () {
-                    return "Actividades";
-                },
                 shorttext: 150,
                 export: false,
                 exportExample: false,

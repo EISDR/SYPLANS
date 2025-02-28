@@ -17,7 +17,6 @@
                     table: "auditoria_programa_plan_estatus",
                     icon: {class: "archive"},
                     condition:"item.entidad == auditoria_entidad_flujo.id",
-                    truelabel: "Estatus permitidos",
                     get: {
                         table: 'auditoria_programa_plan_action_permitido',
                         fieldFrom: 'id',
@@ -38,7 +37,6 @@
                     value: "id",
                     table: "a_clone_group",
                     icon: {class: "archive"},
-                    truelabel: "Roles permitidos",
                     get: {
                         table: 'auditoria_programa_plan_action_rol',
                         fieldFrom: 'id',

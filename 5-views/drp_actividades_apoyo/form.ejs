@@ -24,7 +24,6 @@
                             text: "item.nombre",
                             table: 'vw_actividades_poa',
                             column: ['id'],
-                            label: "Actividad",
                             icon: {class: "archive"},
                             allownull: false,
                             allownew: false,
@@ -64,38 +63,32 @@
                     </div>
                     <div class='col-sm-4 col-md-4'>
                         <%- FORM.inputview("departamento_actividad", scope, {
-                            placeholder: "Departamento"
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4" ng-if="drp_actividades_apoyo.session.tipo_institucion == 1">
                         <%- FORM.inputview("producto_actividad", scope, {
-                            trueplaceholder: "Proyecto/Producto",
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4" ng-if="drp_actividades_apoyo.session.tipo_institucion == 2">
                         <%- FORM.inputview("producto_actividad", scope, {
-                            trueplaceholder: "Proyecto/Plan de Acción",
                         }) %>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-md-3">
                         <%- FORM.inputview("responsable_actividad", scope, {
-                            placeholder: "Responsable",
                         }) %>
                     </div>
                     <div class='col-sm-4 col-md-3'>
                         <%- FORM.money('presupuesto_actividad', scope, {
                             disabled: true,
-                            label: "Presupuesto",
                         }) %>
                     </div>
                     <div class='col-sm-3 col-md-3'>
-                        <%- FORM.inputview("estatus_nombre_activdad", scope, {placeholder: "Estatus"}) %>
+                        <%- FORM.inputview("estatus_nombre_activdad", scope, {}) %>
                     </div>
                     <div style="text-align: center;" class="col-sm-2 col-md-2" id="checkDinamic">
                         <%- FORM.checkbox("maneja_presupuesto_actividad", scope, {
-                            text: '¿Maneja presupuesto en las actividades de apoyo?',
                             disabled: true
                         }) %>
                     </div>
@@ -132,7 +125,6 @@
                     </div>
                     <div style="text-align: center;" class="col-sm-4 col-md-4" id="checkDinamic">
                         <%- FORM.checkbox("maneja_presupuesto_act_apoyo", scope, {
-                            text: '¿Maneja presupuesto?',
                             disabled: true
                         }) %>
                     </div>
@@ -146,7 +138,6 @@
                             allowlist: false,
                             refresh: false,
                             disabled: true,
-                            label: "Departamento",
                             placeholder: "Departamento",
                             text: "item.nombre",
                             table: "drp_departamento_actvidades",
@@ -162,7 +153,6 @@
                             allowlist: false,
                             refresh: false,
                             disabled: true,
-                            label: "Responsable",
                             table: "usuario",
                             text: "item.nombre + ' ' + item.apellido",
                             condition: "item.compania ==  drp_actividades_apoyo.session.compania_id",
@@ -173,20 +163,17 @@
                 <div class="row">
                     <div class="col-sm-3 col-md-3">
                         <%- FORM.money("presupuesto_restante", scope, {
-                            placeholder: "Presupuesto Restante",
                             disabled: true
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.money("view_presupuesto", scope, {
-                            placeholder: "Presupuesto Asignado",
                             maxlength: 15,
                             disabled: true
                         }) %>
                     </div>
                     <div class="col-sm-3 col-md-3" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.money("show_presupuesto_consumido", scope, {
-                            placeholder: "Presupuesto Ejecutado",
                             maxlength: 15,
                             disabled: true
                         }) %>
@@ -195,7 +182,6 @@
                         <div class="col-sm-3 col-md-3"
                              ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                             <%- FORM.inputview("tipo_inversion_nombre", scope, {
-                                placeholder: "Tipo de inversión",
                             }) %>
                         </div>
                     </div>
@@ -203,24 +189,20 @@
                 <div class="row" ng-show="drp_actividades_apoyo.session.tipo_inversion == 1">
                     <div class="col-sm-6 col-md-6" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.inputview("bienes_permiso", scope, {
-                            placeholder: "Código de Bienes y Servicios",
                         }) %>
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.inputview("bienes_permiso_nombre", scope, {
-                            placeholder: "Descripción de Bienes y Servicios",
                         }) %>
                     </div>
                 </div>
                 <div class="row" ng-show="drp_actividades_apoyo.session.tipo_inversion == 1">
                     <div class="col-sm-6 col-md-6" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.inputview("presupuestario", scope, {
-                            placeholder: "Código del Clasificador Presupuestario",
                         }) %>
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.inputview("presupuestario_nombre", scope, {
-                            placeholder: "Descripción del Clasificador Presupuestario",
                         }) %>
                     </div>
                 </div>
@@ -234,7 +216,6 @@
                     </div>
                     <div class="col-sm-4 col-md-4" ng-show="drp_actividades_apoyo.view_maneja_presupuesto_act_apoyo">
                         <%- FORM.money("view_presupuesto", scope, {
-                            placeholder: "Presupuesto Asignado",
                             maxlength: 15,
                             disabled: true
                         }) %>
@@ -245,11 +226,9 @@
                     <div class="col-sm-2 col-md-2 center-profile-image countFile" ng-if="drp_actividades_apoyo.ver"
                          ng-show="drp_actividades_apoyo.actividadfile_comment_DragonCountFile > 0">
                         <%- FORM.file("actividadfile_comment", scope, {
-                            title: 'Ver Evidencias',
                             maxfiles: 999,
                             columns: 4,
                             tempfolder: true,
-                            truetext: 'Ver Evidencias',
                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                         }) %>
@@ -274,14 +253,12 @@
                             value: "id",
                             table: "vw_auditoria_programa_plan_estatus",
                             icon: {class: "archive"},
-                            truelabel: "Estatus",
                             condition: "item.plan_status == drp_actividades_apoyo.my_true_estatus && item.entidad == 'actividades_apoyo'"
                         }) %>
                     </div>
                     <div class="col-sm-2 col-md-2"
                          ng-show="(drp_actividades_apoyo.maneja_presupuesto_actividad && drp_actividades_apoyo.maneja_presupuesto_act_apoyo) && (drp_actividades_apoyo.estatus == 5 && !drp_actividades_apoyo.dont_show_money)">
                         <%- FORM.money("view_presupuesto_consumido", scope, {
-                            placeholder: "Presupuesto Consumido",
                             maxlength: 15,
                             disabled: true
                         }) %>
@@ -289,7 +266,6 @@
                     <div class="col-sm-2 col-md-2"
                          ng-show="(drp_actividades_apoyo.maneja_presupuesto_actividad && drp_actividades_apoyo.maneja_presupuesto_act_apoyo) && (drp_actividades_apoyo.estatus == 5 && !drp_actividades_apoyo.dont_show_money)">
                         <%- FORM.money("act_apoyo_presupuesto_consumido", scope, {
-                            placeholder: "Añadir presupuesto consumido",
                             maxlength: 15
                         }) %>
                     </div>
@@ -297,7 +273,6 @@
                          ng-show="(drp_actividades_apoyo.maneja_presupuesto_actividad && drp_actividades_apoyo.maneja_presupuesto_act_apoyo) && drp_actividades_apoyo.estatus == 2">
                         <%-
                             FORM.money("act_apoyo_presupuesto", scope, {
-                                placeholder: "Presupuesto final consumido",
                                 maxlength: 15
                             })
                         %>
@@ -310,7 +285,6 @@
                             allowlist: false,
                             // refresh: false,
                             // disabled: true,
-                            label: "Condición",
                             table: "vw_razon_apoyo",
                             text: "item.nombre_razon",
                             icon: {class: "archive"},
@@ -319,14 +293,12 @@
                     </div>
                     <div class="col-sm-2 col-md-2"
                          ng-show="(drp_actividades_apoyo.maneja_presupuesto_actividad && drp_actividades_apoyo.maneja_presupuesto_act_apoyo) && (drp_actividades_apoyo.estatus == 5 && !drp_actividades_apoyo.dont_show_money)">
-                        <%- FORM.percentage("avance_porcentaje", scope, {placeholder: "Porcentaje de Avance", maxlength: 3, icon: { class: "percent" } }) %>
+                        <%- FORM.percentage("avance_porcentaje", scope, { maxlength: 3, icon: { class: "percent" } }) %>
                     </div>
                     <div class="col-sm-2 col-md-2 center-profile-image countFile" ng-if="!drp_actividades_apoyo.ver">
                         <%- FORM.file("actividadfile_comment", scope, {
-                            title: 'Subir Evidencias',
                             maxfiles: 999,
                             columns: 4,
-                            truetext: 'Subir Evidencias',
                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",
                         }) %>
@@ -342,7 +314,6 @@
                                 allowview: false,
                                 allowlist: false,
                                 multiple: false,
-                                label: "Responsable",
                                 text: "item.nombre + ' ' + item.apellido",
                                 table: "usuario",
                                 columns: ["nombre"],
@@ -358,7 +329,6 @@
                                 allowview: false,
                                 allowlist: false,
                                 multiple: false,
-                                label: "Responsable",
                                 text: "item.nombre + ' ' + item.apellido",
                                 table: "usuario",
                                 columns: ["nombre"],
@@ -426,7 +396,7 @@
                                 <div style="padding: 10px"
                                      ng-show=" (drp_actividades_apoyo.maneja_presupuesto_actividad && drp_actividades_apoyo.maneja_presupuesto_act_apoyo) && (!drp_actividades_apoyo.ver)">
                                     <div class="col-sm-4 col-md-4">
-                                        <%- FORM.textarea("comentario_comment", scope, {placeholder: "Comentario"}) %>
+                                        <%- FORM.textarea("comentario_comment", scope, {}) %>
                                     </div>
                                     <div class="col-sm-3 col-md-3" style="margin-top: 23px;"
                                          ng-show="!actividades_poa_monitoreo.dataooo">
@@ -447,10 +417,8 @@
                                     </div>
                                     <div class="col-sm-5 col-md-5 center-profile-image countFile">
                                         <%- FORM.file("actividad_commentfile", scope, {
-                                            title: 'Subir Evidencia',
                                             maxfiles: 999,
                                             columns: 4,
-                                            truetext: 'Subir Evidencia',
                                             alwaysnew: true
                                             // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                                             // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx",

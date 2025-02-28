@@ -49,36 +49,18 @@ DSON.keepmerge(CRUD_auditoria_programa_plan_estatus, {
                 dead: true
             },
             orden: {
-                label: function() {
-                    return "No. Secuencia"
-                }
             },
             code: {
-                label: function() {
-                    return "Número Identificador"
-                }
             },
             nombre: {},
             descripcion: {shorttext: 360},
             tiempo_estimado: {
-                label: function () {
-                    return "Tiempo Estimado"
-                }
             },
             estatus_permitido: {
-                label: function () {
-                    return "Estatus Permitidos";
-                }
             },
             rol_permitido: {
-                label: function () {
-                    return "Roles Permitidos";
-                }
             },
             auditoria_entidad_flujo_nombre: {
-                label: function () {
-                    return "Entidad"
-                }
             }
         },
         filters: {

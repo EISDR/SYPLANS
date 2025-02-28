@@ -60,7 +60,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         text: "item.no_producto+' '+item.Nombre + ' ('+ item.cantidad +')'",
-                                        truelabel: "Indicador de Proyecto/Producto",
                                         table: "vw_indicador_poa",
                                         traduce: false,
                                         icon: {class: "archive"},
@@ -76,7 +75,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         text: "item.no_producto+' '+item.Nombre + ' ('+ item.cantidad +')'",
-                                        truelabel: "Indicador de Proyecto/Plan de Acción",
                                         table: "vw_indicador_poa",
                                         traduce: false,
                                         icon: {class: "archive"},
@@ -106,21 +104,21 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa_actividad.queries.id">
-                                    <%- FORM.inputview("indicador_poa_object.Nombre", scope, {placeholder: "Indicador de Actividad"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.Nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa_actividad.queries.id">
-                                    <%- FORM.inputview("indicador_poa_object.actividades_poa_nombre", scope, {placeholder: "Nombre de la Actividad"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.actividades_poa_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa_actividad.queries.id"
                                      ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 1">
-                                    <%- FORM.inputview("indicador_poa_object.producto", scope, {placeholder: "Nombre del Proyecto/Producto"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.producto", scope, {}) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa_actividad.queries.id"
                                      ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 2">
-                                    <%- FORM.inputview("indicador_poa_object.producto", scope, {placeholder: "Nombre del Proyecto/Plan de Acción"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.producto", scope, {}) %>
                                 </div>
                                 <div class="col-sm-6 col-md-6" ng-show="indicador_producto_poa_actividad.queries.id">
-                                    <%- FORM.inputview("indicador_poa_object.departamento_nombre", scope, {placeholder: "Nombre del Departamento"}) %>
+                                    <%- FORM.inputview("indicador_poa_object.departamento_nombre", scope, {}) %>
                                 </div>
 
                                 <div class="row" ng-show="!indicador_producto_poa_actividad.queries.id">
@@ -134,7 +132,6 @@
                                             text: "item.Nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                             table: "vw_indicador_actividad",
                                             icon: {class: "archive"},
-                                            label: "Indicador de Actividad",
                                             traduce: false,
                                             condition: "(item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3) && (indicador_producto_poa_actividad.producto == (item.indicador_poa+'') || indicador_producto_poa_actividad.producto==='[NULL]') && ((indicador_producto_poa_actividad.actividad == (item.actividades_poa+'') || indicador_producto_poa_actividad.actividad==='[NULL]'))"
                                         }) %>
@@ -176,19 +173,19 @@
 
                             <div class="row">
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("tipo_meta_nombre", scope, {placeholder: "Tipo de dato de la Meta"}) %>
+                                    <%- FORM.inputview("tipo_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
-                                    <%- FORM.inputview("direccion_meta_nombre", scope, {placeholder: "Dirección de la Meta"}) %>
+                                    <%- FORM.inputview("direccion_meta_nombre", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("ano_linea_base", scope, {placeholder: "Año Línea Base"}) %>
+                                    <%- FORM.inputview("ano_linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("linea_base", scope, {placeholder: "Línea Base"}) %>
+                                    <%- FORM.inputview("linea_base", scope, {}) %>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
-                                    <%- FORM.inputview("periodicidad", scope, {trueplaceholder: "Periodicidad"}) %>
+                                    <%- FORM.inputview("periodicidad", scope, {}) %>
                                 </div>
                             </div>
 
@@ -264,7 +261,6 @@
                                                  ng-show="value.allow.allow===1">
                                                 <a
 
-                                                        title="Guardar"
                                                         style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;"
                                                         class="savepartialy"
                                                         ng-click="indicador_producto_poa_actividad.save_pei_ano(value.id);">
@@ -275,7 +271,6 @@
                                                 </a>
                                                 <a
 
-                                                        title="Limpiar"
                                                         style="height: 38px;width: 17px;background-color: transparent;cursor: pointer;font-size: 22px; color: #ccc !important;"
                                                         class="savepartialy"
                                                         ng-click="indicador_producto_poa_actividad.save_pei_ano(value.id,true);">
@@ -306,7 +301,7 @@
                                                       class="form-control no-border-readonly">{{value.comment}}</textarea>
                                             </div>
                                             <div style="float: right;margin-left: 14px;">
-                                                <button title="Enviar notificación a Encargados y Analistas de la planificación"
+                                                <button
                                                         type="button"
                                                         class="btn bg-warning btn-xs mr-0"
                                                         style="margin-top: 6px;"
@@ -337,15 +332,12 @@
                                             <div class="permitido  modificar modificarActividad" style="display: none"
                                                  dragoncontrol="file"
                                                  ng-if="value.allow.allow===1"
-                                                 label="Subir Evidencias"
                                                  cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
                                                  id="IndicadorPOA{{value.id}}" cache="false">
                                                 {
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_producto_poa_actividad/META{{value.id}}",
-                                                title:"Subir Evidencias",
-                                                truetext:"Subir Evidencias",
                                                 alone:true,
                                                 }
                                             </div>
@@ -354,15 +346,12 @@
                                                  dragoncontrol="file"
 
                                                  ng-if="value.allow.allow!==1"
-                                                 label="Ver Evidencias"
                                                  cols="12" name="IndicadorPOA{{value.id}}" scope="<%= scope %>"
                                                  id="IndicadorPOA{{value.id}}" cache="false">
                                                 {
                                                 maxfiles: 50,
                                                 columns: 4,
                                                 folder:"indicador_producto_poa_actividad/META{{value.id}}",
-                                                title:"Ver Evidencias",
-                                                truetext:"Ver Evidencias",
                                                 alone:true,
                                                 }
                                             </div>

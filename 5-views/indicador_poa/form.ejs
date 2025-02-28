@@ -18,7 +18,6 @@
                     text: "item.name",
                     table: "ws_connection",
                     icon: {class: "archive"},
-                    truelabel: "Base de Datos Externa"
                 }) %>
             </div>
             <div class="col-sm-6 col-md-6 ">
@@ -31,7 +30,6 @@
                     text: "item.name",
                     table: "ws_connection_field",
                     icon: {class: "archive"},
-                    truelabel: "Fuente Externa",
                     condition: "item.ws_connection == indicador_poa.ws_connection"
                 }) %>
             </div>
@@ -44,7 +42,6 @@
             <div class="col-sm-6 col-md-6 ">
                 <%- FORM.input("nombre", scope, {
                     maxlength: 255,
-                    placeholder: "Nombre del Indicador",
                     popover: {
                         title: "Nombre",
                         content: "Captura el nombre"
@@ -55,8 +52,6 @@
             <div class="col-sm-12 col-md-6 remove-input-space">
                 <%- FORM.textarea("descripcion", scope, {
                     maxlength: 4000,
-                    label: "Descripción del Indicador",
-                    label_custom: true
                     // inputPlaceholder: "Descripción del indicador"
                 }) %>
             </div>
@@ -70,7 +65,6 @@
                         allowlist: false,
                         refresh: false,
                         multiple: false,
-                        truelabel: "Departamento",
                         text: "item.nombre",
                         table: "vw_presupuesto_departamento",
                         columns: ["nombre"],
@@ -94,7 +88,6 @@
                         table: "drp_productos_poa_indi",
                         permission: "productos_poa",
                         icon: {class: "archive"},
-                        truelabel: "Proyecto/Producto",
                         popover: {
                             title: "Proyecto/Producto",
                             content: "Captura los Proyectos/Productos"
@@ -113,7 +106,6 @@
                         table: "drp_productos_poa_indi",
                         permission: "productos_poa",
                         icon: {class: "archive"},
-                        truelabel: "Proyecto/Plan de Acción",
                         popover: {
                             title: "Proyecto/Plan de Acción",
                             content: "Captura los Proyecto/Plan de Acción"
@@ -132,7 +124,6 @@
                         text: "item.nombre",
                         table: "drp_productos_poa_indi",
                         icon: {class: "archive"},
-                        label: "Proyecto/Producto",
                         permission: "productos_poa",
                         popover: {
                             title: "Proyecto/Producto",
@@ -153,7 +144,6 @@
                         text: "item.nombre",
                         table: "drp_productos_poa_indi",
                         icon: {class: "archive"},
-                        label: "Proyecto/Plan de Acción",
                         permission: "productos_poa",
                         popover: {
                             title: "Proyecto/Plan de Acción",
@@ -168,8 +158,6 @@
                         from: "fecha_inicio",
                         to: "fecha_fin",
                         disabled: true,
-                        label_custom: true,
-                        label: "Fecha inicio / Fecha fin"
                     }) %>
                 </div>
             </div>
@@ -187,7 +175,6 @@
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.textarea("metodo_calculo", scope, {
                     maxlength: 255,
-                    label: "Método de Cálculo",
                     label_custom: true,
                     popover: {
                         title: "Método de Cálculo",
@@ -197,7 +184,6 @@
             </div>
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
-                    trueplaceholder: "Desagregación Demográfica Geográfica",
                     maxlength: 4000
                 }) %>
             </div>
@@ -211,7 +197,6 @@
                     table: "caracteristica_indicador",
                     multiple: true,
                     icon: {class: "archive"},
-                    label: "Caracteristica",
                     condition: "item.compania == indicador_poa.session.compania_id && item.active == 1",
                     get: {
                         table: 'caracteristica_indicador_poa',
@@ -227,8 +212,6 @@
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.textarea("medio_verificacion", scope, {
                     maxlength: 1000,
-                    label: "Medio de Verificación",
-                    label_custom: true,
                     popover: {
                         title: "Medio de Verificación",
                         content: "Captura el medio de verificación"
@@ -238,8 +221,6 @@
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.textarea("observacion", scope, {
                     maxlength: 1000,
-                    label: "Observación",
-                    label_custom: true
                 }) %>
             </div>
         </div>
@@ -253,7 +234,6 @@
                     text: "item.nombre",
                     table: "z_indicador_pei",
                     icon: {class: "archive"},
-                    label: "Indicador PEI asociado",
                     condition: "(item.pei == indicador_poa.session.pei_id && item.tipo_meta!=2) && (item.producto+'')==indicador_poa.producto+''"
                 }) %>
             </div>
@@ -269,7 +249,6 @@
                     text: "item.nombre",
                     table: "poa_monitoreo",
                     icon: {class: "archive"},
-                    label: "Periodicidad"
                 }) %>
             </div>
             <div class="col-sm-12 col-md-3 ">
@@ -284,7 +263,6 @@
                         text: "item.nombre",
                         table: "tipoMeta",
                         icon: {class: "archive"},
-                        label: "Tipo de dato de la meta",
                         popover: {
                             title: "Tipo Meta",
                             content: "Captura los tipos de metas"
@@ -303,7 +281,6 @@
                     text: "item.nombre",
                     table: "direccionMeta",
                     icon: {class: "archive"},
-                    label: "Dirección de la Meta",
                     popover: {
                         title: "Dirección Meta",
                         content: "Captura las Direcciónes de la meta"
@@ -312,7 +289,6 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <%- FORM.integer("ano_linea_base", scope, {
-                    placeholder: "Año Línea Base",
                     maxlength: 4
                 }) %>
             </div>

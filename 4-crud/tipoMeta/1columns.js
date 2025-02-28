@@ -6,7 +6,6 @@ DSON.keepmerge(CRUD_tipoMeta, {
         isStorage: true,
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 visible: false,
@@ -16,29 +15,18 @@ DSON.keepmerge(CRUD_tipoMeta, {
                 dead: true
             },
             nombre: {
-                label: MESSAGE.i('planificacion.titleTipoMeta'),
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             valor: {
-                label: function () {
-                    return "Valor"
-                },
             },
             comentario_obligatorio: {
-                label: function () {
-                    return "¿Comentario Obligatorio?"
-                },
                 formattype: ENUM.FORMAT.bool,
                 sorttype: ENUM.FORMATFILTER.bool,
             },
             ocultar: {
-                label: function () {
-                    return "¿Oculto?"
-                },
                 formattype: ENUM.FORMAT.bool,
                 sorttype: ENUM.FORMATFILTER.bool,
             }

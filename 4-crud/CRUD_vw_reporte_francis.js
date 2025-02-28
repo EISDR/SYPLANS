@@ -50,52 +50,30 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
                 exportExample: false
             },
             ano: {
-                label: () => {
-                    return "Año"
-                }
             },
             departamento: {
-                label: () => {
-                    return "Departamento"
-                }
             },
             presupuesto_departamento: {
-                label: () => {
-                    return "Presupuesto del Departamento"
-                },
                 formattype: ENUM.FORMAT.money
             },
             producto: {
-                label: () => {
-                    return "Producto"
-                }
             },
             presupuesto_producto: {
-                label: () => {
-                    return "Presupuesto del Producto"
-                },
                 formattype: ENUM.FORMAT.money
             },
             fecha_inicio: {
-                label: () => {
-                    return "Fecha Inicio"
-                }, formattype: ENUM.FORMAT.date,
+                formattype: ENUM.FORMAT.date,
                 export: (value) => {
                     return (moment(value).format("DD-MM-YYYY")).replaceAll("-", "_");
                 }
             },
             fecha_fin: {
-                label: () => {
-                    return "Fecha Fin"
-                }, formattype: ENUM.FORMAT.date,
+                formattype: ENUM.FORMAT.date,
                 export: (value) => {
                     return (moment(value).format("DD-MM-YYYY")).replaceAll("-", "_");
                 }
             },
             actividad: {
-                label: () => {
-                    return "Actividades"
-                },
                 format: (row) => {
                     if (row.actividad) {
                         return DSON.ULALIA(row.actividad.split(";;"));
@@ -106,63 +84,30 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
                 }
             },
             indicador: {
-                label: () => {
-                    return "Indicador de Producto"
-                }
             },
             medio_verificacion: {
-                label: () => {
-                    return "Medio de Verificación"
-                }
             },
             meta_trimestre_1: {
-                label: () => {
-                    return "Meta - Primer Trimestre"
-                }
             },
             meta_trimestre_2: {
-                label: () => {
-                    return "Meta - Segundo Trimestre"
-                }
             },
             meta_trimestre_3: {
-                label: () => {
-                    return "Meta - Tercer Trimestre"
-                }
             },
             meta_trimestre_4: {
-                label: () => {
-                    return "Meta - Cuarto Trimestre"
-                }
             },
             alcanzada_trimestre_1: {
-                label: () => {
-                    return "Meta Alcanzada - Primer Trimestre"
-                }
             },
             alcanzada_trimestre_2: {
-                label: () => {
-                    return "Meta Alcanzada - Segundo Trimestre"
-                }
             },
             alcanzada_trimestre_3: {
-                label: () => {
-                    return "Meta Alcanzada - Tercer Trimestre"
-                }
             },
             alcanzada_trimestre_4: {
-                label: () => {
-                    return "Meta Alcanzada - Cuarto Trimestre"
-                }
             }
         },
         filters: {
             columns: [
                 {
                     key: 'ano',
-                    label: function(){
-                        return 'Año'
-                    },
                     type: FILTER.types.relation,
                     table: 'vw_poa_ddl',
                     value: "periodo_poa",
@@ -188,10 +133,6 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
                 },
                 {
                     key: 'departamento',
-                    label: function(){
-                        return 'Departamento'
-                    },
-                    placeholder: 'Departamento',
                     type: FILTER.types.relation,
                     value: "nombre",
                     table:'departamento',
@@ -217,16 +158,11 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
                 },
                 {
                     key: 'presupuesto_departamento',
-                    label: function(){
-                        return 'Presupuesto del departamento'
-                    },
                     type: FILTER.types.decimal,
-                    placeholder: 'Presupuesto del departamento',
                     maxlength: 20
                 },
                 {
                     key: 'producto',
-                    label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                     type: FILTER.types.relation,
                     table: 'vw_productos_poa_detalles',
                     value: "producto",
@@ -245,115 +181,63 @@ DSON.keepmerge(CRUD_vw_reporte_francis, {
                 },
                 {
                     key: 'presupuesto_producto',
-                    label: function(){
-                        return 'Presupuesto del producto'
-                    },
                     type: FILTER.types.decimal,
-                    placeholder: 'Presupuesto del producto',
                     maxlength: 20
                 },
                 {
                     key: 'fecha_inicio',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'fecha_fin',
-                    label: 'Fecha Fin',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Fin'
                 },
                 {
                     key: 'indicador',
-                    label: function(){
-                        return 'Indicador del producto'
-                    },
                     type: FILTER.types.string,
-                    placeholder: function(){
-                        return 'Indicador del producto'
-                    },
                 },
                 {
                     key: 'medio_verificacion',
-                    label: function(){
-                        return 'Medio de verificación'
-                    },
                     type: FILTER.types.string,
-                    placeholder: function(){
-                        return 'Medio de verificación'
-                    },
                 },
                 {
                     key: 'meta_trimestre_1',
-                    label: function(){
-                        return 'Meta - Primer Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta - Primer Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'meta_trimestre_2',
-                    label: function(){
-                        return 'Meta - Segundo Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta - Segundo Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'meta_trimestre_3',
-                    label: function(){
-                        return 'Meta - Tercer Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta - Tercer Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'meta_trimestre_4',
-                    label: function(){
-                        return 'Meta - Cuarto Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta - Cuarto Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'alcanzada_trimestre_1',
-                    label: function(){
-                        return 'Meta Alcanzada - Primer Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta Alcanzada - Primer Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'alcanzada_trimestre_2',
-                    label: function(){
-                        return 'Meta Alcanzada - Segundo Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta Alcanzada - Segundo Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'alcanzada_trimestre_3',
-                    label: function(){
-                        return 'Meta Alcanzada - Tercer Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta Alcanzada - Tercer Trimestre',
                     maxlength: 20
                 },
                 {
                     key: 'alcanzada_trimestre_4',
-                    label: function(){
-                        return 'Meta Alcanzada - Cuarto Trimestre'
-                    },
                     type: FILTER.types.integer,
-                    placeholder: 'Meta Alcanzada - Cuarto Trimestre',
                     maxlength: 20
                 },
             ]

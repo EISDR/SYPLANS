@@ -18,7 +18,6 @@
                     text: "item.nombre",
                     table: url.split('query=')[1].replaceAll('RF',''),
                     icon: {class: "archive"},
-                    label: "Registro",
                     condition: "(item.mapa_proceso == indicador_generico.mapa_id && item.estatus_id != 4)"
                 }) %>
             </div>
@@ -31,13 +30,11 @@
                     text: "item.nombre",
                     table: url.split('query=')[1].replaceAll('RF',''),
                     icon: {class: "archive"},
-                    label: "Registro"
                 }) %>
             </div>
             <div class="col-sm-3 col-md-3" ng-show="indicador_generico.entidad==='vw_mods'">
                 <%- FORM.input("edt", scope, {
                     maxlength: 5,
-                    placeholder: "No. Secuencia",
                     popover: {
                         title: "Nombre",
                         content: "Captura la secuencia del indicador"
@@ -49,7 +46,6 @@
             <div class="col-sm-12 col-md-3 ">
                 <%- FORM.input("nombre", scope, {
                     maxlength: 255,
-                    placeholder: "Nombre del Indicador",
                     popover: {
                         title: "Nombre",
                         content: "Captura el nombre"
@@ -65,7 +61,6 @@
                     text: "item.nombre",
                     table: "departamento",
                     icon: {class: "archive"},
-                    truelabel: "Departamento",
                     condition: "(item.compania == indicador_generico.session.compania_id && item.institucion == null) && item.active == 1"
                 }) %>
             </div>
@@ -78,14 +73,12 @@
                     text: "item.nombre",
                     table: "departamento",
                     icon: {class: "archive"},
-                    truelabel: "Departamento",
                     condition: "(item.institucion  == indicador_generico.session.institucion_id) && (item.active == 1)"
                 }) %>
             </div>
             <div class="col-sm-12 col-md-6 remove-input-space">
                 <%- FORM.textarea("descripcion", scope, {
                     maxlength: 4000,
-                    label: "Descripción del Indicador",
                     label_custom: true
                     // inputPlaceholder: "Descripción del indicador"
                 }) %>
@@ -106,8 +99,6 @@
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.textarea("metodo_calculo", scope, {
                     maxlength: 255,
-                    label: "Método de Cálculo",
-                    label_custom: true,
                     popover: {
                         title: "Método de Cálculo",
                         content: "Captura el método de cálculo"
@@ -116,7 +107,6 @@
             </div>
             <div class="col-sm-3 col-md-3 remove-input-space">
                 <%- FORM.textarea("desagregacion_demografica_geografia", scope, {
-                    trueplaceholder: "Desagregación Demográfica Geográfica",
                     maxlength: 4000
                 }) %>
             </div>
@@ -130,7 +120,6 @@
                     table: "caracteristica_indicador",
                     multiple: true,
                     icon: {class: "archive"},
-                    truelabel: "Característica Indicador",
                     condition: "item.compania == indicador_generico.session.compania_id && item.active == 1",
                     get: {
                         table: 'caracteristica_indicador_generico',
@@ -146,8 +135,6 @@
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.textarea("medio_verificacion", scope, {
                     maxlength: 1000,
-                    label: "Medio de Verificación",
-                    label_custom: true,
                     popover: {
                         title: "Medio de Verificación",
                         content: "Captura el medio de verificación"
@@ -157,15 +144,12 @@
             <div class="col-sm-6 col-md-6 remove-input-space">
                 <%- FORM.textarea("observacion", scope, {
                     maxlength: 1000,
-                    label: "Observación",
-                    label_custom: true
                 }) %>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2 col-md-2" ng-if="<%= scope %>.entidad == 'vw_procesos' || <%= scope %>.entidad == 'vw_evento_indicador_riesgo'">
                 <%- FORM.integer("ano", scope, {
-                    trueplaceholder: "Año a evaluar",
                     maxlength: 4
                 }) %>
             </div>
@@ -203,7 +187,6 @@
                     text: "item.nombre",
                     table: "poa_monitoreo",
                     icon: {class: "archive"},
-                    label: "Periodicidad"
                 }) %>
             </div>
             <div class="col-sm-12 col-md-2 ">
@@ -218,7 +201,6 @@
                         text: "item.nombre",
                         table: "tipoMeta",
                         icon: {class: "archive"},
-                        label: "Tipo de dato de la meta",
                         popover: {
                             title: "Tipo Meta",
                             content: "Captura los tipos de metas"
@@ -237,7 +219,6 @@
                     text: "item.nombre",
                     table: "direccionMeta",
                     icon: {class: "archive"},
-                    label: "Dirección de la Meta",
                     popover: {
                         title: "Dirección Meta",
                         content: "Captura las Direcciónes de la meta"
@@ -246,7 +227,6 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <%- FORM.integer("ano_linea_base", scope, {
-                    placeholder: "Año Línea Base",
                     maxlength: 4
                 }) %>
             </div>

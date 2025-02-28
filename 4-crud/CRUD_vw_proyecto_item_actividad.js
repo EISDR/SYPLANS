@@ -18,58 +18,38 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
             },
             departamento: {},
             proyecto_item_nombre: {
-                label: function () {
-                    return "Proyecto Especial"
-                },
                 shorttext: 370
             },
             nombre: {
-                label: function () {
-                    return "Actividad"
-                },
                 shorttext: 370
             },
             responsable: {
-                label: "Responsable",
                 shorttext: 370,
             },
             from: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             to: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             },
             presupuesto: {
-                label: "Presupuesto",
                 formattype: "money",
                 exportExample: "[money]",
                 shorttext: 370,
             },
             avance_porcentaje: {
-                label: function () {
-                    return "Porcentaje de avance"
-                },
                 sorttype: "percentage",
                 formattype: "percentage",
             },
             razon_nombre: {
-                label: function () {
-                    return "Evaluación de cierre"
-                },
                 shorttext: 370,
             },
             estatus: {
-                label: "Estatus",
                 shorttext: 370
             },
             archivo: {
-                label: function () {
-                    return "Documento Adjunto"
-                },
                 // click: function (d,d2,d3) {
                 //     console.log(d,d2,d3,"xc");
                 //     if(data.row.estatus == "Completado"){
@@ -135,9 +115,7 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
             columns: [
                 {
                     key: 'proyecto_item',
-                    label: 'Proyecto Especial',
                     type: FILTER.types.relation,
-                    table: 'proyecto_item',
                     value: "id",
                     text: "item.nombre",
                     query: {
@@ -154,17 +132,10 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'nombre',
-                    label: function () {
-                        return 'Actividad'
-                    },
                     type: FILTER.types.string,
-                    placeholder: 'Actividad'
                 },
                 {
                     key: 'responsable_id',
-                    label: function () {
-                        return 'Responsable'
-                    },
                     type: FILTER.types.relation,
                     table: 'vw_usuario',
                     value: "id",
@@ -190,35 +161,24 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'from',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'to',
-                    label: 'Fecha Fin',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Fin'
                 },
                 {
                     key: 'presupuesto',
-                    label: 'Presupuesto',
                     type: FILTER.types.decimal,
-                    placeholder: 'Presupuesto',
                     maxlength: 20
                 },
                 {
                     key: 'avance_porcentaje',
-                    label: 'Procentaje de Avance',
                     type: FILTER.types.integer,
-                    placeholder: 'Procentaje de Avance',
                     maxlength: 20
                 },
                 {
                     key: 'razon',
-                    label: function () {
-                        return 'Evaluación de cierre'
-                    },
                     type: FILTER.types.relation,
                     table: 'razon',
                     value: "id",
@@ -248,9 +208,6 @@ DSON.keepmerge(CRUD_vw_proyecto_item_actividad, {
                 },
                 {
                     key: 'estatus_id',
-                    label: function () {
-                        return 'Estado'
-                    },
                     type: FILTER.types.relation,
                     table: 'auditoria_programa_plan_estatus',
                     value: "code",

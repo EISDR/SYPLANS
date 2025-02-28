@@ -7,8 +7,6 @@ CRUD_presupuesto_aprobado = DSON.merge(CRUD_presupuesto_aprobado,
                 columns: [
                     {
                         key: 'departamento_id',
-                        label: 'Departamento',
-                        placeholder: 'Departamento',
                         type: FILTER.types.relation,
                         value: "id",
                         table:'departamento',
@@ -34,30 +32,22 @@ CRUD_presupuesto_aprobado = DSON.merge(CRUD_presupuesto_aprobado,
                     },
                     {
                         key: 'valor',
-                        label: 'Presupuesto Aprobado',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto Aprobado',
                         maxlength: 20
                     },
                     {
                         key: 'presupuesto_restante',
-                        label: 'Presupuesto Restante',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto Restante',
                         maxlength: 20
                     },
                     {
                         key: 'presupuesto_asignado',
-                        label: 'Presupuesto Asignado',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto Asignado',
                         maxlength: 20
                     },
                     {
                         key: 'presupuesto_liberado',
-                        label: 'Presupuesto a Liberado',
                         type: FILTER.types.decimal,
-                        placeholder: 'Presupuesto a Liberado',
                         maxlength: 20
                     }
                 ]

@@ -7,7 +7,7 @@
             <div class="panel-body chart-container">
                 <div class="chart has-fixed-height" id="columnsstack"></div>
             </div>
-            <%- CHART.columns("columnsstack", scope, {label: "Presupuestos"}) %>
+            <%- CHART.columns("columnsstack", scope, {}) %>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div><%- CHART.doughnut("pie", scope, {label: "Proyecto Especial", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %></div>
+                    <div><%- CHART.doughnut("pie", scope, {radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %></div>
                 </div>
                 <div class="col-md-4 col-sm-4 pl-0 pr-20" style="padding: 0">
                     <div class="panel panel-white">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <%- CHART.doughnut("pie2", scope, {label: "Actividades", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                    <%- CHART.doughnut("pie2", scope, {radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
                 </div>
                 <div class="col-md-4 col-sm-4 pl-0 pr-20" style="padding: 0">
                     <div class="panel panel-white">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <%- CHART.doughnut("pie3", scope, {label: "Asignaciones Especiales", radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
+                    <%- CHART.doughnut("pie3", scope, { radius: ["25%", "60%"], fontSize: 10, tooltipTextSize: 10, charPosition: ["45%", "50%"]}) %>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                 <div class="chart has-fixed-height" id="area"></div>
             </div>
         </div>
-        <div><%- CHART.columns("area", scope, {label: "Indicadores de Proyectos Especiales"}) %></div>
+        <div><%- CHART.columns("area", scope, {}) %></div>
     </div>
 </div>
 

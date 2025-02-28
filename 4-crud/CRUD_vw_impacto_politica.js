@@ -49,9 +49,6 @@ DSON.keepmerge(CRUD_vw_impacto_politica, {
                 dead: true
             },
             no_secuencia: {
-                label: function () {
-                    return "No. Secuencia"
-                },
             },
             nombre: {},
             descripcion: {shorttext: 360},
@@ -74,23 +71,17 @@ DSON.keepmerge(CRUD_vw_impacto_politica, {
             columns: [
                 {
                     key: 'no_secuencia',
-                    label: "No. Secuencia",
                     type: FILTER.types.integer,
-                    placeholder: 'No. secuencia',
                     maxlength: 255
                 },
                 {
                     key: 'nombre',
-                    label: "Nombre",
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 255
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 1000
                 },
             ]

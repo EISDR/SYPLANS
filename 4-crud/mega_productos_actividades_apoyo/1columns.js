@@ -10,7 +10,6 @@ DSON.keepmerge(CRUD_mega_productos_actividades_apoyo, {
         batch: false,
         columns: {
             id: {
-                label: "ID",
                 sorttype: "numeric",
                 class: "text-left",
                 exportExample: false,
@@ -19,24 +18,19 @@ DSON.keepmerge(CRUD_mega_productos_actividades_apoyo, {
                 dead: true
             },
             actividad_apoyo: {
-                label: "Actividad de Apoyo",
                 shorttext: 370
             },
             descripcion: {
-                label: "Descripción",
                 shorttext: 370
             },
             area_apoyo: {
-                label: "Área de Ápoyo",
                 shorttext: 370
             },
             fecha_inicio: {
-                label: "Fecha Inicio",
                 sorttype: "date",
                 formattype: "date",
             },
             fecha_fin: {
-                label: "Fecha Fin",
                 sorttype: "date",
                 formattype: "date",
             }

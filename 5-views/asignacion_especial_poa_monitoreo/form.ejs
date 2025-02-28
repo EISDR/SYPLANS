@@ -8,7 +8,7 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class="col-sm-12 col-md-4">
-                <%- FORM.inputview("nombre",scope,{placeholder: "Nombre"})%>
+                <%- FORM.inputview("nombre",scope,{})%>
             </div>
             <div class="col-sm-12 col-md-4">
                 <%- FORM.select("departamento_solicitante", scope, {
@@ -20,7 +20,6 @@
                     refresh: false,
                     multiple: false,
                     disabled: true,
-                    label: "Departamento Solicitante",
                     text: "item.nombre",
                     table: "departamento",
                     columns: ["nombre"],
@@ -35,7 +34,6 @@
                     allowview: false,
                     allowlist: false,
                     multiple: false,
-                    truelabel: "Estatus",
                     text: "item.permitido",
                     value: "id",
                     table: "vw_auditoria_programa_plan_estatus",
@@ -57,7 +55,6 @@
                     refresh: false,
                     multiple: false,
                     disabled: true,
-                    label: "Departamento Solicitado",
                     text: "item.nombre",
                     table: "departamento",
                     columns: ["nombre"],
@@ -76,7 +73,6 @@
                     refresh: false,
                     multiple: false,
                     disabled: true,
-                    label: "Responsable",
                     text: "item.nombre + ' ' + item.apellido",
                     table: "usuario",
                     columns: ["nombre"],
@@ -94,17 +90,15 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12">
-                <%- FORM.inputview("descripcion",scope,{ placeholder: "Descripción" }) %>
+                <%- FORM.inputview("descripcion",scope,{}) %>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-7">
-                <%- FORM.textarea("comentario",scope,{ placeholder: "Comentario" }) %>
+                <%- FORM.textarea("comentario",scope,{}) %>
             </div>
             <div class="col-sm-4  col-md-3" ng-show="asignacion_especial_poa_monitoreo.estatus == '1'">
                 <%- FORM.select("razon", scope, {
-                    label: "Razón",
-                    text: "item.nombre_razon",
                     table: "razon",
                     columns: ["nombre_razon"],
                     icon: {class:"archive"},
@@ -113,10 +107,8 @@
             </div>
             <div class="col-sm-12 col-md-2 center-profile-image countFile">
                 <%- FORM.file("asignacionfile",scope, {
-                    title: 'Subir Evidencia' ,
                     maxfiles:50 ,
                     columns:4,
-                    text: 'Subir evidencia',
                     // acceptedFiles: "image/*, video/*, audio/*, .pdf, .rar, .zip, .doc, .docx, .xls, .xlsx",
                     // acceptedFiles_message: "Sólo se pueden subir archivos de tipo imagen, vídeo, audio, pdf, rar/zip, doc/docx y xls/xlsx"
                 })%>

@@ -9,7 +9,6 @@
                     allowlist: false,
                     text: "item.nombre",
                     table: 'compania',
-                    label: "Compañía",
                     icon: {class: "archive"}
                 }) %>
             </div>
@@ -21,7 +20,6 @@
                     allowlist: false,
                     text: "item.nombre",
                     table: 'institucion',
-                    label: "Institución",
                     icon: {class: "archive"},
                     condition: "item.compania == perspectiva.compania"
                 }) %>
@@ -30,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-2">
-                <%- FORM.integer("no_orden", scope, {trueplaceholder:"No. orden", maxlength: 1000}) %>
+                <%- FORM.integer("no_orden", scope, { maxlength: 1000}) %>
             </div>
         </div>
         <div class="row">
@@ -45,14 +43,13 @@
                     allowlist: false,
                     text: "item.nombre",
                     table: 'iconos',
-                    label: "Ícono",
                     icon: {class: "archive"}
                 }) %>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12">
-                <%- FORM.textarea("descripcion", scope, {trueplaceholder:"Descripción", maxlength: 4000}) %>
+                <%- FORM.textarea("descripcion", scope, { maxlength: 4000}) %>
             </div>
         </div>
     </div>

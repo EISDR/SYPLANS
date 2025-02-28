@@ -49,34 +49,21 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
             },
             orden: {formattype: ENUM.FORMAT.numeric},
             titulo: {
-                label: function(){
-                    return "Título"
-                }
             },
             tipo_meta: {
-                label: function(){
-                    return "Tipo de meta"
-                }
             },
             color: {
                 export: true,
                 exportExample: false,
-                label: "Color",
                 format: function (row) {
                     $(`.riesgo_resultado_colorbaba` + row.id).css('background', row.color);
                     return `<div   class='${`riesgo_resultado_colorbaba` + row.id} shape_element_left'> </div>`;
                 }
             },
             from: {
-                label: function(){
-                    return "Valor desde"
-                },
                 formattype: ENUM.FORMAT.numeric
             },
             to: {
-                label: function(){
-                    return "Valor hasta"
-                },
                 formattype: ENUM.FORMAT.numeric
             },
         },
@@ -84,20 +71,15 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
             columns: [
                 {
                     key: 'orden',
-                    label: 'Orden',
                     type: FILTER.types.integer,
-                    placeholder: 'Orden',
                     maxlength: 15
                 },
                 {
                     key: 'titulo',
-                    label: function(){ return 'Título'},
                     type: FILTER.types.string,
-                    placeholder: 'Título'
                 },
                 {
                     key: 'tipo_meta',
-                    label: function(){ return 'Tipo de meta'},
                     type: FILTER.types.relation,
                     table: 'tipoMeta',
                     value: "id",
@@ -113,16 +95,12 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
                 },
                 {
                     key: 'from',
-                    label: function(){ return 'Valor desde'},
                     type: FILTER.types.integer,
-                    placeholder: 'Valor desde',
                     maxlength: 15
                 },
                 {
                     key: 'to',
-                    label: function(){ return 'Valor hasta'},
                     type: FILTER.types.integer,
-                    placeholder: 'Valor hasta',
                     maxlength: 15
                 },
             ]

@@ -51,15 +51,9 @@ DSON.keepmerge(CRUD_hint_fields, {
                 dead:true
             },
             entities_name: {
-                label: function() {
-                    return "Entidades";
-                },
                 shorttext: 360
             },
             field_show_names: {
-                label: function() {
-                    return "Campo";
-                },
                 shorttext: 360
             },
             text: {

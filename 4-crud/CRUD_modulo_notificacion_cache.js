@@ -50,48 +50,29 @@ DSON.keepmerge(CRUD_modulo_notificacion_cache, {
                 exportExample: false
             },
             modulo_notificacion_nombre: {
-                label: () => {
-                    return "Configuración"
-                }
             },
             permanent: {
                 format: (row) => {
                     return row.permanent == 1 ? 'Si' : 'No';
                 },
-                label: () => {
-                    return "Único Envío"
-                },
                 visible: true
             },
             to: {
-                label: () => {
-                    return "Para"
-                }, shorttext: 360
+                shorttext: 360
             },
             cc: {
-                label: () => {
-                    return "En Copia"
-                }, shorttext: 360
+                shorttext: 360
             },
             subject: {
-                label: () => {
-                    return "Asunto"
-                }, shorttext: 360
+                shorttext: 360
             },
             email: {
-                label: () => {
-                    return "Cuerpo del Correo"
-                }
             },
             push: {
-                label: () => {
-                    return "Notificación Push"
-                }, shorttext: 360
+                shorttext: 360
             },
             sendDate: {
-                label: () => {
-                    return "Fecha de Envío"
-                }, formattype: ENUM.FORMAT.datetime
+                formattype: ENUM.FORMAT.datetime
             }
         },
         filters: {

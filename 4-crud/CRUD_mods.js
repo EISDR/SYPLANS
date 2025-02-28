@@ -48,9 +48,6 @@ DSON.keepmerge(CRUD_mods, {
                 exportExample: false
             },
             edt: {
-                label: function (){
-                    return "No. Secuencia"
-                }
             },
             nombre: {},
             descripcion: {shorttext: 360},
@@ -59,15 +56,11 @@ DSON.keepmerge(CRUD_mods, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre'
                 },
                 {
                     key: 'descripcion',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción'
                 },
             ]
         },
