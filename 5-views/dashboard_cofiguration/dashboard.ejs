@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="panel panel-white">
-            <div class="panel-heading panel-dashboard">
-                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 1" class="panel-title">Plan Operativo Anual</h6>
-                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 2" class="panel-title">Gestión Presupuestaria</h6>
+            <div class="panel-heading panel-dashboard" dragonlanguage="">
+                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 1" class="panel-title"><language>Plan Operativo Anual</language></h6>
+                <h6 ng-if="dashboard_cofiguration.session.tipo_institucion == 2" class="panel-title"><language>Gestión Presupuestaria</language></h6>
             </div>
             <div class="panel-body">
 
@@ -109,18 +109,18 @@
                             <%- include('../../7-plugins/templates/table/header',{scope:'vw_dashboard_productos2'}); %>
                             <div class="" style="padding: 0 20px 0 20px;">
                                 <br>
-                                <ul id="leyendas" class="list-group" style="padding: 24px 0;">
+                                <ul id="leyendas" class="list-group" style="padding: 24px 0;" dragonlanguage="">
                                     <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
-                                        <label class="labelRedondo"> Planificado </label></li>
+                                        <label class="labelRedondo"> <language>Planificado</language> </label></li>
 
                                     <li><label class="ponerRedondo" style="background-color: #548235;"></label>
-                                        <label class="labelRedondo"> En ejecución </label></li>
+                                        <label class="labelRedondo"> <language>En ejecución</language> </label></li>
 
                                     <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
-                                        <label class="labelRedondo"> Vencido </label></li>
+                                        <label class="labelRedondo"> <language>Vencido</language> </label></li>
 
                                     <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
-                                        <label class="labelRedondo"> Ninguna Condición </label></li>
+                                        <label class="labelRedondo"> <language>Ninguna Condición</language> </label></li>
                                 </ul>
                                 <br>
                             </div>
@@ -138,8 +138,8 @@
     <div class="col-sm-12 col-md-6" ng-if="false">
         <div class="col-md-12 col-sm-12 pl-0 pr-0">
             <div class="panel panel-white">
-                <div class="panel-heading panel-dashboard">
-                    <h6 class="panel-title">Notificaciones</h6>
+                <div class="panel-heading panel-dashboard" dragonlanguage="">
+                    <h6 class="panel-title"><language>Notificaciones</language></h6>
                 </div>
                 <div class="panel-body">
 

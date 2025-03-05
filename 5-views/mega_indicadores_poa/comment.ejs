@@ -5,15 +5,15 @@
 </style>
 
 <div class="subcontent">
-    <table id="PoaComment" class="table table-bordered" style="margin-top: 15px;">
+    <table id="PoaComment" class="table table-bordered" style="margin-top: 15px;" dragonlanguage="">
         <thead class="">
         <tr class="centralizarth" style="background-color: <%=CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary%> !important; color: white; ">
-            <th>Periodo</th>
-            <th>Proyectado</th>
-            <th>Valor Alcanzado</th>
-            <th>Fecha Última Actualización</th>
-            <th>Usuario Última Actualización</th>
-            <th>Acciones</th>
+            <th><language>Periodo</language></th>
+            <th><language>Proyectado</language></th>
+            <th><language>Valor Alcanzado</language></th>
+            <th><language>Fecha Última Actualización</language></th>
+            <th><language>Usuario Última Actualización</language></th>
+            <th><language>Acciones</language></th>
         </tr>
         </thead>
         <tbody class="tbodyDetails">
@@ -43,7 +43,8 @@
                 </div>
                 <button ng-show="row.count_comment > 0" type="button" ng-click="mega_indicadores_poa.openCommentModal(row.indicador_poa, row.periodo_valor )"
                         title="Ver comentarios ({{row.count_comment}})" role="button" style=" height: 57px;"
-                        class="btn bg-secundary-600 btn-block legitRipple"><i class="icon-comments position-left"></i> Ver comentarios ({{row.count_comment}})
+                        dragonlanguage=""
+                        class="btn bg-secundary-600 btn-block legitRipple"><i class="icon-comments position-left"></i> <language>Ver comentarios</language> ({{row.count_comment}})
                 </button>
             </td>
         </tr>

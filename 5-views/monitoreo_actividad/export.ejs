@@ -2,7 +2,7 @@
     <div class="row">
         <div dragonlanguage=""
              class="alert alpha-<%= COLOR.secundary %> border-<%= COLOR.secundary %> alert-styled-left">
-            <h5>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor "Personalizado" = a 25% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</h5>
+            <h5><language>Sugerencias para exportar o imprimir PDF: a) ir a "Más ajustes", b) poner "Escala" en valor "Personalizado" = a 25% y, c) en "Opciones" marcar el recuadro de gráficos de fondo</language></h5>
         </div>
     </div>
     <div style="overflow: scroll visible; position: static; zoom: 1;">
@@ -12,7 +12,7 @@
                     <a href="#pdf" data-toggle="tab"
                        style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
                         <i class="position-printer2"></i>
-                        Formato de impresión
+                        <language>Formato de impresión</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </div>
@@ -22,7 +22,7 @@
                     <a href="#xls" data-toggle="tab"
                        style="width: 50%;float: left;line-height: 40px;text-align: right;font-size: 16px;">
                         <i class="position-file-excel"></i>
-                        Formato Excel
+                        <language>Formato Excel</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </div>
@@ -37,7 +37,7 @@
                                     dragonlanguage="" title="Descargar - Formato de impresión"
                                     ng-click="monitoreo_actividad.exportPDF();"
                                     type="button" class="btn bg-<%= COLOR.primary + '-600' %> btn-xs ">
-                                <i class="icon-printer2"></i> Descargar - Formato de impresión
+                                <i class="icon-printer2"></i> <language>Descargar - Formato de impresión</language>
                             </button>
                             <table class="table table-print" id="monitoreo_actividadExport" style="margin-top: 15px">
                                 <tbody ng-repeat="(key,item) in monitoreo_actividad.anos"
@@ -45,13 +45,13 @@
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
                                         style="text-align: center;border-color: white !important;">
-                                        <b>MONITOREO Y SEGUIMIENTO DE PROYECTO/PRODUCTO</b>
+                                        <b><language>MONITOREO Y SEGUIMIENTO DE PROYECTO/PRODUCTO</language></b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
                                         style="text-align: center;border-color: white !important;">
-                                        <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                                        <b><language>PLAN OPERATIVO ANUAL</language> {{item.periodo_poa}}</b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -68,42 +68,42 @@
                                 </tr>
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
-                                        style="text-align: left;border-color: white !important;"><b>Eje
-                                            Estratégico:
+                                        style="text-align: left;border-color: white !important;"><b><language>Eje
+                                            Estratégico:</language>
                                             {{item.eje_estrategico}}</b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
-                                        style="text-align: left;border-color: white !important;"><b>Objetivo
-                                            Estratégico: {{item.objetivo_estrategico}}</b>
+                                        style="text-align: left;border-color: white !important;"><b><language>Objetivo
+                                            Estratégico:</language> {{item.objetivo_estrategico}}</b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
                                         style="text-align: left;border-color: white !important;">
-                                        <b>Estrategia: {{item.estrategia}}</b>
+                                        <b><language>Estrategia:</language> {{item.estrategia}}</b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="{{monitoreo_actividad.colspaninit}}"
                                         style="text-align: left;border-color: white !important;">
-                                        <b>Resultado Esperado: {{item.resultado}}</b>
+                                        <b><language>Resultado Esperado:</language> {{item.resultado}}</b>
                                     </td>
                                 </tr>
-                                <tr height="20" class="centralizarth"
+                                <tr height="20" class="centralizarth" dragonlanguage=""
                                     style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
-                                    <td rowspan="2">Departamento</td>
-                                    <td rowspan="2">Proyecto/Producto</td>
-                                    <td rowspan="2">Estatus</td>
-                                    <td rowspan="2">Indicador</td>
-                                    <td rowspan="2">Fórmula Indicador</td>
-                                    <td rowspan="2">Unidad de Medida</td>
-                                    <td rowspan="2">Medio Verificación</td>
-                                    <td rowspan="2">Año Línea Base</td>
-                                    <td rowspan="2">Valor Línea Base</td>
+                                    <td rowspan="2"><language>Departamento</language></td>
+                                    <td rowspan="2"><language>Proyecto/Producto</language></td>
+                                    <td rowspan="2"><language>Estatus</language></td>
+                                    <td rowspan="2"><language>Indicador</language></td>
+                                    <td rowspan="2"><language>Fórmula Indicador</language></td>
+                                    <td rowspan="2"><language>Unidad de Medida</language></td>
+                                    <td rowspan="2"><language>Medio Verificación</language></td>
+                                    <td rowspan="2"><language>Año Línea Base</language></td>
+                                    <td rowspan="2"><language>Valor Línea Base</language></td>
                                     <th colspan="5" ng-repeat="(ka,ra ) in monitoreo_actividad.poa_anos">
-                                        Período {{ra}}
+                                        <language>Período</language> {{ra}}
                                     </th>
                                 </tr>
                                 <tr height="20" class="centralizarth"
@@ -191,7 +191,7 @@
                                     dragonlanguage="" title="Descargar - Formato Excel"
                                     ng-click="monitoreo_actividad.exportXLS();"
                                     type="button" class="btn bg-success btn-xs ">
-                                <i class="icon-file-excel"></i> Descargar - Formato Excel
+                                <i class="icon-file-excel"></i> <language>Descargar - Formato Excel</language>
                             </button>
                             <table class="table table-print" id="monitoreo_actividadExportXLS" style="margin-top: 15px">
                                 <tbody ng-repeat="(key,item) in monitoreo_actividad.anos"
@@ -199,22 +199,22 @@
 
                                 <tr ng-if="!key" height="20" class="centralizarth"
                                     style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
-                                    <td rowspan="2">Compañía</td>
-                                    <td rowspan="2">Eje Estratéico</td>
-                                    <td rowspan="2">Objetivo Estratégico</td>
-                                    <td rowspan="2">Estrategia</td>
-                                    <td rowspan="2">Resultado Esperado</td>
-                                    <td rowspan="2">Departamento</td>
-                                    <td rowspan="2">Proyecto/Producto</td>
-                                    <td rowspan="2">Estatus</td>
-                                    <td rowspan="2">Indicador</td>
-                                    <td rowspan="2">Fórmula Indicador</td>
-                                    <td rowspan="2">Unidad de Medida</td>
-                                    <td rowspan="2">Medio Verificación</td>
-                                    <td rowspan="2">Año Línea Base</td>
-                                    <td rowspan="2">Valor Línea Base</td>
+                                    <td rowspan="2"><language>Compañía</language></td>
+                                    <td rowspan="2"><language>Eje Estratéico</language></td>
+                                    <td rowspan="2"><language>Objetivo Estratégico</language></td>
+                                    <td rowspan="2"><language>Estrategia</language></td>
+                                    <td rowspan="2"><language>Resultado Esperado</language></td>
+                                    <td rowspan="2"><language>Departamento</language></td>
+                                    <td rowspan="2"><language>Proyecto/Producto</language></td>
+                                    <td rowspan="2"><language>Estatus</language></td>
+                                    <td rowspan="2"><language>Indicador</language></td>
+                                    <td rowspan="2"><language>Fórmula Indicador</language></td>
+                                    <td rowspan="2"><language>Unidad de Medida</language></td>
+                                    <td rowspan="2"><language>Medio Verificación</language></td>
+                                    <td rowspan="2"><language>Año Línea Base</language></td>
+                                    <td rowspan="2"><language>Valor Línea Base</language></td>
                                     <th colspan="5" ng-repeat="(ka,ra ) in monitoreo_actividad.poa_anos">
-                                        Período {{ra}}
+                                        <language>Período</language> {{ra}}
                                     </th>
                                 </tr>
                                 <tr ng-if="!key" height="20" class="centralizarth"

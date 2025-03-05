@@ -28,8 +28,8 @@
             <%- include('../filter_IDSinimportarmultiple',{scope:scope}); %>
 
             <div class="" style="display: flow-root; margin-top: 10px" ng-show="monitoreo_pei.show_me_btn">
-                <button class="btn btn-primary" ng-click="baseController.abrirPonderaciones()" style="float: left">
-                    Ver Detalles de las Ponderaciones
+                <button class="btn btn-primary" ng-click="baseController.abrirPonderaciones()" dragonlanguage="" style="float: left">
+                    <language>Ver Detalles de las Ponderaciones</language>
                 </button>
                 <br>
             </div>
@@ -40,11 +40,11 @@
                 <%= scope %>.disabledepa = true;
             </script>
             <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
-                <table class="table table-bordered" id="monitoreo_peiTable" style="margin-top: 15px;">
+                <table class="table table-bordered" id="monitoreo_peiTable" style="margin-top: 15px;" dragonlanguage="">
                     <tr>
                         <td ng-if="!monitoreo_pei.anos.length" style="text-align: left"
                             colspan="{{monitoreo_pei.colspaninit}}">
-                            <h5>No se han encontrado datos en este reporte o no a solicitado ninguna búsqueda.</h5>
+                            <h5><language>No se han encontrado datos en este reporte o no a solicitado ninguna búsqueda.</language></h5>
                         </td>
                     </tr>
 
@@ -53,13 +53,13 @@
                     <tr>
                         <td colspan="{{monitoreo_pei.colspaninit}}"
                             style="text-align: center;border-bottom-color: white;padding: 0">
-                            <b>MONITOREO Y SEGUIMIENTO DEL PEI</b>
+                            <b><language>MONITOREO Y SEGUIMIENTO DEL PEI</language></b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_pei.colspaninit}}"
                             style="text-align: center;border-bottom-color: white;;padding: 0">
-                            <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                            <b><language>PLAN OPERATIVO ANUAL</language> {{item.periodo_poa}}</b>
                         </td>
                     </tr>
                     <tr>
@@ -73,40 +73,40 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left"><b>Eje Estratégico:
+                        <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left"><b><language>Eje Estratégico:</language>
                                 {{item.eje_estrategico}}</b>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left"><b>Objetivo
-                                Estratégico: {{item.objetivo_estrategico}}</b>
+                        <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left"><b><language>Objetivo
+                                Estratégico:</language> {{item.objetivo_estrategico}}</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left">
-                            <b>Estrategia: {{item.estrategia}}</b>
+                            <b><language>Estrategia:</language> {{item.estrategia}}</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_pei.colspaninit}}" style="text-align: left">
-                            <b>Resultado Esperado: {{item.resultado}}</b>
+                            <b><language>Resultado Esperado:</language> {{item.resultado}}</b>
                         </td>
                     </tr>
-                    <tr height="20" class="centralizarth"
+                    <tr height="20" class="centralizarth" dragonlanguage=""
                         style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Indicador</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Fórmula Indicador</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Unidad de Medida</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Medio Verificación</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Dirección Meta</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Año Línea Base</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Valor Línea Base</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Cumplimiento</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Indicador</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Fórmula Indicador</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Unidad de Medida</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Medio Verificación</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Dirección Meta</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Año Línea Base</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Valor Línea Base</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Cumplimiento</language></td>
 
                         <td style="text-align: center" colspan="{{monitoreo_pei.capi}}"
                             ng-repeat="(ka,ra ) in monitoreo_pei.poa_anos">
                             {{item.records[0].indicador_data.monitoreo_nombre}} {{ra}}<br>
-                            (P-Proyectado | A-Alcanzado)
+                            <language>(P-Proyectado | A-Alcanzado)</language>
                         </td>
                     </tr>
                     <tr height="20" class="centralizarth"
@@ -193,8 +193,9 @@
                                     <td colspan="2" style="height: 50px;text-align: center">
 
                                     <a style="float: left;margin-bottom: 20px; font-size: 15px;"
+                                       dragonlanguage=""
                                        ng-click="monitoreo_pei.verLosFile('pei',row.indicador_id,ra.id)"
-                                       title="Ver posibles evidencias">Evidencias</a>
+                                       title="Ver posibles evidencias"><language>Evidencias</language></a>
 
                                         <a style="float: left;margin-bottom: 20px; font-size: 15px;{{monitoreo_pei.permissionNormal(row.indicador_id, ra.id).allow==1?'text-decoration: underline; color: blue !important':''}}"
                                            ng-click="monitoreo_pei.openIndicadorComment('indicador pei',row.indicador_id,true,ra.id)"

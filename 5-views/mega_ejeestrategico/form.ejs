@@ -13,7 +13,6 @@
                     text: "item.nombre",
                     table: "end",
                     icon: {class: "archive"},
-                    label: "Eje END"
                 }) %>
             </div>
             <div class="col-sm-12 col-md-3 drp-pt">
@@ -22,7 +21,6 @@
                     text: "item.nombre",
                     table: "pnpsp",
                     icon: {class: "archive"},
-                    label: "Alineación PNPSP"
                 }) %>
             </div>
 
@@ -32,7 +30,6 @@
                     text: "item.nombre",
                     table: "ods",
                     icon: {class: "archive"},
-                    label: "Alineación ODS"
                 }) %>
             </div>
 
@@ -40,7 +37,7 @@
 
         <div class="row">
             <div class="col-sm-12 col-md-12 remove-input-space">
-                <%- FORM.textarea("descripcion", scope, {placeholder: "Descripción"}) %>
+                <%- FORM.textarea("descripcion", scope, {}) %>
             </div>
         </div>
     </div>

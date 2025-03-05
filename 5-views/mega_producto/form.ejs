@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12">
-        <%- FORM.input("nombre", scope, {maxlength: 255, placeholder:"Actividad"}) %>
+        <%- FORM.input("nombre", scope, {maxlength: 255,}) %>
     </div>
     <div class="col-sm-12 col-md-12" ng-if="mega_producto.session.tipo_institucion == 1">
         <%-
@@ -12,8 +12,6 @@
             allowview: true,
             allowlist: true,
             refresh: true,
-            label: "Proyecto/Producto",
-            placeholder: "Productos",
             text: "item.producto",
             table: "vw_productos_poa_resultado",
             columns: ["nombre"],
@@ -29,8 +27,6 @@
                 allowview: true,
                 allowlist: true,
                 refresh: true,
-                label: "Proyecto/Plan de Acción",
-                placeholder: "Proyecto/Plan de Acción",
                 text: "item.producto",
                 table: "vw_productos_poa_resultado",
                 columns: ["nombre"],
@@ -42,21 +38,21 @@
 <div class="row">
     <div> <br/> </div>
 </div>
-<div class="row">
+<div class="row" dragonlanguage="">
     <div class="col-sm-3 col-md-3">
-        <label>Departamento</label>
+        <label><language>Departamento</language></label>
         <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.departamento"/>
     </div>
     <div class="col-sm-3 col-md-2">
-        <label>Fecha Inicio</label>
+        <label><language>Fecha Inicio</language></label>
         <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.fecha_inicio.split('T')[0]"/>
     </div>
     <div class="col-sm-3 col-md-2">
-        <label>Fecha Fin</label>
+        <label><language>Fecha Fin</language></label>
         <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.fecha_fin.split('T')[0]"/>
     </div>
     <div class="col-sm-3 col-md-5">
-        <label>Resultado</label>
+        <label><language>Resultado</language></label>
         <input type="text" disabled class="form-control" ng-model="actividades_poa.producto_object.resultado"/>
     </div>
 </div>
@@ -66,10 +62,10 @@
 <div class="row">
     <div> <br/> </div>
 </div>
-<div class="row">
+<div class="row" dragonlanguage="">
 
     <div class="col-sm-12 col-md-2 form-group-material form-group has-feedback  has-feedback-left">
-        <label class="control-label is-visible">Presupuesto</label>
+        <label class="control-label is-visible"><language>Presupuesto</language></label>
         <input type="text" disabled class="form-control" id="presupuesto_pro" ng-model="actividades_poa.producto_object.presupuesto"/>
         <div class="form-control-feedback ng-scope" ng-if="actividades_poa.form.options.presupuesto.icon.class!=='none'" style="margin-left: 10px;">
             <i class="icon-cash3">
@@ -78,7 +74,7 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-2 form-group-material form-group has-feedback  has-feedback-left">
-        <label class="control-label is-visible">Presupuesto Restante</label>
+        <label class="control-label is-visible"><language>Presupuesto Restante</language></label>
         <input type="text" disabled class="form-control" id="presupuesto_restante" value="{{actividades_poa.presupuesto_restante_calculate()}}"/>
         <div class="form-control-feedback ng-scope" ng-if="actividades_poa.form.options.presupuesto.icon.class!=='none'" style="margin-left: 10px;">
             <i class="icon-cash3">
@@ -93,7 +89,6 @@
             isNumber: true,
             icon: {class: "cash3"},
             maxlength:15,
-            placeholder: "Presupuesto a Asignar",
             format: {mask: "000,000,000.00", options: {reverse: true}}
         })
         %>

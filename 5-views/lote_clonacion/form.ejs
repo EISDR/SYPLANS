@@ -2,8 +2,8 @@
     <div class="tab-pane active" id="basic">
         <div class="row"></div>
         <div class="panel panel-default">
-            <div class="panel-heading panel-dashboard" style="background-color: #ededed;">
-                <h6 class="panel-title">Filtros de búsqueda</h6>
+            <div class="panel-heading panel-dashboard" style="background-color: #ededed;" dragonlanguage="">
+                <h6 class="panel-title"><language>Filtros de búsqueda</language></h6>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -74,7 +74,7 @@
 
         <div class="row">
             <div dragonlanguage="" id="info-box" class="alert alert-info alert-styled-left alert-bordered">
-                <p>Este lote estará preparado para transferir los productos/proyectos y todas sus dependencias del departamento: "<strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong>" desde el POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}} ({{lote_clonacion.poa_desde_object.periodo_poa}})</strong>" al POA: "<strong style="text-transform: uppercase">{{lote_clonacion.poa_destino_object.nombre}} ({{lote_clonacion.poa_destino_object.periodo_poa}})</strong>. Tener presente que esta opción copia los datos de un lugar a otro, dejando la posibilidad de duplicar los registros. Por favor revisar antes de ejecutar esta acción."</p>
+                <p><language>Este lote estará preparado para transferir los productos/proyectos y todas sus dependencias del departamento:</language> "<strong style="text-transform: uppercase">{{lote_clonacion.departamento_object.nombre}}</strong>" <language>desde el POA:</language> "<strong style="text-transform: uppercase">{{lote_clonacion.poa_desde_object.nombre}} ({{lote_clonacion.poa_desde_object.periodo_poa}})</strong>" <language>al POA:</language> "<strong style="text-transform: uppercase">{{lote_clonacion.poa_destino_object.nombre}} ({{lote_clonacion.poa_destino_object.periodo_poa}})</strong>. <language>Tener presente que esta opción copia los datos de un lugar a otro, dejando la posibilidad de duplicar los registros. Por favor revisar antes de ejecutar esta acción."</language></p>
             </div>
         </div>
         <div class="row">
@@ -90,19 +90,19 @@
                     <language>Ir Atrás</language>
                 </button>
             </div>
-            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'productos'">
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'productos'" dragonlanguage="">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th style="max-width: 10% !important">Resultado Esperado</th>
-                            <th>No. del producto/proyecto</th>
-                            <th>Nombre del producto/proyecto</th>
-                            <th>Fecha Inicio/Fecha Fin</th>
-                            <th style="width: 20%">Departamento</th>
-                            <th>Descripción del producto/proyecto</th>
-                            <th>Acciones</th>
+                            <th style="max-width: 10% !important"><language>Resultado Esperado</language></th>
+                            <th><language>No. del producto/proyecto</language></th>
+                            <th><language>Nombre del producto/proyecto</language></th>
+                            <th><language>Fecha Inicio/Fecha Fin</language></th>
+                            <th style="width: 20%"><language>Departamento</language></th>
+                            <th><language>Descripción del producto/proyecto</language></th>
+                            <th><language>Acciones</language></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -155,21 +155,21 @@
                     </table>
                 </div>
             </div>
-            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades'">
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades'" dragonlanguage="">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th style="width: 15%">Producto/Proyecto</th>
-                            <th>No. de la actividad</th>
-                            <th>Nombre de la actividad</th>
-                            <th>Fecha Inicio/Fecha Fin</th>
-                            <th>Departamento</th>
-                            <th>Descripción de la actividad</th>
-                            <th>Presupuesto</th>
-                            <th style="width: 20%">Responsable</th>
-                            <th>Acciones</th>
+                            <th style="width: 15%"><language>Producto/Proyecto</language></th>
+                            <th><language>No. de la actividad</language></th>
+                            <th><language>Nombre de la actividad</language></th>
+                            <th><language>Fecha Inicio/Fecha Fin</language></th>
+                            <th><language>Departamento</language></th>
+                            <th><language>Descripción de la actividad</language></th>
+                            <th><language>Presupuesto</language></th>
+                            <th style="width: 20%"><language>Responsable</language></th>
+                            <th><language>Acciones</language></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -232,20 +232,20 @@
                     </table>
                 </div>
             </div>
-            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresP'">
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresP'" dragonlanguage="">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th style="width: 15%">Producto/Proyecto</th>
-                            <th>No. del indicador</th>
-                            <th>Nombre del indicador</th>
-                            <th>Año línea base</th>
-                            <th>Medio de verificación</th>
-                            <th>Método de cálculo</th>
-                            <th>Fuente</th>
-                            <th>Descripcion del indicador</th>
+                            <th style="width: 15%"><language>Producto/Proyecto</language></th>
+                            <th><language>No. del indicador</language></th>
+                            <th><language>Nombre del indicador</language></th>
+                            <th><language>Año línea base</language></th>
+                            <th><language>Medio de verificación</language></th>
+                            <th><language>Método de cálculo</language></th>
+                            <th><language>Fuente</language></th>
+                            <th><language>Descripcion del indicador</language></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -273,20 +273,20 @@
                     </table>
                 </div>
         </div>
-            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades_apoyo'">
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'actividades_apoyo'" dragonlanguage="">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th>Actividad</th>
-                            <th>No. de la actividad de apoyo</th>
-                            <th>Nombre de la actividad de apoyo</th>
-                            <th>Fecha Inicio/Fecha Fin</th>
-                            <th>Departamento</th>
-                            <th>Descripción de la actividad de apoyo</th>
-                            <th>Presupuesto</th>
-                            <th style="width: 20%">Responsable</th>
+                            <th><language>Actividad</language></th>
+                            <th><language>No. de la actividad de apoyo</language></th>
+                            <th><language>Nombre de la actividad de apoyo</language></th>
+                            <th><language>Fecha Inicio/Fecha Fin</language></th>
+                            <th><language>Departamento</language></th>
+                            <th><language>Descripción de la actividad de apoyo</language></th>
+                            <th><language>Presupuesto</language></th>
+                            <th style="width: 20%"><language>Responsable</language></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -329,20 +329,20 @@
                     </table>
                 </div>
             </div>
-            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresA'">
+            <div class="panel panel-flat" ng-show="lote_clonacion.currentRepeat == 'indicadoresA'" dragonlanguage="">
 
                 <div style="overflow-x: scroll">
                     <table class=" table table-togglable table-framed sindu-table">
                         <thead class="">
                         <tr class="bg-secundary">
-                            <th>Actividad</th>
-                            <th>No. del indicador</th>
-                            <th>Nombre del indicador</th>
-                            <th>Año línea base</th>
-                            <th>Medio de verificación</th>
-                            <th>Método de cálculo</th>
-                            <th>Fuente</th>
-                            <th>Descripcion del indicador</th>
+                            <th><language>Actividad</language></th>
+                            <th><language>No. del indicador</language></th>
+                            <th><language>Nombre del indicador</language></th>
+                            <th><language>Año línea base</language></th>
+                            <th><language>Medio de verificación</language></th>
+                            <th><language>Método de cálculo</language></th>
+                            <th><language>Fuente</language></th>
+                            <th><language>Descripcion del indicador</language></th>
                         </tr>
                         </thead>
                         <tbody>

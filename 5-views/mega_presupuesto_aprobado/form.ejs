@@ -2,8 +2,8 @@
     <div class="tab-pane active" id="basic">
         <div class="row">
             <div class="panel panel-<%= COLOR.secundary %>">
-                <div class="panel-heading" style="border-bottom-color: #dedede">
-                        <h6 class="panel-title"><span class="text-semibold">Trabajar</span> - Departamento
+                <div class="panel-heading" style="border-bottom-color: #dedede" dragonlanguage="">
+                        <h6 class="panel-title"><span class="text-semibold"><language>Trabajar</language></span> - <language>Departamento</language>
                             {{mega_presupuesto_aprobado.titulo}}</h6>
                 </div>
                 <div class="panel-body">
@@ -20,7 +20,6 @@
                                     text: "item.nombre",
                                     table: "presupuesto_aprobado_estatus",
                                     icon: {class: "archive"},
-                                    label: "Estatus"
                                 }) %>
                             </div>
 
@@ -48,7 +47,7 @@
                                             type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
                                             ng-click="mega_presupuesto_aprobado.ver_lista_productos_click()">
                                         <b><i class="icon-list"></i></b>
-                                        Ver lista de Proyecto/Producto
+                                        <language>Ver lista de Proyecto/Producto</language>
                                     </button>
                                     <button
                                             style="margin-right: 0"
@@ -57,7 +56,7 @@
                                             type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding"
                                             ng-click="mega_presupuesto_aprobado.ver_lista_productos_click()">
                                         <b><i class="icon-list"></i></b>
-                                        Ver lista de Proyecto/Plan de Acción
+                                        <language>Ver lista de Proyecto/Plan de Acción</language>
                                     </button>
                                 </div>
                             </div>
@@ -71,7 +70,6 @@
             <div class="col-sm-12 col-md-12 pl-0" ng-show="mega_presupuesto_aprobado.current_poa.id_estado != 5">
                 <div class="col-sm-12 col-md-10 pl-0">
                     <%- FORM.textarea("Comentario", scope, {
-                        placeholder: "Comentario"
                     }) %>
                 </div>
                 <div class="col-sm-12 col-md-2" style="margin-top: 24px;">
@@ -84,7 +82,7 @@
                             type="button" role="button" class="bg-<%= COLOR.success %>-800 btn btn-labeled btn-xs legitRipple ng-binding pull-right"
                             ng-click="mega_presupuesto_aprobado.guardar_comentario_clicks()">
                         <b><i class="icon-floppy-disk"></i></b>
-                        Añadir
+                        <language>Añadir</language>
                     </button>
                 </div>
             </div>

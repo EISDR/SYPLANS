@@ -25,21 +25,21 @@
 
             </script>
             <%- include('../filter_IDSinimportarmultiple',{scope:scope}); %>
-            <div class="" style="display: flow-root; margin-top: 10px" ng-show="monitoreo_actividad.show_me_btn">
+            <div class="" style="display: flow-root; margin-top: 10px" ng-show="monitoreo_actividad.show_me_btn" dragonlanguage="">
                 <button class="btn btn-primary" ng-click="baseController.abrirPonderaciones()" style="float: left">
-                    Ver Detalles de las Ponderaciones
+                    <language>Ver Detalles de las Ponderaciones</language>
                 </button>
                 <br>
             </div>
             <script>
                 <%= scope %>.disabledins = true;
             </script>
-            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent">
+            <div style="overflow: scroll visible; position: static; zoom: 1;min-height: 400px" id="minusubcontent" dragonlanguage="">
                 <table class="table table-bordered" id="monitoreo_actividadTable" style="margin-top: 15px;">
                     <tr>
                         <td ng-if="!<%= scope %>.anos.length" style="text-align: left"
                             colspan="{{<%= scope %>.colspaninit}}">
-                            <h5>No se han encontrado datos en este reporte o no a solicitado ninguna búsqueda.</h5>
+                            <h5><language>No se han encontrado datos en este reporte o no a solicitado ninguna búsqueda.</language></h5>
                         </td>
                     </tr>
                     <tbody ng-repeat="(key,item) in monitoreo_actividad.anos"
@@ -47,13 +47,13 @@
                     <tr>
                         <td colspan="{{monitoreo_actividad.colspaninit}}"
                             style="text-align: center;border-bottom-color: white;padding: 0">
-                            <b>MONITOREO Y SEGUIMIENTO DE ACTIVIDADES</b>
+                            <b><language>MONITOREO Y SEGUIMIENTO DE ACTIVIDADES</language></b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_actividad.colspaninit}}"
                             style="text-align: center;border-bottom-color: white;padding: 0">
-                            <b>PLAN OPERATIVO ANUAL {{item.periodo_poa}}</b>
+                            <b><language>PLAN OPERATIVO ANUAL</language> {{item.periodo_poa}}</b>
                         </td>
                     </tr>
                     <tr>
@@ -67,45 +67,45 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b>Eje Estratégico:
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b><language>Eje Estratégico:</language>
                                 {{item.eje_estrategico}}</b>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b>Objetivo
-                                Estratégico: {{item.objetivo_estrategico}}</b>
+                        <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left"><b><language>Objetivo
+                                Estratégico:</language> {{item.objetivo_estrategico}}</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left">
-                            <b>Estrategia: {{item.estrategia}}</b>
+                            <b><language>Estrategia:</language> {{item.estrategia}}</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="{{monitoreo_actividad.colspaninit}}" style="text-align: left">
-                            <b>Resultado Esperado: {{item.resultado}}</b>
+                            <b><language>Resultado Esperado:</language> {{item.resultado}}</b>
                         </td>
                     </tr>
                     <tr height="20" class="centralizarth"
                         style="background-color: <%= CONFIG.ui.theme.primary.indexOf("rgb") > -1 ? CONFIG.ui.theme.primary : '#' + CONFIG.ui.theme.primary %> !important; color: white; ">
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Departamento</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Proyecto/Producto</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Estatus de Proyecto/Producto</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Actividad</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Estatus de Actividad</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Indicador</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Fórmula Indicador</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Unidad de Medida</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Medio Verificación</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Dirección Meta</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Año Línea Base</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Valor Línea Base</td>
-                        <td style="text-align: center;vertical-align: middle" rowspan="2">Cumplimiento</td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Departamento</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Proyecto/Producto</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Estatus de Proyecto/Producto</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Actividad</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Estatus de Actividad</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Indicador</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Fórmula Indicador</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Unidad de Medida</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Medio Verificación</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Dirección Meta</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Año Línea Base</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Valor Línea Base</language></td>
+                        <td style="text-align: center;vertical-align: middle" rowspan="2"><language>Cumplimiento</language></td>
 
                         <td style="text-align: center" colspan="{{monitoreo_actividad.capi}}"
                             ng-repeat="(ka,ra ) in monitoreo_actividad.poa_anos">
                             {{item.records[0].indicador_data.monitoreo_nombre}} {{ra}}<br>
-                            (P-Proyectado | A-Alcanzado)
+                            <language>(P-Proyectado | A-Alcanzado)</language>
                         </td>
                     </tr>
                     <tr height="20" class="centralizarth"
@@ -134,8 +134,9 @@
                                     <td>
 
                                         <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           dragonlanguage=""
                                            ng-click="monitoreo_actividad.openProductoComment('productos poa',row.producto_id,row.cond,row.estatus)"
-                                           title="Ver o hacer comentarios">Comentarios</a>
+                                           title="Ver o hacer comentarios"><language>Comentarios</language></a>
                                     </td>
 
                                 </tr>
@@ -158,8 +159,9 @@
                                     <td>
 
                                         <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           dragonlanguage=""
                                            ng-click="monitoreo_actividad.openActividadComment('actividades poa',row.actividad_id,row.cond,row.actividad_estatus)"
-                                           title="Ver o hacer comentarios">Comentarios</a>
+                                           title="Ver o hacer comentarios"><language>Comentarios</language></a>
                                     </td>
 
                                 </tr>
@@ -184,8 +186,9 @@
 
 
                                         <a style="float: left;margin-bottom: 20px; font-size: 11px"
+                                           dragonlanguage=""
                                            ng-click="monitoreo_actividad.openIndicadorComment('indicador actividad',row.indicador_id,true)"
-                                           title="Ver o hacer observaciones">Observaciones</a>
+                                           title="Ver o hacer observaciones"><language>Observaciones</language></a>
                                     </td>
 
                                 </tr>
@@ -247,8 +250,9 @@
                                 <tr>
                                     <td colspan="2" style="height: 50px;text-align: center">
                                          <a style="float: left;margin-bottom: 20px; font-size: 15px;"
+                                            dragonlanguage=""
                                             ng-click="monitoreo_actividad.verLosFile('actividad',row.indicador_id,ra.id)"
-                                            title="Ver posibles evidencias">Evidencias</a>
+                                            title="Ver posibles evidencias"><language>Evidencias</language></a>
 
                                         <a style="margin-bottom: 20px; font-size: 15px;{{monitoreo_actividad.permissionNormal(row.indicador_id, ra.id).allow==1?'text-decoration: underline; color: blue !important':''}}"
                                            ng-click="monitoreo_actividad.openIndicadorComment('indicador actividad',row.indicador_id,true,ra.id)"

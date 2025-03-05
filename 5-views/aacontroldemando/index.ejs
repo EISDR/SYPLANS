@@ -20,10 +20,10 @@
 
 
         <div class="subcontent text-center" id="tabsComment" style="    margin-top: 25px;"
-             ng-if="aacontroldemandog.unicomenu">
+             ng-if="aacontroldemandog.unicomenu" >
             <div class="col-sm-12">
-                <div class="col-sm-5" style="text-align: left">
-                    <label>Hasta el Mes</label>
+                <div class="col-sm-5" style="text-align: left" dragonlanguage="">
+                    <language>Hasta el Mes</language>
                     <select class="form-control fantizomes" ng-model="<%= scope %>.filtrofechames"
                             ng-options="opt as opt for opt in <%= scope %>.monthNames">
                     </select>
@@ -36,41 +36,41 @@
                         }
                     </style>
                 </div>
-                <div class="col-sm-5 " style="text-align: left;margin-top: -1px">
-                    <label>En el año</label>
+                <div class="col-sm-5 " style="text-align: left;margin-top: -1px" dragonlanguage="">
+                    <language>En el año</language>
                     <input type="number" class="form-control fantizomes" ng-model="<%= scope %>.filtrofechamesYear">
                 </div>
                 <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 36px !important;">
-                    <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary">Filtrar</button>
+                    <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary" dragonlanguage=""><language>Filtrar</language></button>
                 </div>
             </div>
 
             <div ng-if="!aacontroldemandog.aunnoexiste" style="text-align: left">
                 <button style="width: 92%;padding: 15px 15px 15px 15px;margin-top: 40px;"
-                        class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('cerrar')">
-                    <i class="position-left"></i>{{aacontroldemandog.unicomenuTilte||'Cargando Reporte...'}}<i
+                        class="btn btn-primary btn-labeled btn-xs" ng-click="<%= scope %>.filtrar('cerrar')" dragonlanguage="">
+                    <i class="position-left"></i><language>{{aacontroldemandog.unicomenuTilte ||'Cargando Reporte...'}}</language><i
                             class="border-white  position-right"></i>
                 </button>
             </div>
-            <div ng-if="aacontroldemandog.aunnoexiste">
+            <div ng-if="aacontroldemandog.aunnoexiste" dragonlanguage="">
                 <div class="swal2-icon swal2-info swal2-animate-info-icon"
                      style="display: flex;width: 210px;height: 139px;padding-top: 72px !important;">
                     <span style="    font-size: 200px;" class="swal2-icon-text">i</span>
                 </div>
-                <h1>{{aacontroldemandog.aunnoexiste}}</h1>
+                <h1><language>{{aacontroldemandog.aunnoexiste}}</language></h1>
             </div>
         </div>
 
         <div class="subcontent text-center" ng-if="!aacontroldemandog.unicomenu">
 
             <div class="container" style="width: 100%">
-                <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando">
-                    <h3>Evaluación filtrada {{<%= scope %>.miPOA.periodo_dinamico ? 'hasta el mes de' : 'por
+                <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando" dragonlanguage="">
+                    <h3><language>Evaluación filtrada {{<%= scope %>.miPOA.periodo_dinamico ? 'hasta el mes de' : 'por
                         '+<%= scope %>
-                        .elpoa.nombre_mostrar+'(s)'}}:</h3>
+                            .elpoa.nombre_mostrar+'(s)'}}:</language></h3>
                 </div>
-                <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando_pei">
-                    <h3>Evaluación filtrada por año(s):</h3>
+                <div class="col-sm-3 " style="text-align: right;margin-top: -1px" ng-show="aacontroldemando_pei" dragonlanguage="">
+                    <h3><language>Evaluación filtrada por año(s):</language></h3>
                 </div>
                 <div class="col-sm-8" style="text-align: left;margin-top: 8px;"
                      ng-show="!<%= scope %>.miPOA.periodo_dinamico">
@@ -109,12 +109,12 @@
                         }
                     </style>
                 </div>
-                <div class="col-sm-6 " style="text-align: left;margin-top: -1px"
+                <div class="col-sm-6 " style="text-align: left;margin-top: -1px" dragonlanguage=""
                      ng-show="aacontroldemando && <%= scope %>.miPOA.periodo_dinamico">
-                    <h3>del año {{aacontroldemando.elpoa.periodo_poa}}</h3>
+                    <h3><language>del año {{aacontroldemando.elpoa.periodo_poa}}</language></h3>
                 </div>
-                <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 17px !important;">
-                    <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary">Filtrar</button>
+                <div class="col-sm-1 mt-5" style="text-align: right;text-align: right;margin-top: 17px !important;" dragonlanguage="">
+                    <button ng-click="<%= scope %>.setFiltro()" class="btn btn-primary"><language>Filtrar</language></button>
                 </div>
                 <div class="col-sm-12" style="margin-top: 63px"
                      ng-if="!<%= scope %>.modolista && !aacontroldemandog.unicomenu">
@@ -124,17 +124,16 @@
                             <div class="panel-heading text-center"
                                  style="padding: 2px 0 0 8px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                                 <h5 title="Cumplimiento General"
-                                    style=" height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    <b>Cumplimiento General</b>
+                                    style=" height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" dragonlanguage="">
+                                    <b><language>Cumplimiento General</language></b>
                                 </h5>
                             </div>
                             <div class="panel-body text-center">
-                                <div class="row" style="height: 50px;">
+                                <div class="row" style="height: 50px;" dragonlanguage="">
                                     <div id="graficoGeneral"
                                          style="text-align: center;float: right;margin: -15px -16px 0 0px;">
                                     </div>
-                                    <h4 style="margin-top: -85px;margin-left: 90px;float: left;">
-                                        {{<%= scope %>.generalPonderacion.titulo}}</h4>
+                                    <h4 style="margin-top: -85px;margin-left: 90px;float: left;"><language>{{<%= scope %>.generalPonderacion.titulo}}</language></h4>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +147,9 @@
                         <div class="col-sm-{{data.col||3}}"
                              ng-repeat="(id,data) in value.row">
                             <button class="btn btn-primary btn-labeled btn-xs"
+                                    dragonlanguage=""
                                     style="padding: 15px 15px 15px 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; min-width: 240px; max-width: 240px"
-                                    ng-click="<%= scope %>.execute(data.link)">{{data.title}}
+                                    ng-click="<%= scope %>.execute(data.link)"><language>{{data.title}}</language>
                             </button>
                         </div>
 

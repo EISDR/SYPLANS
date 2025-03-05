@@ -3,12 +3,12 @@
         <ul class="nav nav-<%= COLOR.primary %> nav-tabs <%= COLOR.primary %> nav-justified" dragonlanguage="">
             <li class="active" id="active_comment_actividad">
                 <a href="#mis_act_apoyo" data-toggle="tab" ng-click="drp_actividades_apoyo.change_filters_toMines()">
-                    <i class="position-left"></i>Mis Actividades de Apoyo<i class="border-white  position-right"></i>
+                    <i class="position-left"></i><language>Mis Actividades de Apoyo</language><i class="border-white  position-right"></i>
                 </a>
             </li>
             <li class="" id="activ_apoyo_tab">
                 <a href="#activ_apoyo" data-toggle="tab" ng-show="drp_actividades_apoyo.permitir != drp_actividades_apoyo.analista_departamental" ng-click="drp_actividades_apoyo.change_filters_toOurs()">
-                    <i class="position-left"></i>Actividades de apoyo en general<i class="border-white  position-right"></i>
+                    <i class="position-left"></i><language>Actividades de apoyo en general</language><i class="border-white  position-right"></i>
                 </a>
             </li>
         </ul>
@@ -19,19 +19,19 @@
                 <div class="panel panel-flat">
                     <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
                     <div class="subcontent">
-                        <div class="" style="padding: 0; margin-top: -15px">
+                        <div class="" style="padding: 0; margin-top: -15px" dragonlanguage="">
                             <ul id="leyendas" class="list-group" style="padding: 24px 0;">
                                 <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
-                                    <label class="labelRedondo"> Planificada </label></li>
+                                    <label class="labelRedondo"> <language>Planificada</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #548235;"></label>
-                                    <label class="labelRedondo"> En ejecución </label></li>
+                                    <label class="labelRedondo"> <language>En ejecución</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
-                                    <label class="labelRedondo"> Vencida </label></li>
+                                    <label class="labelRedondo"> <language>Vencida</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
-                                    <label class="labelRedondo"> Ninguna Condición </label></li>
+                                    <label class="labelRedondo"> <language>Ninguna Condición</language> </label></li>
                             </ul>
                         </div>
                         <%- include('base',{scope:'drp_actividades_apoyo'}); %>
@@ -44,19 +44,19 @@
                 <div class="panel panel-flat">
                     <%- include('../../7-plugins/templates/table/header',{scope:scope}); %>
                     <div class="subcontent">
-                        <div class="" style="padding: 0; margin-top: -15px">
+                        <div class="" style="padding: 0; margin-top: -15px" dragonlanguage="">
                             <ul id="leyendas" class="list-group" style="padding: 24px 0;">
                                 <li><label class="ponerRedondo" style="background-color: #5F5FAF;"></label>
-                                    <label class="labelRedondo"> Planificada </label></li>
+                                    <label class="labelRedondo"> <language>Planificada</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #548235;"></label>
-                                    <label class="labelRedondo"> En ejecución </label></li>
+                                    <label class="labelRedondo"> <language>En ejecución</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #FF0000;"></label>
-                                    <label class="labelRedondo"> Vencida </label></li>
+                                    <label class="labelRedondo"> <language>Vencida</language> </label></li>
 
                                 <li><label class="ponerRedondo" style="background-color: #CECECE;"></label>
-                                    <label class="labelRedondo"> Ninguna Condición </label></li>
+                                    <label class="labelRedondo"> <language>Ninguna Condición</language> </label></li>
                             </ul>
                         </div>
                         <%- include('base',{scope:'drp_actividades_apoyo'}); %>

@@ -47,9 +47,9 @@
                     <div class="panel panel-<%= COLOR.secundary %>"
                          ng-show="!indicador_producto_poa_actividad.queries.id">
                         <div class="panel-body">
-                            <div class="row set-label">
+                            <div class="row set-label" dragonlanguage="">
                                 <span>
-                                    <h6 style="margin-bottom: 18px;border-bottom-width: 0px;border-bottom-style: solid;padding-bottom: 0px;margin-top: -15px;border-right-width: 0px;border-right-style: solid;border-top-width: 0px;border-top-style: solid;margin-right: 0px;">Filtrar por</h6>
+                                    <h6 style="margin-bottom: 18px;border-bottom-width: 0px;border-bottom-style: solid;padding-bottom: 0px;margin-top: -15px;border-right-width: 0px;border-right-style: solid;border-top-width: 0px;border-top-style: solid;margin-right: 0px;"><language>Filtrar por</language></h6>
                                 </span>
                                 <div class="col-sm-6 col-md-6"
                                      ng-if="indicador_producto_poa_actividad.session.tipo_institucion == 1">
@@ -89,7 +89,6 @@
                                         allowlist: false,
                                         refresh: false,
                                         text: "item.actividad + ' ('+ item.county +')'",
-                                        label: "Nombre de Actividad",
                                         table: "vw_actividades_poa",
                                         traduce: false,
                                         icon: {class: "archive"},
@@ -137,8 +136,8 @@
                                         }) %>
                                     </div>
                                     <div class="col-sm-6 col-md-6"
-                                         ng-if="indicador_producto_poa_actividad.form.selected('indicador_poa')">
-                                        <label class="control-label is-visible animate ng-binding">Departamento</label>
+                                         ng-if="indicador_producto_poa_actividad.form.selected('indicador_poa')" dragonlanguage="">
+                                        <label class="control-label is-visible animate ng-binding"><language>Departamento</language></label>
                                         <input style="margin-bottom: 20px;overflow-x: hidden;overflow-wrap: break-word;height: 31.5px;text-align: left;"
                                                id="metodo_calculo" disabled="" class="form-control ng-binding"
                                                value="{{indicador_producto_poa_actividad.form.selected('indicador_poa').departamento_nombre}}">
@@ -147,9 +146,9 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-12 col-md-12">
-                                    <label class="control-label is-visible animate ng-binding">Descripción de la
-                                        meta</label>
+                                <div class="col-sm-12 col-md-12" dragonlanguage="">
+                                    <label class="control-label is-visible animate ng-binding"><language>Descripción de la
+                                        meta</language></label>
                                     <textarea style="margin-bottom: 20px;"
                                               id="descripcion" disabled="false" class="form-control" maxlength="4000"
                                               ng-model="indicador_producto_poa_actividad.descripcion"></textarea>
@@ -157,14 +156,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6 col-md-6">
-                                    <label class="control-label is-visible animate ng-binding">Fuente</label>
+                                <div class="col-sm-6 col-md-6" dragonlanguage="">
+                                    <label class="control-label is-visible animate ng-binding"><language>Fuente</language></label>
                                     <textarea style="margin-bottom: 20px;"
                                               id="fuente" disabled="false" class="form-control" maxlength="255"
                                               ng-model="indicador_producto_poa_actividad.fuente"></textarea>
                                 </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <label class="control-label is-visible animate ng-binding">Método de Cálculo</label>
+                                <div class="col-sm-6 col-md-6" dragonlanguage="">
+                                    <label class="control-label is-visible animate ng-binding"><language>Método de Cálculo</language></label>
                                     <textarea style="margin-bottom: 20px;"
                                               id="metodo_calculo" disabled="false" class="form-control" maxlength="255"
                                               ng-model="indicador_producto_poa_actividad.metodo_calculo"></textarea>
@@ -190,9 +189,9 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-8 col-md-8">
-                                    <label class="control-label is-visible animate ng-binding">Medio de
-                                        Verificación</label>
+                                <div class="col-sm-8 col-md-8" dragonlanguage="">
+                                    <label class="control-label is-visible animate ng-binding"><language>Medio de
+                                        Verificación</language></label>
                                     <textarea style="margin-bottom: 20px;"
                                               id="medio_verificacion" disabled="false" class="form-control"
                                               maxlength="4000"
@@ -210,34 +209,34 @@
                     <div class="panel panel-<%= COLOR.secundary %>">
                         <div class="panel-heading" style="border-bottom-color: #dedede">
                             <h6 class="panel-title" dragonlanguage>
-                                <span>Evaluación y Carga de Evidencias / Indicador Actividad</span>
-                                <span class="pull-right" style="color: red" ng-show="<%= scope %>.rol_bloqueado">Usted tiene deshabilitada la opción para evaluar o subir evidencias.</span>
+                                <span><language>Evaluación y Carga de Evidencias / Indicador Actividad</language></span>
+                                <span class="pull-right" style="color: red" ng-show="<%= scope %>.rol_bloqueado"><language>Usted tiene deshabilitada la opción para evaluar o subir evidencias.</language></span>
                             </h6>
                         </div>
                         <div class="panel-body">
                             <div class="row over-table"
                                  style="height: {{140*indicador_producto_poa_actividad.list_indicador_producto_poa_actividad.length}}px">
-                                <table class="table table-bordered  dragon-table" id="tb-custom2">
+                                <table class="table table-bordered  dragon-table" id="tb-custom2" dragonlanguage="">
                                     <thead class="">
                                     <tr class="bg-{{indicador_producto_poa_actividad.colors}} dragon-columns">
                                         <th style="text-align: center; vertical-align: middle;width: 5%" height="0">
-                                            Periodo
+                                            <language>Periodo</language>
                                         </th>
                                         <th style="text-align: center; vertical-align: middle;width: 5%" height="0">
-                                            Meta
+                                            <language>Meta</language>
                                         </th>
                                         <th style="text-align: center;width: 15%; vertical-align: middle" height="0">
-                                            Meta Alcanzada
+                                            <language>Meta Alcanzada</language>
                                         </th>
                                         <!--                                        <th style="text-align: center; vertical-align: middle;width: 5%" height="0">-->
                                         <!--                                            Diferencia-->
                                         <!--                                        </th>-->
                                         <th ng-show="!indicador_producto_poa_actividad.queries.id"
                                             style="text-align: center;width: 60%; vertical-align: middle" height="0">
-                                            Observaciones
+                                            <language>Observaciones</language>
                                         </th>
                                         <th ng-show="!indicador_producto_poa_actividad.queries.id"
-                                            style="text-align: center; vertical-align: middle;width: 15%">Acciones
+                                            style="text-align: center; vertical-align: middle;width: 15%"><language>Acciones</language>
                                         </th>
                                     </tr>
                                     </thead>
@@ -318,9 +317,10 @@
                                                     Ver todo ({{value.count_comment}})
                                                 </a>
                                                 <a style="float: left" class="seeTextComplete"
+                                                   dragonlanguage=""
                                                    ng-show="value.allow.allow===1"
                                                    ng-click="indicador_producto_poa_actividad.openmodalField(1,value.periodo,value.indicador_poa);">
-                                                    Agregar comentario
+                                                    <language>Agregar comentario</language>
                                                 </a>
                                             </div>
 
@@ -361,8 +361,8 @@
 
                                     </tbody>
                                     <tfoot id="totals" ng-show="false">
-                                        <tr class="dragon-columns" style="font-weight: bold">
-                                            <td colspan="1" style="vertical-align: middle">Total</td>
+                                        <tr class="dragon-columns" style="font-weight: bold" dragonlanguage="">
+                                            <td colspan="1" style="vertical-align: middle"><language>Total</language></td>
                                             <td style="text-align: right;">
                                                 {{indicador_producto_poa_actividad.meta_total_desc}}
                                             </td>
@@ -373,7 +373,7 @@
                                                 <i class="{{indicador_producto_poa_actividad.iconfinal}}"></i>
                                                 {{indicador_producto_poa_actividad.getTotalVariacion()}}
                                             </td>
-                                            <td colspan="1" style="vertical-align: middle">Cumplimiento
+                                            <td colspan="1" style="vertical-align: middle"><language>Cumplimiento</language>
                                                 <span title="{{(<%= scope %>.cumplidor||{}).ponderacion.titulo}}" style="padding: 10px;border-radius: 20px;color:white;font-weight: bold;background-color: {{(<%= scope %>.cumplidor||{}).ponderacion.color}}">
                                                     {{(<%= scope %>.cumplidor||{}).cumplimiento||0}}%
                                                 </span>

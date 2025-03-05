@@ -30,15 +30,15 @@
                     <li class="active select-2" style="width: 100%">
                         <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
                             <i class="icon-lifebuoy position-left"></i>
-                            Indicadores Institucionales
+                            <language>Indicadores Institucionales</language>
                         </a>
 
                     </li>
                 </ul>
-                <ul class="breadcrumb-elements visible-elements">
+                <ul class="breadcrumb-elements visible-elements" dragonlanguage="">
                     <li>
                         <a>
-                            Última actualización: {{dashboard_indicadores.actualizacion}}
+                            <language>Última actualización:</language> {{dashboard_indicadores.actualizacion}}
                         </a>
 
                     </li>
@@ -57,7 +57,7 @@
                             dragonlanguage="" title="Ver en modo gráfico"
                             type="button" role="button" class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right">
                         <b><i class="icon-chart"></i></b>
-                        Ver en modo Gráfico
+                        <language>Ver en modo Gráfico</language>
                     </button>
                 </div>
                 <div style="display: none; float: right;padding-bottom: 20px;" class="col-sm-12 col-md-12 hide_grafico2">
@@ -67,14 +67,14 @@
                             type="button" role="button" class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
                             ng-click="">
                         <b><i class="icon-chart"></i></b>
-                        Ver en modo matriz
+                        <language>Ver en modo matriz</language>
                     </button>
                 </div>
             </div>
             <div class="">
                 <div class="panel panel-white">
-                    <div class="panel-heading panel-dashboard">
-                        <h6 class="panel-title">Filtros de búsqueda</h6>
+                    <div class="panel-heading panel-dashboard" dragonlanguage="">
+                        <h6 class="panel-title"><language>Filtros de búsqueda</language></h6>
                     </div>
 
                     <div class="panel-body">
@@ -173,7 +173,7 @@
                                     class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
                                     ng-click="dashboard_indicadores.searchData()">
                                 <b><i class=" icon-search4"></i></b>
-                                Buscar
+                                <language>Buscar</language>
                             </button>
                         </div>
                     </div>

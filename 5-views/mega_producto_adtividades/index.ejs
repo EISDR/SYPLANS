@@ -12,7 +12,7 @@
     <div class="subcontent">
         <div class="row" ng-if="mega_producto.id_status == 1 || mega_producto.id_status == 4">
             <div class="col-sm-8 col-md-8 remove-input-space">
-                <%- FORM.textarea("comentario", scope, {maxlength: 4000, placeholder: "Comentario"}) %>
+                <%- FORM.textarea("comentario", scope, {maxlength: 4000}) %>
             </div>
             <div style="margin-top: 15px; padding-right: 0px;" class="modal-footer col-sm-4 col-md-4" dragonlanguage=""
                  ng-if="mega_producto.id_status == 1 || mega_producto.id_status == 4">

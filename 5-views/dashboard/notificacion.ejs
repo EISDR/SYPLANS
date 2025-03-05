@@ -73,20 +73,19 @@ scope = 'notificacion';
             </script>
             <div>
                 <div class="panel panel-white" style="margin-bottom: 0">
-                    <div class="panel-heading panel-dashboard">
-                        <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">Distribución por
-                            Estatus</h6>
+                    <div class="panel-heading panel-dashboard" dragonlanguage="">
+                        <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title"><language>Distribución por Estatus</language></h6>
                     </div>
                     <div class="panel-body" style="padding: 0">
                         <div class="col-md-6" style="padding: 0">
                             <div class="panel panel-white" id="productos">
-                                <div class="panel-heading">
+                                <div class="panel-heading" dragonlanguage="">
                                     <h6 ng-show="notificacion.session.tipo_institucion == 1"
                                         style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
-                                        Productos / Proyectos</h6>
+                                        <language>Productos / Proyectos</language></h6>
                                     <h6 ng-show="notificacion.session.tipo_institucion == 2"
                                         style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
-                                        Proyecto/Plan de Acción</h6>
+                                        <language>Proyecto/Plan de Acción</language></h6>
                                 </div>
                                 <div class="panel-body" style="padding: 10px">
                                     <div dragonlanguage=""
@@ -103,14 +102,16 @@ scope = 'notificacion';
                                             <div class="col-md-10 col-sd-10" title="{{value.title}}">
                                                 <div class="panel panel-white"
                                                      style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 14px; border-radius: 2px">
-                                                    <div class="panel-heading"
+                                                    <div dragonlanguage=""
+                                                         class="panel-heading"
                                                          style="min-height: 35px; background: {{value.light_color}}; padding: 10px;">
                                                         <language>{{value.value}}: ( {{value.percent}} )</language>
                                                         <i class="{{value.icon}}" style="float: right"></i>
                                                     </div>
-                                                    <div class="panel-body"
+                                                    <div dragonlanguage=""
+                                                         class="panel-body"
                                                          style="background: {{value.color}}; padding: 5px; text-transform: capitalize">
-                                                        {{value.name}}
+                                                        <language>{{value.name}}</language>
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,9 +208,9 @@ scope = 'notificacion';
                         </div>
                         <div class="col-md-6" style="padding: 0">
                             <div class="panel panel-white" id="actividades">
-                                <div class="panel-heading">
+                                <div class="panel-heading" dragonlanguage="">
                                     <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
-                                        Actividades</h6>
+                                        <language>Actividades</language></h6>
                                 </div>
                                 <div class="panel-body" style="padding: 10px">
                                     <div dragonlanguage=""
@@ -226,12 +227,14 @@ scope = 'notificacion';
                                              title="{{value.title}}">
                                             <div class="panel panel-white"
                                                  style="margin-bottom: 20px; color: {{value.font_color}}; font-size: 14px; border-radius: 2px">
-                                                <div class="panel-heading"
+                                                <div dragonlanguage=""
+                                                     class="panel-heading"
                                                      style="min-height: 40px; background: {{value.light_color}}; padding: 10px;">
                                                     <language>{{value.value}}: ( {{value.percent}} )</language>
                                                     <i class="{{value.icon}}" style="float: right"></i>
                                                 </div>
-                                                <div class="panel-body"
+                                                <div dragonlanguage=""
+                                                     class="panel-body"
                                                      style="background: {{value.color}}; padding: 5px; text-transform: capitalize">
                                                     {{value.name}}
                                                 </div>
@@ -336,9 +339,9 @@ scope = 'notificacion';
         </div>
         <div class="col-md-5" id="notificaciones" style="padding: 0">
             <div class="panel panel-white">
-                <div class="panel-heading panel-dashboard">
+                <div class="panel-heading panel-dashboard" dragonlanguage="">
                     <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
-                        Alertas y Notificaciones
+                        <language>Alertas y Notificaciones</language>
                     </h6>
                     <a style="float: right; margin-top: -20px; color: black"
                        ng-click="notificacion.getNotificaciones()"><i title="Actualizar"
@@ -347,19 +350,18 @@ scope = 'notificacion';
                 <div class="panel-body" id="notificacionDD">
 
                     <div ng-repeat="(key,noti) in notificacion.notifications">
-                        <div ng-show="notificacion.filter_noti(noti.rol)"
+                        <div dragonlanguage=""
+                             ng-show="notificacion.filter_noti(noti.rol)"
                              class="alert alert-info alert-styled-left alert-dismissible"
                              style="margin-bottom: 0px; padding: 5px 20px">
                             <button style="margin-right: 15px;" type="button" class="close" data-dismiss="alert">
                                 <span>×</span>
                             </button>
                             <span class="font-weight-semibold">
-                                {{noti.title}} -
+                                <language>{{noti.title}} -</language>
                             </span>
-                            {{noti.descripcion}}
-                            <a target="_blank" href="{{noti.link}}" ng-if="noti.link" class="alert-link"> - Click
-                                para mas
-                                detalles.</a>
+                            <language>{{noti.descripcion}}</language>
+                            <a target="_blank" href="{{noti.link}}" ng-if="noti.link" class="alert-link"><language> - Click para mas detalles.</language></a>
                         </div>
                     </div>
                     <script>
@@ -411,13 +413,11 @@ scope = 'notificacion';
         </div>
         <div class="col-md-7" style="padding: 0">
             <div class="panel panel-white">
-                <div class="panel-heading panel-dashboard">
+                <div class="panel-heading panel-dashboard" dragonlanguage="">
                     <h6 ng-show="notificacion.session.tipo_institucion == 1"
-                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title">Indicadores de
-                        Productos / Proyectos</h6>
+                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title"><language>Indicadores de Productos / Proyectos</language></h6>
                     <h6 ng-show="notificacion.session.tipo_institucion == 2"
-                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title">Indicadores de
-                        Proyecto/Plan de Acción</h6>
+                        style="font-size: 16px;font-weight: bold;color: #333;" class="panel-title"><language>Indicadores de Proyecto/Plan de Acción</language></h6>
                 </div>
                 <div class="panel-body">
                     <div id="<%= 'vw_indicadores_notificacion' %>"

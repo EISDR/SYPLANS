@@ -100,8 +100,8 @@
     <div class="col-sm-8 col-md-8" ng-show="actividades_poa.dont_show_productos">
         <%- FORM.inputview("show_resultado", scope, {placeholder: "Resultado Esperado", posttype: "text"}) %>
     </div>
-    <div class="col-sm-8 col-md-8" ng-show="!actividades_poa.dont_show_productos">
-        <label>Resultado Esperado</label>
+    <div class="col-sm-8 col-md-8" ng-show="!actividades_poa.dont_show_productos" dragonlanguage="">
+        <label><language>Resultado Esperado</language></label>
         <input type="text" disabled class="form-control"
                ng-model="actividades_poa.form.selected('producto').resultado"/>
     </div>
@@ -198,9 +198,10 @@
                 title="{{actividades_poa.bienes_permiso?'Cambie':'Seleccione'}} Código CBS, Descripción u Objeto de Gasto, mediante una búsqueda rápida."
                 type="button" role="button"
                 class=" btn bg-{{actividades_poa.bienes_permiso?'success':'warning'}}-800 btn-labeled btn-xs"
+                dragonlanguage=""
                 ng-click="actividades_poa.cbslist()">
             <b><i class="icon-search4"></i></b>
-            {{actividades_poa.bienes_permiso?'Cambie':'Seleccione'}} el Código CBS, Descripción u Objeto de Gasto.
+            {{actividades_poa.bienes_permiso?'Cambie':'Seleccione'}} <language>el Código CBS, Descripción u Objeto de Gasto.</language>
         </button>
     </div>
 </div>
@@ -274,7 +275,7 @@
             <li class="active" id="active_asignacion">
                 <a href="#actCrear" data-toggle="tab" ng-click="">
                     <i class="position-left"></i>
-                    Actividades Apoyo
+                    <language>Actividades Apoyo</language>
                     <i class="border-white  position-right"></i>
                 </a>
             </li>
@@ -342,7 +343,7 @@
 </div>
 <div ng-show="actividades_poa.showMsjSi">
 
-    <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;">
+    <div class="alert alert-warning alpha-danger border-danger alert-styled-left" style="font-size: 17px;" dragonlanguage>
         <language>Necesitas llenar los campos (Nombre, Departamento, Resultado, Fecha inicio y Fecha fin) en el formulario de Productos
         </language>
     </div>
@@ -356,8 +357,8 @@
                 <div class="tab-content" style="height: 800px">
                     <div class="tab-pane active" id="basic">
                         <div class="row">
-                            <div class="col-sm-9 col-md-9">
-                                <label style="font-weight: bold">Filtro de búsqueda: <b class="text-danger">{{busquedacbs}}
+                            <div class="col-sm-9 col-md-9" dragonlanguage="">
+                                <label style="font-weight: bold"><language>Filtro de búsqueda:</language> <b class="text-danger">{{busquedacbs}}
                                         {{actividades_poa.know(busquedacbs)}}</b></label>
                                 <input ng-model="busquedacbs" type="text"
                                        class="form-control">
@@ -374,12 +375,12 @@
                                  style="margin-top: 15px;height: 700px;overflow: auto">
                                 <table class=" table table-togglable table-framed sindu-table">
                                     <thead>
-                                    <tr class="bg-secundary">
-                                        <th>Código de Catálogo de Bienes y Servicios (CBS)</th>
-                                        <th>Descripción de (CBS)</th>
-                                        <th>Objeto de Gasto</th>
-                                        <th>Descripción de Objeto de Gasto</th>
-                                        <th> </th>
+                                    <tr class="bg-secundary" dragonlanguage="">
+                                        <th><language>Código de Catálogo de Bienes y Servicios (CBS)</language></th>
+                                        <th><language>Descripción de (CBS)</language></th>
+                                        <th><language>Objeto de Gasto</language></th>
+                                        <th><language>Descripción de Objeto de Gasto</language></th>
+                                        <th><language> </language></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -405,8 +406,8 @@
                                         </td>
                                     </tr>
                                     <tr ng-show="!busquedacbs" class="text-center">
-                                        <td style="height: 60px;padding: 23px;" colspan="4">
-                                            <span class="alert alert-info alert-styled-left"> Favor digite el Código de Bienes y Servicios(CBS), Descripción u Objeto de Gasto en el filtro de búsqueda para vizualizar resultados. </span>
+                                        <td style="height: 60px;padding: 23px;" colspan="4" dragonlanguage="">
+                                            <span class="alert alert-info alert-styled-left"> <language>Favor digite el Código de Bienes y Servicios(CBS), Descripción u Objeto de Gasto en el filtro de búsqueda para vizualizar resultados.</language> </span>
                                         </td>
                                     </tr>
                                     </tbody>

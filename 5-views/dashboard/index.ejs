@@ -28,19 +28,19 @@
     </script>
     <div class=" loadingbata panel panel-flat" style="background-color: #f8f8f8">
         <div class="page-header-lg page-header-sm page-header page-header-default border-bottom-lg border-bottom-<%= COLOR.info %>">
-            <div class="breadcrumb-line">
+            <div class="breadcrumb-line" dragonlanguage="">
                 <ul class="breadcrumb visible-lg visible-md" style="width:550px;">
                     <li class="active select-2" style="width: 100%" ng-if="dashboard.session.tipo_institucion == '1'">
-                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding">
                             <i class="icon-lifebuoy position-left"></i>
-                            Plan Operacional Anual por Departamento
+                            <language>Plan Operacional Anual por Departamento</language>
                         </a>
 
                     </li>
                     <li class="active select-2" style="width: 100%" ng-if="dashboard.session.tipo_institucion == '2'">
-                        <a data-function="menu" href="javascript:void(0)" class="ng-binding" dragonlanguage>
+                        <a data-function="menu" href="javascript:void(0)" class="ng-binding">
                             <i class="icon-lifebuoy position-left"></i>
-                            Gestión Presupuestaria por Departamento
+                            <language>Gestión Presupuestaria por Departamento</language>
                         </a>
 
                     </li>
@@ -48,7 +48,7 @@
                 <ul class="breadcrumb-elements visible-elements">
                     <li>
                         <a>
-                            Última actualización: {{dashboard.actualizacion}}
+                            <language>Última actualización:</language> {{dashboard.actualizacion}}
                         </a>
 
                     </li>
@@ -68,7 +68,7 @@
                             type="button" role="button"
                             class=" btn bg-<%= COLOR.info %>-800 btn-labeled btn-xs pull-right">
                         <b><i class="icon-chart"></i></b>
-                        Ver en modo Gráfico
+                        <language>Ver en modo Gráfico </language>
                     </button>
                 </div>
                 <div style="display: none; float: right;padding-bottom: 20px;"
@@ -80,7 +80,7 @@
                             class=" btn bg-<%= COLOR.success %>-800 btn-labeled btn-xs pull-right"
                             ng-click="">
                         <b><i class="icon-chart"></i></b>
-                        Ver en modo de matriz
+                        <language>Ver en modo de matriz </language>
                     </button>
                 </div>
             </div>
@@ -89,8 +89,8 @@
                     <script>
 
                     </script>
-                    <div class="panel-heading panel-dashboard">
-                        <h6 class="panel-title">Filtros de búsqueda</h6>
+                    <div class="panel-heading panel-dashboard" dragonlanguage="">
+                        <h6 class="panel-title"> <language>Filtros de búsqueda </language></h6>
                     </div>
                     <div class="panel-body">
                         <div class="col-sm-6 col-md-6" ng-if="!<%= scope %>.soyII" style="display: none">
@@ -184,7 +184,7 @@
                                     class="bg-<%= COLOR.info %> btn btn-labeled btn-xs legitRipple ng-binding pull-right"
                                     ng-click="dashboard.searchData(true)">
                                 <b><i class=" icon-search4"></i></b>
-                                Buscar
+                                <language>Buscar </language>
                             </button>
                         </div>
                     </div>

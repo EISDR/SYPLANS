@@ -6,30 +6,30 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-white">
-            <div class="panel-heading panel-dashboard">
-                <h6 class="panel-title">Presupuesto</h6>
+            <div class="panel-heading panel-dashboard" dragonlanguage="">
+                <h6 class="panel-title"> <language>Presupuesto </language></h6>
             </div>
-            <div class="panel-body pesupuesto" id="presupuestos" style="cursor: default !important;">
+            <div class="panel-body pesupuesto" id="presupuestos" style="cursor: default !important;" dragonlanguage="">
                 <div style="border-left: 0px !important;cursor: default !important;"
                      class="col-md-3 col-sm-12 col-md-offset-1">
-                    <label class="dash-presupuesto-monto color-aprove" style="cursor: default !important;">{{dashboard.presupuestos.aprobado}}</label>
-                    <label class="dash-presupuesto-label" style="cursor: default !important;">Aprobado</label>
+                    <label class="dash-presupuesto-monto color-aprove" style="cursor: default !important;"> <language>{{dashboard.presupuestos.aprobado}} </language></label>
+                    <label class="dash-presupuesto-label" style="cursor: default !important;"> <language>Aprobado </language></label>
                 </div>
                 <div onclick="dashboard.openmodalactividades('ejecutado')" class="col-md-2 col-sm-12">
-                    <label class="dash-presupuesto-monto dash-presupuesto-detalle color-not-execute">{{dashboard.presupuestos.ejecutado}}</label>
-                    <label class="dash-presupuesto-label dash-presupuesto-detalle">Ejecutado</label>
+                    <label class="dash-presupuesto-monto dash-presupuesto-detalle color-not-execute"> <language>{{dashboard.presupuestos.ejecutado}} </language></label>
+                    <label class="dash-presupuesto-label dash-presupuesto-detalle"> <language>Ejecutado </language></label>
                 </div>
                 <!--<div class="col-md-2 col-sm-12">-->
                 <!--<label class="dash-presupuesto-monto color-payment"> {{dashboard.presupuestos.cuentasporpagar}}</label>-->
                 <!--<label class="dash-presupuesto-label">Cuentas por Pagar</label>-->
                 <!--</div>-->
                 <div class="col-md-2 col-sm-12" style="cursor: default !important;">
-                    <label class="dash-presupuesto-monto color-schedule" style="cursor: default !important;">{{dashboard.presupuestos.reprogramar}}</label>
-                    <label class="dash-presupuesto-label" style="cursor: default !important;">Disponible</label>
+                    <label class="dash-presupuesto-monto color-schedule" style="cursor: default !important;"> <language>{{dashboard.presupuestos.reprogramar}} </language></label>
+                    <label class="dash-presupuesto-label" style="cursor: default !important;"> <language>Disponible </language></label>
                 </div>
                 <div onclick="dashboard.openmodalactividades('no ejecutado')" class="col-md-3 col-sm-12">
-                    <label class="dash-presupuesto-monto dash-presupuesto-detalle color-execute">{{dashboard.presupuestos.noejecutado}}</label>
-                    <label class="dash-presupuesto-label dash-presupuesto-detalle">No Ejecutado</label>
+                    <label class="dash-presupuesto-monto dash-presupuesto-detalle color-execute"> <language>{{dashboard.presupuestos.noejecutado}} </language></label>
+                    <label class="dash-presupuesto-label dash-presupuesto-detalle"> <language>No Ejecutado </language></label>
                 </div>
             </div>
         </div>
@@ -38,11 +38,11 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <div class="col-lg-12 pl-0 pr-0" id="productos">
+        <div class="col-lg-12 pl-0 pr-0" id="productos" dragonlanguage="">
             <div class="panel panel-white">
                 <div class="panel-heading panel-dashboard">
-                    <h6 ng-show="dashboard.usery.tipo_institucion == 1" class="panel-title">Proyecto/Producto</h6>
-                    <h6 ng-show="dashboard.usery.tipo_institucion == 2" class="panel-title">Proyecto/Plan de Acción</h6>
+                    <h6 ng-show="dashboard.usery.tipo_institucion == 1" class="panel-title"><language>Proyecto/Producto</language></h6>
+                    <h6 ng-show="dashboard.usery.tipo_institucion == 2" class="panel-title"><language>Proyecto/Plan de Acción</language></h6>
                 </div>
                 <div class="panel-body">
                     <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
@@ -50,8 +50,8 @@
                             <label ng-click="dashboard.openmodalproductos(' ')"
                                    style="{{dashboard.productos.cantidad!='00'?'default':'pointer'}}"
                                    class="dash-presupuesto-monto-2 color-aprove">{{dashboard.productos.cantidad}}</label>
-                            <label ng-show="dashboard.usery.tipo_institucion == 1" class="dash-presupuesto-label">Proyecto/Producto</label>
-                            <label ng-show="dashboard.usery.tipo_institucion == 2" class="dash-presupuesto-label">Proyecto/Plan de Acción</label>
+                            <label ng-show="dashboard.usery.tipo_institucion == 1" class="dash-presupuesto-label"><language>Proyecto/Producto</language></label>
+                            <label ng-show="dashboard.usery.tipo_institucion == 2" class="dash-presupuesto-label"><language>Proyecto/Plan de Acción</language></label>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9">
@@ -60,19 +60,19 @@
                                 <label ng-click="dashboard.openmodalproductos('planificados')"
                                        style="cursor: {{dashboard.productos.planificados!='00'?'default':'pointer'}};"
                                        class="dash-presupuesto-monto-2 color-aprove">{{dashboard.productos.planificados}}</label>
-                                <label class="dash-presupuesto-label">Planificados</label>
+                                <label class="dash-presupuesto-label"><language>Planificados</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalproductos('en ejecución')"
                                        style="{{dashboard.productos.ejecucion!='00'?'default':'pointer'}}"
                                        class="dash-presupuesto-monto-2 color-execute">{{dashboard.productos.ejecucion}}</label>
-                                <label class="dash-presupuesto-label">En ejecución</label>
+                                <label class="dash-presupuesto-label"><language>En ejecución</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalproductos('detenidos')"
                                        style="{{dashboard.productos.detenidos!='00'?'default':'pointer'}}"
                                        class="dash-presupuesto-monto-2 color-stop">{{dashboard.productos.detenidos}}</label>
-                                <label class="dash-presupuesto-label">Detenidos</label>
+                                <label class="dash-presupuesto-label"><language>Detenidos</language></label>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12">
@@ -80,29 +80,29 @@
                                 <label ng-click="dashboard.openmodalproductos('vencidos')"
                                        style="{{dashboard.productos.vencidos!='00'?'default':'pointer'}}"
                                        class="dash-presupuesto-monto-2 color-not-execute">{{dashboard.productos.vencidos}}</label>
-                                <label class="dash-presupuesto-label">Vencidos</label>
+                                <label class="dash-presupuesto-label"><language>Vencidos</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalproductos('completados')"
                                        style="{{dashboard.productos.completados!='00'?'default':'pointer'}}"
                                        class="dash-presupuesto-monto-2 color-completed">{{dashboard.productos.completados}}</label>
-                                <label class="dash-presupuesto-label">Completados</label>
+                                <label class="dash-presupuesto-label"><language>Completados</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalproductos('cancelados')"
                                        style="{{dashboard.productos.cancelados!='00'?'default':'pointer'}}"
                                        class="dash-presupuesto-monto-2 color-cancel">{{dashboard.productos.cancelados}}</label>
-                                <label class="dash-presupuesto-label">Cancelados</label>
+                                <label class="dash-presupuesto-label"><language>Cancelados</language></label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 pl-0 pr-0" id="actividades">
+        <div class="col-lg-12 pl-0 pr-0" id="actividades" dragonlanguage="">
             <div class="panel panel-white">
                 <div class="panel-heading panel-dashboard">
-                    <h6 class="panel-title">Actividades</h6>
+                    <h6 class="panel-title"><language>Actividades</language></h6>
                 </div>
                 <div class="panel-body">
                     <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
@@ -110,7 +110,7 @@
                             <label ng-click="dashboard.openmodalactividades(' ')"
                                    style="{{dashboard.actividades.cantidad!='00'?'pointer':'default'}}"
                                    class="dash-presupuesto-monto-2 color-aprove">{{dashboard.actividades.cantidad}}</label>
-                            <label class="dash-presupuesto-label">Actividades</label>
+                            <label class="dash-presupuesto-label"><language>Actividades</language></label>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9">
@@ -119,25 +119,25 @@
                                 <label ng-click="dashboard.openmodalactividades('planificados')"
                                        style="{{dashboard.actividades.planificados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-aprove">{{dashboard.actividades.planificados}}</label>
-                                <label class="dash-presupuesto-label">Planificadas</label>
+                                <label class="dash-presupuesto-label"><language>Planificadas</language></label>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <label ng-click="dashboard.openmodalactividades('pendientes')"
                                        style="{{dashboard.actividades.pendientes!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-pending">{{dashboard.actividades.pendientes}}</label>
-                                <label class="dash-presupuesto-label">Pendientes a Ejecución</label>
+                                <label class="dash-presupuesto-label"><language>Pendientes a Ejecución</language></label>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <label ng-click="dashboard.openmodalactividades('en ejecución')"
                                        style="{{dashboard.actividades.ejecucion!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-execute">{{dashboard.actividades.ejecucion}}</label>
-                                <label class="dash-presupuesto-label">En ejecución</label>
+                                <label class="dash-presupuesto-label"><language>En ejecución</language></label>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <label ng-click="dashboard.openmodalactividades('detenidos')"
                                        style="{{dashboard.actividades.detenidos!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-stop">{{dashboard.actividades.detenidos}}</label>
-                                <label class="dash-presupuesto-label">Detenidas</label>
+                                <label class="dash-presupuesto-label"><language>Detenidas</language></label>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12">
@@ -145,29 +145,29 @@
                                 <label ng-click="dashboard.openmodalactividades('vencidos')"
                                        style="{{dashboard.actividades.vencidos!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-not-execute">{{dashboard.actividades.vencidos}}</label>
-                                <label class="dash-presupuesto-label">Vencidas</label>
+                                <label class="dash-presupuesto-label"><language>Vencidas</language></label>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <label ng-click="dashboard.openmodalactividades('completados')"
                                        style="{{dashboard.actividades.completados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-completed">{{dashboard.actividades.completados}}</label>
-                                <label class="dash-presupuesto-label">Completadas</label>
+                                <label class="dash-presupuesto-label"><language>Completadas</language></label>
                             </div>
                             <div class="col-md-3  col-sm-12">
                                 <label ng-click="dashboard.openmodalactividades('cancelados')"
                                        style="{{dashboard.actividades.cancelados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-cancel">{{dashboard.actividades.cancelados}}</label>
-                                <label class="dash-presupuesto-label">Canceladas</label>
+                                <label class="dash-presupuesto-label"><language>Canceladas</language></label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 pl-0 pr-0" id="asignaciones">
+        <div class="col-lg-12 pl-0 pr-0" id="asignaciones" dragonlanguage="">
             <div class="panel panel-white">
                 <div class="panel-heading panel-dashboard">
-                    <h6 class="panel-title">Asignaciones Especiales</h6>
+                    <h6 class="panel-title"><language>Asignaciones Especiales</language></h6>
                 </div>
                 <div class="panel-body">
                     <div style="padding-top: 30px;" class="col-md-3 col-sm-3">
@@ -175,7 +175,7 @@
                             <label ng-click="dashboard.openmodalasignaciones(' ')"
                                    style="{{dashboard.asignaciones.cantidad!='00'?'pointer':'default'}}"
                                    class="dash-presupuesto-monto-2 color-aprove">{{dashboard.asignaciones.cantidad}}</label>
-                            <label class="dash-presupuesto-label">Asignaciones</label>
+                            <label class="dash-presupuesto-label"><language>Asignaciones</language></label>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9">
@@ -184,19 +184,19 @@
                                 <label ng-click="dashboard.openmodalasignaciones('planificados')"
                                        style="{{dashboard.planificados.planificados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-aprove">{{dashboard.asignaciones.planificados}}</label>
-                                <label class="dash-presupuesto-label">Planificadas</label>
+                                <label class="dash-presupuesto-label"><language>Planificadas</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalasignaciones('en ejecución')"
                                        style="{{dashboard.asignaciones.ejecucion!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-execute">{{dashboard.asignaciones.ejecucion}}</label>
-                                <label class="dash-presupuesto-label">En ejecución</label>
+                                <label class="dash-presupuesto-label"><language>En ejecución</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalasignaciones('vencidos')"
                                        style="{{dashboard.asignaciones.vencidos!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-not-execute">{{dashboard.asignaciones.vencidos}}</label>
-                                <label class="dash-presupuesto-label">Vencidas</label>
+                                <label class="dash-presupuesto-label"><language>Vencidas</language></label>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12">
@@ -204,13 +204,13 @@
                                 <label ng-click="dashboard.openmodalasignaciones('completados')"
                                        style="{{dashboard.asignaciones.completados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-completed">{{dashboard.asignaciones.completados}}</label>
-                                <label class="dash-presupuesto-label">Completadas</label>
+                                <label class="dash-presupuesto-label"><language>Completadas</language></label>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label ng-click="dashboard.openmodalasignaciones('cancelados')"
                                        style="{{dashboard.asignaciones.cancelados!='00'?'pointer':'default'}}"
                                        class="dash-presupuesto-monto-2 color-cancel">{{dashboard.asignaciones.cancelados}}</label>
-                                <label class="dash-presupuesto-label">Canceladas</label>
+                                <label class="dash-presupuesto-label"><language>Canceladas</language></label>
                             </div>
                         </div>
                     </div>
