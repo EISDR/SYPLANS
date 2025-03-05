@@ -2,19 +2,19 @@
 <div class="navbar navbar-inverse  bg-<%= COLOR.primary %>-700" ng-show="baseController.isLogged"
      style="border-top-right-radius: 20px;    border-top-left-radius: 20px;">
     <div class="navbar-header  bg-<%= COLOR.primary %>-700"
-         style="text-align: center;    border-top-left-radius: 20px;">
+         style="text-align: center;    border-top-left-radius: 20px;" dragonlanguage="">
         <a class="visible-lg visible-md visible-sm navbar-brand bg-<%= COLOR.primary %>-700 sidebar-mobile-main-toggle"
            style="width: 100%;padding: 21px; border-top-left-radius: 20px;">
 
             <span class="navbar-brand-text" ng-if="(baseController.selectedSeparator||'').indexOf('España')===-1"
-                  style="font-size: 50px !important;font-family: Microsoft Himalaya">SYPLANS</span>
+                  style="font-size: 50px !important;font-family: Microsoft Himalaya"><language>SYPLANS</language></span>
 
             <span class="navbar-brand-text" ng-if="(baseController.selectedSeparator||'').indexOf('España')!==-1"
-                  style="font-size: 50px !important;font-family: Microsoft Himalaya">SYPLANS - ODS</span>
+                  style="font-size: 50px !important;font-family: Microsoft Himalaya"><language>SYPLANS - ODS</language></span>
         </a>
         <a class="visible-xs navbar-brand bg-<%= COLOR.primary %>-700 sidebar-mobile-main-toggle" style="width: 100%">
             <span id="apptitle" class="navbar-brand-text" style="font-family: Microsoft Himalaya">
-                SYPLANS
+                <language>SYPLANS</language>
             </span>
         </a>
         <ul class="nav navbar-nav visible-xs-block">
@@ -308,7 +308,7 @@
                     <span class="hidden-lg"><language>MESSAGE.i('navbar.RestoreallConfiguration')</language></span>
                 </a>
             </li>
-            <li id="helpOptions">
+            <li id="helpOptions" dragonlanguage="">
                 <a onclick="showAccess()" class="dropdown-toggle legitRipple sidebar-control" aria-expanded="false">
                     <i class="icon-accessibility2" title="Menú de accesibilidad"></i>
                     <span class="hidden-lg"><language>Menú de accesibilidad</language></span>
@@ -320,27 +320,27 @@
                     <li id="keyboard" title="Navegar por teclado">
                         <a onclick="keydownOn()" style="color: #000 !important;">
                             <i class="icon-keyboard"></i>
-                            Navegar por teclado
+                            <language>Navegar por teclado</language>
                         </a>
                     </li>
                     <li id="grayscale" title="Escala de Grises">
                         <a onclick="grayscaleOn()" style="color: #000 !important;">
                             <i class="icon-eye-blocked"></i>
-                            Escala de Grises
+                            <language>Escala de Grises</language>
                         </a>
                     </li>
 
                     <li id="zoom1" title="Lupa Agrandar">
                         <a id="zoom-in" style="color: #000 !important;">
                             <i class="icon-zoomin3"></i>
-                            Lupa Agrandar
+                            <language>Lupa Agrandar</language>
                         </a>
                     </li>
 
                     <li id="zoom2" title="Lupa Minimizar">
                         <a id="zoom-out" style="color: #000 !important;">
                             <i class="icon-zoomout3"></i>
-                            Lupa Minimizar
+                            <language>Lupa Minimizar</language>
                         </a>
                     </li>
 
@@ -350,14 +350,14 @@
                             <i><img src="files/configuration/icon_image/lightbulb.png"
                                     alt="Verificar la ruta de la imagen" width="23"
                                     style="margin-left: -4px;margin-top: -4px;"></i>
-                            Bloquear Animaciones
+                            <language>Bloquear Animaciones</language>
                         </a>
                     </li>
 
                     <li title="Restablecer opciones de accesibilidad">
                         <a onclick="STORAGE.restore()" style="color: #000 !important;">
                             <i class="icon-loop"></i>
-                            Restablecer opciones de accesibilidad
+                            <language>Restablecer opciones de accesibilidad</language>
                         </a>
                     </li>
 
@@ -409,21 +409,24 @@
                     <ul class="dropdown-menu dropdown-menu-right  bg-<%= COLOR.primary %>-700">
                         <li ng-show="baseController.CONFIGCOMPANY.planificacion || baseController.CONFIGCOMPANY.asignaciones_especiales || baseController.CONFIGCOMPANY.estatus_productoXactividades || baseController.CONFIGCOMPANY.instrumentos || baseController.CONFIGCOMPANY.sectorial">
                             <a  target="_blank" data-popup="tooltip"
+                                dragonlanguage=""
                                 data-placement="bottom"
                                 href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
-                                data-container="body"> Planificación </a>
+                                data-container="body"> <language>Planificación</language> </a>
                         </li>
                         <li ng-show="baseController.CONFIGCOMPANY.proceso || baseController.CONFIGCOMPANY.documento || baseController.CONFIGCOMPANY.auditoria || baseController.CONFIGCOMPANY.norma_iso">
                             <a  target="_blank" data-popup="tooltip"
+                                dragonlanguage=""
                                 data-placement="bottom"
                                 href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
-                                data-container="body"> Calidad </a>
+                                data-container="body"> <language>Calidad</language> </a>
                         </li>
                         <li ng-show="baseController.CONFIGCOMPANY.proyectos_especiales || baseController.CONFIGCOMPANY.gestion_indicadores || baseController.CONFIGCOMPANY.riesgo_var || baseController.CONFIGCOMPANY.riesgo_amfe || baseController.CONFIGCOMPANY.plan_accion || baseController.CONFIGCOMPANY.salidas || baseController.CONFIGCOMPANY.servicio || baseController.CONFIGCOMPANY.reporte_configurable || baseController.CONFIGCOMPANY.formularios || baseController.CONFIGCOMPANY.documentos_externos">
                             <a  target="_blank" data-popup="tooltip"
+                                dragonlanguage=""
                                 data-placement="bottom"
                                 href="/Syplans/docs/Syplans-Documentaci%C3%B3n-Funcional.html"
-                                data-container="body"> Opciones individuales </a>
+                                data-container="body"> <language>Opciones individuales</language> </a>
                         </li>
                     </ul>
 

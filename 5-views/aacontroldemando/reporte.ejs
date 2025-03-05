@@ -1,11 +1,11 @@
-<div style="margin-top: -10px; margin-left: 5px;">
+<div style="margin-top: -10px; margin-left: 5px;" dragonlanguage="">
     <button class="btn btn-primary" ng-click="<%= scope %>.OpenPonderaciones()" style="float: left">
-        Ver Detalles de las Ponderaciones
+        <language>Ver Detalles de las Ponderaciones</language>
     </button>
 </div>
-<div style="margin-top: -10px; margin-left: 5px;">
+<div style="margin-top: -10px; margin-left: 5px;" dragonlanguage="">
     <button class="btn btn-primary" ng-click=" <%= scope %>.ui.goHome();" style="float: right">
-        Volver al inicio
+        <language>Volver al inicio</language>
     </button>
 </div>
 <br>
@@ -17,20 +17,20 @@
 <div class="col-md-8" style="padding: 0; margin-bottom: 10px; margin-top: 15px;">
     <div class="panel panel-white" style="margin-bottom: 0; position: static; zoom: 1;">
         <div class="panel-heading" style="padding: 10px 20px">
-            <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">
-                Búsqueda </h6>
+            <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title" dragonlanguage="">
+                <language>Búsqueda</language> </h6>
         </div>
         <div class="panel-body panelContainer" style="padding: 15px; display: flex; flex-direction: column;"
              ng-show="<%= scope %>.unicomenu">
             <div class="row" ng-show="<%= scope %>.unicomenu==='evento'">
-                <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.REPORTING.entidad==='Eventos'">
-                    <label>Tipo de evento</label>
+                <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.REPORTING.entidad==='Eventos'" dragonlanguage="">
+                    <label><language>Tipo de evento</language></label>
                     <select3 class="form-control" ng-model="<%= scope %>.inputBuscado"
                              s2-options="opt.nombre as opt.nombre for opt in  <%= scope %>.REPORTING.elementos">
                     </select3>
                 </div>
-                <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
-                    <label>Escriba aquí su criterio de búsqueda</label>
+                <div class='col-sm-12 col-md-12' ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'" dragonlanguage="">
+                    <label><language>Escriba aquí su criterio de búsqueda</language></label>
                     <input type="search"
                            class="form-control busquedaInput"
                            placeholder="Escriba aquí su criterio de búsqueda"
@@ -47,9 +47,9 @@
 <!--                           ng-model-onblur>-->
 <!--                </div>-->
             </div>
-            <div class="row" ng-show="<%= scope %>.unicomenu!=='evento'">
+            <div class="row" ng-show="<%= scope %>.unicomenu!=='evento'" dragolanguage="">
                 <div class='col-sm-9 col-md-9'>
-                    <label>Escriba aquí su criterio de búsqueda</label>
+                    <label><language>Escriba aquí su criterio de búsqueda</language></label>
                     <input type="search"
                            class="form-control busquedaInput"
                            placeholder="Escriba aquí su criterio de búsqueda"
@@ -57,7 +57,7 @@
                            ng-model-onblur>
                 </div>
                 <div class='col-sm-3 col-md-3 '>
-                    <label>Filtrar por el año del indicador</label>
+                    <label><language>Filtrar por el año del indicador</language></label>
                     <input type="number"
                            class="form-control busquedaInput"
                            placeholder="Año a filtrar"
@@ -65,8 +65,8 @@
                            ng-model-onblur>
                 </div>
             </div>
-            <div style="margin-top: 5px; margin-left: 5px;" ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'">
-                <button class="btn btn-primary">Buscar</button>
+            <div style="margin-top: 5px; margin-left: 5px;" ng-show="<%= scope %>.REPORTING.entidad!=='Eventos'" dragonlanguage="">
+                <button class="btn btn-primary"><language>Buscar</language></button>
             </div>
         </div>
         <div class="panel-body panelContainer" style="padding: 15px; display: flex; flex-direction: column;"
@@ -78,45 +78,45 @@
                        ng-model="<%= scope %>.inputBuscado"
                        ng-model-onblur>
             </div>
-            <div style="margin-top: 5px; margin-left: 5px;">
-                <button class="btn btn-primary">Buscar</button>
+            <div style="margin-top: 5px; margin-left: 5px;" dragonlanguage="">
+                <button class="btn btn-primary"><language>Buscar</language></button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Ordenamientos -->
-<div class="col-md-4" style="padding: 0; margin-bottom: 10px; margin-top: 15px;">
+<div class="col-md-4" style="padding: 0; margin-bottom: 10px; margin-top: 15px;" dragonlanguage="">
     <div class="panel panel-white" style="margin-bottom: 0; position: static; zoom: 1;">
         <div class="panel-heading" style="padding: 10px 20px">
-            <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title">Ordenar</h6>
+            <h6 style="font-size: 16px;font-weight: bold; color: #333;" class="panel-title"><language>Ordenar</language></h6>
         </div>
         <div class="col-md-12" style="padding: 0;">
             <button type="button" ng-click="<%= scope %>.sortGrafico('nombre')"
                     class="btn btn-{{<%= scope %>.REPORTING.sorting==='nombreasc' ?'primary':'gray'}}"
                     title="Por Nombre Ascendente" style="width: 100%;padding: 4px;border-radius: 0 !important;">
-                <b><i class="icon-sort-alpha-asc"></i></b> Por Nombre Ascendent
+                <b><i class="icon-sort-alpha-asc"></i></b> <language>Por Nombre Ascendente</language>
             </button>
         </div>
         <div class="col-md-12" style="padding: 0;">
             <button type="button" ng-click="<%= scope %>.sortGrafico('nombre',true)"
                     class="btn btn-{{<%= scope %>.REPORTING.sorting==='nombredesc'?'primary':'gray'}}"
                     title="Por Nombre Descendente" style="width: 100%;padding: 4px;border-radius: 0 !important;">
-                <b><i class="icon-sort-alpha-desc"></i></b> Por Nombre Descendente
+                <b><i class="icon-sort-alpha-desc"></i></b> <language>Por Nombre Descendente</language>
             </button>
         </div>
         <div class="col-md-12" style="padding: 0;">
             <button type="button" ng-click="<%= scope %>.sortGrafico('porcentaje')"
                     class="btn btn-{{<%= scope %>.REPORTING.sorting==='cumplimientoasc'?'primary':'gray'}}"
                     title="Por Cumplimiento Ascendente" style="width: 100%;padding: 4px;border-radius: 0 !important;">
-                <b><i class="icon-arrow-down7"></i></b> Por Cumplimiento Ascendente
+                <b><i class="icon-arrow-down7"></i></b> <language>Por Cumplimiento Ascendente</language>
             </button>
         </div>
         <div class="col-md-12" style="padding: 0;">
             <button type="button" ng-click="<%= scope %>.sortGrafico('porcentaje',true)"
                     class="btn btn-{{<%= scope %>.REPORTING.sorting==='cumplimientodesc'?'primary':'gray'}}"
                     title="Por Cumplimiento Descendente" style="width: 100%;padding: 4px;border-radius: 0 !important;">
-                <b><i class="icon-arrow-up7"></i></b> Por Cumplimiento Descendente
+                <b><i class="icon-arrow-up7"></i></b> <language>Por Cumplimiento Descendente</language>
             </button>
         </div>
     </div>
@@ -164,9 +164,10 @@
                             </button>
                         </div>
                         <button class="btn btn-primary" ng-if="value.boton3"
+                                dragonlanguage=""
                                 ng-click="<%= scope %>.calcs.ficha(value.boton3.list,value.boton3.field,value.boton3.id,value.boton3.pei)"
                                 style="width: 100%;">
-                            Ver Detalle
+                            <language>Ver Detalle</language>
                         </button>
                     </div>
                 </div>
@@ -180,15 +181,15 @@
         <button class="btn btn-info" ng-click="<%= scope %>.toggleNull();" style="float: right">
             {{<%= scope %>.mostrarnulltext}}
         </button>
-        <button class="btn btn-success" ng-click="<%= scope %>.exportXLS();" style="float: right">
-            <i class="icon-file-excel"></i>Exportar a Excel
+        <button class="btn btn-success" ng-click="<%= scope %>.exportXLS();" style="float: right" dragonlanguage="">
+            <i class="icon-file-excel"></i><language>Exportar a Excel</language>
         </button>
 
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <table class="table table-togglable table-framed" ng-if="<%= scope %>.REPORTING.elementos.length">
             <thead>
-            <tr class="bg-<%= COLOR.secundary %> dragon-columns">
+            <tr class="bg-<%= COLOR.secundary %> dragon-columns" dragonlanguage="">
                 <th>{{<%= scope %>.REPORTING.entidad}}</th>
                 <th ng-if="<%= scope %>.REPORTING.entidad==='Producto'">Tipo</th>
                 <th ng-if="<%= scope %>.REPORTING.elementos[0].boton">
@@ -199,7 +200,7 @@
                 </th>
                 <th>Cumplimiento</th>
 
-                <th ng-if="<%= scope %>.REPORTING.elementos[0].boton3">Acción</th>
+                <th ng-if="<%= scope %>.REPORTING.elementos[0].boton3"><language>Acción</language></th>
             </tr>
             </thead>
             <tbody>
@@ -219,9 +220,10 @@
                 </td>
                 <td ng-if="value.boton3">
                     <button class="btn btn-primary"
+                            dragonlanguage=""
                             ng-click="<%= scope %>.calcs.ficha(value.boton3.list,value.boton3.field,value.boton3.id,value.boton3.pei)"
                             style="width: 100%;">
-                        Ver Detalle
+                        <language>Ver Detalle</language>
                     </button>
                 </td>
             </tr>
@@ -231,12 +233,12 @@
         <table class="table table-togglable table-framed" id="exportelementos"
                style="visibility: hidden">
             <thead>
-            <tr class="bg-<%= COLOR.secundary %> dragon-columns"
+            <tr class="bg-<%= COLOR.secundary %> dragon-columns" dragonlanguage=""
             >
                 <th style="background-color: #9c282d;border-color: #9c282d;color: #FFF !important;">{{<%= scope %>
                     .REPORTING.entidad}}
                 </th>
-                <th ng-if="<%= scope %>.REPORTING.entidad==='Producto'">Tipo</th>
+                <th ng-if="<%= scope %>.REPORTING.entidad==='Producto'"><language>Tipo</language></th>
                 <th style="background-color: #9c282d;border-color: #9c282d;color: #FFF !important;"
                     ng-if="<%= scope %>.REPORTING.elementos[0].boton">
                     {{<%= scope %>.REPORTING.elementos[0].boton.split("Ver ")[1].split("(")[0]}}
@@ -245,7 +247,7 @@
                     ng-if="<%= scope %>.REPORTING.elementos[0].boton2">
                     {{<%= scope %>.REPORTING.elementos[0].boton2.split("Ver ")[1].split("(")[0]}}
                 </th>
-                <th style="background-color: #9c282d;border-color: #9c282d;color: #FFF !important;">Cumplimiento</th>
+                <th style="background-color: #9c282d;border-color: #9c282d;color: #FFF !important;"><language>Cumplimiento</language></th>
             </tr>
             </thead>
             <tbody>

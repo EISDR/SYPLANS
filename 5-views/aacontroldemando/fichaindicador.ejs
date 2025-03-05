@@ -1,8 +1,8 @@
 <!-- Volver a Inicio-->
 <div style="margin-top: -10px; margin-left: 5px;">
-    <button class="btn btn-primary" ng-show="<%= scope %>.ui" ng-click=" <%= scope %>.ui.goHome();"
+    <button class="btn btn-primary" dragonlanguage="" ng-show="<%= scope %>.ui" ng-click=" <%= scope %>.ui.goHome();"
             style="float: right">
-        Volver al inicio
+        <language>Volver al inicio<language>
     </button>
     <button style="float: right" type="button" ng-show="!<%= scope %>.ui" class="btn btn-labeled bg-secundary" onclick="MODAL.close(<%= scope %>)"> <b><i class="icon-cross2"></i></b>Atrás</button>
 </div>
@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <table class="table table-bordered tablaIndicadores">
+            <table class="table table-bordered tablaIndicadores" dragonlanguage="">
                 <thead>
                 <tr>
                     <th class="text-center"
@@ -33,11 +33,11 @@
                     </th>
                     <th class="text-center"
                         style="background-color: #9C282D; color: #FFF;">
-                        <strong>META</strong>
+                        <strong><language>META</language></strong>
                     </th>
                     <th class="text-center"
                         style="background-color: #9C282D; color: #FFF;">
-                        <strong>META ALCANZADA</strong>
+                        <strong><language>META ALCANZADA</language></strong>
                     </th>
                 </tr>
                 </thead>
@@ -72,13 +72,13 @@
 <!-- Datos del Indicador -->
 <div class="container" style="margin-top: 10px;">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" dragonlanguage="">
             <table class="table table-bordered tablaIndicadores">
                 <thead>
                 <tr>
                     <th style="background-color: #9c282d; color: #FFF;"
                         colspan="4"
-                        class="text-center"><strong>DATOS DEL INDICADOR</strong></th>
+                        class="text-center"><strong><language>DATOS DEL INDICADOR</language></strong></th>
                 </tr>
                 </thead>
                 <tbody>
