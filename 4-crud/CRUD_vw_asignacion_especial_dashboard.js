@@ -18,31 +18,28 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 visibleDetail: false,
                 export: false,
                 exportExample: false,
-                label: function () { return "POA_id"} },
-            nombre_poa: { label: function () { return "POA" } },
-            nombre_departamento_solicitante: {label: function () { return "Departamento solicitante"} },
-            nombre_departamento_solicitado: {label: function () { return "Departamento solicitado"} },
+            },
+            nombre_poa: {},
+            nombre_departamento_solicitante: {},
+            nombre_departamento_solicitado: {},
             nombre: {},
-            descripcion: {label: function () { return "Descripción" } },
+            descripcion: {},
             fecha_inicio: {formattype: ENUM.FORMAT.date, },
             fecha_fin: {formattype: ENUM.FORMAT.date},
-            nombre_responsable: {label: function () { return "Responsable" } },
+            nombre_responsable: {},
             // completa: {visible: true,sorttype: ENUM.FORMAT.bool,formattype: ENUM.FORMAT.bool},
-            nombre_razon: {label: function () { return "Razón"}},
+            nombre_razon: {},
             comentario: {shorttext: 360},
             created_at: {visible: false,visibleDetail: false,export: false,exportExample: false},
             updated_at: {visible: false,visibleDetail: false,export: false,exportExample: false},
             created_by: {visible: false,visibleDetail: false,export: false,exportExample: false},
             updated_by: {visible: false,visibleDetail: false,export: false,exportExample: false},
-            nombre_estatus: {label: function () { return "Estatus" } }
+            nombre_estatus: {}
         },
         filters: {
             columns: [
                 {
                     key: 'nombre_poa',
-                    label: function () {
-                        return 'POA';
-                    },
                     type: FILTER.types.relation,
                     table: 'poa',
                     value: "nombre",
@@ -61,9 +58,6 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 },
                 {
                     key: 'nombre_departamento_solicitante',
-                    label: function () {
-                        return 'Departamento solicitante';
-                    },
                     type: FILTER.types.relation,
                     table: 'departamento',
                     value: "nombre",
@@ -82,9 +76,6 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 },
                 {
                     key: 'nombre_departamento_solicitado',
-                    label: function () {
-                        return 'Departamento solicitado';
-                    },
                     type: FILTER.types.relation,
                     table: 'departamento',
                     value: "nombre",
@@ -103,39 +94,24 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 },
                 {
                     key: 'nombre',
-                    label: function () {
-                        return 'Asignación Especial';
-                    },
                     type: FILTER.types.string,
-                    placeholder: 'Asignación Especial',
                     maxlength:  100
                 },
                 {
                     key: 'descripcion',
-                    label: function () {
-                        return 'Descripción';
-                    },
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength:  255
                 },
                 {
                     key: 'fecha_inicio',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'fecha_fin',
-                    label: 'Fecha Fin',
                     type: FILTER.types.date,
-                    placeholder: 'Fecha Fin'
                 },
                 {
                     key: 'nombre_responsable',
-                    label: function () {
-                        return 'Responsable';
-                    },
                     type: FILTER.types.relation,
                     table: 'usuario',
                     value: "id",
@@ -154,9 +130,6 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 },
                 {
                     key: 'nombre_razon',
-                    label: function () {
-                        return 'Razón';
-                    },
                     type: FILTER.types.relation,
                     table: 'razon',
                     value: "nombre",
@@ -171,18 +144,11 @@ DSON.keepmerge(CRUD_vw_asignacion_especial_dashboard, {
                 },
                 {
                     key: 'comentario',
-                    label: function () {
-                        return 'Comentario';
-                    },
                     type: FILTER.types.string,
-                    placeholder: 'Comentario',
                     maxlength:  255
                 },
                 {
                     key: 'nombre_estatus',
-                    label: function () {
-                        return 'Estatus';
-                    },
                     type: FILTER.types.relation,
                     table: 'asignacion_especial_poa_estatus',
                     value: "nombre",

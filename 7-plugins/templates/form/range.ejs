@@ -80,8 +80,9 @@ var toclient = JSON.stringify(options);
     <%= model %>.form.registerField("<%= options.to %>", "<%= toclient %>");
     <% } %>
     if (MESSAGE.exist('columns.<%= nameclean %>')) {
-        <%= model %>.
-        form.options.<%= options.from %>.placeholder = MESSAGE.i('columns.<%= nameclean %>');
+        <%= model %>.form.options.<%= options.from %>.placeholder = MESSAGE.i('columns.<%= nameclean %>');
+    }else {
+        <%= model %>.form.options.<%= options.from %>.placeholder = `range_date`;
     }
     <% if (options.label_custom){ %>
     <%= model %>.form.options.<%= options.from %>.placeholder = "<%= options.label %>";
@@ -108,7 +109,7 @@ var toclient = JSON.stringify(options);
             <%= model %>.form.options.<%= options.from %>.popover = {
                 title: <%= model %>.form.options.<%= options.from %>.mess[0].field_names.replace('_', ' ').replace('_', ' '),
                 content: textoConvertido,
-                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder
+                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : "range_date"
             }
         }
     }

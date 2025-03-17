@@ -19,72 +19,44 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 dead: true
             },
             no: {
-                label: "No.",
             },
             resultado_esperado: {
-                label: "Resultado Esperado",
                 shorttext: 370
             },
             no_producto: {
-                label: "No.",
             },
             producto: {
-                label: function () {
-                    return lachechon.tipo_institucion == 1 ? "Proyecto/Producto" : "Proyecto"
-                },
                 shorttext: 370
             },
             no_actividad: {
-                label: function() {
-                    return "No. Actividad"
-                },
             },
             actividad_poa: {
-                label: "Actividad POA",
                 shorttext: 370
             },
             no_indicador: {
-                label: function() {
-                    return "No. Indicador"
-                },
             },
             nombre_indicador: {
-                label: MESSAGE.i('planificacion.titleIndicadorPOA'),
                 shorttext: 370
             },
             descripcion_indicador: {
-                label: "Descripción",
                 shorttext: 370
             },
             fuente: {
-                label: "Fuente del Indicador",
                 shorttext: 370
             },
             metodo: {
-                label: "Método de Cálculo",
                 shorttext: 370
             },
             desagregacion_demografica_geografia: {
-                label: function() {
-                    return "Desagregación Demográfica Geográfica";
-                },
                 shorttext: 370
             },
             tipo_meta: {
-                label: "Tipo de Meta"
             },
             direccion_meta: {
-                label: "Dirección de la Meta"
             },
             ano_linea_base: {
-                label: function (row) {
-                    return "Año Línea Base"
-                }
             },
             linea: {
-                label: function (row) {
-                    return "Línea Base"
-                },
                 shorttext: 370,
                 format: function (row) {
                     if (row.linea) {
@@ -106,11 +78,9 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 },
             },
             medio_verificacion: {
-                label: "Medio de Verificación",
                 shorttext: 370
             },
             observacion: {
-                label: "Observación",
                 shorttext: 370
             }
         },
@@ -118,28 +88,21 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
             columns: [
                 {
                     key: 'no',
-                    label: 'No. Resultado Esperado',
                     type: FILTER.types.integer,
-                    placeholder: 'No. Resultado Esperado',
                     maxlength: 15
                 },
                 {
                     key: 'no_producto',
-                    label: 'No. Producto',
                     type: FILTER.types.integer,
-                    placeholder: 'No. Producto',
                     maxlength: 15
                 },
                 {
                     key: 'nombre_indicador',
-                    label: MESSAGE.i('planificacion.titleIndicadorPOA'),
                     type: FILTER.types.string,
-                    placeholder: MESSAGE.i('planificacion.titleIndicadorPOA'),
                     maxlength: 255
                 },
                 {
                     key: 'id_producto',
-                    label: lachechon.tipo_institucion === 1 ? 'Proyecto/Producto' : 'Proyecto/Plan de Acción',
                     type: FILTER.types.relation,
                     table: 'vw_productos_poa_detalles',
                     value: "id",
@@ -160,7 +123,6 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 },
                 {
                     key: 'id_actividad_poa',
-                    label: 'Actividades POA',
                     type: FILTER.types.relation,
                     table: 'vw_actividades_poa',
                     value: "id",
@@ -181,34 +143,25 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 },
                 {
                     key: 'descripcion_indicador',
-                    label: 'Descripción',
                     type: FILTER.types.string,
-                    placeholder: 'Descripción',
                     maxlength: 4000
                 },
                 {
                     key: 'fuente',
-                    label: 'Fuente',
                     type: FILTER.types.string,
-                    placeholder: 'Fuente',
                     maxlength: 255
                 },
                 {
                     key: 'desagregacion_demografica_geografia',
-                    label: 'Desagregación Demográfica Geográfica',
                     type: FILTER.types.string,
-                    placeholder: 'Desagregación Demográfica Geográfica'
                 },
                 {
                     key: 'metodo',
-                    label: 'Método Cálculo',
                     type: FILTER.types.string,
-                    placeholder: 'Método Cálculo',
                     maxlength: 255
                 },
                 {
                     key: 'tipo_meta',
-                    label: 'Tipo de meta',
                     type: FILTER.types.relation,
                     table: 'tipoMeta',
                     value: "id",
@@ -224,7 +177,6 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 },
                 {
                     key: 'direccion_meta',
-                    label: 'Dirección de la meta',
                     type: FILTER.types.relation,
                     table: 'direccionMeta',
                     value: "id",
@@ -240,21 +192,16 @@ DSON.keepmerge(CRUD_vw_mega_indicadores_actividad, {
                 },
                 {
                     key: 'linea',
-                    label: 'Línea Base',
                     type: FILTER.types.integer,
-                    placeholder: 'Línea Base',
                     maxlength: 30
                 },
                 {
                     key: 'medio_verificacion',
-                    label: 'Medio de Verificación',
                     type: FILTER.types.string,
-                    placeholder: 'Medio Verificación',
                     maxlength: 255
                 },
                 {
                     key: 'id_resultado',
-                    label: 'Resultado esperado',
                     type: FILTER.types.relation,
                     table: 'vw_resultado',
                     value: "id",

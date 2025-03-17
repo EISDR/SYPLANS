@@ -64,6 +64,8 @@ app.controller("module_lan", function ($scope, $http, $compile) {
         module_lan.cambiarIdioma = async (item) => {
             SWEETALERT.loading({message: "Cambiando a " + item.label});
             STORAGE.add('templan', item.nombre);
+            STORAGE.delete('LANGUAGE');
+            STORAGE.add('LANGUAGE', item.nombre);
             STORAGE.delete('lastLan');
             STORAGE.delete('LANGUAGEDATA');
             setTimeout(() => {

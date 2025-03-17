@@ -479,7 +479,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         };
         baseController.buildParent();
         baseController.menuLabel = function (menu) {
-            return MESSAGE.ispace('menu.' + menu.text.replaceAll(' ', ''), menu.text);
+            return MESSAGE.ispace(`menu.${menu.text.replaceAll(' ', '')}`, menu.text);
         };
         baseController.changeMenu = function (menu) {
             var animation = new ANIMATION();

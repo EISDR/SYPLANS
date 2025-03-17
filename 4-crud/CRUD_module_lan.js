@@ -80,6 +80,12 @@ DSON.keepmerge(CRUD_module_lan, {
                 visible: true,
                 sorttype: ENUM.FORMAT.bool,
                 formattype: ENUM.FORMAT.bool
+            },
+            en: {
+
+            },
+            es: {
+
             }
         },
         filters: {

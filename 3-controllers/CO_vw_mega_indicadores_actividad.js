@@ -129,13 +129,6 @@ app.controller("vw_mega_indicadores_actividad", function ($scope, $http, $compil
     vw_mega_indicadores_actividad.triggers.table.after.load = async function (records) {
         vw_mega_indicadores_actividad.runMagicColum('tipo_meta', 'tipoMeta',"id","nombre");
         vw_mega_indicadores_actividad.runMagicColum('direccion_meta', 'direccionMeta',"id","nombre");
-        vw_mega_indicadores_actividad.columns().metas = {
-            label:"metas",
-            shorttext: 370,
-            sorted: false,
-            order: "asc",
-            sortable: false
-        };
         $('.has-colspan').attr('rowspan',3);
         $('.has-colspan').css('vertical-align','middle');
         BASEAPI.listp('vw_indicador_actividad_periodo', {

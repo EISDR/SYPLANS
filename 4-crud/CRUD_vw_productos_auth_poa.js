@@ -74,9 +74,12 @@ DSON.keepmerge(CRUD_vw_productos_auth_poa, {
                 dblclick: function(key,value,row){
                 }
             },
-            poa_id: {formattype: ENUM.FORMAT.numeric, visible: false, visibleDetail: false, export: false, exportExample: false},
-            estado_en_producto: {formattype: ENUM.FORMAT.numeric, visible: false, visibleDetail: false, export: false, exportExample: false},
+            poa_id: {formattype: ENUM.FORMAT.numeric, visible: false, visibleDetail: false, export: false, exportExample: false, dead: true, nofilter: true},
+            estado_en_producto: {formattype: ENUM.FORMAT.numeric, visible: false, visibleDetail: false, export: false, exportExample: false, dead: true},
             nombre: {
+                label: function (){
+                    return MESSAGE.i('columns.estado')
+                },
                 click: function (key,value,rowdata) {
                     vw_actividades_auth_poa.fixFilters = [
                         {

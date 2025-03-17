@@ -130,7 +130,6 @@ app.controller("mega_indicadores_poa", function ($scope, $http, $compile) {
     mega_indicadores_poa.triggers.table.after.load = async function (records) {
         mega_indicadores_poa.runMagicColum('tipo_meta', 'tipoMeta',"id","nombre");
         mega_indicadores_poa.runMagicColum('direccion_meta', 'direccionMeta',"id","nombre");
-        mega_indicadores_poa.columns().metas = { label:"metas", shorttext: 370, sorted: false, order: "asc", sortable: false};
         $('.has-colspan').attr('rowspan',3);
         $('.has-colspan').css('vertical-align','middle');
         BASEAPI.listp('vw_indicador_poa_periodo', {

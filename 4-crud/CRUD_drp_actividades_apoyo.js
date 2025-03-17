@@ -654,15 +654,11 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
             columns: [
                 {
                     key: 'nombre',
-                    label: 'Nombre',
                     type: FILTER.types.string,
-                    placeholder: 'Nombre',
                     maxlength: 64
                 },
                 {
                     key: 'departamento',
-                    label: 'Departamento',
-                    placeholder: 'Departamento',
                     type: FILTER.types.relation,
                     value: "id",
                     table: 'departamento',
@@ -688,7 +684,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 },
                 {
                     key: 'actividades_poa',
-                    label: 'Actividad POA',
                     type: FILTER.types.relation,
                     table: 'actividades_poa',
                     value: "id",
@@ -709,7 +704,6 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 },
                 {
                     key: 'responsable',
-                    label: 'Responsable',
                     type: FILTER.types.relation,
                     table: 'usuario',
                     value: "id",
@@ -735,26 +729,19 @@ DSON.keepmerge(CRUD_drp_actividades_apoyo, {
                 },
                 {
                     key: 'act_apoyo_presupuesto',
-                    label: 'Presupuesto',
                     type: FILTER.types.decimal,
-                    placeholder: 'Presupuesto',
                     maxlength: 20
                 },
                 {
                     key: 'fecha_inicio',
-                    label: 'Fecha Inicio',
                     type: FILTER.types.string,
-                    placeholder: 'Fecha Inicio'
                 },
                 {
                     key: 'fecha_fin',
-                    label: 'Fecha Fin',
                     type: FILTER.types.string,
-                    placeholder: 'Fecha Fin'
                 },
                 {
                     key: 'estatus',
-                    label: 'Estatus',
                     type: FILTER.types.relation,
                     table: 'auditoria_programa_plan_estatus',
                     value: "code",

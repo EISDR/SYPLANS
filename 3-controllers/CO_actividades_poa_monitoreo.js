@@ -1798,9 +1798,6 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
     };
     actividades_poa_monitoreo.change_money_comments = function () {
         CRUD_comentarios_actividades_poa.table.columns.value3 = {
-            label: function () {
-                return "Presupuesto Consumido"
-            },
             sorttype: "money",
             formattype: "money",
             visible: true,
@@ -1810,9 +1807,6 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
             dead: false
         },
             CRUD_comentarios_actividad_apoyo.table.columns.value3 = {
-                label: function () {
-                    return "Presupuesto Consumido"
-                },
                 sorttype: "money",
                 formattype: "money",
                 visible: true,

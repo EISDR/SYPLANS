@@ -28,8 +28,12 @@ DSON.keepmerge(CRUD_vw_actividades_auth_poa, {
                 formattype: ENUM.FORMAT.date,
             },
             //poa_name: {link: {table: 'poa',from: 'poa'}},
-            estatus_actividad: {formattype: ENUM.FORMAT.numeric, visible:false},
+            estatus_actividad: {formattype: ENUM.FORMAT.numeric, visible:false, dead: true},
             nombre: {
+
+                label: function (){
+                    return MESSAGE.i('columns.estado')
+                },
             }
         },
         filters: {

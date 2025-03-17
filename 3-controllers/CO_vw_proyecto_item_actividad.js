@@ -831,9 +831,6 @@ app.controller("vw_proyecto_item_actividad", function ($scope, $http, $compile) 
     };
     vw_proyecto_item_actividad.change_money_comments = function () {
         CRUD_comentarios_p_actividad.table.columns.value3 = {
-            label: function (){
-                return "Presupuesto Consumido"
-            },
             sorttype: "money",
             formattype: "money",
             visible: true,

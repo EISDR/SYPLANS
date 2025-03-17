@@ -63,20 +63,20 @@ MESSAGE = {
     i: function (key, defaulttext) {
         var lan = STORAGE.get('LANGUAGE') || CONFIG.language;
         var toreturn = key;
+        var strict = key.split('.');
         if (MESSAGE.exist(key)) {
-            return MESSAGE.characterize(eval(`(LANGUAGE?.${lan}||{}).${key}`));
+            return MESSAGE.characterize(eval(`(LANGUAGE?.${lan}||{}).${strict[0]}['${strict[1]}']`));
         } else {
             for (var i in LANGUAGE) {
                 if (MESSAGE.existOther(key, i)) {
                     if (CONFIG.mode === "developer") {
-                        var strict = key.split('.');
                         if (strict.length > 1)
                             MESSAGE.register(lan, strict[0], strict[1]);
                         else {
                             SWEETALERT.show(`The langage key ${key} don't have folder, please change`);
                         }
                     }
-                    return MESSAGE.characterize(eval(`LANGUAGE.${i}.${key}`));
+                    return MESSAGE.characterize(eval(`LANGUAGE.${i}.${strict[0]}['${strict[1]}']`));
                 }
             }
             if (CONFIG.mode === "developer") {

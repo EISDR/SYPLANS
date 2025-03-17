@@ -54,9 +54,6 @@ DSON.keepmerge(CRUD_historyx, {
             // idd: {formattype: ENUM.FORMAT.numeric},
             usuario: {},
             data: {
-                label: () => {
-                    return "Cambio";
-                },
                 sortable: false,
                 format: (rowx) => {
                     let row = rowx.data;

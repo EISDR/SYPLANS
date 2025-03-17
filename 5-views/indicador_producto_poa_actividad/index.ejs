@@ -61,7 +61,6 @@
                                         refresh: false,
                                         text: "item.no_producto+' '+item.Nombre + ' ('+ item.cantidad +')'",
                                         table: "vw_indicador_poa",
-                                        traduce: false,
                                         icon: {class: "archive"},
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3"
                                     }) %>
@@ -76,7 +75,6 @@
                                         refresh: false,
                                         text: "item.no_producto+' '+item.Nombre + ' ('+ item.cantidad +')'",
                                         table: "vw_indicador_poa",
-                                        traduce: false,
                                         icon: {class: "archive"},
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3"
                                     }) %>
@@ -90,7 +88,6 @@
                                         refresh: false,
                                         text: "item.actividad + ' ('+ item.county +')'",
                                         table: "vw_actividades_poa",
-                                        traduce: false,
                                         icon: {class: "archive"},
                                         condition: "item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id"
                                     }) %>
@@ -131,7 +128,6 @@
                                             text: "item.Nombre +' ('+ (item.departamento_nombre|| 'Sin departamento')+')'",
                                             table: "vw_indicador_actividad",
                                             icon: {class: "archive"},
-                                            traduce: false,
                                             condition: "(item.poa == indicador_producto_poa_actividad.conditionPoa.poa_id && item.estatus == 3) && (indicador_producto_poa_actividad.producto == (item.indicador_poa+'') || indicador_producto_poa_actividad.producto==='[NULL]') && ((indicador_producto_poa_actividad.actividad == (item.actividades_poa+'') || indicador_producto_poa_actividad.actividad==='[NULL]'))"
                                         }) %>
                                     </div>

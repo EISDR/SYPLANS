@@ -847,9 +847,6 @@ app.controller("drp_actividades_apoyo", function ($scope, $http, $compile) {
     };
     drp_actividades_apoyo.change_money_comments = function () {
         CRUD_comentarios_actividad_apoyo.table.columns.value3 = {
-            label: function (){
-                return "Presupuesto Consumido"
-            },
             sorttype: "money",
             formattype: "money",
             visible: true,

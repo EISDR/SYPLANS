@@ -144,7 +144,6 @@ app.controller("mega_indicadores_pei", function ($scope, $http, $compile) {
     RUNCONTROLLER("mega_indicadores_pei", mega_indicadores_pei, $scope, $http, $compile);
     mega_indicadores_pei.setPermission("export", true);
     mega_indicadores_pei.triggers.table.after.load = async function (records) {
-        mega_indicadores_pei.columns().metas = { label:"metas", shorttext: 370, sorted: false, order: "asc", sortable: false};
         $('.has-colspan').attr('rowspan',3);
         $('.has-colspan').css('vertical-align','middle');
         BASEAPI.listp('vw_indicador_pei_ano', {
