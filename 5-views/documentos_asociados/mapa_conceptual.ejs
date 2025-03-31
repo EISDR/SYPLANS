@@ -1,0 +1,19 @@
+<script>
+    documentos_asociados_mapa_conceptual.fixFilters = [{
+        "field": "documento_asociado",
+        "value": documentos_asociados?.id
+    }];
+</script>
+<br>
+<div class="table table-togglable table-framed">
+    <div id="documentos_asociados_mapa_conceptual" ng-controller="documentos_asociados_mapa_conceptual as documentos_asociados_mapa_conceptual">
+        <div class="panel panel-flat">
+            <%- include('../../7-plugins/templates/table/header',{scope:'documentos_asociados_mapa_conceptual'}); %>
+            <div class="subcontent">
+                <div class="col-md-12" style="padding: 0">
+                    <%- include('../../7-plugins/templates/table/base',{scope:'documentos_asociados_mapa_conceptual'}); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

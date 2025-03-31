@@ -1993,6 +1993,22 @@
         "type": "full",
         "allow": {}
       },
+      "documentos_asociados_mapa_conceptual": {
+        "type": "full",
+        "allow": {}
+      },
+      "documento_referencia": {
+        "type": "full",
+        "allow": {}
+      },
+      "documento_responsabilidades": {
+        "type": "full",
+        "allow": {}
+      },
+      "documento_terminos_condiciones": {
+        "type": "full",
+        "allow": {}
+      },
       "import_actions_procesos": {
         "type": "full",
         "allow": {}

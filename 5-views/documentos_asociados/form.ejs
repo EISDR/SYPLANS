@@ -289,7 +289,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4"></div>
                     <div class="col-sm-4 col-md-4 center-profile-image countFile" style="padding: 1% 5% 0 5%;">
                         <%- FORM.file("documento_asociadofile", scope, {
                             title: 'Subir Documento',
@@ -302,17 +301,108 @@
                         }) %>
                     </div>
                     <div class="col-sm-4 col-md-4"></div>
+                    <div class="col-sm-2 col-md-2 center-profile-image countFile" style="padding: 1% 1% 0 1%;">
+                        <button ng-show="<%= scope %>.form.mode!=='new'"
+                                dragonlanguage="" title="Mapa conceptual"
+                                type="button" role="button" class="btn bg-secundary-600 btn-block"
+                                ng-click="<%= scope %>.mapa_conceptual()">
+                            <language>Trabajar Mapa Conceptual</language>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-12 col-md-12'>
+                        <%- FORM.textarea('notas', scope, {
+                            //maxlength: 200,
+                        }) %>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class='col-sm-12 col-md-12' ng-show="documentos_asociados.show_actividades">
-                <%- FORM.relation("funciones", scope, {
-                    text: "item.nombre",
-                    table: "solicitud_documento_actividades",
-                    field: "documento_asociado",
-                    icon: {class: "archive"}
-                }) %>
+            <ul class="nav nav-primary nav-tabs primary nav-justified">
+                <li class="active">
+                    <a href="#tabA" data-toggle="tab" id="tabidA" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Documentos de Referencias</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#tabB" data-toggle="tab" id="tabidB" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Responsabilidades</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#tabC" data-toggle="tab" id="tabidC" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Terminos Y Condiciones</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li ng-show="documentos_asociados.show_actividades">
+                    <a href="#tabD" data-toggle="tab" id="tabidD" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Actividades</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabA">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <%- FORM.relation("documentos_referencia", scope, {
+                                text: "item.nombre",
+                                table: "documento_referencia",
+                                field: "documento_asociado",
+                                master: null,
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tabB">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12' >
+                            <%- FORM.relation("responsabilidades", scope, {
+                                text: "item.nombre",
+                                table: "documento_responsabilidades",
+                                field: "documento_asociado",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tabC">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12' >
+                            <%- FORM.relation("termino_condiciones", scope, {
+                                text: "item.nombre",
+                                table: "documento_terminos_condiciones",
+                                field: "documento_asociado",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tabD">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12' >
+                            <%- FORM.relation("funciones", scope, {
+                                text: "item.nombre",
+                                table: "solicitud_documento_actividades",
+                                field: "documento_asociado",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

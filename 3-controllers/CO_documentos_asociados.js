@@ -841,13 +841,12 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 rules.push(VALIDATION.yariel.maliciousCode(value));
                 VALIDATION.validate(documentos_asociados, 'alcance', rules);
             });
-            // $scope.$watch("documentos_asociados.responsabilidad", function (value) {
-            //     var rules = [];
-            //     //rules here
-            //     rules.push(VALIDATION.general.required(value));
-            //     rules.push(VALIDATION.yariel.maliciousCode(value));
-            //     VALIDATION.validate(documentos_asociados, 'responsabilidad', rules);
-            // });
+            $scope.$watch("documentos_asociados.notas", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.yariel.maliciousCode(value));
+                VALIDATION.validate(documentos_asociados, 'notas', rules);
+            });
             $scope.$watch("documentos_asociados.resultado_esperado", function (value) {
                 var rules = [];
                 //rules here
@@ -1449,5 +1448,28 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
         }else{
             return true
         }
+    }
+    documentos_asociados.mapa_conceptual = () => {
+        documentos_asociados.modal.modalView("documentos_asociados/mapa_conceptual", {
+            width: 'modal-full',
+            header: {
+                title: "Vista del Flujo de Trabajo",
+                icon: "icon-repo-forked"
+            },
+            footer: {
+                cancelButton: false
+            },
+            content: {
+                loadingContentText: MESSAGE.i('actions.Loading'),
+                sameController: 'documentos_asociados',
+            },
+            event: {
+                show: {
+                    end: async function (data) {
+
+                    }
+                }
+            }
+        });
     }
 });
