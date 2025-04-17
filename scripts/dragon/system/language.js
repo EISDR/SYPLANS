@@ -61,7 +61,7 @@ MESSAGE = {
         return newstr;
     },
     i: function (key, defaulttext) {
-        var lan = STORAGE.get('LANGUAGE') || CONFIG.language;
+        var lan = STORAGE.get('templan') || CONFIG.language;
         var toreturn = key;
         var strict = key.split('.');
         if (MESSAGE.exist(key)) {
@@ -106,7 +106,7 @@ MESSAGE = {
         return MESSAGE.ic(key.replaceAll(' ', ''), defaulttext);
     },
     exist: function (key) {
-        var lan = STORAGE.get('LANGUAGE') || CONFIG.language;
+        var lan = STORAGE.get('templan') || CONFIG.language;
         if (!eval(`(LANGUAGE?.${lan}||{}).hasOwnProperty('${key.split('.')[0]}')`))
             return false;
         var exist = eval(`((LANGUAGE?.${lan}||{})?.${key.split('.')[0]}||{}).hasOwnProperty('${key.split('.')[1]}')`);
@@ -122,7 +122,7 @@ MESSAGE = {
     },
     current: function (code) {
         return SHOWLANGS.filter(function (lang) {
-            return lang.code === (STORAGE.get('LANGUAGE') || CONFIG.language);
+            return lang.code === (STORAGE.get('templan') || CONFIG.language);
         })[0];
     },
     select: function (code) {
