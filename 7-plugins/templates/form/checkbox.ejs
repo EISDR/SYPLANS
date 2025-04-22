@@ -28,9 +28,16 @@ popopme = function (entity, field) {
     })
 
     function sortArray() {
-        options.popover = prueba.sort(function (a, b) {
+        options.mess = prueba.sort(function (a, b) {
             return b.id - a.id
-        })[0];
+        });
+        const fragmentos = options.mess[0]?.text.split('\n') || [];
+        if (fragmentos.length > 0){
+            const contenidoHTML = fragmentos.map(fragmento => {
+                return `<p>${fragmento}</p>`;
+            }).join('');
+            options.mess[0].text = contenidoHTML;
+        }
     }
 
     sortArray();
@@ -99,7 +106,7 @@ var toclient = JSON.stringify(options);
             container: 'body',
             title: eval("`" +<%= model %>.form.options.<%= name %>.truetext + "`") !== "undefined" ?  eval("`" +<%= model %>.form.options.<%= name %>.truetext + "`")  : eval("`" +<%= model %>.form.options.<%= name %>.text + "`"),
             content: eval("`" +<%= model %>.form.options.<%= name %>.popover.text + "`"),
-        trigger: 'manual'
+            trigger: 'manual'
         });
         // Obtén el elemento que deseas observar
         const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");

@@ -205,7 +205,7 @@ var toclient = JSON.stringify(options);
     <label class="control-label is-visible animate" style="color:#000000 !important;">
         {{<%= model + "." + options.forme %>.options.<%= name %>.truelabel || <%= model + "." + options.forme %>
         .options.<%= name %>.label}}
-        <i ng-show="<%= model + "." + options.forme %>.options.<%= name %>.mess.length>0"
+        <i ng-show="<%= model + "." + options.forme %>.options.<%= name %>.mess.length>0 || <%= model + "." + options.forme %>.options.<%= name %>.popover"
            id="popover<%= model %>_<%= nameclean %>" class="icon-help">
         </i>
     </label>
@@ -419,10 +419,7 @@ var toclient = JSON.stringify(options);
 
     $(document).ready(function () {
         if (new SESSION().isLogged()) {
-            if (<%= model + "." + options.forme %>.
-            options.<%= name %>.mess
-        )
-            {
+            if (<%= model + "." + options.forme %>.options.<%= name %>.mess || <%= model + "." + options.forme %>.options.<%= name %>.popover) {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
                     title: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.label + "`"),

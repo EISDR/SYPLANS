@@ -58,6 +58,30 @@ DSON.keepmerge(CRUD_tipo_documento, {
                     return row.trabaja_actividades === 1 ? 'Sí' : 'No';
                 }
             },
+            trabaja_referencia: {
+                label: function() {
+                    return "¿Trabaja Documentos de Referencia?"
+                },
+                format: function (row){
+                    return row.trabaja_referencia === 1 ? 'Sí' : 'No';
+                }
+            },
+            trabaja_responsabilidades: {
+                label: function() {
+                    return "¿Trabaja Responsabilidades?"
+                },
+                format: function (row){
+                    return row.trabaja_responsabilidades === 1 ? 'Sí' : 'No';
+                }
+            },
+            trabaja_condiciones: {
+                label: function() {
+                    return "¿Trabaja Terminos y Condiciones?"
+                },
+                format: function (row){
+                    return row.trabaja_condiciones === 1 ? 'Sí' : 'No';
+                }
+            },
         },
         filters: {
             columns: true

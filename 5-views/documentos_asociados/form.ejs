@@ -321,24 +321,24 @@
         </div>
         <div class="row">
             <ul class="nav nav-primary nav-tabs primary nav-justified">
-                <li class="active">
-                    <a href="#tabA" data-toggle="tab" id="tabidA" aria-expanded="false">
+                <li class="active" ng-show="documentos_asociados.show_referencia">
+                    <a href="#referencia" data-toggle="tab" id="Tabreferencia" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
                         <language>Documentos de Referencias</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </li>
 
-                <li>
-                    <a href="#tabB" data-toggle="tab" id="tabidB" aria-expanded="false">
+                <li ng-show="documentos_asociados.show_responsabilidades">
+                    <a href="#responsabilidades" data-toggle="tab" id="Tabresponsabilidades" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
                         <language>Responsabilidades</language>
                         <i class="border-white  position-right"></i>
                     </a>
                 </li>
 
-                <li>
-                    <a href="#tabC" data-toggle="tab" id="tabidC" aria-expanded="false">
+                <li ng-show="documentos_asociados.show_condiciones">
+                    <a href="#condiciones" data-toggle="tab" id="Tabcondiciones" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
                         <language>Terminos Y Condiciones</language>
                         <i class="border-white  position-right"></i>
@@ -346,7 +346,7 @@
                 </li>
 
                 <li ng-show="documentos_asociados.show_actividades">
-                    <a href="#tabD" data-toggle="tab" id="tabidD" aria-expanded="false">
+                    <a href="#actividades" data-toggle="tab" id="Tabactividades" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
                         <language>Actividades</language>
                         <i class="border-white  position-right"></i>
@@ -354,7 +354,7 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="tabA">
+                <div class="tab-pane active" id="referencia">
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <%- FORM.relation("documentos_referencia", scope, {
@@ -367,7 +367,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="tabB">
+                <div class="tab-pane" id="responsabilidades">
                     <div class="row">
                         <div class='col-sm-12 col-md-12' >
                             <%- FORM.relation("responsabilidades", scope, {
@@ -379,7 +379,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="tabC">
+                <div class="tab-pane" id="condiciones">
                     <div class="row">
                         <div class='col-sm-12 col-md-12' >
                             <%- FORM.relation("termino_condiciones", scope, {
@@ -391,7 +391,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="tabD">
+                <div class="tab-pane" id="actividades">
                     <div class="row">
                         <div class='col-sm-12 col-md-12' >
                             <%- FORM.relation("funciones", scope, {
@@ -463,6 +463,7 @@
     }
     $(function () {
         $('[name="documentos_asociados_documento_asociadofile"]').css({height: ''});
+        documentos_asociados.gestionarTabs();
     });
     setTimeout(() => {
         if ($(".dragonformfooter").length < 2) {
