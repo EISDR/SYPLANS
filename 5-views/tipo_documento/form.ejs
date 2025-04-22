@@ -4,8 +4,17 @@
             <div class='col-sm-4 col-md-4'>
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
-            <div class="col-sm-3 col-md-3">
+            <div class="col-sm-3 col-md-2">
                 <%- FORM.checkbox("trabaja_actividades", scope, {text: '¿Trabaja Actividades?'}) %>
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <%- FORM.checkbox("trabaja_referencia", scope, {text: '¿Trabaja Documentos de Referencia?'}) %>
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <%- FORM.checkbox("trabaja_responsabilidades", scope, {text: '¿Trabaja Responsabilidades?'}) %>
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <%- FORM.checkbox("trabaja_condiciones", scope, {text: '¿Trabaja Terminos y Condiciones?'}) %>
             </div>
             <div class='col-sm-12 col-md-12'
                  class="remove-input-space form-group-material form-group has-feedback has-success  has-feedback-left">

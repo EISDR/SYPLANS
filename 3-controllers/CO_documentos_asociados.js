@@ -822,6 +822,10 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                 if (value) {
                     if (documentos_asociados.form.selected('tipo_documento')) {
                         documentos_asociados.show_actividades = documentos_asociados.form.selected('tipo_documento').trabaja_actividades === 1;
+                        documentos_asociados.show_referencia = documentos_asociados.form.selected('tipo_documento').trabaja_referencia === 1;
+                        documentos_asociados.show_responsabilidades = documentos_asociados.form.selected('tipo_documento').trabaja_responsabilidades === 1;
+                        documentos_asociados.show_condiciones = documentos_asociados.form.selected('tipo_documento').trabaja_condiciones === 1;
+                        documentos_asociados.gestionarTabs();
                     }
                 }
                 rules.push(VALIDATION.general.required(value));
@@ -907,6 +911,11 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
             if (data === "tipo_documento") {
                 if (documentos_asociados.form.selected('tipo_documento')) {
                     documentos_asociados.show_actividades = documentos_asociados.form.selected('tipo_documento').trabaja_actividades === 1;
+                    documentos_asociados.show_referencia = documentos_asociados.form.selected('tipo_documento').trabaja_referencia === 1;
+                    documentos_asociados.show_responsabilidades = documentos_asociados.form.selected('tipo_documento').trabaja_responsabilidades === 1;
+                    documentos_asociados.show_condiciones = documentos_asociados.form.selected('tipo_documento').trabaja_condiciones === 1;
+                    documentos_asociados.gestionarTabs();
+
                 }
             }
             if (data === "estatus" && !do_me_once) {
@@ -1472,4 +1481,39 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
             }
         });
     }
+    documentos_asociados.gestionarTabs = function () {
+        // Configuramos los tabs con sus valores booleanos
+        const tabs = {
+            actividades: documentos_asociados.show_actividades,
+            referencia: documentos_asociados.show_referencia,
+            responsabilidades: documentos_asociados.show_responsabilidades,
+            condiciones: documentos_asociados.show_condiciones
+        };
+
+        // Determinar el primero que debe ser activo.
+        // Prioridad: si 'actividades' es true, se activa.
+        let activeTab = null;
+        if (tabs.referencia) {
+            activeTab = "referencia";
+        } else {
+            activeTab = Object.keys(tabs).find(tab => tabs[tab]) || null;
+        }
+
+        // Recorremos la lista de tabs y asignamos la clase 'active' y el display correcto.
+        Object.keys(tabs).forEach(tab => {
+            const tabElement = document.getElementById(tab);
+            if (!tabElement) return;
+
+            if (tab === activeTab) {
+                tabElement.classList.add("active");
+                tabElement.setAttribute("aria-expanded", "true");
+            } else {
+                tabElement.classList.remove("active");
+                tabElement.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        documentos_asociados.refreshAngular();
+    };
+
 });

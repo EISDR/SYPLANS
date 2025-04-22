@@ -61,8 +61,14 @@
             <div class="col-sm-3 col-md-1">
                 <%- FORM.checkbox("activo", scope, {text: 'Activo?'}) %>
             </div>
-            <div class="col-sm-12 col-md-1">
-                <%- FORM.checkbox("evaluacion_abierta", scope, {text: '¿Evaluacion Abierta?'}) %>
+            <div class="col-sm-12 col-md-2">
+                <%- FORM.checkbox("evaluacion_abierta", scope, {
+                    text: '¿Evaluacion Abierta?',
+                    popover: {
+                        title: "¿Evaluación Abierta?",
+                        text: "Al seleccionar este campo de evaluación abierta estará habilitando que la carga y evaluación de evidencias pueda ser trabajada incluso luego que su periodo de evaluación ya haya pasado."
+                    }
+                }) %>
             </div>
         </div>
         <div class="row">

@@ -54,6 +54,10 @@
             <%- FORM.select("responsable", scope, {
                 column: "usuario_nombre",
                 text: "item.nombre + ' ' + item.apellido + ' - '  +  (item.cargo != 'null' ? item.cargo_nombre + ' - ' : '')  + item.correo ",
+                popover: {
+                    title: "Responsable",
+                    content: "Este campo será poblado con uno de los usuarios que ya estén creados en la compañía este deberá ser tipo administrador."
+                },
                 table: "usuario",
                 icon: {class: "archive"},
                 label: "Responsable",
