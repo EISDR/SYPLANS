@@ -847,7 +847,7 @@ app.controller("procesos", function ($scope, $http, $compile) {
             a.download = "Flujo de Trabajo - Procesos.png";
             a.click();
         };
-        procesos.mapa_conceptual = () => {
+        procesos.mapa_conceptualViejo = () => {
             procesos.modal.modalView("procesos/mapa_conceptual", {
                 width: 'modal-full',
                 header: {
@@ -1383,6 +1383,30 @@ app.controller("procesos", function ($scope, $http, $compile) {
 
                                 SWEETALERT.stop();
                             }, 1000)
+                        }
+                    }
+                }
+            });
+        }
+
+        procesos.mapa_conceptual = () => {
+            procesos.modal.modalView("procesos/mapa_conceptual", {
+                width: 'modal-full',
+                header: {
+                    title: "Vista del Flujo de Trabajo",
+                    icon: "icon-repo-forked"
+                },
+                footer: {
+                    cancelButton: false
+                },
+                content: {
+                    loadingContentText: MESSAGE.i('actions.Loading'),
+                    sameController: 'procesos',
+                },
+                event: {
+                    show: {
+                        end: async function (data) {
+
                         }
                     }
                 }
