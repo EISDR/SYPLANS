@@ -2005,6 +2005,14 @@
         "type": "full",
         "allow": {}
       },
+      "documento_politicas": {
+        "type": "full",
+        "allow": {}
+      },
+      "documento_instrucciones": {
+        "type": "full",
+        "allow": {}
+      },
       "documento_responsabilidades": {
         "type": "full",
         "allow": {}

@@ -345,6 +345,22 @@
                     </a>
                 </li>
 
+                <li ng-show="documentos_asociados.show_politicas">
+                    <a href="#politicas" data-toggle="tab" id="Tabpoliticas" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Políticas</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
+                <li ng-show="documentos_asociados.show_instrucciones">
+                    <a href="#instrucciones" data-toggle="tab" id="Tabinstrucciones" aria-expanded="false">
+                        <i class="icon-archive position-left"></i>
+                        <language>Instrucciones</language>
+                        <i class="border-white  position-right"></i>
+                    </a>
+                </li>
+
                 <li ng-show="documentos_asociados.show_actividades">
                     <a href="#actividades" data-toggle="tab" id="Tabactividades" aria-expanded="false">
                         <i class="icon-archive position-left"></i>
@@ -385,6 +401,30 @@
                             <%- FORM.relation("termino_condiciones", scope, {
                                 text: "item.nombre",
                                 table: "documento_terminos_condiciones",
+                                field: "documento_asociado",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="politicas">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12' >
+                            <%- FORM.relation("politicas", scope, {
+                                text: "item.nombre",
+                                table: "documento_politicas",
+                                field: "documento_asociado",
+                                icon: {class: "archive"}
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="instrucciones">
+                    <div class="row">
+                        <div class='col-sm-12 col-md-12' >
+                            <%- FORM.relation("instrucciones", scope, {
+                                text: "item.nombre",
+                                table: "documento_instrucciones",
                                 field: "documento_asociado",
                                 icon: {class: "archive"}
                             }) %>

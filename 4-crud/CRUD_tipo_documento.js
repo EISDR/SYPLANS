@@ -2,7 +2,7 @@ CRUD_tipo_documento = {};
 DSON.keepmerge(CRUD_tipo_documento, CRUDDEFAULTS);
 DSON.keepmerge(CRUD_tipo_documento, {
     table: {
-        //width: "width:3000px;",
+        width: "width:2000px;",
         //view: 'vw_tipo_documento',
         //method: 'tipo_documento',
         //limits: [10, 50, 100, 0],
@@ -80,6 +80,22 @@ DSON.keepmerge(CRUD_tipo_documento, {
                 },
                 format: function (row){
                     return row.trabaja_condiciones === 1 ? 'Sí' : 'No';
+                }
+            },
+            trabaja_politica: {
+                label: function() {
+                    return "¿Trabaja Políticas?"
+                },
+                format: function (row){
+                    return row.trabaja_politica === 1 ? 'Sí' : 'No';
+                }
+            },
+            trabaja_instrucciones: {
+                label: function() {
+                    return "¿Trabaja Instrucciones?"
+                },
+                format: function (row){
+                    return row.trabaja_instrucciones === 1 ? 'Sí' : 'No';
                 }
             },
         },

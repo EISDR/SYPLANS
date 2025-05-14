@@ -1,9 +1,11 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-4 col-md-4'>
+            <div class='col-sm-12 col-md-6'>
                 <%- FORM.input('nombre', scope, {}) %>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-3 col-md-2">
                 <%- FORM.checkbox("trabaja_actividades", scope, {text: '¿Trabaja Actividades?'}) %>
             </div>
@@ -16,12 +18,22 @@
             <div class="col-sm-3 col-md-2">
                 <%- FORM.checkbox("trabaja_condiciones", scope, {text: '¿Trabaja Terminos y Condiciones?'}) %>
             </div>
+            <div class="col-sm-3 col-md-2">
+                <%- FORM.checkbox("trabaja_politica", scope, {text: '¿Trabaja Políticas?'}) %>
+            </div>
+            <div class="col-sm-3 col-md-2">
+                <%- FORM.checkbox("trabaja_instrucciones", scope, {text: '¿Trabaja Instrucciones?'}) %>
+            </div>
+        </div>
+        <div class="row">
             <div class='col-sm-12 col-md-12'
                  class="remove-input-space form-group-material form-group has-feedback has-success  has-feedback-left">
                 <%- FORM.textarea('descripcion', scope, {
                     //maxlength: 200,
                 }) %>
             </div>
+        </div>
+        <div class="row">
             <div class='col-sm-12 col-md-12'>
                 <label class="control-label is-visible animate ng-binding">Variables</label>
                 <span>{{ tipo_documento.variables.join(', ')}}</span>

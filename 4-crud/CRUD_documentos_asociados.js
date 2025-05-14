@@ -657,7 +657,14 @@ DSON.keepmerge(CRUD_documentos_asociados, {
 
                             if (!DSON.oseaX(data.row)) {
                                 plantilla = data.row.plantilla || "";
-
+                                let actividades=[];
+                                let rawactividades = data.row.actividades.split(",");
+                                let rawresponsables = data.row.responsables.split(",");
+                                rawactividades.forEach((d,index)=>{
+                                    actividades.push({actividad:d,responsable:rawresponsables[index]});
+                                });
+                                let htmldeactividades = actividades.map(d=>`<tr><td>${d.actividad}</td><td>${d.responsable}</td></tr>`);
+                                let tabla = `<table>${htmldeactividades}</table>`;
                                 Object.keys(data.row).forEach(d => {
                                     plantilla = plantilla.replaceAll(`@${d}@`, data.row[d] || "");
                                 });
