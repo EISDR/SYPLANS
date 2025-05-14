@@ -825,6 +825,8 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                         documentos_asociados.show_referencia = documentos_asociados.form.selected('tipo_documento').trabaja_referencia === 1;
                         documentos_asociados.show_responsabilidades = documentos_asociados.form.selected('tipo_documento').trabaja_responsabilidades === 1;
                         documentos_asociados.show_condiciones = documentos_asociados.form.selected('tipo_documento').trabaja_condiciones === 1;
+                        documentos_asociados.show_politicas = documentos_asociados.form.selected('tipo_documento').trabaja_politica === 1;
+                        documentos_asociados.show_instrucciones = documentos_asociados.form.selected('tipo_documento').trabaja_instrucciones === 1;
                         documentos_asociados.gestionarTabs();
                     }
                 }
@@ -914,6 +916,8 @@ app.controller("documentos_asociados", function ($scope, $http, $compile) {
                     documentos_asociados.show_referencia = documentos_asociados.form.selected('tipo_documento').trabaja_referencia === 1;
                     documentos_asociados.show_responsabilidades = documentos_asociados.form.selected('tipo_documento').trabaja_responsabilidades === 1;
                     documentos_asociados.show_condiciones = documentos_asociados.form.selected('tipo_documento').trabaja_condiciones === 1;
+                    documentos_asociados.show_politicas = documentos_asociados.form.selected('tipo_documento').trabaja_politica === 1;
+                    documentos_asociados.show_instrucciones = documentos_asociados.form.selected('tipo_documento').trabaja_instrucciones === 1;
                     documentos_asociados.gestionarTabs();
 
                 }
@@ -1487,7 +1491,9 @@ Un supervisor de calidad debe proceder a Revisar y Autorizar la creación de dic
             actividades: documentos_asociados.show_actividades,
             referencia: documentos_asociados.show_referencia,
             responsabilidades: documentos_asociados.show_responsabilidades,
-            condiciones: documentos_asociados.show_condiciones
+            condiciones: documentos_asociados.show_condiciones,
+            politicas: documentos_asociados.show_politicas,
+            instrucciones: documentos_asociados.show_instrucciones
         };
 
         // Determinar el primero que debe ser activo.
