@@ -49,6 +49,11 @@ DSON.keepmerge(CRUD_documento_responsabilidades, {
                 dead: true,
                 nofilter: true
             },
+            no_orden: {
+                label: function () {
+                    return "No. Secuencia"
+                }
+            },
             nombre: {},
             descripcion: {shorttext: 360},
         },

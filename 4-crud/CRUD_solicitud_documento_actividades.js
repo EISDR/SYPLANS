@@ -47,7 +47,14 @@ DSON.keepmerge(CRUD_solicitud_documento_actividades, {
                 visible: false,
                 visibleDetail: false,
                 export: false,
-                exportExample: false
+                exportExample: false,
+                dead: true,
+                nofilter: true
+            },
+            no_orden: {
+                label: function () {
+                    return "No. Secuencia"
+                }
             },
             nombre: {
                 label: function (){
@@ -63,6 +70,17 @@ DSON.keepmerge(CRUD_solicitud_documento_actividades, {
         },
         filters: {
             columns:[
+                {
+                    key: 'no_orden',
+                    label: function() {
+                        return 'No. Secuencia'
+                    },
+                    type: FILTER.types.integer,
+                    placeholder: function() {
+                        return 'No. Secuencia'
+                    },
+                    maxlength: 64
+                },
                 {
                     key: 'nombre',
                     label: 'Nombre de la Actividad',

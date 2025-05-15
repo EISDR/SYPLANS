@@ -23,6 +23,12 @@ app.controller("documento_politicas", function ($scope, $http, $compile) {
                 view: "Ver Política"
             };
             documento_politicas.createForm(data, mode, defaultData);
+            $scope.$watch("documento_politicas.no_orden", function (value) {
+                var rules = [];
+                //rules here
+                rules.push(VALIDATION.general.required(value));
+                VALIDATION.validate(documento_politicas, 'no_orden', rules);
+            });
             $scope.$watch("documento_politicas.nombre", function (value) {
                 var rules = [];
                 //rules here
@@ -77,18 +83,91 @@ app.controller("documento_politicas", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.insert ${$scope.modelName}`);
     //     return true;
     // };
-    // $scope.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    documento_politicas.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        var validatett = await BASEAPI.firstp("documento_politicas", {
+            where: [
+                {
+                    field: "no_orden",
+                    operator: "=",
+                    value: data.inserting.no_orden
+                },
+                {
+                    open: "(",
+                    field: "documento_asociado",
+                    operator: "=",
+                    value: documentos_asociados.id ? documentos_asociados.id : "$null",
+                    connector: "OR"
+                },
+                {
+                    close: ")",
+                    field: "tempid",
+                    operator: "=",
+                    value: `documentos_asociados${documentos_asociados.form.options.politicas.tempId}`
+                },
+            ]
+        });
+        if (validatett) {
+            SWEETALERT.show({
+                type: "error",
+                title: "",
+                message: "Para este Documento Asociado existe una Política con el No. Secuencia: " + data.inserting.no_orden
+            });
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
+        resolve(true);
+    });
     //
     // $scope.triggers.table.after.update = function (data) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     // };
-    // $scope.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
-    //     //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
-    //     resolve(true);
-    // });
+    documento_politicas.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
+        //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        var validatett = await BASEAPI.firstp("documento_politicas", {
+            where: [
+                {
+                    field: "no_orden",
+                    operator: "=",
+                    value: data.updating.no_orden
+                },
+                {
+                    open: "(",
+                    field: "documento_asociado",
+                    operator: "=",
+                    value: documentos_asociados.id ? documentos_asociados.id : "$null",
+                    connector: "OR"
+                },
+                {
+                    close: ")",
+                    field: "tempid",
+                    operator: "=",
+                    value: `documentos_asociados${documentos_asociados.form.options.politicas.tempId}`
+                },
+                {
+                    field: "id",
+                    operator: "!=",
+                    value: documento_politicas.id
+                },
+            ]
+        });
+        if (validatett) {
+            SWEETALERT.show({
+                type: "error",
+                title: "",
+                message: "Para este Documento Asociado existe una Política con el No. Secuencia: " + data.updating.no_orden
+            });
+            var buttons = document.getElementsByClassName("btn btn-labeled");
+            for(var item of buttons){
+                item.disabled = false;
+            }
+            resolve(false);
+        }
+        resolve(true);
+    });
     //
     // $scope.triggers.table.after.control = function (data) {
     //     //console.log(`$scope.triggers.table.after.control ${$scope.modelName} ${data}`);
