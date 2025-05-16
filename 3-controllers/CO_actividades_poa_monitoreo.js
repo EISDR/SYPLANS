@@ -1559,6 +1559,11 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                         resolved = true;
                         resolve(true);
                     }
+                } else {
+                    data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto).value;
+                    actividades_poa_monitoreo.soloAnadirComentario(true);
+                    resolved = true;
+                    resolve(true);
                 }
             } else {
                 data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto).value;
@@ -1572,11 +1577,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
             resolved = true;
             resolve(true);
         }
-        if (!resolved) {
-            actividades_poa_monitoreo.refreshAngular();
-            actividades_poa_monitoreo.soloAnadirComentario(true);
-            resolve(true);
-        }
+
     });
     actividades_poa_monitoreo.triggers.table.after.update = function (data) {
         if (actividades_poa_monitoreo.estatus == ENUM_2.actividad_poa_estatus.Detenida.toString()) {
