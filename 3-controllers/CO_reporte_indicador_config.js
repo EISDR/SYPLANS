@@ -18,7 +18,9 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
             RUN_B("reporte_indicador_config", reporte_indicador_config, $scope, $http, $compile);
             reporte_indicador_config.form.modalWidth = ENUM.modal.width.full;
             reporte_indicador_config.form.readonly = {compania: reporte_indicador_config.session.compania_id};
-            reporte_indicador_config.createForm(data, mode, defaultData);
+            reporte_indicador_config.createForm(data, mode, defaultData, undefined, (row) => {
+               
+            });
             $scope.$watch("reporte_indicador_config.tipo_meta", function (value) {
                 var rules = [];
                 //rules here
@@ -57,9 +59,9 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
             });
             //ms_product.selectQueries['compania'] = [
             //    {
-                //    field: 'id',
-                //    operator: '!=',
-                //    value: -1
+            //    field: 'id',
+            //    operator: '!=',
+            //    value: -1
             //    }
             //];
             $scope.$watch("reporte_indicador_config.compania", function (value) {
@@ -101,6 +103,8 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
     // };
     reporte_indicador_config.triggers.table.before.insert = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.insert ${$scope.modelName}`);
+        if (data.inserting.tipo_meta === '[NULL]')
+            data.inserting.tipo_meta = '0';
         var validatett = await BASEAPI.firstp("reporte_indicador_config", {
             where: [
                 {
@@ -127,7 +131,7 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
                 message: "Ya xiste una ponderación con el orden: " + data.inserting.orden
             });
             var buttons = document.getElementsByClassName("btn btn-labeled");
-            for(var item of buttons){
+            for (var item of buttons) {
                 item.disabled = false;
             }
             resolve(false);
@@ -190,6 +194,8 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
     // };
     reporte_indicador_config.triggers.table.before.update = (data) => new Promise(async (resolve, reject) => {
         //console.log(`$scope.triggers.table.before.update ${$scope.modelName}`);
+        if (data.updating.tipo_meta === '[NULL]')
+            data.updating.tipo_meta = '0';
         var validatett = await BASEAPI.firstp("reporte_indicador_config", {
             where: [
                 {
@@ -221,7 +227,7 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
                 message: "Ya xiste una ponderación con el orden: " + data.updating.orden
             });
             var buttons = document.getElementsByClassName("btn btn-labeled");
-            for(var item of buttons){
+            for (var item of buttons) {
                 item.disabled = false;
             }
             resolve(false);

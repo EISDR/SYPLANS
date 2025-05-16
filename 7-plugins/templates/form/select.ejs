@@ -103,7 +103,7 @@ popopme(model, nameclean);
 var toclient = JSON.stringify(options);
 %>
 <script>
-    <%= model %>.selectMessage = "<%= options.selmsg %>"||MESSAGE.ic('mono.youselect');
+    <%= model %>.selectMessage = "<%= options.selmsg %>" || MESSAGE.ic('mono.youselect');
     <%= model %>.triggers.table.before.control("<%= nameclean %>");
     if (DSON.oseaX(<%= model + "." + name %>))
             <%= model + "." + nameclean %> = "[NULL]";
@@ -365,6 +365,11 @@ var toclient = JSON.stringify(options);
                         </option>
                     </optgroup>
                 <% } else{ %>
+                    <% if(options.defaultOption){ %>
+                        <option value="<%= options.defaultOption.value %>">
+                            <%= options.defaultOption.text %>
+                        </option>
+                    <% } %>
                     <% if(options.evalvalue){ %>
                         <option data-object="{{item}}"
                                 ng-if="<%= options.condition %>"
@@ -380,6 +385,7 @@ var toclient = JSON.stringify(options);
                             {{<%= options.text %>}}
                         </option>
                     <% } else { %>
+
                         <option data-object="{{item}}"
                                 ng-if="<%= options.condition %>"
                                 ng-repeat="(key,item) in <%= model + "." + options.forme %>.options.<%= name %>.data track by key"
