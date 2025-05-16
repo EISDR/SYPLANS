@@ -44,9 +44,9 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
             } else {
                 SWEETALERT.loading({message: MESSAGE.i('mono.procesing')});
                 actividades_poa_monitoreo.soloAnadirComentario();
-                setTimeout(function (){
+                setTimeout(function () {
                     comentarios_actividades_poa.refresh();
-                },100)
+                }, 100)
                 SWEETALERT.stop();
             }
             if (ShowCountactividadfile_comment !== undefined) {
@@ -761,7 +761,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                                 accion: "APCED",
                                 record_id: actividades_poa_monitoreo.id,
                                 date: moment().format("YYYY-MM-DD")
-                            }, function(result){
+                            }, function (result) {
                                 if (result)
                                     SWEETALERT.stop();
                             })
@@ -779,7 +779,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                                 accion: "APCEC",
                                 record_id: actividades_poa_monitoreo.id,
                                 date: moment().format("YYYY-MM-DD")
-                            }, function(result){
+                            }, function (result) {
                                 if (result)
                                     SWEETALERT.stop();
                             })
@@ -1067,7 +1067,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                             var firstColumn = eval(`CRUD_${$scope.modelName}`).table.key || "id";
                             var DRAGONID = eval(`$scope.${firstColumn}`);
 
-                            await AUDIT.LOG(AUDIT.ACTIONS.update, $scope.tableOrView ? $scope.tableOrView : $scope.modelName, auditVar,actividades_poa_monitoreo.form.oldData);
+                            await AUDIT.LOG(AUDIT.ACTIONS.update, $scope.tableOrView ? $scope.tableOrView : $scope.modelName, auditVar, actividades_poa_monitoreo.form.oldData);
 
                             if ($scope.form !== null)
                                 $scope.form.mode = FORM.modes.edit;
@@ -1426,6 +1426,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
         actividades_poa_monitoreo.refreshAngular();
     };
     actividades_poa_monitoreo.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
+        let resolved = false;
         delete data.updating.act_presupuesto_consumido;
         data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto_consumido_ver).value;
         data.updating.presupuesto = LAN.money(data.updating.presupuesto).value;
@@ -1469,6 +1470,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                 for (var item of buttons) {
                     item.disabled = false;
                 }
+                resolved = true;
                 resolve(false);
                 return;
             }
@@ -1481,6 +1483,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                 for (var item of buttons) {
                     item.disabled = false;
                 }
+                resolved = true;
                 resolve(false);
                 return;
             }
@@ -1499,8 +1502,8 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                 data.updating.presupuesto = LAN.money(actividades_poa_monitoreo.presupuesto).value;
             }
         }
-
-
+        actividades_poa_monitoreo.valor_validar.presupuesto_actividades = LAN.money(actividades_poa_monitoreo.valor_validar.presupuesto_actividades).value;
+        actividades_poa_monitoreo.valor_validar.presupuesto_restante = LAN.money(actividades_poa_monitoreo.valor_validar.presupuesto_restante).value;
         if (actividades_poa_monitoreo.estatus == ENUM_2.actividad_poa_estatus.Completada.toString()) {
             if (LAN.money(actividades_poa_monitoreo.presupuesto).value > actividades_poa_monitoreo.valor_validar.presupuesto_actividades) {
                 if (LAN.money(actividades_poa_monitoreo.presupuesto).value >= actividades_poa_monitoreo.valor_validar.valor) {
@@ -1514,6 +1517,7 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                     for (var item of buttons) {
                         item.disabled = false;
                     }
+                    resolved = true;
                     resolve(false);
                 } else if (LAN.money(actividades_poa_monitoreo.presupuesto).value > (actividades_poa_monitoreo.valor_validar.presupuesto_restante + actividades_poa_monitoreo.presupuesto_old)) {
                     SWEETALERT.show({
@@ -1526,10 +1530,12 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                     for (var item of buttons) {
                         item.disabled = false;
                     }
+                    resolved = true;
                     resolve(false);
                 } else {
                     data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto).value;
                     actividades_poa_monitoreo.soloAnadirComentario(true);
+                    resolved = true;
                     resolve(true);
                 }
             } else if (LAN.money(actividades_poa_monitoreo.presupuesto).value <= actividades_poa_monitoreo.valor_validar.presupuesto_actividades) {
@@ -1545,10 +1551,12 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
                         for (var item of buttons) {
                             item.disabled = false;
                         }
+                        resolved = true;
                         resolve(false);
                     } else {
                         data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto).value;
                         actividades_poa_monitoreo.soloAnadirComentario(true);
+                        resolved = true;
                         resolve(true);
                     }
                 }
