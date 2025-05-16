@@ -275,7 +275,8 @@
 
         MENU.setActive();
         setTimeout(() => {
-            baseController.setSeparator(MENU.current.menu.mark);
+            if (baseController.setSeparator)
+                baseController.setSeparator(MENU.current.menu.mark);
         }, 1000);
         $(".remove-content").removeClass("has-ul");
         if (new SESSION().current()) {

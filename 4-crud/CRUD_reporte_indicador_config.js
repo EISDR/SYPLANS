@@ -49,13 +49,16 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
             },
             orden: {formattype: ENUM.FORMAT.numeric},
             titulo: {
-                label: function(){
+                label: function () {
                     return "Título"
                 }
             },
             tipo_meta: {
-                label: function(){
+                label: function () {
                     return "Tipo de meta"
+                },
+                format: function (row) {
+                    return row.tipo_meta || "General";
                 }
             },
             color: {
@@ -68,13 +71,13 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
                 }
             },
             from: {
-                label: function(){
+                label: function () {
                     return "Valor desde"
                 },
                 formattype: ENUM.FORMAT.numeric
             },
             to: {
-                label: function(){
+                label: function () {
                     return "Valor hasta"
                 },
                 formattype: ENUM.FORMAT.numeric
@@ -91,13 +94,17 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
                 },
                 {
                     key: 'titulo',
-                    label: function(){ return 'Título'},
+                    label: function () {
+                        return 'Título'
+                    },
                     type: FILTER.types.string,
                     placeholder: 'Título'
                 },
                 {
                     key: 'tipo_meta',
-                    label: function(){ return 'Tipo de meta'},
+                    label: function () {
+                        return 'Tipo de meta'
+                    },
                     type: FILTER.types.relation,
                     table: 'tipoMeta',
                     value: "id",
@@ -113,14 +120,18 @@ DSON.keepmerge(CRUD_reporte_indicador_config, {
                 },
                 {
                     key: 'from',
-                    label: function(){ return 'Valor desde'},
+                    label: function () {
+                        return 'Valor desde'
+                    },
                     type: FILTER.types.integer,
                     placeholder: 'Valor desde',
                     maxlength: 15
                 },
                 {
                     key: 'to',
-                    label: function(){ return 'Valor hasta'},
+                    label: function () {
+                        return 'Valor hasta'
+                    },
                     type: FILTER.types.integer,
                     placeholder: 'Valor hasta',
                     maxlength: 15

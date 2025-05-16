@@ -58,7 +58,8 @@ app.controller("auth", function ($scope, $http, $compile) {
         let formID = auth.queries.id || 0;
         try {
             MENU.setActive("auth/formulario?id=" + formID);
-            baseController.setSeparator("- OPCIONES INDIVIDUALES -");
+            if (baseController.setSeparator)
+                baseController.setSeparator("- OPCIONES INDIVIDUALES -");
 
         } catch (e) {
 
@@ -70,7 +71,7 @@ app.controller("auth", function ($scope, $http, $compile) {
                     {field: "modulo_formulario", value: formID}
                 ]
             });
-            if (auth.isView.view == "true"){
+            if (auth.isView.view == "true") {
                 if (formID) {
                     baseController.formulario = await BASEAPI.firstp('modulo_formulario', {
                         where: [{value: formID}]

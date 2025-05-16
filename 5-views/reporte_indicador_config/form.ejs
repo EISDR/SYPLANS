@@ -3,7 +3,7 @@
         <div class="row">
             <div class='col-sm-2 col-md-2'>
                 <%- FORM.integer('orden', scope, {
-                    length:15
+                    length: 15
                 }) %>
             </div>
         </div>
@@ -21,7 +21,8 @@
                         table: "tipoMeta",
                         icon: {class: "archive"},
                         label: "Tipo de meta",
-                        condition: "item.ocultar!=='1'"
+                        condition: "item.ocultar!=='1'",
+                        selmsg: "General"
                     }) %>
                 </div>
             </div>
@@ -32,12 +33,12 @@
         <div class="row">
             <div class='col-sm-4 col-md-2'>
                 <%- FORM.integer('from', scope, {
-                    maxlength:3
+                    maxlength: 3
                 }) %>
             </div>
             <div class='col-sm-4 col-md-2'>
                 <%- FORM.integer('to', scope, {
-                    maxlength:3
+                    maxlength: 3
                 }) %>
             </div>
             <div class='col-sm-4 col-md-8'>

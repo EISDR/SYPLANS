@@ -315,6 +315,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         if (!disabled) {
             $(`[name=${names}]`).focus();
         }
+        $(`[name=${names}]`).addClass("meta_alcanzada");
 
         if (!CONFIGCOMPANY.carga_evidencia_abierta) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = disabled`);
@@ -355,7 +356,7 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
         if (indicador_resultado_pei.queries.id) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = true`);
         }
-        if (indicador_resultado_pei.evaluacion_abierta){
+        if (indicador_resultado_pei.evaluacion_abierta) {
             eval(`indicador_resultado_pei.form.options.meta${indicador_resultado_pei.list_indicador_resultado_pei[key].id}.disabled = false`);
             indicador_resultado_pei.list_indicador_resultado_pei[key].allow.allow = 1;
         }
@@ -733,8 +734,8 @@ app.controller("indicador_resultado_pei", function ($scope, $http, $compile) {
     };
 
     indicador_resultado_pei.save_pei_ano = function (indicado, limpi) {
-        let indicador = indicador_resultado_pei.list_indicador_resultado_pei.find(d=> d.id === indicado);
-        if (indicador_resultado_pei.tipo_meta_comentario_obligatorio && indicador.count_comment == 0){
+        let indicador = indicador_resultado_pei.list_indicador_resultado_pei.find(d => d.id === indicado);
+        if (indicador_resultado_pei.tipo_meta_comentario_obligatorio && indicador.count_comment == 0) {
             SWEETALERT.show({
                 type: 'warning',
                 message: `<p>Debe de Agregar un comentario antes de poder asignar una meta alcanzada</p>`,

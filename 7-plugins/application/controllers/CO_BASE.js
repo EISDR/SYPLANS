@@ -491,7 +491,8 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 animation.stoploading(`#dragonmenu`);
                 MENU.setActive();
                 setTimeout(() => {
-                    baseController.setSeparator(MENU.current.menu.mark);
+                    if (baseController.setSeparator)
+                        baseController.setSeparator(MENU.current.menu.mark);
                 }, 500);
                 location.reload();
             }, 500);
@@ -1613,14 +1614,18 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
         baseController.allloaded = true;
         baseController.refreshAngular();
         baseController.getProfileImange = function () {
-            console.log("me ejecuté");
-            var http = new HTTP();
-            BASEAPI.ajax.get(http.path(["files", "api"]), {
-                    folder: `usuario/profileimage/${adasession.getID()}`},
-                async function (data) {
-                    baseController.img_path = data.data.files[0];
-                    baseController.refreshAngular();
-                });
+            if (adasession)
+                if (adasession.getID()) {
+                    console.log("me ejecuté");
+                    var http = new HTTP();
+                    BASEAPI.ajax.get(http.path(["files", "api"]), {
+                            folder: `usuario/profileimage/${adasession.getID()}`
+                        },
+                        async function (data) {
+                            baseController.img_path = data.data.files[0];
+                            baseController.refreshAngular();
+                        });
+                }
         }
         baseController.getProfileImange();
         $(document).ready(function () {

@@ -331,13 +331,16 @@ FORM = {
     };
 
     function loginresize() {
-        var heightLogin = document.getElementById('coverlogin').clientHeight;
+        var heightLogin = document.getElementById('coverlogin')?.clientHeight;
         if (heightLogin != 0)
             document.getElementById("logincontent").style.height = `${heightLogin}px`;
         else
             document.getElementById("logincontent").style.height = `114vh`;
     }
 
+    setTimeout(() => {
+        MESSAGE.run();
+    }, 3000);
 
 </script>
 <style>

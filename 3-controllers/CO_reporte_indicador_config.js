@@ -22,7 +22,7 @@ app.controller("reporte_indicador_config", function ($scope, $http, $compile) {
             $scope.$watch("reporte_indicador_config.tipo_meta", function (value) {
                 var rules = [];
                 //rules here
-                rules.push(VALIDATION.general.required(value));
+                // rules.push(VALIDATION.general.required(value));
                 VALIDATION.validate(reporte_indicador_config, 'tipo_meta', rules);
             });
             $scope.$watch("reporte_indicador_config.titulo", function (value) {
