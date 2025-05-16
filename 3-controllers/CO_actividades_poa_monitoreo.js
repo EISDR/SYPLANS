@@ -1563,9 +1563,16 @@ app.controller("actividades_poa_monitoreo", function ($scope, $http, $compile) {
             } else {
                 data.updating.presupuesto_consumido = LAN.money(actividades_poa_monitoreo.presupuesto).value;
                 actividades_poa_monitoreo.soloAnadirComentario(true);
+                resolved = true;
                 resolve(true);
             }
         } else {
+            actividades_poa_monitoreo.refreshAngular();
+            actividades_poa_monitoreo.soloAnadirComentario(true);
+            resolved = true;
+            resolve(true);
+        }
+        if (!resolved) {
             actividades_poa_monitoreo.refreshAngular();
             actividades_poa_monitoreo.soloAnadirComentario(true);
             resolve(true);
