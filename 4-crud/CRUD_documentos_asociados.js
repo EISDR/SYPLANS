@@ -675,7 +675,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 dataActividades = dataActividades.data;
                                 if (dataActividades.length > 0) {
                                     let htmldeactividades = dataActividades.map(d => `<tr><td>${d.no_orden || ""}</td><td>${d.nombre || ""}</td><td>${d.responsable_nombre || ""}</td></tr>`).join('');;
-                                    let tabla = `<table class="table table-bordered"><thead><tr style="background-color: blue !important;"><th><span> Paso </span></th><th><span> Actividad </span></th><th><span> Responsable </span></th></tr></thead><tbody>${htmldeactividades}</tbody></table>`;
+                                    let tabla = `<table class="table table-bordered"><thead><tr><th style="background-color: #038cfc !important; color: white !important"><span style=" color: white !important;"> Paso </span></th><th style="background-color: #038cfc !important;"><span style=" color: white !important;"> Actividad </span></th><th style="background-color: #038cfc !important; color: white !important"><span style=" color: white !important;"> Responsable </span></th></tr></thead><tbody>${htmldeactividades}</tbody></table>`;
                                     data.row.actividades = tabla;
                                 }
                                 let dataPoliticas = await BASEAPI.listp('documento_politicas', {
