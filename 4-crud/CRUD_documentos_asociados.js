@@ -649,34 +649,118 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                         characterist: (data) => {
                             return "";
                         },
-                        click: function (data) {
+                        click: async function (data) {
                             console.log(data.row);
                             $("#eluniquex").html();
                             SWEETALERT.loading({message: `Generando documento.`});
                             let plantilla = "";
-
                             if (!DSON.oseaX(data.row)) {
                                 plantilla = data.row.plantilla || "";
-                                let actividades=[];
-                                let rawactividades = data.row.actividades.split(",");
-                                let rawresponsables = data.row.responsables.split(",");
-                                rawactividades.forEach((d,index)=>{
-                                    actividades.push({actividad:d,responsable:rawresponsables[index]});
+                                data.row.instrucciones = "";
+                                data.row.actividades = "";
+                                data.row.politicas = "";
+                                data.row.documento_referencia = "";
+                                data.row.responsabilidades = "";
+                                data.row.termino_definiciones = "";
+
+                                let dataActividades = await BASEAPI.listp('vw_solicitud_documento_actividades', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
                                 });
-                                let htmldeactividades = actividades.map(d=>`<tr><td>${d.actividad}</td><td>${d.responsable}</td></tr>`);
-                                let tabla = `<table>${htmldeactividades}</table>`;
+                                dataActividades = dataActividades.data;
+                                if (dataActividades.length > 0) {
+                                    let htmldeactividades = dataActividades.map(d => `<tr><td>${d.no_orden || ""}</td><td>${d.nombre || ""}</td><td>${d.responsable_nombre || ""}</td></tr>`).join('');;
+                                    let tabla = `<table class="table table-bordered"><thead><tr style="background-color: blue !important;"><th><span> Paso </span></th><th><span> Actividad </span></th><th><span> Responsable </span></th></tr></thead><tbody>${htmldeactividades}</tbody></table>`;
+                                    data.row.actividades = tabla;
+                                }
+                                let dataPoliticas = await BASEAPI.listp('documento_politicas', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
+                                });
+                                dataPoliticas = dataPoliticas.data;
+                                if (dataPoliticas.length > 0) {
+                                    let htmlpoliticas = dataPoliticas.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""} ${d.nombre  || ""}</li></ul>`).join('');
+                                    data.row.politicas = htmlpoliticas;
+                                }
+                                let dataReferencia = await BASEAPI.listp('documento_referencia', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
+                                });
+                                dataReferencia = dataReferencia.data;
+                                if (dataReferencia.length > 0) {
+                                    let htmlreferencia = dataReferencia.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""} ${d.nombre  || ""}</li></ul>`).join('');
+                                    data.row.documento_referencia = htmlreferencia;
+                                }
+                                let dataResponsabilidades = await BASEAPI.listp('documento_responsabilidades', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
+                                });
+                                dataResponsabilidades = dataResponsabilidades.data;
+                                if (dataResponsabilidades.length > 0) {
+                                    let htmlresponsabilidades = dataResponsabilidades.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""} ${d.nombre  || ""}</li></ul>`).join('');
+                                    data.row.responsabilidades = htmlresponsabilidades;
+                                }
+                                let dataTerminos_definiciones = await BASEAPI.listp('documento_terminos_condiciones', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
+                                });
+                                dataTerminos_definiciones = dataTerminos_definiciones.data;
+                                if (dataTerminos_definiciones.length > 0) {
+                                    let htmlterminos_definiciones = dataTerminos_definiciones.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""} ${d.nombre  || ""}</li></ul>`).join('');
+                                    data.row.termino_definiciones = htmlterminos_definiciones;
+                                }
+                                let dataInstrucciones = await BASEAPI.listp('documento_instrucciones', {
+                                    limit: 0,
+                                    where: [
+                                        {
+                                            field: "documento_asociado",
+                                            value: data.row.id
+                                        }
+                                    ],
+                                });
+                                dataInstrucciones = dataInstrucciones.data;
+                                if (dataInstrucciones.length > 0) {
+                                    let htmlinstrucciones = dataInstrucciones.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""} ${d.nombre  || ""}</li></ul>`).join('');
+                                    data.row.instrucciones = htmlinstrucciones;
+                                }
                                 Object.keys(data.row).forEach(d => {
                                     plantilla = plantilla.replaceAll(`@${d}@`, data.row[d] || "");
                                 });
                             }
                             $("#eluniquex").html(plantilla);
-                            $("#eluniquex").show();
+                            $("#eluniquex").hide();
                             if (data.row.estatus !== 'Autorizado')
                                 $("#eluniquex").attr('data-before', data.row.estatus);
 
                             $("#eluniquex").printThis({
                                 printDelay: 500,
                                 loadCSS: "../styles/planificacion/stylePrint.css?node=" + new Date().getTime(),      // path to additional css file - use an array [] for multiple
+                                importCSS: true
                             });
                             setTimeout(() => {
                                 SWEETALERT.stop();
