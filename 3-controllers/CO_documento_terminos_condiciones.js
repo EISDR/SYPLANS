@@ -3,7 +3,7 @@ app.controller("documento_terminos_condiciones", function ($scope, $http, $compi
     //documento_terminos_condiciones.fixFilters = [];
     //documento_terminos_condiciones.singular = "singular";
     //documento_terminos_condiciones.plural = "plural";
-    documento_terminos_condiciones.headertitle = "Términos y Condiciones";
+    documento_terminos_condiciones.headertitle = "Términos y Definiciones";
     //documento_terminos_condiciones.destroyForm = false;
     //documento_terminos_condiciones.permissionTable = "tabletopermission";
     RUNCONTROLLER("documento_terminos_condiciones", documento_terminos_condiciones, $scope, $http, $compile);
@@ -12,9 +12,9 @@ app.controller("documento_terminos_condiciones", function ($scope, $http, $compi
             RUN_B("documento_terminos_condiciones", documento_terminos_condiciones, $scope, $http, $compile);
             documento_terminos_condiciones.form.modalWidth = ENUM.modal.width.full;
             documento_terminos_condiciones.form.titles = {
-                new: "Nuevo Término y condición",
-                edit: "Editar Término y condición",
-                view: "Ver Término y condición"
+                new: "Nuevo Término y definición",
+                edit: "Editar Término y definición",
+                view: "Ver Término y definición"
             };
             documento_terminos_condiciones.form.readonly = {};
             documento_terminos_condiciones.createForm(data, mode, defaultData);
