@@ -753,7 +753,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 });
                             }
                             $("#eluniquex").html(plantilla);
-                            $("#eluniquex").hide();
+                            $("#eluniquex").show();
                             if (data.row.estatus !== 'Autorizado')
                                 $("#eluniquex").attr('data-before', data.row.estatus);
 
