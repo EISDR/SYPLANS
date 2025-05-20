@@ -456,6 +456,9 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
         };
 
         indicador_producto_poa_actividad.applyMasksy = function (key, ids) {
+            if(indicador_producto_poa_actividad.session.groups[0].caracteristica == 'SL'){
+                indicador_producto_poa_actividad.rol_bloqueado = indicador_producto_poa_actividad.session.groups[0].id;
+            }
             var names = "indicador_producto_poa_actividad_meta" + indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].id;
             indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow = indicador_producto_poa_actividad.permission(indicador_producto_poa_actividad.indicador_poa, indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].periodo);
             indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].message = indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow.debug;
@@ -465,6 +468,12 @@ app.controller("indicador_producto_poa_actividad", function ($scope, $http, $com
 
             if (!disabled) {
                 $(`[name=${names}]`).focus();
+            }
+
+            if(indicador_producto_poa_actividad.session.groups[0].caracteristica == 'SL'){
+                indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].allow = false;
+                indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].message = 'Usted no posee los permisos para trabajar con este indicador';
+                disabled = true;
             }
             ids.push(indicador_producto_poa_actividad.list_indicador_producto_poa_actividad[key].id);
             $(`[name=${names}]`).addClass("meta_alcanzada");

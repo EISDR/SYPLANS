@@ -66,7 +66,7 @@ app.controller("pesta_items", function ($scope, $http, $compile) {
         resolve(true);
     });
     pesta_items.triggers.table.after.load = function (record) {
-        check_active_PEI(user.pei_id);
+        check_active_PEI(user.pei_id, pesta_items);
     };
     pesta_items.triggers.table.after.audit = () => new Promise(async (resolve, reject) => {
         if (dragon_audit.storageModel == "vw_pesta_items") {

@@ -23,6 +23,15 @@ app.controller("involucrados", function ($scope, $http, $compile) {
     involucrados.headertitle = "Involucrados";
     //involucrados.destroyForm = false;
     //involucrados.permissionTable = "tabletopermission";
+    setTimeout(function (){
+        if(new SESSION().current().groups[0].caracteristica == 'SL'){
+            involucrados.setPermission("add", false);
+            involucrados.setPermission("edit", false);
+            involucrados.setPermission("active", false);
+            involucrados.setPermission("remove", false);
+            involucrados.refresh();
+        }
+    }, 500);
     RUNCONTROLLER("involucrados", involucrados, $scope, $http, $compile);
     involucrados.formulary = function (data, mode, defaultData) {
         if (involucrados !== undefined) {

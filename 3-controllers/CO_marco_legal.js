@@ -63,6 +63,7 @@ app.controller("marco_legal", function ($scope, $http, $compile) {
     // };
     marco_legal.triggers.table.before.load = () => new Promise((resolve, reject) => {
         //console.log(`$scope.triggers.table.before.load ${$scope.modelName}`);
+        check_active_PEI(session.pei_id, marco_legal);
         BASEAPI.first('marco_estrategico', {
             where: [{
                 field: "pei",

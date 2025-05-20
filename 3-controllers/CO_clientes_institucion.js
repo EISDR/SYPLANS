@@ -16,7 +16,7 @@ app.controller("clientes_institucion", function ($scope, $http, $compile) {
     clientes_institucion.triggers.table.after.load = function (record) {
         clientes_institucion.runMagicOneToMany('cliente_id', 'clientes_compromisos', 'cliente', 'compromiso', 'id');
         clientes_institucion.refreshAngular();
-        check_active_PEI(session.pei_id);
+        check_active_PEI(session.pei_id, clientes_institucion);
     };
 
     clientes_institucion.triggers.table.after.audit = () => new Promise(async (resolve, reject) => {

@@ -615,6 +615,10 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 CONFIGCOMPANY.opcion_ods = 0;
                 CONFIGCOMPANY.compy_admin = 1;
             }
+
+            if (intersession.groups[0].caracteristica == 'SL'){
+                CONFIGCOMPANY.only_plani = 1;
+            }
             var predicado = menu => {
                 if (menu.condition) {
                     let result = false;

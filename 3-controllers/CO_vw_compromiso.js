@@ -12,6 +12,15 @@ app.controller("vw_compromiso", function ($scope, $http, $compile) {
     vw_compromiso.headertitle = "Compromisos Nacionales e Internacionales";
     //vw_compromiso.destroyForm = false;
     //vw_compromiso.permissionTable = "tabletopermission";
+    setTimeout(function (){
+        if(new SESSION().current().groups[0].caracteristica == 'SL'){
+            vw_compromiso.setPermission("add", false);
+            vw_compromiso.setPermission("edit", false);
+            vw_compromiso.setPermission("active", false);
+            vw_compromiso.setPermission("remove", false);
+            vw_compromiso.refreshAngular();
+        }
+    }, 500);
     RUNCONTROLLER("vw_compromiso", vw_compromiso, $scope, $http, $compile);
     vw_compromiso.formulary = function (data, mode, defaultData) {
         if (vw_compromiso !== undefined) {

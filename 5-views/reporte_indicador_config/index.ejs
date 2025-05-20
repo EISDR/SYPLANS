@@ -6,3 +6,14 @@
         </div>
     </div>
 </div><!--end-->
+<script>
+    setTimeout(function (){
+        if(new SESSION().current().groups[0].caracteristica == 'SL'){
+            reporte_indicador_config.setPermission("add", false);
+            reporte_indicador_config.setPermission("edit", false);
+            reporte_indicador_config.setPermission("active", false);
+            reporte_indicador_config.setPermission("remove", false);
+            reporte_indicador_config.refresh();
+        }
+    }, 500);
+</script>

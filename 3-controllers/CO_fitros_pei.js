@@ -103,10 +103,10 @@ app.controller("filtros_pei", function ($scope, $http, $compile) {
     });
     //
     filtros_pei.mostrar = function(){
-        return ((filtros_pei.estado_pei!=4) && megaconsulta.allow(['authorize_pei']));
+        return ((filtros_pei.estado_pei!=4) && megaconsulta.allow(['authorize_pei']) && session.groups[0].caracteristica !== 'SL');
     };
     filtros_pei.mostrar_desautorizar = function(){
-        return ((filtros_pei.estado_pei==4) && megaconsulta.allow(['authorize_pei']));
+        return ((filtros_pei.estado_pei==4) && megaconsulta.allow(['authorize_pei']) && session.groups[0].caracteristica !== 'SL');
     };
     filtros_pei.Guardar_click = function () {
         SWEETALERT.confirm({

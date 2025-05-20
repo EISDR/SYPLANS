@@ -114,7 +114,7 @@ app.controller("marco_estrategico_valores", function ($scope, $http, $compile) {
         marco_estrategico_valores.runMagicOneToMany('me_virtudes', 'marco_estrategicos_virtudes', 'marco_estrategico_valor', 'nombre', 'id');
         marco_estrategico_valores.refreshAngular();
         marco_estrategico_valores.actualizar_autosize_textarea();
-        check_active_PEI(user.pei_id);
+        check_active_PEI(user.pei_id, marco_estrategico_valores);
     };
 
     RUNCONTROLLER("marco_estrategico_valores", marco_estrategico_valores, $scope, $http, $compile);
@@ -382,7 +382,7 @@ app.controller("marco_estrategico_valores", function ($scope, $http, $compile) {
         },100);
     };
     marco_estrategico_valores.modo_view_fun = function (data) {
-        if(!marco_estrategico_valores.allow([data])){
+        if(!marco_estrategico_valores.allow([data]) || marco_estrategico_valores.session.groups[0].caracteristica == 'SL'){
             $('#textareaMision').prop("disabled", true);
             $('#textareaVision').prop("disabled", true);
             $('#textareaHistoria').prop("disabled", true);
@@ -391,5 +391,5 @@ app.controller("marco_estrategico_valores", function ($scope, $http, $compile) {
             return true;
         }
     };
-    
+
 });

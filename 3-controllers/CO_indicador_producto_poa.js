@@ -384,6 +384,9 @@ app.controller("indicador_producto_poa", function ($scope, $http, $compile) {
         };
 
         indicador_producto_poa.applyMasksy = function (key, ids) {
+            if(indicador_producto_poa.session.groups[0].caracteristica == 'SL'){
+                indicador_producto_poa.rol_bloqueado = indicador_producto_poa.session.groups[0].id;
+            }
             var names = "indicador_producto_poa_meta" + indicador_producto_poa.list_indicador_producto_poa[key].id;
             indicador_producto_poa.list_indicador_producto_poa[key].allow = indicador_producto_poa.permission(indicador_producto_poa.indicador_poa, indicador_producto_poa.list_indicador_producto_poa[key].periodo);
             indicador_producto_poa.list_indicador_producto_poa[key].message = indicador_producto_poa.list_indicador_producto_poa[key].allow.debug;

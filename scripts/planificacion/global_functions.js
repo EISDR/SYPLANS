@@ -13,6 +13,7 @@ function addZeroes(num) {
 
 
 getPEIstatus = async function ($scope, pei_id) {
+    var session = new SESSION().current();
     $scope.pei = await BASEAPI.listp("pei", {
         where: [{
             field: 'id',
@@ -27,6 +28,15 @@ getPEIstatus = async function ($scope, pei_id) {
             $scope.evaluacion_abierta = $scope.pei.data[0].evaluacion_abierta;
         }
     }
+    setTimeout(function (){
+        if(session.groups[0].caracteristica == 'SL'){
+            $scope.setPermission("add", false);
+            $scope.setPermission("edit", false);
+            $scope.setPermission("active", false);
+            $scope.setPermission("remove", false);
+            $scope.refreshAngular();
+        }
+    }, 500);
 };
 
 removeNumbers = function (str) {
@@ -35,6 +45,7 @@ removeNumbers = function (str) {
 };
 
 getPOAstatus = async function ($scope, poa_id) {
+    var session = new SESSION().current();
     $scope.poa = await BASEAPI.listp("poa", {
         where: [{
             field: 'id',
@@ -46,6 +57,15 @@ getPOAstatus = async function ($scope, poa_id) {
         $scope.estatus_poa = $scope.poa.data[0].estado;
         $scope.condicion_poa = $scope.poa.data[0].activo;
     }
+    setTimeout(function (){
+        if(session.groups[0].caracteristica == 'SL'){
+            $scope.setPermission("add", false);
+            $scope.setPermission("edit", false);
+            $scope.setPermission("active", false);
+            $scope.setPermission("remove", false);
+            $scope.refreshAngular();
+        }
+    }, 500);
 };
 
 equlizer = function (Class_name, scope) {
@@ -843,6 +863,7 @@ check_POA = function (controllerName, poa_ID) {
 };
 
 check_PEI = function ($scope, pei_ID) {
+    var session = new SESSION().current();
     BASEAPI.list('vw_pei', {
         where: [{
             field: "id",
@@ -863,9 +884,20 @@ check_PEI = function ($scope, pei_ID) {
             $('.icon-plus-circle2 ').parent().hide();
         }
     });
+    setTimeout(function (){
+        if(session.groups[0].caracteristica == 'SL'){
+            $scope = eval(`${$scope}`);
+            $scope.setPermission("add", false);
+            $scope.setPermission("edit", false);
+            $scope.setPermission("active", false);
+            $scope.setPermission("remove", false);
+            $scope.refreshAngular();
+        }
+    }, 500);
 };
 
-check_active_PEI = function (pei_ID) {
+check_active_PEI = function (pei_ID, $scope) {
+    var session = new SESSION().current();
     BASEAPI.list('vw_pei', {
         where: [{
             field: "id",
@@ -884,6 +916,15 @@ check_active_PEI = function (pei_ID) {
             }
         }
     });
+    setTimeout(function (){
+        if(session.groups[0].caracteristica == 'SL'){
+            $scope.setPermission("add", false);
+            $scope.setPermission("edit", false);
+            $scope.setPermission("active", false);
+            $scope.setPermission("remove", false);
+            $scope.refreshAngular();
+        }
+    }, 500);
 };
 
 check_active_POA = function (poa_ID) {

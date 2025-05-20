@@ -53,7 +53,7 @@ app.controller("foda_items", function ($scope, $http, $compile) {
         resolve(true);
     });
     foda_items.triggers.table.after.load = function (record) {
-        check_active_PEI(user.pei_id);
+        check_active_PEI(user.pei_id, foda_items);
     };
     RUN_B("foda_items", foda_items, $scope, $http, $compile);
     foda_items.plural = MESSAGE.i('planificacion.titleFoda');
