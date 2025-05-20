@@ -34,6 +34,7 @@ getPEIstatus = async function ($scope, pei_id) {
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
             $scope.setPermission("remove", false);
+            $scope.setPermission('work', false);
             $scope.refreshAngular();
         }
     }, 500);
@@ -63,6 +64,7 @@ getPOAstatus = async function ($scope, poa_id) {
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
             $scope.setPermission("remove", false);
+            $scope.setPermission('work', false);
             $scope.refreshAngular();
         }
     }, 500);
@@ -891,6 +893,7 @@ check_PEI = function ($scope, pei_ID) {
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
             $scope.setPermission("remove", false);
+            $scope.setPermission('work', false);
             $scope.refreshAngular();
         }
     }, 500);
@@ -922,6 +925,7 @@ check_active_PEI = function (pei_ID, $scope) {
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
             $scope.setPermission("remove", false);
+            $scope.setPermission('work', false);
             $scope.refreshAngular();
         }
     }, 500);
