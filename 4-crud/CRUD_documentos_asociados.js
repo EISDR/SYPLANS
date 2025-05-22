@@ -676,7 +676,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 dataActividades = dataActividades.data;
                                 if (dataActividades.length > 0) {
                                     let htmldeactividades = dataActividades.map(d => `<tr><td>${d.no_orden || ""}</td><td>${d.responsable_nombre || ""}</td><td>${d.nombre || ""}</td></tr>`).join('');;
-                                    let tabla = `<table class="table table-bordered"><thead><tr><th style="background-color: #038cfc !important; color: white !important"><span style=" color: white !important;"> Paso </span></th><th style="background-color: #038cfc !important;"><th style="background-color: #038cfc !important; color: white !important"><span style=" color: white !important;"> Responsable </span></th<span style=" color: white !important;"> Descripción </span></th>></tr></thead><tbody>${htmldeactividades}</tbody></table>`;
+                                    let tabla = `<table class="table table-bordered"><thead><tr><th style="background-color: #038cfc !important; color: white !important"><span style=" color: white !important;"> Paso </span></th><th style="background-color: #038cfc !important;"><span style=" color: white !important;"> Responsable </span></th><th style="background-color: #038cfc !important;"><span style=" color: white !important;"> Descripción </span></th></tr></thead><tbody>${htmldeactividades}</tbody></table>`;
                                     data.row.actividades = tabla;
                                 }
                                 let dataPoliticas = await BASEAPI.listp('documento_politicas', {
@@ -690,7 +690,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 });
                                 dataPoliticas = dataPoliticas.data;
                                 if (dataPoliticas.length > 0) {
-                                    let htmlpoliticas = dataPoliticas.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;<strong>${d.nombre  || ""}</strong></li></ul>`).join('');
+                                    let htmlpoliticas = dataPoliticas.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;${d.nombre  || ""}</li></ul>`).join('');
                                     data.row.politicas = htmlpoliticas;
                                 }
                                 let dataReferencia = await BASEAPI.listp('documento_referencia', {
@@ -704,7 +704,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 });
                                 dataReferencia = dataReferencia.data;
                                 if (dataReferencia.length > 0) {
-                                    let htmlreferencia = dataReferencia.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;<strong>${d.nombre  || ""}</strong></li></ul>`).join('');
+                                    let htmlreferencia = dataReferencia.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;${d.nombre  || ""}</li></ul>`).join('');
                                     data.row.documento_referencia = htmlreferencia;
                                 }
                                 let dataResponsabilidades = await BASEAPI.listp('documento_responsabilidades', {
@@ -718,7 +718,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 });
                                 dataResponsabilidades = dataResponsabilidades.data;
                                 if (dataResponsabilidades.length > 0) {
-                                    let htmlresponsabilidades = dataResponsabilidades.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;<strong>${d.nombre  || ""}</strong></li></ul>`).join('');
+                                    let htmlresponsabilidades = dataResponsabilidades.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;${d.nombre  || ""}</li></ul>`).join('');
                                     data.row.responsabilidades = htmlresponsabilidades;
                                 }
                                 let dataTerminos_definiciones = await BASEAPI.listp('documento_terminos_condiciones', {
@@ -746,7 +746,7 @@ DSON.keepmerge(CRUD_documentos_asociados, {
                                 });
                                 dataInstrucciones = dataInstrucciones.data;
                                 if (dataInstrucciones.length > 0) {
-                                    let htmlinstrucciones = dataInstrucciones.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp; <strong>${d.nombre  || ""}</strong></li></ul>`).join('');
+                                    let htmlinstrucciones = dataInstrucciones.map(d=>`<ul style="list-style: none; margin: 0; padding: 0;"><li>${d.no_orden || ""}&nbsp;&nbsp;&nbsp;&nbsp;${d.nombre  || ""}</li></ul>`).join('');
                                     data.row.instrucciones = htmlinstrucciones;
                                 }
                                 let diagramaList = await BASEAPI.listp('documentos_asociados_mapa_conceptual', {
