@@ -180,7 +180,6 @@
 <script>
     $(function(){
         setTimeout(async function (){
-            SWEETALERT.loading({message: `Generando Ficha.`});
             let diagramaList = await BASEAPI.listp('procesos_mapa_conceptual', {
                 limit: 0,
                 where: [
@@ -735,7 +734,6 @@
                 procesos.refreshAngular()
             }
             $("#eluniquex").html(procesos.dataForFicha.ficha_diagrama);
-            SWEETALERT.stop();
         },100)
     });
 </script>
