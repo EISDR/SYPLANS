@@ -6,7 +6,7 @@ app.controller("tipo_documento", function ($scope, $http, $compile) {
         "creador_por_nombre", "creado_en", "aprobado_por_nombre", "tipo_documento",
         "aprobado_en", "observacion", "solicitante_nombre", "solicitante_departamento", "fecha_solicitud",
         "solicitud_documento_nombre", "alcance", "objetivo", "resultado_esperado", "marco_legal",
-        "folder", "version", "responsable_proceso_departamento", "documento_general", "version_documento", "es_confidencial","actividades", "responsables", "resposabilidades", "documento_referencia","termino_definiciones" ,"politicas", "instrucciones"];
+        "folder", "version", "responsable_proceso_departamento", "documento_general", "version_documento", "es_confidencial","actividades", "responsables", "resposabilidades", "documento_referencia","termino_definiciones" ,"politicas", "instrucciones", "diagrama"];
     tipo_documento.variables = tipo_documento.variables.map(d => `@${d}@`);
     tipo_documento.fixFilters = [
         {

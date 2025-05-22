@@ -418,7 +418,7 @@ app.controller("documentos_asociados_mapa_conceptual", function ($scope, $http, 
                                             font: 'bold 13pt sans-serif',
                                             editable: true,
                                             margin: new go.Margin(2, 0, 0, 0)
-                                        }).bindTwoWay('text')
+                                        }).bindTwoWay('text', "text", function (t){ return decodeURIComponent(t);})
                                     ),
                                 go.GraphObject.build('SubGraphExpanderButton', { margin: 5 }) // but this remains always visible!
                             ), // end Horizontal Panel
@@ -493,7 +493,7 @@ app.controller("documentos_asociados_mapa_conceptual", function ($scope, $http, 
                                             font: 'bold 16pt sans-serif',
                                             editable: true,
                                             margin: new go.Margin(2, 0, 0, 0)
-                                        }).bindTwoWay('text')
+                                        }).bindTwoWay('text',"text", function (t){ return decodeURIComponent(t);})
                                     ),
                                 new go.Placeholder({ column: 1 })
                             )
@@ -571,6 +571,15 @@ app.controller("documentos_asociados_mapa_conceptual", function ($scope, $http, 
             }
         });
 
+        documentos_asociados_mapa_conceptual.myDiagram.model.nodeDataArray.forEach(function(data) {
+            if (data.isGroup) { // Solo afecta a los grupos
+                if (data.text) {
+                    data.text = encodeURIComponent(data.text);
+                }
+            }
+        });
+
+
         documentos_asociados_mapa_conceptual.myDiagram.links.each(function(link) {
             if (link.points !== null) {
                 // Convertir la lista de puntos en un array de números
@@ -583,7 +592,13 @@ app.controller("documentos_asociados_mapa_conceptual", function ($scope, $http, 
 
     // Luego, decodificar el texto cuando cargues el diagrama
     documentos_asociados_mapa_conceptual.loadMapa = function (json) {
+        documentos_asociados_mapa_conceptual.myDiagram.model.nodeDataArray.forEach(function(data) {
+            if (data.isGroup && data.text) {
+                console.log(decodeURIComponent(data.text)); // Mostrará los caracteres especiales correctamente
+            }
+        });
         documentos_asociados_mapa_conceptual.myDiagram.model = go.Model.fromJson(json);
+
 
         documentos_asociados_mapa_conceptual.myDiagram.nodes.each(function(node) {
             var textBlock = node.findObject("TEXTBLOCK");
