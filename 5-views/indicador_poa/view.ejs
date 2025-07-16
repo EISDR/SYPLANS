@@ -15,15 +15,6 @@
         </span>
         </td>
     </tr>
-    <tr ng-repeat="(keycolum, value) in <%= scope %>.detalleapd track by keycolum" repeat-end="<%= scope %>.refreshAngular()">
-        <td class="text-white bg-<%= COLOR.secundary %>">
-            <span ng-bind-html="value.column"></span>
-        </td>
-        <td>
-            <span ng-bind-html="value.row"></span>
-        </td>
-
-    </tr>
 
     </tbody>
 </table>
