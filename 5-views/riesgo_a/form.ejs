@@ -1,20 +1,21 @@
 <div class="tab-content">
     <div class="tab-pane active" id="basic">
         <div class="row">
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.input('nombre', scope, {}) %>
+            <div class='col-sm-12 col-md-12'>
+                <%- FORM.textarea('nombre', scope, {}) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
-                <%- FORM.input('causa_debilidad', scope, {
+        </div>
+        <div class="row">
+            <div class='col-sm-4 col-md-6'>
+                <%- FORM.textarea('causa_debilidad', scope, {
                     trueplaceholder: "Causa o Debilidad"
                 }) %>
             </div>
-            <div class='col-sm-4 col-md-4'>
+            <div class='col-sm-4 col-md-6'>
                 <%- FORM.textarea('consecuencia', scope, {
                     trueplaceholder: "Efecto"
                 }) %>
             </div>
-
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4 " ng-if="riesgo_a.session.institucion">

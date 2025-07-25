@@ -895,7 +895,7 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
         let usuarios = auditoria_lista_correctiva.form?.options?.responsable?.data || [];
         let departamentosSeleccionados = auditoria_lista_correctiva.departamento !== "[NULL]" ?
             (auditoria_lista_correctiva.departamento || []) : [];
-        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d) || 0);
+        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d, 10)).filter(id => !isNaN(id) && id > 0);
         if (!departamentosSeleccionados.length)
             return true;
         let usuariosConDepartamentosSeleccionads = usuarios.filter(d => departamentosSeleccionados.indexOf(d.departamento) !== -1);
@@ -909,8 +909,10 @@ app.controller("auditoria_lista_correctiva", function ($scope, $http, $compile) 
             (auditoria_lista_correctiva.cargos || []) : [];
         let departamentosSeleccionados = auditoria_lista_correctiva.departamento !== "[NULL]" ?
             (auditoria_lista_correctiva.departamento || []) : [];
-        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d) || 0);
-        cargosSeleccionados = cargosSeleccionados.map(d => parseInt(d) || 0);
+        cargosSeleccionados = cargosSeleccionados.map(d => parseInt(d, 10)).filter(id => !isNaN(id) && id > 0);
+
+        departamentosSeleccionados = departamentosSeleccionados.map(d => parseInt(d, 10)).filter(id => !isNaN(id) && id > 0);
+
         if (!departamentosSeleccionados.length && !cargosSeleccionados.length)
             return true;
         if (departamentosSeleccionados.length && !cargosSeleccionados.length) {
