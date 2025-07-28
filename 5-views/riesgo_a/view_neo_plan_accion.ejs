@@ -12,7 +12,7 @@
                                 placeholder: "id"
                             }) %>
                         </div>
-                        <div class="col-sm-3 col-md-3 ">
+                        <div class="col-sm-3 col-md-2 ">
                             <%- FORM.inputview("view_entidad", scope, {
                                 placeholder: "Entidad"
                             }) %>
@@ -25,6 +25,12 @@
                         <div class="col-sm-3 col-md-3 ">
                             <%- FORM.inputview("view_riesgo_a", scope, {
                                 placeholder: "Riesgo"
+                            }) %>
+                        </div>
+
+                        <div class="col-sm-3 col-md-4 ">
+                            <%- FORM.inputview("evaluacion", scope, {
+                                placeholder: "Observación del Monitoreo del Riesgo"
                             }) %>
                         </div>
                         <div class="row" ng-show="false">

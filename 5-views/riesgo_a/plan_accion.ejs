@@ -15,19 +15,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2 col-md-2 ">
+                        <div class="col-sm-2 col-md-1 ">
                             <%- FORM.inputview("id", scope, {
                                 trueplaceholder: "ID Matriz de riesgo"
                             }) %>
                         </div>
-                        <div class="col-sm-5 col-md-5 " id="registrodiv">
+                        <div class="col-sm-5 col-md-3 " id="registrodiv">
                             <%- FORM.inputview("view_registro", scope, {
                                 placeholder: "Nombre"
                             }) %>
                         </div>
-                        <div class="col-sm-5 col-md-5 ">
+                        <div class="col-sm-5 col-md-4 ">
                             <%- FORM.inputview("view_riesgo_a", scope, {
                                 placeholder: "Riesgo"
+                            }) %>
+                        </div>
+                        <div class="col-sm-3 col-md-4 ">
+                            <%- FORM.inputview("evaluacion", scope, {
+                                placeholder: "Observación del Monitoreo del Riesgo"
                             }) %>
                         </div>
                         <div class="row" ng-show="false">
