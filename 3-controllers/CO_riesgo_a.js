@@ -1495,6 +1495,7 @@ app.controller("riesgo_a", function ($scope, $http, $compile) {
         riesgo_a.observacion = row.observacion;
         riesgo_a.condicion = row.condicion;
         riesgo_a.fin_plan_accion = row.condicion === 1;
+        riesgo_a.evaluacion = row.evaluacion;
         if (!riesgo_a.ocurrencia)
             riesgo_a.ocurrencia = row.ocurrencia;
 
