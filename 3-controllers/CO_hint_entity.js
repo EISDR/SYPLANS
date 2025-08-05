@@ -39,7 +39,7 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
         if (hint_entity !== undefined) {
             RUN_B("hint_entity", hint_entity, $scope, $http, $compile);
             hint_entity.form.modalWidth = ENUM.modal.width.full;
-            hint_entity.form.readonly = {};
+            hint_entity.form.readonly = {company: user_info.compania_id};
             hint_entity.createForm(data, mode, defaultData);
             $scope.$watch("hint_entity.name", function (value) {
                 var rules = [];
@@ -94,15 +94,15 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
     //     return true;
     // };
     hint_entity.triggers.table.before.insert = (data) => new Promise((resolve, reject) => {
-        if (!user_info.super){
-            data.inserting.company = user_info.compania_id.toString();
-        }
-        if (hint_fields.company_object != null){
-            if (hint_fields.company_object.id != undefined)
-                data.inserting.company = hint_fields.company_object.id;
-            else
-                data.inserting.company = "";
-        }
+        // if (!user_info.super){
+        //     data.inserting.company = user_info.compania_id.toString();
+        // }
+        // if (hint_fields.company_object != null){
+        //     if (hint_fields.company_object.id != undefined)
+        //         data.inserting.company = hint_fields.company_object.id;
+        //     else
+        //         data.inserting.company = "";
+        // }
         hint_entity.showMe = true;
         resolve(true)
     });
@@ -111,15 +111,15 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
     //     //console.log(`$scope.triggers.table.after.update ${$scope.modelName}`);
     // };
     hint_entity.triggers.table.before.update = (data) => new Promise((resolve, reject) => {
-        if (!user_info.super){
-            data.updating.company = user_info.compania_id.toString();
-        }
-        if (hint_fields.company_object != null){
-            if (hint_fields.company_object.id != undefined)
-                data.updating.company = hint_fields.company_object.id;
-            else
-                data.updating.company = "";
-        }
+        // if (!user_info.super){
+        //     data.updating.company = user_info.compania_id.toString();
+        // }
+        // if (hint_fields.company_object != null){
+        //     if (hint_fields.company_object.id != undefined)
+        //         data.updating.company = hint_fields.company_object.id;
+        //     else
+        //         data.updating.company = "";
+        // }
         hint_entity.showMe = true;
         resolve(true)
     });

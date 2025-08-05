@@ -468,6 +468,12 @@ if (CONFIG.mssql !== undefined) {
     }).catch((err) => {
         console.log("mssql database error");
     });
+    modules.mssql.data(`select * from hint_fields`, PARAMS, false).then(w =>{
+        hints = w.data;
+        storage.setItem('hint_fields', hints);
+    }).catch((err) => {
+        console.log("mssql database error", err);
+    });
 } else loadedMotors++;
 if (CONFIG.mysqlactive !== false) {
     modelmysql = [];
@@ -502,6 +508,12 @@ if (CONFIG.mysqlactive !== false) {
         }).catch((err) => {
             console.log("mysql database error");
         });
+    }).catch((err) => {
+        console.log("mysql database error", err);
+    });
+    modules.mysql.data(`select * from hint_fields`, PARAMS, false).then(w =>{
+        hints = w.data;
+        storage.setItem('hint_fields', hints);
     }).catch((err) => {
         console.log("mysql database error", err);
     });
@@ -571,7 +583,12 @@ if (CONFIG.postgreactive !== false) {
         console.log("postgre database error");
         console.log(err);
     });
-
+    modules.postgre.data(`select * from hint_fields`, PARAMS, false).then(w =>{
+        hints = w.data;
+        storage.setItem('hint_fields', hints);
+    }).catch((err) => {
+        console.log("postgre database error", err);
+    });
 } else loadedMotors++;
 if (CONFIG.oracle !== undefined) {
     modeloracle = [];
