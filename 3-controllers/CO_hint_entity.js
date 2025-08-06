@@ -39,7 +39,9 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
         if (hint_entity !== undefined) {
             RUN_B("hint_entity", hint_entity, $scope, $http, $compile);
             hint_entity.form.modalWidth = ENUM.modal.width.full;
-            hint_entity.form.readonly = {company: user_info.compania_id};
+            if(!user_info.super)
+                hint_entity.form.readonly = {company: user_info.compania_id};
+            
             hint_entity.createForm(data, mode, defaultData);
             $scope.$watch("hint_entity.name", function (value) {
                 var rules = [];
