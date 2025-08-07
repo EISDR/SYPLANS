@@ -140,7 +140,7 @@ var toclient = JSON.stringify(options);
             = `${MESSAGE.ic('mono.youselect')}`;
     }
     if (new SESSION().isLogged()) {
-        let messagepop = popopmeGlobal("<%= model %>", "<%= model %>", "<%= nameclean %>");
+        let messagepop = popopmeGlobal("<%= model %>", "<%= nameclean %>");
         if (messagepop) {
             // El texto con entidades HTML
             const textoConEntidadesHTML = messagepop.text;
@@ -206,7 +206,7 @@ var toclient = JSON.stringify(options);
     <label class="control-label is-visible animate" style="color:#000000 !important;">
         {{<%= model + "." + options.forme %>.options.<%= name %>.truelabel || <%= model + "." + options.forme %>
         .options.<%= name %>.label}}
-        <i
+        <i style="display: none"
            id="popover<%= model %>_<%= nameclean %>" class="icon-help">
         </i>
     </label>
@@ -424,7 +424,7 @@ var toclient = JSON.stringify(options);
 
     $(document).ready(function () {
         if (new SESSION().isLogged()) {
-            let messagepop = popopmeGlobal("<%= model %>", "<%= model %>", "<%= nameclean %>");
+            let messagepop = popopmeGlobal("<%= model %>", "<%= nameclean %>");
             if (messagepop)
             {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
