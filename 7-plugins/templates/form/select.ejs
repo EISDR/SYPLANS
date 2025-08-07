@@ -103,6 +103,7 @@ if (options.join) {
 var toclient = JSON.stringify(options);
 %>
 <script>
+
     <%= model %>.selectMessage = "<%= options.selmsg %>" || MESSAGE.ic('mono.youselect');
     <%= model %>.triggers.table.before.control("<%= nameclean %>");
     if (DSON.oseaX(<%= model + "." + name %>))
@@ -155,7 +156,7 @@ var toclient = JSON.stringify(options);
             const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
             console.log(textoConvertido)
                     <%= model + "." + options.forme %>.options.<%= name %>.popover = {
-                title:messagepop.field_names,
+                title: messagepop.field_names,
                 content: textoConvertido,
                 label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
                 <%= model + "." + options.forme %>.options.<%= name %>.trueplaceholder ||
@@ -205,7 +206,7 @@ var toclient = JSON.stringify(options);
     <label class="control-label is-visible animate" style="color:#000000 !important;">
         {{<%= model + "." + options.forme %>.options.<%= name %>.truelabel || <%= model + "." + options.forme %>
         .options.<%= name %>.label}}
-        <i ng-show="<%= model + "." + options.forme %>.options.<%= name %>.mess.length>0 || <%= model + "." + options.forme %>.options.<%= name %>.popover"
+        <i
            id="popover<%= model %>_<%= nameclean %>" class="icon-help">
         </i>
     </label>
@@ -423,24 +424,16 @@ var toclient = JSON.stringify(options);
 
     $(document).ready(function () {
         if (new SESSION().isLogged()) {
-            if (<%= model + "." + options.forme %>.
-            options.<%= name %>.mess || <%= model + "." + options.forme %>.
-            options.<%= name %>.popover
-        )
+            let messagepop = popopmeGlobal("<%= model %>", "<%= model %>", "<%= nameclean %>");
+            if (messagepop)
             {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
                     title: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.label + "`"),
-                    content
-            :
-                eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.popover.content + "`"
-            ),
-                html: true,
-                    trigger
-            :
-                'manual'
-            })
-                ;
+                    content messagepop.text,
+                    html: true,
+                    trigger:'manual'
+                });
                 // Obtén el elemento que deseas observar
                 const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 
@@ -453,6 +446,9 @@ var toclient = JSON.stringify(options);
 
                     }
                 });
+                setTimeout(()=>{
+                    $('#popover<%= model %>_<%= nameclean %>').show("slow");
+                },2000);
                 $('#popover<%= model %>_<%= nameclean %>').on('click', function (evento) {
                     evento.stopPropagation();
                     $(this).popover('show');
