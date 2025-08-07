@@ -28,8 +28,8 @@ getPEIstatus = async function ($scope, pei_id) {
             $scope.evaluacion_abierta = $scope.pei.data[0].evaluacion_abierta;
         }
     }
-    setTimeout(function (){
-        if(session.groups[0].caracteristica == 'SL'){
+    setTimeout(function () {
+        if (session.groups[0].caracteristica == 'SL') {
             $scope.setPermission("add", false);
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
@@ -58,8 +58,8 @@ getPOAstatus = async function ($scope, poa_id) {
         $scope.estatus_poa = $scope.poa.data[0].estado;
         $scope.condicion_poa = $scope.poa.data[0].activo;
     }
-    setTimeout(function (){
-        if(session.groups[0].caracteristica == 'SL'){
+    setTimeout(function () {
+        if (session.groups[0].caracteristica == 'SL') {
             $scope.setPermission("add", false);
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
@@ -886,8 +886,8 @@ check_PEI = function ($scope, pei_ID) {
             $('.icon-plus-circle2 ').parent().hide();
         }
     });
-    setTimeout(function (){
-        if(session.groups[0].caracteristica == 'SL'){
+    setTimeout(function () {
+        if (session.groups[0].caracteristica == 'SL') {
             $scope = eval(`${$scope}`);
             $scope.setPermission("add", false);
             $scope.setPermission("edit", false);
@@ -919,8 +919,8 @@ check_active_PEI = function (pei_ID, $scope) {
             }
         }
     });
-    setTimeout(function (){
-        if(session.groups[0].caracteristica == 'SL'){
+    setTimeout(function () {
+        if (session.groups[0].caracteristica == 'SL') {
             $scope.setPermission("add", false);
             $scope.setPermission("edit", false);
             $scope.setPermission("active", false);
@@ -3549,4 +3549,27 @@ getBrowser = () => {
 
 getMonitoreo = (id) => {
     return baseController?.poa_monitorieo?.filter(d => d.id == id)[0] || {};
+}
+
+popopmeGlobal = function (entity, field) {
+    if (!baseController?.session)
+        return false;
+    var selected = HINTSDB.data.filter(d => {
+        return (d.trueEntity === entity || d.entities === entity) && d.field_names === field
+    })[0];
+    if (!selected)
+        return false;
+
+    let text = selected.text;
+    const fragmentos = selected.text.split('\n') || [];
+    if (fragmentos.length > 0) {
+        const contenidoHTML = fragmentos.map(fragmento => {
+            return `<p>${fragmento}</p>`;
+        }).join('');
+        text = contenidoHTML;
+    }
+    return {
+        field_names: selected.field_names,
+        text: text,
+    };
 }

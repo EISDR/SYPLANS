@@ -139,25 +139,10 @@ var toclient = JSON.stringify(options);
             = `${MESSAGE.ic('mono.youselect')}`;
     }
     if (new SESSION().isLogged()) {
-        <%= model + "." + options.forme %>.
-        options.<%= name %>.mess = <%= model + "." + options.forme %>.
-        options.<%= name %>.mess.filter(d => {
-            return d.company == new SESSION().current().compania_id;
-        })
-        if (<%= model + "." + options.forme %>.
-        options.<%= name %>.mess.length == 0
-    )
-        {
-            delete <%= model + "." + options.forme %>.
-            options.<%= name %>.mess
-        }
-        if (<%= model + "." + options.forme %>.
-        options.<%= name %>.mess
-    )
-        {
+        let messagepop = popopmeGlobal("<%= model %>", "<%= model %>", "<%= nameclean %>");
+        if (messagepop) {
             // El texto con entidades HTML
-            const textoConEntidadesHTML = <%= model %>.
-            form.options.<%= name %>.mess[0].text;
+            const textoConEntidadesHTML = messagepop.text;
 
             // Función para convertir entidades HTML a etiquetas HTML
             function convertirEntidadesAHTML(texto) {
@@ -170,8 +155,7 @@ var toclient = JSON.stringify(options);
             const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
             console.log(textoConvertido)
                     <%= model + "." + options.forme %>.options.<%= name %>.popover = {
-                title:
-                <%= model + "." + options.forme %>.options.<%= name %>.mess[0].field_names,
+                title:messagepop.field_names,
                 content: textoConvertido,
                 label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
                 <%= model + "." + options.forme %>.options.<%= name %>.trueplaceholder ||
