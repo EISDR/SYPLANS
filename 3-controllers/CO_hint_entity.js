@@ -105,7 +105,7 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
         //     else
         //         data.inserting.company = "";
         // }
-        hint_entity.showMe = true;
+        // hint_entity.showMe = true;
         resolve(true)
     });
     //
@@ -122,7 +122,7 @@ app.controller("hint_entity", function ($scope, $http, $compile) {
         //     else
         //         data.updating.company = "";
         // }
-        hint_entity.showMe = true;
+        // hint_entity.showMe = true;
         resolve(true)
     });
     hint_entity.reloadMe = function () {

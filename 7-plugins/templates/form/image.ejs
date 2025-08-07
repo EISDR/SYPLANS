@@ -26,11 +26,9 @@ var toclient = JSON.stringify(options);
      id="input<%= model %>_<%= nameclean %>">
     <label class="control-label is-visible animate" style="color:#000000 !important;">
         {{<%= model %>.form.options.<%= name %>.label}}
-        <% if(options.popover){ %>
-            <i
-                    id="popover<%= model %>_<%= nameclean %>" class="icon-help">
-            </i>
-        <% } %>
+        <i style="display: none"
+           id="popover<%= model %>_<%= nameclean %>" class="icon-help">
+        </i>
     </label>
 
 
@@ -54,30 +52,36 @@ var toclient = JSON.stringify(options);
 
 <script>
     $(document).ready(function () {
-        <% if(options.popover){ %>
-        $('#popover<%= model %>_<%= nameclean %>').popover({
-            container: 'body',
-            title: eval("`" +<%= model %>.form.options.<%= name %>.label + "`"),
-            content:eval("`" +<%= model %>.form.options.<%= name %>.popover.content + "`"),
-        trigger: 'manual'
-    });
-        // Obtén el elemento que deseas observar
-        const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
+        let messagepop = popopmeGlobal("<%= model %>", "<%= nameclean %>");
+        if (messagepop)
+        {
+            $('#popover<%= model %>_<%= nameclean %>').popover({
+                container: 'body',
+                title: eval("`" +<%= model %>.form.options.<%= name %>.placeholder + "`"),
+                content: messagepop.text,
+                html: true,
+                trigger:'manual'
+            });
+            // Obtén el elemento que deseas observar
+            const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 
-        // Agrega un event listener al objeto document
-        document.addEventListener("click", function(evento) {
-            // Verifica si el evento ocurrió fuera del elemento que estamos observando
-            if (elemento !== evento.target && !elemento.contains(evento.target)) {
-                // Se hizo clic fuera del elemento
-                $('#popover<%= model %>_<%= nameclean %>').popover('hide')
+            // Agrega un event listener al objeto document
+            document.addEventListener("click", function (evento) {
+                // Verifica si el evento ocurrió fuera del elemento que estamos observando
+                if (elemento !== evento.target && !elemento.contains(evento.target)) {
+                    // Se hizo clic fuera del elemento
+                    $('#popover<%= model %>_<%= nameclean %>').popover('hide')
 
-            }
-        });
-        $('#popover<%= model %>_<%= nameclean %>').on('click', function(evento) {
-            evento.stopPropagation();
-            $(this).popover('show');
-        });
-        <% } %>
+                }
+            });
+            setTimeout(()=>{
+                $('#popover<%= model %>_<%= nameclean %>').show("slow");
+            },2000);
+            $('#popover<%= model %>_<%= nameclean %>').on('click', function (evento) {
+                evento.stopPropagation();
+                $(this).popover('show');
+            });
+        }
         <%= model %>.
         form.beginFunctions.push(`<%= model %>.form.loadDropDown("<%= name %>");`);
         <%= model %>.

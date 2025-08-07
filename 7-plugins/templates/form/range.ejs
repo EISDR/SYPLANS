@@ -46,27 +46,27 @@ if (options.isTime) {
 if (options.label_custom) {
     options.placeholder = options.label;
 }
-popopme = function (entity, field) {
-    var prueba = HINTS.filter(d => {
-        return (d.trueEntity || d.entities) === entity && d.field_names === field
-    })
-
-    function sortArray() {
-        options.mess = prueba.sort(function (a, b) {
-            return b.id - a.id
-        });
-        const fragmentos = options.mess[0]?.text.split('\n') || [];
-        if (fragmentos.length > 0){
-            const contenidoHTML = fragmentos.map(fragmento => {
-                return `<p>${fragmento}</p>`;
-            }).join('');
-            options.mess[0].text = contenidoHTML;
-        }
-    }
-
-    sortArray();
-}
-popopme(model, nameclean);
+// popopme = function (entity, field) {
+//     var prueba = HINTS.filter(d => {
+//         return (d.trueEntity || d.entities) === entity && d.field_names === field
+//     })
+//
+//     function sortArray() {
+//         options.mess = prueba.sort(function (a, b) {
+//             return b.id - a.id
+//         });
+//         const fragmentos = options.mess[0]?.text.split('\n') || [];
+//         if (fragmentos.length > 0){
+//             const contenidoHTML = fragmentos.map(fragmento => {
+//                 return `<p>${fragmento}</p>`;
+//             }).join('');
+//             options.mess[0].text = contenidoHTML;
+//         }
+//     }
+//
+//     sortArray();
+// }
+// popopme(model, nameclean);
 var toclient = JSON.stringify(options);
 %>
 <script>
@@ -87,28 +87,27 @@ var toclient = JSON.stringify(options);
     <%= model %>.form.options.<%= options.from %>.placeholder = "<%= options.label %>";
     <% } %>
     if (new SESSION().isLogged()) {
-        <%= model %>.form.options.<%= options.from %>.mess = <%= model %>.form.options.<%= options.from %>.mess.filter(d => {
-            return d.company == new SESSION().current().compania_id;
-        })
-        if (<%= model %>.form.options.<%= options.from %>.mess.length == 0) {
-            delete <%= model %>.form.options.<%= options.from %>.mess
-        }
-        if (<%= model %>.form.options.<%= options.from %>.mess){
+        let messagepop = popopmeGlobal("<%= model %>", "<%= nameclean %>");
+        if (messagepop) {
             // El texto con entidades HTML
-            const textoConEntidadesHTML = <%= model %>.form.options.<%= options.from %>.mess[0].text;
+            const textoConEntidadesHTML = messagepop.text;
+
             // Función para convertir entidades HTML a etiquetas HTML
             function convertirEntidadesAHTML(texto) {
                 const textarea = document.createElement('textarea');
                 textarea.innerHTML = texto;
                 return textarea.value;
             }
+
             // Convertir el texto
             const textoConvertido = convertirEntidadesAHTML(textoConEntidadesHTML);
             console.log(textoConvertido)
-            <%= model %>.form.options.<%= options.from %>.popover = {
-                title: <%= model %>.form.options.<%= options.from %>.mess[0].field_names.replace('_', ' ').replace('_', ' '),
+                    <%= model %>.form.options.<%= options.from %>.popover = {
+                title: messagepop.field_names,
                 content: textoConvertido,
-                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') : <%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= name %>.placeholder
+                label: MESSAGE.exist('columns.<%= nameclean %>') ? MESSAGE.i('columns.<%= nameclean %>') :
+                <%= model + "." + options.forme %>.options.<%= name %>.trueplaceholder ||
+                <%= model + "." + options.forme %>.options.<%= name %>.placeholder
             }
         }
     }
@@ -120,7 +119,7 @@ var toclient = JSON.stringify(options);
             id="label<%= model %>_<%= nameclean %>"
             class="control-label is-visible animate" style="color:#000000 !important;">
         {{::(<%= model %>.form.options.<%= name %>.trueplaceholder || <%= model %>.form.options.<%= options.from %>.placeholder)}}
-        <i ng-show="<%= model %>.form.options.<%= options.from %>.mess.length>0"
+        <i style="display: none"
            id="popover<%= model %>_<%= nameclean %>" class="icon-help">
         </i>
     </label>
@@ -163,19 +162,21 @@ var toclient = JSON.stringify(options);
     $(document).ready(function () {
 
         if (new SESSION().isLogged()) {
-            if (<%= model %>.form.options.<%= options.from %>.mess) {
+            let messagepop = popopmeGlobal("<%= model %>", "<%= nameclean %>");
+            if (messagepop)
+            {
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
-                    title: eval("`" +<%= model %>.form.options.<%= options.from %>.popover.label + "`"),
-                    content: eval("`" +<%= model %>.form.options.<%= options.from %>.popover.content + "`"),
-                    html: true,
-                    trigger: 'manual'
-                });
+                    title: eval("`" +<%= model %>.form.options.<%= options.from %>.placeholder + "`"),
+                    content: messagepop.text,
+                html: true,
+                trigger:'manual'
+            });
                 // Obtén el elemento que deseas observar
                 const elemento = document.getElementById("popover<%= model %>_<%= nameclean %>");
 
                 // Agrega un event listener al objeto document
-                document.addEventListener("click", function(evento) {
+                document.addEventListener("click", function (evento) {
                     // Verifica si el evento ocurrió fuera del elemento que estamos observando
                     if (elemento !== evento.target && !elemento.contains(evento.target)) {
                         // Se hizo clic fuera del elemento
@@ -183,7 +184,10 @@ var toclient = JSON.stringify(options);
 
                     }
                 });
-                $('#popover<%= model %>_<%= nameclean %>').on('click', function(evento) {
+                setTimeout(()=>{
+                    $('#popover<%= model %>_<%= nameclean %>').show("slow");
+                },2000);
+                $('#popover<%= model %>_<%= nameclean %>').on('click', function (evento) {
                     evento.stopPropagation();
                     $(this).popover('show');
                 });
