@@ -79,27 +79,27 @@ if (options.join) {
     options.query.join = options.join;
 }
 
-popopme = function (entity, field) {
-    var prueba = HINTS.filter(d => {
-        return (d.trueEntity === entity || d.entities === entity) && d.field_names === field
-    })
-
-    function sortArray() {
-        options.mess = prueba.sort(function (a, b) {
-            return b.id - a.id
-        });
-        const fragmentos = options.mess[0]?.text.split('\n') || [];
-        if (fragmentos.length > 0) {
-            const contenidoHTML = fragmentos.map(fragmento => {
-                return `<p>${fragmento}</p>`;
-            }).join('');
-            options.mess[0].text = contenidoHTML;
-        }
-    }
-
-    sortArray();
-}
-popopme(model, nameclean);
+// popopme = function (entity, field) {
+//     var prueba = HINTS.filter(d => {
+//         return (d.trueEntity === entity || d.entities === entity) && d.field_names === field
+//     })
+//
+//     function sortArray() {
+//         options.mess = prueba.sort(function (a, b) {
+//             return b.id - a.id
+//         });
+//         const fragmentos = options.mess[0]?.text.split('\n') || [];
+//         if (fragmentos.length > 0) {
+//             const contenidoHTML = fragmentos.map(fragmento => {
+//                 return `<p>${fragmento}</p>`;
+//             }).join('');
+//             options.mess[0].text = contenidoHTML;
+//         }
+//     }
+//
+//     sortArray();
+// }
+// popopme(model, nameclean);
 var toclient = JSON.stringify(options);
 %>
 <script>
