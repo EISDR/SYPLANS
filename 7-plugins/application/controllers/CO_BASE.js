@@ -510,6 +510,13 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     {field: "compania_id", value: intersession.compania_id},
                 ]
             });
+            HINTSDB = await BASEAPI.firstp("hint_fields", {
+                orderby: "company",
+                order: "desc",
+                where: [
+                    {field: "company", value: intersession.compania_id},
+                ]
+            });
             var poa_selected = await BASEAPI.firstp("vw_poa", {
                 where: [
                     {field: "id", value: intersession.poa_id},
@@ -615,7 +622,7 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                 CONFIGCOMPANY.opcion_ods = 0;
                 CONFIGCOMPANY.compy_admin = 1;
             }
-            
+
             var predicado = menu => {
                 if (menu.condition) {
                     let result = false;
