@@ -430,7 +430,7 @@ var toclient = JSON.stringify(options);
                 $('#popover<%= model %>_<%= nameclean %>').popover({
                     container: 'body',
                     title: eval("`" +<%= model + "." + options.forme %>.options.<%= name %>.label + "`"),
-                    content messagepop.text,
+                    content: messagepop.text,
                     html: true,
                     trigger:'manual'
                 });
