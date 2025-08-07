@@ -510,12 +510,13 @@ app.controller('baseController', function ($scope, $http, $compile, $controller)
                     {field: "compania_id", value: intersession.compania_id},
                 ]
             });
-            HINTSDB = await BASEAPI.firstp("hint_fields", {
+            HINTSDB = await BASEAPI.listp("hint_fields", {
                 orderby: "company",
                 order: "desc",
                 where: [
                     {field: "company", value: intersession.compania_id},
-                ]
+                ],
+                limit: 0
             });
             var poa_selected = await BASEAPI.firstp("vw_poa", {
                 where: [
